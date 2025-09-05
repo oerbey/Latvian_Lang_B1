@@ -448,9 +448,11 @@ function getCanvasCoordinates(clientX, clientY) {
 }
 
 // Initialize canvas scaling
-window.addEventListener('resize', updateCanvasScale);
-window.addEventListener('load', updateCanvasScale);
-updateCanvasScale();
+window.addEventListener('resize', () => {
+  updateCanvasScale();
+  // Redraw current state after resize to keep canvas content visible
+  if (matchState || forgeState) draw();
+});
 
 const MODES = { MATCH:'MATCH', FORGE:'FORGE' };
 let mode = MODES.MATCH;                  // current game mode

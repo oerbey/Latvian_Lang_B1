@@ -408,33 +408,31 @@ let canvasOffsetX = 0;
 let canvasOffsetY = 0;
 
 function updateCanvasScale() {
-  const rect = canvas.getBoundingClientRect();
   const containerWidth = canvas.parentElement.offsetWidth;
-  
+
   // Calculate scale based on container width vs canvas native width
   scale = Math.min(1, containerWidth / 980);
-  
+
   // Update canvas display size while keeping internal resolution
   const displayWidth = 980 * scale;
   const displayHeight = 560 * scale;
-  
+
   canvas.style.width = displayWidth + 'px';
   canvas.style.height = displayHeight + 'px';
-  
-  // Handle high DPI displays
+
+  // Handle high DPI displays - reset transform each call to avoid cumulative scaling
   const dpr = window.devicePixelRatio || 1;
-  if (dpr > 1 && scale < 1) {
-    // For high DPI mobile devices, use device pixel ratio for crisp rendering
-    const scaledDpr = Math.min(dpr, 2); // Cap at 2x to avoid too much memory usage
-    canvas.width = 980 * scaledDpr;
-    canvas.height = 560 * scaledDpr;
-    ctx.scale(scaledDpr, scaledDpr);
-    
-    // Update constants used in drawing
-    W = 980; // Keep logical coordinates the same
-    H = 560;
-  }
-  
+  const scaledDpr = (dpr > 1 && scale < 1) ? Math.min(dpr, 2) : 1;
+
+  // Resize internal canvas resolution and reset transform
+  canvas.width = 980 * scaledDpr;
+  canvas.height = 560 * scaledDpr;
+  ctx.setTransform(scaledDpr, 0, 0, scaledDpr, 0, 0);
+
+  // Update constants used in drawing
+  W = 980;
+  H = 560;
+
   // Store offsets for coordinate conversion
   const newRect = canvas.getBoundingClientRect();
   canvasOffsetX = newRect.left;

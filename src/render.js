@@ -10,18 +10,19 @@ let canvasOffsetX = 0, canvasOffsetY = 0;
 
 export function updateCanvasScale(){
   const containerWidth = canvas.parentElement.offsetWidth;
+  const containerHeight = window.innerHeight;
   scale = Math.min(1, containerWidth / 980);
-  const displayWidth = 980 * scale;
-  const displayHeight = 560 * scale;
+  const displayWidth = containerWidth;
+  const displayHeight = containerHeight;
   canvas.style.width = displayWidth + 'px';
   canvas.style.height = displayHeight + 'px';
   const dpr = window.devicePixelRatio || 1;
   const scaledDpr = (dpr > 1 && scale < 1) ? Math.min(dpr, 2) : 1;
-  canvas.width = 980 * scaledDpr;
-  canvas.height = 560 * scaledDpr;
-  ctx.setTransform(scaledDpr, 0, 0, scaledDpr, 0, 0);
+  canvas.width = displayWidth * scaledDpr;
+  canvas.height = displayHeight * scaledDpr;
+  ctx.setTransform(scaledDpr * scale, 0, 0, scaledDpr * scale, 0, 0);
   W = 980;
-  H = 560;
+  H = displayHeight / scale;
   const newRect = canvas.getBoundingClientRect();
   canvasOffsetX = newRect.left;
   canvasOffsetY = newRect.top;
@@ -53,8 +54,8 @@ export function drawText(txt,x,y,opts={}){
   ctx.textBaseline = opts.base||'alphabetic';
   const baseFontSize = parseInt(opts.font) || 16;
   const isMobile = scale < 0.7;
-  const minSize = isMobile ? 11 : 12;
-  const scaleFactor = isMobile ? 1.1 : Math.min(1, scale + 0.3);
+  const minSize = isMobile ? 14 : 12;
+  const scaleFactor = isMobile ? Math.min(2, 0.9/scale) : Math.min(1.3, scale + 0.3);
   const scaledSize = Math.max(minSize, baseFontSize * scaleFactor);
   const fontFamily = opts.font ? opts.font.replace(/\d+px/, scaledSize + 'px') : `${scaledSize}px system-ui`;
   ctx.font = fontFamily;

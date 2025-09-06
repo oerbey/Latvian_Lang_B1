@@ -15,9 +15,9 @@ export function startMatchRound(){
   if(state.deckSizeMode === 'auto'){
     const isMobile = scale < 0.7;
     const availableHeight = H - 140;
-    const boxH = isMobile ? 52 : 46;
-    const gap = isMobile ? 10 : 14;
-    const maxItemsOnScreen = Math.floor(availableHeight / (boxH + gap));
+    const targetBoxH = isMobile ? 72 : 46; // physical px
+    const targetGap = isMobile ? 20 : 14; // physical px
+    const maxItemsOnScreen = Math.floor((availableHeight * scale) / (targetBoxH + targetGap));
     maxItems = Math.max(5, Math.min(maxItemsOnScreen, deck.length));
   } else {
     maxItems = Math.min(15, deck.length);
@@ -38,8 +38,8 @@ export function startMatchRound(){
     detail:[],
     scrollY:0,
     contentH:0,
-    viewTop:100,
-    viewBottom:H-40
+    viewTop: (scale < 0.7 ? 80/scale : 100),
+    viewBottom: H - (scale < 0.7 ? 60/scale : 40)
   };
   triggerRedraw();
 }
@@ -51,20 +51,22 @@ export function drawMatch(){
   sr.innerHTML = '';
   const srList = document.createElement('ul');
   sr.appendChild(srList);
-  drawText("MATCH RUSH — LV → EN", 28, 40, {font:'bold 22px system-ui'});
+  drawText("MATCH RUSH — LV → EN", 28/scale, 40/scale, {font:'bold 22px system-ui'});
   const elapsed=((now()-ms.start)/1000)|0;
-  drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives===Infinity?'∞':('♥'.repeat(ms.lives))}`, W-20, 40, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
-  if(ms.feedback){ drawBadge(ms.feedback, 28, 58, ms.feedback.startsWith('Pareizi')? '#2f9e44' : '#8a2b2b'); }
+  drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives===Infinity?'∞':('♥'.repeat(ms.lives))}`, W-20/scale, 40/scale, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
+  if(ms.feedback){ drawBadge(ms.feedback, 28/scale, 58/scale, ms.feedback.startsWith('Pareizi')? '#2f9e44' : '#8a2b2b'); }
   const isMobile = scale < 0.7;
-  const Lx = isMobile ? 20 : 60;
-  const boxW = isMobile ? Math.min(280, (W - 60) / 2) : 360;
-  const boxH = isMobile ? 52 : 46;
-  const gap = isMobile ? 10 : 14;
-  const Rx = isMobile ? W - 20 - boxW : W - 60 - boxW;
+  const sideMargin = isMobile ? 16/scale : 60;
+  const columnGap = isMobile ? 16/scale : 40;
+  const boxW = isMobile ? (W - sideMargin*2 - columnGap) / 2 : 360;
+  const boxH = isMobile ? 72/scale : 46;
+  const gap = isMobile ? 20/scale : 14;
+  const Lx = sideMargin;
+  const Rx = Lx + boxW + columnGap;
   const top=ms.viewTop;
   const viewH = ms.viewBottom - ms.viewTop;
-  drawText("LV", Lx, top-22, {font:'bold 16px system-ui', color:'#9fb3ff'});
-  drawText("EN", Rx, top-22, {font:'bold 16px system-ui', color:'#9fb3ff'});
+  drawText("LV", Lx, top-22/scale, {font:'bold 16px system-ui', color:'#9fb3ff'});
+  drawText("EN", Rx, top-22/scale, {font:'bold 16px system-ui', color:'#9fb3ff'});
   const totalItems = ms.left.length;
   const contentH = totalItems*(boxH+gap) - gap;
   ms.contentH = contentH;
@@ -101,8 +103,8 @@ export function drawMatch(){
       const solved = ms.solved.has(it.key);
       const sel = ms.selected && ms.selected.side===side && ms.selected.key===it.key;
       const color = solved? '#1e2530' : sel? '#344b7a' : '#222734';
-      roundedRect(x,y,boxW,boxH,10,color, solved?'#3a4657':'#445066');
-      drawText(it.txt, x+14, y+30, {font:'16px system-ui', color: solved? '#7d8aa0' : '#e9eef5'});
+      roundedRect(x,y,boxW,boxH,isMobile?10/scale:10,color, solved?'#3a4657':'#445066');
+      drawText(it.txt, x+14/scale, y+boxH/2+6/scale, {font:'16px system-ui', color: solved? '#7d8aa0' : '#e9eef5', align:'left'});
       const handler = ()=>handleSelection(side,it,y+boxH/2);
       clickables.push({x,y,w:boxW,h:boxH, tag:`${side}:${i}`, data:it, onClick:handler});
       const li=document.createElement('li');
@@ -116,12 +118,12 @@ export function drawMatch(){
   drawColumn(ms.left, Lx, 'L');
   drawColumn(ms.right, Rx, 'R');
   if(maxScroll > 0){
-    const trackX = W-20, trackW = 8;
+    const trackX = W-20/scale, trackW = 8/scale;
     const trackY = top, trackH = viewH;
-    roundedRect(trackX, trackY, trackW, trackH, 4, '#1a202a', '#2a3040');
-    const thumbH = Math.max(30, (viewH * viewH) / contentH);
+    roundedRect(trackX, trackY, trackW, trackH, 4/scale, '#1a202a', '#2a3040');
+    const thumbH = Math.max(30/scale, (viewH * viewH) / contentH);
     const thumbY = trackY + (ms.scrollY / maxScroll) * (trackH - thumbH);
-    roundedRect(trackX, thumbY, trackW, thumbH, 4, '#4a5675', '#5a6785');
+    roundedRect(trackX, thumbY, trackW, thumbH, 4/scale, '#4a5675', '#5a6785');
     clickables.push({x:trackX,y:trackY,w:trackW,h:trackH,onClick:(t)=>{
       const clickY = t.y || trackY;
       const relativeY = clickY - trackY;
@@ -134,10 +136,10 @@ export function drawMatch(){
       triggerRedraw();
     }});
     if(ms.scrollY > 0) {
-      drawText("↑", W-16, top-5, {font:'12px system-ui', color:'#9fb3ff', align:'center'});
+      drawText("↑", W-16/scale, top-5/scale, {font:'12px system-ui', color:'#9fb3ff', align:'center'});
     }
     if(ms.scrollY < maxScroll) {
-      drawText("↓", W-16, ms.viewBottom+15, {font:'12px system-ui', color:'#9fb3ff', align:'center'});
+      drawText("↓", W-16/scale, ms.viewBottom+15/scale, {font:'12px system-ui', color:'#9fb3ff', align:'center'});
     }
   }
 }

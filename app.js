@@ -124,12 +124,12 @@ function setupEventListeners(){
     touchStartY = t.clientY; touchStartTime = Date.now();
     const hit = hitAt(coords.x, coords.y);
     if(hit && hit.onClick){ hit.onClick(hit); e.preventDefault(); }
-  });
-  canvas.addEventListener('touchmove', e=>{ e.preventDefault(); });
+  }, { passive: false });
+  canvas.addEventListener('touchmove', e=>{ e.preventDefault(); }, { passive: false });
   canvas.addEventListener('touchend', e=>{
     const dt = Date.now()-touchStartTime;
     if(dt<200){ const t=e.changedTouches[0]; const coords=getCanvasCoordinates(t.clientX,t.clientY); const hit=hitAt(coords.x,coords.y); if(hit&&hit.onClick) hit.onClick(hit); }
-  });
+  }, { passive: false });
   window.addEventListener('resize', ()=>{ updateCanvasScale(); triggerRedraw(); });
   document.addEventListener('keydown', e=>{
     if(e.key==='1'){ state.mode=MODES.MATCH; startMatchRound(); }

@@ -1,0 +1,547 @@
+{
+  "entries": [
+    {
+      "base": "mainīt",
+      "correct": "iz",
+      "translations": {
+        "ru": "изменить полностью (результат)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "pār",
+      "translations": {
+        "ru": "преобразовать; переменить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "no",
+      "translations": {
+        "ru": "заменить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "sa",
+      "translations": {
+        "ru": "обменять (вместе)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "ap",
+      "translations": {
+        "ru": "поменять местами"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "ie",
+      "translations": {
+        "ru": "въехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "iz",
+      "translations": {
+        "ru": "выехать; уехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "pie",
+      "translations": {
+        "ru": "подъехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "pār",
+      "translations": {
+        "ru": "переехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "ap",
+      "translations": {
+        "ru": "объехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "uz",
+      "translations": {
+        "ru": "заехать (на)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "no",
+      "translations": {
+        "ru": "съехать; сбить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "at",
+      "translations": {
+        "ru": "приехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "aiz",
+      "translations": {
+        "ru": "уехать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "sa",
+      "translations": {
+        "ru": "съехаться"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "ie",
+      "translations": {
+        "ru": "войти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "iz",
+      "translations": {
+        "ru": "выйти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "aiz",
+      "translations": {
+        "ru": "уйти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "at",
+      "translations": {
+        "ru": "отправиться"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "pie",
+      "translations": {
+        "ru": "подойти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "pār",
+      "translations": {
+        "ru": "перейти; переключиться"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "ap",
+      "translations": {
+        "ru": "обойти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "no",
+      "translations": {
+        "ru": "спуститься; пройти расстояние"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "sa",
+      "translations": {
+        "ru": "собраться"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "pa",
+      "translations": {
+        "ru": "проходить (о времени)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "ie",
+      "translations": {
+        "ru": "войти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "iz",
+      "translations": {
+        "ru": "выйти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "at",
+      "translations": {
+        "ru": "прийти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "aiz",
+      "translations": {
+        "ru": "прийти издалека"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "pie",
+      "translations": {
+        "ru": "подойти; наступить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "sa",
+      "translations": {
+        "ru": "собраться; получиться"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "uz",
+      "translations": {
+        "ru": "нахлынуть; наступить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "no",
+      "translations": {
+        "ru": "оказаться; добраться до"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "ie",
+      "translations": {
+        "ru": "войти; сесть (в транспорт)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "iz",
+      "translations": {
+        "ru": "выйти; сойти"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "uz",
+      "translations": {
+        "ru": "подняться"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "no",
+      "translations": {
+        "ru": "спуститься"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "pār",
+      "translations": {
+        "ru": "перешагнуть; нарушить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "ie",
+      "translations": {
+        "ru": "влететь"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "iz",
+      "translations": {
+        "ru": "вылететь"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "at",
+      "translations": {
+        "ru": "прилететь обратно"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "aiz",
+      "translations": {
+        "ru": "улететь"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "pār",
+      "translations": {
+        "ru": "перелететь"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "ap",
+      "translations": {
+        "ru": "облететь"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "ie",
+      "translations": {
+        "ru": "внести"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "iz",
+      "translations": {
+        "ru": "вынести"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "aiz",
+      "translations": {
+        "ru": "унести"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "at",
+      "translations": {
+        "ru": "принести"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "pie",
+      "translations": {
+        "ru": "поднести; подать"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "pār",
+      "translations": {
+        "ru": "перенести; переместить"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "uz",
+      "translations": {
+        "ru": "поднести наверх"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "no",
+      "translations": {
+        "ru": "снести вниз"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "sa",
+      "translations": {
+        "ru": "снести вместе; собрать"
+      },
+      "games": [
+        "forge"
+      ]
+    }
+  ],
+  "notes": {
+    "prefix:iz": "iz- → ārā/rezultāts; completion/outward.",
+    "prefix:pār": "pār- → pāri/over; across; redo; sometimes 'too much'.",
+    "prefix:no": "no- → prom/away; removal; replacement.",
+    "prefix:sa": "sa- → kopā/together; gathering; sometimes 'a bit'.",
+    "prefix:ap": "ap- → ap/around; surround; exchange.",
+    "prefix:at": "at- → atpakaļ/back; towards.",
+    "prefix:aiz": "aiz- → prom/away; behind; to a limit.",
+    "prefix:ie": "ie- → iekšā/in; entering.",
+    "prefix:pie": "pie- → pie/at, towards.",
+    "prefix:uz": "uz- → uz/on, up; direction upward.",
+    "prefix:pa": "pa- → pa/along; a little; passing by; time passes."
+  }
+}

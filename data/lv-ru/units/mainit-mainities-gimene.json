@@ -1,0 +1,89 @@
+{
+  "name": "Mainīt / Mainīties ģimene",
+  "entries": [
+    {
+      "translations": {
+        "lv": "mainīt",
+        "ru": "менять; изменять (что-то)"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "mainīties",
+        "ru": "меняться; изменяться"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "izmainīt",
+        "ru": "изменить; полностью изменить"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pārmainīt",
+        "ru": "преобразовать; переменить"
+      },
+      "tags": [
+        "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nomainīt",
+        "ru": "заменить; сменить"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "samainīt",
+        "ru": "поменять местами; обменять"
+      },
+      "tags": [
+        "prefix:sa"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apmainīt",
+        "ru": "обменять; переключить"
+      },
+      "tags": [
+        "prefix:ap"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

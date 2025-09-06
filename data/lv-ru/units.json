@@ -1,0 +1,40 @@
+{
+  "units": [
+    {
+      "name": "Mainīt / Mainīties ģimene",
+      "file": "units/mainit-mainities-gimene.json"
+    },
+    {
+      "name": "Braukt ar priedēkļiem",
+      "file": "units/braukt-ar-priedekliem.json"
+    },
+    {
+      "name": "Iet ar priedēkļiem",
+      "file": "units/iet-ar-priedekliem.json"
+    },
+    {
+      "name": "Nākt ar priedēkļiem",
+      "file": "units/nakt-ar-priedekliem.json"
+    },
+    {
+      "name": "Kāpt ar priedēkļiem",
+      "file": "units/kapt-ar-priedekliem.json"
+    },
+    {
+      "name": "Lidot ar priedēkļiem",
+      "file": "units/lidot-ar-priedekliem.json"
+    },
+    {
+      "name": "Nest ar priedēkļiem",
+      "file": "units/nest-ar-priedekliem.json"
+    },
+    {
+      "name": "Refleksīvie un dzīves notikumi",
+      "file": "units/refleksivie-un-dzives-notikumi.json"
+    },
+    {
+      "name": "B1 palīgdarbības vārdi",
+      "file": "units/b1-paligdarbibas-vardi.json"
+    }
+  ]
+}

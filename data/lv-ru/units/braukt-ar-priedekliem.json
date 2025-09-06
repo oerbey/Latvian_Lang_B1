@@ -1,0 +1,137 @@
+{
+  "name": "Braukt ar priedēkļiem",
+  "entries": [
+    {
+      "translations": {
+        "lv": "braukt",
+        "ru": "ехать"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "atbraukt",
+        "ru": "приехать"
+      },
+      "tags": [
+        "prefix:at"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "aizbraukt",
+        "ru": "уехать"
+      },
+      "tags": [
+        "prefix:aiz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iebraukt",
+        "ru": "въехать"
+      },
+      "tags": [
+        "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "izbraukt",
+        "ru": "выехать"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "piebraukt",
+        "ru": "подъехать"
+      },
+      "tags": [
+        "prefix:pie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apbraukt",
+        "ru": "объехать"
+      },
+      "tags": [
+        "prefix:ap"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pārbraukt",
+        "ru": "переехать"
+      },
+      "tags": [
+        "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nobraukt",
+        "ru": "съехать; переехать"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "uzbraukt",
+        "ru": "заехать (на)"
+      },
+      "tags": [
+        "prefix:uz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "sabraukt",
+        "ru": "съехаться"
+      },
+      "tags": [
+        "prefix:sa"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

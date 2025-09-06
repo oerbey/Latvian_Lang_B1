@@ -9,7 +9,7 @@ export function startForgeRound(){
   const opts = new Set([pick.correct]);
   while(opts.size<5) opts.add(choice(ALL_PREFIXES));
   const options = shuffle(Array.from(opts));
-  state.forgeState = { base: pick.base, en: pick.translations.en, correct: pick.correct, options, chosen:null, start:now(), correctCount:0, total:1, detail:[] };
+  state.forgeState = { base: pick.base, clue: pick.translations[state.targetLang], correct: pick.correct, options, chosen:null, start:now(), correctCount:0, total:1, detail:[] };
   triggerRedraw();
 }
 
@@ -19,12 +19,12 @@ export function drawForge(){
   const sr = document.getElementById('sr-game-state');
   sr.innerHTML='';
   const srHeader = document.createElement('p');
-  srHeader.textContent = `EN: ${fs.en}. Root: ${fs.base}`;
+  srHeader.textContent = `${state.targetLang.toUpperCase()}: ${fs.clue}. Root: ${fs.base}`;
   sr.appendChild(srHeader);
   const srList = document.createElement('ul');
   sr.appendChild(srList);
   drawText("PREFIX FORGE — pievieno pareizo priedēkli", 28, 40, {font:'bold 22px system-ui'});
-  drawText("EN: "+fs.en, 28, 78, {font:'16px system-ui', color:'#a8b3c7'});
+  drawText(`${state.targetLang.toUpperCase()}: ${fs.clue}`, 28, 78, {font:'16px system-ui', color:'#a8b3c7'});
   drawText(`_____${fs.base}`, 28, 120, {font:'bold 30px system-ui'});
   drawText("Priedēkļu īsās nozīmes (tap for hint):", 28, 160, {font:'14px system-ui', color:'#9fb3ff'});
   let nx=28, ny=182; const hintRowMax = W-200;
@@ -44,7 +44,7 @@ export function drawForge(){
   const gap = isMobile ? 8 : 12;
   function handleChoice(p,y){
     const ok = p===fs.correct; const formed = p+fs.base;
-    fs.detail.push({type:'forge', formed, ok, clue:fs.en});
+    fs.detail.push({type:'forge', formed, ok, clue:fs.clue});
     if(ok){ setStatus(`Pareizi: ${formed}`); confetti((y!==undefined?y:H/2)); }
     else { setStatus(`Nē: ${formed}. Pareizi: ${fs.correct+fs.base}`); }
     state.results.push({mode:'FORGE', ts:new Date().toISOString(), correct: ok?1:0, total:1, time:(((now()-fs.start)|0)/1000), details:[...fs.detail]});

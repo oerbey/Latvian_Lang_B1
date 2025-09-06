@@ -1,5 +1,5 @@
 import { state, MODES, shuffle, choice, now, resetClicks, clickables, setStatus, triggerRedraw } from './state.js';
-import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti } from './render.js';
+import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti, setCanvasHeight } from './render.js';
 
 function buildMatchDeck(){
   return state.DATA.units.flatMap(u=>
@@ -24,7 +24,13 @@ export function startMatchRound(){
   }
   const picks = shuffle(deck.slice()).slice(0,maxItems);
   const left = picks.map(p=>({txt:p.translations.lv, key:p.translations.lv, meta:p}));
-  const right = picks.map(p=>({txt:p.translations.en, key:p.translations.lv, meta:p}));
+  const right = picks.map(p=>({txt:p.translations[state.targetLang], key:p.translations.lv, meta:p}));
+  const isMobile = scale < 0.7;
+  const boxH = isMobile ? 80 : 56;
+  const gap = isMobile ? 16 : 14;
+  const contentH = maxItems * (boxH + gap) - gap;
+  const neededH = Math.max(560, 100 + contentH + 40);
+  setCanvasHeight(neededH);
   shuffle(right);
   state.matchState = {
     left, right,
@@ -37,7 +43,7 @@ export function startMatchRound(){
     errors:0,
     detail:[],
     scrollY:0,
-    contentH:0,
+    contentH:contentH,
     viewTop:100,
     viewBottom:H-40
   };
@@ -51,7 +57,8 @@ export function drawMatch(){
   sr.innerHTML = '';
   const srList = document.createElement('ul');
   sr.appendChild(srList);
-  drawText("MATCH RUSH — LV → EN", 28, 40, {font:'bold 22px system-ui'});
+  const targetLabel = state.targetLang.toUpperCase();
+  drawText(`MATCH RUSH — LV → ${targetLabel}`, 28, 40, {font:'bold 22px system-ui'});
   const elapsed=((now()-ms.start)/1000)|0;
   drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives===Infinity?'∞':('♥'.repeat(ms.lives))}`, W-20, 40, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
   if(ms.feedback){ drawBadge(ms.feedback, 28, 58, ms.feedback.startsWith('Pareizi')? '#2f9e44' : '#8a2b2b'); }
@@ -66,7 +73,7 @@ export function drawMatch(){
   const top=ms.viewTop;
   const viewH = ms.viewBottom - ms.viewTop;
   drawText("LV", Lx, top-22, {font:'bold 18px system-ui', color:'#9fb3ff'});
-  drawText("EN", Rx, top-22, {font:'bold 18px system-ui', color:'#9fb3ff'});
+  drawText(targetLabel, Rx, top-22, {font:'bold 18px system-ui', color:'#9fb3ff'});
   const totalItems = ms.left.length;
   const contentH = totalItems*(boxH+gap) - gap;
   ms.contentH = contentH;
@@ -110,7 +117,7 @@ export function drawMatch(){
       clickables.push({x,y,w:boxW,h:boxH, tag:`${side}:${i}`, data:it, onClick:handler});
       const li=document.createElement('li');
       const btn=document.createElement('button');
-      btn.textContent=`${side==='L'?'LV':'EN'}: ${it.txt}`;
+      btn.textContent=`${side==='L'?'LV':targetLabel}: ${it.txt}`;
       if(solved) btn.disabled=true;
       btn.addEventListener('click', ()=>handleSelection(side,it));
       li.appendChild(btn); srList.appendChild(li);

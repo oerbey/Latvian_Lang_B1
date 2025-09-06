@@ -53,7 +53,8 @@ export function drawMatch(){
   sr.appendChild(srList);
   drawText("MATCH RUSH — LV → EN", 28/scale, 40/scale, {font:'bold 22px system-ui'});
   const elapsed=((now()-ms.start)/1000)|0;
-  drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives===Infinity?'∞':('♥'.repeat(ms.lives))}`, W-20/scale, 40/scale, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
+  const livesText = ms.lives === Infinity ? '∞' : '♥'.repeat(ms.lives);
+  drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${livesText}`, W-20/scale, 40/scale, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
   if(ms.feedback){ drawBadge(ms.feedback, 28/scale, 58/scale, ms.feedback.startsWith('Pareizi')? '#2f9e44' : '#8a2b2b'); }
   const isMobile = scale < 0.7;
   const sideMargin = isMobile ? 16/scale : 60;

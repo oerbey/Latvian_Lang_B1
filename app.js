@@ -870,3 +870,5 @@ if (document.readyState === 'loading') {
   startInit();
 }
 
+export { startInit, exportCSV };
+

@@ -273,14 +273,6 @@ function getCanvasCoordinates(clientX, clientY) {
     y: (clientY - canvasOffsetY) / scale
   };
 }
-
-// Initialize canvas scaling
-window.addEventListener('resize', () => {
-  updateCanvasScale();
-  // Redraw current state after resize to keep canvas content visible
-  if (matchState || forgeState) draw();
-});
-
 const MODES = { MATCH:'MATCH', FORGE:'FORGE' };
 let mode = MODES.MATCH;                  // current game mode
 let difficulty = 'practice';             // 'practice' | 'challenge'
@@ -368,103 +360,162 @@ function drawBadge(txt,x,y,color){
 /* ---------- Hit testing registry ---------- */
 let clickables = []; // items: {x,y,w,h,onClick,tag,data}
 
-// Mouse events with coordinate conversion
-canvas.addEventListener('mousemove', e=>{
-  const coords = getCanvasCoordinates(e.clientX, e.clientY);
-  canvas.style.cursor = hitAt(coords.x, coords.y) ? 'pointer' : 'default';
-});
-
-canvas.addEventListener('click', e=>{
-  const coords = getCanvasCoordinates(e.clientX, e.clientY);
-  const t = hitAt(coords.x, coords.y);
-  if(t && t.onClick) t.onClick(t);
-});
-
-// Touch events for mobile with improved iOS/Android compatibility
-let touchStartY = null;
-let touchStartTime = 0;
-let touchMoved = false;
-
-canvas.addEventListener('touchstart', e => {
-  e.preventDefault();
-  touchStartTime = Date.now();
-  touchMoved = false;
-  
-  // Handle scroll gesture vs tap
-  if(mode === MODES.MATCH && matchState && e.touches.length === 1) {
-    touchStartY = e.touches[0].clientY;
-    
-    // Improved touch detection for iOS
-    const checkTap = () => {
-      if(touchStartY !== null && !touchMoved) { // Still touching and hasn't moved = tap
-        const touch = e.touches[0];
-        if(touch) { // Make sure touch still exists
-          const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-          const t = hitAt(coords.x, coords.y);
-          if(t && t.onClick) {
-            touchStartY = null; // Cancel scroll
-            t.onClick(t);
-          }
-        }
-      }
-    };
-    
-    // Use requestAnimationFrame for better performance on iOS
-    requestAnimationFrame(() => {
-      setTimeout(checkTap, 50); // Reduced delay for better responsiveness
-    });
-  } else {
-    // Immediate tap for other modes
-    const touch = e.touches[0];
-    if(touch) {
-      const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-      const t = hitAt(coords.x, coords.y);
-      if(t && t.onClick) t.onClick(t);
-    }
-  }
-}, {passive: false});
-
-canvas.addEventListener('touchmove', e => {
-  e.preventDefault(); // Prevent scrolling
-  touchMoved = true; // Mark that touch has moved
-  
-  // Handle scrolling in match mode
-  if(mode === MODES.MATCH && matchState && deckSizeMode === 'full' && touchStartY !== null && e.touches.length === 1) {
-    const touchY = e.touches[0].clientY;
-    const deltaY = (touchStartY - touchY) * 1.5; // Slightly reduced sensitivity for better control
-    touchStartY = touchY;
-    
-    const ms = matchState;
-    const viewH = ms.viewBottom - ms.viewTop;
-    const maxScroll = Math.max(0, ms.contentH - viewH);
-    ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + deltaY));
-    draw();
-  }
-}, {passive: false});
-
-canvas.addEventListener('touchend', e => {
-  e.preventDefault();
-  const touchDuration = Date.now() - touchStartTime;
-  
-  // Quick tap detection for better responsiveness
-  if(!touchMoved && touchDuration < 200) {
-    const touch = e.changedTouches[0];
-    if(touch) {
-      const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-      const t = hitAt(coords.x, coords.y);
-      if(t && t.onClick) t.onClick(t);
-    }
-  }
-  
-  touchStartY = null;
-  touchMoved = false;
-}, {passive: false});
-
 function hitAt(x,y){ for(const c of clickables){ if(x>=c.x && x<=c.x+c.w && y>=c.y && y<=c.y+c.h) return c; } return null; }
 function resetClicks(){ clickables.length=0; }
 
 /* ---------- Status text (top-right) ---------- */
 function setStatus(s){ document.getElementById('status').textContent = s || ''; }
+
+/****************************************************
+ * EVENT LISTENER SETUP
+ ****************************************************/
+function setupEventListeners(){
+  // Control bar (top buttons)
+  document.getElementById('mode-match').addEventListener('click', ()=>{ mode=MODES.MATCH; roundIndex=0; startMatchRound(); });
+  document.getElementById('mode-forge').addEventListener('click', ()=>{ mode=MODES.FORGE; roundIndex=0; startForgeRound(); });
+  document.getElementById('btn-practice').addEventListener('click', ()=>{ difficulty='practice'; setStatus("Practice režīms"); });
+  document.getElementById('btn-challenge').addEventListener('click', ()=>{ difficulty='challenge'; setStatus("Challenge režīms (Match = ♥♥♥)"); });
+  document.getElementById('btn-prev').addEventListener('click', ()=>{ roundIndex=Math.max(0,roundIndex-1); mode===MODES.MATCH?startMatchRound():startForgeRound(); });
+  document.getElementById('btn-next').addEventListener('click', ()=>{ roundIndex++; mode===MODES.MATCH?startMatchRound():startForgeRound(); });
+  document.getElementById('btn-deck-size').addEventListener('click', ()=>{
+    deckSizeMode = deckSizeMode === 'auto' ? 'full' : 'auto';
+    const btn = document.getElementById('btn-deck-size');
+    btn.textContent = deckSizeMode === 'auto' ? '📏' : '📜';
+    btn.title = deckSizeMode === 'auto' ? 'Switch to full deck (scrollable)' : 'Switch to fit screen (no scroll)';
+    setStatus(deckSizeMode === 'auto' ? 'Fit to screen mode' : 'Full deck mode (scrollable)');
+    if(mode === MODES.MATCH) startMatchRound();
+  });
+  document.getElementById('btn-help').addEventListener('click', ()=>{ showHelp=!showHelp; draw(); });
+  document.getElementById('btn-export').addEventListener('click', exportCSV);
+
+  // Mouse events with coordinate conversion
+  canvas.addEventListener('mousemove', e=>{
+    const coords = getCanvasCoordinates(e.clientX, e.clientY);
+    canvas.style.cursor = hitAt(coords.x, coords.y) ? 'pointer' : 'default';
+  });
+
+  canvas.addEventListener('click', e=>{
+    const coords = getCanvasCoordinates(e.clientX, e.clientY);
+    const t = hitAt(coords.x, coords.y);
+    if(t && t.onClick) t.onClick(t);
+  });
+
+  // Touch events for mobile with improved iOS/Android compatibility
+  let touchStartY = null;
+  let touchStartTime = 0;
+  let touchMoved = false;
+
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    touchStartTime = Date.now();
+    touchMoved = false;
+
+    // Handle scroll gesture vs tap
+    if(mode === MODES.MATCH && matchState && e.touches.length === 1) {
+      touchStartY = e.touches[0].clientY;
+
+      // Improved touch detection for iOS
+      const checkTap = () => {
+        if(touchStartY !== null && !touchMoved) {
+          const touch = e.touches[0];
+          if(touch) {
+            const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+            const t = hitAt(coords.x, coords.y);
+            if(t && t.onClick) {
+              touchStartY = null;
+              t.onClick(t);
+            }
+          }
+        }
+      };
+
+      requestAnimationFrame(() => {
+        setTimeout(checkTap, 50);
+      });
+    } else {
+      const touch = e.touches[0];
+      if(touch) {
+        const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+        const t = hitAt(coords.x, coords.y);
+        if(t && t.onClick) t.onClick(t);
+      }
+    }
+  }, {passive: false});
+
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    touchMoved = true;
+
+    if(mode === MODES.MATCH && matchState && deckSizeMode === 'full' && touchStartY !== null && e.touches.length === 1) {
+      const touchY = e.touches[0].clientY;
+      const deltaY = (touchStartY - touchY) * 1.5;
+      touchStartY = touchY;
+
+      const ms = matchState;
+      const viewH = ms.viewBottom - ms.viewTop;
+      const maxScroll = Math.max(0, ms.contentH - viewH);
+      ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + deltaY));
+      draw();
+    }
+  }, {passive: false});
+
+  canvas.addEventListener('touchend', e => {
+    e.preventDefault();
+    const touchDuration = Date.now() - touchStartTime;
+
+    if(!touchMoved && touchDuration < 200) {
+      const touch = e.changedTouches[0];
+      if(touch) {
+        const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+        const t = hitAt(coords.x, coords.y);
+        if(t && t.onClick) t.onClick(t);
+      }
+    }
+
+    touchStartY = null;
+    touchMoved = false;
+  }, {passive: false});
+
+  // Keyboard & INPUT — includes SCROLLING for Match
+  window.addEventListener('keydown', (e)=>{
+    if(e.key==='1'){ document.getElementById('mode-match').click(); }
+    if(e.key==='2'){ document.getElementById('mode-forge').click(); }
+    if(e.key==='h' || e.key==='H'){ document.getElementById('btn-help').click(); }
+    if(e.key==='r' || e.key==='R'){ mode===MODES.MATCH?startMatchRound():startForgeRound(); }
+    if(e.key==='d' || e.key==='D'){ document.getElementById('btn-deck-size').click(); }
+
+    // Scroll keys active only in MATCH mode when content exceeds viewport
+    if(mode===MODES.MATCH && matchState && deckSizeMode === 'full'){
+      const ms = matchState; const viewH = ms.viewBottom - ms.viewTop; const maxScroll = Math.max(0, ms.contentH - viewH);
+      if(maxScroll > 0) {
+        const step = 30; const page = Math.max(120, viewH - 80);
+        if(e.key==='ArrowDown'){ ms.scrollY = Math.min(maxScroll, ms.scrollY + step); draw(); }
+        if(e.key==='ArrowUp'){   ms.scrollY = Math.max(0,         ms.scrollY - step); draw(); }
+        if(e.key==='PageDown'){  ms.scrollY = Math.min(maxScroll, ms.scrollY + page); draw(); }
+        if(e.key==='PageUp'){    ms.scrollY = Math.max(0,         ms.scrollY - page); draw(); }
+        if(e.key==='End'){       ms.scrollY = maxScroll; draw(); }
+        if(e.key==='Home'){      ms.scrollY = 0;         draw(); }
+      }
+    }
+  });
+
+  // Mouse wheel scrolling for MATCH mode (only in full deck mode)
+  canvas.addEventListener('wheel', (e)=>{
+    if(mode!==MODES.MATCH || !matchState || deckSizeMode !== 'full') return;
+    const ms = matchState; const viewH = ms.viewBottom - ms.viewTop; const maxScroll = Math.max(0, ms.contentH - viewH);
+    if(maxScroll === 0) return;
+    e.preventDefault();
+    const delta = Math.sign(e.deltaY) * 40;
+    ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + delta));
+    draw();
+  }, {passive:false});
+
+  // Window resize handler for responsive canvas
+  window.addEventListener('resize', () => {
+    updateCanvasScale();
+    if (matchState || forgeState) draw();
+  });
+}
 
 /****************************************************
  * MODE: MATCH RUSH (pairs) — NOW WITH SCROLL
@@ -770,70 +821,6 @@ function exportCSV(){
   const a = document.createElement('a'); a.href=url; a.download="b1_game_results.csv"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
 
-/****************************************************
- * CONTROL BAR (top buttons)
- ****************************************************/
-document.getElementById('mode-match').onclick = ()=>{ mode=MODES.MATCH; roundIndex=0; startMatchRound(); };
-document.getElementById('mode-forge').onclick = ()=>{ mode=MODES.FORGE; roundIndex=0; startForgeRound(); };
-document.getElementById('btn-practice').onclick = ()=>{ difficulty='practice'; setStatus("Practice režīms"); };
-document.getElementById('btn-challenge').onclick = ()=>{ difficulty='challenge'; setStatus("Challenge režīms (Match = ♥♥♥)"); };
-document.getElementById('btn-prev').onclick = ()=>{ roundIndex=Math.max(0,roundIndex-1); mode===MODES.MATCH?startMatchRound():startForgeRound(); };
-document.getElementById('btn-next').onclick = ()=>{ roundIndex++; mode===MODES.MATCH?startMatchRound():startForgeRound(); };
-document.getElementById('btn-deck-size').onclick = ()=>{ 
-  deckSizeMode = deckSizeMode === 'auto' ? 'full' : 'auto';
-  const btn = document.getElementById('btn-deck-size');
-  btn.textContent = deckSizeMode === 'auto' ? '📏' : '📜';
-  btn.title = deckSizeMode === 'auto' ? 'Switch to full deck (scrollable)' : 'Switch to fit screen (no scroll)';
-  setStatus(deckSizeMode === 'auto' ? 'Fit to screen mode' : 'Full deck mode (scrollable)');
-  if(mode === MODES.MATCH) startMatchRound();
-};
-document.getElementById('btn-help').onclick = ()=>{ showHelp=!showHelp; draw(); };
-document.getElementById('btn-export').onclick = exportCSV;
-
-/****************************************************
- * KEYBOARD & INPUT — includes SCROLLING for Match
- ****************************************************/
-window.addEventListener('keydown', (e)=>{
-  if(e.key==='1'){ document.getElementById('mode-match').click(); }
-  if(e.key==='2'){ document.getElementById('mode-forge').click(); }
-  if(e.key==='h' || e.key==='H'){ document.getElementById('btn-help').click(); }
-  if(e.key==='r' || e.key==='R'){ mode===MODES.MATCH?startMatchRound():startForgeRound(); }
-  if(e.key==='d' || e.key==='D'){ document.getElementById('btn-deck-size').click(); }
-
-  // Scroll keys active only in MATCH mode when content exceeds viewport
-  if(mode===MODES.MATCH && matchState && deckSizeMode === 'full'){
-    const ms = matchState; const viewH = ms.viewBottom - ms.viewTop; const maxScroll = Math.max(0, ms.contentH - viewH);
-    if(maxScroll > 0) { // Only allow scrolling if content actually overflows
-      const step = 30; const page = Math.max(120, viewH - 80);
-      if(e.key==='ArrowDown'){ ms.scrollY = Math.min(maxScroll, ms.scrollY + step); draw(); }
-      if(e.key==='ArrowUp'){   ms.scrollY = Math.max(0,         ms.scrollY - step); draw(); }
-      if(e.key==='PageDown'){  ms.scrollY = Math.min(maxScroll, ms.scrollY + page); draw(); }
-      if(e.key==='PageUp'){    ms.scrollY = Math.max(0,         ms.scrollY - page); draw(); }
-      if(e.key==='End'){       ms.scrollY = maxScroll; draw(); }
-      if(e.key==='Home'){      ms.scrollY = 0;         draw(); }
-    }
-  }
-});
-
-// Mouse wheel scrolling for MATCH mode (only in full deck mode)
-canvas.addEventListener('wheel', (e)=>{
-  if(mode!==MODES.MATCH || !matchState || deckSizeMode !== 'full') return;
-  const ms = matchState; const viewH = ms.viewBottom - ms.viewTop; const maxScroll = Math.max(0, ms.contentH - viewH);
-  if(maxScroll === 0) return; // No scrolling needed
-  e.preventDefault(); // keep page from scrolling; we scroll the canvas content instead
-  const delta = Math.sign(e.deltaY) * 40; // fixed step for predictability
-  ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + delta));
-  draw();
-}, {passive:false});
-
-// Window resize handler for responsive canvas
-window.addEventListener('resize', () => {
-  updateCanvasScale();
-  if(mode === MODES.MATCH && matchState) {
-    draw(); // Redraw to adjust layout
-  }
-});
-
 /* ---------- INIT ---------- */
 setStatus("Gatavs. Izvēlies režīmu.");
 
@@ -855,6 +842,7 @@ function initializeGame() {
 
 // Initialize when DOM is ready and fonts are loaded
 function startInit() {
+  setupEventListeners();
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(() => {
       setTimeout(initializeGame, 50); // Small delay to ensure everything is ready

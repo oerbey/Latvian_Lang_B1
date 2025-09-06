@@ -38,8 +38,8 @@ export function drawForge(){
   });
   const isMobile = scale < 0.7;
   const oy = ny + 50;
-  const bw = isMobile ? Math.min(100, (W - 80) / 5) : 120;
-  const bh = isMobile ? 48 : 54;
+  const bw = isMobile ? Math.min(110, (W - 80) / 5) : 140;
+  const bh = isMobile ? 64 : 60;
   let ox = 28;
   const gap = isMobile ? 8 : 12;
   function handleChoice(p,y){
@@ -52,7 +52,7 @@ export function drawForge(){
   }
   fs.options.forEach(p=>{
     roundedRect(ox,oy,bw,bh,12,'#2a2f3a','#445066');
-    drawText(p+'-', ox+16, oy+34, {font:'bold 22px system-ui'});
+    drawText(p+'-', ox+bw/2, oy+bh/2+8, {font:'bold 24px system-ui', align:'center'});
     const handler = ()=>handleChoice(p,oy+bh/2);
     clickables.push({x:ox,y:oy,w:bw,h:bh,onClick:handler});
     const li=document.createElement('li');

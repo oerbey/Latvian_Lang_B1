@@ -106,7 +106,15 @@ function setupEventListeners(){
   });
   document.getElementById('btn-help').addEventListener('click', ()=>{ state.showHelp=!state.showHelp; triggerRedraw(); });
   document.getElementById('btn-export').addEventListener('click', exportCSV);
-  document.getElementById('language-select').addEventListener('change', e=>{ loadTranslations(e.target.value); });
+  document.getElementById('language-select').addEventListener('change', async e=>{
+    const lang = e.target.value;
+    await loadTranslations(lang);
+    const target = lang === 'ru' ? 'ru' : 'en';
+    await loadVocabulary('lv', target);
+    state.targetLang = target;
+    state.roundIndex = 0;
+    state.mode===MODES.MATCH?startMatchRound():startForgeRound();
+  });
   canvas.addEventListener('mousemove', e=>{
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
     canvas.style.cursor = hitAt(coords.x, coords.y) ? 'pointer' : 'default';
@@ -189,13 +197,15 @@ async function loadVocabulary(from='lv', to='en'){
   const forgeRes = await fetch(base + 'forge.json');
   const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
   state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
+  state.targetLang = to;
 }
 
 async function startInit(){
   await loadTranslations(currentLang);
   setupEventListeners();
   try {
-    await loadVocabulary('lv','en');
+    const target = currentLang === 'ru' ? 'ru' : 'en';
+    await loadVocabulary('lv',target);
   } catch(e){
     console.error('Failed to load vocabulary', e);
     loadingOverlay.textContent = i18n.labels?.loadError || 'Failed to load data';

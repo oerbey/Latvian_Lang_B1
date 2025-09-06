@@ -7,21 +7,27 @@ export { canvas, ctx };
 export let W = canvas.width, H = canvas.height;
 export let scale = 1;
 let canvasOffsetX = 0, canvasOffsetY = 0;
+let baseH = 560;
+
+export function setCanvasHeight(h){
+  baseH = h;
+  updateCanvasScale();
+}
 
 export function updateCanvasScale(){
   const containerWidth = canvas.parentElement.offsetWidth;
   scale = Math.min(1, containerWidth / 980);
   const displayWidth = 980 * scale;
-  const displayHeight = 560 * scale;
+  const displayHeight = baseH * scale;
   canvas.style.width = displayWidth + 'px';
   canvas.style.height = displayHeight + 'px';
   const dpr = window.devicePixelRatio || 1;
   const scaledDpr = (dpr > 1 && scale < 1) ? Math.min(dpr, 2) : 1;
   canvas.width = 980 * scaledDpr;
-  canvas.height = 560 * scaledDpr;
+  canvas.height = baseH * scaledDpr;
   ctx.setTransform(scaledDpr, 0, 0, scaledDpr, 0, 0);
   W = 980;
-  H = 560;
+  H = baseH;
   const newRect = canvas.getBoundingClientRect();
   canvasOffsetX = newRect.left;
   canvasOffsetY = newRect.top;

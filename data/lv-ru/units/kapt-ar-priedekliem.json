@@ -1,0 +1,77 @@
+{
+  "name": "Kāpt ar priedēkļiem",
+  "entries": [
+    {
+      "translations": {
+        "lv": "kāpt",
+        "ru": "карабкаться; ступать"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iekāpt",
+        "ru": "войти; сесть (в транспорт)"
+      },
+      "tags": [
+        "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "izkāpt",
+        "ru": "выйти; сойти"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "uzkāpt",
+        "ru": "взобраться"
+      },
+      "tags": [
+        "prefix:uz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nokāpt",
+        "ru": "спуститься"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pārkāpt",
+        "ru": "перешагнуть; нарушить"
+      },
+      "tags": [
+        "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

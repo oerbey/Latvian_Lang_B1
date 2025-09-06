@@ -34,28 +34,30 @@
   /* Mobile-specific styles */
   @media (max-width: 768px) {
     #wrap{padding:8px;}
-    h1{text-align:center;font-size:20px;}
+    h1{text-align:center;font-size:24px;}
     #header{justify-content:center;}
     #ui{gap:6px;justify-content:center;}
-    button{padding:12px 10px;font-size:13px;min-width:60px;min-height:48px;} /* Larger touch targets */
-    .small{padding:10px 8px;font-size:12px;min-height:44px;}
+    button{padding:14px 12px;font-size:16px;min-width:70px;min-height:52px;} /* Larger touch targets */
+    .small{padding:12px 10px;font-size:14px;min-height:48px;}
+    #legend{font-size:14px;}
     #status{order:10;width:100%;text-align:center;margin-top:8px;margin-left:0!important;}
     /* Stack buttons on very small screens */
     #ui{flex-direction:row;align-items:center;}
   }
-  
+
   @media (max-width: 480px) {
     #wrap{padding:6px;}
-    h1{font-size:18px;}
-    button{padding:10px 8px;font-size:12px;min-width:55px;min-height:46px;}
-    #ui{gap:4px;flex-wrap:wrap;}
+    h1{font-size:22px;}
+    button{padding:12px 10px;font-size:16px;min-width:60px;min-height:48px;}
+    #ui{gap:6px;flex-wrap:wrap;}
     /* Smaller buttons for tiny screens but still touch-friendly */
-    .small{min-width:50px;padding:8px 6px;min-height:42px;}
+    .small{min-width:55px;padding:10px 8px;min-height:44px;font-size:14px;}
+    #legend{font-size:13px;}
   }
-  
+
   @media (max-width: 360px) {
-    button{padding:8px 6px;font-size:11px;min-width:50px;}
-    .small{min-width:45px;padding:6px 4px;}
+    button{padding:10px 6px;font-size:14px;min-width:50px;}
+    .small{min-width:45px;padding:8px 4px;font-size:12px;}
   }
 
   /* iOS Safari specific fixes */

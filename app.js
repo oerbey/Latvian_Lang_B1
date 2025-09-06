@@ -201,6 +201,7 @@ function setupEventListeners(){
   let touchMoved = false;
 
   canvas.addEventListener('touchstart', e => {
+    if (e.touches.length > 1) return; // allow pinch-zoom
     e.preventDefault();
     touchStartTime = Date.now();
     touchMoved = false;
@@ -238,6 +239,7 @@ function setupEventListeners(){
   }, {passive: false});
 
   canvas.addEventListener('touchmove', e => {
+    if (e.touches.length > 1) return; // allow pinch-zoom
     e.preventDefault();
     touchMoved = true;
 
@@ -255,6 +257,7 @@ function setupEventListeners(){
   }, {passive: false});
 
   canvas.addEventListener('touchend', e => {
+    if (e.touches.length > 1 || e.changedTouches.length > 1) return; // allow pinch-zoom
     e.preventDefault();
     const touchDuration = Date.now() - touchStartTime;
 

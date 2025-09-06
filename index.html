@@ -6,7 +6,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="format-detection" content="telephone=no" />
+<meta name="theme-color" content="#0e0f13" />
 <title></title>
+<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -40,7 +42,14 @@
   <div id="legend"></div>
 </div>
 
-<script type="module" src="main.js"></script>
+<script type="module" src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+</script>
 </body>
 </html>
 

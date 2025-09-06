@@ -18,7 +18,10 @@
   },
   "labels": {
     "loading": "Loading...",
-    "legend": "<b>Controls:</b> Mouse clicks. — <span class=\"kbd\">H</span> help, <span class=\"kbd\">R</span> restart round, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> deck size. <br/>📏 = Fit screen (no scroll), 📜 = Full deck (scroll if needed). LV→EN only."
+    "legend": "<b>Controls:</b> Mouse clicks. — <span class=\"kbd\">H</span> help, <span class=\"kbd\">R</span> restart round, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> deck size. <br/>📏 = Fit screen (no scroll), 📜 = Full deck (scroll if needed). LV→EN only.",
+    "languageSelect": "Choose language",
+    "controls": "Game controls",
+    "gameState": "Game state"
   },
   "status": {
     "ready": "Ready. Choose a mode.",

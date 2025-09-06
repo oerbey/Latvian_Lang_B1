@@ -47,6 +47,10 @@ export function startMatchRound(){
 export function drawMatch(){
   const ms = state.matchState;
   clear(); resetClicks();
+  const sr = document.getElementById('sr-game-state');
+  sr.innerHTML = '';
+  const srList = document.createElement('ul');
+  sr.appendChild(srList);
   drawText("MATCH RUSH — LV → EN", 28, 40, {font:'bold 22px system-ui'});
   const elapsed=((now()-ms.start)/1000)|0;
   drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives===Infinity?'∞':('♥'.repeat(ms.lives))}`, W-20, 40, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
@@ -66,6 +70,29 @@ export function drawMatch(){
   ms.contentH = contentH;
   const maxScroll = Math.max(0, contentH - viewH);
   if(ms.scrollY>maxScroll) ms.scrollY = maxScroll;
+  function handleSelection(side,it,y){
+    const solved = ms.solved.has(it.key);
+    if(solved) return;
+    if(!ms.selected){ ms.selected={side, key:it.key}; triggerRedraw(); return; }
+    if(ms.selected.side===side){ ms.selected={side, key:it.key}; triggerRedraw(); return; }
+    const key = it.key;
+    if(key===ms.selected.key){
+      ms.solved.add(key);
+      ms.correct++;
+      ms.detail.push({type:'pair', lv: side==='L'?it.txt:ms.left.find(x=>x.key===key).txt,
+                      en: side==='R'?it.txt:ms.right.find(x=>x.key===key).txt, ok:true});
+      ms.feedback = "Pareizi ✓";
+      ms.selected = null;
+      confetti((y!==undefined?y:H/2));
+    } else {
+      ms.errors++; ms.feedback = hintForMismatch(key, ms.selected.key);
+      if(ms.lives!==Infinity){ ms.lives--; }
+      ms.selected = null;
+    }
+    if(ms.correct===ms.total){ endMatchRound(true); return; }
+    if(ms.lives===0){ endMatchRound(false); return; }
+    triggerRedraw();
+  }
   function drawColumn(items, x, side){
     for(let i=0;i<items.length;i++){
       const y = top + i*(boxH+gap) - ms.scrollY;
@@ -76,28 +103,14 @@ export function drawMatch(){
       const color = solved? '#1e2530' : sel? '#344b7a' : '#222734';
       roundedRect(x,y,boxW,boxH,10,color, solved?'#3a4657':'#445066');
       drawText(it.txt, x+14, y+30, {font:'16px system-ui', color: solved? '#7d8aa0' : '#e9eef5'});
-      clickables.push({x,y,w:boxW,h:boxH, tag:`${side}:${i}`, data:it, onClick:()=>{
-        if(solved) return;
-        if(!ms.selected){ ms.selected={side, key:it.key}; triggerRedraw(); return; }
-        if(ms.selected.side===side){ ms.selected={side, key:it.key}; triggerRedraw(); return; }
-        const key = it.key;
-        if(key===ms.selected.key){
-          ms.solved.add(key);
-          ms.correct++;
-          ms.detail.push({type:'pair', lv: side==='L'?it.txt:ms.left.find(x=>x.key===key).txt,
-                          en: side==='R'?it.txt:ms.right.find(x=>x.key===key).txt, ok:true});
-          ms.feedback = "Pareizi ✓";
-          ms.selected = null;
-          confetti(y+boxH/2);
-        } else {
-          ms.errors++; ms.feedback = hintForMismatch(key, ms.selected.key);
-          if(ms.lives!==Infinity){ ms.lives--; }
-          ms.selected = null;
-        }
-        if(ms.correct===ms.total){ endMatchRound(true); return; }
-        if(ms.lives===0){ endMatchRound(false); return; }
-        triggerRedraw();
-      }});
+      const handler = ()=>handleSelection(side,it,y+boxH/2);
+      clickables.push({x,y,w:boxW,h:boxH, tag:`${side}:${i}`, data:it, onClick:handler});
+      const li=document.createElement('li');
+      const btn=document.createElement('button');
+      btn.textContent=`${side==='L'?'LV':'EN'}: ${it.txt}`;
+      if(solved) btn.disabled=true;
+      btn.addEventListener('click', ()=>handleSelection(side,it));
+      li.appendChild(btn); srList.appendChild(li);
     }
   }
   drawColumn(ms.left, Lx, 'L');

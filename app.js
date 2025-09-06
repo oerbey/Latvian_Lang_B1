@@ -41,7 +41,11 @@ function applyTranslations(){
   btnHelp.setAttribute('aria-label', i18n.buttons.helpAria);
   document.getElementById('loading').textContent = i18n.labels.loading;
   document.getElementById('legend').innerHTML = i18n.labels.legend;
-  document.getElementById('language-select').value = currentLang;
+  const langSel = document.getElementById('language-select');
+  langSel.value = currentLang;
+  langSel.setAttribute('aria-label', i18n.labels.languageSelect);
+  document.getElementById('ui').setAttribute('aria-label', i18n.labels.controls);
+  document.getElementById('sr-game-state').setAttribute('aria-label', i18n.labels.gameState);
   setStatus(i18n.status.ready);
   setHelpText(i18n.help.lines.join('\n'));
   triggerRedraw();

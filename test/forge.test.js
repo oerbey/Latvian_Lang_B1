@@ -31,7 +31,7 @@ test('startForgeRound sets up forge state correctly', () => {
 
   const fs = state.forgeState;
   assert.equal(fs.base, 'darit');
-  assert.equal(fs.en, 'do');
+  assert.equal(fs.clue, 'do');
   assert.equal(fs.correct, 'iz');
   assert.equal(fs.options.length, 5);
   assert(fs.options.includes('iz'));

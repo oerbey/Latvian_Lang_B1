@@ -1,0 +1,95 @@
+{
+  "name": "B1 palīgdarbības vārdi",
+  "entries": [
+    {
+      "translations": {
+        "lv": "apgūt",
+        "ru": "освоить"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iegūt",
+        "ru": "получить"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "kļūt",
+        "ru": "стать"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "tikt galā",
+        "ru": "справиться"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "satikt",
+        "ru": "встретить"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "notikt",
+        "ru": "происходить"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pietikt",
+        "ru": "хватать"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "paveikt",
+        "ru": "выполнить"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pabeigt",
+        "ru": "закончить"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

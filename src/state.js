@@ -17,7 +17,8 @@ export const state = {
   forgeState: null,
   results: [],
   showHelp: false,
-  DATA: null
+  DATA: null,
+  targetLang: 'en'
 };
 export function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=(state.rng()*(i+1))|0; [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
 export function choice(arr){ return arr[(state.rng()*arr.length)|0]; }

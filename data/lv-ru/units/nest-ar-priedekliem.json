@@ -1,0 +1,125 @@
+{
+  "name": "Nest ar priedēkļiem",
+  "entries": [
+    {
+      "translations": {
+        "lv": "nest",
+        "ru": "нести"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "ienest",
+        "ru": "внести"
+      },
+      "tags": [
+        "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iznest",
+        "ru": "вынести"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "aiznest",
+        "ru": "унести"
+      },
+      "tags": [
+        "prefix:aiz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "atnest",
+        "ru": "принести"
+      },
+      "tags": [
+        "prefix:at"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pienest",
+        "ru": "поднести; обслужить"
+      },
+      "tags": [
+        "prefix:pie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pārnest",
+        "ru": "перенести; переместить"
+      },
+      "tags": [
+        "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "uznest",
+        "ru": "поднести наверх"
+      },
+      "tags": [
+        "prefix:uz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nonest",
+        "ru": "снести вниз"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "sanest",
+        "ru": "снести вместе; собрать"
+      },
+      "tags": [
+        "prefix:sa"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

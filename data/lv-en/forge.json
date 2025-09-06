@@ -1,0 +1,547 @@
+{
+  "entries": [
+    {
+      "base": "mainīt",
+      "correct": "iz",
+      "translations": {
+        "en": "to alter; change completely (result)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "pār",
+      "translations": {
+        "en": "to transform; change over"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "no",
+      "translations": {
+        "en": "to replace (change out)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "sa",
+      "translations": {
+        "en": "to swap/exchange (together)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "mainīt",
+      "correct": "ap",
+      "translations": {
+        "en": "to exchange/switch (around)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "ie",
+      "translations": {
+        "en": "to drive in/enter"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "iz",
+      "translations": {
+        "en": "to drive out; leave"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "pie",
+      "translations": {
+        "en": "to drive up to"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "pār",
+      "translations": {
+        "en": "to drive over/across"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "ap",
+      "translations": {
+        "en": "to drive around"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "uz",
+      "translations": {
+        "en": "to drive up (onto)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "no",
+      "translations": {
+        "en": "to drive down/off"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "at",
+      "translations": {
+        "en": "to arrive; come"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "aiz",
+      "translations": {
+        "en": "to leave; go away"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "braukt",
+      "correct": "sa",
+      "translations": {
+        "en": "to gather (arrive by vehicles)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "ie",
+      "translations": {
+        "en": "to go in, enter"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "iz",
+      "translations": {
+        "en": "to go out, exit"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "aiz",
+      "translations": {
+        "en": "to leave, go away"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "at",
+      "translations": {
+        "en": "to depart (train, bus)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "pie",
+      "translations": {
+        "en": "to approach, go up to"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "pār",
+      "translations": {
+        "en": "to cross, to switch"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "ap",
+      "translations": {
+        "en": "to go around"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "no",
+      "translations": {
+        "en": "to go down; walk distance"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "sa",
+      "translations": {
+        "en": "to gather together"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "iet",
+      "correct": "pa",
+      "translations": {
+        "en": "to pass (time), go by"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "ie",
+      "translations": {
+        "en": "to come in"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "iz",
+      "translations": {
+        "en": "to come out"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "at",
+      "translations": {
+        "en": "to arrive, come here"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "aiz",
+      "translations": {
+        "en": "to come from afar"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "pie",
+      "translations": {
+        "en": "to approach; be due"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "sa",
+      "translations": {
+        "en": "to gather; to turn out"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "uz",
+      "translations": {
+        "en": "to come up (weather, emotions)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nākt",
+      "correct": "no",
+      "translations": {
+        "en": "to end up, to arrive at"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "ie",
+      "translations": {
+        "en": "to get in (vehicle)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "iz",
+      "translations": {
+        "en": "to get out/off"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "uz",
+      "translations": {
+        "en": "to climb up"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "no",
+      "translations": {
+        "en": "to climb down"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "kāpt",
+      "correct": "pār",
+      "translations": {
+        "en": "to step over; to violate"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "ie",
+      "translations": {
+        "en": "to fly in (arrive)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "iz",
+      "translations": {
+        "en": "to fly out (depart)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "at",
+      "translations": {
+        "en": "to fly back"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "aiz",
+      "translations": {
+        "en": "to fly away"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "pār",
+      "translations": {
+        "en": "to fly over"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "lidot",
+      "correct": "ap",
+      "translations": {
+        "en": "to fly around"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "ie",
+      "translations": {
+        "en": "to carry in"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "iz",
+      "translations": {
+        "en": "to carry out"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "aiz",
+      "translations": {
+        "en": "to take away"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "at",
+      "translations": {
+        "en": "to bring (here)"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "pie",
+      "translations": {
+        "en": "to bring to; serve"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "pār",
+      "translations": {
+        "en": "to carry over / move"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "uz",
+      "translations": {
+        "en": "to carry up"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "no",
+      "translations": {
+        "en": "to carry down"
+      },
+      "games": [
+        "forge"
+      ]
+    },
+    {
+      "base": "nest",
+      "correct": "sa",
+      "translations": {
+        "en": "to bring together (collect)"
+      },
+      "games": [
+        "forge"
+      ]
+    }
+  ],
+  "notes": {
+    "prefix:iz": "iz- → ārā/rezultāts; completion/outward.",
+    "prefix:pār": "pār- → pāri/over; across; redo; sometimes 'too much'.",
+    "prefix:no": "no- → prom/away; removal; replacement.",
+    "prefix:sa": "sa- → kopā/together; gathering; sometimes 'a bit'.",
+    "prefix:ap": "ap- → ap/around; surround; exchange.",
+    "prefix:at": "at- → atpakaļ/back; towards.",
+    "prefix:aiz": "aiz- → prom/away; behind; to a limit.",
+    "prefix:ie": "ie- → iekšā/in; entering.",
+    "prefix:pie": "pie- → pie/at, towards.",
+    "prefix:uz": "uz- → uz/on, up; direction upward.",
+    "prefix:pa": "pa- → pa/along; a little; passing by; time passes."
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "name": "Braukt ar priedēkļiem",
+  "entries": [
+    {
+      "translations": {
+        "lv": "braukt",
+        "en": "to go (by transport)"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "atbraukt",
+        "en": "to arrive (come)"
+      },
+      "tags": [
+        "prefix:at"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "aizbraukt",
+        "en": "to leave, go away"
+      },
+      "tags": [
+        "prefix:aiz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iebraukt",
+        "en": "to enter (drive into)"
+      },
+      "tags": [
+        "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "izbraukt",
+        "en": "to go out (drive out)"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "piebraukt",
+        "en": "to drive up to"
+      },
+      "tags": [
+        "prefix:pie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apbraukt",
+        "en": "to drive around"
+      },
+      "tags": [
+        "prefix:ap"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pārbraukt",
+        "en": "to drive over / across"
+      },
+      "tags": [
+        "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nobraukt",
+        "en": "to drive down / run over"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "uzbraukt",
+        "en": "to drive up (onto)"
+      },
+      "tags": [
+        "prefix:uz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "sabraukt",
+        "en": "to gather (arrive by vehicles)"
+      },
+      "tags": [
+        "prefix:sa"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

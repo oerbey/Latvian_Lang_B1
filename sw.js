@@ -2,6 +2,7 @@ const CACHE_NAME = 'latvian-lang-b1-v2';
 const ASSETS = [
   '/',
   '/index.html',
+  '/week1.html',
   '/app.js',
   '/src/render.js',
   '/src/state.js',

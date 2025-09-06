@@ -1,8 +1,14 @@
-const CACHE_NAME = 'latvian-lang-b1-v1';
+const CACHE_NAME = 'latvian-lang-b1-v2';
 const ASSETS = [
   '/',
   '/index.html',
   '/app.js',
+  '/src/render.js',
+  '/src/state.js',
+  '/src/match.js',
+  '/src/forge.js',
+  '/i18n/en.json',
+  '/i18n/lv.json',
   '/styles.css',
   '/data/lv-en/forge.json',
   '/data/lv-en/units.json',

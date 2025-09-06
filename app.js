@@ -181,7 +181,14 @@ async function loadVocabulary(from='lv', to='en'){
 async function startInit(){
   await loadTranslations(currentLang);
   setupEventListeners();
-  try { await loadVocabulary('lv','en'); } catch(e){ canvasElement.classList.remove('loading'); return; }
+  try {
+    await loadVocabulary('lv','en');
+  } catch(e){
+    console.error('Failed to load vocabulary', e);
+    loadingOverlay.textContent = i18n.labels?.loadError || 'Failed to load data';
+    canvasElement.classList.remove('loading');
+    return;
+  }
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(()=>{ setTimeout(initializeGame,50); });
   } else {

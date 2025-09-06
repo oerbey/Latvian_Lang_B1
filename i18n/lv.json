@@ -1,0 +1,51 @@
+{
+  "html": { "title": "B1 LV→EN: Match Rush + Prefix Forge" },
+  "badge": "Week 1",
+  "gameTitle": "LV→EN Vārdu Spēles (B1)",
+  "buttons": {
+    "modeMatch": "\u25B6 Match Rush",
+    "modeForge": "\u25B6 Prefix Forge",
+    "practice": "Praktizēties",
+    "challenge": "Izaicinājums",
+    "prevAria": "Iepriekšējā kartīte",
+    "nextAria": "Nākamā kartīte",
+    "deckSizeAria": "Pārslēgt kavas izmēru",
+    "deckSizeTitle": "Pārslēgt kavas izmēru",
+    "export": "Eksportēt rezultātus (CSV)",
+    "exportAria": "Eksportēt rezultātus CSV formātā",
+    "help": "Palīdzība",
+    "helpAria": "Palīdzība"
+  },
+  "labels": {
+    "loading": "Ielādē...",
+    "legend": "<b>Vadība:</b> Pelē klikšķi. — <span class=\"kbd\">H</span> palīdzība, <span class=\"kbd\">R</span> atsākt raundu, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> kavas izmērs. <br/>📏 = Pielāgot ekrānam (bez ritināšanas), 📜 = Pilna kava (ar ritināšanu). LV→EN only."
+  },
+  "status": {
+    "ready": "Gatavs. Izvēlies režīmu.",
+    "practice": "Practice režīms",
+    "challenge": "Challenge režīms (Match = ♥♥♥)",
+    "fit": "Fit to screen mode",
+    "full": "Full deck mode (scrollable)"
+  },
+  "deckSize": {
+    "titleAuto": "Switch to full deck (scrollable)",
+    "titleFull": "Switch to fit screen (no scroll)"
+  },
+  "help": {
+    "title": "Palīdzība",
+    "close": "Aizvērt",
+    "lines": [
+      "\u25B6 MATCH RUSH — Klikšķini pāri: vispirms LV vārds, tad tā EN nozīme.",
+      "Kļūdas praksē rāda īsu skaidrojumu (piem., -ties = refleksīvs).",
+      "Challenge režīmā ir taimeris un sirdis.",
+      "",
+      "📏 Deck Size — Pārslēdz starp 'fit screen' (bez ritināšanas)",
+      "un 'full deck' (ar ritināšanu, vairāk vārdu).",
+      "",
+      "\u25B6 PREFIX FORGE — Pievieno pareizo priedēkli pie verbu saknes",
+      "(piem., __mainīt → izmainīt) pēc dotās EN nozīmes.",
+      "",
+      "Īsceļi: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
+    ]
+  }
+}

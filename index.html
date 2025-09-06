@@ -6,37 +6,38 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="format-detection" content="telephone=no" />
-<title>B1 LV→EN: Match Rush + Prefix Forge</title>
+<title></title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="wrap">
-  <!-- New header badge -->
-  <div id="header"><span class="week-badge">Week 1</span></div>
+  <div id="header">
+    <span class="week-badge"></span>
+    <select id="language-select">
+      <option value="lv">Latviešu</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 
-  <h1>LV→EN Vārdu Spēles (B1)</h1>
+  <h1 id="title"></h1>
   <div id="ui">
-    <button id="mode-match" class="pill">▶ Match Rush</button>
-    <button id="mode-forge" class="pill">▶ Prefix Forge</button>
-    <button id="btn-practice" class="ghost" aria-label="Praktizēties">Practice</button>
-    <button id="btn-challenge" class="ghost" aria-label="Izaicinājums">Challenge</button>
-    <button id="btn-prev" class="outline small" aria-label="Iepriekšējā kartīte">⟨</button>
-    <button id="btn-next" class="outline small" aria-label="Nākamā kartīte">⟩</button>
-    <button id="btn-deck-size" class="outline small" title="Pārslēgt kavas izmēru" aria-label="Pārslēgt kavas izmēru">📏</button>
-    <button id="btn-export" class="ok" aria-label="Eksportēt rezultātus CSV formātā">Export Results (CSV)</button>
-    <button id="btn-help" class="ghost" aria-label="Palīdzība">Help</button>
+    <button id="mode-match" class="pill"></button>
+    <button id="mode-forge" class="pill"></button>
+    <button id="btn-practice" class="ghost"></button>
+    <button id="btn-challenge" class="ghost"></button>
+    <button id="btn-prev" class="outline small">⟨</button>
+    <button id="btn-next" class="outline small">⟩</button>
+    <button id="btn-deck-size" class="outline small">📏</button>
+    <button id="btn-export" class="ok"></button>
+    <button id="btn-help" class="ghost"></button>
     <span id="status" style="margin-left:auto;font-weight:700;"></span>
   </div>
 
-  <!-- All interactive UI is drawn on this canvas via 2D context -->
   <div class="canvas-container">
     <canvas id="canvas" width="980" height="560"></canvas>
-    <div class="loading-overlay" id="loading">Loading...</div>
+    <div class="loading-overlay" id="loading"></div>
   </div>
-  <div id="legend">
-    <b>Controls:</b> Mouse clicks. — <span class="kbd">H</span> help, <span class="kbd">R</span> restart round, <span class="kbd">1</span> Match, <span class="kbd">2</span> Forge, <span class="kbd">D</span> deck size. <br/>
-    📏 = Fit screen (no scroll), 📜 = Full deck (scroll if needed). LV→EN only.
-  </div>
+  <div id="legend"></div>
 </div>
 
 <script type="module" src="main.js"></script>

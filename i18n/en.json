@@ -1,0 +1,51 @@
+{
+  "html": { "title": "B1 LV→EN: Match Rush + Prefix Forge" },
+  "badge": "Week 1",
+  "gameTitle": "LV→EN Word Games (B1)",
+  "buttons": {
+    "modeMatch": "\u25B6 Match Rush",
+    "modeForge": "\u25B6 Prefix Forge",
+    "practice": "Practice",
+    "challenge": "Challenge",
+    "prevAria": "Previous card",
+    "nextAria": "Next card",
+    "deckSizeAria": "Toggle deck size",
+    "deckSizeTitle": "Toggle deck size",
+    "export": "Export Results (CSV)",
+    "exportAria": "Export results as CSV",
+    "help": "Help",
+    "helpAria": "Help"
+  },
+  "labels": {
+    "loading": "Loading...",
+    "legend": "<b>Controls:</b> Mouse clicks. — <span class=\"kbd\">H</span> help, <span class=\"kbd\">R</span> restart round, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> deck size. <br/>📏 = Fit screen (no scroll), 📜 = Full deck (scroll if needed). LV→EN only."
+  },
+  "status": {
+    "ready": "Ready. Choose a mode.",
+    "practice": "Practice mode",
+    "challenge": "Challenge mode (Match = ♥♥♥)",
+    "fit": "Fit to screen mode",
+    "full": "Full deck mode (scrollable)"
+  },
+  "deckSize": {
+    "titleAuto": "Switch to full deck (scrollable)",
+    "titleFull": "Switch to fit screen (no scroll)"
+  },
+  "help": {
+    "title": "Help",
+    "close": "Close",
+    "lines": [
+      "\u25B6 MATCH RUSH — Click the pair: first LV word, then its EN meaning.",
+      "Mistakes in practice show a brief hint (e.g., -ties = reflexive).",
+      "Challenge mode has a timer and hearts.",
+      "",
+      "📏 Deck Size — Toggle between 'fit screen' (no scrolling)",
+      "and 'full deck' (scroll, more words).",
+      "",
+      "\u25B6 PREFIX FORGE — Add the correct prefix to the verb root",
+      "(e.g., __mainīt → izmainīt) based on the given EN meaning.",
+      "",
+      "Shortcuts: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
+    ]
+  }
+}

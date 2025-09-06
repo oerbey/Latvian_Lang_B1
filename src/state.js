@@ -22,19 +22,8 @@ export const state = {
 export function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=(state.rng()*(i+1))|0; [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
 export function choice(arr){ return arr[(state.rng()*arr.length)|0]; }
 export function now(){ return performance.now(); }
-export const HELP_TEXT = [
-  "▶ MATCH RUSH — Klikšķini pāri: vispirms LV vārds, tad tā EN nozīme.",
-  "Kļūdas praksē rāda īsu skaidrojumu (piem., -ties = refleksīvs).",
-  "Challenge režīmā ir taimeris un sirdis.",
-  "",
-  "📏 Deck Size — Pārslēdz starp 'fit screen' (bez ritināšanas)",
-  "un 'full deck' (ar ritināšanu, vairāk vārdu).",
-  "",
-  "▶ PREFIX FORGE — Pievieno pareizo priedēkli pie verbu saknes",
-  "(piem., __mainīt → izmainīt) pēc dotās EN nozīmes.",
-  "",
-  "Īsceļi: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
-].join("\n");
+export let HELP_TEXT = '';
+export function setHelpText(t){ HELP_TEXT = t; }
 export function setStatus(s){ document.getElementById('status').textContent = s || ''; }
 export let clickables = [];
 export function hitAt(x,y){ for(const c of clickables){ if(x>=c.x && x<=c.x+c.w && y>=c.y && y<=c.y+c.h) return c; } return null; }

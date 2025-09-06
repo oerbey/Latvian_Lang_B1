@@ -1,7 +1,51 @@
 import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale } from './src/render.js';
-import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, triggerRedraw } from './src/state.js';
+import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/state.js';
 import { startMatchRound, drawMatch } from './src/match.js';
 import { startForgeRound, drawForge } from './src/forge.js';
+
+let i18n = {};
+let currentLang = 'lv';
+
+async function loadTranslations(lang){
+  const res = await fetch(`i18n/${lang}.json`);
+  i18n = await res.json();
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  applyTranslations();
+}
+
+function applyTranslations(){
+  document.title = i18n.html.title;
+  document.querySelector('.week-badge').textContent = i18n.badge;
+  document.getElementById('title').textContent = i18n.gameTitle;
+  const btnMatch = document.getElementById('mode-match');
+  btnMatch.textContent = i18n.buttons.modeMatch;
+  const btnForge = document.getElementById('mode-forge');
+  btnForge.textContent = i18n.buttons.modeForge;
+  const btnPractice = document.getElementById('btn-practice');
+  btnPractice.textContent = i18n.buttons.practice;
+  btnPractice.setAttribute('aria-label', i18n.buttons.practice);
+  const btnChallenge = document.getElementById('btn-challenge');
+  btnChallenge.textContent = i18n.buttons.challenge;
+  btnChallenge.setAttribute('aria-label', i18n.buttons.challenge);
+  document.getElementById('btn-prev').setAttribute('aria-label', i18n.buttons.prevAria);
+  document.getElementById('btn-next').setAttribute('aria-label', i18n.buttons.nextAria);
+  const deckBtn = document.getElementById('btn-deck-size');
+  deckBtn.setAttribute('aria-label', i18n.buttons.deckSizeAria);
+  deckBtn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+  const btnExport = document.getElementById('btn-export');
+  btnExport.textContent = i18n.buttons.export;
+  btnExport.setAttribute('aria-label', i18n.buttons.exportAria);
+  const btnHelp = document.getElementById('btn-help');
+  btnHelp.textContent = i18n.buttons.help;
+  btnHelp.setAttribute('aria-label', i18n.buttons.helpAria);
+  document.getElementById('loading').textContent = i18n.labels.loading;
+  document.getElementById('legend').innerHTML = i18n.labels.legend;
+  document.getElementById('language-select').value = currentLang;
+  setStatus(i18n.status.ready);
+  setHelpText(i18n.help.lines.join('\n'));
+  triggerRedraw();
+}
 
 function drawHelp(){
   const isMobile = scale < 0.7;
@@ -11,7 +55,7 @@ function drawHelp(){
   const x = W/2 - w/2;
   const y = H/2 - h/2;
   roundedRect(x,y,w,h,14,'#151821','#3a4252');
-  drawText("Palīdzība", x+pad, y+28, {font:'bold 18px system-ui', color:'#9dd4ff'});
+  drawText(i18n.help.title, x+pad, y+28, {font:'bold 18px system-ui', color:'#9dd4ff'});
   const helpLines = HELP_TEXT.split('\n');
   const fontSize = isMobile ? 12 : 14;
   const lineHeight = isMobile ? 16 : 20;
@@ -26,7 +70,7 @@ function drawHelp(){
   const bx = x + w - bw - 16;
   const by = y + h - bh - 14;
   roundedRect(bx,by,bw,bh,10,'#334','#556');
-  drawText("Aizvērt", bx + (isMobile ? 8 : 12), by + (isMobile ? 22 : 20), {font:`${isMobile ? 12 : 14}px system-ui`});
+  drawText(i18n.help.close, bx + (isMobile ? 8 : 12), by + (isMobile ? 22 : 20), {font:`${isMobile ? 12 : 14}px system-ui`});
   clickables.push({x:bx,y:by,w:bw,h:bh,onClick:()=>{ state.showHelp=false; triggerRedraw(); }});
 }
 
@@ -40,20 +84,21 @@ setRedraw(draw);
 function setupEventListeners(){
   document.getElementById('mode-match').addEventListener('click', ()=>{ state.mode=MODES.MATCH; state.roundIndex=0; startMatchRound(); });
   document.getElementById('mode-forge').addEventListener('click', ()=>{ state.mode=MODES.FORGE; state.roundIndex=0; startForgeRound(); });
-  document.getElementById('btn-practice').addEventListener('click', ()=>{ state.difficulty='practice'; setStatus("Practice režīms"); });
-  document.getElementById('btn-challenge').addEventListener('click', ()=>{ state.difficulty='challenge'; setStatus("Challenge režīms (Match = ♥♥♥)"); });
+  document.getElementById('btn-practice').addEventListener('click', ()=>{ state.difficulty='practice'; setStatus(i18n.status.practice); });
+  document.getElementById('btn-challenge').addEventListener('click', ()=>{ state.difficulty='challenge'; setStatus(i18n.status.challenge); });
   document.getElementById('btn-prev').addEventListener('click', ()=>{ state.roundIndex=Math.max(0,state.roundIndex-1); state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
   document.getElementById('btn-next').addEventListener('click', ()=>{ state.roundIndex++; state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
   document.getElementById('btn-deck-size').addEventListener('click', ()=>{
     state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
     const btn = document.getElementById('btn-deck-size');
     btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
-    btn.title = state.deckSizeMode === 'auto' ? 'Switch to full deck (scrollable)' : 'Switch to fit screen (no scroll)';
-    setStatus(state.deckSizeMode === 'auto' ? 'Fit to screen mode' : 'Full deck mode (scrollable)');
+    btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+    setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
     if(state.mode === MODES.MATCH) startMatchRound();
   });
   document.getElementById('btn-help').addEventListener('click', ()=>{ state.showHelp=!state.showHelp; triggerRedraw(); });
   document.getElementById('btn-export').addEventListener('click', exportCSV);
+  document.getElementById('language-select').addEventListener('change', e=>{ loadTranslations(e.target.value); });
   canvas.addEventListener('mousemove', e=>{
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
     canvas.style.cursor = hitAt(coords.x, coords.y) ? 'pointer' : 'default';
@@ -87,7 +132,8 @@ function setupEventListeners(){
       state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
       const btn = document.getElementById('btn-deck-size');
       btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
-      setStatus(state.deckSizeMode === 'auto' ? 'Fit to screen mode' : 'Full deck mode (scrollable)');
+      btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+      setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
       if(state.mode===MODES.MATCH) startMatchRound();
     }
   });
@@ -101,7 +147,6 @@ function exportCSV(){
   const a = document.createElement('a'); a.href=url; a.download="b1_game_results.csv"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
 
-setStatus("Gatavs. Izvēlies režīmu.");
 const loadingOverlay = document.getElementById('loading');
 const canvasElement = canvas;
 loadingOverlay.classList.add('visible');
@@ -121,6 +166,7 @@ async function loadVocabulary(){
 }
 
 async function startInit(){
+  await loadTranslations(currentLang);
   setupEventListeners();
   try { await loadVocabulary(); } catch(e){ canvasElement.classList.remove('loading'); return; }
   if (document.fonts && document.fonts.ready) {

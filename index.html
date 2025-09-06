@@ -2,48 +2,19 @@
 <html lang="lv">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="format-detection" content="telephone=no" />
-<meta name="theme-color" content="#0e0f13" />
-<title></title>
-<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Latviešu valodas spēles</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="wrap">
-  <div id="header">
-    <span class="week-badge"></span>
-    <select id="language-select" aria-label="Language selection">
-      <option value="lv">Latviešu</option>
-      <option value="en">English</option>
-    </select>
+<div id="wrap" style="text-align:center;">
+  <h1>Laipni lūdzam!</h1>
+  <p>Izvēlies nedēļu vai vingrinājumu:</p>
+  <div id="ui">
+    <button class="pill" onclick="location.href='week1.html'">1. nedēļa: Darbības vārds</button>
+    <button class="pill" disabled>2. nedēļa (drīzumā)</button>
   </div>
-
-  <h1 id="title"></h1>
-  <div id="ui" role="toolbar" aria-label="Game controls">
-    <button id="mode-match" class="pill"></button>
-    <button id="mode-forge" class="pill"></button>
-    <button id="btn-practice" class="ghost"></button>
-    <button id="btn-challenge" class="ghost"></button>
-    <button id="btn-prev" class="outline small">⟨</button>
-    <button id="btn-next" class="outline small">⟩</button>
-    <button id="btn-deck-size" class="outline small">📏</button>
-    <button id="btn-export" class="ok"></button>
-    <button id="btn-help" class="ghost"></button>
-    <span id="status" role="status" aria-live="polite" style="margin-left:auto;font-weight:700;"></span>
-  </div>
-
-  <div class="canvas-container">
-    <canvas id="canvas" width="980" height="560" tabindex="0"></canvas>
-    <div class="loading-overlay" id="loading"></div>
-  </div>
-  <div id="sr-game-state" class="sr-only" aria-live="polite" aria-label="Game state"></div>
-  <div id="legend"></div>
 </div>
-
-<script type="module" src="app.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -53,4 +24,3 @@ if ('serviceWorker' in navigator) {
 </script>
 </body>
 </html>
-

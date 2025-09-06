@@ -1,0 +1,137 @@
+{
+  "name": "Iet ar priedēkļiem",
+  "entries": [
+    {
+      "translations": {
+        "lv": "iet",
+        "en": "to go (on foot)"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "ieiet",
+        "en": "to go in, enter"
+      },
+      "tags": [
+        "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iziet",
+        "en": "to go out, exit"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "aiziet",
+        "en": "to leave, go away"
+      },
+      "tags": [
+        "prefix:aiz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "atiet",
+        "en": "to depart (train, bus)"
+      },
+      "tags": [
+        "prefix:at"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pieiet",
+        "en": "to approach, go up to"
+      },
+      "tags": [
+        "prefix:pie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pāriet",
+        "en": "to cross, to switch"
+      },
+      "tags": [
+        "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apiet",
+        "en": "to go around"
+      },
+      "tags": [
+        "prefix:ap"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "noiet",
+        "en": "to go down; walk distance"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "saiet",
+        "en": "to gather together"
+      },
+      "tags": [
+        "prefix:sa"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "paiet",
+        "en": "to pass (time), go by"
+      },
+      "tags": [
+        "prefix:pa"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

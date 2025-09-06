@@ -2,7 +2,11 @@ import { state, MODES, shuffle, choice, now, resetClicks, clickables, setStatus,
 import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti } from './render.js';
 
 function buildMatchDeck(){
-  return state.DATA.units.flatMap(u=>u.entries.map(e=>({...e, unit:u.name})));
+  return state.DATA.units.flatMap(u=>
+    u.entries
+     .filter(e=>e.games && e.games.includes('match'))
+     .map(e=>({...e, unit:u.name}))
+  );
 }
 
 export function startMatchRound(){
@@ -19,8 +23,8 @@ export function startMatchRound(){
     maxItems = Math.min(15, deck.length);
   }
   const picks = shuffle(deck.slice()).slice(0,maxItems);
-  const left = picks.map(p=>({txt:p.lv, key:p.lv, meta:p}));
-  const right = picks.map(p=>({txt:p.en, key:p.lv, meta:p}));
+  const left = picks.map(p=>({txt:p.translations.lv, key:p.translations.lv, meta:p}));
+  const right = picks.map(p=>({txt:p.translations.en, key:p.translations.lv, meta:p}));
   shuffle(right);
   state.matchState = {
     left, right,
@@ -126,8 +130,9 @@ export function drawMatch(){
 }
 
 function hintForMismatch(k1,k2){
-  const all = state.DATA.units.flatMap(u=>u.entries.map(e=>e));
-  const a = all.find(x=>x.lv===k1) || {}; const b = all.find(x=>x.lv===k2) || {};
+  const all = state.DATA.units.flatMap(u=>u.entries);
+  const a = all.find(x=>x.translations.lv===k1) || {};
+  const b = all.find(x=>x.translations.lv===k2) || {};
   const ref = (e)=>(e.tags||[]).some(t=>t.includes('reflex'));
   if(ref(a)!==ref(b)) return "Padoms: -ties = refleksīvs (paša stāvoklis).";
   function pref(e){ const t=(e.tags||[]).find(t=>t.startsWith('prefix:')); return t? t.split(':')[1] : null; }

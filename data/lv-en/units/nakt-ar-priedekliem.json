@@ -1,0 +1,113 @@
+{
+  "name": "Nākt ar priedēkļiem",
+  "entries": [
+    {
+      "translations": {
+        "lv": "nākt",
+        "en": "to come (on foot)"
+      },
+      "tags": [
+        "base"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "ienākt",
+        "en": "to come in"
+      },
+      "tags": [
+        "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iznākt",
+        "en": "to come out"
+      },
+      "tags": [
+        "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "atnākt",
+        "en": "to arrive, come here"
+      },
+      "tags": [
+        "prefix:at"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "aiznākt",
+        "en": "to come from afar"
+      },
+      "tags": [
+        "prefix:aiz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pienākt",
+        "en": "to approach; be due"
+      },
+      "tags": [
+        "prefix:pie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "sanākt",
+        "en": "to gather; to turn out"
+      },
+      "tags": [
+        "prefix:sa"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "uznākt",
+        "en": "to come up (weather, emotions)"
+      },
+      "tags": [
+        "prefix:uz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nonākt",
+        "en": "to end up, to arrive at"
+      },
+      "tags": [
+        "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

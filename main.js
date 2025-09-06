@@ -159,16 +159,25 @@ function initializeGame(){
   canvasElement.classList.remove('loading');
 }
 
-async function loadVocabulary(){
-  const res = await fetch('data/vocabulary.json');
-  if(!res.ok) throw new Error('Network response was not ok');
-  state.DATA = await res.json();
+async function loadVocabulary(from='lv', to='en'){
+  const base = `data/${from}-${to}/`;
+  const idxRes = await fetch(base + 'units.json');
+  if(!idxRes.ok) throw new Error('Units index not found');
+  const idx = await idxRes.json();
+  const units = [];
+  for(const u of idx.units){
+    const res = await fetch(base + u.file);
+    if(res.ok){ units.push(await res.json()); }
+  }
+  const forgeRes = await fetch(base + 'forge.json');
+  const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
+  state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
 }
 
 async function startInit(){
   await loadTranslations(currentLang);
   setupEventListeners();
-  try { await loadVocabulary(); } catch(e){ canvasElement.classList.remove('loading'); return; }
+  try { await loadVocabulary('lv','en'); } catch(e){ canvasElement.classList.remove('loading'); return; }
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(()=>{ setTimeout(initializeGame,50); });
   } else {

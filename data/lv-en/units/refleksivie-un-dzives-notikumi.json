@@ -1,0 +1,135 @@
+{
+  "name": "Refleksīvie un dzīves notikumi",
+  "entries": [
+    {
+      "translations": {
+        "lv": "mainīties",
+        "en": "to change oneself, change state"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pārcelties",
+        "en": "to move, relocate"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "atgriezties",
+        "en": "to return"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "ciemoties",
+        "en": "to visit, be a guest"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "viesoties",
+        "en": "to visit, be a guest"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "precēties",
+        "en": "to marry"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apprecēties",
+        "en": "to get married"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "piedzimt",
+        "en": "to be born"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "celties",
+        "en": "to get up"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "satikties",
+        "en": "to meet (each other)"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iemācīties",
+        "en": "to master, learn"
+      },
+      "tags": [
+        "reflexive"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

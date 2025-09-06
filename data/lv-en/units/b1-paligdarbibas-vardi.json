@@ -1,0 +1,95 @@
+{
+  "name": "B1 palīgdarbības vārdi",
+  "entries": [
+    {
+      "translations": {
+        "lv": "apgūt",
+        "en": "to learn, acquire"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "iegūt",
+        "en": "to obtain, gain"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "kļūt",
+        "en": "to become"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "tikt galā",
+        "en": "to manage, cope"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "satikt",
+        "en": "to meet (someone)"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "notikt",
+        "en": "to happen"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pietikt",
+        "en": "to be enough"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "paveikt",
+        "en": "to accomplish"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pabeigt",
+        "en": "to finish"
+      },
+      "tags": [],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

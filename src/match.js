@@ -15,8 +15,8 @@ export function startMatchRound(){
   if(state.deckSizeMode === 'auto'){
     const isMobile = scale < 0.7;
     const availableHeight = H - 140;
-    const boxH = isMobile ? 52 : 46;
-    const gap = isMobile ? 10 : 14;
+    const boxH = isMobile ? 80 : 46;
+    const gap = isMobile ? 16 : 14;
     const maxItemsOnScreen = Math.floor(availableHeight / (boxH + gap));
     maxItems = Math.max(5, Math.min(maxItemsOnScreen, deck.length));
   } else {
@@ -56,11 +56,13 @@ export function drawMatch(){
   drawText(`Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives===Infinity?'∞':('♥'.repeat(ms.lives))}`, W-20, 40, {align:'right',font:'16px system-ui',color:'#a8b3c7'});
   if(ms.feedback){ drawBadge(ms.feedback, 28, 58, ms.feedback.startsWith('Pareizi')? '#2f9e44' : '#8a2b2b'); }
   const isMobile = scale < 0.7;
-  const Lx = isMobile ? 20 : 60;
-  const boxW = isMobile ? Math.min(280, (W - 60) / 2) : 360;
-  const boxH = isMobile ? 52 : 46;
-  const gap = isMobile ? 10 : 14;
-  const Rx = isMobile ? W - 20 - boxW : W - 60 - boxW;
+  const sideMargin = isMobile ? 20 : 60;
+  const columnGap = isMobile ? 20 : 40;
+  const boxW = isMobile ? (W - sideMargin*2 - columnGap) / 2 : 360;
+  const boxH = isMobile ? 80 : 46;
+  const gap = isMobile ? 16 : 14;
+  const Lx = sideMargin;
+  const Rx = Lx + boxW + columnGap;
   const top=ms.viewTop;
   const viewH = ms.viewBottom - ms.viewTop;
   drawText("LV", Lx, top-22, {font:'bold 16px system-ui', color:'#9fb3ff'});

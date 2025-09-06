@@ -79,7 +79,11 @@ function drawHelp(){
 }
 
 function draw(){
-  if(state.mode===MODES.MATCH) drawMatch(); else drawForge();
+  if(state.mode===MODES.MATCH){
+    if(state.matchState) drawMatch();
+  } else {
+    if(state.forgeState) drawForge();
+  }
   if(renderConfetti()) requestAnimationFrame(draw);
   if(state.showHelp) drawHelp();
 }

@@ -111,6 +111,7 @@ function setupEventListeners(){
     await loadTranslations(lang);
     const target = lang === 'ru' ? 'ru' : 'en';
     await loadVocabulary('lv', target);
+
     state.roundIndex = 0;
     state.mode===MODES.MATCH?startMatchRound():startForgeRound();
   });

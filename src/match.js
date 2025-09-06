@@ -4,7 +4,7 @@ import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti, setCanv
 function buildMatchDeck(){
   return state.DATA.units.flatMap(u=>
     u.entries
-     .filter(e=>e.games && e.games.includes('match'))
+     .filter(e=>e.games && e.games.includes('match') && e.translations[state.targetLang])
      .map(e=>({...e, unit:u.name}))
   );
 }
@@ -88,8 +88,11 @@ export function drawMatch(){
     if(key===ms.selected.key){
       ms.solved.add(key);
       ms.correct++;
-      ms.detail.push({type:'pair', lv: side==='L'?it.txt:ms.left.find(x=>x.key===key).txt,
-                      en: side==='R'?it.txt:ms.right.find(x=>x.key===key).txt, ok:true});
+      const lv = side==='L'?it.txt:ms.left.find(x=>x.key===key).txt;
+      const tgt = side==='R'?it.txt:ms.right.find(x=>x.key===key).txt;
+      const detail = {type:'pair', lv, ok:true};
+      detail[state.targetLang] = tgt;
+      ms.detail.push(detail);
       ms.feedback = "Pareizi ✓";
       ms.selected = null;
       confetti((y!==undefined?y:H/2));

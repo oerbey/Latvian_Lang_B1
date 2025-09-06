@@ -24,6 +24,7 @@ test('startForgeRound sets up forge state correctly', () => {
       { base: 'darit', translations: { en: 'do' }, correct: 'iz', games: ['forge'] }
     ]
   };
+  state.targetLang = 'en';
   state.roundIndex = 0;
   state.rng = mulberry32(1);
 
@@ -37,4 +38,20 @@ test('startForgeRound sets up forge state correctly', () => {
   assert(fs.options.includes('iz'));
   assert.equal(new Set(fs.options).size, 5);
   fs.options.forEach(p => assert(ALL_PREFIXES.includes(p)));
+});
+
+test('startForgeRound uses target language clue', () => {
+  state.DATA = {
+    forge: [
+      { base: 'iet', translations: { ru: 'идти' }, correct: 'aiz', games: ['forge'] }
+    ]
+  };
+  state.targetLang = 'ru';
+  state.roundIndex = 0;
+  state.rng = mulberry32(2);
+
+  startForgeRound();
+  const fs = state.forgeState;
+  assert.equal(fs.clue, 'идти');
+  assert.equal(fs.correct, 'aiz');
 });

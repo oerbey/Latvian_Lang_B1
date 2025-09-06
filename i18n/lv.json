@@ -18,6 +18,7 @@
   },
   "labels": {
     "loading": "Ielādē...",
+    "loadError": "Neizdevās ielādēt datus.",
     "legend": "<b>Vadība:</b> Pelē klikšķi. — <span class=\"kbd\">H</span> palīdzība, <span class=\"kbd\">R</span> atsākt raundu, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> kavas izmērs. <br/>📏 = Pielāgot ekrānam (bez ritināšanas), 📜 = Pilna kava (ar ritināšanu). LV→EN only.",
     "languageSelect": "Izvēlies valodu",
     "controls": "Spēles vadības",

@@ -114,7 +114,7 @@ function setupEventListeners(){
   canvas.addEventListener('click', e=>{
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
     const t = hitAt(coords.x, coords.y);
-    if(t && t.onClick) t.onClick(t);
+    if(t && t.onClick) t.onClick({ x: coords.x, y: coords.y, target: t });
   });
   let touchStartY = null;
   let touchStartTime = 0;
@@ -123,12 +123,21 @@ function setupEventListeners(){
     const coords = getCanvasCoordinates(t.clientX, t.clientY);
     touchStartY = t.clientY; touchStartTime = Date.now();
     const hit = hitAt(coords.x, coords.y);
-    if(hit && hit.onClick){ hit.onClick(hit); e.preventDefault(); }
+    if(hit && hit.onClick){ hit.onClick({ x: coords.x, y: coords.y, target: hit }); e.preventDefault(); }
   }, { passive: false });
   canvas.addEventListener('touchmove', e=>{ e.preventDefault(); }, { passive: false });
   canvas.addEventListener('touchend', e=>{
     const dt = Date.now()-touchStartTime;
-    if(dt<200){ const t=e.changedTouches[0]; const coords=getCanvasCoordinates(t.clientX,t.clientY); const hit=hitAt(coords.x,coords.y); if(hit&&hit.onClick) hit.onClick(hit); }
+    if(dt<200){ const t=e.changedTouches[0]; const coords=getCanvasCoordinates(t.clientX,t.clientY); const hit=hitAt(coords.x,coords.y); if(hit&&hit.onClick) hit.onClick({ x: coords.x, y: coords.y, target: hit }); }
+  }, { passive: false });
+  canvas.addEventListener('wheel', e=>{
+    if(state.mode !== MODES.MATCH || !state.matchState) return;
+    const ms = state.matchState;
+    const viewH = ms.viewBottom - ms.viewTop;
+    const maxScroll = Math.max(0, ms.contentH - viewH);
+    ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + e.deltaY));
+    triggerRedraw();
+    e.preventDefault();
   }, { passive: false });
   window.addEventListener('resize', ()=>{ updateCanvasScale(); triggerRedraw(); });
   document.addEventListener('keydown', e=>{

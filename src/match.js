@@ -125,9 +125,8 @@ export function drawMatch(){
     const thumbH = Math.max(30, (viewH * viewH) / contentH);
     const thumbY = trackY + (ms.scrollY / maxScroll) * (trackH - thumbH);
     roundedRect(trackX, thumbY, trackW, thumbH, 4, '#4a5675', '#5a6785');
-    clickables.push({x:trackX,y:trackY,w:trackW,h:trackH,onClick:(t)=>{
-      const clickY = t.y || trackY;
-      const relativeY = clickY - trackY;
+    clickables.push({x:trackX,y:trackY,w:trackW,h:trackH,onClick:({y})=>{
+      const relativeY = y - trackY;
       const thumbCenter = (ms.scrollY / maxScroll) * (trackH - thumbH) + thumbH / 2;
       if(relativeY < thumbCenter - thumbH/2) {
         ms.scrollY = Math.max(0, ms.scrollY - viewH * 0.8);

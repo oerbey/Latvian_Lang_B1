@@ -193,10 +193,24 @@ async function startInit(){
     canvasElement.classList.remove('loading');
     return;
   }
+  const startGame = () => {
+    try {
+      initializeGame();
+    } catch (err) {
+      console.error('Initialization error', err);
+      loadingOverlay.textContent = i18n.labels?.loadError || 'Failed to load data';
+      canvasElement.classList.remove('loading');
+    }
+  };
+
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(()=>{ setTimeout(initializeGame,50); });
+    const ready = Promise.race([
+      document.fonts.ready,
+      new Promise(resolve => setTimeout(resolve, 1000))
+    ]);
+    ready.then(() => setTimeout(startGame, 50)).catch(startGame);
   } else {
-    setTimeout(initializeGame,150);
+    setTimeout(startGame, 150);
   }
 }
 

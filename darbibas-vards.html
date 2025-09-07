@@ -78,6 +78,7 @@
     <section class="panel">
       <div class="status" aria-live="polite">
         <div class="pill">Pareizi: <span id="correct">0</span></div>
+        <div class="pill">Nepareizi: <span id="wrong">0</span></div>
         <div class="pill">Atlikušais: <span id="remain">0</span></div>
         <div class="muted" id="loader">– tiek ielādēti vārdi…</div>
       </div>
@@ -139,10 +140,12 @@
   let TARGET = 'ENG'; // or 'RU'
   let selectedLV = null;
   let selectedTarget = null;
+  let wrongCount = 0;
   const ui = {
     roundSize: document.getElementById('round-size'),
     roundSizeVal: document.getElementById('round-size-val'),
     correct: document.getElementById('correct'),
+    wrong: document.getElementById('wrong'),
     remain: document.getElementById('remain'),
     loader: document.getElementById('loader'),
     game: document.getElementById('game'),
@@ -217,21 +220,25 @@
   }
 
   function checkMatch(){
-    const isMatch = selectedLV?.dataset.id === selectedTarget?.dataset.id;
-    const mark = cls => [selectedLV, selectedTarget].forEach(el => el && el.classList.add(cls));
-    const unselect = () => [selectedLV, selectedTarget].forEach(el => el && el.classList.remove('selected'));
+    const lv = selectedLV;
+    const target = selectedTarget;
+    const isMatch = lv?.dataset.id === target?.dataset.id;
+    const mark = cls => [lv, target].forEach(el => el && el.classList.add(cls));
+    const unselect = () => [lv, target].forEach(el => el && el.classList.remove('selected'));
 
     if(isMatch){
       mark('matched');
       // Remove that pair from CURRENT so remain counter drops
-      const id = selectedLV.dataset.id;
+      const id = lv.dataset.id;
       const idx = CURRENT.findIndex(r => r.id === id);
       if(idx !== -1) CURRENT.splice(idx,1);
       ui.correct.textContent = document.querySelectorAll('li.matched').length / 2;
       ui.remain.textContent = CURRENT.length;
     } else {
+      wrongCount++;
+      ui.wrong.textContent = wrongCount;
       mark('wrong');
-      setTimeout(() => [selectedLV, selectedTarget].forEach(el => el && el.classList.remove('wrong')), 300);
+      setTimeout(() => [lv, target].forEach(el => el && el.classList.remove('wrong')), 300);
     }
 
     selectedLV = null; selectedTarget = null; unselect();
@@ -241,6 +248,9 @@
     const n = parseInt(ui.roundSize.value, 10) || 10;
     CURRENT = pickRound(ALL, n);
     selectedLV = selectedTarget = null;
+    wrongCount = 0;
+    ui.correct.textContent = 0;
+    ui.wrong.textContent = 0;
     ui.lvList.innerHTML = ui.targetList.innerHTML = '';
     renderLists();
     ui.game.hidden = false;

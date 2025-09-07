@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Darbības Vārds — Vārdu Savienošanas Spēle</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root{--bg:#0b0f14;--card:#111827;--muted:#64748b;--text:#e5e7eb;--accent:#2563eb;--accent-2:#22c55e;--warn:#ef4444}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,\n    Noto Sans,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column}
+    header{padding:24px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+    header .title{font-size:clamp(20px,3vw,28px);font-weight:700}
+    header a.btn{color:var(--text);text-decoration:none;border:1px solid #1f2937;padding:10px 14px;border-radius:12px;background:#0f172a}
+    main{flex:1;display:grid;place-items:start;gap:24px;padding:0 16px 32px}
+    .panel{width:min(100%,1100px);margin:0 auto;background:var(--card);border:1px solid #1f2937;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+    .controls .group{display:flex;gap:10px;align-items:center}
+    .segmented{display:inline-flex;border:1px solid #1f2937;border-radius:12px;overflow:hidden}
+    .segmented button{background:#0f172a;color:var(--text);padding:8px 12px;border:0;cursor:pointer}
+    .segmented button[aria-pressed="true"]{background:var(--accent);color:white}
+    .btn{background:#0f172a;color:var(--text);border:1px solid #1f2937;padding:10px 14px;border-radius:12px;cursor:pointer}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:white}
+    .btn.ghost{background:transparent}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+    @media (max-width: 760px){.grid{grid-template-columns:1fr}}
+    .col{background:#0f1220;border:1px solid #1f2937;border-radius:16px;min-height:320px}
+    .col h3{margin:0;padding:12px 14px;border-bottom:1px solid #1f2937;color:#cbd5e1;display:flex;align-items:center;gap:8px}
+    ul.words{list-style:none;margin:0;padding:8px}
+    ul.words li{padding:10px 12px;margin:6px;border:1px dashed #334155;border-radius:12px;cursor:pointer;user-select:none;transition:transform .05s ease}
+    ul.words li:hover{transform:translateY(-1px)}
+    ul.words li.selected{outline:2px solid var(--accent)}
+    ul.words li.matched{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.35);color:#c7f9cc}
+    ul.words li.wrong{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.35)}
+    .status{display:flex;gap:12px;align-items:center;color:#cbd5e1}
+    .status .pill{border:1px solid #1f2937;border-radius:999px;padding:6px 10px;background:#0f172a}
+    .muted{color:var(--muted)}
+    .footer{opacity:.85;font-size:14px;margin-top:10px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
+  <!-- SheetJS for reading Excel in the browser -->
+  <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="title">Darbības Vārds — savieno LV ⇄ ENG/RU</div>
+    <nav>
+      <a class="btn" href="./index.html" aria-label="Atpakaļ uz sākumu">⟵ Atpakaļ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panel" aria-labelledby="controls-heading">
+      <h2 id="controls-heading" class="sr-only">Vadība</h2>
+      <div class="controls">
+        <div class="group">
+          <div class="segmented" role="tablist" aria-label="Mērķa valoda">
+            <button id="lang-eng" role="tab" aria-selected="true" aria-pressed="true">LV → ENG</button>
+            <button id="lang-ru" role="tab" aria-selected="false" aria-pressed="false">LV → RU</button>
+          </div>
+          <span class="muted">Izvēlies mērķa valodu.</span>
+        </div>
+        <div class="group">
+          <label for="round-size">Pāru skaits:</label>
+          <input id="round-size" type="range" min="6" max="16" step="2" value="10" />
+          <span id="round-size-val" class="pill">10</span>
+        </div>
+        <div class="group">
+          <button id="new-round" class="btn primary">Jauna spēle</button>
+          <button id="reset-progress" class="btn ghost">Notīrīt atlasi</button>
+        </div>
+      </div>
+      <div class="footer muted">Datu avots: <code>data/latvian_words_with_translations.xlsx</code> (Sheet1, kolonnas: LV, ENG, RU). Ja fails nav atrasts, tiek izmantots iebūvēts neliels piemērs.</div>
+    </section>
+
+    <section class="panel">
+      <div class="status" aria-live="polite">
+        <div class="pill">Pareizi: <span id="correct">0</span></div>
+        <div class="pill">Atlikušais: <span id="remain">0</span></div>
+        <div class="muted" id="loader">– tiek ielādēti vārdi…</div>
+      </div>
+      <div class="grid" id="game" hidden>
+        <div class="col">
+          <h3>Latviski (LV)</h3>
+          <ul id="lv-list" class="words"></ul>
+        </div>
+        <div class="col">
+          <h3 id="target-title">Angliski (ENG)</h3>
+          <ul id="target-list" class="words"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  // ====== Data loading ======
+  const EXCEL_PATH = 'data/latvian_words_with_translations.xlsx';
+  /**
+   * Fallback example (kept tiny): used only if Excel file is missing.
+   */
+  const SAMPLE_DATA = [
+    { LV: 'abonēt', ENG: 'subscribe', RU: 'подписываться' },
+    { LV: 'absolvēt', ENG: 'graduate', RU: 'выпускаться' },
+    { LV: 'adīt', ENG: 'knit', RU: 'вязать' },
+    { LV: 'aicināt', ENG: 'invite', RU: 'приглашать' },
+    { LV: 'aiziet', ENG: 'to leave', RU: 'уезжать' },
+    { LV: 'aizmirst', ENG: 'forget', RU: 'забывать' },
+    { LV: 'aiznest', ENG: 'carry', RU: 'нести' },
+    { LV: 'aizpildīt', ENG: 'to fill out', RU: 'заполнять' },
+    { LV: 'apciemot', ENG: 'visit', RU: 'посещать' },
+    { LV: 'apgūt', ENG: 'learn', RU: 'изучать' },
+  ];
+
+  /** Read the first sheet and return rows with LV/ENG/RU */
+  async function loadExcelRows() {
+    try {
+      const res = await fetch(EXCEL_PATH);
+      if (!res.ok) throw new Error('Excel not found');
+      const buf = await res.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array' });
+      const sheetName = wb.SheetNames[0];
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], { defval: '' });
+      const cleaned = rows
+        .filter(r => r.LV && (r.ENG || r.RU))
+        .map(r => ({ LV: String(r.LV).trim(), ENG: String(r.ENG||'').trim(), RU: String(r.RU||'').trim() }));
+      if (!cleaned.length) throw new Error('No rows');
+      return cleaned;
+    } catch (err) {
+      console.warn('Falling back to sample data:', err);
+      return SAMPLE_DATA;
+    }
+  }
+
+  // ====== Game state ======
+  let ALL = [];
+  let CURRENT = [];
+  let TARGET = 'ENG'; // or 'RU'
+  let selectedLV = null;
+  let selectedTarget = null;
+  const ui = {
+    roundSize: document.getElementById('round-size'),
+    roundSizeVal: document.getElementById('round-size-val'),
+    correct: document.getElementById('correct'),
+    remain: document.getElementById('remain'),
+    loader: document.getElementById('loader'),
+    game: document.getElementById('game'),
+    lvList: document.getElementById('lv-list'),
+    targetList: document.getElementById('target-list'),
+    targetTitle: document.getElementById('target-title'),
+    newRound: document.getElementById('new-round'),
+    reset: document.getElementById('reset-progress'),
+    langEng: document.getElementById('lang-eng'),
+    langRu: document.getElementById('lang-ru'),
+  };
+
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  }
+
+  function pickRound(all, n){
+    const pool = shuffle(all).slice(0, n);
+    return pool.map((row, idx) => ({ id: idx + '-' + Date.now(), ...row }));
+  }
+
+  function renderLists(){
+    // Left list (LV) keeps original order
+    ui.lvList.innerHTML = '';
+    CURRENT.forEach(row => {
+      const li = document.createElement('li');
+      li.textContent = row.LV;
+      li.dataset.id = row.id;
+      li.dataset.side = 'LV';
+      li.addEventListener('click', onPick);
+      ui.lvList.appendChild(li);
+    });
+
+    // Right list (target) is shuffled
+    const shuffled = shuffle(CURRENT.map(r => ({ id: r.id, text: r[TARGET] })));
+    ui.targetList.innerHTML = '';
+    shuffled.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.text || '—';
+      li.dataset.id = item.id;
+      li.dataset.side = 'TARGET';
+      li.addEventListener('click', onPick);
+      ui.targetList.appendChild(li);
+    });
+
+    ui.correct.textContent = document.querySelectorAll('li.matched').length / 2;
+    ui.remain.textContent = CURRENT.length;
+    ui.targetTitle.textContent = TARGET === 'ENG' ? 'Angliski (ENG)' : 'Krievu valodā (RU)';
+  }
+
+  function onPick(e){
+    const li = e.currentTarget;
+    if(li.classList.contains('matched')) return;
+
+    const side = li.dataset.side;
+    if(side === 'LV'){
+      if(selectedLV) selectedLV.classList.remove('selected');
+      selectedLV = li; li.classList.add('selected');
+    } else {
+      if(selectedTarget) selectedTarget.classList.remove('selected');
+      selectedTarget = li; li.classList.add('selected');
+    }
+
+    if(selectedLV && selectedTarget){
+      checkMatch();
+    }
+  }
+
+  function checkMatch(){
+    const isMatch = selectedLV?.dataset.id === selectedTarget?.dataset.id;
+    const mark = cls => [selectedLV, selectedTarget].forEach(el => el && el.classList.add(cls));
+    const unselect = () => [selectedLV, selectedTarget].forEach(el => el && el.classList.remove('selected'));
+
+    if(isMatch){
+      mark('matched');
+      // Remove that pair from CURRENT so remain counter drops
+      const id = selectedLV.dataset.id;
+      const idx = CURRENT.findIndex(r => r.id === id);
+      if(idx !== -1) CURRENT.splice(idx,1);
+      ui.correct.textContent = document.querySelectorAll('li.matched').length / 2;
+      ui.remain.textContent = CURRENT.length;
+    } else {
+      mark('wrong');
+      setTimeout(() => [selectedLV, selectedTarget].forEach(el => el && el.classList.remove('wrong')), 300);
+    }
+
+    selectedLV = null; selectedTarget = null; unselect();
+  }
+
+  function newRound(){
+    const n = parseInt(ui.roundSize.value, 10) || 10;
+    CURRENT = pickRound(ALL, n);
+    selectedLV = selectedTarget = null;
+    ui.lvList.innerHTML = ui.targetList.innerHTML = '';
+    renderLists();
+    ui.game.hidden = false;
+  }
+
+  // ====== Wire up controls ======
+  ui.roundSize.addEventListener('input', () => ui.roundSizeVal.textContent = ui.roundSize.value);
+  ui.newRound.addEventListener('click', newRound);
+  ui.reset.addEventListener('click', () => {
+    document.querySelectorAll('li.selected').forEach(el => el.classList.remove('selected'));
+    selectedLV = selectedTarget = null;
+  });
+  ui.langEng.addEventListener('click', () => setTarget('ENG'));
+  ui.langRu.addEventListener('click', () => setTarget('RU'));
+  function setTarget(code){
+    TARGET = code;
+    ui.langEng.setAttribute('aria-pressed', code==='ENG');
+    ui.langRu.setAttribute('aria-pressed', code==='RU');
+    renderLists();
+  }
+
+  // ====== Boot ======
+  (async function init(){
+    ui.loader.textContent = 'Ielādē datus…';
+    ALL = await loadExcelRows();
+    // Basic de-dup + cleanup
+    const seen = new Set();
+    ALL = ALL.filter(r => {
+      const key = r.LV + '|' + r.ENG + '|' + r.RU;
+      if(seen.has(key)) return false; seen.add(key); return true;
+    });
+    ui.loader.textContent = `Kopā pieejami ${ALL.length} vārdi.`;
+    newRound();
+  })();
+  </script>
+</body>
+</html>

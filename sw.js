@@ -1,47 +1,61 @@
-const CACHE_NAME = 'latvian-lang-b1-v2';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/week1.html',
-  '/app.js',
-  '/src/render.js',
-  '/src/state.js',
-  '/src/match.js',
-  '/src/forge.js',
-  '/i18n/en.json',
-  '/i18n/lv.json',
-  '/styles.css',
-  '/data/lv-en/forge.json',
-  '/data/lv-en/units.json',
-  '/data/lv-en/units/b1-paligdarbibas-vardi.json',
-  '/data/lv-en/units/braukt-ar-priedekliem.json',
-  '/data/lv-en/units/iet-ar-priedekliem.json',
-  '/data/lv-en/units/kapt-ar-priedekliem.json',
-  '/data/lv-en/units/lidot-ar-priedekliem.json',
-  '/data/lv-en/units/mainit-mainities-gimene.json',
-  '/data/lv-en/units/nakt-ar-priedekliem.json',
-  '/data/lv-en/units/nest-ar-priedekliem.json',
-  '/data/lv-en/units/refleksivie-un-dzives-notikumi.json'
+const CACHE_VERSION = "v5";
+const CACHE_NAME = `ll-b1-${CACHE_VERSION}`;
+const CORE_ASSETS = [
+"./",
+"./index.html",
+"./darbibas-vards.html",
+"./assets/styles.css",
+"./assets/app.js",
+"./data/words.json",
+"./manifest.json"
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
+self.addEventListener("install", (event) => {
+event.waitUntil(
+caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS))
+);
+self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      )
-    )
-  );
+self.addEventListener("activate", (event) => {
+event.waitUntil(
+caches.keys().then((keys) =>
+Promise.all(
+keys.filter(k => k.startsWith("ll-b1-") && k !== CACHE_NAME)
+.map(k => caches.delete(k))
+)
+)
+);
+self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
-  );
+self.addEventListener("fetch", (event) => {
+const req = event.request;
+
+// Network-first for JSON data; cache-first for static assets
+if (req.url.endsWith("/data/words.json")) {
+event.respondWith(
+fetch(req).then((res) => {
+const copy = res.clone();
+caches.open(CACHE_NAME).then(cache => cache.put(req, copy));
+return res;
+}).catch(() => caches.match(req))
+);
+return;
+}
+
+event.respondWith(
+caches.match(req).then((cached) => {
+if (cached) return cached;
+return fetch(req).catch(() => {
+if (req.destination === "document") {
+return new Response(
+`<html lang="lv"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><body style="font-family: system-ui, sans-serif; padding:1rem"><h1>Bezsaistes režīms</h1><p>Saturs nav pieejams bezsaistē. Atgriezies tiešsaistē un mēģini vēlreiz.</p></body></html>`,
+{ headers: { "Content-Type": "text/html; charset=utf-8" } }
+);
+}
 });
+})
+);
+});
+

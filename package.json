@@ -1,8 +1,13 @@
 {
   "name": "latvian-lang-b1",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "build:data": "node scripts/xlsx_to_json.mjs"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
   }
 }

@@ -6,6 +6,7 @@ const BTN_NEW = document.getElementById("btn-new");
 const BTN_SPEAK = document.getElementById("btn-speak");
 const HELP = document.getElementById("help");
 const LANG_SEL = document.getElementById("language-select");
+const COUNT_SEL = document.getElementById("count-select");
 
 let data = [];
 let current = [];
@@ -156,12 +157,13 @@ if (card) handleSelect(card);
 
 async function newGame() {
 HELP.textContent = "";
-score = JSON.parse(localStorage.getItem("score") || '{"right":0,"wrong":0}');
+score = { right: 0, wrong: 0 };
 announceStatus();
 
+sel = { lv: null, tr: null };
+
 const sample = [];
-// Choose 8–12 random items for each round
-const COUNT = 10;
+const COUNT = Number(COUNT_SEL?.value || 10);
 const used = new Set();
 while (sample.length < Math.min(COUNT, data.length)) {
   const i = rand(data.length);
@@ -198,8 +200,8 @@ currentLang = LANG_SEL.value;
 renderRound(current);
 });
 
-window.addEventListener("beforeunload", () => {
-localStorage.setItem("score", JSON.stringify(score));
+COUNT_SEL?.addEventListener('change', () => {
+newGame();
 });
 
 // Bootstrap the app

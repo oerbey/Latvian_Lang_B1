@@ -5,12 +5,15 @@ const SCORE = document.getElementById("score");
 const BTN_NEW = document.getElementById("btn-new");
 const BTN_SPEAK = document.getElementById("btn-speak");
 const HELP = document.getElementById("help");
+const LANG_SEL = document.getElementById("language-select");
 
 let data = [];
 let current = [];
 let speakOn = false;
 let score = { right: 0, wrong: 0 };
 let sel = { lv: null, tr: null };
+let currentLang = 'eng';
+LANG_SEL && (LANG_SEL.value = currentLang);
 
 // Utils
 const rand = (n) => Math.floor(Math.random() * n);
@@ -30,7 +33,7 @@ LV_BOX.innerHTML = "";
 TR_BOX.innerHTML = "";
 
 const lv = items.map((it, idx) => ({ key: idx, text: it.lv }));
-const tr = items.map((it, idx) => ({ key: idx, text: it.eng || it.ru }));
+const tr = items.map((it, idx) => ({ key: idx, text: it[currentLang] }));
 
 const lvHTML = lv.map(o => cardHTML(o.text, o.key, "lv")).join("");
 const trHTML = shuffled(tr).map(o => cardHTML(o.text, o.key, "tr")).join("");
@@ -115,7 +118,7 @@ if (sel.lv !== null && sel.tr !== null) {
     score.wrong++;
     announceStatus();
     const lvWord = current[sel.lv]?.lv || "";
-    const trCandidate = current[sel.tr]?.eng || current[sel.tr]?.ru || "";
+    const trCandidate = current[sel.tr]?.[currentLang] || "";
     HELP.textContent = `Nē. “${lvWord}” nav “${trCandidate}”. Pamēģini vēlreiz.`;
   }
   // reset selection (but keep disabled pairs)
@@ -188,6 +191,11 @@ BTN_SPEAK?.addEventListener("click", () => {
 speakOn = !speakOn;
 BTN_SPEAK.setAttribute("aria-pressed", String(speakOn));
 BTN_SPEAK.textContent = speakOn ? "Izruna: ieslēgta" : "Ieslēgt izrunu";
+});
+
+LANG_SEL?.addEventListener('change', () => {
+currentLang = LANG_SEL.value;
+renderRound(current);
 });
 
 window.addEventListener("beforeunload", () => {

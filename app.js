@@ -189,11 +189,13 @@ async function loadVocabulary(from='lv', to='en'){
   const idxRes = await fetch(base + 'units.json');
   if(!idxRes.ok) throw new Error('Units index not found');
   const idx = await idxRes.json();
-  const units = [];
-  for(const u of idx.units){
+
+  const unitPromises = idx.units.map(async u => {
     const res = await fetch(base + u.file);
-    if(res.ok){ units.push(await res.json()); }
-  }
+    return res.ok ? await res.json() : null;
+  });
+  const units = (await Promise.all(unitPromises)).filter(Boolean);
+
   const forgeRes = await fetch(base + 'forge.json');
   const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
   state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };

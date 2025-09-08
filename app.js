@@ -89,6 +89,15 @@ function draw(){
 }
 setRedraw(draw);
 
+function toggleDeckSize(){
+  state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
+  const btn = document.getElementById('btn-deck-size');
+  btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
+  btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+  setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
+  if(state.mode === MODES.MATCH) startMatchRound();
+}
+
 function setupEventListeners(){
   document.getElementById('mode-match').addEventListener('click', ()=>{ state.mode=MODES.MATCH; state.roundIndex=0; startMatchRound(); });
   document.getElementById('mode-forge').addEventListener('click', ()=>{ state.mode=MODES.FORGE; state.roundIndex=0; startForgeRound(); });
@@ -96,14 +105,7 @@ function setupEventListeners(){
   document.getElementById('btn-challenge').addEventListener('click', ()=>{ state.difficulty='challenge'; setStatus(i18n.status.challenge); });
   document.getElementById('btn-prev').addEventListener('click', ()=>{ state.roundIndex=Math.max(0,state.roundIndex-1); state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
   document.getElementById('btn-next').addEventListener('click', ()=>{ state.roundIndex++; state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
-  document.getElementById('btn-deck-size').addEventListener('click', ()=>{
-    state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
-    const btn = document.getElementById('btn-deck-size');
-    btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
-    btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
-    setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
-    if(state.mode === MODES.MATCH) startMatchRound();
-  });
+  document.getElementById('btn-deck-size').addEventListener('click', toggleDeckSize);
   document.getElementById('btn-help').addEventListener('click', ()=>{ state.showHelp=!state.showHelp; triggerRedraw(); });
   document.getElementById('btn-export').addEventListener('click', exportCSV);
   document.getElementById('language-select').addEventListener('change', async e=>{
@@ -153,14 +155,7 @@ function setupEventListeners(){
     if(e.key==='2'){ state.mode=MODES.FORGE; startForgeRound(); }
     if(e.key==='h' || e.key==='H'){ state.showHelp=!state.showHelp; triggerRedraw(); }
     if(e.key==='r' || e.key==='R'){ state.mode===MODES.MATCH?startMatchRound():startForgeRound(); }
-    if(e.key==='d' || e.key==='D'){
-      state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
-      const btn = document.getElementById('btn-deck-size');
-      btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
-      btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
-      setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
-      if(state.mode===MODES.MATCH) startMatchRound();
-    }
+    if(e.key==='d' || e.key==='D') toggleDeckSize();
   });
 }
 

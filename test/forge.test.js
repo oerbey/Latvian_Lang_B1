@@ -1,18 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mulberry32, state } from '../src/state.js';
+import { stubForgeDom } from './helpers/dom-stubs.js';
 
-// minimal DOM stubs for modules that expect a browser environment
-global.document = {
-  getElementById: () => ({
-    getContext: () => ({}),
-    width: 980,
-    height: 560,
-    style: {},
-    parentElement: { offsetWidth: 980 },
-    getBoundingClientRect: () => ({ left: 0, top: 0 })
-  })
-};
+stubForgeDom();
 
 const { startForgeRound, ALL_PREFIXES } = await import('../src/forge.js');
 

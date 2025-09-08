@@ -136,18 +136,37 @@ function setupEventListeners(){
     if(t && t.onClick) t.onClick({ x: coords.x, y: coords.y, target: t });
   });
   let touchStartY = null;
+  let touchStartScrollY = 0;
   let touchStartTime = 0;
+  let touchMoved = false;
   canvas.addEventListener('touchstart', e=>{
     const t=e.touches[0];
     const coords = getCanvasCoordinates(t.clientX, t.clientY);
     touchStartY = t.clientY; touchStartTime = Date.now();
-    const hit = hitAt(coords.x, coords.y);
-    if(hit && hit.onClick){ hit.onClick({ x: coords.x, y: coords.y, target: hit }); e.preventDefault(); }
+    touchStartScrollY = state.matchState ? state.matchState.scrollY : 0;
+    touchMoved = false;
   }, { passive: false });
-  canvas.addEventListener('touchmove', e=>{ e.preventDefault(); }, { passive: false });
+  canvas.addEventListener('touchmove', e=>{
+    const t = e.touches[0];
+    const dy = t.clientY - touchStartY;
+    if(Math.abs(dy) > 5) touchMoved = true;
+    if(state.mode === MODES.MATCH && state.matchState){
+      const ms = state.matchState;
+      const viewH = ms.viewBottom - ms.viewTop;
+      const maxScroll = Math.max(0, ms.contentH - viewH);
+      ms.scrollY = Math.max(0, Math.min(maxScroll, touchStartScrollY - dy));
+      triggerRedraw();
+      e.preventDefault();
+    }
+  }, { passive: false });
   canvas.addEventListener('touchend', e=>{
     const dt = Date.now()-touchStartTime;
-    if(dt<200){ const t=e.changedTouches[0]; const coords=getCanvasCoordinates(t.clientX,t.clientY); const hit=hitAt(coords.x,coords.y); if(hit&&hit.onClick) hit.onClick({ x: coords.x, y: coords.y, target: hit }); }
+    if(dt<200 && !touchMoved){
+      const t=e.changedTouches[0];
+      const coords=getCanvasCoordinates(t.clientX,t.clientY);
+      const hit=hitAt(coords.x,coords.y);
+      if(hit&&hit.onClick){ hit.onClick({ x: coords.x, y: coords.y, target: hit }); e.preventDefault(); }
+    }
   }, { passive: false });
   canvas.addEventListener('wheel', e=>{
     if(state.mode !== MODES.MATCH || !state.matchState) return;

@@ -8,6 +8,9 @@ let currentLang = 'lv';
 
 async function loadTranslations(lang){
   const res = await fetch(`i18n/${lang}.json`);
+  if(!res.ok){
+    throw new Error('Failed to load translations');
+  }
   i18n = await res.json();
   currentLang = lang;
   document.documentElement.lang = lang;
@@ -110,12 +113,18 @@ function setupEventListeners(){
   document.getElementById('btn-export').addEventListener('click', exportCSV);
   document.getElementById('language-select').addEventListener('change', async e=>{
     const lang = e.target.value;
-    await loadTranslations(lang);
-    const target = lang === 'ru' ? 'ru' : 'en';
-    await loadVocabulary('lv', target);
+    try {
+      await loadTranslations(lang);
+      const target = lang === 'ru' ? 'ru' : 'en';
+      await loadVocabulary('lv', target);
 
-    state.roundIndex = 0;
-    state.mode===MODES.MATCH?startMatchRound():startForgeRound();
+      state.roundIndex = 0;
+      state.mode===MODES.MATCH?startMatchRound():startForgeRound();
+    } catch(err) {
+      console.error('Failed to load translations', err);
+      alert('Failed to load translations');
+      e.target.value = currentLang;
+    }
   });
   canvas.addEventListener('mousemove', e=>{
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
@@ -198,7 +207,14 @@ async function loadVocabulary(from='lv', to='en'){
 }
 
 async function startInit(){
-  await loadTranslations(currentLang);
+  try {
+    await loadTranslations(currentLang);
+  } catch(e){
+    console.error('Failed to load translations', e);
+    loadingOverlay.textContent = 'Failed to load translations';
+    canvasElement.classList.remove('loading');
+    return;
+  }
   setupEventListeners();
   try {
     const target = currentLang === 'ru' ? 'ru' : 'en';

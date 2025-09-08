@@ -1,0 +1,1327 @@
+[
+  {
+    "lv": "abonēt",
+    "eng": "subscribe",
+    "ru": "подписываться"
+  },
+  {
+    "lv": "absolvēt",
+    "eng": "graduate",
+    "ru": "выпускник"
+  },
+  {
+    "lv": "adīt",
+    "eng": "knit",
+    "ru": "вязать"
+  },
+  {
+    "lv": "aicināt",
+    "eng": "invite",
+    "ru": "приглашать"
+  },
+  {
+    "lv": "aiziet",
+    "eng": "to leave",
+    "ru": "Уезжать"
+  },
+  {
+    "lv": "aizmirst",
+    "eng": "forget",
+    "ru": "забывать"
+  },
+  {
+    "lv": "aiznest",
+    "eng": "Carry",
+    "ru": "Нести"
+  },
+  {
+    "lv": "aizpildīt",
+    "eng": "to fill out",
+    "ru": "для заполнения"
+  },
+  {
+    "lv": "apciemot",
+    "eng": "visit",
+    "ru": "визит"
+  },
+  {
+    "lv": "apgūt",
+    "eng": "Learn",
+    "ru": "Учиться"
+  },
+  {
+    "lv": "apjiet",
+    "eng": "bypass",
+    "ru": "обходить"
+  },
+  {
+    "lv": "apkalpot",
+    "eng": "serve",
+    "ru": "служить"
+  },
+  {
+    "lv": "apkopot",
+    "eng": "Collect",
+    "ru": "Собирать"
+  },
+  {
+    "lv": "apmeklēt",
+    "eng": "visit",
+    "ru": "визит"
+  },
+  {
+    "lv": "apmierināt",
+    "eng": "Satisfy",
+    "ru": "Удовлетворять"
+  },
+  {
+    "lv": "apskatīt",
+    "eng": "View",
+    "ru": "Вид"
+  },
+  {
+    "lv": "apsveikt",
+    "eng": "congratulate",
+    "ru": "поздравлять"
+  },
+  {
+    "lv": "ārstēt",
+    "eng": "Treat",
+    "ru": "Лечить"
+  },
+  {
+    "lv": "atbildēt",
+    "eng": "to answer, to reply",
+    "ru": "отвечать"
+  },
+  {
+    "lv": "atcerēties",
+    "eng": "remember",
+    "ru": "помнить"
+  },
+  {
+    "lv": "atgriezties",
+    "eng": "return",
+    "ru": "возвращать"
+  },
+  {
+    "lv": "atkārtot",
+    "eng": "repeat",
+    "ru": "повторять"
+  },
+  {
+    "lv": "atnest",
+    "eng": "bring",
+    "ru": "приносить"
+  },
+  {
+    "lv": "atpūsties",
+    "eng": "relax",
+    "ru": "ослаблять"
+  },
+  {
+    "lv": "atrast",
+    "eng": "to find",
+    "ru": "Найти"
+  },
+  {
+    "lv": "atrasties",
+    "eng": "Be",
+    "ru": "Быть"
+  },
+  {
+    "lv": "atsūtīt",
+    "eng": "Send",
+    "ru": "Отправить"
+  },
+  {
+    "lv": "atzīmēt",
+    "eng": "Mark",
+    "ru": "Метка"
+  },
+  {
+    "lv": "augt",
+    "eng": "grow",
+    "ru": "расти"
+  },
+  {
+    "lv": "beigt",
+    "eng": "end",
+    "ru": "конец"
+  },
+  {
+    "lv": "beigties",
+    "eng": "End",
+    "ru": "Конец"
+  },
+  {
+    "lv": "braukt",
+    "eng": "to drive, to ride",
+    "ru": "ехать, ездить"
+  },
+  {
+    "lv": "būt",
+    "eng": "to be",
+    "ru": "быть"
+  },
+  {
+    "lv": "būvēt",
+    "eng": "build",
+    "ru": "строить"
+  },
+  {
+    "lv": "celt",
+    "eng": "Bring",
+    "ru": "Приносить"
+  },
+  {
+    "lv": "celties",
+    "eng": "get up",
+    "ru": "Вставай"
+  },
+  {
+    "lv": "ceļot",
+    "eng": "travel",
+    "ru": "путешествовать"
+  },
+  {
+    "lv": "cerēt",
+    "eng": "hope",
+    "ru": "надежда"
+  },
+  {
+    "lv": "ciemoties",
+    "eng": "visit",
+    "ru": "визит"
+  },
+  {
+    "lv": "darināt",
+    "eng": "to make",
+    "ru": "сделать"
+  },
+  {
+    "lv": "darīt",
+    "eng": "do",
+    "ru": "делать"
+  },
+  {
+    "lv": "dāvināt",
+    "eng": "Bestow",
+    "ru": "Давать"
+  },
+  {
+    "lv": "dejot",
+    "eng": "dance",
+    "ru": "танцевать"
+  },
+  {
+    "lv": "dibināt",
+    "eng": "start",
+    "ru": "начало"
+  },
+  {
+    "lv": "domāt",
+    "eng": "think",
+    "ru": "думать"
+  },
+  {
+    "lv": "dot",
+    "eng": "to give",
+    "ru": "дать"
+  },
+  {
+    "lv": "doties",
+    "eng": "to go, to leave",
+    "ru": "отправиться, идти"
+  },
+  {
+    "lv": "draudzēties",
+    "eng": "Hanging out",
+    "ru": "Тусовка"
+  },
+  {
+    "lv": "drīkstēt",
+    "eng": "may",
+    "ru": "Май"
+  },
+  {
+    "lv": "dzert",
+    "eng": "to drink",
+    "ru": "пить"
+  },
+  {
+    "lv": "dziedāt",
+    "eng": "sing",
+    "ru": "петь"
+  },
+  {
+    "lv": "dzirdēt",
+    "eng": "hear",
+    "ru": "слышать"
+  },
+  {
+    "lv": "dzīvot",
+    "eng": "live",
+    "ru": "жить"
+  },
+  {
+    "lv": "ēst",
+    "eng": "to eat",
+    "ru": "есть"
+  },
+  {
+    "lv": "flizēt",
+    "eng": "Tile",
+    "ru": "Кафель"
+  },
+  {
+    "lv": "fotografēt",
+    "eng": "photograph",
+    "ru": "фотография"
+  },
+  {
+    "lv": "gaidīt",
+    "eng": "wait",
+    "ru": "ждать"
+  },
+  {
+    "lv": "garšot",
+    "eng": "Smack",
+    "ru": "Привкус"
+  },
+  {
+    "lv": "gatavot",
+    "eng": "cook",
+    "ru": "повар"
+  },
+  {
+    "lv": "gatavoties",
+    "eng": "Preparing",
+    "ru": "Подготовка"
+  },
+  {
+    "lv": "gleznot",
+    "eng": "Paint",
+    "ru": "Краска"
+  },
+  {
+    "lv": "gribēt",
+    "eng": "to want",
+    "ru": "хотеть"
+  },
+  {
+    "lv": "gulēt",
+    "eng": "to sleep",
+    "ru": "спать"
+  },
+  {
+    "lv": "gūt",
+    "eng": "Getting",
+    "ru": "Получение"
+  },
+  {
+    "lv": "ģērbties",
+    "eng": "Dress",
+    "ru": "Платье"
+  },
+  {
+    "lv": "iegūt",
+    "eng": "get",
+    "ru": "Получить"
+  },
+  {
+    "lv": "ielidot",
+    "eng": "On the fly",
+    "ru": "На лету"
+  },
+  {
+    "lv": "ielūgt",
+    "eng": "Invite",
+    "ru": "Приглашать"
+  },
+  {
+    "lv": "iepazīstināt",
+    "eng": "Introduce",
+    "ru": "Представлять"
+  },
+  {
+    "lv": "iepirkties",
+    "eng": "Shop",
+    "ru": "Магазин"
+  },
+  {
+    "lv": "iesaiņot",
+    "eng": "Wrap",
+    "ru": "Завернуть"
+  },
+  {
+    "lv": "ieslēgt",
+    "eng": "Turn",
+    "ru": "Поворачивать"
+  },
+  {
+    "lv": "iesniegt",
+    "eng": "Submit",
+    "ru": "Отправить"
+  },
+  {
+    "lv": "iet",
+    "eng": "to go, to walk",
+    "ru": "идти, ходить"
+  },
+  {
+    "lv": "ieveidot",
+    "eng": "form",
+    "ru": "форма"
+  },
+  {
+    "lv": "interesēt",
+    "eng": "interest",
+    "ru": "интерес"
+  },
+  {
+    "lv": "interesēties",
+    "eng": "Interested in",
+    "ru": "Интересно"
+  },
+  {
+    "lv": "īrēt",
+    "eng": "Rent",
+    "ru": "Аренда"
+  },
+  {
+    "lv": "izdarīt",
+    "eng": "Done",
+    "ru": "Договорились"
+  },
+  {
+    "lv": "izgatavot",
+    "eng": "Make",
+    "ru": "Делать"
+  },
+  {
+    "lv": "iziet",
+    "eng": "exit",
+    "ru": "выход"
+  },
+  {
+    "lv": "izklaidēties",
+    "eng": "Fun",
+    "ru": "Веселье"
+  },
+  {
+    "lv": "izķemmēt",
+    "eng": "comb out",
+    "ru": "вычесывать"
+  },
+  {
+    "lv": "izlasīt",
+    "eng": "Read",
+    "ru": "Читать"
+  },
+  {
+    "lv": "izlidot",
+    "eng": "Fly out",
+    "ru": "Вылетать"
+  },
+  {
+    "lv": "izskatīties",
+    "eng": "Look",
+    "ru": "Смотреть"
+  },
+  {
+    "lv": "izslēgt",
+    "eng": "turn off",
+    "ru": "Отключить"
+  },
+  {
+    "lv": "izsniegt",
+    "eng": "issue",
+    "ru": "выпуск"
+  },
+  {
+    "lv": "iztīrīt",
+    "eng": "Clean",
+    "ru": "Чистый"
+  },
+  {
+    "lv": "izvēlēties",
+    "eng": "choose",
+    "ru": "выбирать"
+  },
+  {
+    "lv": "jautāt",
+    "eng": "ask",
+    "ru": "спрашивать"
+  },
+  {
+    "lv": "just",
+    "eng": "Just",
+    "ru": "Справедливый"
+  },
+  {
+    "lv": "justies",
+    "eng": "feel",
+    "ru": "чувствовать"
+  },
+  {
+    "lv": "kāpt",
+    "eng": "Climb",
+    "ru": "Подниматься"
+  },
+  {
+    "lv": "klāt",
+    "eng": "Present",
+    "ru": "Присутствующий"
+  },
+  {
+    "lv": "klausīties",
+    "eng": "listen",
+    "ru": "слушать"
+  },
+  {
+    "lv": "kļūt",
+    "eng": "become",
+    "ru": "становиться"
+  },
+  {
+    "lv": "krāsot",
+    "eng": "Painted",
+    "ru": "Крашеный"
+  },
+  {
+    "lv": "kursēt",
+    "eng": "run",
+    "ru": "бежать"
+  },
+  {
+    "lv": "ķemmēt",
+    "eng": "comb",
+    "ru": "гребень"
+  },
+  {
+    "lv": "labot",
+    "eng": "Edit",
+    "ru": "Редактировать"
+  },
+  {
+    "lv": "lasīt",
+    "eng": "to read",
+    "ru": "читать"
+  },
+  {
+    "lv": "lauzt",
+    "eng": "break",
+    "ru": "ломать"
+  },
+  {
+    "lv": "lidot",
+    "eng": "to fly",
+    "ru": "лететь"
+  },
+  {
+    "lv": "lietot",
+    "eng": "use",
+    "ru": "использование"
+  },
+  {
+    "lv": "likt",
+    "eng": "put",
+    "ru": "класть"
+  },
+  {
+    "lv": "lūgt",
+    "eng": "ask",
+    "ru": "спрашивать"
+  },
+  {
+    "lv": "lūzt",
+    "eng": "break",
+    "ru": "ломать"
+  },
+  {
+    "lv": "mācīt",
+    "eng": "to teach",
+    "ru": "учить"
+  },
+  {
+    "lv": "mācīties",
+    "eng": "to study, to learn",
+    "ru": "учиться, изучать"
+  },
+  {
+    "lv": "mainīt",
+    "eng": "change",
+    "ru": "менять"
+  },
+  {
+    "lv": "mainīties",
+    "eng": "change",
+    "ru": "менять"
+  },
+  {
+    "lv": "maksāt",
+    "eng": "pay",
+    "ru": "платить"
+  },
+  {
+    "lv": "makšķerēt",
+    "eng": "Fishing",
+    "ru": "Рыбная ловля"
+  },
+  {
+    "lv": "mazgāt",
+    "eng": "wash",
+    "ru": "мыть"
+  },
+  {
+    "lv": "mazgāties",
+    "eng": "wash",
+    "ru": "мыть"
+  },
+  {
+    "lv": "meklēt",
+    "eng": "seek",
+    "ru": "искать"
+  },
+  {
+    "lv": "mest",
+    "eng": "throw",
+    "ru": "бросать"
+  },
+  {
+    "lv": "mīlēt",
+    "eng": "love",
+    "ru": "любовь"
+  },
+  {
+    "lv": "mūrēt",
+    "eng": "masonry",
+    "ru": "кладка"
+  },
+  {
+    "lv": "nākt",
+    "eng": "come",
+    "ru": "приходить"
+  },
+  {
+    "lv": "nest",
+    "eng": "to carry, to bring",
+    "ru": "нести, принести"
+  },
+  {
+    "lv": "nodarboties",
+    "eng": "Deal",
+    "ru": "Сделка"
+  },
+  {
+    "lv": "noformēt",
+    "eng": "Design",
+    "ru": "Проектировать"
+  },
+  {
+    "lv": "nokāpt",
+    "eng": "Descend",
+    "ru": "Спускаться"
+  },
+  {
+    "lv": "nokavēt",
+    "eng": "late",
+    "ru": "поздний"
+  },
+  {
+    "lv": "nokrāsot",
+    "eng": "Paint",
+    "ru": "Краска"
+  },
+  {
+    "lv": "nopirkt",
+    "eng": "buy",
+    "ru": "покупать"
+  },
+  {
+    "lv": "norādīt",
+    "eng": "Specify",
+    "ru": "Уточнять"
+  },
+  {
+    "lv": "nosaukt",
+    "eng": "Name",
+    "ru": "Имя"
+  },
+  {
+    "lv": "noskaidrot",
+    "eng": "Find out",
+    "ru": "Узнать"
+  },
+  {
+    "lv": "noskriet",
+    "eng": "Outrun",
+    "ru": "Обогнать"
+  },
+  {
+    "lv": "nosūtīt",
+    "eng": "Send",
+    "ru": "Отправить"
+  },
+  {
+    "lv": "notikt",
+    "eng": "happen",
+    "ru": "происходить"
+  },
+  {
+    "lv": "novēlēt",
+    "eng": "Wish",
+    "ru": "Желание"
+  },
+  {
+    "lv": "nožēlot",
+    "eng": "Repent",
+    "ru": "Раскаиваться"
+  },
+  {
+    "lv": "ņemt",
+    "eng": "take",
+    "ru": "брать"
+  },
+  {
+    "lv": "ogot",
+    "eng": "Ogot",
+    "ru": "Огот"
+  },
+  {
+    "lv": "organizēt",
+    "eng": "organize",
+    "ru": "организовать"
+  },
+  {
+    "lv": "pabeigt",
+    "eng": "finish",
+    "ru": "заканчивать"
+  },
+  {
+    "lv": "pacelties",
+    "eng": "Rise",
+    "ru": "Подниматься"
+  },
+  {
+    "lv": "padarīt",
+    "eng": "Make",
+    "ru": "Делать"
+  },
+  {
+    "lv": "paēst",
+    "eng": "Eat",
+    "ru": "Есть"
+  },
+  {
+    "lv": "paiet",
+    "eng": "Take",
+    "ru": "Брать"
+  },
+  {
+    "lv": "pajautāt",
+    "eng": "Ask",
+    "ru": "Спрашивать"
+  },
+  {
+    "lv": "palīdzēt",
+    "eng": "help",
+    "ru": "Справка"
+  },
+  {
+    "lv": "palikt",
+    "eng": "stay",
+    "ru": "оставаться"
+  },
+  {
+    "lv": "pamatot",
+    "eng": "Justify",
+    "ru": "Оправдывать"
+  },
+  {
+    "lv": "paņemt",
+    "eng": "Take",
+    "ru": "Брать"
+  },
+  {
+    "lv": "parādīt",
+    "eng": "show",
+    "ru": "показывать"
+  },
+  {
+    "lv": "parakstīt",
+    "eng": "sign",
+    "ru": "знак"
+  },
+  {
+    "lv": "parakstīties",
+    "eng": "Subscribe",
+    "ru": "Подписываться"
+  },
+  {
+    "lv": "pārdot",
+    "eng": "to sell",
+    "ru": "продавать"
+  },
+  {
+    "lv": "pāriet",
+    "eng": "Move",
+    "ru": "Двигаться"
+  },
+  {
+    "lv": "paskatīties",
+    "eng": "look at",
+    "ru": "Посмотри"
+  },
+  {
+    "lv": "pasniegt",
+    "eng": "Present",
+    "ru": "Присутствующий"
+  },
+  {
+    "lv": "pastaigāties",
+    "eng": "Walk",
+    "ru": "Ходить"
+  },
+  {
+    "lv": "pastāstīt",
+    "eng": "Tell",
+    "ru": "Рассказывать"
+  },
+  {
+    "lv": "pasūtīt",
+    "eng": "Order",
+    "ru": "Порядок"
+  },
+  {
+    "lv": "pateikt",
+    "eng": "tell",
+    "ru": "рассказывать"
+  },
+  {
+    "lv": "patikt",
+    "eng": "like",
+    "ru": "любить"
+  },
+  {
+    "lv": "pavadīt",
+    "eng": "accompany",
+    "ru": "сопровождать"
+  },
+  {
+    "lv": "pazīt",
+    "eng": "recognize",
+    "ru": "признавать"
+  },
+  {
+    "lv": "pazust",
+    "eng": "Disappear",
+    "ru": "Исчезать"
+  },
+  {
+    "lv": "pārcelties",
+    "eng": "move",
+    "ru": "двигаться"
+  },
+  {
+    "lv": "peldēt",
+    "eng": "swim",
+    "ru": "плавать"
+  },
+  {
+    "lv": "peldēties",
+    "eng": "Swim",
+    "ru": "Плавать"
+  },
+  {
+    "lv": "pētīt",
+    "eng": "explore",
+    "ru": "исследовать"
+  },
+  {
+    "lv": "piecelties",
+    "eng": "Up",
+    "ru": "Вверх"
+  },
+  {
+    "lv": "piedāvāt",
+    "eng": "Offer",
+    "ru": "Предлагать"
+  },
+  {
+    "lv": "piederēt",
+    "eng": "Own",
+    "ru": "Владеть"
+  },
+  {
+    "lv": "pietiet",
+    "eng": "pietiet",
+    "ru": "pietiet"
+  },
+  {
+    "lv": "pienākt",
+    "eng": "Come",
+    "ru": "Приходить"
+  },
+  {
+    "lv": "pieņemt",
+    "eng": "Accept",
+    "ru": "Принимать"
+  },
+  {
+    "lv": "pierakstīt",
+    "eng": "Sign",
+    "ru": "Знак"
+  },
+  {
+    "lv": "pierunāt",
+    "eng": "Persuade",
+    "ru": "Убеждать"
+  },
+  {
+    "lv": "piesacīties",
+    "eng": "Log in",
+    "ru": "Войти"
+  },
+  {
+    "lv": "pieteikties",
+    "eng": "log on",
+    "ru": "Вход в систему"
+  },
+  {
+    "lv": "piezvanīt",
+    "eng": "call",
+    "ru": "звать"
+  },
+  {
+    "lv": "pildīt",
+    "eng": "fulfill",
+    "ru": "исполнять"
+  },
+  {
+    "lv": "pirkt",
+    "eng": "to buy",
+    "ru": "покупать"
+  },
+  {
+    "lv": "plānot",
+    "eng": "Plan",
+    "ru": "План"
+  },
+  {
+    "lv": "prast",
+    "eng": "Can",
+    "ru": "Мочь"
+  },
+  {
+    "lv": "priecāties",
+    "eng": "Rejoice",
+    "ru": "Радовать"
+  },
+  {
+    "lv": "rādīt",
+    "eng": "show",
+    "ru": "показывать"
+  },
+  {
+    "lv": "rakstīt",
+    "eng": "to write",
+    "ru": "писать"
+  },
+  {
+    "lv": "redzēt",
+    "eng": "to see",
+    "ru": "видеть"
+  },
+  {
+    "lv": "reģistrēt",
+    "eng": "register",
+    "ru": "регистрировать"
+  },
+  {
+    "lv": "reģistrēties",
+    "eng": "register",
+    "ru": "регистрировать"
+  },
+  {
+    "lv": "rēķināt",
+    "eng": "Calculate",
+    "ru": "Вычислять"
+  },
+  {
+    "lv": "remontēt",
+    "eng": "Repaired",
+    "ru": "Отремонтированы"
+  },
+  {
+    "lv": "rezervēt",
+    "eng": "Book",
+    "ru": "Книга"
+  },
+  {
+    "lv": "robežoties",
+    "eng": "border",
+    "ru": "граница"
+  },
+  {
+    "lv": "runāt",
+    "eng": "to speak, to talk",
+    "ru": "говорить, разговаривать"
+  },
+  {
+    "lv": "sacīt",
+    "eng": "say",
+    "ru": "сказать"
+  },
+  {
+    "lv": "sagaidīt",
+    "eng": "Expect",
+    "ru": "Ожидать"
+  },
+  {
+    "lv": "sagatavot",
+    "eng": "Prepare",
+    "ru": "Готовить"
+  },
+  {
+    "lv": "saģērbties",
+    "eng": "dress",
+    "ru": "платье"
+  },
+  {
+    "lv": "sajust",
+    "eng": "Feel",
+    "ru": "Чувствовать"
+  },
+  {
+    "lv": "sākt",
+    "eng": "begin",
+    "ru": "начинать"
+  },
+  {
+    "lv": "sākties",
+    "eng": "Begin",
+    "ru": "Начинать"
+  },
+  {
+    "lv": "salabot",
+    "eng": "Repair",
+    "ru": "Ремонт"
+  },
+  {
+    "lv": "samaksāt",
+    "eng": "Pay",
+    "ru": "Платить"
+  },
+  {
+    "lv": "saņemt",
+    "eng": "receive",
+    "ru": "получать"
+  },
+  {
+    "lv": "sāpēt",
+    "eng": "Hurting",
+    "ru": "Больно"
+  },
+  {
+    "lv": "sargāt",
+    "eng": "Protect",
+    "ru": "Защищать"
+  },
+  {
+    "lv": "sarunāties",
+    "eng": "Talk",
+    "ru": "Разговаривать"
+  },
+  {
+    "lv": "satikt",
+    "eng": "Meet",
+    "ru": "Встречать"
+  },
+  {
+    "lv": "satikties",
+    "eng": "meet",
+    "ru": "встречать"
+  },
+  {
+    "lv": "saukt",
+    "eng": "call",
+    "ru": "звать"
+  },
+  {
+    "lv": "sauļoties",
+    "eng": "sunbathe",
+    "ru": "загорать"
+  },
+  {
+    "lv": "sēņot",
+    "eng": "mushroom",
+    "ru": "гриб"
+  },
+  {
+    "lv": "sērfot",
+    "eng": "Surf",
+    "ru": "Прибой"
+  },
+  {
+    "lv": "skanēt",
+    "eng": "Play",
+    "ru": "Играть"
+  },
+  {
+    "lv": "skatīties",
+    "eng": "watch",
+    "ru": "часы"
+  },
+  {
+    "lv": "skriet",
+    "eng": "run",
+    "ru": "бежать"
+  },
+  {
+    "lv": "slēgt",
+    "eng": "close",
+    "ru": "закрывать"
+  },
+  {
+    "lv": "slēpot",
+    "eng": "ski",
+    "ru": "лыжа"
+  },
+  {
+    "lv": "slidot",
+    "eng": "Skating",
+    "ru": "Катание на коньках"
+  },
+  {
+    "lv": "smēķēt",
+    "eng": "smoke",
+    "ru": "дым"
+  },
+  {
+    "lv": "smieties",
+    "eng": "laugh",
+    "ru": "смеяться"
+  },
+  {
+    "lv": "sniegt",
+    "eng": "give",
+    "ru": "давать"
+  },
+  {
+    "lv": "spēlēt",
+    "eng": "play",
+    "ru": "играть"
+  },
+  {
+    "lv": "spēt",
+    "eng": "be able to",
+    "ru": "иметь возможность"
+  },
+  {
+    "lv": "spīdēt",
+    "eng": "shine",
+    "ru": "светить"
+  },
+  {
+    "lv": "sportot",
+    "eng": "sport",
+    "ru": "спорт"
+  },
+  {
+    "lv": "staigāt",
+    "eng": "walk",
+    "ru": "ходить"
+  },
+  {
+    "lv": "stāvēt",
+    "eng": "stand",
+    "ru": "стоять"
+  },
+  {
+    "lv": "strādāt",
+    "eng": "to work",
+    "ru": "работать"
+  },
+  {
+    "lv": "studēt",
+    "eng": "Study",
+    "ru": "Изучать"
+  },
+  {
+    "lv": "sūtīt",
+    "eng": "send",
+    "ru": "Отправить"
+  },
+  {
+    "lv": "svērt",
+    "eng": "Weigh",
+    "ru": "Взвешивать"
+  },
+  {
+    "lv": "svērties",
+    "eng": "weigh in",
+    "ru": "Взвешивание"
+  },
+  {
+    "lv": "svinēt",
+    "eng": "Celebrate",
+    "ru": "Праздновать"
+  },
+  {
+    "lv": "teikt",
+    "eng": "to say",
+    "ru": "сказать"
+  },
+  {
+    "lv": "tikt",
+    "eng": "be",
+    "ru": "быть"
+  },
+  {
+    "lv": "tikties",
+    "eng": "Meet",
+    "ru": "Встречать"
+  },
+  {
+    "lv": "tīrīt",
+    "eng": "Cleanse",
+    "ru": "Очищать"
+  },
+  {
+    "lv": "tuvooties",
+    "eng": "approaching",
+    "ru": "приближающийся"
+  },
+  {
+    "lv": "uzcelt",
+    "eng": "Erect",
+    "ru": "Возводить"
+  },
+  {
+    "lv": "uzdāvināt",
+    "eng": "Give",
+    "ru": "Давать"
+  },
+  {
+    "lv": "uzklāt",
+    "eng": "Apply",
+    "ru": "Применять"
+  },
+  {
+    "lv": "uzlikt",
+    "eng": "Impose",
+    "ru": "Налагать"
+  },
+  {
+    "lv": "uzlūgt",
+    "eng": "to pray",
+    "ru": "молиться"
+  },
+  {
+    "lv": "uzmanīt",
+    "eng": "Watching",
+    "ru": "Смотреть"
+  },
+  {
+    "lv": "uzrādīt",
+    "eng": "Produce",
+    "ru": "Производить"
+  },
+  {
+    "lv": "uzrakstīt",
+    "eng": "Write",
+    "ru": "Писать"
+  },
+  {
+    "lv": "uzvilkt",
+    "eng": "Hoist",
+    "ru": "Подъем"
+  },
+  {
+    "lv": "uzzināt",
+    "eng": "to find out",
+    "ru": "чтобы узнать"
+  },
+  {
+    "lv": "vadīt",
+    "eng": "drive",
+    "ru": "гнать"
+  },
+  {
+    "lv": "vajadzēt",
+    "eng": "to need, should",
+    "ru": "нужно, следует"
+  },
+  {
+    "lv": "varēt",
+    "eng": "can, to be able",
+    "ru": "мочь, уметь"
+  },
+  {
+    "lv": "veidot",
+    "eng": "build",
+    "ru": "строить"
+  },
+  {
+    "lv": "veikt",
+    "eng": "perform",
+    "ru": "выполнять"
+  },
+  {
+    "lv": "vēlēties",
+    "eng": "to want",
+    "ru": "Хотеть"
+  },
+  {
+    "lv": "veltīt",
+    "eng": "devote",
+    "ru": "посвящать"
+  },
+  {
+    "lv": "vest",
+    "eng": "Take",
+    "ru": "Брать"
+  },
+  {
+    "lv": "vilkt",
+    "eng": "drag",
+    "ru": "волочить"
+  },
+  {
+    "lv": "vingrot",
+    "eng": "Gymnastics",
+    "ru": "Гимнастика"
+  },
+  {
+    "lv": "zāģēt",
+    "eng": "saw",
+    "ru": "пила"
+  },
+  {
+    "lv": "ziedēt",
+    "eng": "bloom",
+    "ru": "цвести"
+  },
+  {
+    "lv": "zīmēt",
+    "eng": "draw",
+    "ru": "рисовать"
+  },
+  {
+    "lv": "zināt",
+    "eng": "to know",
+    "ru": "знать"
+  },
+  {
+    "lv": "zust",
+    "eng": "Lose",
+    "ru": "Терять"
+  },
+  {
+    "lv": "zvanīt",
+    "eng": "call",
+    "ru": "звать"
+  }
+]

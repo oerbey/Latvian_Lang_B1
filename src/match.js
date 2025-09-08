@@ -18,9 +18,16 @@ export function startMatchRound(){
     const boxH = isMobile ? 80 : 46;
     const gap = isMobile ? 16 : 14;
     const maxItemsOnScreen = Math.floor(availableHeight / (boxH + gap));
-    maxItems = Math.max(5, Math.min(maxItemsOnScreen, deck.length));
+    maxItems = Math.min(deck.length, Math.max(5, maxItemsOnScreen));
   } else {
     maxItems = Math.min(15, deck.length);
+  }
+  if(maxItems === 0){
+    setStatus('No items to match.');
+    state.matchState = null;
+    clear();
+    resetClicks();
+    return;
   }
   const picks = shuffle(deck.slice()).slice(0,maxItems);
   const left = picks.map(p=>({txt:p.translations.lv, key:p.translations.lv, meta:p}));

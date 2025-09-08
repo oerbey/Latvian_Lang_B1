@@ -84,7 +84,7 @@
     }
     
     #wrap {
-      height: 100vh;
+      min-height: 100dvh;
       height: -webkit-fill-available;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -151,3 +151,20 @@ html, body { height: 100%; scroll-behavior: smooth; }
 /* Card spacing harmony */
 .card .btn { pointer-events: none; } /* button-like label without stealing click */
 a .card { border: 1px solid var(--bs-border-color); }
+
+/* Mobile scroll-trap fix */
+#list-lv,
+#list-tr {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Make sure no ancestor blocks scroll chaining */
+html, body, .page, .screen {
+  overscroll-behavior-y: auto;
+}
+
+/* Viewport height adjustment */
+.page {
+  min-height: 100dvh;
+}

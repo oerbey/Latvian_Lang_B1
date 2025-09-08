@@ -139,26 +139,28 @@ function setupEventListeners(){
   let touchStartScrollY = 0;
   let touchStartTime = 0;
   let touchMoved = false;
-  canvas.addEventListener('touchstart', e=>{
-    const t=e.touches[0];
-    const coords = getCanvasCoordinates(t.clientX, t.clientY);
-    touchStartY = t.clientY; touchStartTime = Date.now();
-    touchStartScrollY = state.matchState ? state.matchState.scrollY : 0;
-    touchMoved = false;
-  }, { passive: false });
-  canvas.addEventListener('touchmove', e=>{
-    const t = e.touches[0];
-    const dy = t.clientY - touchStartY;
-    if(Math.abs(dy) > 5) touchMoved = true;
-    if(state.mode === MODES.MATCH && state.matchState){
-      const ms = state.matchState;
-      const viewH = ms.viewBottom - ms.viewTop;
-      const maxScroll = Math.max(0, ms.contentH - viewH);
-      ms.scrollY = Math.max(0, Math.min(maxScroll, touchStartScrollY - dy));
-      triggerRedraw();
-      e.preventDefault();
-    }
-  }, { passive: false });
+    canvas.addEventListener('touchstart', e=>{
+      const t=e.touches[0];
+      getCanvasCoordinates(t.clientX, t.clientY);
+      touchStartY = t.clientY; touchStartTime = Date.now();
+      touchStartScrollY = state.matchState ? state.matchState.scrollY : 0;
+      touchMoved = false;
+    }, { passive: true });
+    canvas.addEventListener('touchmove', e=>{
+      const t = e.touches[0];
+      const dy = t.clientY - touchStartY;
+      if(Math.abs(dy) > 5) touchMoved = true;
+      if(state.mode === MODES.MATCH && state.matchState){
+        const ms = state.matchState;
+        const viewH = ms.viewBottom - ms.viewTop;
+        const maxScroll = Math.max(0, ms.contentH - viewH);
+        ms.scrollY = Math.max(0, Math.min(maxScroll, touchStartScrollY - dy));
+        triggerRedraw();
+        if (maxScroll > 0) {
+          e.preventDefault();
+        }
+      }
+    }, { passive: false });
   canvas.addEventListener('touchend', e=>{
     const dt = Date.now()-touchStartTime;
     if(dt<200 && !touchMoved){
@@ -168,15 +170,17 @@ function setupEventListeners(){
       if(hit&&hit.onClick){ hit.onClick({ x: coords.x, y: coords.y, target: hit }); e.preventDefault(); }
     }
   }, { passive: false });
-  canvas.addEventListener('wheel', e=>{
-    if(state.mode !== MODES.MATCH || !state.matchState) return;
-    const ms = state.matchState;
-    const viewH = ms.viewBottom - ms.viewTop;
-    const maxScroll = Math.max(0, ms.contentH - viewH);
-    ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + e.deltaY));
-    triggerRedraw();
-    e.preventDefault();
-  }, { passive: false });
+    canvas.addEventListener('wheel', e=>{
+      if(state.mode !== MODES.MATCH || !state.matchState) return;
+      const ms = state.matchState;
+      const viewH = ms.viewBottom - ms.viewTop;
+      const maxScroll = Math.max(0, ms.contentH - viewH);
+      ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + e.deltaY));
+      triggerRedraw();
+      if (maxScroll > 0) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   window.addEventListener('resize', ()=>{ updateCanvasScale(); triggerRedraw(); });
   document.addEventListener('keydown', e=>{
     if(e.key==='1'){ state.mode=MODES.MATCH; startMatchRound(); }

@@ -20,14 +20,9 @@ padding: 1rem;
 }
 
 .grid-words {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: var(--gap);
-}
-@media (max-width: 640px) {
-.grid-words {
-grid-template-columns: 1fr;
-}
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
 }
 
 .word-card {

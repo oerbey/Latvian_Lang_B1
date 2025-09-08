@@ -65,7 +65,8 @@ export function drawText(txt,x,y,opts={}){
   const fontFamily = opts.font ? opts.font.replace(/\d+px/, scaledSize + 'px') : `${scaledSize}px system-ui`;
   ctx.font = fontFamily;
   ctx.fillStyle = opts.color||'#e9eef5';
-  ctx.textRenderingOptimization = 'optimizeSpeed';
+  // The Canvas 2D API doesn't expose text rendering hints; use CSS
+  // (e.g., canvas.style.textRendering) if optimization is needed.
   ctx.fillText(txt,x,y);
 }
 

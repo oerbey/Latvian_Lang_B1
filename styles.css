@@ -76,19 +76,12 @@
       user-select: none;
     }
     
-    /* Fix iOS Safari bounce scrolling */
-    body {
-      overflow: hidden;
-      position: fixed;
-      width: 100%;
-    }
-    
-    #wrap {
-      min-height: 100dvh;
-      height: -webkit-fill-available;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+      #wrap {
+        min-height: 100dvh;
+        height: -webkit-fill-available;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
   }
 
   /* High DPI displays (Retina, etc.) */
@@ -148,23 +141,33 @@ html, body { height: 100%; scroll-behavior: smooth; }
 :root, [data-bs-theme="light"] { --brand-accent: #0d6efd; }
 [data-bs-theme="dark"] { --brand-accent: #66b2ff; }
 
-/* Card spacing harmony */
-.card .btn { pointer-events: none; } /* button-like label without stealing click */
-a .card { border: 1px solid var(--bs-border-color); }
+  /* Card spacing harmony */
+  .card .btn { pointer-events: none; } /* button-like label without stealing click */
+  a .card { border: 1px solid var(--bs-border-color); }
 
-/* Mobile scroll-trap fix */
-#list-lv,
-#list-tr {
+/* Page must be scrollable unless you explicitly open a modal */
+html, body {
+  min-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: auto; /* allow scroll chaining instead of trapping */
+}
+
+/* If you use full-screen sections, avoid a hard 100vh; use dynamic viewport units */
+.section,
+.page,
+.screen {
+  min-height: 100dvh;
+}
+
+/* Any hidden overlays/backdrops must not eat touches */
+.is-hidden,
+.hidden,
+[aria-hidden="true"] {
+  pointer-events: none !important;
+}
+
+/* Your list wrapper(s) should allow vertical panning */
+.word-list, .list, .list-container, .items, [data-role="list"] {
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
-}
-
-/* Make sure no ancestor blocks scroll chaining */
-html, body, .page, .screen {
-  overscroll-behavior-y: auto;
-}
-
-/* Viewport height adjustment */
-.page {
-  min-height: 100dvh;
 }

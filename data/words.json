@@ -1,93 +1,93 @@
 [
   {
     "lv": "abonēt",
-    "eng": "subscribe",
+    "eng": "to subscribe",
     "ru": "подписываться"
   },
   {
     "lv": "absolvēt",
-    "eng": "graduate",
-    "ru": "выпускник"
+    "eng": "to graduate (from), to complete (a course)",
+    "ru": "оканчивать (учебное заведение), выпускаться"
   },
   {
     "lv": "adīt",
-    "eng": "knit",
+    "eng": "to knit",
     "ru": "вязать"
   },
   {
     "lv": "aicināt",
-    "eng": "invite",
-    "ru": "приглашать"
+    "eng": "to invite, to call for",
+    "ru": "приглашать, призывать"
   },
   {
     "lv": "aiziet",
-    "eng": "to leave",
-    "ru": "Уезжать"
+    "eng": "to go away, to leave, (euph.) to pass away",
+    "ru": "уходить, уйти; (эвф.) умереть"
   },
   {
     "lv": "aizmirst",
-    "eng": "forget",
+    "eng": "to forget",
     "ru": "забывать"
   },
   {
     "lv": "aiznest",
-    "eng": "Carry",
-    "ru": "Нести"
+    "eng": "to take (away), to carry (to)",
+    "ru": "уносить, унести; относить, отнести"
   },
   {
     "lv": "aizpildīt",
-    "eng": "to fill out",
-    "ru": "для заполнения"
+    "eng": "to fill in, to fill out",
+    "ru": "заполнять"
   },
   {
     "lv": "apciemot",
-    "eng": "visit",
-    "ru": "визит"
+    "eng": "to visit (a person)",
+    "ru": "навещать, навестить"
   },
   {
     "lv": "apgūt",
-    "eng": "Learn",
-    "ru": "Учиться"
+    "eng": "to learn, to master, to acquire",
+    "ru": "осваивать, освоить; изучать"
   },
   {
     "lv": "apjiet",
-    "eng": "bypass",
-    "ru": "обходить"
+    "eng": "to go around, to bypass",
+    "ru": "обходить, обойти"
   },
   {
     "lv": "apkalpot",
-    "eng": "serve",
-    "ru": "служить"
+    "eng": "to serve, to service",
+    "ru": "обслуживать"
   },
   {
     "lv": "apkopot",
-    "eng": "Collect",
-    "ru": "Собирать"
+    "eng": "to summarize, to compile, to bring together",
+    "ru": "обобщать, систематизировать"
   },
   {
     "lv": "apmeklēt",
-    "eng": "visit",
-    "ru": "визит"
+    "eng": "to visit, to attend",
+    "ru": "посещать"
   },
   {
     "lv": "apmierināt",
-    "eng": "Satisfy",
-    "ru": "Удовлетворять"
+    "eng": "to satisfy, to please",
+    "ru": "удовлетворять"
   },
   {
     "lv": "apskatīt",
-    "eng": "View",
-    "ru": "Вид"
+    "eng": "to look at, to examine, to view",
+    "ru": "осмотреть, посмотреть"
   },
   {
     "lv": "apsveikt",
-    "eng": "congratulate",
+    "eng": "to congratulate",
     "ru": "поздравлять"
   },
   {
     "lv": "ārstēt",
-    "eng": "Treat",
-    "ru": "Лечить"
+    "eng": "to treat (medically)",
+    "ru": "лечить"
   },
   {
     "lv": "atbildēt",
@@ -96,68 +96,68 @@
   },
   {
     "lv": "atcerēties",
-    "eng": "remember",
-    "ru": "помнить"
+    "eng": "to remember",
+    "ru": "помнить, вспоминать"
   },
   {
     "lv": "atgriezties",
-    "eng": "return",
-    "ru": "возвращать"
+    "eng": "to return, to come back",
+    "ru": "возвращаться"
   },
   {
     "lv": "atkārtot",
-    "eng": "repeat",
+    "eng": "to repeat, to revise",
     "ru": "повторять"
   },
   {
     "lv": "atnest",
-    "eng": "bring",
-    "ru": "приносить"
+    "eng": "to bring (here)",
+    "ru": "приносить, принести"
   },
   {
     "lv": "atpūsties",
-    "eng": "relax",
-    "ru": "ослаблять"
+    "eng": "to rest, to relax",
+    "ru": "отдыхать"
   },
   {
     "lv": "atrast",
     "eng": "to find",
-    "ru": "Найти"
+    "ru": "находить, найти"
   },
   {
     "lv": "atrasties",
-    "eng": "Be",
-    "ru": "Быть"
+    "eng": "to be located, to be situated",
+    "ru": "находиться, располагаться"
   },
   {
     "lv": "atsūtīt",
-    "eng": "Send",
-    "ru": "Отправить"
+    "eng": "to send, to send over (to someone)",
+    "ru": "присылать, прислать"
   },
   {
     "lv": "atzīmēt",
-    "eng": "Mark",
-    "ru": "Метка"
+    "eng": "to mark, to note, to celebrate",
+    "ru": "отмечать, отметить"
   },
   {
     "lv": "augt",
-    "eng": "grow",
+    "eng": "to grow",
     "ru": "расти"
   },
   {
     "lv": "beigt",
-    "eng": "end",
-    "ru": "конец"
+    "eng": "to finish, to end",
+    "ru": "заканчивать, закончить"
   },
   {
     "lv": "beigties",
-    "eng": "End",
-    "ru": "Конец"
+    "eng": "to end, to finish (intrans.)",
+    "ru": "заканчиваться, закончиться"
   },
   {
     "lv": "braukt",
-    "eng": "to drive, to ride",
-    "ru": "ехать, ездить"
+    "eng": "to go (by vehicle), to drive, to ride",
+    "ru": "ехать, ездить; ехать на (транспорте)"
   },
   {
     "lv": "būt",
@@ -166,83 +166,83 @@
   },
   {
     "lv": "būvēt",
-    "eng": "build",
+    "eng": "to build",
     "ru": "строить"
   },
   {
     "lv": "celt",
-    "eng": "Bring",
-    "ru": "Приносить"
+    "eng": "to lift, to raise; to build",
+    "ru": "поднимать; строить"
   },
   {
     "lv": "celties",
-    "eng": "get up",
-    "ru": "Вставай"
+    "eng": "to get up, to rise",
+    "ru": "вставать, подниматься"
   },
   {
     "lv": "ceļot",
-    "eng": "travel",
+    "eng": "to travel",
     "ru": "путешествовать"
   },
   {
     "lv": "cerēt",
-    "eng": "hope",
-    "ru": "надежда"
+    "eng": "to hope",
+    "ru": "надеяться"
   },
   {
     "lv": "ciemoties",
-    "eng": "visit",
-    "ru": "визит"
+    "eng": "to visit, to be a guest",
+    "ru": "гостить, быть в гостях"
   },
   {
     "lv": "darināt",
-    "eng": "to make",
-    "ru": "сделать"
+    "eng": "to make, to craft",
+    "ru": "изготавливать"
   },
   {
     "lv": "darīt",
-    "eng": "do",
+    "eng": "to do, to make",
     "ru": "делать"
   },
   {
     "lv": "dāvināt",
-    "eng": "Bestow",
-    "ru": "Давать"
+    "eng": "to give (as a gift)",
+    "ru": "дарить"
   },
   {
     "lv": "dejot",
-    "eng": "dance",
+    "eng": "to dance",
     "ru": "танцевать"
   },
   {
     "lv": "dibināt",
-    "eng": "start",
-    "ru": "начало"
+    "eng": "to found, to establish",
+    "ru": "основывать, учреждать"
   },
   {
     "lv": "domāt",
-    "eng": "think",
+    "eng": "to think",
     "ru": "думать"
   },
   {
     "lv": "dot",
     "eng": "to give",
-    "ru": "дать"
+    "ru": "давать"
   },
   {
     "lv": "doties",
-    "eng": "to go, to leave",
-    "ru": "отправиться, идти"
+    "eng": "to go, to set off",
+    "ru": "отправляться"
   },
   {
     "lv": "draudzēties",
-    "eng": "Hanging out",
-    "ru": "Тусовка"
+    "eng": "to be friends, to date",
+    "ru": "дружить, встречаться"
   },
   {
     "lv": "drīkstēt",
-    "eng": "may",
-    "ru": "Май"
+    "eng": "to be allowed (to), may",
+    "ru": "иметь право, мочь (когда разрешено)"
   },
   {
     "lv": "dzert",
@@ -251,17 +251,17 @@
   },
   {
     "lv": "dziedāt",
-    "eng": "sing",
+    "eng": "to sing",
     "ru": "петь"
   },
   {
     "lv": "dzirdēt",
-    "eng": "hear",
+    "eng": "to hear",
     "ru": "слышать"
   },
   {
     "lv": "dzīvot",
-    "eng": "live",
+    "eng": "to live",
     "ru": "жить"
   },
   {
@@ -271,38 +271,38 @@
   },
   {
     "lv": "flizēt",
-    "eng": "Tile",
-    "ru": "Кафель"
+    "eng": "to tile, to lay tiles",
+    "ru": "облицовывать плиткой"
   },
   {
     "lv": "fotografēt",
-    "eng": "photograph",
-    "ru": "фотография"
+    "eng": "to photograph, to take photos",
+    "ru": "фотографировать"
   },
   {
     "lv": "gaidīt",
-    "eng": "wait",
+    "eng": "to wait",
     "ru": "ждать"
   },
   {
     "lv": "garšot",
-    "eng": "Smack",
-    "ru": "Привкус"
+    "eng": "to taste (have a taste), to be tasty",
+    "ru": "нравиться (на вкус), быть вкусным"
   },
   {
     "lv": "gatavot",
-    "eng": "cook",
-    "ru": "повар"
+    "eng": "to prepare, to cook",
+    "ru": "готовить"
   },
   {
     "lv": "gatavoties",
-    "eng": "Preparing",
-    "ru": "Подготовка"
+    "eng": "to prepare oneself, to get ready",
+    "ru": "готовиться"
   },
   {
     "lv": "gleznot",
-    "eng": "Paint",
-    "ru": "Краска"
+    "eng": "to paint (art)",
+    "ru": "рисовать красками, писать картины"
   },
   {
     "lv": "gribēt",
@@ -316,193 +316,193 @@
   },
   {
     "lv": "gūt",
-    "eng": "Getting",
-    "ru": "Получение"
+    "eng": "to gain, to obtain; to sustain (an injury)",
+    "ru": "получать, приобретать; получить (травму)"
   },
   {
     "lv": "ģērbties",
-    "eng": "Dress",
-    "ru": "Платье"
+    "eng": "to get dressed",
+    "ru": "одеваться"
   },
   {
     "lv": "iegūt",
-    "eng": "get",
-    "ru": "Получить"
+    "eng": "to obtain, to acquire, to get",
+    "ru": "получать, приобретать"
   },
   {
     "lv": "ielidot",
-    "eng": "On the fly",
-    "ru": "На лету"
+    "eng": "to fly in, to arrive (by plane)",
+    "ru": "прилетать, прилететь"
   },
   {
     "lv": "ielūgt",
-    "eng": "Invite",
-    "ru": "Приглашать"
+    "eng": "to invite",
+    "ru": "приглашать, пригласить"
   },
   {
     "lv": "iepazīstināt",
-    "eng": "Introduce",
-    "ru": "Представлять"
+    "eng": "to introduce (someone)",
+    "ru": "представлять, познакомить"
   },
   {
     "lv": "iepirkties",
-    "eng": "Shop",
-    "ru": "Магазин"
+    "eng": "to shop, to go shopping",
+    "ru": "делать покупки"
   },
   {
     "lv": "iesaiņot",
-    "eng": "Wrap",
-    "ru": "Завернуть"
+    "eng": "to wrap, to package",
+    "ru": "упаковывать"
   },
   {
     "lv": "ieslēgt",
-    "eng": "Turn",
-    "ru": "Поворачивать"
+    "eng": "to turn on, to switch on",
+    "ru": "включать, включить"
   },
   {
     "lv": "iesniegt",
-    "eng": "Submit",
-    "ru": "Отправить"
+    "eng": "to submit, to file (documents)",
+    "ru": "подавать, подать"
   },
   {
     "lv": "iet",
-    "eng": "to go, to walk",
+    "eng": "to go (on foot), to walk",
     "ru": "идти, ходить"
   },
   {
     "lv": "ieveidot",
-    "eng": "form",
-    "ru": "форма"
+    "eng": "to style, to shape (e.g., hair)",
+    "ru": "уложить (волосы), формировать"
   },
   {
     "lv": "interesēt",
-    "eng": "interest",
-    "ru": "интерес"
+    "eng": "to interest",
+    "ru": "интересовать"
   },
   {
     "lv": "interesēties",
-    "eng": "Interested in",
-    "ru": "Интересно"
+    "eng": "to be interested (in), to inquire",
+    "ru": "интересоваться"
   },
   {
     "lv": "īrēt",
-    "eng": "Rent",
-    "ru": "Аренда"
+    "eng": "to rent, to hire",
+    "ru": "арендовать, снимать"
   },
   {
     "lv": "izdarīt",
-    "eng": "Done",
-    "ru": "Договорились"
+    "eng": "to do, to carry out, to accomplish",
+    "ru": "сделать, выполнить"
   },
   {
     "lv": "izgatavot",
-    "eng": "Make",
-    "ru": "Делать"
+    "eng": "to manufacture, to produce, to make",
+    "ru": "изготавливать, производить"
   },
   {
     "lv": "iziet",
-    "eng": "exit",
-    "ru": "выход"
+    "eng": "to go out, to exit; to pass (an exam)",
+    "ru": "выходить, выйти; пройти (экзамен)"
   },
   {
     "lv": "izklaidēties",
-    "eng": "Fun",
-    "ru": "Веселье"
+    "eng": "to have fun, to entertain oneself",
+    "ru": "развлекаться"
   },
   {
     "lv": "izķemmēt",
-    "eng": "comb out",
+    "eng": "to comb out (thoroughly)",
     "ru": "вычесывать"
   },
   {
     "lv": "izlasīt",
-    "eng": "Read",
-    "ru": "Читать"
+    "eng": "to read through",
+    "ru": "прочитать"
   },
   {
     "lv": "izlidot",
-    "eng": "Fly out",
-    "ru": "Вылетать"
+    "eng": "to fly out",
+    "ru": "вылетать, вылететь"
   },
   {
     "lv": "izskatīties",
-    "eng": "Look",
-    "ru": "Смотреть"
+    "eng": "to look, to appear, to seem",
+    "ru": "выглядеть, казаться"
   },
   {
     "lv": "izslēgt",
-    "eng": "turn off",
-    "ru": "Отключить"
+    "eng": "to turn off, to switch off; to exclude",
+    "ru": "выключать, выключить; исключать"
   },
   {
     "lv": "izsniegt",
-    "eng": "issue",
-    "ru": "выпуск"
+    "eng": "to issue, to give out",
+    "ru": "выдавать, выдать"
   },
   {
     "lv": "iztīrīt",
-    "eng": "Clean",
-    "ru": "Чистый"
+    "eng": "to clean, to clean out",
+    "ru": "вычистить, очистить"
   },
   {
     "lv": "izvēlēties",
-    "eng": "choose",
-    "ru": "выбирать"
+    "eng": "to choose, to select",
+    "ru": "выбирать, выбрать"
   },
   {
     "lv": "jautāt",
-    "eng": "ask",
+    "eng": "to ask",
     "ru": "спрашивать"
   },
   {
     "lv": "just",
-    "eng": "Just",
-    "ru": "Справедливый"
+    "eng": "to feel, to sense, to perceive",
+    "ru": "чувствовать, ощущать"
   },
   {
     "lv": "justies",
-    "eng": "feel",
-    "ru": "чувствовать"
+    "eng": "to feel (oneself)",
+    "ru": "чувствовать себя"
   },
   {
     "lv": "kāpt",
-    "eng": "Climb",
-    "ru": "Подниматься"
+    "eng": "to climb, to go up; to get on (transport)",
+    "ru": "подниматься; залезать; входить (в транспорт)"
   },
   {
     "lv": "klāt",
-    "eng": "Present",
-    "ru": "Присутствующий"
+    "eng": "to cover; to set (the table); to spread (on)",
+    "ru": "покрывать; накрывать (на стол); намазывать"
   },
   {
     "lv": "klausīties",
-    "eng": "listen",
+    "eng": "to listen",
     "ru": "слушать"
   },
   {
     "lv": "kļūt",
-    "eng": "become",
+    "eng": "to become",
     "ru": "становиться"
   },
   {
     "lv": "krāsot",
-    "eng": "Painted",
-    "ru": "Крашеный"
+    "eng": "to paint, to color, to dye",
+    "ru": "красить"
   },
   {
     "lv": "kursēt",
-    "eng": "run",
-    "ru": "бежать"
+    "eng": "to run (of transport on a route)",
+    "ru": "курсировать"
   },
   {
     "lv": "ķemmēt",
-    "eng": "comb",
-    "ru": "гребень"
+    "eng": "to comb",
+    "ru": "причёсывать, расчёсывать"
   },
   {
     "lv": "labot",
-    "eng": "Edit",
-    "ru": "Редактировать"
+    "eng": "to correct, to fix, to repair, to edit",
+    "ru": "исправлять; чинить; редактировать"
   },
   {
     "lv": "lasīt",
@@ -511,38 +511,38 @@
   },
   {
     "lv": "lauzt",
-    "eng": "break",
-    "ru": "ломать"
+    "eng": "to break, to force open",
+    "ru": "ломать, взламывать"
   },
   {
     "lv": "lidot",
     "eng": "to fly",
-    "ru": "лететь"
+    "ru": "лететь, летать"
   },
   {
     "lv": "lietot",
-    "eng": "use",
-    "ru": "использование"
+    "eng": "to use; to take (medicine); to consume",
+    "ru": "использовать; употреблять; принимать (лекарство)"
   },
   {
     "lv": "likt",
-    "eng": "put",
-    "ru": "класть"
+    "eng": "to put, to place; to make (someone do)",
+    "ru": "класть, ставить; заставлять"
   },
   {
     "lv": "lūgt",
-    "eng": "ask",
-    "ru": "спрашивать"
+    "eng": "to ask, to request; to pray",
+    "ru": "просить; молиться"
   },
   {
     "lv": "lūzt",
-    "eng": "break",
-    "ru": "ломать"
+    "eng": "to break (intrans.)",
+    "ru": "ломаться"
   },
   {
     "lv": "mācīt",
     "eng": "to teach",
-    "ru": "учить"
+    "ru": "учить, обучать"
   },
   {
     "lv": "mācīties",
@@ -551,353 +551,353 @@
   },
   {
     "lv": "mainīt",
-    "eng": "change",
-    "ru": "менять"
+    "eng": "to change, to replace",
+    "ru": "менять, заменить"
   },
   {
     "lv": "mainīties",
-    "eng": "change",
-    "ru": "менять"
+    "eng": "to change (oneself), to vary",
+    "ru": "меняться"
   },
   {
     "lv": "maksāt",
-    "eng": "pay",
-    "ru": "платить"
+    "eng": "to pay; to cost",
+    "ru": "платить; стоить"
   },
   {
     "lv": "makšķerēt",
-    "eng": "Fishing",
-    "ru": "Рыбная ловля"
+    "eng": "to fish",
+    "ru": "рыбачить"
   },
   {
     "lv": "mazgāt",
-    "eng": "wash",
+    "eng": "to wash",
     "ru": "мыть"
   },
   {
     "lv": "mazgāties",
-    "eng": "wash",
-    "ru": "мыть"
+    "eng": "to wash (oneself), to bathe",
+    "ru": "мыться, умываться"
   },
   {
     "lv": "meklēt",
-    "eng": "seek",
+    "eng": "to look for, to search",
     "ru": "искать"
   },
   {
     "lv": "mest",
-    "eng": "throw",
-    "ru": "бросать"
+    "eng": "to throw",
+    "ru": "бросать, кидать"
   },
   {
     "lv": "mīlēt",
-    "eng": "love",
-    "ru": "любовь"
+    "eng": "to love",
+    "ru": "любить"
   },
   {
     "lv": "mūrēt",
-    "eng": "masonry",
-    "ru": "кладка"
+    "eng": "to do masonry, to lay bricks",
+    "ru": "класть кирпич, выполнять кладку"
   },
   {
     "lv": "nākt",
-    "eng": "come",
+    "eng": "to come",
     "ru": "приходить"
   },
   {
     "lv": "nest",
     "eng": "to carry, to bring",
-    "ru": "нести, принести"
+    "ru": "нести; принести"
   },
   {
     "lv": "nodarboties",
-    "eng": "Deal",
-    "ru": "Сделка"
+    "eng": "to engage (in), to be occupied (with)",
+    "ru": "заниматься"
   },
   {
     "lv": "noformēt",
-    "eng": "Design",
-    "ru": "Проектировать"
+    "eng": "to formalize, to draw up; to design",
+    "ru": "оформлять"
   },
   {
     "lv": "nokāpt",
-    "eng": "Descend",
-    "ru": "Спускаться"
+    "eng": "to descend, to get off (transport)",
+    "ru": "сходить, спускаться"
   },
   {
     "lv": "nokavēt",
-    "eng": "late",
-    "ru": "поздний"
+    "eng": "to be late (for), to miss (transport)",
+    "ru": "опоздать; пропустить (транспорт)"
   },
   {
     "lv": "nokrāsot",
-    "eng": "Paint",
-    "ru": "Краска"
+    "eng": "to paint, to dye",
+    "ru": "покрасить, окрасить"
   },
   {
     "lv": "nopirkt",
-    "eng": "buy",
-    "ru": "покупать"
+    "eng": "to buy",
+    "ru": "покупать, купить"
   },
   {
     "lv": "norādīt",
-    "eng": "Specify",
-    "ru": "Уточнять"
+    "eng": "to indicate, to specify, to point out",
+    "ru": "указать, указывать"
   },
   {
     "lv": "nosaukt",
-    "eng": "Name",
-    "ru": "Имя"
+    "eng": "to name, to call",
+    "ru": "назвать, называть"
   },
   {
     "lv": "noskaidrot",
-    "eng": "Find out",
-    "ru": "Узнать"
+    "eng": "to find out, to clarify",
+    "ru": "выяснить, выяснять"
   },
   {
     "lv": "noskriet",
-    "eng": "Outrun",
-    "ru": "Обогнать"
+    "eng": "to run (a distance), to run down",
+    "ru": "пробежать"
   },
   {
     "lv": "nosūtīt",
-    "eng": "Send",
-    "ru": "Отправить"
+    "eng": "to send",
+    "ru": "послать, отправить"
   },
   {
     "lv": "notikt",
-    "eng": "happen",
-    "ru": "происходить"
+    "eng": "to happen, to take place",
+    "ru": "происходить, состояться"
   },
   {
     "lv": "novēlēt",
-    "eng": "Wish",
-    "ru": "Желание"
+    "eng": "to wish",
+    "ru": "желать, пожелать"
   },
   {
     "lv": "nožēlot",
-    "eng": "Repent",
-    "ru": "Раскаиваться"
+    "eng": "to regret",
+    "ru": "сожалеть, раскаиваться"
   },
   {
     "lv": "ņemt",
-    "eng": "take",
-    "ru": "брать"
+    "eng": "to take",
+    "ru": "брать, взять"
   },
   {
     "lv": "ogot",
-    "eng": "Ogot",
-    "ru": "Огот"
+    "eng": "to pick berries",
+    "ru": "собирать ягоды"
   },
   {
     "lv": "organizēt",
-    "eng": "organize",
-    "ru": "организовать"
+    "eng": "to organize",
+    "ru": "организовывать"
   },
   {
     "lv": "pabeigt",
-    "eng": "finish",
-    "ru": "заканчивать"
+    "eng": "to finish, to complete",
+    "ru": "заканчивать, завершать"
   },
   {
     "lv": "pacelties",
-    "eng": "Rise",
-    "ru": "Подниматься"
+    "eng": "to rise, to take off (of a plane)",
+    "ru": "подниматься; взлетать"
   },
   {
     "lv": "padarīt",
-    "eng": "Make",
-    "ru": "Делать"
+    "eng": "to make, to render, to do",
+    "ru": "сделать, придать"
   },
   {
     "lv": "paēst",
-    "eng": "Eat",
-    "ru": "Есть"
+    "eng": "to have a meal, to eat enough",
+    "ru": "поесть, наесться"
   },
   {
     "lv": "paiet",
-    "eng": "Take",
-    "ru": "Брать"
+    "eng": "to pass (time), to go by; to take (time)",
+    "ru": "проходить (о времени); занимать (о времени)"
   },
   {
     "lv": "pajautāt",
-    "eng": "Ask",
-    "ru": "Спрашивать"
+    "eng": "to ask (a question)",
+    "ru": "спросить, задать вопрос"
   },
   {
     "lv": "palīdzēt",
-    "eng": "help",
-    "ru": "Справка"
+    "eng": "to help",
+    "ru": "помогать, помочь"
   },
   {
     "lv": "palikt",
-    "eng": "stay",
-    "ru": "оставаться"
+    "eng": "to stay, to remain",
+    "ru": "оставаться, остаться"
   },
   {
     "lv": "pamatot",
-    "eng": "Justify",
-    "ru": "Оправдывать"
+    "eng": "to justify, to substantiate",
+    "ru": "обосновывать, оправдывать"
   },
   {
     "lv": "paņemt",
-    "eng": "Take",
-    "ru": "Брать"
+    "eng": "to take",
+    "ru": "взять"
   },
   {
     "lv": "parādīt",
-    "eng": "show",
-    "ru": "показывать"
+    "eng": "to show",
+    "ru": "показать, показывать"
   },
   {
     "lv": "parakstīt",
-    "eng": "sign",
-    "ru": "знак"
+    "eng": "to sign",
+    "ru": "подписать"
   },
   {
     "lv": "parakstīties",
-    "eng": "Subscribe",
-    "ru": "Подписываться"
+    "eng": "to sign (one's name); to subscribe",
+    "ru": "расписаться; подписаться"
   },
   {
     "lv": "pārdot",
     "eng": "to sell",
-    "ru": "продавать"
+    "ru": "продавать, продать"
   },
   {
     "lv": "pāriet",
-    "eng": "Move",
-    "ru": "Двигаться"
+    "eng": "to cross, to pass, to switch (to)",
+    "ru": "переходить, перейти"
   },
   {
     "lv": "paskatīties",
-    "eng": "look at",
-    "ru": "Посмотри"
+    "eng": "to have a look, to look at",
+    "ru": "посмотреть"
   },
   {
     "lv": "pasniegt",
-    "eng": "Present",
-    "ru": "Присутствующий"
+    "eng": "to serve (food); to hand; to teach (a course)",
+    "ru": "подавать; вручать; преподавать"
   },
   {
     "lv": "pastaigāties",
-    "eng": "Walk",
-    "ru": "Ходить"
+    "eng": "to go for a walk, to stroll",
+    "ru": "гулять, прогуливаться"
   },
   {
     "lv": "pastāstīt",
-    "eng": "Tell",
-    "ru": "Рассказывать"
+    "eng": "to tell (in detail), to relate",
+    "ru": "рассказать"
   },
   {
     "lv": "pasūtīt",
-    "eng": "Order",
-    "ru": "Порядок"
+    "eng": "to order",
+    "ru": "заказывать, заказать"
   },
   {
     "lv": "pateikt",
-    "eng": "tell",
-    "ru": "рассказывать"
+    "eng": "to say, to tell",
+    "ru": "сказать, сообщить"
   },
   {
     "lv": "patikt",
-    "eng": "like",
-    "ru": "любить"
+    "eng": "to like (be pleasing)",
+    "ru": "нравиться"
   },
   {
     "lv": "pavadīt",
-    "eng": "accompany",
-    "ru": "сопровождать"
+    "eng": "to accompany; to spend (time)",
+    "ru": "провожать; проводить (время)"
   },
   {
     "lv": "pazīt",
-    "eng": "recognize",
-    "ru": "признавать"
+    "eng": "to know (a person), to recognize",
+    "ru": "знать; узнавать (кого-то)"
   },
   {
     "lv": "pazust",
-    "eng": "Disappear",
-    "ru": "Исчезать"
+    "eng": "to disappear, to vanish",
+    "ru": "исчезать, исчезнуть; пропадать"
   },
   {
     "lv": "pārcelties",
-    "eng": "move",
-    "ru": "двигаться"
+    "eng": "to move, to relocate",
+    "ru": "переезжать, переселяться"
   },
   {
     "lv": "peldēt",
-    "eng": "swim",
+    "eng": "to swim",
     "ru": "плавать"
   },
   {
     "lv": "peldēties",
-    "eng": "Swim",
-    "ru": "Плавать"
+    "eng": "to bathe, to swim (recreationally)",
+    "ru": "купаться"
   },
   {
     "lv": "pētīt",
-    "eng": "explore",
+    "eng": "to research, to study, to explore",
     "ru": "исследовать"
   },
   {
     "lv": "piecelties",
-    "eng": "Up",
-    "ru": "Вверх"
+    "eng": "to get up, to stand up",
+    "ru": "вставать, встать"
   },
   {
     "lv": "piedāvāt",
-    "eng": "Offer",
-    "ru": "Предлагать"
+    "eng": "to offer",
+    "ru": "предлагать, предложить"
   },
   {
     "lv": "piederēt",
-    "eng": "Own",
-    "ru": "Владеть"
+    "eng": "to belong",
+    "ru": "принадлежать"
   },
   {
     "lv": "pietiet",
-    "eng": "pietiet",
-    "ru": "pietiet"
+    "eng": "(unclear lemma; needs review)",
+    "ru": "(неясный глагол; нужна проверка)"
   },
   {
     "lv": "pienākt",
-    "eng": "Come",
-    "ru": "Приходить"
+    "eng": "to arrive (time/train), to approach; to be due",
+    "ru": "прибывать; подходить; наступать (о времени)"
   },
   {
     "lv": "pieņemt",
-    "eng": "Accept",
-    "ru": "Принимать"
+    "eng": "to accept; to assume; to adopt; to receive",
+    "ru": "принимать; предполагать; принимать (закон)"
   },
   {
     "lv": "pierakstīt",
-    "eng": "Sign",
-    "ru": "Знак"
+    "eng": "to write down, to note",
+    "ru": "записывать, записать"
   },
   {
     "lv": "pierunāt",
-    "eng": "Persuade",
-    "ru": "Убеждать"
+    "eng": "to persuade",
+    "ru": "уговаривать, убедить"
   },
   {
     "lv": "piesacīties",
-    "eng": "Log in",
-    "ru": "Войти"
+    "eng": "to sign up, to register (possibly variant of 'pieteikties')",
+    "ru": "записаться, зарегистрироваться"
   },
   {
     "lv": "pieteikties",
-    "eng": "log on",
-    "ru": "Вход в систему"
+    "eng": "to apply (for), to sign up; (IT) to log in",
+    "ru": "подать заявку, записаться; (IT) войти в систему"
   },
   {
     "lv": "piezvanīt",
-    "eng": "call",
-    "ru": "звать"
+    "eng": "to call (by phone)",
+    "ru": "позвонить"
   },
   {
     "lv": "pildīt",
-    "eng": "fulfill",
-    "ru": "исполнять"
+    "eng": "to fulfill, to carry out; to fill",
+    "ru": "выполнять; наполнять"
   },
   {
     "lv": "pirkt",
@@ -906,22 +906,22 @@
   },
   {
     "lv": "plānot",
-    "eng": "Plan",
-    "ru": "План"
+    "eng": "to plan",
+    "ru": "планировать"
   },
   {
     "lv": "prast",
-    "eng": "Can",
-    "ru": "Мочь"
+    "eng": "to know how (to), to be able",
+    "ru": "уметь"
   },
   {
     "lv": "priecāties",
-    "eng": "Rejoice",
-    "ru": "Радовать"
+    "eng": "to rejoice, to be glad",
+    "ru": "радоваться"
   },
   {
     "lv": "rādīt",
-    "eng": "show",
+    "eng": "to show",
     "ru": "показывать"
   },
   {
@@ -936,33 +936,33 @@
   },
   {
     "lv": "reģistrēt",
-    "eng": "register",
+    "eng": "to register",
     "ru": "регистрировать"
   },
   {
     "lv": "reģistrēties",
-    "eng": "register",
-    "ru": "регистрировать"
+    "eng": "to register (oneself)",
+    "ru": "регистрироваться"
   },
   {
     "lv": "rēķināt",
-    "eng": "Calculate",
-    "ru": "Вычислять"
+    "eng": "to calculate, to count",
+    "ru": "считать, вычислять"
   },
   {
     "lv": "remontēt",
-    "eng": "Repaired",
-    "ru": "Отремонтированы"
+    "eng": "to repair, to renovate",
+    "ru": "ремонтировать"
   },
   {
     "lv": "rezervēt",
-    "eng": "Book",
-    "ru": "Книга"
+    "eng": "to reserve, to book",
+    "ru": "бронировать, резервировать"
   },
   {
     "lv": "robežoties",
-    "eng": "border",
-    "ru": "граница"
+    "eng": "to border (on/with)",
+    "ru": "граничить"
   },
   {
     "lv": "runāt",
@@ -971,172 +971,172 @@
   },
   {
     "lv": "sacīt",
-    "eng": "say",
+    "eng": "to say",
     "ru": "сказать"
   },
   {
     "lv": "sagaidīt",
-    "eng": "Expect",
-    "ru": "Ожидать"
+    "eng": "to meet; to expect; to wait for",
+    "ru": "встречать; ожидать"
   },
   {
     "lv": "sagatavot",
-    "eng": "Prepare",
-    "ru": "Готовить"
+    "eng": "to prepare",
+    "ru": "подготовить, приготовить"
   },
   {
     "lv": "saģērbties",
-    "eng": "dress",
-    "ru": "платье"
+    "eng": "to get dressed",
+    "ru": "одеться"
   },
   {
     "lv": "sajust",
-    "eng": "Feel",
-    "ru": "Чувствовать"
+    "eng": "to feel, to sense",
+    "ru": "ощутить, почувствовать"
   },
   {
     "lv": "sākt",
-    "eng": "begin",
-    "ru": "начинать"
+    "eng": "to begin, to start",
+    "ru": "начинать, начать"
   },
   {
     "lv": "sākties",
-    "eng": "Begin",
-    "ru": "Начинать"
+    "eng": "to begin, to start (intrans.)",
+    "ru": "начинаться"
   },
   {
     "lv": "salabot",
-    "eng": "Repair",
-    "ru": "Ремонт"
+    "eng": "to fix, to repair",
+    "ru": "починить, исправить"
   },
   {
     "lv": "samaksāt",
-    "eng": "Pay",
-    "ru": "Платить"
+    "eng": "to pay",
+    "ru": "заплатить"
   },
   {
     "lv": "saņemt",
-    "eng": "receive",
+    "eng": "to receive",
     "ru": "получать"
   },
   {
     "lv": "sāpēt",
-    "eng": "Hurting",
-    "ru": "Больно"
+    "eng": "to ache, to hurt",
+    "ru": "болеть"
   },
   {
     "lv": "sargāt",
-    "eng": "Protect",
-    "ru": "Защищать"
+    "eng": "to guard, to protect",
+    "ru": "охранять, беречь"
   },
   {
     "lv": "sarunāties",
-    "eng": "Talk",
-    "ru": "Разговаривать"
+    "eng": "to converse, to talk",
+    "ru": "беседовать, разговаривать"
   },
   {
     "lv": "satikt",
-    "eng": "Meet",
-    "ru": "Встречать"
+    "eng": "to meet",
+    "ru": "встретить"
   },
   {
     "lv": "satikties",
-    "eng": "meet",
-    "ru": "встречать"
+    "eng": "to meet (each other)",
+    "ru": "встречаться, встретиться"
   },
   {
     "lv": "saukt",
-    "eng": "call",
-    "ru": "звать"
+    "eng": "to call; to name",
+    "ru": "звать; называть"
   },
   {
     "lv": "sauļoties",
-    "eng": "sunbathe",
+    "eng": "to sunbathe",
     "ru": "загорать"
   },
   {
     "lv": "sēņot",
-    "eng": "mushroom",
-    "ru": "гриб"
+    "eng": "to pick mushrooms",
+    "ru": "собирать грибы"
   },
   {
     "lv": "sērfot",
-    "eng": "Surf",
-    "ru": "Прибой"
+    "eng": "to surf; (internet) to browse",
+    "ru": "заниматься сёрфингом; серфить в интернете"
   },
   {
     "lv": "skanēt",
-    "eng": "Play",
-    "ru": "Играть"
+    "eng": "to sound, to ring",
+    "ru": "звучать"
   },
   {
     "lv": "skatīties",
-    "eng": "watch",
-    "ru": "часы"
+    "eng": "to watch, to look (at)",
+    "ru": "смотреть"
   },
   {
     "lv": "skriet",
-    "eng": "run",
-    "ru": "бежать"
+    "eng": "to run",
+    "ru": "бежать, бегать"
   },
   {
     "lv": "slēgt",
-    "eng": "close",
-    "ru": "закрывать"
+    "eng": "to close; to conclude (an agreement); to switch off",
+    "ru": "закрывать; заключать; выключать"
   },
   {
     "lv": "slēpot",
-    "eng": "ski",
-    "ru": "лыжа"
+    "eng": "to ski",
+    "ru": "кататься на лыжах"
   },
   {
     "lv": "slidot",
-    "eng": "Skating",
-    "ru": "Катание на коньках"
+    "eng": "to skate",
+    "ru": "кататься на коньках"
   },
   {
     "lv": "smēķēt",
-    "eng": "smoke",
-    "ru": "дым"
+    "eng": "to smoke",
+    "ru": "курить"
   },
   {
     "lv": "smieties",
-    "eng": "laugh",
+    "eng": "to laugh",
     "ru": "смеяться"
   },
   {
     "lv": "sniegt",
-    "eng": "give",
-    "ru": "давать"
+    "eng": "to provide, to give (services, information)",
+    "ru": "предоставлять, оказывать"
   },
   {
     "lv": "spēlēt",
-    "eng": "play",
+    "eng": "to play (a game, instrument)",
     "ru": "играть"
   },
   {
     "lv": "spēt",
-    "eng": "be able to",
-    "ru": "иметь возможность"
+    "eng": "to be able to, to manage to",
+    "ru": "смочь, быть в состоянии"
   },
   {
     "lv": "spīdēt",
-    "eng": "shine",
-    "ru": "светить"
+    "eng": "to shine",
+    "ru": "светить, сиять"
   },
   {
     "lv": "sportot",
-    "eng": "sport",
-    "ru": "спорт"
+    "eng": "to do sports, to exercise",
+    "ru": "заниматься спортом"
   },
   {
     "lv": "staigāt",
-    "eng": "walk",
-    "ru": "ходить"
+    "eng": "to walk, to stroll",
+    "ru": "ходить, гулять"
   },
   {
     "lv": "stāvēt",
-    "eng": "stand",
+    "eng": "to stand",
     "ru": "стоять"
   },
   {
@@ -1146,167 +1146,167 @@
   },
   {
     "lv": "studēt",
-    "eng": "Study",
-    "ru": "Изучать"
+    "eng": "to study",
+    "ru": "изучать, учиться (в вузе)"
   },
   {
     "lv": "sūtīt",
-    "eng": "send",
-    "ru": "Отправить"
+    "eng": "to send",
+    "ru": "отправлять, посылать"
   },
   {
     "lv": "svērt",
-    "eng": "Weigh",
-    "ru": "Взвешивать"
+    "eng": "to weigh (something)",
+    "ru": "взвешивать"
   },
   {
     "lv": "svērties",
-    "eng": "weigh in",
-    "ru": "Взвешивание"
+    "eng": "to weigh oneself",
+    "ru": "взвешиваться"
   },
   {
     "lv": "svinēt",
-    "eng": "Celebrate",
-    "ru": "Праздновать"
+    "eng": "to celebrate",
+    "ru": "праздновать"
   },
   {
     "lv": "teikt",
-    "eng": "to say",
+    "eng": "to say, to tell",
     "ru": "сказать"
   },
   {
     "lv": "tikt",
-    "eng": "be",
-    "ru": "быть"
+    "eng": "to get; to manage; (auxiliary for passive)",
+    "ru": "попасть; удаваться; становиться (в пассивных конструкциях)"
   },
   {
     "lv": "tikties",
-    "eng": "Meet",
-    "ru": "Встречать"
+    "eng": "to meet (with)",
+    "ru": "встречаться"
   },
   {
     "lv": "tīrīt",
-    "eng": "Cleanse",
-    "ru": "Очищать"
+    "eng": "to clean",
+    "ru": "чистить, убирать"
   },
   {
     "lv": "tuvooties",
-    "eng": "approaching",
-    "ru": "приближающийся"
+    "eng": "to approach, to draw near",
+    "ru": "приближаться"
   },
   {
     "lv": "uzcelt",
-    "eng": "Erect",
-    "ru": "Возводить"
+    "eng": "to build, to raise, to erect",
+    "ru": "возводить, построить; поднимать"
   },
   {
     "lv": "uzdāvināt",
-    "eng": "Give",
-    "ru": "Давать"
+    "eng": "to give as a present",
+    "ru": "подарить"
   },
   {
     "lv": "uzklāt",
-    "eng": "Apply",
-    "ru": "Применять"
+    "eng": "to lay out; to set (the table); to spread (on)",
+    "ru": "накрыть (на стол); разложить; намазать"
   },
   {
     "lv": "uzlikt",
-    "eng": "Impose",
-    "ru": "Налагать"
+    "eng": "to put on; to impose; to install",
+    "ru": "положить; надеть; наложить; установить"
   },
   {
     "lv": "uzlūgt",
-    "eng": "to pray",
-    "ru": "молиться"
+    "eng": "to invite (formally)",
+    "ru": "пригласить"
   },
   {
     "lv": "uzmanīt",
-    "eng": "Watching",
-    "ru": "Смотреть"
+    "eng": "to keep an eye on, to watch; to notice",
+    "ru": "присматривать, наблюдать; заметить"
   },
   {
     "lv": "uzrādīt",
-    "eng": "Produce",
-    "ru": "Производить"
+    "eng": "to present, to show (documents/results)",
+    "ru": "предъявлять, предъявить; показывать"
   },
   {
     "lv": "uzrakstīt",
-    "eng": "Write",
-    "ru": "Писать"
+    "eng": "to write, to write down",
+    "ru": "написать"
   },
   {
     "lv": "uzvilkt",
-    "eng": "Hoist",
-    "ru": "Подъем"
+    "eng": "to put on (clothes); to pull (up/on)",
+    "ru": "надеть; натянуть; тянуть"
   },
   {
     "lv": "uzzināt",
-    "eng": "to find out",
-    "ru": "чтобы узнать"
+    "eng": "to find out, to learn",
+    "ru": "узнать"
   },
   {
     "lv": "vadīt",
-    "eng": "drive",
-    "ru": "гнать"
+    "eng": "to drive; to lead; to conduct",
+    "ru": "вести; управлять; водить (машину)"
   },
   {
     "lv": "vajadzēt",
-    "eng": "to need, should",
+    "eng": "to need, should, ought to",
     "ru": "нужно, следует"
   },
   {
     "lv": "varēt",
-    "eng": "can, to be able",
+    "eng": "to be able, can",
     "ru": "мочь, уметь"
   },
   {
     "lv": "veidot",
-    "eng": "build",
-    "ru": "строить"
+    "eng": "to form, to shape, to create",
+    "ru": "формировать, создавать"
   },
   {
     "lv": "veikt",
-    "eng": "perform",
-    "ru": "выполнять"
+    "eng": "to perform, to carry out, to accomplish",
+    "ru": "выполнять, совершать"
   },
   {
     "lv": "vēlēties",
-    "eng": "to want",
-    "ru": "Хотеть"
+    "eng": "to wish, to want",
+    "ru": "желать, хотеть"
   },
   {
     "lv": "veltīt",
-    "eng": "devote",
+    "eng": "to devote, to dedicate",
     "ru": "посвящать"
   },
   {
     "lv": "vest",
-    "eng": "Take",
-    "ru": "Брать"
+    "eng": "to take, to lead, to transport",
+    "ru": "везти; вести"
   },
   {
     "lv": "vilkt",
-    "eng": "drag",
-    "ru": "волочить"
+    "eng": "to pull, to draw; (colloq.) to wear",
+    "ru": "тянуть, тащить; надевать (разг.)"
   },
   {
     "lv": "vingrot",
-    "eng": "Gymnastics",
-    "ru": "Гимнастика"
+    "eng": "to exercise, to do gymnastics",
+    "ru": "заниматься гимнастикой"
   },
   {
     "lv": "zāģēt",
-    "eng": "saw",
-    "ru": "пила"
+    "eng": "to saw; (slang) to nag",
+    "ru": "пилить"
   },
   {
     "lv": "ziedēt",
-    "eng": "bloom",
+    "eng": "to bloom, to flower",
     "ru": "цвести"
   },
   {
     "lv": "zīmēt",
-    "eng": "draw",
+    "eng": "to draw",
     "ru": "рисовать"
   },
   {
@@ -1316,12 +1316,12 @@
   },
   {
     "lv": "zust",
-    "eng": "Lose",
-    "ru": "Терять"
+    "eng": "to vanish, to disappear",
+    "ru": "исчезать, пропадать"
   },
   {
     "lv": "zvanīt",
-    "eng": "call",
-    "ru": "звать"
+    "eng": "to call, to ring",
+    "ru": "звонить, позвонить"
   }
 ]

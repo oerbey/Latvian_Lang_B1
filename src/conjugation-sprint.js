@@ -59,12 +59,13 @@
     const slot = IDX[pron];
     const correct = v.conj[tense][slot];
 
-    // Build distractors smartly
-    const d1 = pick(bank).conj[tense][slot]; // same person, different verb
-    const d2 = v.conj[tense][pick(Object.values(IDX))]; // same verb, different person
-    const d3 = v.conj[pick(TENSES.filter(t => t !== tense))][slot]; // same person, different tense
-    let options = [correct, d1, d2, d3].filter((x, i, arr) => arr.indexOf(x) === i);
-    while (options.length < 4) { options.push(pick(bank).conj[tense][slot]); options = [...new Set(options)]; }
+    // Build distractors using only variations of the same verb
+    const forms = Array.from(new Set(
+      TENSES.flatMap(t => Object.values(IDX).map(k => v.conj[t][k]))
+    ));
+    const distractors = forms.filter(f => f !== correct);
+    shuffle(distractors);
+    let options = [correct, ...distractors.slice(0, 3)];
     shuffle(options);
 
     current = { v, tense, pron, slot, correct };

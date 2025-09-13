@@ -142,8 +142,8 @@ html, body { height: 100%; scroll-behavior: smooth; }
 [data-bs-theme="dark"] { --brand-accent: #66b2ff; }
 
   /* Card spacing harmony */
-  .card .btn { pointer-events: none; } /* button-like label without stealing click */
-  a .card { border: 1px solid var(--bs-border-color); }
+  #gamesGrid .card .btn { pointer-events: none; } /* button-like label without stealing click */
+  #gamesGrid a .card { border: 1px solid var(--bs-border-color); }
 
 /* Page must be scrollable unless you explicitly open a modal */
 html, body {

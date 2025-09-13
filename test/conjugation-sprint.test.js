@@ -1,35 +1,21 @@
-import { JSDOM } from 'jsdom';
+import test from 'node:test';
+import assert from 'node:assert/strict';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 
-const html = readFileSync(resolve(__dirname, '../../conjugation-sprint.html'), 'utf8');
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const html = readFileSync(resolve(__dirname, '../conjugation-sprint.html'), 'utf8');
 
-let dom;
-let window;
-let document;
+test('should load the game environment', () => {
+  assert.ok(html.includes('<title>Conjugation Sprint — Latvian B1</title>'));
+  assert.ok(html.includes('<h1 class="h4 mb-1">Conjugation Sprint</h1>'));
+});
 
-describe('Conjugation Sprint Game', () => {
-  beforeEach(() => {
-    dom = new JSDOM(html, { runScripts: 'dangerously', resources: 'usable' });
-    window = dom.window;
-    document = window.document;
-  });
-
-  test('should load the game environment', () => {
-    expect(document.title).toBe('Conjugation Sprint — Latvian B1');
-    const h1 = document.querySelector('h1');
-    expect(h1.textContent).toBe('Conjugation Sprint');
-  });
-
-  test('should have all necessary elements present', () => {
-    expect(document.getElementById('qtext')).not.toBeNull();
-    expect(document.getElementById('meta')).not.toBeNull();
-    expect(document.getElementById('choices')).not.toBeNull();
-    expect(document.getElementById('score')).not.toBeNull();
-    expect(document.getElementById('streak')).not.toBeNull();
-    expect(document.getElementById('round')).not.toBeNull();
-    expect(document.getElementById('skip')).not.toBeNull();
-    expect(document.getElementById('again')).not.toBeNull();
-    expect(document.getElementById('perstats')).not.toBeNull();
+test('should have all necessary elements present', () => {
+  const ids = ['qtext', 'meta', 'choices', 'score', 'streak', 'round', 'skip', 'again', 'perstats'];
+  ids.forEach(id => {
+    assert.ok(new RegExp(`id="${id}"`).test(html), `missing id ${id}`);
   });
 });
+

@@ -27,7 +27,12 @@
   {
     "lv": "aizmirst",
     "eng": "to forget",
-    "ru": "забывать"
+    "ru": "забывать",
+    "conj": {
+      "present": {"1s": "aizmirstu", "2s": "aizmirsti", "3s": "aizmirst", "1p": "aizmirstam", "2p": "aizmirstat", "3p": "aizmirst"},
+      "past": {"1s": "aizmirsu", "2s": "aizmirsi", "3s": "aizmirsa", "1p": "aizmirsām", "2p": "aizmirsāt", "3p": "aizmirsa"},
+      "future": {"1s": "aizmirsīšu", "2s": "aizmirsīsi", "3s": "aizmirsīs", "1p": "aizmirsīsim", "2p": "aizmirsīsiet", "3p": "aizmirsīs"}
+    }
   },
   {
     "lv": "aiznest",
@@ -117,7 +122,12 @@
   {
     "lv": "atpūsties",
     "eng": "to rest, to relax",
-    "ru": "отдыхать"
+    "ru": "отдыхать",
+    "conj": {
+      "present": {"1s": "atpūšos", "2s": "atpūties", "3s": "atpūšas", "1p": "atpūšamies", "2p": "atpūšaties", "3p": "atpūšas"},
+      "past": {"1s": "atpūtos", "2s": "atpūties", "3s": "atpūtās", "1p": "atpūtāmies", "2p": "atpūtāties", "3p": "atpūtās"},
+      "future": {"1s": "atpūtīšos", "2s": "atpūtīsies", "3s": "atpūtīsies", "1p": "atpūtīsimies", "2p": "atpūtīsieties", "3p": "atpūtīsies"}
+    }
   },
   {
     "lv": "atrast",
@@ -157,12 +167,22 @@
   {
     "lv": "braukt",
     "eng": "to go (by vehicle), to drive, to ride",
-    "ru": "ехать, ездить; ехать на (транспорте)"
+    "ru": "ехать, ездить; ехать на (транспорте)",
+    "conj": {
+      "present": {"1s": "braucu", "2s": "brauc", "3s": "brauc", "1p": "braucam", "2p": "braucat", "3p": "brauc"},
+      "past": {"1s": "braucu", "2s": "brauci", "3s": "brauca", "1p": "braucām", "2p": "braucāt", "3p": "brauca"},
+      "future": {"1s": "braukšu", "2s": "brauksi", "3s": "brauks", "1p": "brauksim", "2p": "brauksiet", "3p": "brauks"}
+    }
   },
   {
     "lv": "būt",
     "eng": "to be",
-    "ru": "быть"
+    "ru": "быть",
+    "conj": {
+      "present": {"1s": "esmu", "2s": "esi", "3s": "ir", "1p": "esam", "2p": "esat", "3p": "ir"},
+      "past": {"1s": "biju", "2s": "biji", "3s": "bija", "1p": "bijām", "2p": "bijāt", "3p": "bija"},
+      "future": {"1s": "būšu", "2s": "būsi", "3s": "būs", "1p": "būsim", "2p": "būsiet", "3p": "būs"}
+    }
   },
   {
     "lv": "būvēt",
@@ -177,7 +197,12 @@
   {
     "lv": "celties",
     "eng": "to get up, to rise",
-    "ru": "вставать, подниматься"
+    "ru": "вставать, подниматься",
+    "conj": {
+      "present": {"1s": "ceļos", "2s": "celies", "3s": "ceļas", "1p": "ceļamies", "2p": "ceļaties", "3p": "ceļas"},
+      "past": {"1s": "cēlos", "2s": "cēlies", "3s": "cēlās", "1p": "cēlāmies", "2p": "cēlāties", "3p": "cēlās"},
+      "future": {"1s": "celšos", "2s": "celsies", "3s": "celsies", "1p": "celsimies", "2p": "celsieties", "3p": "celsies"}
+    }
   },
   {
     "lv": "ceļot",
@@ -322,7 +347,12 @@
   {
     "lv": "ģērbties",
     "eng": "to get dressed",
-    "ru": "одеваться"
+    "ru": "одеваться",
+    "conj": {
+      "present": {"1s": "ģērbjos", "2s": "ģērbies", "3s": "ģērbjas", "1p": "ģērbjamies", "2p": "ģērbjaties", "3p": "ģērbjas"},
+      "past": {"1s": "ģērbos", "2s": "ģērbies", "3s": "ģērbās", "1p": "ģērbāmies", "2p": "ģērbāties", "3p": "ģērbās"},
+      "future": {"1s": "ģērbšos", "2s": "ģērbsies", "3s": "ģērbsies", "1p": "ģērbsimies", "2p": "ģērbsieties", "3p": "ģērbsies"}
+    }
   },
   {
     "lv": "iegūt",
@@ -367,7 +397,12 @@
   {
     "lv": "iet",
     "eng": "to go (on foot), to walk",
-    "ru": "идти, ходить"
+    "ru": "идти, ходить",
+    "conj": {
+      "present": {"1s": "eju", "2s": "ej", "3s": "iet", "1p": "ejam", "2p": "ejat", "3p": "iet"},
+      "past": {"1s": "gāju", "2s": "gāji", "3s": "gāja", "1p": "gājām", "2p": "gājāt", "3p": "gāja"},
+      "future": {"1s": "iešu", "2s": "iesi", "3s": "ies", "1p": "iesim", "2p": "iesiet", "3p": "ies"}
+    }
   },
   {
     "lv": "ieveidot",
@@ -467,7 +502,12 @@
   {
     "lv": "kāpt",
     "eng": "to climb, to go up; to get on (transport)",
-    "ru": "подниматься; залезать; входить (в транспорт)"
+    "ru": "подниматься; залезать; входить (в транспорт)",
+    "conj": {
+      "present": {"1s": "kāpju", "2s": "kāp", "3s": "kāpj", "1p": "kāpjam", "2p": "kāpjat", "3p": "kāpj"},
+      "past": {"1s": "kāpu", "2s": "kāpi", "3s": "kāpa", "1p": "kāpām", "2p": "kāpāt", "3p": "kāpa"},
+      "future": {"1s": "kāpšu", "2s": "kāpsi", "3s": "kāps", "1p": "kāpsim", "2p": "kāpsiet", "3p": "kāps"}
+    }
   },
   {
     "lv": "klāt",
@@ -482,7 +522,12 @@
   {
     "lv": "kļūt",
     "eng": "to become",
-    "ru": "становиться"
+    "ru": "становиться",
+    "conj": {
+      "present": {"1s": "kļūstu", "2s": "kļūsti", "3s": "kļūst", "1p": "kļūstam", "2p": "kļūstat", "3p": "kļūst"},
+      "past": {"1s": "kļuvu", "2s": "kļuvi", "3s": "kļuva", "1p": "kļuvām", "2p": "kļuvāt", "3p": "kļuva"},
+      "future": {"1s": "kļūšu", "2s": "kļūsi", "3s": "kļūs", "1p": "kļūsim", "2p": "kļūsiet", "3p": "kļūs"}
+    }
   },
   {
     "lv": "krāsot",

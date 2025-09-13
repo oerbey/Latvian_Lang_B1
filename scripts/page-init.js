@@ -75,3 +75,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }
 })();
 
+// Register the service worker after the window has fully loaded
+window.addEventListener('load', () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+});
+

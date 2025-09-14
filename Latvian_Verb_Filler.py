@@ -72,8 +72,12 @@ SESSION = make_session()
 # Typical Latvian verb tag looks like: v m i p 1 s ...
 # v = verb, m = main (lexical), i = indicative, p/s/f = present/past/future
 # next slots include person (1/2/3) and number (s/p).
-# We accept a few variants just in case.
-MSD_RE = re.compile(r"^v..i([psf])([123])([sp])", re.IGNORECASE)
+# We accept a few variants just in case.  Earlier this code mistakenly
+# required an extra literal "i" after the second position which meant tags
+# like ``vmip1s`` (present, 1st person singular) failed to match and all
+# conjugation slots were left empty.  The regex now simply skips the first
+# two characters after ``v`` and captures the tense/person/number triples.
+MSD_RE = re.compile(r"^v..([psf])([123])([sp])", re.IGNORECASE)
 
 TENSE_MAP = {"p": "present", "s": "past", "f": "future"}
 

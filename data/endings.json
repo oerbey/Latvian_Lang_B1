@@ -1,0 +1,32 @@
+[
+  {
+    "stem": "las",
+    "conjClass": 1,
+    "reflexive": false,
+    "endings": {
+      "present": {"1s": "u", "2s": "i", "3s": "a"},
+      "past": {"1s": "īju", "2s": "īji", "3s": "īja"},
+      "future": {"1s": "īšu", "2s": "īsi", "3s": "īs"}
+    }
+  },
+  {
+    "stem": "zvan",
+    "conjClass": 1,
+    "reflexive": false,
+    "endings": {
+      "present": {"1s": "u", "2s": "i", "3s": "a"},
+      "past": {"1s": "īju", "2s": "īji", "3s": "īja"},
+      "future": {"1s": "īšu", "2s": "īsi", "3s": "īs"}
+    }
+  },
+  {
+    "stem": "mazgāj",
+    "conjClass": 1,
+    "reflexive": true,
+    "endings": {
+      "present": {"1s": "u", "2s": "i", "3s": "a"},
+      "past": {"1s": "u", "2s": "i", "3s": "a"},
+      "future": {"1s": "u", "2s": "i", "3s": "a"}
+    }
+  }
+]

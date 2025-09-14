@@ -143,6 +143,23 @@ html, body { height: 100%; scroll-behavior: smooth; }
 
   /* Card spacing harmony */
   .card .btn { pointer-events: none; } /* button-like label without stealing click */
+
+/* Conjugation Sprint: make choice buttons readable and clickable */
+#choices .btn {
+  pointer-events: auto;           /* allow clicks inside the game card */
+  font-weight: 600;
+}
+
+/* Dark theme: lighten text inside answer boxes for better contrast */
+[data-bs-theme="dark"] #choices .btn.btn-outline-secondary {
+  color: rgba(255,255,255,.92);
+  border-color: rgba(255,255,255,.25);
+}
+
+/* Light theme: keep normal readable color */
+[data-bs-theme="light"] #choices .btn.btn-outline-secondary {
+  color: #212529;
+}
   a .card { border: 1px solid var(--bs-border-color); }
 
 /* Page must be scrollable unless you explicitly open a modal */

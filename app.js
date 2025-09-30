@@ -3,11 +3,20 @@ import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HEL
 import { startMatchRound, drawMatch } from './src/match.js';
 import { startForgeRound, drawForge } from './src/forge.js';
 
+/* -----------------------------------------------------------
+   Subpath-safe asset resolution for GitHub Pages / any subdir
+   Example: assetUrl('data/lv-en/units.json')
+            → <origin>/<repo>/data/lv-en/units.json
+----------------------------------------------------------- */
+function assetUrl(path) {
+  return new URL(path, document.baseURI).href;
+}
+
 let i18n = {};
 let currentLang = 'lv';
 
 async function loadTranslations(lang){
-  const res = await fetch(`i18n/${lang}.json`);
+  const res = await fetch(assetUrl(`i18n/${lang}.json`));
   if(!res.ok){
     throw new Error('Failed to load translations');
   }
@@ -213,17 +222,17 @@ function initializeGame(){
 
 async function loadVocabulary(from='lv', to='en'){
   const base = `data/${from}-${to}/`;
-  const idxRes = await fetch(base + 'units.json');
+  const idxRes = await fetch(assetUrl(base + 'units.json'));
   if(!idxRes.ok) throw new Error('Units index not found');
   const idx = await idxRes.json();
 
   const unitPromises = idx.units.map(async u => {
-    const res = await fetch(base + u.file);
+    const res = await fetch(assetUrl(base + u.file));
     return res.ok ? await res.json() : null;
   });
   const units = (await Promise.all(unitPromises)).filter(Boolean);
 
-  const forgeRes = await fetch(base + 'forge.json');
+  const forgeRes = await fetch(assetUrl(base + 'forge.json'));
   const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
   state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
   state.targetLang = to;

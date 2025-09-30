@@ -51,5 +51,60 @@
       "",
       "Shortcuts: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
     ]
+  },
+  "endingsBuilder": {
+    "title": "Endings Builder",
+    "subtitle": "Drop the correct ending to complete the word.",
+    "buttons": {
+      "check": "Check (Enter)",
+      "next": "Next (N)",
+      "rule": "Show rule",
+      "ruleHide": "Hide rule",
+      "report": "Report error"
+    },
+    "labels": {
+      "score": "Score",
+      "streak": "Streak",
+      "strict": "Strict diacritics",
+      "answer": "Type the full form",
+      "keypad": "Latvian letters",
+      "options": "Endings",
+      "dropPlaceholder": "Drop ending",
+      "ruleTitle": "Rule table",
+      "case": "Case",
+      "number": "Number",
+      "columns": {
+        "SG": "Singular",
+        "PL": "Plural",
+        "SG_M": "SG masc",
+        "SG_F": "SG fem",
+        "PL_M": "PL masc",
+        "PL_F": "PL fem"
+      }
+    },
+    "feedback": {
+      "correct": "Correct!",
+      "incorrect": "Wrong — check the rule.",
+      "fallback": "Accepted without diacritics. Enable strict mode to practise marks."
+    },
+    "icons": { "correct": "✔️", "incorrect": "✖️", "info": "ℹ️" },
+    "announce": {
+      "correct": "Correct ending placed.",
+      "incorrect": "Wrong ending. Try again."
+    },
+    "explain": { "prefix": "⇒" },
+    "strictMode": {
+      "on": "Strict mode enabled.",
+      "off": "Strict mode disabled."
+    },
+    "reportTemplate": "### What happened?\n\nDescribe the incorrect ending or rule.\n\n### Context\n- Stem: (fill in)\n- Case/number: (fill in)\n- Device/browser: \n",
+    "cases": {
+      "NOM": "Nominative",
+      "GEN": "Genitive",
+      "DAT": "Dative",
+      "ACC": "Accusative",
+      "LOC": "Locative",
+      "VOC": "Vocative"
+    }
   }
 }

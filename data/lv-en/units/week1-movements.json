@@ -1,0 +1,113 @@
+{
+  "name": "Week 1 Movements",
+  "entries": [
+    {
+      "translations": {
+        "lv": "iebraukt garāžā",
+        "en": "to drive into the garage"
+      },
+      "tags": [
+        "movement", "prefix:ie"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "izbraukt no tuneļa",
+        "en": "to drive out of the tunnel"
+      },
+      "tags": [
+        "movement", "prefix:iz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apbraukt ap pieminekli",
+        "en": "to drive around the monument"
+      },
+      "tags": [
+        "movement", "prefix:ap"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "apbraukt apkārt piemineklim",
+        "en": "to drive around the monument"
+      },
+      "tags": [
+        "movement", "prefix:ap"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pāriet pār ielu",
+        "en": "to cross the street"
+      },
+      "tags": [
+        "movement", "prefix:pār"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pāriet pāri ielai",
+        "en": "to cross the street"
+      },
+      "tags": [
+        "movement"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "pabraukt garām muzejam",
+        "en": "to drive past the museum"
+      },
+      "tags": [
+        "movement"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "uzbraukt kalnā",
+        "en": "to drive up the hill"
+      },
+      "tags": [
+        "movement", "prefix:uz"
+      ],
+      "games": [
+        "match"
+      ]
+    },
+    {
+      "translations": {
+        "lv": "nobraukt no kalna",
+        "en": "to drive down the hill"
+      },
+      "tags": [
+        "movement", "prefix:no"
+      ],
+      "games": [
+        "match"
+      ]
+    }
+  ]
+}

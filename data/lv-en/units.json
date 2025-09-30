@@ -33,8 +33,13 @@
       "file": "units/refleksivie-un-dzives-notikumi.json"
     },
     {
+         {
       "name": "B1 palīgdarbības vārdi",
       "file": "units/b1-paligdarbibas-vardi.json"
+    },
+    {
+      "name": "Week 1 Movements",
+      "file": "units/week1-movements.json"
     }
   ]
-}
+}}

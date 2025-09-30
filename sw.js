@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v5";
+const CACHE_VERSION = "v6";
 const CACHE_NAME = `ll-b1-${CACHE_VERSION}`;
 const CORE_ASSETS = [
 "./",
@@ -7,7 +7,19 @@ const CORE_ASSETS = [
 "./assets/styles.css",
 "./assets/app.js",
 "./data/words.json",
-"./manifest.json"
+  "./manifest.json",
+  "./endings-builder.html",
+  "./src/css/endings-builder.css",
+  "./src/js/endings-builder.js",
+  "./src/js/game-shell.js",
+  "./src/js/dnd.js",
+  "./src/js/endings-resolver.js",
+  "./src/js/norm.js",
+  "./src/data/endings.json",
+  "./src/data/endings-items.json",
+  "./i18n/en.json",
+  "./i18n/lv.json",
+  "./i18n/ru.json"
 ];
 
 self.addEventListener("install", (event) => {

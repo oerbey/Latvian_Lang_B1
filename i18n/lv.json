@@ -51,5 +51,60 @@
       "",
       "Īsceļi: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
     ]
+  },
+  "endingsBuilder": {
+    "title": "Galotņu veidotājs",
+    "subtitle": "Nomet pareizo galotni, lai pabeigtu vārdu.",
+    "buttons": {
+      "check": "Pārbaudīt (Enter)",
+      "next": "Nākamais (N)",
+      "rule": "Rādīt noteikumu",
+      "ruleHide": "Slēpt noteikumu",
+      "report": "Ziņot par kļūdu"
+    },
+    "labels": {
+      "score": "Rezultāts",
+      "streak": "Sērija",
+      "strict": "Stingrais režīms",
+      "answer": "Ieraksti pilno formu",
+      "keypad": "Latviešu burti",
+      "options": "Galotnes",
+      "dropPlaceholder": "Nomet galotni",
+      "ruleTitle": "Noteikumu tabula",
+      "case": "Locījums",
+      "number": "Skaitlis",
+      "columns": {
+        "SG": "Viensk.",
+        "PL": "Daudzsk.",
+        "SG_M": "Vsk. vīr.",
+        "SG_F": "Vsk. siev.",
+        "PL_M": "Dsk. vīr.",
+        "PL_F": "Dsk. siev."
+      }
+    },
+    "feedback": {
+      "correct": "Pareizi!",
+      "incorrect": "Nepareizi — paskaties noteikumu.",
+      "fallback": "Pieņēmu formu bez diakritiskajām zīmēm. Ieslēdz stingro režīmu, lai tās vingrinātu."
+    },
+    "icons": { "correct": "✔️", "incorrect": "✖️", "info": "ℹ️" },
+    "announce": {
+      "correct": "Pareiza galotne ievietota.",
+      "incorrect": "Nepareiza galotne. Mēģini vēlreiz."
+    },
+    "explain": { "prefix": "⇒" },
+    "strictMode": {
+      "on": "Stingrais režīms ieslēgts.",
+      "off": "Stingrais režīms izslēgts."
+    },
+    "reportTemplate": "### Kas notika?\n\nApraksti kļūdaino galotni vai noteikumu.\n\n### Konteksts\n- Sakne: (ieraksti)\n- Locījums/skaitlis: (ieraksti)\n- Ierīce/pārlūks: \n",
+    "cases": {
+      "NOM": "Nominatīvs",
+      "GEN": "Ģenitīvs",
+      "DAT": "Datīvs",
+      "ACC": "Akuzatīvs",
+      "LOC": "Lokatīvs",
+      "VOC": "Vokatīvs"
+    }
   }
 }

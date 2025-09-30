@@ -29,11 +29,10 @@
       "file": "units/nest-ar-priedekliem.json"
     },
     {
-      "name": "Refleksīvie un dzīves notikumi",
+      "name": "Refleksīvī un dzīves notikumi",
       "file": "units/refleksivie-un-dzives-notikumi.json"
     },
     {
-         {
       "name": "B1 palīgdarbības vārdi",
       "file": "units/b1-paligdarbibas-vardi.json"
     },
@@ -42,4 +41,5 @@
       "file": "units/week1-movements.json"
     }
   ]
-}}
+  ]
+}

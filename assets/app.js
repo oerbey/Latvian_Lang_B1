@@ -9,6 +9,7 @@ const LANG_SEL = document.getElementById("language-select");
 const COUNT_SEL = document.getElementById("count-select");
 
 let data = [];
+let usingEmbeddedData = false;
 let current = [];
 let speakOn = false;
 let score = { right: 0, wrong: 0 };
@@ -174,9 +175,21 @@ renderRound(current);
 }
 
 async function loadData() {
+usingEmbeddedData = false;
+try {
 const res = await fetch("data/words.json", { cache: "force-cache" });
 if (!res.ok) throw new Error("Neizdevās ielādēt datus.");
 data = await res.json();
+return;
+} catch (err) {
+if (Array.isArray(window.__LATVIAN_WORDS__)) {
+console.warn("words.json fetch failed; using embedded fallback dataset.", err);
+data = window.__LATVIAN_WORDS__;
+usingEmbeddedData = true;
+return;
+}
+throw err;
+}
 }
 
 // Events
@@ -210,9 +223,11 @@ announceStatus();
 try {
 await loadData();
 await newGame();
+if (usingEmbeddedData) {
+HELP.textContent = "Dati ielādēti no iebūvētās kopijas. Atver lapu caur serveri, lai redzētu jaunāko sarakstu.";
+}
 } catch (e) {
 HELP.textContent = "Dati nav pieejami bezsaistē. Mēģini vēlreiz ar internetu.";
 }
 })();
 })();
-

@@ -7,6 +7,8 @@ const CORE_ASSETS = [
 "./assets/styles.css",
 "./assets/app.js",
 "./data/words.json",
+  "./data/words.offline.js",
+  "./data/week1.offline.js",
   "./manifest.json",
   "./endings-builder.html",
   "./src/css/endings-builder.css",
@@ -17,9 +19,11 @@ const CORE_ASSETS = [
   "./src/js/norm.js",
   "./src/data/endings.json",
   "./src/data/endings-items.json",
+  "./src/data/endings.offline.js",
   "./i18n/en.json",
   "./i18n/lv.json",
-  "./i18n/ru.json"
+  "./i18n/ru.json",
+  "./i18n/offline.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -70,4 +74,3 @@ return new Response(
 })
 );
 });
-

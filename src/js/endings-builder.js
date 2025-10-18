@@ -2,7 +2,25 @@ import { mountGameShell } from './game-shell.js';
 import { mountDnD } from './dnd.js';
 import { getEnding, getTable } from './endings-resolver.js';
 import { norm, equalsLoose } from './norm.js';
-import ITEMS from '../data/endings-items.json' with { type: 'json' };
+
+const clone = (value) => JSON.parse(JSON.stringify(value));
+
+async function loadItems() {
+  const url = new URL('../data/endings-items.json', import.meta.url).href;
+  try {
+    const mod = await import(url, { assert: { type: 'json' } });
+    return mod.default;
+  } catch (err) {
+    const fallback = typeof window !== 'undefined' ? window.__ENDINGS_ITEMS__ : undefined;
+    if (fallback) {
+      console.warn('Using embedded endings item fallback.', err);
+      return clone(fallback);
+    }
+    throw err;
+  }
+}
+
+const ITEMS = await loadItems();
 
 const PROGRESS_KEY = 'eb-progress-v1';
 const STRICT_KEY = 'eb-strict-v1';
@@ -64,17 +82,32 @@ async function loadStrings() {
   const order = [...new Set([langPref, 'en'])];
 
   for (const lang of order) {
+    let data = null;
     try {
       const res = await fetch(`i18n/${lang}.json`);
-      if (!res.ok) continue;
-      const data = await res.json();
-      if (data?.endingsBuilder) {
-        document.documentElement.lang = lang;
-        return data.endingsBuilder;
+      if (res.ok) {
+        data = await res.json();
       }
     } catch (err) {
       console.warn('Failed loading i18n', lang, err);
     }
+
+    if (!data && window.__LL_I18N__ && window.__LL_I18N__[lang]) {
+      data = window.__LL_I18N__[lang];
+      console.warn('Using embedded i18n fallback for', lang);
+    }
+
+    if (data?.endingsBuilder) {
+      document.documentElement.lang = lang;
+      return data.endingsBuilder;
+    }
+  }
+
+  const fallback = window.__LL_I18N__?.en?.endingsBuilder;
+  if (fallback) {
+    console.warn('Falling back to embedded English i18n strings for endings builder.');
+    document.documentElement.lang = 'en';
+    return fallback;
   }
   return {
     title: 'Endings Builder',

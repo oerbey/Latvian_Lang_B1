@@ -19,6 +19,13 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
     dragged = { el, pointerId };
     el.setAttribute('aria-grabbed', 'true');
     el.style.opacity = '0.6';
+    const handleWindowPointerUp = e => {
+      if (!dragged) return;
+      if (pointerId == null || e.pointerId === pointerId) {
+        end(el);
+      }
+    };
+    window.addEventListener('pointerup', handleWindowPointerUp, { once: true });
   }
 
   function end(el) {
@@ -30,7 +37,6 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
   drags.forEach(el => {
     el.addEventListener('pointerdown', e => {
       if (e.button !== 0 && e.pointerType !== 'touch') return;
-      el.setPointerCapture?.(e.pointerId);
       start(el, e.pointerId);
     });
 
@@ -77,4 +83,5 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
       }
     });
   });
+
 }

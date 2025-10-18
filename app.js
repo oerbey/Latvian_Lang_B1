@@ -14,15 +14,43 @@ function assetUrl(path) {
 
 let i18n = {};
 let currentLang = 'lv';
+let usingOfflineTranslations = false;
+let usingOfflineVocabulary = false;
+
+const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 
 async function loadTranslations(lang){
-  const res = await fetch(assetUrl(`i18n/${lang}.json`));
-  if(!res.ok){
+  usingOfflineTranslations = false;
+  let resolvedLang = lang;
+  let data = null;
+  try {
+    const res = await fetch(assetUrl(`i18n/${lang}.json`));
+    if(res.ok){
+      data = await res.json();
+    }
+  } catch (err) {
+    console.warn('Failed to fetch translations', lang, err);
+  }
+
+  if (!data) {
+    if (window.__LL_I18N__?.[lang]) {
+      data = window.__LL_I18N__[lang];
+      usingOfflineTranslations = true;
+    } else if (window.__LL_I18N__?.en) {
+      data = window.__LL_I18N__.en;
+      resolvedLang = 'en';
+      usingOfflineTranslations = true;
+      console.warn(`Falling back to embedded English translations for ${lang}.`);
+    }
+  }
+
+  if (!data) {
     throw new Error('Failed to load translations');
   }
-  i18n = await res.json();
-  currentLang = lang;
-  document.documentElement.lang = lang;
+
+  i18n = deepCopy(data);
+  currentLang = resolvedLang;
+  document.documentElement.lang = resolvedLang;
   applyTranslations();
 }
 
@@ -221,19 +249,41 @@ function initializeGame(){
 }
 
 async function loadVocabulary(from='lv', to='en'){
+  usingOfflineVocabulary = false;
   const base = `data/${from}-${to}/`;
-  const idxRes = await fetch(assetUrl(base + 'units.json'));
-  if(!idxRes.ok) throw new Error('Units index not found');
-  const idx = await idxRes.json();
+  try {
+    const idxRes = await fetch(assetUrl(base + 'units.json'));
+    if(!idxRes.ok) throw new Error('Units index not found');
+    const idx = await idxRes.json();
 
-  const unitPromises = idx.units.map(async u => {
-    const res = await fetch(assetUrl(base + u.file));
-    return res.ok ? await res.json() : null;
-  });
-  const units = (await Promise.all(unitPromises)).filter(Boolean);
+    const unitPromises = idx.units.map(async u => {
+      const res = await fetch(assetUrl(base + u.file));
+      return res.ok ? await res.json() : null;
+    });
+    const units = (await Promise.all(unitPromises)).filter(Boolean);
 
-  const forgeRes = await fetch(assetUrl(base + 'forge.json'));
-  const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
+    const forgeRes = await fetch(assetUrl(base + 'forge.json'));
+    const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
+    state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
+    state.targetLang = to;
+    return;
+  } catch (err) {
+    console.warn(`Failed to load vocabulary via fetch for ${from}-${to}`, err);
+  }
+
+  const offlineKey = `${from}-${to}`;
+  const offline = window.__WEEK1_VOCAB__?.[offlineKey];
+  if (!offline) {
+    throw new Error(`Offline vocabulary for ${offlineKey} not available`);
+  }
+
+  usingOfflineVocabulary = true;
+  const idx = offline.index;
+  const units = idx.units
+    .map(u => offline.units[u.file])
+    .filter(Boolean)
+    .map(deepCopy);
+  const forgeData = deepCopy(offline.forge || { entries: [], notes: {} });
   state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
   state.targetLang = to;
 }

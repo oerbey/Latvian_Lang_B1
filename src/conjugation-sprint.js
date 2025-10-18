@@ -18,8 +18,27 @@
     skipBtn.onclick = () => check(null);
   }
 
-  fetch("data/words.json").then(r => r.json()).then(data => {
-    bank = data.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
+  (async () => {
+    try {
+      const res = await fetch("data/words.json");
+      if (!res.ok) {
+        throw new Error(`Unexpected status ${res.status}`);
+      }
+      const data = await res.json();
+      bank = data.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
+    } catch (err) {
+      if (Array.isArray(window.__LATVIAN_WORDS__)) {
+        console.warn("words.json fetch failed; using embedded fallback dataset.", err);
+        bank = window.__LATVIAN_WORDS__.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
+      } else {
+        if(qEl) {
+          qEl.textContent = "Failed to load words data.";
+        }
+        console.error(err);
+        return;
+      }
+    }
+
     if (bank.length === 0) {
       if(qEl) {
         qEl.textContent = "No verbs with conjugations found.";
@@ -27,12 +46,7 @@
       return;
     }
     reset();
-  }).catch(err => {
-    if(qEl) {
-      qEl.textContent = "Failed to load words data.";
-    }
-    console.error(err);
-  });
+  })();
 
   function reset() {
     score = 0; streak = 0; round = 0;

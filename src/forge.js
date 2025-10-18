@@ -4,12 +4,25 @@ import { W, H, scale, roundedRect, drawText, clear, confetti, ctx } from './rend
 export const ALL_PREFIXES = ["iz","pār","no","sa","ap","ie","pie","uz","at","aiz","pa"];
 
 export function startForgeRound(){
-  const pool = state.DATA.forge.filter(e=>e.games && e.games.includes('forge'));
-  const pick = pool[(state.roundIndex)%pool.length];
+  const allForge = state.DATA?.forge || [];
+  const pool = allForge.filter(e=>{
+    if(!(e.games && e.games.includes('forge'))) return false;
+    return Boolean(e.translations?.[state.targetLang] ?? e.translations?.en);
+  });
+  if(!pool.length){
+    setStatus('No forge entries available.');
+    state.forgeState = null;
+    clear();
+    resetClicks();
+    triggerRedraw();
+    return;
+  }
+  const pick = pool[state.roundIndex % pool.length];
+  const clue = pick.translations?.[state.targetLang] ?? pick.translations?.en;
   const opts = new Set([pick.correct]);
   while(opts.size<5) opts.add(choice(ALL_PREFIXES));
   const options = shuffle(Array.from(opts));
-  state.forgeState = { base: pick.base, clue: pick.translations[state.targetLang], correct: pick.correct, options, chosen:null, start:now(), correctCount:0, total:1, detail:[] };
+  state.forgeState = { base: pick.base, clue, correct: pick.correct, options, chosen:null, start:now(), correctCount:0, total:1, detail:[] };
   triggerRedraw();
 }
 

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "build:data": "node scripts/xlsx_to_json.mjs"
+    "build:data": "node scripts/xlsx_to_json.mjs",
+    "build:offline": "python3 scripts/build_week1_offline.py"
   },
   "devDependencies": {
     "xlsx": "^0.18.5"

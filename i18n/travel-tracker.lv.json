@@ -1,0 +1,13 @@
+{
+  "title": "Travel Tracker",
+  "start": "Sākt",
+  "check": "Pārbaudīt",
+  "next": "Nākamais maršruts",
+  "score": "Punkti",
+  "streak": "Sērija",
+  "hint": "Padoms",
+  "correct": "Pareizi!",
+  "wrong": "Mēģini vēlreiz!",
+  "level_complete": "Līmenis pabeigts!",
+  "instructions": "Aizpildi teikumu ar pareizo darbības vārda formu (priedēklis + laiks/persona), lai autobuss dotos uz nākamo pilsētu."
+}

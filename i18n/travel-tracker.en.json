@@ -1,0 +1,13 @@
+{
+  "title": "Travel Tracker",
+  "start": "Start",
+  "check": "Check",
+  "next": "Next route",
+  "score": "Score",
+  "streak": "Streak",
+  "hint": "Hint",
+  "correct": "Correct!",
+  "wrong": "Try again!",
+  "level_complete": "Level complete!",
+  "instructions": "Fill the gap with the correct verb form (prefix + tense/person) to move the bus to the next city."
+}

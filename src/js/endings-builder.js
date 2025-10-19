@@ -7,11 +7,18 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 
 async function loadItems() {
   const url = new URL('../data/endings-items.json', import.meta.url).href;
+  const fallback = typeof window !== 'undefined' ? window.__ENDINGS_ITEMS__ : undefined;
+
+  // When opened from the filesystem (file:// protocol) the browser blocks
+  // module imports/fetches, so prefer the embedded fallback data.
+  if (typeof window !== 'undefined' && window.location?.protocol === 'file:' && fallback) {
+    return clone(fallback);
+  }
+
   try {
     const mod = await import(url, { assert: { type: 'json' } });
     return mod.default;
   } catch (err) {
-    const fallback = typeof window !== 'undefined' ? window.__ENDINGS_ITEMS__ : undefined;
     if (fallback) {
       console.warn('Using embedded endings item fallback.', err);
       return clone(fallback);
@@ -80,16 +87,19 @@ async function loadStrings() {
   const params = new URLSearchParams(location.search);
   const langPref = params.get('lang') || localStorage.getItem('lang') || langFallback;
   const order = [...new Set([langPref, 'en'])];
+  const isFile = typeof window !== 'undefined' && window.location?.protocol === 'file:';
 
   for (const lang of order) {
     let data = null;
-    try {
-      const res = await fetch(`i18n/${lang}.json`);
-      if (res.ok) {
-        data = await res.json();
+    if (!isFile) {
+      try {
+        const res = await fetch(`i18n/${lang}.json`);
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (err) {
+        console.warn('Failed loading i18n', lang, err);
       }
-    } catch (err) {
-      console.warn('Failed loading i18n', lang, err);
     }
 
     if (!data && window.__LL_I18N__ && window.__LL_I18N__[lang]) {

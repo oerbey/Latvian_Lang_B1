@@ -83,6 +83,10 @@
 - Bump `CACHE_VERSION` in `sw.js` after adding assets or changing caching strategy.
 - Verify offline behavior using browser dev tools (Application ► Service Workers) before releasing.
 
+## Star a simple server for local test
+- python3 -m http.server 8000
+- http://localhost:8000/endings-builder.html
+
 ## Extending the Project
 - **Adding a new game**: Create an HTML entry point, add it to the navbar/landing cards, and consider registering it in `sw.js`.
 - **Expanding vocabulary**: Append entries to `data/words.json`, update translations, and re-run any dependent tooling/tests.

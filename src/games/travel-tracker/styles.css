@@ -1,0 +1,110 @@
+.travel-tracker-app {
+  max-width: 960px;
+}
+
+.travel-tracker-layout {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.travel-map {
+  position: relative;
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.travel-map__inner svg {
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+}
+
+.travel-map__bus {
+  position: absolute;
+  width: 52px;
+  height: 26px;
+  background: url("../../../assets/img/travel-tracker/bus.svg") no-repeat center/contain;
+  transform: translate(-50%, -100%);
+  transition: transform 0.6s ease-out;
+  pointer-events: none;
+}
+
+.travel-map__bus--hidden {
+  opacity: 0;
+}
+
+.travel-map__route {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.travel-map__route svg {
+  width: 100%;
+  height: 100%;
+}
+
+.travel-panel {
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+.travel-panel__scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.travel-panel__scoreboard .badge strong {
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.travel-panel__content {
+  flex: 1;
+}
+
+.travel-panel__feedback {
+  min-height: 2rem;
+  font-weight: 600;
+}
+
+.travel-panel__feedback.is-correct {
+  color: #0f766e;
+}
+
+.travel-panel__feedback.is-wrong {
+  color: #b91c1c;
+}
+
+#tt-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+@media (max-width: 991px) {
+  .travel-tracker-layout .row {
+    flex-direction: column;
+  }
+
+  .travel-map {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .travel-panel {
+    padding: 1.25rem;
+  }
+
+  #tt-choices {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}

@@ -2,11 +2,16 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 
 async function loadEndings() {
   const url = new URL('../data/endings.json', import.meta.url).href;
+  const fallback = typeof window !== 'undefined' ? window.__ENDINGS_DATA__ : undefined;
+
+  if (typeof window !== 'undefined' && window.location?.protocol === 'file:' && fallback) {
+    return clone(fallback);
+  }
+
   try {
     const mod = await import(url, { assert: { type: 'json' } });
     return mod.default;
   } catch (err) {
-    const fallback = typeof window !== 'undefined' ? window.__ENDINGS_DATA__ : undefined;
     if (fallback) {
       console.warn('Using embedded endings data fallback.', err);
       return clone(fallback);

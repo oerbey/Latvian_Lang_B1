@@ -152,28 +152,27 @@ function updateProgressIndicator() {
 
 function attachButtonBehavior(node, handler) {
   if (!node || typeof handler !== 'function') return;
-  node.addEventListener(
-    'pointerup',
-    event => {
-      if (node.disabled) return;
-      if (event.button !== 0 && event.pointerType !== 'touch') return;
-      event.preventDefault();
-      handler(event);
-    },
-    { passive: false },
-  );
-  node.addEventListener('click', event => {
+  const invoke = event => {
     if (node.disabled) return;
-    if (event.detail !== 0) return;
     handler(event);
-  });
-  node.addEventListener('keydown', event => {
-    if (node.disabled) return;
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      handler(event);
-    }
-  });
+  };
+  node.addEventListener('click', invoke);
+
+  const isButtonConstructor = typeof HTMLButtonElement !== 'undefined';
+  const isAnchorConstructor = typeof HTMLAnchorElement !== 'undefined';
+  const isNativeButton =
+    (isButtonConstructor && node instanceof HTMLButtonElement) ||
+    (isAnchorConstructor && node instanceof HTMLAnchorElement && node.hasAttribute('href'));
+
+  if (!isNativeButton) {
+    node.addEventListener('keydown', event => {
+      if (node.disabled) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        invoke(event);
+      }
+    });
+  }
 }
 
 function assetUrl(path) {
@@ -377,6 +376,17 @@ function setHint(text) {
   selectors.hint.textContent = text ?? strings.noHint ?? '—';
 }
 
+function syncChoiceSelection(value = '') {
+  if (!selectors.choices) return;
+  const normalized = normalizeAnswer(value);
+  selectors.choices.querySelectorAll('.tt-choice').forEach(btn => {
+    const btnValue = normalizeAnswer(btn.dataset.value ?? '');
+    const isActive = normalized !== '' && btnValue === normalized;
+    btn.classList.toggle('is-selected', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+
 function updateChoices(route) {
   selectors.choices.innerHTML = '';
   if (!route) return;
@@ -390,10 +400,12 @@ function updateChoices(route) {
     btn.dataset.value = option;
     btn.setAttribute('data-choice-index', idx.toString());
     btn.textContent = option;
+    btn.setAttribute('aria-pressed', 'false');
     attachButtonBehavior(btn, () => {
       selectors.input.value = option;
       selectors.input.focus();
       selectors.input.dispatchEvent(new Event('input', { bubbles: true }));
+      syncChoiceSelection(option);
     });
     selectors.choices.appendChild(btn);
   });
@@ -503,6 +515,7 @@ function presentCurrentRoute() {
   updateChoices(route);
   if (selectors.input) {
     selectors.input.value = '';
+    syncChoiceSelection('');
   }
   state.routeCompleted = false;
   state.inputLocked = !state.started;
@@ -702,6 +715,7 @@ function bindEvents() {
       }
     });
     selectors.input.addEventListener('input', () => {
+      syncChoiceSelection(selectors.input.value ?? '');
       updateControls();
     });
   }

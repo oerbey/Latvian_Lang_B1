@@ -28,7 +28,7 @@
     --tt-border: #1f2937;
     --tt-btn-bg: #60a5fa;
     --tt-btn-bg-hover: #3b82f6;
-    --tt-btn-bg-active: #2563eb;
+    --tt-btn-bg-active: #3778eb;
     --tt-btn-fg: #0b1120;
     --tt-btn-focus: rgba(147, 197, 253, 0.6);
     --tt-choice-bg: rgba(30, 41, 59, 0.95);
@@ -202,6 +202,7 @@
   touch-action: manipulation;
   cursor: pointer;
   font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .travel-tracker-app button:disabled {
@@ -340,6 +341,13 @@
   transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
+.travel-tracker-app .tt-choice.is-selected,
+.travel-tracker-app .tt-choice[aria-pressed='true'] {
+  border-color: var(--tt-btn-bg);
+  background-color: var(--tt-choice-bg-hover);
+  box-shadow: 0 0 0 3px var(--tt-btn-focus);
+}
+
 .travel-tracker-app .tt-choice:hover {
   background-color: var(--tt-choice-bg-hover);
 }
@@ -350,6 +358,7 @@
 
 .travel-tracker-app .tt-choice:focus-visible {
   border-color: transparent;
+  box-shadow: 0 0 0 3px var(--tt-btn-focus);
 }
 
 .travel-panel__feedback,

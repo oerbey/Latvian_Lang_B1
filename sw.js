@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v7';
+const CACHE_VERSION = 'v8';
 const CACHE_NAME = `ll-b1-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [

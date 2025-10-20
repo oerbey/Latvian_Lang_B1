@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="src/games/travel-tracker/styles.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom" role="banner">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
           <i class="bi bi-translate"></i> Latvian B1
@@ -50,7 +50,7 @@
       </div>
     </nav>
 
-    <main class="container py-4 mt-5 travel-tracker-app">
+    <main class="container py-4 mt-5 travel-tracker-app" role="main">
       <header class="mb-4 text-center text-md-start">
         <h1 class="h4 mb-2" data-i18n-key="title">Travel Tracker</h1>
         <p class="mb-0 text-secondary" data-i18n-key="instructions">
@@ -69,25 +69,27 @@
           </div>
           <div class="col-12 col-lg-6">
             <div class="travel-panel d-flex flex-column h-100">
-              <div class="travel-panel__scoreboard">
+              <div class="travel-panel__scoreboard" aria-live="polite">
                 <span class="badge bg-primary-subtle text-primary-emphasis" id="tt-score"><span class="tt-label" data-i18n-key="score">Score</span>: <strong>0</strong></span>
                 <span class="badge bg-info-subtle text-info-emphasis" id="tt-streak"><span class="tt-label" data-i18n-key="streak">Streak</span>: <strong>0</strong></span>
                 <span class="badge bg-secondary-subtle text-secondary-emphasis" id="tt-level">Level <strong>1</strong></span>
+                <span class="travel-panel__progress" id="tt-progress" data-i18n-key="progressLabel">Question <strong>1</strong></span>
+                <button class="btn tt-restart" id="tt-restart" type="button" data-i18n-key="restartShort">Restart</button>
               </div>
               <div class="travel-panel__content">
                 <p class="text-uppercase small text-secondary mb-1" id="tt-route-meta">—</p>
                 <p class="fs-5 mb-3" id="tt-gap">...</p>
                 <label class="form-label fw-semibold" for="tt-input" data-i18n-key="prompt">Tava atbilde</label>
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="tt-input" autocomplete="off" />
-                  <button class="btn btn-outline-secondary" id="tt-check" data-i18n-key="check">Pārbaudīt</button>
+                  <input type="text" class="form-control" id="tt-input" autocomplete="off" aria-describedby="tt-hint tt-feedback" />
+                  <button class="btn tt-check" id="checkBtn" type="button" data-i18n-key="check">Pārbaudīt</button>
                 </div>
-                <div class="d-grid gap-2 mb-3" id="tt-choices" aria-label="Answer choices"></div>
-                <div class="travel-panel__feedback" id="tt-feedback" aria-live="polite"></div>
+                <div class="d-grid gap-2 mb-3" id="tt-choices" role="group" aria-label="Answer choices"></div>
+                <div class="travel-panel__feedback" id="tt-feedback" aria-live="polite" role="status"></div>
               </div>
               <div class="mt-auto d-flex flex-wrap gap-2 pt-3 border-top">
-                <button class="btn btn-primary" id="tt-next" data-i18n-key="next">Nākamais maršruts</button>
-                <button class="btn btn-outline-secondary ms-auto" id="tt-start" data-i18n-key="start">Sākt</button>
+                <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">Nākamais maršruts</button>
+                <button class="btn tt-start ms-auto" id="tt-start" type="button" data-i18n-key="start">Sākt</button>
               </div>
             </div>
           </div>
@@ -102,7 +104,7 @@
       <div id="tt-live" class="visually-hidden" aria-live="polite"></div>
     </main>
 
-    <footer class="border-top py-4 bg-body-tertiary mt-4">
+    <footer class="border-top py-4 bg-body-tertiary mt-4" role="contentinfo">
       <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
         <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
         <nav class="small">
@@ -115,8 +117,8 @@
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="theme.js" defer></script>
     <script src="scripts/page-init.js" defer></script>
     <script type="module" src="src/games/travel-tracker/index.js"></script>
   </body>

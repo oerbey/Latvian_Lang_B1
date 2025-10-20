@@ -2,6 +2,7 @@
   "title": "Travel Tracker",
   "start": "Start",
   "restart": "Restart",
+  "restartShort": "Restart",
   "check": "Check",
   "next": "Next route",
   "score": "Score",
@@ -10,8 +11,14 @@
   "prompt": "Your answer",
   "enterAnswer": "Type an answer first.",
   "hint": "Hint",
+  "noHint": "No hint yet.",
   "correct": "Correct!",
   "wrong": "Try again!",
   "level_complete": "Level complete!",
+  "progressLabel": "Question",
+  "progressOf": "of",
+  "progressIdle": "Ready",
+  "noQuestion": "No questions available.",
+  "noRoute": "No route selected.",
   "instructions": "Fill the gap with the correct verb form (prefix + tense/person) to move the bus to the next city."
 }

@@ -1,4 +1,7 @@
+import { createSeededRng, seededShuffle } from './utils.js';
+
 const STORAGE_KEY = 'llb1:travel-tracker:progress';
+const SESSION_SEED_KEY = 'llb1:travel-tracker:seed';
 const MAP_PATH = 'assets/img/travel-tracker/latvia.svg';
 const DATA_PATH = 'data/travel-tracker/routes.json';
 const BUS_ANIMATION_MS = 1100;
@@ -11,19 +14,22 @@ const selectors = {
   hint: document.getElementById('tt-hint'),
   feedback: document.getElementById('tt-feedback'),
   input: document.getElementById('tt-input'),
-  check: document.getElementById('tt-check'),
+  check: document.getElementById('checkBtn'),
   next: document.getElementById('tt-next'),
   start: document.getElementById('tt-start'),
+  restart: document.getElementById('tt-restart'),
   choices: document.getElementById('tt-choices'),
   score: document.getElementById('tt-score'),
   streak: document.getElementById('tt-streak'),
   level: document.getElementById('tt-level'),
   routeMeta: document.getElementById('tt-route-meta'),
   liveRegion: document.getElementById('tt-live'),
+  progress: document.getElementById('tt-progress'),
 };
 
 const state = {
   levels: [],
+  originalLevels: [],
   levelIndex: 0,
   routeIndex: 0,
   score: 0,
@@ -31,6 +37,8 @@ const state = {
   started: false,
   routeCompleted: false,
   inputLocked: true,
+  totalRoutes: 0,
+  seed: 0,
 };
 
 let strings = {};
@@ -38,6 +46,135 @@ let overlaySvg = null;
 let viewBox = { width: 800, height: 500 };
 let cityCoords = new Map();
 let animationId = null;
+
+function generateSeed() {
+  if (typeof window !== 'undefined' && window.crypto?.getRandomValues) {
+    const buffer = new Uint32Array(1);
+    window.crypto.getRandomValues(buffer);
+    return buffer[0];
+  }
+  return Math.floor(Math.random() * 0xffffffff);
+}
+
+function persistSessionSeed(seed) {
+  try {
+    sessionStorage.setItem(SESSION_SEED_KEY, String(seed));
+  } catch (err) {
+    console.warn('Unable to persist travel tracker seed to sessionStorage', err);
+  }
+}
+
+function readSessionSeed() {
+  try {
+    const stored = sessionStorage.getItem(SESSION_SEED_KEY);
+    if (stored) {
+      const parsed = Number.parseInt(stored, 10);
+      if (Number.isFinite(parsed)) {
+        return parsed >>> 0;
+      }
+    }
+  } catch (err) {
+    console.warn('Unable to read travel tracker seed from sessionStorage', err);
+  }
+  const fresh = generateSeed();
+  persistSessionSeed(fresh);
+  return fresh;
+}
+
+function clearSessionSeed() {
+  try {
+    sessionStorage.removeItem(SESSION_SEED_KEY);
+  } catch (err) {
+    console.warn('Unable to clear travel tracker seed from sessionStorage', err);
+  }
+}
+
+function cloneLevels(levels) {
+  return (levels ?? []).map(level => ({
+    ...level,
+    routes: [...(level.routes ?? [])],
+  }));
+}
+
+function prepareLevels(levels, seed) {
+  const baseLevels = cloneLevels(levels);
+  if (!baseLevels.length) return [];
+  const rng = createSeededRng(seed);
+  const shuffledLevels = seededShuffle(baseLevels, rng).map(level => ({
+    ...level,
+    routes: seededShuffle(level.routes ?? [], rng),
+  }));
+  return shuffledLevels;
+}
+
+function computeTotalRoutes(levels) {
+  return (levels ?? []).reduce((acc, level) => acc + (level.routes?.length ?? 0), 0);
+}
+
+function applySeed(seed) {
+  state.seed = (seed ?? generateSeed()) >>> 0;
+  persistSessionSeed(state.seed);
+  state.levels = prepareLevels(state.originalLevels, state.seed);
+  state.totalRoutes = computeTotalRoutes(state.levels);
+}
+
+function getProgressPosition() {
+  const total = state.totalRoutes;
+  if (!total) {
+    return { current: 0, total: 0 };
+  }
+  let passed = 0;
+  for (let i = 0; i < state.levelIndex; i += 1) {
+    passed += state.levels[i]?.routes?.length ?? 0;
+  }
+  const current = passed + Math.min(state.routeIndex + 1, state.levels[state.levelIndex]?.routes?.length ?? 0);
+  return { current, total };
+}
+
+function hasInputValue() {
+  if (!selectors.input) return false;
+  return normalizeAnswer(selectors.input.value) !== '';
+}
+
+function updateProgressIndicator() {
+  if (!selectors.progress) return;
+  const { current, total } = getProgressPosition();
+  if (!total) {
+    selectors.progress.textContent = strings.progressIdle ?? '';
+    selectors.progress.setAttribute('aria-label', strings.progressIdle ?? '');
+    return;
+  }
+  const label = strings.progressLabel ?? 'Question';
+  selectors.progress.innerHTML = `${label} <strong>${current}/${total}</strong>`;
+  const ofSegment = strings.progressOf ? `${strings.progressOf} ${total}` : `${total}`;
+  selectors.progress.setAttribute('aria-label', `${label} ${current} ${ofSegment}`.trim());
+}
+
+function attachButtonBehavior(node, handler) {
+  if (!node || typeof handler !== 'function') return;
+  node.addEventListener(
+    'pointerup',
+    event => {
+      if (node.disabled) return;
+      if (event.button !== 0 && event.pointerType !== 'touch') return;
+      event.preventDefault();
+      handler(event);
+    },
+    { passive: false },
+  );
+  node.addEventListener('click', event => {
+    if (node.disabled) return;
+    if (event.detail !== 0) return;
+    handler(event);
+  });
+  node.addEventListener('keydown', event => {
+    if (node.disabled) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handler(event);
+    }
+  });
+}
 
 function assetUrl(path) {
   return new URL(path, document.baseURI).href;
@@ -127,19 +264,18 @@ function applyStrings() {
   selectors.check.textContent = strings.check ?? selectors.check.textContent;
   selectors.next.textContent = strings.next ?? selectors.next.textContent;
   selectors.start.textContent = state.started ? strings.restart : (strings.start ?? selectors.start.textContent);
+  if (selectors.restart) {
+    selectors.restart.textContent = strings.restartShort ?? strings.restart ?? selectors.restart.textContent;
+  }
+  updateProgressIndicator();
 }
 
 function normalizeAnswer(str) {
   return str.trim().toLocaleLowerCase('lv-LV');
 }
 
-function shuffle(list) {
-  const arr = [...list];
-  for (let i = arr.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
+function shuffle(list, rng = Math.random) {
+  return seededShuffle(list, rng);
 }
 
 function moveBusTo(point) {
@@ -201,9 +337,14 @@ function updateScoreboard() {
   if (streakValue) streakValue.textContent = state.streak.toString();
   const levelBadge = selectors.level;
   const level = state.levels[state.levelIndex];
-  if (levelBadge && level) {
-    levelBadge.innerHTML = `${strings.level} <strong>${state.levelIndex + 1}/${state.levels.length}</strong>`;
+  if (levelBadge) {
+    if (level) {
+      levelBadge.innerHTML = `${strings.level} <strong>${state.levelIndex + 1}/${state.levels.length}</strong>`;
+    } else {
+      levelBadge.textContent = `${strings.level ?? 'Level'} —`;
+    }
   }
+  updateProgressIndicator();
 }
 
 function getCurrentLevel() {
@@ -220,7 +361,7 @@ function updateRouteMeta() {
   const level = getCurrentLevel();
   const route = getCurrentRoute();
   if (!level || !route) {
-    selectors.routeMeta.textContent = '—';
+    selectors.routeMeta.textContent = strings.noRoute ?? '—';
     return;
   }
   selectors.routeMeta.textContent = `${level.title} • ${route.from} → ${route.to}`;
@@ -233,7 +374,7 @@ function clearFeedback() {
 }
 
 function setHint(text) {
-  selectors.hint.textContent = text ?? '—';
+  selectors.hint.textContent = text ?? strings.noHint ?? '—';
 }
 
 function updateChoices(route) {
@@ -241,15 +382,18 @@ function updateChoices(route) {
   if (!route) return;
   const options = new Set([...(route.answers ?? []), ...(route.distractors ?? [])]);
   if (options.size === 0) return;
-  shuffle([...options]).forEach(option => {
+  const optionList = shuffle([...options]);
+  optionList.forEach((option, idx) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn btn-outline-primary btn-sm text-start';
+    btn.className = 'btn tt-choice';
     btn.dataset.value = option;
+    btn.setAttribute('data-choice-index', idx.toString());
     btn.textContent = option;
-    btn.addEventListener('click', () => {
+    attachButtonBehavior(btn, () => {
       selectors.input.value = option;
       selectors.input.focus();
+      selectors.input.dispatchEvent(new Event('input', { bubbles: true }));
     });
     selectors.choices.appendChild(btn);
   });
@@ -261,10 +405,22 @@ function dispatchTrack(event, meta = {}) {
 }
 
 function updateControls() {
-  selectors.input.disabled = !state.started || state.inputLocked;
-  selectors.check.disabled = !state.started || state.inputLocked;
-  selectors.next.disabled = !state.started || !state.routeCompleted;
-  selectors.start.textContent = state.started ? strings.restart : strings.start;
+  const hasValue = hasInputValue();
+  if (selectors.input) {
+    selectors.input.disabled = !state.started || state.inputLocked;
+  }
+  if (selectors.check) {
+    selectors.check.disabled = !state.started || state.inputLocked || !hasValue;
+  }
+  if (selectors.next) {
+    selectors.next.disabled = !state.started || !state.routeCompleted;
+  }
+  if (selectors.start) {
+    selectors.start.textContent = state.started ? strings.restart : strings.start;
+  }
+  if (selectors.restart) {
+    selectors.restart.disabled = state.totalRoutes === 0;
+  }
 }
 
 function updateLive(message) {
@@ -284,6 +440,7 @@ function saveProgress(overrides = {}) {
     score: state.score,
     streak: state.streak,
     started: state.started,
+    seed: state.seed,
     ...overrides,
   };
   try {
@@ -293,12 +450,23 @@ function saveProgress(overrides = {}) {
   }
 }
 
+function clearProgress() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (err) {
+    console.warn('Failed to clear travel tracker progress', err);
+  }
+}
+
 function loadProgress() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
     if (typeof data !== 'object' || data === null) return;
+    if (Number.isFinite(data.seed) && data.seed !== state.seed) {
+      return;
+    }
     const maxLevel = Math.max(0, state.levels.length - 1);
     if (Number.isInteger(data.levelIndex)) {
       state.levelIndex = Math.min(maxLevel, Math.max(0, data.levelIndex));
@@ -324,22 +492,28 @@ function resetState() {
   state.routeCompleted = false;
   state.inputLocked = false;
   state.started = true;
-  saveProgress();
   dispatchTrack('start', { levelId: getCurrentLevel()?.id ?? null, restart: true });
+  saveProgress();
 }
 
 function presentCurrentRoute() {
   const route = getCurrentRoute();
   clearFeedback();
-  setHint('—');
+  setHint();
   updateChoices(route);
-  selectors.input.value = '';
+  if (selectors.input) {
+    selectors.input.value = '';
+  }
   state.routeCompleted = false;
   state.inputLocked = !state.started;
   updateControls();
   updateScoreboard();
   updateRouteMeta();
-  if (!route) return;
+  if (!route) {
+    selectors.gap.textContent = strings.noQuestion ?? '—';
+    drawRouteLine(null, null);
+    return;
+  }
   selectors.gap.textContent = route.gap;
   const from = cityCoords.get(route.from);
   const to = cityCoords.get(route.to);
@@ -427,10 +601,13 @@ function handleCheck() {
   if (!state.started || state.inputLocked) return;
   const route = getCurrentRoute();
   if (!route) return;
-  const guess = selectors.input.value;
+  const guess = selectors.input.value?.trim() ?? '';
+  selectors.input.value = guess;
   if (!guess || normalizeAnswer(guess) === '') {
     selectors.feedback.textContent = strings.enterAnswer;
+    selectors.feedback.classList.remove('is-correct', 'is-wrong');
     updateLive(strings.enterAnswer);
+    updateControls();
     return;
   }
   const normalizedGuess = normalizeAnswer(guess);
@@ -485,19 +662,49 @@ function handleStart() {
   saveProgress();
 }
 
+function handleRestart() {
+  const wasStarted = state.started;
+  clearSessionSeed();
+  applySeed(generateSeed());
+  clearProgress();
+  state.levelIndex = 0;
+  state.routeIndex = 0;
+  state.score = 0;
+  state.streak = 0;
+  state.routeCompleted = false;
+  state.inputLocked = !wasStarted;
+  state.started = wasStarted;
+  clearFeedback();
+  setHint();
+  if (selectors.input) {
+    selectors.input.value = '';
+  }
+  updateScoreboard();
+  presentCurrentRoute();
+  updateControls();
+  saveProgress({ started: state.started });
+  dispatchTrack('reshuffle', { seed: state.seed, started: wasStarted });
+}
+
 function bindEvents() {
-  selectors.check.addEventListener('click', handleCheck);
-  selectors.start.addEventListener('click', handleStart);
-  selectors.next.addEventListener('click', () => {
+  attachButtonBehavior(selectors.check, handleCheck);
+  attachButtonBehavior(selectors.start, handleStart);
+  attachButtonBehavior(selectors.next, () => {
     if (!state.routeCompleted) return;
     advanceRoute();
   });
-  selectors.input.addEventListener('keydown', event => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      handleCheck();
-    }
-  });
+  attachButtonBehavior(selectors.restart, handleRestart);
+  if (selectors.input) {
+    selectors.input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        handleCheck();
+      }
+    });
+    selectors.input.addEventListener('input', () => {
+      updateControls();
+    });
+  }
 }
 
 async function init() {
@@ -508,20 +715,42 @@ async function init() {
       loadJSON(DATA_PATH),
     ]);
     strings = {
+      check: 'Check',
+      next: 'Next',
+      start: 'Start',
+      restart: 'Restart',
+      restartShort: 'Restart',
+      level: 'Level',
+      enterAnswer: 'Type an answer first.',
+      progressLabel: 'Question',
+      progressOf: 'of',
+      progressIdle: '—',
+      noHint: '—',
+      noQuestion: 'No questions available.',
+      noRoute: '—',
       ...loadedStrings,
-      restart: loadedStrings.restart ?? loadedStrings.start,
-      level: loadedStrings.level ?? 'Level',
-      enterAnswer: loadedStrings.enterAnswer ?? 'Ievadi atbildi.',
     };
+    strings.restart = strings.restart ?? strings.start ?? 'Restart';
+    strings.restartShort = strings.restartShort ?? strings.restart;
+    strings.level = strings.level ?? 'Level';
+    strings.enterAnswer = strings.enterAnswer ?? 'Type an answer first.';
+    strings.progressLabel = strings.progressLabel ?? 'Question';
+    strings.progressOf = strings.progressOf ?? 'of';
+    strings.progressIdle = strings.progressIdle ?? '—';
+    strings.noHint = strings.noHint ?? '—';
+    strings.noQuestion = strings.noQuestion ?? 'No questions available.';
+    strings.noRoute = strings.noRoute ?? '—';
     applyStrings();
-    selectors.check.textContent = strings.check;
-    selectors.next.textContent = strings.next;
-    selectors.start.textContent = strings.start;
-    document.querySelectorAll('[data-i18n-key="instructions"]').forEach(node => {
-      node.textContent = strings.instructions;
-    });
 
-    state.levels = routes.levels ?? [];
+    state.originalLevels = cloneLevels(routes?.levels ?? []);
+    applySeed(readSessionSeed());
+    state.levelIndex = 0;
+    state.routeIndex = 0;
+    state.score = 0;
+    state.streak = 0;
+    state.routeCompleted = false;
+    state.started = false;
+    state.inputLocked = true;
     await loadMap();
     bindEvents();
     loadProgress();
@@ -531,7 +760,9 @@ async function init() {
     updateScoreboard();
   } catch (err) {
     console.error('Failed to boot Travel Tracker', err);
-    selectors.feedback.textContent = 'Failed to load Travel Tracker.';
+    if (selectors.feedback) {
+      selectors.feedback.textContent = 'Failed to load Travel Tracker.';
+    }
   }
 }
 

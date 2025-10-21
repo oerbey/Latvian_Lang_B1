@@ -1,85 +1,89 @@
 /* Travel tracker scoped styles */
-.travel-tracker-app {
-  --tt-surface: #ffffff;
-  --tt-surface-alt: rgba(255, 255, 255, 0.92);
-  --tt-border: #d0d7e2;
-  --tt-btn-bg: #1d4ed8;
-  --tt-btn-bg-hover: #1a3fc4;
-  --tt-btn-bg-active: #15379f;
-  --tt-btn-fg: #ffffff;
-  --tt-btn-focus: rgba(37, 99, 235, 0.45);
-  --tt-choice-bg: #f8fafc;
-  --tt-choice-bg-hover: #e2e8f0;
-  --tt-choice-fg: #0f172a;
-  --tt-choice-border: #cbd5f5;
-  --tt-feedback-correct: #0f766e;
-  --tt-feedback-wrong: #b91c1c;
-  --tt-muted: #475569;
-  position: relative;
-  max-width: 960px;
-  padding-left: calc(env(safe-area-inset-left, 0px));
-  padding-right: calc(env(safe-area-inset-right, 0px));
-  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+
+.travel-tracker-page {
+  background-color: var(--bg);
+  color: var(--text);
 }
 
-@media (prefers-color-scheme: dark) {
-  .travel-tracker-app {
-    --tt-surface: #0f172a;
-    --tt-surface-alt: rgba(15, 23, 42, 0.88);
-    --tt-border: #1f2937;
-    --tt-btn-bg: #60a5fa;
-    --tt-btn-bg-hover: #3b82f6;
-    --tt-btn-bg-active: #3778eb;
-    --tt-btn-fg: #0b1120;
-    --tt-btn-focus: rgba(147, 197, 253, 0.6);
-    --tt-choice-bg: rgba(30, 41, 59, 0.95);
-    --tt-choice-bg-hover: rgba(51, 65, 85, 0.95);
-    --tt-choice-fg: #f8fafc;
-    --tt-choice-border: rgba(148, 163, 184, 0.55);
-    --tt-feedback-correct: #34d399;
-    --tt-feedback-wrong: #f87171;
-    --tt-muted: #e2e8f0;
-  }
+.travel-tracker-app {
+  --tt-surface: var(--surface);
+  --tt-surface-alt: var(--surface-alt, var(--surface));
+  --tt-surface-soft: var(--surface-subtle, #f1f5f9);
+  --tt-surface-soft-strong: var(--surface-subtle-strong, #e2e8f0);
+  --tt-border: var(--border);
+  --tt-text: var(--text);
+  --tt-muted: var(--muted);
+  --tt-btn-bg: var(--accent);
+  --tt-btn-bg-hover: var(--accent-hover, var(--accent));
+  --tt-btn-bg-active: var(--accent-active, var(--accent));
+  --tt-btn-fg: var(--accent-contrast);
+  --tt-btn-focus: var(--accent-focus, rgba(37, 99, 235, 0.4));
+  --tt-choice-bg: var(--tt-surface-soft);
+  --tt-choice-bg-hover: var(--tt-surface-soft-strong);
+  --tt-choice-fg: var(--tt-text);
+  --tt-choice-border: var(--border-soft, var(--tt-border));
+  --tt-choice-selected-bg: var(--choice-selected-bg, var(--tt-choice-bg-hover));
+  --tt-choice-hover-bg: var(--choice-hover-bg, var(--tt-choice-bg-hover));
+  --tt-feedback-correct: var(--feedback-success, #0f766e);
+  --tt-feedback-wrong: var(--feedback-error, #b91c1c);
+  --tt-shadow: var(--shadow-soft, rgba(15, 23, 42, 0.12));
+  --tt-btn-disabled-bg: var(--btn-disabled-bg, rgba(148, 163, 184, 0.28));
+  --tt-btn-disabled-fg: var(--btn-disabled-fg, rgba(15, 23, 42, 0.55));
+  --tt-start-disabled-border: var(--start-disabled-border, rgba(148, 163, 184, 0.45));
+  --tt-start-disabled-fg: var(--start-disabled-fg, rgba(148, 163, 184, 0.7));
+  --tt-restart-disabled-fg: var(--restart-disabled-fg, rgba(148, 163, 184, 0.7));
+  --tt-accent-soft: var(--accent-soft, rgba(37, 99, 235, 0.08));
+  --tt-accent-shadow: var(--accent-shadow, rgba(37, 99, 235, 0.18));
+  position: relative;
+  max-width: 960px;
+  padding-left: calc(clamp(0.75rem, 3vw, 1.5rem) + env(safe-area-inset-left, 0px));
+  padding-right: calc(clamp(0.75rem, 3vw, 1.5rem) + env(safe-area-inset-right, 0px));
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  color: var(--tt-text);
+}
 
-  .travel-map {
-    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  }
+.travel-tracker-hero {
+  max-width: 60ch;
+  margin-inline: auto;
+}
 
-  .travel-tracker-app .tt-check:disabled,
-  .travel-tracker-app .tt-next:disabled {
-    background-color: rgba(71, 85, 105, 0.55);
-    color: rgba(226, 232, 240, 0.7);
-  }
+.travel-tracker-hero__title {
+  color: var(--tt-text);
+}
 
-  .travel-tracker-app .tt-start:disabled,
-  .travel-tracker-app .tt-restart:disabled {
-    color: rgba(148, 163, 184, 0.6);
-    border-color: rgba(148, 163, 184, 0.3);
-  }
+.travel-tracker-hero__subtitle {
+  color: var(--tt-muted) !important;
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+  line-height: 1.5;
 }
 
 .travel-tracker-layout {
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   background: var(--tt-surface);
   border: 1px solid var(--tt-border);
-  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 24px 64px var(--tt-shadow);
+}
+
+.travel-tracker-layout__grid {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .travel-map {
   position: relative;
-  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
-  min-height: clamp(300px, 52vh, 500px);
+  background: linear-gradient(180deg, var(--tt-surface-soft) 0%, var(--tt-surface-soft-strong) 100%);
+  min-height: clamp(260px, 50vh, 520px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .travel-map__inner svg {
   width: 100%;
   height: auto;
-  max-height: 460px;
+  max-height: clamp(340px, 52vh, 520px);
 }
 
 .travel-map__bus {
@@ -110,11 +114,12 @@
 .travel-panel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  gap: clamp(1.1rem, 1.5vw, 1.75rem);
+  padding: clamp(1.25rem, 2vw, 1.75rem);
   background: var(--tt-surface-alt);
-  min-height: 100%;
-  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  min-height: clamp(320px, 52vh, 100%);
+  padding-bottom: calc(clamp(1.25rem, 2vw, 1.75rem) + env(safe-area-inset-bottom, 0px));
+  color: var(--tt-text);
 }
 
 @supports (backdrop-filter: blur(12px)) {
@@ -132,19 +137,31 @@
   color: var(--tt-muted);
 }
 
-.travel-panel__scoreboard .badge {
+.travel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.85rem;
-  padding: 0.4rem 0.65rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: var(--tt-choice-bg);
+  border: 1px solid var(--tt-border);
+  color: var(--tt-muted);
+  font-weight: 600;
+  min-height: 2.25rem;
 }
 
-.travel-panel__scoreboard .badge strong {
-  font-weight: 600;
-  margin-left: 0.35rem;
+.travel-pill strong {
+  color: var(--tt-text);
+  font-weight: 700;
 }
 
 .travel-panel__progress {
   font-weight: 600;
-  color: var(--tt-choice-fg);
+  color: var(--tt-text);
+  min-height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
 }
 
 .travel-panel__progress strong {
@@ -156,30 +173,89 @@
 }
 
 .travel-panel__content {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  min-height: 0;
+  display: grid;
+  gap: clamp(0.85rem, 1.3vw, 1.25rem);
+  align-content: start;
+  min-block-size: clamp(260px, 42vh, 360px);
 }
 
-#tt-route-meta {
+.travel-panel__meta {
   font-size: 0.8125rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--tt-muted);
+  min-height: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
-#tt-gap {
-  font-size: clamp(1.1rem, 0.8rem + 0.8vw, 1.45rem);
-  line-height: 1.5;
-  color: var(--tt-choice-fg);
+.travel-panel__prompt {
+  font-size: clamp(1.1rem, 0.9rem + 1.4vw, 1.6rem);
+  line-height: 1.55;
+  color: var(--tt-text);
+  font-weight: 600;
+  margin: 0;
+  min-block-size: clamp(3.5rem, 7vh, 5.5rem);
+  max-width: 58ch;
+}
+
+.travel-panel__label {
+  font-weight: 600;
+  color: var(--tt-text);
+  margin-bottom: 0.25rem;
+}
+
+.travel-panel__input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.travel-panel__input {
+  flex: 1 1 200px;
+  min-height: 52px;
+  border-radius: 0.85rem;
+  border: 1px solid var(--tt-border);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: var(--tt-surface);
+  color: var(--tt-text);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.travel-panel__input::placeholder {
+  color: var(--tt-muted);
+  opacity: 0.7;
+}
+
+.travel-panel__input:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px var(--tt-btn-focus);
+  outline: 0;
+  background: var(--tt-surface);
+}
+
+.travel-panel__choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+  gap: 0.75rem;
+  grid-auto-rows: minmax(3rem, auto);
+}
+
+.travel-panel__feedback,
+#tt-hint,
+.travel-panel__prompt {
+  word-break: break-word;
 }
 
 .travel-panel__feedback {
-  min-height: 2rem;
+  min-block-size: clamp(2.5rem, 5vh, 3.5rem);
   font-weight: 600;
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  color: var(--tt-muted);
 }
 
 .travel-panel__feedback.is-correct {
@@ -190,15 +266,27 @@
   color: var(--tt-feedback-wrong);
 }
 
-#tt-hint {
-  font-weight: 500;
-  color: var(--tt-choice-fg);
+.travel-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tt-border);
 }
 
-#tt-choices {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.75rem;
+.travel-panel__actions .tt-start {
+  margin-left: auto;
+}
+
+.travel-tracker-hint {
+  color: var(--tt-muted) !important;
+}
+
+.travel-tracker-hint #tt-hint {
+  color: var(--tt-text);
+  font-weight: 600;
 }
 
 .travel-tracker-app button {
@@ -208,35 +296,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.travel-tracker-app button:disabled {
-  cursor: not-allowed;
-}
-
 .travel-tracker-app .btn:focus-visible,
 .travel-tracker-app .tt-choice:focus-visible,
 .travel-tracker-app .tt-restart:focus-visible {
   outline: 0;
-  box-shadow: 0 0 0 3px var(--tt-btn-focus);
-}
-
-.travel-tracker-app .input-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.travel-tracker-app .input-group .form-control {
-  flex: 1 1 220px;
-  min-height: 48px;
-  border-radius: 0.75rem;
-  border: 1px solid var(--tt-border);
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.travel-tracker-app .input-group .form-control:focus {
-  border-color: transparent;
   box-shadow: 0 0 0 3px var(--tt-btn-focus);
 }
 
@@ -248,48 +311,32 @@
   border-radius: 0.85rem;
   padding: 0.75rem 1.5rem;
   border: 0;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
-.travel-tracker-app .tt-check {
-  background-color: var(--tt-btn-bg);
-  color: var(--tt-btn-fg);
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
-  flex: 0 0 auto;
-}
-
-.travel-tracker-app .tt-check:not(:disabled):hover {
-  background-color: var(--tt-btn-bg-hover);
-}
-
-.travel-tracker-app .tt-check:not(:disabled):active {
-  background-color: var(--tt-btn-bg-active);
-  transform: translateY(1px);
-}
-
-.travel-tracker-app .tt-check:disabled {
-  background-color: rgba(148, 163, 184, 0.28);
-  color: rgba(15, 23, 42, 0.55);
-  box-shadow: none;
-}
-
+.travel-tracker-app .tt-check,
 .travel-tracker-app .tt-next {
   background-color: var(--tt-btn-bg);
   color: var(--tt-btn-fg);
+  box-shadow: 0 10px 24px var(--tt-accent-shadow);
 }
 
+.travel-tracker-app .tt-check:not(:disabled):hover,
 .travel-tracker-app .tt-next:not(:disabled):hover {
   background-color: var(--tt-btn-bg-hover);
 }
 
+.travel-tracker-app .tt-check:not(:disabled):active,
 .travel-tracker-app .tt-next:not(:disabled):active {
   background-color: var(--tt-btn-bg-active);
   transform: translateY(1px);
 }
 
+.travel-tracker-app .tt-check:disabled,
 .travel-tracker-app .tt-next:disabled {
-  background-color: rgba(148, 163, 184, 0.28);
-  color: rgba(15, 23, 42, 0.55);
+  background-color: var(--tt-btn-disabled-bg);
+  color: var(--tt-btn-disabled-fg);
+  box-shadow: none;
 }
 
 .travel-tracker-app .tt-start {
@@ -299,12 +346,12 @@
 }
 
 .travel-tracker-app .tt-start:not(:disabled):hover {
-  background-color: rgba(37, 99, 235, 0.08);
+  background-color: var(--tt-accent-soft);
 }
 
 .travel-tracker-app .tt-start:disabled {
-  border-color: rgba(148, 163, 184, 0.45);
-  color: rgba(148, 163, 184, 0.7);
+  border-color: var(--tt-start-disabled-border);
+  color: var(--tt-start-disabled-fg);
 }
 
 .travel-tracker-app .tt-restart {
@@ -323,11 +370,11 @@
 }
 
 .travel-tracker-app .tt-restart:not(:disabled):hover {
-  background-color: rgba(37, 99, 235, 0.08);
+  background-color: var(--tt-accent-soft);
 }
 
 .travel-tracker-app .tt-restart:disabled {
-  color: rgba(148, 163, 184, 0.7);
+  color: var(--tt-restart-disabled-fg);
 }
 
 .travel-tracker-app .tt-choice {
@@ -341,18 +388,19 @@
   color: var(--tt-choice-fg);
   padding: 0.75rem 1rem;
   text-align: left;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  width: 100%;
 }
 
 .travel-tracker-app .tt-choice.is-selected,
 .travel-tracker-app .tt-choice[aria-pressed='true'] {
   border-color: var(--tt-btn-bg);
-  background-color: var(--tt-choice-bg-hover);
+  background-color: var(--tt-choice-selected-bg);
   box-shadow: 0 0 0 3px var(--tt-btn-focus);
 }
 
 .travel-tracker-app .tt-choice:hover {
-  background-color: var(--tt-choice-bg-hover);
+  background-color: var(--tt-choice-hover-bg);
 }
 
 .travel-tracker-app .tt-choice:active {
@@ -364,134 +412,107 @@
   box-shadow: 0 0 0 3px var(--tt-btn-focus);
 }
 
-.travel-panel__feedback,
-#tt-hint,
-#tt-gap {
-  word-break: break-word;
-}
-
-@media (max-width: 991px) {
-  .travel-tracker-layout .row {
-    flex-direction: column;
+@media (min-width: 900px) {
+  .travel-tracker-layout__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .travel-map {
-    min-height: clamp(280px, 55vh, 420px);
+    border-inline-end: 1px solid var(--tt-border);
   }
 }
 
-@media (max-width: 640px) {
-  .travel-panel {
-    padding: 1.25rem;
+@media (max-width: 900px) {
+  .travel-panel__scoreboard .tt-restart {
+    margin-left: 0;
+  }
+
+  .travel-panel__actions .tt-start {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .travel-tracker-app {
+    padding-left: calc(clamp(0.5rem, 3vw, 1.25rem) + env(safe-area-inset-left, 0px));
+    padding-right: calc(clamp(0.5rem, 3vw, 1.25rem) + env(safe-area-inset-right, 0px));
   }
 
   .travel-panel__scoreboard {
     gap: 0.65rem;
   }
 
-  .travel-panel__progress {
-    flex-basis: 100%;
-  }
-
+  .travel-panel__scoreboard .travel-pill,
+  .travel-panel__scoreboard .travel-panel__progress,
   .travel-panel__scoreboard .tt-restart {
-    margin-left: 0;
+    width: 100%;
   }
 
-  .travel-tracker-app .input-group {
+  .travel-panel__scoreboard .travel-pill,
+  .travel-panel__scoreboard .travel-panel__progress {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .travel-panel__input-group {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .travel-panel__input {
+    width: 100%;
   }
 
   .travel-tracker-app .tt-check {
     width: 100%;
   }
 
-  .travel-panel__content {
-    overflow-y: auto;
-  }
-}
-
-@media (max-width: 430px) {
-  .travel-panel {
-    padding: 1.1rem 1rem calc(1.35rem + env(safe-area-inset-bottom, 0px));
-    gap: 1.35rem;
+  .travel-panel__actions {
+    justify-content: stretch;
   }
 
-  .travel-map {
-    padding: 0.75rem;
-  }
-}
-
-/* iPhone 12/13/14 (414px) adjustments */
-@media (max-width: 414px) {
-  .travel-map {
-    min-height: clamp(260px, 58vh, 380px);
-  }
-
-  .travel-panel__scoreboard {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-  }
-
-  .travel-panel__scoreboard > * {
+  .travel-panel__actions .tt-start {
+    margin-left: 0;
     width: 100%;
-    text-align: center;
-  }
-
-  .travel-panel__scoreboard .tt-restart {
-    justify-content: center;
-  }
-
-  .travel-panel__content {
-    padding-right: 0.25rem;
-  }
-
-  #tt-choices {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 }
 
-/* iPhone 12/13 mini, 15 Pro (390px) */
-@media (max-width: 390px) {
+@media (max-width: 480px) {
   .travel-panel {
-    gap: 1.25rem;
+    padding: clamp(1rem, 4vw, 1.25rem);
+    gap: clamp(1rem, 4vw, 1.25rem);
   }
 
-  .travel-map {
-    min-height: clamp(240px, 60vh, 360px);
+  .travel-panel__choices {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
+    gap: 0.65rem;
   }
 
-  #tt-gap {
-    font-size: clamp(1.05rem, 0.9rem + 1.6vw, 1.3rem);
+  .travel-panel__prompt {
+    font-size: clamp(1.05rem, 0.95rem + 1.5vw, 1.35rem);
   }
 }
 
-/* iPhone SE (375px) and similar */
-@media (max-width: 375px) {
-  .travel-panel {
-    padding: 1rem 0.9rem calc(1.3rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  .travel-panel__content {
-    gap: 0.85rem;
-  }
-
-  #tt-choices {
+@media (max-width: 360px) {
+  .travel-panel__choices {
     grid-template-columns: 1fr;
   }
 }
 
-@media (orientation: landscape) and (max-height: 480px) {
-  .travel-tracker-layout .row {
-    flex-direction: column;
+@media (orientation: landscape) and (max-height: 500px) {
+  .travel-tracker-layout__grid {
+    grid-template-columns: 1fr;
   }
 
   .travel-map {
-    min-height: 220px;
-    padding: 0.75rem;
+    min-height: clamp(220px, 45vh, 320px);
   }
 
   .travel-panel {
-    padding: 1rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    padding: clamp(1rem, 3vw, 1.5rem);
   }
+}
+
+[data-bs-theme='dark'] .travel-map {
+  background: linear-gradient(180deg, var(--tt-surface-soft) 0%, var(--tt-surface) 100%);
 }

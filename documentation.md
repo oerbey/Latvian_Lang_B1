@@ -70,6 +70,12 @@
 - Clickable regions are tracked in `state.clickables` for hit testing on pointer and touch events.
 - `assets/app.js` and endings builder emit status updates through `aria-live` regions and ensure keyboard focus management.
 - Theme toggling (`theme.js`) persists Bootstrap color mode and updates icon visibility; works across all pages sharing the navbar.
+- Travel Tracker adopts the same toggle but also syncs the browser chrome color (via the `<meta name="theme-color">` tag) to the active palette tokens so PWA address bars match the UI.
+
+## UI & Theming
+- Global design tokens live in `styles.css` (`--bg`, `--surface`, `--text`, `--muted`, `--border`, `--accent`, `--accent-contrast`, plus helpers for hover/disabled states). Pages opt into them by referencing the variables; additional page-specific aliases can be layered inside each app container.
+- `theme.js` reads the saved theme from `localStorage`, honours OS `prefers-color-scheme`, and updates the meta theme color so browsers tint the UI chrome correctly. Users can toggle modes via the navbar button; the preference persists until cleared.
+- To sanity-check responsive layouts, run a static server (`npm install -g serve && serve .` or `python -m http.server 8000`) and open Chrome/Firefox dev tools. Test breakpoints used in QA: 320×568, 360×640, 390×844, 412×915, and 768×1024 (portrait + landscape). Ensure no horizontal scroll, buttons ≥44px, and focus outlines remain visible in both color modes.
 
 ### Travel Tracker Mobile Compatibility
 - Travel Tracker (`travel-tracker.html`) now applies iPhone-specific breakpoints (430px, 414px, 390px, 375px) to manage safe-area padding, stack the score badges vertically, and prevent the bus map from overflowing short viewports.

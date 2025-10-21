@@ -1,7 +1,63 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-alt: rgba(255, 255, 255, 0.92);
+  --surface-subtle: #f1f5f9;
+  --surface-subtle-strong: #e2e8f0;
+  --border: #d0d7e2;
+  --border-soft: #cbd5f5;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-active: #1a3fc4;
+  --accent-contrast: #ffffff;
+  --accent-focus: rgba(37, 99, 235, 0.45);
+  --accent-soft: rgba(37, 99, 235, 0.08);
+  --accent-shadow: rgba(37, 99, 235, 0.18);
+  --feedback-success: #0f766e;
+  --feedback-error: #b91c1c;
+  --btn-disabled-bg: rgba(148, 163, 184, 0.28);
+  --btn-disabled-fg: rgba(15, 23, 42, 0.55);
+  --start-disabled-border: rgba(148, 163, 184, 0.45);
+  --start-disabled-fg: rgba(148, 163, 184, 0.7);
+  --restart-disabled-fg: rgba(148, 163, 184, 0.7);
+  --choice-selected-bg: #e2e8f0;
+  --choice-hover-bg: #e2e8f0;
+}
+
+[data-bs-theme="dark"] {
+  --bg: #05060a;
+  --surface: #0f172a;
+  --surface-alt: rgba(15, 23, 42, 0.88);
+  --surface-subtle: rgba(30, 41, 59, 0.95);
+  --surface-subtle-strong: rgba(51, 65, 85, 0.95);
+  --border: #1f2937;
+  --border-soft: rgba(148, 163, 184, 0.45);
+  --text: #f8fafc;
+  --muted: #cbd5f5;
+  --accent: #60a5fa;
+  --accent-hover: #3b82f6;
+  --accent-active: #2563eb;
+  --accent-contrast: #04111f;
+  --accent-focus: rgba(147, 197, 253, 0.6);
+  --accent-soft: rgba(96, 165, 250, 0.16);
+  --accent-shadow: rgba(96, 165, 250, 0.2);
+  --feedback-success: #34d399;
+  --feedback-error: #f87171;
+  --btn-disabled-bg: rgba(71, 85, 105, 0.55);
+  --btn-disabled-fg: rgba(226, 232, 240, 0.7);
+  --start-disabled-border: rgba(148, 163, 184, 0.3);
+  --start-disabled-fg: rgba(148, 163, 184, 0.6);
+  --restart-disabled-fg: rgba(148, 163, 184, 0.6);
+  --choice-selected-bg: rgba(37, 99, 235, 0.2);
+  --choice-hover-bg: rgba(51, 65, 85, 0.95);
+}
+
   /* ===========================
      Global look & feel - RESPONSIVE
      =========================== */
-  html,body{margin:0;padding:0;background:#0e0f13;color:#e9eef5;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden;}
   #wrap{max-width:980px;margin:0 auto;padding:12px;width:100%;box-sizing:border-box;}
   h1{font-weight:800;margin:8px 0 4px;font-size:clamp(18px,4vw,24px);}  
   #ui{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px;justify-content:center;}

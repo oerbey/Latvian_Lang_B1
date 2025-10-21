@@ -71,6 +71,12 @@
 - `assets/app.js` and endings builder emit status updates through `aria-live` regions and ensure keyboard focus management.
 - Theme toggling (`theme.js`) persists Bootstrap color mode and updates icon visibility; works across all pages sharing the navbar.
 
+### Travel Tracker Mobile Compatibility
+- Travel Tracker (`travel-tracker.html`) now applies iPhone-specific breakpoints (430px, 414px, 390px, 375px) to manage safe-area padding, stack the score badges vertically, and prevent the bus map from overflowing short viewports.
+- The `src/games/travel-tracker/styles.css` sheet sets `clamp()`-based map heights, dynamic grid columns for answer choices, and column-to-row fallbacks for landscape devices under 480px tall.
+- Touch targets (buttons, inputs, choice chips) keep a minimum of 44–48px height, and the interactive panel gains scrollable overflow on narrow screens so restart/next controls stay reachable above the iOS home indicator.
+- Safe-area insets are consumed through `env(safe-area-inset-*)` both on the outer container and the control panel to avoid clipping behind the notch or home indicator when `viewport-fit=cover` is active.
+
 ## Development Workflow
 - Install dependencies: `npm install` (pulls `xlsx` for data conversion). For Python tooling, `pip install requests`.
 - Build datasets: `npm run build:data` converts the Excel sheet to `data/words.json`. Run the Python script manually when refreshing verb inflections.

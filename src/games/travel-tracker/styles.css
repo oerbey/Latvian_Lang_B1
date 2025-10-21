@@ -69,10 +69,19 @@
   position: relative;
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
   min-height: 320px;
+  /* Fallback for browsers without dvh support */
+  min-height: 50vh;
+  /* Modern viewport units for iOS Safari */
+  min-height: 50dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  /* iOS Safari-specific fixes */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* CSS containment for performance */
+  contain: layout style paint;
 }
 
 .travel-map__inner svg {
@@ -87,8 +96,13 @@
   height: 26px;
   background: url("../../../assets/img/travel-tracker/bus.svg") no-repeat center/contain;
   transform: translate(-50%, -100%);
+  -webkit-transform: translate(-50%, -100%);
   transition: transform 0.6s ease-out;
+  -webkit-transition: -webkit-transform 0.6s ease-out;
   pointer-events: none;
+  /* Hardware acceleration for iOS */
+  -webkit-transform: translate3d(-50%, -100%, 0);
+  transform: translate3d(-50%, -100%, 0);
 }
 
 .travel-map__bus--hidden {
@@ -114,11 +128,25 @@
   background: var(--tt-surface-alt);
   min-height: 100%;
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  /* Ensure proper overflow handling on iPhone */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Legacy iOS support */
+  overscroll-behavior-y: contain;
+  /* CSS containment for performance */
+  contain: layout style;
 }
 
 @supports (backdrop-filter: blur(12px)) {
   .travel-panel {
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
+  }
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(12px)) {
+  .travel-panel {
+    background: var(--tt-surface);
   }
 }
 
@@ -194,8 +222,11 @@
 
 #tt-choices {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  /* Improved grid for iPhone: reduced min width from 140px to 120px */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.75rem;
+  /* Ensure proper wrapping on narrow screens */
+  width: 100%;
 }
 
 .travel-tracker-app button {
@@ -246,6 +277,11 @@
   padding: 0.75rem 1.5rem;
   border: 0;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  -webkit-transition: background-color 0.2s ease, -webkit-transform 0.2s ease, box-shadow 0.2s ease;
+  /* Prevent iOS double-tap zoom */
+  touch-action: manipulation;
+  /* Improve tap responsiveness on iOS */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 .travel-tracker-app .tt-check {
@@ -262,6 +298,7 @@
 .travel-tracker-app .tt-check:not(:disabled):active {
   background-color: var(--tt-btn-bg-active);
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 
 .travel-tracker-app .tt-check:disabled {
@@ -282,6 +319,7 @@
 .travel-tracker-app .tt-next:not(:disabled):active {
   background-color: var(--tt-btn-bg-active);
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 
 .travel-tracker-app .tt-next:disabled {
@@ -339,6 +377,11 @@
   padding: 0.75rem 1rem;
   text-align: left;
   transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  -webkit-transition: background-color 0.2s ease, border-color 0.2s ease, -webkit-transform 0.2s ease;
+  /* Prevent iOS double-tap zoom */
+  touch-action: manipulation;
+  /* Improve tap responsiveness on iOS */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
 }
 
 .travel-tracker-app .tt-choice.is-selected,
@@ -354,6 +397,7 @@
 
 .travel-tracker-app .tt-choice:active {
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 
 .travel-tracker-app .tt-choice:focus-visible {
@@ -367,19 +411,48 @@
   word-break: break-word;
 }
 
+/* ======================================
+   RESPONSIVE BREAKPOINTS
+   Fixed for iPhone compatibility
+   ====================================== */
+
+/* Large tablets and below (Bootstrap lg breakpoint) */
 @media (max-width: 991px) {
   .travel-tracker-layout .row {
     flex-direction: column;
   }
 
   .travel-map {
-    min-height: 260px;
+    /* Increased min-height for better tablet viewing */
+    min-height: 280px;
+  }
+
+  .travel-panel {
+    /* Ensure adequate height when stacked */
+    min-height: 400px;
   }
 }
 
+/* iPad Mini and smaller tablets (portrait) */
+@media (max-width: 768px) {
+  .travel-map {
+    min-height: 260px;
+  }
+
+  .travel-panel {
+    gap: 1.25rem;
+  }
+
+  #tt-gap {
+    font-size: clamp(1rem, 0.75rem + 0.8vw, 1.3rem);
+  }
+}
+
+/* Small tablets and large phones */
 @media (max-width: 640px) {
   .travel-panel {
     padding: 1.25rem;
+    gap: 1rem;
   }
 
   .travel-panel__scoreboard {
@@ -401,10 +474,246 @@
   .travel-tracker-app .tt-check {
     width: 100%;
   }
-}
 
-@media (max-width: 480px) {
+  /* Improve grid layout for medium-width phones */
   #tt-choices {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }
+
+/* iPhone-specific breakpoints for optimal layout */
+
+/* iPhone 14 Pro Max, 14 Plus, 13 Pro Max, 12 Pro Max (430px) */
+@media (max-width: 430px) {
+  .travel-map {
+    min-height: 240px;
+    padding: 0.75rem;
+  }
+
+  .travel-map__inner svg {
+    max-height: 380px;
+  }
+
+  .travel-panel {
+    padding: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 12px));
+  }
+
+  .travel-panel__content {
+    gap: 0.875rem;
+  }
+
+  #tt-gap {
+    font-size: clamp(0.95rem, 0.7rem + 0.75vw, 1.2rem);
+    line-height: 1.45;
+  }
+
+  .travel-tracker-app .input-group .form-control {
+    min-height: 50px; /* Increased for better touch target */
+    font-size: 1rem; /* Prevent iOS zoom on focus */
+  }
+
+  .travel-tracker-app .tt-check,
+  .travel-tracker-app .tt-next,
+  .travel-tracker-app .tt-start {
+    min-height: 50px; /* Enhanced touch target for iPhone */
+    font-size: 0.95rem;
+  }
+
+  .travel-tracker-app .tt-choice {
+    min-height: 50px; /* Meets Apple HIG 44pt minimum */
+    padding: 0.85rem 1rem;
+  }
+}
+
+/* iPhone 14, 14 Pro, 13, 13 Pro, 12, 12 Pro (390px) */
+@media (max-width: 390px) {
+  .travel-map {
+    min-height: 220px;
+  }
+
+  .travel-panel {
+    padding: 0.875rem;
+  }
+
+  .travel-panel__scoreboard .badge {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.55rem;
+  }
+
+  .travel-tracker-app .tt-restart {
+    font-size: 0.8125rem;
+    padding: 0.3rem 0.75rem;
+    min-height: 38px;
+  }
+
+  #tt-choices {
+    grid-template-columns: 1fr; /* Single column for narrow iPhones */
+    gap: 0.65rem;
+  }
+
+  .travel-tracker-app .input-group .form-control,
+  .travel-tracker-app .tt-check,
+  .travel-tracker-app .tt-next,
+  .travel-tracker-app .tt-start,
+  .travel-tracker-app .tt-choice {
+    border-radius: 0.75rem; /* Slightly smaller radius for narrow screens */
+  }
+}
+
+/* iPhone SE (3rd gen), 13 mini, 12 mini (375px) */
+@media (max-width: 375px) {
+  .travel-tracker-app {
+    padding-left: max(0.5rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.5rem, env(safe-area-inset-right, 0px));
+  }
+
+  .travel-map {
+    min-height: 200px;
+    padding: 0.5rem;
+  }
+
+  .travel-map__inner svg {
+    max-height: 340px;
+  }
+
+  .travel-map__bus {
+    width: 44px; /* Slightly smaller bus icon */
+    height: 22px;
+  }
+
+  .travel-panel {
+    padding: 0.75rem;
+  }
+
+  .travel-panel__content {
+    gap: 0.75rem;
+  }
+
+  #tt-gap {
+    font-size: clamp(0.9rem, 0.65rem + 0.7vw, 1.15rem);
+    margin-bottom: 0.75rem;
+  }
+
+  #tt-route-meta {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .travel-tracker-app .input-group {
+    gap: 0.5rem;
+  }
+
+  .travel-panel__scoreboard {
+    gap: 0.5rem;
+  }
+}
+
+/* Landscape orientation handling for iPhone */
+@media (max-height: 500px) and (orientation: landscape) {
+  .travel-tracker-layout {
+    border-radius: 12px;
+  }
+
+  .travel-map {
+    min-height: 180px;
+    max-height: calc(100vh - 200px);
+  }
+
+  .travel-map__inner svg {
+    max-height: 280px;
+  }
+
+  .travel-panel {
+    padding: 0.75rem;
+    gap: 0.75rem;
+    /* Optimize for horizontal space in landscape */
+    min-height: auto;
+  }
+
+  .travel-panel__content {
+    gap: 0.625rem;
+  }
+
+  .travel-panel__scoreboard {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .travel-panel__scoreboard::-webkit-scrollbar {
+    display: none;
+  }
+
+  #tt-gap {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .travel-tracker-app .input-group {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .travel-tracker-app .input-group .form-control {
+    min-height: 44px;
+  }
+
+  .travel-tracker-app .tt-check {
+    width: auto;
+    min-width: 100px;
+  }
+
+  #tt-choices {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .travel-tracker-app .tt-choice {
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Ultra-narrow devices (iPhone SE 1st gen - 320px) */
+@media (max-width: 360px) {
+  .travel-tracker-layout {
+    border-radius: 12px;
+  }
+
+  .travel-map {
+    min-height: 180px;
+  }
+
+  .travel-panel {
+    padding: 0.625rem;
+  }
+
+  .travel-panel__scoreboard .badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .travel-tracker-app .tt-check,
+  .travel-tracker-app .tt-next,
+  .travel-tracker-app .tt-start {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .travel-tracker-app .tt-choice {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .travel-tracker-app .input-group .form-control {
+    font-size: 1rem; /* Keep at 1rem to prevent zoom */
+    padding: 0.65rem 0.85rem;
+  }
+}
+
+/* Deprecated iOS 12- overflow scrolling removed */
+/* -webkit-overflow-scrolling: touch is no longer needed for iOS 13+ */

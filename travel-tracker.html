@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="theme-color" content="#0e0f13" />
+    <meta name="theme-color" content="#f4f7fb" />
     <meta name="description" content="Ceļošanas maršrutu mini-spēle ar Latvijas karti un darbības vārdu priedēkļiem." />
     <title>Travel Tracker — Latvian B1</title>
     <link rel="manifest" href="manifest.json" />
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/travel-tracker/styles.css" />
   </head>
-  <body>
+  <body class="travel-tracker-page">
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom" role="banner">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
@@ -51,52 +51,48 @@
     </nav>
 
     <main class="container py-4 mt-5 travel-tracker-app" role="main">
-      <header class="mb-4 text-center text-md-start">
-        <h1 class="h4 mb-2" data-i18n-key="title">Travel Tracker</h1>
-        <p class="mb-0 text-secondary" data-i18n-key="instructions">
+      <header class="travel-tracker-hero mb-4 text-center text-md-start">
+        <h1 class="travel-tracker-hero__title h4 mb-2" id="travelTrackerTitle" data-i18n-key="title">Travel Tracker</h1>
+        <p class="travel-tracker-hero__subtitle mb-0 text-secondary" data-i18n-key="instructions">
           Aizpildi teikumus ar pareizo priedēkli, lai autobuss dotos pa maršrutu.
         </p>
       </header>
 
-      <section class="travel-tracker-layout card shadow-sm">
-        <div class="row g-0">
-          <div class="col-12 col-lg-6 border-bottom border-lg-bottom-0 border-lg-end">
-            <div class="travel-map" id="tt-map" aria-hidden="true">
-              <div class="travel-map__inner" id="tt-map-inner"></div>
-              <div class="travel-map__bus" id="tt-bus" role="img" aria-label="Bus"></div>
-              <div class="travel-map__route" id="tt-route"></div>
-            </div>
+      <section class="travel-tracker-layout card shadow-sm" aria-labelledby="travelTrackerTitle">
+        <div class="travel-tracker-layout__grid" data-testid="travel-tracker-layout">
+          <div class="travel-map" id="tt-map" aria-hidden="true">
+            <div class="travel-map__inner" id="tt-map-inner"></div>
+            <div class="travel-map__bus" id="tt-bus" role="img" aria-label="Bus"></div>
+            <div class="travel-map__route" id="tt-route"></div>
           </div>
-          <div class="col-12 col-lg-6">
-            <div class="travel-panel d-flex flex-column h-100">
-              <div class="travel-panel__scoreboard" aria-live="polite" aria-atomic="true">
-                <span class="badge bg-primary-subtle text-primary-emphasis" id="tt-score"><span class="tt-label" data-i18n-key="score">Score</span>: <strong>0</strong></span>
-                <span class="badge bg-info-subtle text-info-emphasis" id="tt-streak"><span class="tt-label" data-i18n-key="streak">Streak</span>: <strong>0</strong></span>
-                <span class="badge bg-secondary-subtle text-secondary-emphasis" id="tt-level">Level <strong>1</strong></span>
-                <span class="travel-panel__progress" id="tt-progress" data-i18n-key="progressLabel">Question <strong>1</strong></span>
-                <button class="btn tt-restart" id="tt-restart" type="button" data-i18n-key="restartShort">Restart</button>
+          <div class="travel-panel">
+            <div class="travel-panel__scoreboard" aria-live="polite" aria-atomic="true">
+              <span class="travel-pill" id="tt-score"><span class="tt-label" data-i18n-key="score">Score</span>: <strong>0</strong></span>
+              <span class="travel-pill" id="tt-streak"><span class="tt-label" data-i18n-key="streak">Streak</span>: <strong>0</strong></span>
+              <span class="travel-pill" id="tt-level">Level <strong>1</strong></span>
+              <span class="travel-panel__progress" id="tt-progress" data-i18n-key="progressLabel">Question <strong>1</strong></span>
+              <button class="btn tt-restart" id="tt-restart" type="button" data-i18n-key="restartShort">Restart</button>
+            </div>
+            <div class="travel-panel__content">
+              <div class="travel-panel__meta" id="tt-route-meta" aria-live="polite" aria-atomic="true">—</div>
+              <p class="travel-panel__prompt" id="tt-gap">...</p>
+              <label class="travel-panel__label" for="tt-input" data-i18n-key="prompt">Tava atbilde</label>
+              <div class="travel-panel__input-group">
+                <input type="text" class="travel-panel__input" id="tt-input" autocomplete="off" aria-describedby="tt-hint tt-feedback" />
+                <button class="btn tt-check" id="checkBtn" type="button" data-i18n-key="check">Pārbaudīt</button>
               </div>
-              <div class="travel-panel__content">
-                <p class="text-uppercase small text-secondary mb-1" id="tt-route-meta">—</p>
-                <p class="fs-5 mb-3" id="tt-gap">...</p>
-                <label class="form-label fw-semibold" for="tt-input" data-i18n-key="prompt">Tava atbilde</label>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="tt-input" autocomplete="off" aria-describedby="tt-hint tt-feedback" />
-                  <button class="btn tt-check" id="checkBtn" type="button" data-i18n-key="check">Pārbaudīt</button>
-                </div>
-                <div class="d-grid gap-2 mb-3" id="tt-choices" role="group" aria-label="Answer choices"></div>
-                <div class="travel-panel__feedback" id="tt-feedback" aria-live="polite" role="status"></div>
-              </div>
-              <div class="mt-auto d-flex flex-wrap gap-2 pt-3 border-top">
-                <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">Nākamais maršruts</button>
-                <button class="btn tt-start ms-auto" id="tt-start" type="button" data-i18n-key="start">Sākt</button>
-              </div>
+              <div class="travel-panel__choices" id="tt-choices" role="group" aria-label="Answer choices" data-testid="travel-tracker-choices"></div>
+              <div class="travel-panel__feedback" id="tt-feedback" aria-live="polite" aria-atomic="true" role="status"></div>
+            </div>
+            <div class="travel-panel__actions">
+              <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">Nākamais maršruts</button>
+              <button class="btn tt-start" id="tt-start" type="button" data-i18n-key="start">Sākt</button>
             </div>
           </div>
         </div>
       </section>
 
-      <p class="mt-3 text-muted small">
+      <p class="travel-tracker-hint mt-3 text-muted small">
         <span data-i18n-key="hint">Padoms</span>:
         <span id="tt-hint">—</span>
       </p>

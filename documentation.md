@@ -93,14 +93,3 @@
 - **Localization**: Copy `i18n/en.json` structure for new languages; ensure the service worker precache list is amended.
 - **Data-driven rounds**: For endings builder and match/forge decks, maintain consistent schema IDs so existing localStorage progress and tests remain valid.
 
-## Mobile & iPhone Compatibility
-- **Comprehensive mobile support**: All games are optimized for iPhone devices (SE, 12, 13, 14, 15 series) with specific breakpoints and touch-optimized controls.
-- **Touch targets**: All interactive elements meet Apple's 44pt minimum touch target requirement (implemented as 50px for enhanced usability).
-- **Safe area handling**: Proper implementation of `env(safe-area-inset-*)` ensures content is not hidden behind iPhone notch or home indicator.
-- **Performance optimizations**: CSS containment, hardware-accelerated transforms, and WebKit-specific prefixes ensure smooth performance on iOS Safari.
-- **Responsive breakpoints**: Dedicated media queries for common iPhone widths (430px, 390px, 375px) plus landscape orientation support.
-- **iOS-specific fixes**: Prevents input zoom (16px minimum font-size), eliminates double-tap delay (`touch-action: manipulation`), and optimizes scrolling behavior.
-- **Detailed documentation**: See `docs/MOBILE_COMPATIBILITY.md` for comprehensive testing checklist, known issues, and implementation details.
-- **Browser support**: Fully tested on iOS Safari 15+, Chrome iOS, and Firefox iOS with appropriate fallbacks for older versions.
-
-

@@ -19,6 +19,7 @@
   max-width: 960px;
   padding-left: calc(env(safe-area-inset-left, 0px));
   padding-right: calc(env(safe-area-inset-right, 0px));
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -68,7 +69,7 @@
 .travel-map {
   position: relative;
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
-  min-height: 320px;
+  min-height: clamp(300px, 52vh, 500px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,6 +120,7 @@
 @supports (backdrop-filter: blur(12px)) {
   .travel-panel {
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 
@@ -154,10 +156,11 @@
 }
 
 .travel-panel__content {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-height: 0;
 }
 
 #tt-route-meta {
@@ -373,7 +376,7 @@
   }
 
   .travel-map {
-    min-height: 260px;
+    min-height: clamp(280px, 55vh, 420px);
   }
 }
 
@@ -401,10 +404,94 @@
   .travel-tracker-app .tt-check {
     width: 100%;
   }
+
+  .travel-panel__content {
+    overflow-y: auto;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 430px) {
+  .travel-panel {
+    padding: 1.1rem 1rem calc(1.35rem + env(safe-area-inset-bottom, 0px));
+    gap: 1.35rem;
+  }
+
+  .travel-map {
+    padding: 0.75rem;
+  }
+}
+
+/* iPhone 12/13/14 (414px) adjustments */
+@media (max-width: 414px) {
+  .travel-map {
+    min-height: clamp(260px, 58vh, 380px);
+  }
+
+  .travel-panel__scoreboard {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .travel-panel__scoreboard > * {
+    width: 100%;
+    text-align: center;
+  }
+
+  .travel-panel__scoreboard .tt-restart {
+    justify-content: center;
+  }
+
+  .travel-panel__content {
+    padding-right: 0.25rem;
+  }
+
   #tt-choices {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+/* iPhone 12/13 mini, 15 Pro (390px) */
+@media (max-width: 390px) {
+  .travel-panel {
+    gap: 1.25rem;
+  }
+
+  .travel-map {
+    min-height: clamp(240px, 60vh, 360px);
+  }
+
+  #tt-gap {
+    font-size: clamp(1.05rem, 0.9rem + 1.6vw, 1.3rem);
+  }
+}
+
+/* iPhone SE (375px) and similar */
+@media (max-width: 375px) {
+  .travel-panel {
+    padding: 1rem 0.9rem calc(1.3rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .travel-panel__content {
+    gap: 0.85rem;
+  }
+
+  #tt-choices {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+  .travel-tracker-layout .row {
+    flex-direction: column;
+  }
+
+  .travel-map {
+    min-height: 220px;
+    padding: 0.75rem;
+  }
+
+  .travel-panel {
+    padding: 1rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
   }
 }

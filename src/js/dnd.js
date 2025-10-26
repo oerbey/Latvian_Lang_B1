@@ -6,6 +6,7 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');
     el.setAttribute('aria-grabbed', 'false');
+    el.setAttribute('aria-pressed', 'false');
   });
   drops.forEach(el => {
     el.setAttribute('tabindex', '0');
@@ -14,8 +15,10 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
   });
 
   let dragged = null;
+  let selected = null;
 
   function start(el, pointerId) {
+    clearSelected();
     dragged = { el, pointerId };
     el.setAttribute('aria-grabbed', 'true');
     el.style.opacity = '0.6';
@@ -32,6 +35,27 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
     el.setAttribute('aria-grabbed', 'false');
     el.style.opacity = '';
     dragged = null;
+  }
+
+  function setSelected(el) {
+    if (selected === el) return;
+    clearSelected();
+    selected = el;
+    selected.classList.add('is-selected');
+    selected.setAttribute('aria-pressed', 'true');
+  }
+
+  function clearSelected() {
+    if (!selected) return;
+    selected.classList.remove('is-selected');
+    selected.setAttribute('aria-pressed', 'false');
+    selected = null;
+  }
+
+  function dropOnSlot(endingEl, slot) {
+    if (!endingEl) return;
+    onDrop(endingEl, slot);
+    clearSelected();
   }
 
   drags.forEach(el => {
@@ -64,22 +88,50 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
         }
       }
     });
+
+    el.addEventListener('click', () => {
+      if (dragged) return;
+      if (selected === el) {
+        clearSelected();
+      } else {
+        setSelected(el);
+      }
+    });
   });
 
   drops.forEach(slot => {
     slot.addEventListener('pointerup', e => {
       if (dragged) {
         e.preventDefault();
-        onDrop(dragged.el, slot);
+        dropOnSlot(dragged.el, slot);
         end(dragged.el);
+        return;
+      }
+      if (selected) {
+        e.preventDefault();
+        dropOnSlot(selected, slot);
       }
     });
 
     slot.addEventListener('keydown', e => {
-      if ((e.key === 'Enter' || e.key === ' ') && dragged) {
+      if (e.key === 'Escape') {
+        clearSelected();
+        return;
+      }
+      if ((e.key === 'Enter' || e.key === ' ') && (dragged || selected)) {
         e.preventDefault();
-        onDrop(dragged.el, slot);
-        end(dragged.el);
+        if (dragged) {
+          dropOnSlot(dragged.el, slot);
+          end(dragged.el);
+        } else {
+          dropOnSlot(selected, slot);
+        }
+      }
+    });
+
+    slot.addEventListener('click', () => {
+      if (selected) {
+        dropOnSlot(selected, slot);
       }
     });
   });

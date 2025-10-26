@@ -58,6 +58,11 @@
   touch-action: none;
 }
 
+.eb-ending.is-selected {
+  border-color: var(--focus-ring, #0d6efd);
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
 .eb-ending:focus-visible,
 .eb-slot:focus-visible,
 .eb-shell button:focus-visible,

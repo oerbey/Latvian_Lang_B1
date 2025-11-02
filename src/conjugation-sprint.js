@@ -10,12 +10,27 @@
   const perStatsEl = id("perstats");
   const againBtn = id("again");
   const skipBtn = id("skip");
+  const VALID_TENSE_MODES = ["random", ...TENSES];
+  const tenseFilterEl = id("tenseFilter");
+  let tenseMode = "random";
 
   if (againBtn) {
     againBtn.onclick = reset;
   }
   if (skipBtn) {
     skipBtn.onclick = () => check(null);
+  }
+  if (tenseFilterEl) {
+    tenseFilterEl.value = tenseMode;
+    tenseFilterEl.disabled = true;
+    tenseFilterEl.addEventListener("change", (ev) => {
+      const nextMode = (ev.target && ev.target.value) || "random";
+      if (!VALID_TENSE_MODES.includes(nextMode)) {
+        return;
+      }
+      tenseMode = nextMode;
+      reset();
+    });
   }
 
   (async () => {
@@ -45,6 +60,9 @@
       }
       return;
     }
+    if (tenseFilterEl) {
+      tenseFilterEl.disabled = false;
+    }
     reset();
   })();
 
@@ -68,14 +86,14 @@
     if (round > maxRounds) { finish(); return; }
 
     const v = pick(bank);
-    const tense = pick(TENSES);
+    const tense = tenseMode === "random" ? pick(TENSES) : tenseMode;
     const pron = pick(PRONS);
     const slot = IDX[pron];
     const correct = v.conj[tense][slot];
 
     // Build distractors using only variations of the same verb
     const forms = Array.from(new Set(
-      TENSES.flatMap(t => Object.values(IDX).map(k => v.conj[t][k]))
+      Object.values(IDX).map(k => v.conj[tense][k])
     ));
     const distractors = forms.filter(f => f !== correct);
     shuffle(distractors);

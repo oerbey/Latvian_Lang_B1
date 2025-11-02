@@ -1,0 +1,450 @@
+[
+  {
+    "id": "m1",
+    "sentence": "Anna ____ darbu.",
+    "choices": [
+      "maina",
+      "mainās"
+    ],
+    "answer": "maina",
+    "hint": "mainīt ko? + akuzatīvs (darbu).",
+    "explain": "Change something (object).",
+    "tags": [
+      "mainīt/mainīties"
+    ]
+  },
+  {
+    "id": "m2",
+    "sentence": "Ar gadiem cilvēks ____ .",
+    "choices": [
+      "maina",
+      "mainās"
+    ],
+    "answer": "mainās",
+    "hint": "kas? + nominatīvs: cilvēks mainās.",
+    "explain": "Self/subject changes.",
+    "tags": [
+      "mainīt/mainīties"
+    ]
+  },
+  {
+    "id": "m3",
+    "sentence": "Mēs šogad ____ dzīvokli pret māju laukos.",
+    "choices": [
+      "mainām",
+      "maināmies"
+    ],
+    "answer": "mainām",
+    "hint": "mainīt ko? + akuzatīvs (dzīvokli).",
+    "explain": "Transitive change.",
+    "tags": [
+      "mainīt/mainīties"
+    ]
+  },
+  {
+    "id": "m4",
+    "sentence": "Pēdējā laikā laiks bieži ____ .",
+    "choices": [
+      "maina",
+      "mainās"
+    ],
+    "answer": "mainās",
+    "hint": "kas? laiks (Nom.) -> mainās.",
+    "explain": "Subject changes.",
+    "tags": [
+      "mainīt/mainīties"
+    ]
+  },
+  {
+    "id": "m5",
+    "sentence": "Cik bieži jūs ____ matu sakārtojumu?",
+    "choices": [
+      "maināt",
+      "maināties"
+    ],
+    "answer": "maināt",
+    "hint": "mainīt ko? + akuzatīvs (matu sakārtojumu).",
+    "explain": "Transitive change.",
+    "tags": [
+      "mainīt/mainīties"
+    ]
+  },
+  {
+    "id": "m6",
+    "sentence": "Skolotāja ____ matemātiku.",
+    "choices": [
+      "māca",
+      "mācās"
+    ],
+    "answer": "māca",
+    "hint": "mācīt ko? (matemātiku).",
+    "explain": "Teach something to someone.",
+    "tags": [
+      "mācīt/mācīties"
+    ]
+  },
+  {
+    "id": "m7",
+    "sentence": "Es ____ latviešu valodu katru dienu.",
+    "choices": [
+      "mācu",
+      "mācos"
+    ],
+    "answer": "mācos",
+    "hint": "mācīties ko? (latviešu valodu).",
+    "explain": "Study/learn.",
+    "tags": [
+      "mācīt/mācīties"
+    ]
+  },
+  {
+    "id": "m8",
+    "sentence": "Viņi universitātē ____ inženieriju.",
+    "choices": [
+      "māca",
+      "mācās"
+    ],
+    "answer": "mācās",
+    "hint": "mācīties ko? (inženieriju).",
+    "explain": "Students study.",
+    "tags": [
+      "mācīt/mācīties"
+    ]
+  },
+  {
+    "id": "m9",
+    "sentence": "Tēvs vakaros bērniem ____ lasīt.",
+    "choices": [
+      "māca",
+      "mācās"
+    ],
+    "answer": "māca",
+    "hint": "mācīt ko? (lasīt).",
+    "explain": "Teach skills.",
+    "tags": [
+      "mācīt/mācīties"
+    ]
+  },
+  {
+    "id": "m10",
+    "sentence": "Es parkā ____ draugu.",
+    "choices": [
+      "satieku",
+      "satiekos"
+    ],
+    "answer": "satieku",
+    "hint": "satikt ko? + akuzatīvs (draugu).",
+    "explain": "Meet someone (accidental/planned).",
+    "tags": [
+      "satikt/satikties"
+    ]
+  },
+  {
+    "id": "m11",
+    "sentence": "Mēs rīt ____ ar kolēģiem pie kafejnīcas.",
+    "choices": [
+      "satiekam",
+      "satiekamies"
+    ],
+    "answer": "satiekamies",
+    "hint": "satikties ar ko? (ar kolēģiem).",
+    "explain": "Meet each other.",
+    "tags": [
+      "satikt/satikties"
+    ]
+  },
+  {
+    "id": "m12",
+    "sentence": "Vai tu bieži ____ ar klasesbiedriem?",
+    "choices": [
+      "satiecies",
+      "saties"
+    ],
+    "answer": "satiecies",
+    "hint": "satikties ar ko? (ar klasesbiedriem).",
+    "explain": "Reflexive 'you meet each other'.",
+    "tags": [
+      "satikt/satikties"
+    ]
+  },
+  {
+    "id": "m13",
+    "sentence": "Es vēlos labāk ____ Rīgu.",
+    "choices": [
+      "iepazīt",
+      "iepazīties"
+    ],
+    "answer": "iepazīt",
+    "hint": "iepazīt ko? (pilsētu, Rīgu).",
+    "explain": "Get to know a place/thing.",
+    "tags": [
+      "iepazīt/iepazīties"
+    ]
+  },
+  {
+    "id": "m14",
+    "sentence": "Darba ballītē es ____ ar jauno kolēģi.",
+    "choices": [
+      "iepazīstu",
+      "iepazīstos"
+    ],
+    "answer": "iepazīstos",
+    "hint": "iepazīties ar ko? (ar kolēģi).",
+    "explain": "Become acquainted with someone.",
+    "tags": [
+      "iepazīt/iepazīties"
+    ]
+  },
+  {
+    "id": "m15",
+    "sentence": "Mēs lēnām ____ apkārtni.",
+    "choices": [
+      "iepazīstam",
+      "iepazīstamies"
+    ],
+    "answer": "iepazīstam",
+    "hint": "iepazīt ko? (apkārtni).",
+    "explain": "Get to know the surroundings.",
+    "tags": [
+      "iepazīt/iepazīties"
+    ]
+  },
+  {
+    "id": "m16",
+    "sentence": "Mani ļoti ____ literatūra.",
+    "choices": [
+      "interesē",
+      "interesējos"
+    ],
+    "answer": "interesē",
+    "hint": "interesēt ko? -> Mani (Acc.) interesē X.",
+    "explain": "Something interests someone.",
+    "tags": [
+      "interesēt/interesēties"
+    ]
+  },
+  {
+    "id": "m17",
+    "sentence": "Es ____ par literatūru un kino.",
+    "choices": [
+      "interesēju",
+      "interesējos"
+    ],
+    "answer": "interesējos",
+    "hint": "interesēties par ko? (par literatūru).",
+    "explain": "Be interested in.",
+    "tags": [
+      "interesēt/interesēties"
+    ]
+  },
+  {
+    "id": "m18",
+    "sentence": "Vai tevi ____ sports?",
+    "choices": [
+      "interesē",
+      "interesējies"
+    ],
+    "answer": "interesē",
+    "hint": "interesēt ko? (tevi).",
+    "explain": "Object case cue.",
+    "tags": [
+      "interesēt/interesēties"
+    ]
+  },
+  {
+    "id": "m19",
+    "sentence": "Mani ____ Oskars.",
+    "choices": [
+      "sauc",
+      "saucas"
+    ],
+    "answer": "sauc",
+    "hint": "saukt ko? (mani) + vārds.",
+    "explain": "They call me Oskars.",
+    "tags": [
+      "saukt/saukties"
+    ]
+  },
+  {
+    "id": "m20",
+    "sentence": "Šī viesnīca ____ “Baltija”.",
+    "choices": [
+      "sauc",
+      "saucas"
+    ],
+    "answer": "saucas",
+    "hint": "saukties = to be called/named.",
+    "explain": "The hotel is called Baltija.",
+    "tags": [
+      "saukt/saukties"
+    ]
+  },
+  {
+    "id": "m21",
+    "sentence": "Mēs ____ tikšanos uz pirmdienu.",
+    "choices": [
+      "sarunājām",
+      "sarunājāmies"
+    ],
+    "answer": "sarunājām",
+    "hint": "sarunāt ko? (tikšanos).",
+    "explain": "Arrange/agree.",
+    "tags": [
+      "sarunāt/sarunāties"
+    ]
+  },
+  {
+    "id": "m22",
+    "sentence": "Viņi bieži ____ par ceļojumiem.",
+    "choices": [
+      "sarunā",
+      "sarunājas"
+    ],
+    "answer": "sarunājas",
+    "hint": "sarunāties par ko? (par ceļojumiem).",
+    "explain": "Talk with each other.",
+    "tags": [
+      "sarunāt/sarunāties"
+    ]
+  },
+  {
+    "id": "m23",
+    "sentence": "Mēs vakar ilgi ____ par filmu.",
+    "choices": [
+      "priecējām",
+      "priecājāmies"
+    ],
+    "answer": "priecājāmies",
+    "hint": "priecāties par ko?",
+    "explain": "Rejoice/be glad (reflexive only).",
+    "tags": [
+      "reflexive-only"
+    ]
+  },
+  {
+    "id": "m24",
+    "sentence": "Viņi skolā ātri ____ ar jauno klasesbiedru.",
+    "choices": [
+      "draudzēja",
+      "draudzējās"
+    ],
+    "answer": "draudzējās",
+    "hint": "draudzēties ar ko?",
+    "explain": "Make friends (reflexive only).",
+    "tags": [
+      "reflexive-only"
+    ]
+  },
+  {
+    "id": "m25",
+    "sentence": "Vai mēs šovakar ____ par jauno projektu?",
+    "choices": [
+      "sarunājamies",
+      "sarunājam"
+    ],
+    "answer": "sarunājamies",
+    "hint": "sarunāties par ko?",
+    "explain": "Talk (mutual action).",
+    "tags": [
+      "sarunāt/sarunāties"
+    ]
+  },
+  {
+    "id": "m26",
+    "sentence": "Tu pēdējā laikā ļoti ____ .",
+    "choices": [
+      "mainījies/mainījusies",
+      "mainījis/mainījusi"
+    ],
+    "answer": "mainījies/mainījusies",
+    "hint": "saliktais laiks ar atgriezenisku darbības vārdu: 'esi mainījies/esi mainījusies'.",
+    "explain": "Perfect with -ties.",
+    "tags": [
+      "perfect-reflexive"
+    ]
+  },
+  {
+    "id": "m27",
+    "sentence": "Zēns pēc vasaras brīvlaika ir ļoti ____ .",
+    "choices": [
+      "mainījies",
+      "mainījis"
+    ],
+    "answer": "mainījies",
+    "hint": "atgriezeniska forma ar -ies.",
+    "explain": "He has changed.",
+    "tags": [
+      "perfect-reflexive"
+    ]
+  },
+  {
+    "id": "m28",
+    "sentence": "Mēs rīt ____ ar partneriem pulksten trijos.",
+    "choices": [
+      "satiekamies",
+      "satiekam"
+    ],
+    "answer": "satiekamies",
+    "hint": "satikties ar ko? (ar partneriem).",
+    "explain": "Meet each other.",
+    "tags": [
+      "satikt/satikties"
+    ]
+  },
+  {
+    "id": "m29",
+    "sentence": "Vai tu jau ____ jauno rajonu?",
+    "choices": [
+      "iepazini",
+      "iepazinies"
+    ],
+    "answer": "iepazini",
+    "hint": "iepazīt ko? (jauno rajonu).",
+    "explain": "Get to know (object).",
+    "tags": [
+      "iepazīt/iepazīties"
+    ]
+  },
+  {
+    "id": "m30",
+    "sentence": "Viņi muzejā ilgi ____ par izstādi.",
+    "choices": [
+      "interesējās",
+      "interesēja"
+    ],
+    "answer": "interesējās",
+    "hint": "interesēties par ko? (par izstādi).",
+    "explain": "Be interested in (reflexive).",
+    "tags": [
+      "interesēt/interesēties"
+    ]
+  },
+  {
+    "id": "m31",
+    "sentence": "Skolēnus ļoti ____ jaunā laboratorija.",
+    "choices": [
+      "interesē",
+      "interesējas"
+    ],
+    "answer": "interesē",
+    "hint": "interesēt ko? (skolēnus).",
+    "explain": "Something interests someone.",
+    "tags": [
+      "interesēt/interesēties"
+    ]
+  },
+  {
+    "id": "m32",
+    "sentence": "Kā jūs ____? — Mēs ____ 'Ziemeļi'.",
+    "choices": [
+      "saucaties / saucamies",
+      "saucat / saucamies"
+    ],
+    "answer": "saucaties / saucamies",
+    "hint": "saukties = to be called (we).",
+    "explain": "Reflexive naming.",
+    "tags": [
+      "saukt/saukties"
+    ]
+  }
+]

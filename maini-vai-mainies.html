@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <title>Maini vai mainies? — Latvian B1</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/maini-vai-mainies/styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <i class="bi bi-translate"></i> Latvian B1
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body align-items-lg-center">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="darbibas-vards.html">Darbības Vārds</a></li>
+              <li class="nav-item"><a class="nav-link" href="conjugation-sprint.html">Conjugation Sprint</a></li>
+              <li class="nav-item"><a class="nav-link" href="endings-builder.html">Endings Builder</a></li>
+              <li class="nav-item"><a class="nav-link" href="travel-tracker.html">Travel Tracker</a></li>
+              <li class="nav-item"><a class="nav-link active" aria-current="page" href="maini-vai-mainies.html">Maini vai mainies?</a></li>
+              <li class="nav-item"><a class="nav-link" href="week1.html">Week 1</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+              <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
+                <i class="bi bi-moon-stars-fill d-none" id="iconDark"></i>
+                <i class="bi bi-sun-fill" id="iconLight"></i>
+              </button>
+              <a class="btn btn-primary" href="https://github.com/oerbey/Latvian_Lang_B1" target="_blank" rel="noopener">
+                <i class="bi bi-github"></i> <span class="ms-1 d-none d-sm-inline">GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-4 mt-5">
+      <header class="mb-4 text-center text-md-start">
+        <h1 class="h4 mb-2" id="mvmTitle">Maini vai mainies?</h1>
+        <p class="text-secondary mb-0" id="mvmInstructions">Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss).</p>
+      </header>
+
+      <section class="mvm-wrapper card" id="mvmGame" aria-live="off">
+        <div class="card-body">
+          <div class="mvm-top d-flex flex-column flex-md-row align-items-center gap-3">
+            <div class="mvm-avatar">
+              <img id="mvmAvatar" src="assets/img/maini-vai-mainies/avatars/avatar-neutral.svg" alt="Avatar" loading="lazy" />
+            </div>
+            <div class="mvm-content flex-grow-1 w-100">
+              <p class="mvm-sentence h5 text-center text-md-start" id="mvmSentence">–</p>
+              <div class="mvm-buttons d-grid gap-3 mt-3">
+                <button type="button" class="btn btn-lg btn-outline-primary mvm-choice" id="mvmChoiceA" data-choice="0">Option A</button>
+                <button type="button" class="btn btn-lg btn-outline-primary mvm-choice" id="mvmChoiceB" data-choice="1">Option B</button>
+              </div>
+            </div>
+          </div>
+          <div class="visually-hidden" id="mvmLive" role="status" aria-live="polite"></div>
+          <p class="mvm-feedback fw-semibold mt-3" id="mvmFeedback"></p>
+          <p class="mvm-hint text-secondary mb-0" id="mvmHint"></p>
+        </div>
+        <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-3">
+          <div class="mvm-metrics d-flex flex-wrap gap-3">
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmScore">score 0</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmStreak">streak 0</span>
+          </div>
+          <div class="ms-auto d-flex gap-2">
+            <button class="btn btn-outline-secondary" id="mvmStart">Start</button>
+            <button class="btn btn-primary" id="mvmNext" disabled>Next</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-top py-4 bg-body-tertiary mt-4">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
+        <nav class="small">
+          <a class="link-secondary me-3" href="index.html">Home</a>
+          <a class="link-secondary me-3" href="darbibas-vards.html">Verbs</a>
+          <a class="link-secondary me-3" href="conjugation-sprint.html">Conjugation Sprint</a>
+          <a class="link-secondary me-3" href="endings-builder.html">Endings Builder</a>
+          <a class="link-secondary me-3" href="travel-tracker.html">Travel Tracker</a>
+          <a class="link-secondary" href="week1.html">Week 1</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="theme.js"></script>
+    <script src="scripts/page-init.js" defer></script>
+    <script type="module" src="src/games/maini-vai-mainies/index.js"></script>
+  </body>
+</html>

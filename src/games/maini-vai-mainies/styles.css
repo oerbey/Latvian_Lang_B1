@@ -1,0 +1,43 @@
+.mvm-wrapper {
+  min-height: 420px;
+}
+
+.mvm-avatar img {
+  width: 160px;
+  height: auto;
+  max-width: 100%;
+}
+
+.mvm-sentence {
+  min-height: 2.5rem;
+}
+
+.mvm-buttons {
+  grid-template-columns: 1fr;
+}
+
+.mvm-buttons .btn {
+  padding-block: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.mvm-feedback {
+  min-height: 1.5rem;
+}
+
+.mvm-hint {
+  min-height: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .mvm-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .mvm-avatar img {
+    width: 200px;
+  }
+}

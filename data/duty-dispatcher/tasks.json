@@ -1,0 +1,375 @@
+[
+  {
+    "id": "d1",
+    "s": "Kaķis ir izsalcis.",
+    "card": "jābaro kaķis",
+    "tense": "present",
+    "validRecipients": [
+      "mammai",
+      "tetim",
+      "bernam"
+    ],
+    "hint": "kam + jā + 3.p. (baro) + kas?",
+    "explain": "Sievietei bija jābaro kaķis."
+  },
+  {
+    "id": "d2",
+    "s": "Rīt eksāmens.",
+    "card": "jāmācīties",
+    "tense": "present",
+    "validRecipients": [
+      "studentam",
+      "studentei",
+      "man",
+      "mums"
+    ],
+    "hint": "kam + jā + 3.p. (mācās)",
+    "explain": "Mums jāmācās latviešu valoda."
+  },
+  {
+    "id": "d3",
+    "s": "Šodien jāmaksā rēķini.",
+    "card": "jāmaksā rēķini",
+    "tense": "present",
+    "validRecipients": [
+      "man",
+      "vinai",
+      "vinam",
+      "jums"
+    ],
+    "hint": "kam + jā + 3.p. (maksā) + kas?",
+    "explain": "Man jāmaksā rēķini."
+  },
+  {
+    "id": "d4",
+    "s": "Bibliotēka drīz slēdzas.",
+    "card": "jāatdod grāmatas",
+    "tense": "present",
+    "validRecipients": [
+      "studentam",
+      "studentei",
+      "vinai",
+      "vinam"
+    ],
+    "hint": "kam + jā + 3.p. (atdod) + kas?",
+    "explain": "Studentam jāatdod grāmatas."
+  },
+  {
+    "id": "d5",
+    "s": "Pacienti gaida.",
+    "card": "jāpieņem pacienti",
+    "tense": "present",
+    "validRecipients": [
+      "arstam",
+      "arstei"
+    ],
+    "hint": "kam + jā + 3.p. (pieņem) + kas?",
+    "explain": "Ārstam jāpieņem pacienti."
+  },
+  {
+    "id": "d6",
+    "s": "Draugs stāv pie durvīm.",
+    "card": "jāatver durvis",
+    "tense": "present",
+    "validRecipients": [
+      "mammai",
+      "tetim",
+      "bernam",
+      "man"
+    ],
+    "hint": "kam + jā + 3.p. (atver) + kas?",
+    "explain": "Man jāatver durvis."
+  },
+  {
+    "id": "d7",
+    "s": "Rīt no rīta lidojums.",
+    "card": "būs jābūt lidostā plkst. 6.00",
+    "tense": "future",
+    "validRecipients": [
+      "mums",
+      "jums",
+      "vinam",
+      "vinai"
+    ],
+    "hint": "(būs) + jā + 3.p. (būt) + kur?",
+    "explain": "Mums būs jābūt lidostā."
+  },
+  {
+    "id": "d8",
+    "s": "Vakar bija darba tikšanās.",
+    "card": "bija jāierodas laikā",
+    "tense": "past",
+    "validRecipients": [
+      "vaditajam",
+      "klientam",
+      "man"
+    ],
+    "hint": "(bija) + jā + 3.p. (ierodas)",
+    "explain": "Vadītājam bija jāierodas laikā."
+  },
+  {
+    "id": "d9",
+    "s": "Šodien remonts virtuvē.",
+    "card": "jāizslauka grīda",
+    "tense": "present",
+    "validRecipients": [
+      "bernam",
+      "mammai",
+      "tetim"
+    ],
+    "hint": "kam + jā + 3.p. (izslauka) + kas?",
+    "explain": "Bērnam jāizslauka grīda."
+  },
+  {
+    "id": "d10",
+    "s": "Svētdien talkā pie draugiem.",
+    "card": "jāstrādā dārzā",
+    "tense": "present",
+    "validRecipients": [
+      "mums",
+      "vini",
+      "vinas"
+    ],
+    "hint": "kam + jā + 3.p. (strādā) + kur?",
+    "explain": "Mums jāstrādā dārzā."
+  },
+  {
+    "id": "d11",
+    "s": "Rīt svarīga prezentācija.",
+    "card": "jāsagatavo slaidi",
+    "tense": "present",
+    "validRecipients": [
+      "vaditajam",
+      "vinai",
+      "vinam",
+      "man"
+    ],
+    "hint": "kam + jā + 3.p. (sagatavo) + kas?",
+    "explain": "Vadītājam jāsagatavo slaidi."
+  },
+  {
+    "id": "d12",
+    "s": "Telefons zvana.",
+    "card": "jāatbild uz zvanu",
+    "tense": "present",
+    "validRecipients": [
+      "jums",
+      "mammai",
+      "tetim",
+      "skolotajai"
+    ],
+    "hint": "kam + jā + 3.p. (atbild) + uz ko?",
+    "explain": "Jums jāatbild uz zvanu."
+  },
+  {
+    "id": "d13",
+    "s": "Šodien plānotas vizītes.",
+    "card": "jāzvana pacientiem",
+    "tense": "present",
+    "validRecipients": [
+      "arstam",
+      "arstei",
+      "skolotajai"
+    ],
+    "hint": "kam + jā + 3.p. (zvana) + kam?",
+    "explain": "Ārstam jāzvana pacientiem."
+  },
+  {
+    "id": "d14",
+    "s": "Automašīna netīra.",
+    "card": "jānomazgā mašīna",
+    "tense": "present",
+    "validRecipients": [
+      "vinam",
+      "vinai",
+      "man",
+      "bernam"
+    ],
+    "hint": "kam + jā + 3.p. (nomazgā) + kas?",
+    "explain": "Viņam jānomazgā mašīna."
+  },
+  {
+    "id": "d15",
+    "s": "Bērna dzimšanas diena tuvojas.",
+    "card": "jāiegādājas dāvana",
+    "tense": "present",
+    "validRecipients": [
+      "mammai",
+      "tetim",
+      "jums"
+    ],
+    "hint": "kam + jā + 3.p. (iegādājas) + kas?",
+    "explain": "Mammai jāiegādājas dāvana."
+  },
+  {
+    "id": "d16",
+    "s": "Sapulce pēc 10 minūtēm.",
+    "card": "jāsteidzas",
+    "tense": "present",
+    "validRecipients": [
+      "mums",
+      "vaditajam",
+      "vinai",
+      "vinam"
+    ],
+    "hint": "kam + jā + 3.p. (steidzas)",
+    "explain": "Mums jāsteidzas."
+  },
+  {
+    "id": "d17",
+    "s": "Vecāki atbrauc ciemos.",
+    "card": "jāsakārto viesistaba",
+    "tense": "present",
+    "validRecipients": [
+      "mammai",
+      "tetim",
+      "bernam",
+      "mums"
+    ],
+    "hint": "kam + jā + 3.p. (sakārto) + kas?",
+    "explain": "Mums jāsakārto viesistaba."
+  },
+  {
+    "id": "d18",
+    "s": "Eksāmens beidzas 16:00.",
+    "card": "jānodod darbs",
+    "tense": "present",
+    "validRecipients": [
+      "studentam",
+      "studentei"
+    ],
+    "hint": "kam + jā + 3.p. (nodod) + kas?",
+    "explain": "Studentam jānodod darbs."
+  },
+  {
+    "id": "d19",
+    "s": "Pasta nodaļa tūlīt slēdzas.",
+    "card": "jānosūta vēstule",
+    "tense": "present",
+    "validRecipients": [
+      "klientam",
+      "vinai",
+      "vinam"
+    ],
+    "hint": "kam + jā + 3.p. (nosūta) + kas?",
+    "explain": "Klientam jānosūta vēstule."
+  },
+  {
+    "id": "d20",
+    "s": "Mazulim nāk miegs.",
+    "card": "jāiemidzina bērns",
+    "tense": "present",
+    "validRecipients": [
+      "mammai",
+      "tetim"
+    ],
+    "hint": "kam + jā + 3.p. (iemidzina) + kas?",
+    "explain": "Tētim jāiemidzina bērns."
+  },
+  {
+    "id": "d21",
+    "s": "Viesi atnāk pēc stundas.",
+    "card": "jāuzvāra tēja",
+    "tense": "present",
+    "validRecipients": [
+      "mammai",
+      "vinai",
+      "vinam"
+    ],
+    "hint": "kam + jā + 3.p. (uzvāra) + kas?",
+    "explain": "Viņai jāuzvāra tēja."
+  },
+  {
+    "id": "d22",
+    "s": "Darbnīcā auksti.",
+    "card": "jāsilda telpa",
+    "tense": "present",
+    "validRecipients": [
+      "vaditajam",
+      "vini"
+    ],
+    "hint": "kam + jā + 3.p. (silda) + kas?",
+    "explain": "Vadītājam jāsilda telpa."
+  },
+  {
+    "id": "d23",
+    "s": "Rīt konkurss.",
+    "card": "jāuzraksta pieteikums",
+    "tense": "present",
+    "validRecipients": [
+      "studentam",
+      "studentei",
+      "man"
+    ],
+    "hint": "kam + jā + 3.p. (uzraksta) + kas?",
+    "explain": "Studentei jāuzraksta pieteikums."
+  },
+  {
+    "id": "d24",
+    "s": "Tūlīt sākas izrāde.",
+    "card": "jāizslēdz telefons",
+    "tense": "present",
+    "validRecipients": [
+      "jums",
+      "vinai",
+      "vinam",
+      "mums"
+    ],
+    "hint": "kam + jā + 3.p. (izslēdz) + kas?",
+    "explain": "Jums jāizslēdz telefons."
+  },
+  {
+    "id": "d25",
+    "s": "Vakar autobuss kavējās.",
+    "card": "bija jāgaida pieturā",
+    "tense": "past",
+    "validRecipients": [
+      "man",
+      "jums",
+      "vinai",
+      "vinam"
+    ],
+    "hint": "(bija) + jā + 3.p. (gaida) + kur?",
+    "explain": "Man bija jāgaida pieturā."
+  },
+  {
+    "id": "d26",
+    "s": "Rīt būs stiprs vējš.",
+    "card": "būs jāpaliek mājās",
+    "tense": "future",
+    "validRecipients": [
+      "vini",
+      "vinas",
+      "bernam"
+    ],
+    "hint": "(būs) + jā + 3.p. (paliek) + kur?",
+    "explain": "Viņiem būs jāpaliek mājās."
+  },
+  {
+    "id": "d27",
+    "s": "Par projektu nav skaidrības.",
+    "card": "jārunā ar vadītāju",
+    "tense": "present",
+    "validRecipients": [
+      "studentam",
+      "studentei",
+      "jums",
+      "man"
+    ],
+    "hint": "kam + jā + 3.p. (runā) + ar ko?",
+    "explain": "Jums jārunā ar vadītāju."
+  },
+  {
+    "id": "d28",
+    "s": "Nav informācijas par datumu.",
+    "card": "jāuzzina datums",
+    "tense": "present",
+    "validRecipients": [
+      "vinai",
+      "vinam",
+      "klientam"
+    ],
+    "hint": "kam + jā + 3.p. (uzzina) + kas?",
+    "explain": "Viņam jāuzzina datums."
+  }
+]

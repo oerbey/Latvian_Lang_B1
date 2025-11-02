@@ -1,0 +1,29 @@
+id,s,card,tense,validRecipients,hint,explain
+d1,Kaķis ir izsalcis.,jābaro kaķis,present,mammai|tetim|bernam,kam + jā + 3.p. (baro) + kas?,Sievietei bija jābaro kaķis.
+d2,Rīt eksāmens.,jāmācīties,present,studentam|studentei|man|mums,kam + jā + 3.p. (mācās),Mums jāmācās latviešu valoda.
+d3,Šodien jāmaksā rēķini.,jāmaksā rēķini,present,man|vinai|vinam|jums,kam + jā + 3.p. (maksā) + kas?,Man jāmaksā rēķini.
+d4,Bibliotēka drīz slēdzas.,jāatdod grāmatas,present,studentam|studentei|vinai|vinam,kam + jā + 3.p. (atdod) + kas?,Studentam jāatdod grāmatas.
+d5,Pacienti gaida.,jāpieņem pacienti,present,arstam|arstei,kam + jā + 3.p. (pieņem) + kas?,Ārstam jāpieņem pacienti.
+d6,Draugs stāv pie durvīm.,jāatver durvis,present,mammai|tetim|bernam|man,kam + jā + 3.p. (atver) + kas?,Man jāatver durvis.
+d7,Rīt no rīta lidojums.,būs jābūt lidostā plkst. 6.00,future,mums|jums|vinam|vinai,(būs) + jā + 3.p. (būt) + kur?,Mums būs jābūt lidostā.
+d8,Vakar bija darba tikšanās.,bija jāierodas laikā,past,vaditajam|klientam|man,(bija) + jā + 3.p. (ierodas),Vadītājam bija jāierodas laikā.
+d9,Šodien remonts virtuvē.,jāizslauka grīda,present,bernam|mammai|tetim,kam + jā + 3.p. (izslauka) + kas?,Bērnam jāizslauka grīda.
+d10,Svētdien talkā pie draugiem.,jāstrādā dārzā,present,mums|vini|vinas,kam + jā + 3.p. (strādā) + kur?,Mums jāstrādā dārzā.
+d11,Rīt svarīga prezentācija.,jāsagatavo slaidi,present,vaditajam|vinai|vinam|man,kam + jā + 3.p. (sagatavo) + kas?,Vadītājam jāsagatavo slaidi.
+d12,Telefons zvana.,jāatbild uz zvanu,present,jums|mammai|tetim|skolotajai,kam + jā + 3.p. (atbild) + uz ko?,Jums jāatbild uz zvanu.
+d13,Šodien plānotas vizītes.,jāzvana pacientiem,present,arstam|arstei|skolotajai,kam + jā + 3.p. (zvana) + kam?,Ārstam jāzvana pacientiem.
+d14,Automašīna netīra.,jānomazgā mašīna,present,vinam|vinai|man|bernam,kam + jā + 3.p. (nomazgā) + kas?,Viņam jānomazgā mašīna.
+d15,Bērna dzimšanas diena tuvojas.,jāiegādājas dāvana,present,mammai|tetim|jums,kam + jā + 3.p. (iegādājas) + kas?,Mammai jāiegādājas dāvana.
+d16,Sapulce pēc 10 minūtēm.,jāsteidzas,present,mums|vaditajam|vinai|vinam,kam + jā + 3.p. (steidzas),Mums jāsteidzas.
+d17,Vecāki atbrauc ciemos.,jāsakārto viesistaba,present,mammai|tetim|bernam|mums,kam + jā + 3.p. (sakārto) + kas?,Mums jāsakārto viesistaba.
+d18,Eksāmens beidzas 16:00.,jānodod darbs,present,studentam|studentei,kam + jā + 3.p. (nodod) + kas?,Studentam jānodod darbs.
+d19,Pasta nodaļa tūlīt slēdzas.,jānosūta vēstule,present,klientam|vinai|vinam,kam + jā + 3.p. (nosūta) + kas?,Klientam jānosūta vēstule.
+d20,Mazulim nāk miegs.,jāiemidzina bērns,present,mammai|tetim,kam + jā + 3.p. (iemidzina) + kas?,Tētim jāiemidzina bērns.
+d21,Viesi atnāk pēc stundas.,jāuzvāra tēja,present,mammai|vinai|vinam,kam + jā + 3.p. (uzvāra) + kas?,Viņai jāuzvāra tēja.
+d22,Darbnīcā auksti.,jāsilda telpa,present,vaditajam|vini,kam + jā + 3.p. (silda) + kas?,Vadītājam jāsilda telpa.
+d23,Rīt konkurss.,jāuzraksta pieteikums,present,studentam|studentei|man,kam + jā + 3.p. (uzraksta) + kas?,Studentei jāuzraksta pieteikums.
+d24,Tūlīt sākas izrāde.,jāizslēdz telefons,present,jums|vinai|vinam|mums,kam + jā + 3.p. (izslēdz) + kas?,Jums jāizslēdz telefons.
+d25,Vakar autobuss kavējās.,bija jāgaida pieturā,past,man|jums|vinai|vinam,(bija) + jā + 3.p. (gaida) + kur?,Man bija jāgaida pieturā.
+d26,Rīt būs stiprs vējš.,būs jāpaliek mājās,future,vini|vinas|bernam,(būs) + jā + 3.p. (paliek) + kur?,Viņiem būs jāpaliek mājās.
+d27,Par projektu nav skaidrības.,jārunā ar vadītāju,present,studentam|studentei|jums|man,kam + jā + 3.p. (runā) + ar ko?,Jums jārunā ar vadītāju.
+d28,Nav informācijas par datumu.,jāuzzina datums,present,vinai|vinam|klientam,kam + jā + 3.p. (uzzina) + kas?,Viņam jāuzzina datums.

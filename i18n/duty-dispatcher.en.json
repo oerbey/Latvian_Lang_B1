@@ -1,0 +1,13 @@
+{
+  "title": "Duty Dispatcher",
+  "start": "Start",
+  "check": "Check",
+  "next": "Next task",
+  "score": "Score",
+  "streak": "Streak",
+  "hint": "Hint",
+  "correct": "Correct!",
+  "wrong": "Try again!",
+  "level_complete": "Level complete!",
+  "instructions": "Drag the duty card onto the correct recipient (Dative: kam?)."
+}

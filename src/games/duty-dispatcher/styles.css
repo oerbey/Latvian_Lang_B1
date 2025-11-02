@@ -1,0 +1,152 @@
+.dd-board {
+  min-height: 460px;
+  overflow: hidden;
+}
+
+.dd-top {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.dd-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.dd-scene__img {
+  width: 100%;
+  min-height: 140px;
+  background-image: url('../../../assets/img/duty-dispatcher/office.svg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.75rem;
+  border: 1px solid var(--bs-border-color);
+}
+
+.dd-scenario {
+  margin: 0;
+}
+
+.dd-progress {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.dd-duty {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.dd-duty__label {
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+}
+
+.dd-duty__card {
+  min-width: 220px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 1.25rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  cursor: grab;
+}
+
+.dd-duty__card:active {
+  cursor: grabbing;
+}
+
+.dd-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.dd-role {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: var(--bs-body-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.dd-role:focus-visible {
+  outline: none;
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.dd-role__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  display: grid;
+  place-items: center;
+}
+
+.dd-role__avatar img {
+  width: 48px;
+  height: 48px;
+}
+
+.dd-role__dative {
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.dd-role__duty {
+  min-height: 1.25rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.dd-role.dd-role--correct {
+  border-color: var(--bs-success);
+  background-color: rgba(var(--bs-success-rgb), 0.12);
+  box-shadow: 0 0 0 0.15rem rgba(var(--bs-success-rgb), 0.2);
+}
+
+.dd-role.dd-role--hover {
+  border-color: var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  box-shadow: 0 0 0 0.15rem rgba(var(--bs-primary-rgb), 0.15);
+}
+
+.dd-role.dd-role--wrong {
+  border-color: var(--bs-danger);
+  box-shadow: 0 0 0 0.15rem rgba(var(--bs-danger-rgb), 0.2);
+}
+
+.dd-feedback {
+  min-height: 1.5rem;
+  font-weight: 600;
+}
+
+.dd-hint {
+  min-height: 1.4rem;
+}
+
+@media (min-width: 768px) {
+  .dd-top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .dd-duty {
+    align-items: flex-end;
+  }
+}

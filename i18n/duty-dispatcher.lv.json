@@ -1,0 +1,13 @@
+{
+  "title": "Kas jādara kam?",
+  "start": "Sākt",
+  "check": "Pārbaudīt",
+  "next": "Nākamais uzdevums",
+  "score": "Punkti",
+  "streak": "Sērija",
+  "hint": "Padoms",
+  "correct": "Pareizi!",
+  "wrong": "Mēģini vēlreiz!",
+  "level_complete": "Līmenis pabeigts!",
+  "instructions": "Velc pienākuma kartīti pie pareizā adresāta (Dativs: kam?)."
+}

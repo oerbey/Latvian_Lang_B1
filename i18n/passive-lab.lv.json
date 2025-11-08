@@ -1,0 +1,52 @@
+{
+  "title": "Ciešamās Kārtas Laboratorija",
+  "heroBadge": "B1 prakse",
+  "heroAlt": "Laboratorijas ilustrācija",
+  "start": "Sākt",
+  "builder": "Būvēt teikumu",
+  "typein": "Rakstīt pats",
+  "check": "Pārbaudīt",
+  "next": "Nākamais uzdevums",
+  "score": "Punkti",
+  "streak": "Sērija",
+  "hint": "Padoms",
+  "correct": "Pareizi!",
+  "wrong": "Mēģini vēlreiz!",
+  "level_complete": "Līmenis pabeigts!",
+  "instructions_builder": "Izvēlies laiku, pacientu un pareizo divdabja galotni.",
+  "instructions_typein": "Ieraksti teikumu ciešamajā kārtā (tiek/tika/tiks + divdabis).",
+  "patientLabel": "Pacients (Nom.)",
+  "labels": {
+    "tense": "Laiks",
+    "active": "Aktīvais teikums",
+    "ending": "Divdabja galotne",
+    "typeinPlaceholder": "Ieraksti ciešamo teikumu (tiek/tika/tiks + divdabis).",
+    "lastPlayed": "Pēdējā spēle"
+  },
+  "tenseOptions": {
+    "present": "Tagadne",
+    "past": "Pagātne",
+    "future": "Nākotne"
+  },
+  "genderLabels": {
+    "m": {
+      "sg": "m. vsk.",
+      "pl": "m. dsk."
+    },
+    "f": {
+      "sg": "s. vsk.",
+      "pl": "s. dsk."
+    }
+  },
+  "status": {
+    "idle": "Izvēlies režīmu un pārbaudi formu.",
+    "builderEndingHint": "Pareiza galotne: {ending} ({gender}).",
+    "streakBonus": "Sērijas bonuss! ({count}) +10 xp",
+    "noTasks": "Nav pieejamu uzdevumu.",
+    "loadError": "Neizdevās ielādēt uzdevumus."
+  },
+  "glyphAlt": {
+    "ok": "Veiksmes ikona",
+    "error": "Kļūdas ikona"
+  }
+}

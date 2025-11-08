@@ -1,0 +1,198 @@
+.passive-lab-page {
+  background: var(--surface-subtle);
+  min-height: 100vh;
+  padding-top: 70px;
+  color: var(--text);
+}
+
+.passive-lab-main {
+  padding: 3rem 0 4rem;
+}
+
+.passive-lab-hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.passive-lab-hero__subtitle {
+  font-size: 0.95rem;
+}
+
+.passive-lab-hero__image {
+  width: 100%;
+  max-width: 260px;
+  justify-self: center;
+}
+
+.passive-lab-card {
+  padding: 1.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+
+.passive-lab-card__scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.passive-lab-card__scoreboard strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.passive-lab-active {
+  margin-bottom: 1rem;
+}
+
+.passive-lab-active__sentence {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 600;
+}
+
+.passive-lab-mode {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.passive-lab-mode__buttons {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.passive-lab-mode__btn {
+  flex: 1;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.passive-lab-mode__btn.active {
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-color: transparent;
+}
+
+.passive-lab-mode__btn.active:hover {
+  filter: none;
+}
+
+.passive-lab-mode__target {
+  min-width: 180px;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.passive-lab-panels {
+  display: grid;
+  gap: 1rem;
+}
+
+.passive-lab-panel {
+  display: none;
+  background: var(--surface-subtle);
+  border-radius: 16px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+.passive-lab-panel.is-visible {
+  display: block;
+}
+
+.passive-lab-field {
+  margin-bottom: 1rem;
+}
+
+.passive-lab-patient-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.passive-lab-patient-option {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 120px;
+  padding: 0.62rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 600;
+  text-align: center;
+}
+
+.passive-lab-patient-option.active,
+.passive-lab-patient-option[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.passive-lab-result {
+  display: none;
+  margin: 1.2rem 0 1rem;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px dashed var(--border);
+}
+
+.passive-lab-result.is-visible {
+  display: block;
+}
+
+.passive-lab-result p {
+  margin: 0;
+}
+
+.passive-lab-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.passive-lab-feedback img {
+  width: 24px;
+  height: 24px;
+  display: none;
+}
+
+.passive-lab-feedback.show img {
+  display: block;
+}
+
+.passive-lab-hint {
+  min-height: 1.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--feedback-error);
+  font-weight: 600;
+}
+
+.passive-lab-actions {
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .passive-lab-card__scoreboard {
+    justify-content: flex-start;
+  }
+
+  .passive-lab-card__scoreboard div {
+    min-width: 150px;
+  }
+
+  .passive-lab-patient-option {
+    flex: 1 1 calc(25% - 0.5rem);
+  }
+}

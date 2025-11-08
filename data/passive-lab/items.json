@@ -1,0 +1,530 @@
+[
+  {
+    "id": "p01",
+    "active": "Meitenes lasa grāmatas.",
+    "patient": {
+      "form": "Grāmatas",
+      "gender": "f",
+      "number": "pl"
+    },
+    "verb": "lasīt",
+    "expected": {
+      "present": "Grāmatas tiek lasītas.",
+      "past": "Grāmatas tika lasītas.",
+      "future": "Grāmatas tiks lasītas."
+    },
+    "alsoAccept": [
+      "Grāmatas ir lasītas.",
+      "Grāmatas bija lasītas.",
+      "Grāmatas būs lasītas."
+    ],
+    "hint": "f.pl → -tas; tiek/tika/tiks.",
+    "explain": "Plural feminine patient → participle -tas."
+  },
+  {
+    "id": "p02",
+    "active": "Internetu izmanto studenti.",
+    "patient": {
+      "form": "Internets",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "izmantot",
+    "expected": {
+      "present": "Internets tiek izmantots.",
+      "past": "Internets tika izmantots.",
+      "future": "Internets tiks izmantots."
+    },
+    "alsoAccept": [
+      "Internets ir izmantots.",
+      "Internets bija izmantots.",
+      "Internets būs izmantots."
+    ],
+    "hint": "m.sg → -ts.",
+    "explain": "Singular masculine patient → -ts."
+  },
+  {
+    "id": "p03",
+    "active": "Direktors paraksta līgumu.",
+    "patient": {
+      "form": "Līgums",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "parakstīt",
+    "expected": {
+      "present": "Līgums tiek parakstīts.",
+      "past": "Līgums tika parakstīts.",
+      "future": "Līgums tiks parakstīts."
+    },
+    "alsoAccept": [
+      "Līgums ir parakstīts.",
+      "Līgums bija parakstīts.",
+      "Līgums būs parakstīts."
+    ],
+    "hint": "-ts m.sg; -īt → -īts.",
+    "explain": "Note participle stem change for -īt verbs."
+  },
+  {
+    "id": "p04",
+    "active": "Skolotāja sagatavo jautājumus.",
+    "patient": {
+      "form": "Jautājumi",
+      "gender": "m",
+      "number": "pl"
+    },
+    "verb": "sagatavot",
+    "expected": {
+      "present": "Jautājumi tiek sagatavoti.",
+      "past": "Jautājumi tika sagatavoti.",
+      "future": "Jautājumi tiks sagatavoti."
+    },
+    "alsoAccept": [
+      "Jautājumi ir sagatavoti.",
+      "Jautājumi bija sagatavoti.",
+      "Jautājumi būs sagatavoti."
+    ],
+    "hint": "m.pl → -ti.",
+    "explain": "Plural masculine patient → -ti."
+  },
+  {
+    "id": "p05",
+    "active": "Pārdevēja atvērs veikalu pulksten desmitos.",
+    "patient": {
+      "form": "Veikals",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "atvērt",
+    "expected": {
+      "present": "Veikals tiek atvērts.",
+      "past": "Veikals tika atvērts.",
+      "future": "Veikals tiks atvērts."
+    },
+    "alsoAccept": [
+      "Veikals ir atvērts.",
+      "Veikals bija atvērts.",
+      "Veikals būs atvērts."
+    ],
+    "hint": "Future → tiks.",
+    "explain": "Use tiks for future passive."
+  },
+  {
+    "id": "p06",
+    "active": "Zeme pārdota sludinājumā.",
+    "patient": {
+      "form": "Zeme",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "pārdot",
+    "expected": {
+      "present": "Zeme tiek pārdota.",
+      "past": "Zeme tika pārdota.",
+      "future": "Zeme tiks pārdota."
+    },
+    "alsoAccept": [
+      "Zeme ir pārdota.",
+      "Zeme bija pārdota.",
+      "Zeme būs pārdota."
+    ],
+    "hint": "f.sg → -ta.",
+    "explain": "Feminine singular patient → -ta."
+  },
+  {
+    "id": "p07",
+    "active": "Celtnieki rīt pabeigs darbu.",
+    "patient": {
+      "form": "Darbs",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "pabeigt",
+    "expected": {
+      "present": "Darbs tiek pabeigts.",
+      "past": "Darbs tika pabeigts.",
+      "future": "Darbs tiks pabeigts."
+    },
+    "alsoAccept": [
+      "Darbs ir pabeigts.",
+      "Darbs bija pabeigts.",
+      "Darbs būs pabeigts."
+    ],
+    "hint": "-ts m.sg.",
+    "explain": "Agreement with m.sg."
+  },
+  {
+    "id": "p08",
+    "active": "Grupas dalībnieki kārtos eksāmenu.",
+    "patient": {
+      "form": "Eksāmens",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "kārtot",
+    "expected": {
+      "present": "Eksāmens tiek kārtots.",
+      "past": "Eksāmens tika kārtots.",
+      "future": "Eksāmens tiks kārtots."
+    },
+    "alsoAccept": [
+      "Eksāmens ir kārtots.",
+      "Eksāmens bija kārtots.",
+      "Eksāmens būs kārtots."
+    ],
+    "hint": "Use appropriate tense; builder should guide.",
+    "explain": "Focus on tikt + participle."
+  },
+  {
+    "id": "p09",
+    "active": "Dārznieks pārstāda rozes.",
+    "patient": {
+      "form": "Roses",
+      "gender": "f",
+      "number": "pl"
+    },
+    "verb": "pārstādīt",
+    "expected": {
+      "present": "Roses tiek pārstādītas.",
+      "past": "Roses tika pārstādītas.",
+      "future": "Roses tiks pārstādītas."
+    },
+    "alsoAccept": [
+      "Roses ir pārstādītas.",
+      "Roses bija pārstādītas.",
+      "Roses būs pārstādītas."
+    ],
+    "hint": "f.pl → -tas.",
+    "explain": "Plural feminine patient."
+  },
+  {
+    "id": "p10",
+    "active": "Sētnieks tīrīs pagalmus.",
+    "patient": {
+      "form": "Pagalmi",
+      "gender": "m",
+      "number": "pl"
+    },
+    "verb": "tīrīt",
+    "expected": {
+      "present": "Pagalmi tiek tīrīti.",
+      "past": "Pagalmi tika tīrīti.",
+      "future": "Pagalmi tiks tīrīti."
+    },
+    "alsoAccept": [
+      "Pagalmi ir tīrīti.",
+      "Pagalmi bija tīrīti.",
+      "Pagalmi būs tīrīti."
+    ],
+    "hint": "m.pl → -ti.",
+    "explain": "Plural masculine patient."
+  },
+  {
+    "id": "p11",
+    "active": "Dzīvokli remontē strādnieki.",
+    "patient": {
+      "form": "Dzīvoklis",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "remontēt",
+    "expected": {
+      "present": "Dzīvoklis tiek remontēts.",
+      "past": "Dzīvoklis tika remontēts.",
+      "future": "Dzīvoklis tiks remontēts."
+    },
+    "alsoAccept": [
+      "Dzīvoklis ir remontēts.",
+      "Dzīvoklis bija remontēts.",
+      "Dzīvoklis būs remontēts."
+    ],
+    "hint": "m.sg → -ts.",
+    "explain": "Standard building example."
+  },
+  {
+    "id": "p12",
+    "active": "Māja tika uzcelta 1930. gadā.",
+    "patient": {
+      "form": "Māja",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "uzcelt",
+    "expected": {
+      "present": "Māja tiek uzcelta.",
+      "past": "Māja tika uzcelta.",
+      "future": "Māja tiks uzcelta."
+    },
+    "alsoAccept": [
+      "Māja ir uzcelta.",
+      "Māja bija uzcelta.",
+      "Māja būs uzcelta."
+    ],
+    "hint": "Recognize past passive: tika + -ta.",
+    "explain": "Recognition + tense swap."
+  },
+  {
+    "id": "p13",
+    "active": "Bibliotēkā organizē izstādi.",
+    "patient": {
+      "form": "Izstāde",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "organizēt",
+    "expected": {
+      "present": "Izstāde tiek organizēta.",
+      "past": "Izstāde tika organizēta.",
+      "future": "Izstāde tiks organizēta."
+    },
+    "alsoAccept": [
+      "Izstāde ir organizēta.",
+      "Izstāde bija organizēta.",
+      "Izstāde būs organizēta."
+    ],
+    "hint": "f.sg → -ta.",
+    "explain": "Cultural events examples."
+  },
+  {
+    "id": "p14",
+    "active": "Viesi tiks aicināti uz pasākumu.",
+    "patient": {
+      "form": "Viesi",
+      "gender": "m",
+      "number": "pl"
+    },
+    "verb": "aicināt",
+    "expected": {
+      "present": "Viesi tiek aicināti.",
+      "past": "Viesi tika aicināti.",
+      "future": "Viesi tiks aicināti."
+    },
+    "alsoAccept": [
+      "Viesi ir aicināti.",
+      "Viesi bija aicināti.",
+      "Viesi būs aicināti."
+    ],
+    "hint": "m.pl → -ti.",
+    "explain": "Recognition; keep agent implicit."
+  },
+  {
+    "id": "p15",
+    "active": "Nākamnedēļ demonstrēs tērpu kolekciju.",
+    "patient": {
+      "form": "Tērpu kolekcija",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "demonstrēt",
+    "expected": {
+      "present": "Tērpu kolekcija tiek demonstrēta.",
+      "past": "Tērpu kolekcija tika demonstrēta.",
+      "future": "Tērpu kolekcija tiks demonstrēta."
+    },
+    "alsoAccept": [
+      "Tērpu kolekcija ir demonstrēta.",
+      "Tērpu kolekcija bija demonstrēta.",
+      "Tērpu kolekcija būs demonstrēta."
+    ],
+    "hint": "f.sg → -ta.",
+    "explain": "Events scheduling."
+  },
+  {
+    "id": "p16",
+    "active": "Bērniem stāsta spoku stāstus.",
+    "patient": {
+      "form": "Spoku stāsti",
+      "gender": "m",
+      "number": "pl"
+    },
+    "verb": "stāstīt",
+    "expected": {
+      "present": "Spoku stāsti tiek stāstīti.",
+      "past": "Spoku stāsti tika stāstīti.",
+      "future": "Spoku stāsti tiks stāstīti."
+    },
+    "alsoAccept": [
+      "Spoku stāsti ir stāstīti.",
+      "Spoku stāsti bija stāstīti.",
+      "Spoku stāsti būs stāstīti."
+    ],
+    "hint": "m.pl → -ti.",
+    "explain": "Plural masculine."
+  },
+  {
+    "id": "p17",
+    "active": "Zēns izslēdz datoru.",
+    "patient": {
+      "form": "Dators",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "izslēgt",
+    "expected": {
+      "present": "Dators tiek izslēgts.",
+      "past": "Dators tika izslēgts.",
+      "future": "Dators tiks izslēgts."
+    },
+    "alsoAccept": [
+      "Dators ir izslēgts.",
+      "Dators bija izslēgts.",
+      "Dators būs izslēgts."
+    ],
+    "hint": "izslēgt → izslēgts.",
+    "explain": "Stem alternations are common."
+  },
+  {
+    "id": "p18",
+    "active": "Klients nosūtīs vēstuli.",
+    "patient": {
+      "form": "Vēstule",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "nosūtīt",
+    "expected": {
+      "present": "Vēstule tiek nosūtīta.",
+      "past": "Vēstule tika nosūtīta.",
+      "future": "Vēstule tiks nosūtīta."
+    },
+    "alsoAccept": [
+      "Vēstule ir nosūtīta.",
+      "Vēstule bija nosūtīta.",
+      "Vēstule būs nosūtīta."
+    ],
+    "hint": "f.sg → -ta; future → tiks.",
+    "explain": "Mail example."
+  },
+  {
+    "id": "p19",
+    "active": "Mamma mazgā drēbes.",
+    "patient": {
+      "form": "Drēbes",
+      "gender": "f",
+      "number": "pl"
+    },
+    "verb": "mazgāt",
+    "expected": {
+      "present": "Drēbes tiek mazgātas.",
+      "past": "Drēbes tika mazgātas.",
+      "future": "Drēbes tiks mazgātas."
+    },
+    "alsoAccept": [
+      "Drēbes ir mazgātas.",
+      "Drēbes bija mazgātas.",
+      "Drēbes būs mazgātas."
+    ],
+    "hint": "f.pl → -tas.",
+    "explain": "Everyday chores."
+  },
+  {
+    "id": "p20",
+    "active": "Strādnieki krāsos sienas.",
+    "patient": {
+      "form": "Sienas",
+      "gender": "f",
+      "number": "pl"
+    },
+    "verb": "krāsot",
+    "expected": {
+      "present": "Sienas tiek krāsotas.",
+      "past": "Sienas tika krāsotas.",
+      "future": "Sienas tiks krāsotas."
+    },
+    "alsoAccept": [
+      "Sienas ir krāsotas.",
+      "Sienas bija krāsotas.",
+      "Sienas būs krāsotas."
+    ],
+    "hint": "-tas f.pl.",
+    "explain": "Renovation vocabulary."
+  },
+  {
+    "id": "p21",
+    "active": "Meistars flīzēs vannas istabu.",
+    "patient": {
+      "form": "Vannas istaba",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "flīzēt",
+    "expected": {
+      "present": "Vannas istaba tiek flīzēta.",
+      "past": "Vannas istaba tika flīzēta.",
+      "future": "Vannas istaba tiks flīzēta."
+    },
+    "alsoAccept": [
+      "Vannas istaba ir flīzēta.",
+      "Vannas istaba bija flīzēta.",
+      "Vannas istaba būs flīzēta."
+    ],
+    "hint": "f.sg → -ta.",
+    "explain": "Construction verbs set."
+  },
+  {
+    "id": "p22",
+    "active": "Būvē māju.",
+    "patient": {
+      "form": "Māja",
+      "gender": "f",
+      "number": "sg"
+    },
+    "verb": "būvēt",
+    "expected": {
+      "present": "Māja tiek būvēta.",
+      "past": "Māja tika būvēta.",
+      "future": "Māja tiks būvēta."
+    },
+    "alsoAccept": [
+      "Māja ir būvēta.",
+      "Māja bija būvēta.",
+      "Māja būs būvēta."
+    ],
+    "hint": "f.sg → -ta.",
+    "explain": "Impersonal source → passive standard."
+  },
+  {
+    "id": "p23",
+    "active": "Uzstādot sistēmas, speciālisti uzstādīs serveri.",
+    "patient": {
+      "form": "Serveris",
+      "gender": "m",
+      "number": "sg"
+    },
+    "verb": "uzstādīt",
+    "expected": {
+      "present": "Serveris tiek uzstādīts.",
+      "past": "Serveris tika uzstādīts.",
+      "future": "Serveris tiks uzstādīts."
+    },
+    "alsoAccept": [
+      "Serveris ir uzstādīts.",
+      "Serveris bija uzstādīts.",
+      "Serveris būs uzstādīts."
+    ],
+    "hint": "m.sg → -ts.",
+    "explain": "Tech installation."
+  },
+  {
+    "id": "p24",
+    "active": "Materiālus pārvietos noliktavā.",
+    "patient": {
+      "form": "Materiāli",
+      "gender": "m",
+      "number": "pl"
+    },
+    "verb": "pārvietot",
+    "expected": {
+      "present": "Materiāli tiek pārvietoti.",
+      "past": "Materiāli tika pārvietoti.",
+      "future": "Materiāli tiks pārvietoti."
+    },
+    "alsoAccept": [
+      "Materiāli ir pārvietoti.",
+      "Materiāli bija pārvietoti.",
+      "Materiāli būs pārvietoti."
+    ],
+    "hint": "m.pl → -ti.",
+    "explain": "Logistics example."
+  }
+]

@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `src/` hosts interactive page logic (e.g., `conjugation-sprint.js`) written in modern ES modules. Keep new gameplay code here.
+- `src/` hosts interactive page logic (e.g., `games/conjugation-sprint/index.js`) written in modern ES modules, with shared helpers in `src/lib/`. Keep new gameplay code here.
 - `data/` stores verb data in JSON plus offline fallbacks; treat generated files like `words.offline.js` as build artifacts.
 - `scripts/` contains Node and Python utilities for regenerating datasets; favor these over editing JSON by hand.
 - `assets/`, `styles.css`, and the top-level `.html` files drive the static UI served by GitHub Pages. Place shared UI helpers in `scripts/page-init.js`.
@@ -20,7 +20,7 @@
 - Format files with `prettier --write` (no repo script yet); match existing two-space indentation.
 
 ## Testing Guidelines
-- Add Node test files under `test/` with the `.test.js` suffix (`conjugation-sprint.test.js` pattern).
+- Add Node test files under `test/` mirroring the source tree (e.g., `games/conjugation-sprint/index.test.js`), keeping the `.test.js` suffix.
 - Stub DOM APIs with `node:test` + `jsdom` when needed; keep fixtures minimal.
 - Target parity with changed functionality and cover edge cases (empty data, random branches).
 

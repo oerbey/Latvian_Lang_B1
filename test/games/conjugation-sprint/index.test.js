@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
-const html = readFileSync(resolve(__dirname, '../conjugation-sprint.html'), 'utf8');
+const html = readFileSync(resolve(__dirname, '../../../conjugation-sprint.html'), 'utf8');
 
 test('should load the game environment', () => {
   assert.ok(html.includes('<title>Conjugation Sprint — Latvian B1</title>'));
@@ -18,4 +18,3 @@ test('should have all necessary elements present', () => {
     assert.ok(new RegExp(`id="${id}"`).test(html), `missing id ${id}`);
   });
 });
-

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mulberry32, state, shuffle, choice } from '../src/state.js';
+import { mulberry32, state, shuffle, choice } from '../../src/lib/state.js';
 
 // mulberry32 should produce a deterministic sequence for a given seed
 

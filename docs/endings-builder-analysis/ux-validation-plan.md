@@ -2,7 +2,7 @@
 
 ## Purpose & Scope
 - Validate drag-and-drop expectations, keypad usage, and comprehension of feedback messaging across mobile and desktop.
-- Observe friction in the existing implementation (`endings-builder.html:52`, `src/js/endings-builder.js:254`) before investing in redesign.
+- Observe friction in the existing implementation (`endings-builder.html:52`, `src/games/endings-builder/index.js:254`) before investing in redesign.
 - Capture qualitative and quantitative insights that will inform interaction specs, responsive wireframes, and adaptive scheduling updates.
 
 ## Research Questions
@@ -25,7 +25,7 @@
 ## Equipment & Setup
 - Provide staging URL/login instructions 24 hours ahead.
 - Ask participants to join from the target device while keeping a secondary messaging channel (chat) open.
-- Ensure browser caching is cleared or use incognito to avoid prior progress stored in `localStorage` (`src/js/endings-builder.js:177`).
+- Ensure browser caching is cleared or use incognito to avoid prior progress stored in `localStorage` (`src/games/endings-builder/index.js:177`).
 - Prepare annotated observer template (Google Sheet) for real-time note taking aligned with session tasks.
 
 ## Session Structure
@@ -47,7 +47,7 @@
    - Metrics: completion time, diacritic accuracy, keypad usage frequency.
 6. **Task Block C – Feedback Interpretation (6 min)**
    - Trigger incorrect drop intentionally (moderator request) and ask participant to explain feedback message and icons.
-   - Toggle strict mode (`src/js/game-shell.js:52`) and rule table; gather reactions.
+   - Toggle strict mode (`src/games/endings-builder/game-shell.js:52`) and rule table; gather reactions.
    - Metrics: comprehension rating (Likert 1–5), ability to articulate next action.
 7. **Debrief & Wrap (4 min)**
    - Gather overall impressions, desired improvements, and comparative device preference.

@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { stubMatchDom } from './helpers/dom-stubs.js';
+import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 // Ensure DOM is stubbed before importing render
 stubMatchDom();
 
-const render = await import('../src/render.js');
+const render = await import('../../src/lib/render.js');
 
 test('setCanvasHeight adjusts exported H accordingly', () => {
   const { H, setCanvasHeight } = render;
@@ -28,4 +28,3 @@ test('getCanvasCoordinates maps client to canvas coords', () => {
   assert.equal(x, 100);
   assert.equal(y, 200);
 });
-

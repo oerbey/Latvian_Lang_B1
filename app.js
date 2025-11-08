@@ -1,7 +1,7 @@
-import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale } from './src/render.js';
-import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/state.js';
-import { startMatchRound, drawMatch } from './src/match.js';
-import { startForgeRound, drawForge } from './src/forge.js';
+import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale } from './src/lib/render.js';
+import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
+import { startMatchRound, drawMatch } from './src/lib/match.js';
+import { startForgeRound, drawForge } from './src/lib/forge.js';
 
 /* -----------------------------------------------------------
    Subpath-safe asset resolution for GitHub Pages / any subdir

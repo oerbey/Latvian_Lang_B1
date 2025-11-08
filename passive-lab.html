@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="description" content="Ciešamās Kārtas Laboratorija — latentās balsis ar tikt + divdabis." />
+    <title>Ciešamās Kārtas Laboratorija — Latvian B1</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/passive-lab/styles.css" />
+  </head>
+  <body class="passive-lab-page">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <i class="bi bi-translate"></i> Latvian B1
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body align-items-lg-center">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="darbibas-vards.html">Darbības Vārds</a></li>
+              <li class="nav-item"><a class="nav-link" href="conjugation-sprint.html">Conjugation Sprint</a></li>
+              <li class="nav-item"><a class="nav-link" href="endings-builder.html">Endings Builder</a></li>
+              <li class="nav-item"><a class="nav-link" href="passive-lab.html">Ciešamās Kārtas Laboratorija</a></li>
+              <li class="nav-item"><a class="nav-link" href="travel-tracker.html">Travel Tracker</a></li>
+              <li class="nav-item"><a class="nav-link" href="maini-vai-mainies.html">Maini vai mainies?</a></li>
+              <li class="nav-item"><a class="nav-link" href="duty-dispatcher.html">Kas jādara kam?</a></li>
+              <li class="nav-item"><a class="nav-link" href="week1.html">Week 1</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+              <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
+                <i class="bi bi-moon-stars-fill d-none" id="iconDark"></i>
+                <i class="bi bi-sun-fill" id="iconLight"></i>
+              </button>
+              <a class="btn btn-primary" href="https://github.com/oerbey/Latvian_Lang_B1" target="_blank" rel="noopener">
+                <i class="bi bi-github"></i> <span class="ms-1 d-none d-sm-inline">GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="passive-lab-main">
+      <div class="container">
+        <header class="passive-lab-hero">
+          <div class="passive-lab-hero__content">
+            <p class="text-secondary mb-1" data-i18n-key="heroBadge">B1 practice</p>
+            <h1 data-i18n-key="title" class="h3 mb-2">Ciešamās Kārtas Laboratorija</h1>
+            <p class="passive-lab-hero__subtitle mb-0" data-i18n-key="instructions_builder">
+              Izvēlies laiku, pacientu un pareizo divdabja galotni.
+            </p>
+          </div>
+          <img
+            src="assets/img/passive-lab/lab.svg"
+            alt="Laboratory illustration"
+            class="passive-lab-hero__image"
+            data-i18n-key="heroAlt"
+            data-i18n-attr="alt"
+          />
+        </header>
+
+        <section class="card passive-lab-card shadow-sm" aria-labelledby="passiveLabTitle">
+          <div class="passive-lab-card__scoreboard">
+            <div>
+              <span data-i18n-key="score">Punkti</span>
+              <strong id="pl-score-value">0</strong>
+            </div>
+            <div>
+              <span data-i18n-key="streak">Sērija</span>
+              <strong id="pl-streak-value">0</strong>
+            </div>
+            <p class="text-muted mb-0">
+              <span data-i18n-key="labels.lastPlayed">Pēdējā spēle</span>: <span id="pl-last-played-value">—</span>
+            </p>
+          </div>
+
+          <div class="passive-lab-active" aria-live="polite">
+            <span class="text-muted" data-i18n-key="labels.active">Aktīvais teikums</span>
+            <p id="pl-active-sentence" class="passive-lab-active__sentence">—</p>
+          </div>
+
+          <div class="passive-lab-mode">
+            <div class="passive-lab-mode__buttons" role="group" aria-label="Mode select">
+              <button type="button" class="btn btn-outline-primary passive-lab-mode__btn" data-mode="builder" data-i18n-key="builder">
+                Būvēt teikumu
+              </button>
+              <button type="button" class="btn btn-outline-primary passive-lab-mode__btn" data-mode="typein" data-i18n-key="typein">
+                Rakstīt pats
+              </button>
+            </div>
+            <div class="passive-lab-mode__target">
+              <span class="text-muted" data-i18n-key="labels.tense">Laiks</span>
+              <strong id="pl-tense-target-label">Tagadne — tiek</strong>
+            </div>
+          </div>
+
+          <div class="passive-lab-panels">
+            <div class="passive-lab-panel" data-mode-panel="builder">
+              <p class="text-muted" data-i18n-key="instructions_builder">Izvēlies laiku, pacientu un pareizo divdabja galotni.</p>
+              <label class="form-label" for="pl-tense-select" data-i18n-key="labels.tense">Laiks</label>
+              <select id="pl-tense-select" class="form-select"></select>
+
+              <div class="passive-lab-field">
+                <div class="d-flex justify-content-between align-items-center">
+                  <label class="form-label mb-0" data-i18n-key="patientLabel">Pacients (Nom.)</label>
+                  <small class="text-muted" data-i18n-key="hint">Padoms</small>
+                </div>
+                <div id="pl-builder-patients" class="passive-lab-patient-options"></div>
+              </div>
+
+              <label class="form-label" for="pl-ending-select" data-i18n-key="labels.ending">Divdabja galotne</label>
+              <select id="pl-ending-select" class="form-select">
+                <option value="-ts">-ts</option>
+                <option value="-ta">-ta</option>
+                <option value="-ti">-ti</option>
+                <option value="-tas">-tas</option>
+              </select>
+
+              <div class="d-grid">
+                <button id="pl-builder-check" type="button" class="btn btn-primary" data-i18n-key="check">Pārbaudīt</button>
+              </div>
+            </div>
+
+            <div class="passive-lab-panel" data-mode-panel="typein">
+              <p class="text-muted" data-i18n-key="instructions_typein">Ieraksti teikumu ciešamajā kārtā (tiek/tika/tiks + divdabis).</p>
+              <label for="pl-type-input" class="visually-hidden" data-i18n-key="typein">Rakstīt pats</label>
+              <input
+                type="text"
+                id="pl-type-input"
+                class="form-control"
+                autocomplete="off"
+                placeholder=""
+                data-i18n-key="labels.typeinPlaceholder"
+                data-i18n-attr="placeholder"
+              />
+              <div class="d-grid mt-3">
+                <button id="pl-type-check" type="button" class="btn btn-outline-primary" data-i18n-key="check">Pārbaudīt</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="passive-lab-result" aria-live="polite">
+            <p class="text-muted mb-1" data-i18n-key="level_complete">Līmenis pabeigts!</p>
+            <p id="pl-result-sentence">—</p>
+          </div>
+
+          <div class="passive-lab-feedback" role="status" aria-live="polite" aria-atomic="true">
+            <img id="pl-status-icon" src="assets/img/passive-lab/glyph-ok.svg" alt="" aria-hidden="true" />
+            <span id="pl-status-text">—</span>
+          </div>
+
+          <p class="passive-lab-hint" id="pl-ending-hint" aria-live="polite"></p>
+          <p class="text-muted small mb-3">
+            <strong data-i18n-key="hint">Padoms</strong>: <span id="pl-item-hint">—</span>
+          </p>
+
+          <div class="d-grid">
+            <button id="pl-next" type="button" class="btn btn-secondary" data-i18n-key="next" disabled>Nākamais uzdevums</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-top py-4 bg-body-tertiary mt-4" role="contentinfo">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
+        <nav class="small">
+          <a class="link-secondary me-3" href="index.html">Home</a>
+          <a class="link-secondary me-3" href="darbibas-vards.html">Darbības Vārds</a>
+          <a class="link-secondary me-3" href="conjugation-sprint.html">Conjugation Sprint</a>
+          <a class="link-secondary me-3" href="endings-builder.html">Endings Builder</a>
+          <a class="link-secondary me-3" href="passive-lab.html">Ciešamās Kārtas Laboratorija</a>
+          <a class="link-secondary me-3" href="travel-tracker.html">Travel Tracker</a>
+          <a class="link-secondary me-3" href="maini-vai-mainies.html">Maini vai mainies?</a>
+          <a class="link-secondary me-3" href="duty-dispatcher.html">Kas jādara kam?</a>
+          <a class="link-secondary" href="week1.html">Week 1</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="theme.js" defer></script>
+    <script src="scripts/page-init.js" defer></script>
+    <script type="module" src="src/games/passive-lab/index.js"></script>
+  </body>
+</html>

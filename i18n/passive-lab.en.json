@@ -1,0 +1,52 @@
+{
+  "title": "Passive Voice Builder",
+  "heroBadge": "B1 practice",
+  "heroAlt": "Illustration of a passive voice lab",
+  "start": "Start",
+  "builder": "Builder mode",
+  "typein": "Type-in mode",
+  "check": "Check",
+  "next": "Next task",
+  "score": "Score",
+  "streak": "Streak",
+  "hint": "Hint",
+  "correct": "Correct!",
+  "wrong": "Try again!",
+  "level_complete": "Level complete!",
+  "instructions_builder": "Choose tense, patient, and the correct participle ending.",
+  "instructions_typein": "Type the passive sentence (tiek/tika/tiks + participle).",
+  "patientLabel": "Patient (Nom.)",
+  "labels": {
+    "tense": "Tense",
+    "active": "Active sentence",
+    "ending": "Participle ending",
+    "typeinPlaceholder": "Type the passive sentence (tiek/tika/tiks + participle).",
+    "lastPlayed": "Last played"
+  },
+  "tenseOptions": {
+    "present": "Present",
+    "past": "Past",
+    "future": "Future"
+  },
+  "genderLabels": {
+    "m": {
+      "sg": "m.sg",
+      "pl": "m.pl"
+    },
+    "f": {
+      "sg": "f.sg",
+      "pl": "f.pl"
+    }
+  },
+  "status": {
+    "idle": "Pick a mode and build the sentence.",
+    "builderEndingHint": "Correct ending: {ending} ({gender}).",
+    "streakBonus": "Streak bonus! ({count}) +10 xp",
+    "noTasks": "No tasks available.",
+    "loadError": "Failed to load tasks."
+  },
+  "glyphAlt": {
+    "ok": "Success icon",
+    "error": "Error icon"
+  }
+}

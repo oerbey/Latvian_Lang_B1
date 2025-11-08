@@ -2,24 +2,24 @@
 
 ## Snapshot
 - UI scaffold lives in `endings-builder.html:52` with Bootstrap navigation and a single-column `.eb-wrapper`.
-- Core logic is driven by vanilla modules such as `src/js/endings-builder.js:201`, `src/js/game-shell.js:42`, and `src/js/dnd.js:1`.
-- Morphology data sources are JSON driven (`src/data/endings.json:1`, `src/data/endings-items.json:1`) and localized strings load from `i18n/en.json:55`.
+- Core logic is driven by vanilla modules such as `src/games/endings-builder/index.js:201`, `src/games/endings-builder/game-shell.js:42`, and `src/games/endings-builder/dnd.js:1`.
+- Morphology data sources are JSON driven (`data/endings-builder/tables.json:1`, `data/endings-builder/items.json:1`) and localized strings load from `i18n/en.json:55`.
 
 ## Strengths
 - **Data driven:** Stems, schemas, and localized copy are decoupled from code, allowing non-dev updates.
-- **Accessibility minded:** Drag sources and slots expose focusable roles in `src/js/dnd.js:5`, while `src/js/game-shell.js:52` and `src/js/game-shell.js:68` add the strict-mode switch and the `aria-live` region for feedback.
-- **Offline resilience:** Embedded fallbacks handle `file://` loads through `window.__ENDINGS_*` payloads (`src/js/endings-builder.js:8`, `src/js/endings-resolver.js:3`).
+- **Accessibility minded:** Drag sources and slots expose focusable roles in `src/games/endings-builder/dnd.js:5`, while `src/games/endings-builder/game-shell.js:52` and `src/games/endings-builder/game-shell.js:68` add the strict-mode switch and the `aria-live` region for feedback.
+- **Offline resilience:** Embedded fallbacks handle `file://` loads through `window.__ENDINGS_*` payloads (`src/games/endings-builder/index.js:8`, `src/games/endings-builder/endings-resolver.js:3`).
 
 ## Pain Points
-- **Touch ergonomics:** Pointer-up drops in `src/js/dnd.js:103` offer little positional feedback, so touch users must rely on guesswork when aligning with slots.
-- **Monotone progression:** Progress counters only increment/decrement without mastery thresholds or spaced review (`src/js/endings-builder.js:392`).
-- **Limited pedagogy:** Explanations reduce to formulaic strings like `stem + case` and omit grammar context or examples (`src/js/endings-builder.js:467`).
-- **Looping rounds:** `pickNextRound()` reorders by lowest score, frequently repeating earliest items and risking boredom (`src/js/endings-builder.js:241`).
-- **Dense layout:** Dual `.eb-board` grids plus keypad stack vertically, forcing heavy scroll on small devices (`src/css/endings-builder.css:33`).
+- **Touch ergonomics:** Pointer-up drops in `src/games/endings-builder/dnd.js:103` offer little positional feedback, so touch users must rely on guesswork when aligning with slots.
+- **Monotone progression:** Progress counters only increment/decrement without mastery thresholds or spaced review (`src/games/endings-builder/index.js:392`).
+- **Limited pedagogy:** Explanations reduce to formulaic strings like `stem + case` and omit grammar context or examples (`src/games/endings-builder/index.js:467`).
+- **Looping rounds:** `pickNextRound()` reorders by lowest score, frequently repeating earliest items and risking boredom (`src/games/endings-builder/index.js:241`).
+- **Dense layout:** Dual `.eb-board` grids plus keypad stack vertically, forcing heavy scroll on small devices (`src/games/endings-builder/styles.css:33`).
 
 ## Mobile-First Assessment
 - 44px tiles meet minimum tap size but vertical stacking leaves minimal space once the keypad and navbar appear.
-- Drag handles require precision and, while a tap-to-place fallback exists (`src/js/dnd.js:92`), the UI never surfaces it or adds haptic/visual confirmation.
+- Drag handles require precision and, while a tap-to-place fallback exists (`src/games/endings-builder/dnd.js:92`), the UI never surfaces it or adds haptic/visual confirmation.
 - Controls (Check/Next/Rule) sit at the top, away from thumb reach; keypad is always visible even when not needed.
 - No responsive typography tokens or spacing adjustments beyond Bootstrap defaults.
 

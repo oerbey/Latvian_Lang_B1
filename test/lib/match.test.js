@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mulberry32, state } from '../src/state.js';
-import { stubMatchDom } from './helpers/dom-stubs.js';
+import { mulberry32, state } from '../../src/lib/state.js';
+import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 const { statusEl } = stubMatchDom();
 
-const { startMatchRound } = await import('../src/match.js');
+const { startMatchRound } = await import('../../src/lib/match.js');
 
 test('startMatchRound uses target language entries', () => {
   state.DATA = { units: [ { name:'u1', entries:[{ translations:{ lv:'braukt', ru:'ехать' }, games:['match'] }] } ] };

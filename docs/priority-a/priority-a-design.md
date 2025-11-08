@@ -33,7 +33,7 @@
 - `src/ui/review/index.js` coordinates queue consumption, TTS triggers, grading UI, and writes back to storage.
 - `src/pronunciation/*` modules encapsulate audio capture, scoring, and consent gating. They integrate with review UI and can surface standalone practice sessions.
 - `src/ui/dashboard/*` modules compute aggregates and render charts. They subscribe to Dexie data via `liveQuery` where appropriate.
-- `src/sync/*` modules encapsulate optional Supabase interactions. Feature flagging occurs in `src/state.js` and `user_profile.settings`.
+- `src/sync/*` modules encapsulate optional Supabase interactions. Feature flagging occurs in `src/lib/state.js` and `user_profile.settings`.
 
 ## 3. Planned Modules & File Map
 | Path | Responsibility | Notes / Inputs | Outputs / Consumers |

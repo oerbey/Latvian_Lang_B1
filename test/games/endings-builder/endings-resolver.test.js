@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { getEnding } from '../src/js/endings-resolver.js';
+import { getEnding } from '../../../src/games/endings-builder/endings-resolver.js';
 
 test('Decl1 masc GEN.SG is -a', () => {
   const out = getEnding({
@@ -11,4 +11,3 @@ test('Decl1 masc GEN.SG is -a', () => {
   });
   assert.equal(out, '-a');
 });
-

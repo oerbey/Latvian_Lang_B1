@@ -4,8 +4,8 @@
 """
 Latvian verb conjugation filler using Tēzaurs inflection API.
 
-Input:  verbs.json  (array of dicts like the user's sample)
-Output: verbs_conjugated.json (same array, with conj filled when missing)
+Input:  data/legacy/verbs.json  (array of dicts like the user's sample)
+Output: data/legacy/verbs_conjugated.json (same array, with conj filled when missing)
 
 Requires: requests
     pip install requests
@@ -25,6 +25,9 @@ from pathlib import Path
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+LEGACY_DATA_DIR = ROOT_DIR / "data" / "legacy"
 
 API_BASE = "https://api.tezaurs.lv/v1/inflections/"
 
@@ -283,8 +286,9 @@ def fill_conjugations(entries):
     return out
 
 def main():
-    src = Path("verbs.json")
-    dst = Path("verbs_conjugated.json")
+    src = LEGACY_DATA_DIR / "verbs.json"
+    dst = LEGACY_DATA_DIR / "verbs_conjugated.json"
+    LEGACY_DATA_DIR.mkdir(parents=True, exist_ok=True)
     data = json.loads(src.read_text(encoding="utf-8"))
     # Accept either a dict with 'verbs' or a bare array
     if isinstance(data, dict) and "verbs" in data:

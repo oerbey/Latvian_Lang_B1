@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v8';
+const CACHE_VERSION = 'v9';
 const CACHE_NAME = `ll-b1-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [
@@ -10,6 +10,11 @@ const CORE_ASSETS = [
   './endings-builder.html',
   './assets/styles.css',
   './assets/app.js',
+  './app.js',
+  './src/lib/state.js',
+  './src/lib/render.js',
+  './src/lib/match.js',
+  './src/lib/forge.js',
   './assets/img/travel-tracker/latvia.svg',
   './assets/img/travel-tracker/bus.svg',
   './data/words.json',
@@ -17,15 +22,16 @@ const CORE_ASSETS = [
   './data/week1.offline.js',
   './data/travel-tracker/routes.json',
   './manifest.json',
-  './src/css/endings-builder.css',
-  './src/js/endings-builder.js',
-  './src/js/game-shell.js',
-  './src/js/dnd.js',
-  './src/js/endings-resolver.js',
-  './src/js/norm.js',
-  './src/data/endings.json',
-  './src/data/endings-items.json',
-  './src/data/endings.offline.js',
+  './src/games/endings-builder/index.js',
+  './src/games/endings-builder/game-shell.js',
+  './src/games/endings-builder/dnd.js',
+  './src/games/endings-builder/endings-resolver.js',
+  './src/games/endings-builder/norm.js',
+  './src/games/endings-builder/styles.css',
+  './data/endings-builder/tables.json',
+  './data/endings-builder/items.json',
+  './data/endings-builder/offline.js',
+  './src/games/conjugation-sprint/index.js',
   './src/games/travel-tracker/index.js',
   './src/games/travel-tracker/utils.js',
   './src/games/travel-tracker/styles.css',

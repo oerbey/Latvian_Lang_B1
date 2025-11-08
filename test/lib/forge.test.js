@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mulberry32, state } from '../src/state.js';
-import { stubForgeDom } from './helpers/dom-stubs.js';
+import { mulberry32, state } from '../../src/lib/state.js';
+import { stubForgeDom } from '../helpers/dom-stubs.js';
 
 stubForgeDom();
 
-const { startForgeRound, ALL_PREFIXES } = await import('../src/forge.js');
+const { startForgeRound, ALL_PREFIXES } = await import('../../src/lib/forge.js');
 
 // startForgeRound should create a forgeState with correct options
 

@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { stubMatchDom } from './helpers/dom-stubs.js';
+import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 const { statusEl } = stubMatchDom();
 
-const { state, mulberry32, clickables, resetClicks } = await import('../src/state.js');
-const match = await import('../src/match.js');
+const { state, mulberry32, clickables, resetClicks } = await import('../../src/lib/state.js');
+const match = await import('../../src/lib/match.js');
 
 test('full deck size caps at 15', () => {
   const many = Array.from({ length: 20 }, (_, i) => ({
@@ -96,4 +96,3 @@ test('solving the only pair records result and restarts', () => {
   assert.equal(last.total, 1);
   assert.ok(statusEl.textContent.includes('Match: 1/1'));
 });
-

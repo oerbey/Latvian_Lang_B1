@@ -74,6 +74,46 @@
         </div>
       </header>
 
+      <section class="card border-0 shadow-sm mb-4" aria-labelledby="locked-mode-heading">
+        <div class="card-body d-flex flex-column gap-3">
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <span id="locked-mode-heading" class="fw-semibold">Study mode</span>
+            <div class="btn-group" role="group" aria-label="Study mode toggle">
+              <input type="radio" class="btn-check" name="study-mode" id="mode-use-all" value="all" checked />
+              <label class="btn btn-outline-secondary" for="mode-use-all">Use all</label>
+              <input type="radio" class="btn-check" name="study-mode" id="mode-locked-set" value="locked" />
+              <label class="btn btn-outline-secondary" for="mode-locked-set">Locked set</label>
+            </div>
+          </div>
+          <div id="locked-controls" class="row gy-3 gx-3 d-none">
+            <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
+              <label for="locked-set-size" class="form-label mb-0">Set size</label>
+              <select id="locked-set-size" class="form-select form-select-sm w-auto" aria-label="Locked set size">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="custom">Custom</option>
+              </select>
+              <input type="number" id="locked-set-custom" class="form-control form-control-sm w-auto d-none" min="5" step="1" value="15" aria-label="Custom set size" />
+            </div>
+            <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
+              <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">New mix</button>
+              <button id="btn-reset-locked" class="btn btn-outline-secondary btn-sm" type="button">Reset locked set</button>
+            </div>
+            <div class="col-12 col-md-auto">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="prioritize-mistakes" />
+                <label class="form-check-label" for="prioritize-mistakes">Prioritize mistakes</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div id="locked-indicator" class="text-secondary small"></div>
+              <div id="locked-progress" class="text-secondary small"></div>
+              <div id="locked-feedback" class="text-warning small"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section aria-labelledby="status-heading">
         <h2 id="status-heading" class="visually-hidden">Statuss</h2>
         <div id="score" class="status" aria-live="polite">Pareizi: 0 | Nepareizi: 0</div>

@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   './conjugation-sprint.html',
   './endings-builder.html',
   './passive-lab.html',
+  './decl6-detective.html',
   './assets/styles.css',
   './assets/app.js',
   './app.js',
@@ -42,6 +43,8 @@ const CORE_ASSETS = [
   './src/games/travel-tracker/utils.js',
   './src/games/travel-tracker/styles.css',
   './src/games/passive-lab/styles.css',
+  './src/games/decl6-detective/index.js',
+  './src/games/decl6-detective/styles.css',
   './i18n/en.json',
   './i18n/lv.json',
   './i18n/ru.json',
@@ -50,6 +53,10 @@ const CORE_ASSETS = [
   './i18n/travel-tracker.lv.json',
   './i18n/passive-lab.en.json',
   './i18n/passive-lab.lv.json',
+  './i18n/decl6-detective.en.json',
+  './i18n/decl6-detective.lv.json',
+  './data/decl6-detective/items.json',
+  './assets/img/decl6-detective/plan.svg',
 ];
 
 self.addEventListener('install', event => {

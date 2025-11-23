@@ -1,0 +1,450 @@
+[
+  {
+    "id": "d6-01",
+    "scene": "virtuve",
+    "lemma": "plīts",
+    "prompt": "Katls stāv uz _____.",
+    "case": "GenSg (location with 'uz')",
+    "options": [
+      "plīts",
+      "plītis",
+      "plīti",
+      "plītī"
+    ],
+    "answer": "plīts",
+    "hint": "‘uz’ (kur?) → Ģen.",
+    "explain": "Location: uz plīts."
+  },
+  {
+    "id": "d6-02",
+    "scene": "virtuve",
+    "lemma": "krāsns",
+    "prompt": "Pīrāgs cepas _____. (Kur?)",
+    "case": "LocSg",
+    "options": [
+      "krāsnī",
+      "krāsni",
+      "krāsns",
+      "krāsnis"
+    ],
+    "answer": "krāsnī",
+    "hint": "Kur? → Lok.",
+    "explain": "Locative singular: krāsnī."
+  },
+  {
+    "id": "d6-03",
+    "scene": "virtuve",
+    "lemma": "plīts",
+    "prompt": "Panna tiek nolikta uz ____ (virzienā).",
+    "case": "AccSg (direction with 'uz')",
+    "options": [
+      "plīts",
+      "plīti",
+      "plītī",
+      "plītis"
+    ],
+    "answer": "plīti",
+    "hint": "Virziens ar ‘uz’ → Akuz.",
+    "explain": "Direction: uz plīti."
+  },
+  {
+    "id": "d6-04",
+    "scene": "virtuve",
+    "lemma": "durvis (pl., only)",
+    "prompt": "Lūdzu, aizver _____.",
+    "case": "AccPl",
+    "options": [
+      "durvis",
+      "durvīm",
+      "durvju",
+      "durvīs"
+    ],
+    "answer": "durvis",
+    "hint": "Plural‑only; Akuz.=Nom.pl.",
+    "explain": "Durvis (pl. only)."
+  },
+  {
+    "id": "d6-05",
+    "scene": "pirts",
+    "lemma": "pirts",
+    "prompt": "Malku tur aiz _____.",
+    "case": "GenSg (aiz + Ģen.)",
+    "options": [
+      "pirts",
+      "pirti",
+      "pirtī",
+      "pirtis"
+    ],
+    "answer": "pirts",
+    "hint": "aiz + Ģen.",
+    "explain": "aiz pirts."
+  },
+  {
+    "id": "d6-06",
+    "scene": "pirts",
+    "lemma": "pirts",
+    "prompt": "Slotas karājas _____. (Kur?)",
+    "case": "LocSg",
+    "options": [
+      "pirtī",
+      "pirti",
+      "pirts",
+      "pirtis"
+    ],
+    "answer": "pirtī",
+    "hint": "Kur? → Lok.",
+    "explain": "pirtī."
+  },
+  {
+    "id": "d6-07",
+    "scene": "pirts",
+    "lemma": "zivs",
+    "prompt": "Pēc pirts gatavosim ____ zupu.",
+    "case": "GenPl",
+    "options": [
+      "zivju",
+      "zivīm",
+      "zivis",
+      "zivi"
+    ],
+    "answer": "zivju",
+    "hint": "Sastāvdaļa → Ģen.pl.",
+    "explain": "zivju zupa."
+  },
+  {
+    "id": "d6-08",
+    "scene": "klēts",
+    "lemma": "klēts",
+    "prompt": "Graudi glabājas _____. (Kur?)",
+    "case": "LocSg",
+    "options": [
+      "klētī",
+      "klēti",
+      "klēts",
+      "klētis"
+    ],
+    "answer": "klētī",
+    "hint": "Kur? → Lok.",
+    "explain": "klētī."
+  },
+  {
+    "id": "d6-09",
+    "scene": "kūts",
+    "lemma": "kūts",
+    "prompt": "Govis dzīvo _____. (Kur?)",
+    "case": "LocSg",
+    "options": [
+      "kūtī",
+      "kūti",
+      "kūts",
+      "kūtis"
+    ],
+    "answer": "kūtī",
+    "hint": "Kur? → Lok.",
+    "explain": "kūtī."
+  },
+  {
+    "id": "d6-10",
+    "scene": "kūts",
+    "lemma": "govs",
+    "prompt": "Rīt vedīs barību uz _____. (Uz kurieni?)",
+    "case": "AccPl",
+    "options": [
+      "govis",
+      "goves",
+      "govīm",
+      "govi"
+    ],
+    "answer": "govis",
+    "hint": "Akuz.pl = Nom.pl.",
+    "explain": "govis."
+  },
+  {
+    "id": "d6-11",
+    "scene": "telts",
+    "lemma": "telts",
+    "prompt": "Mēs nakšņojam _____. (Kur?)",
+    "case": "LocSg",
+    "options": [
+      "teltī",
+      "telti",
+      "telts",
+      "teltis"
+    ],
+    "answer": "teltī",
+    "hint": "Kur? → Lok.",
+    "explain": "teltī."
+  },
+  {
+    "id": "d6-12",
+    "scene": "telts",
+    "lemma": "telts",
+    "prompt": "No rīta saliksim ____ atpakaļ somā.",
+    "case": "AccSg",
+    "options": [
+      "telti",
+      "teltī",
+      "telts",
+      "teltis"
+    ],
+    "answer": "telti",
+    "hint": "Ko? → Akuz.sg -i.",
+    "explain": "telti."
+  },
+  {
+    "id": "d6-13",
+    "scene": "viesistaba",
+    "lemma": "krāsns",
+    "prompt": "Vecajā mājā bija divas _____.",
+    "case": "NomPl",
+    "options": [
+      "krāsnis",
+      "krāsns",
+      "krāsnīm",
+      "krāsnīs"
+    ],
+    "answer": "krāsnis",
+    "hint": "Nom.pl -is.",
+    "explain": "krāsnis."
+  },
+  {
+    "id": "d6-14",
+    "scene": "viesistaba",
+    "lemma": "plīts",
+    "prompt": "Dzīvoklī ir dažādas ____: gāzes, elektriskā, indukcijas.",
+    "case": "NomPl",
+    "options": [
+      "plītis",
+      "plītis (noteiktā)",
+      "plīts",
+      "plītīm"
+    ],
+    "answer": "plītis",
+    "hint": "Nom.pl -is.",
+    "explain": "plītis."
+  },
+  {
+    "id": "d6-15",
+    "scene": "virtuve",
+    "lemma": "zoss",
+    "prompt": "Šovakar cepsim ____ kājas.",
+    "case": "GenSg",
+    "options": [
+      "zoss",
+      "zosi",
+      "zosu",
+      "zosses"
+    ],
+    "answer": "zoss",
+    "hint": "Ģen.sg = zoss.",
+    "explain": "zoss kājas."
+  },
+  {
+    "id": "d6-16",
+    "scene": "virtuve",
+    "lemma": "zivs",
+    "prompt": "Bērniem negaršo ____ gaļa.",
+    "case": "GenSg",
+    "options": [
+      "zivs",
+      "zivi",
+      "zivju",
+      "zivis"
+    ],
+    "answer": "zivs",
+    "hint": "Ģen.sg = lemma.",
+    "explain": "zivs gaļa."
+  },
+  {
+    "id": "d6-17",
+    "scene": "pagalms",
+    "lemma": "klints",
+    "prompt": "Takai jāiet pāri _____.",
+    "case": "DatSg (pāri + Dat.)",
+    "options": [
+      "klintij",
+      "klints",
+      "klinti",
+      "klintī"
+    ],
+    "answer": "klintij",
+    "hint": "pāri + Dat.",
+    "explain": "pāri klintij."
+  },
+  {
+    "id": "d6-18",
+    "scene": "virtuve",
+    "lemma": "plīts",
+    "prompt": "Katls ir virs _____.",
+    "case": "GenSg",
+    "options": [
+      "plīts",
+      "plīti",
+      "plītī",
+      "plītis"
+    ],
+    "answer": "plīts",
+    "hint": "virs + Ģen.",
+    "explain": "virs plīts."
+  },
+  {
+    "id": "d6-19",
+    "scene": "viesistaba",
+    "lemma": "krāsns",
+    "prompt": "Mēs stāvam pie _____.",
+    "case": "GenSg",
+    "options": [
+      "krāsns",
+      "krāsnī",
+      "krāsni",
+      "krāsnis"
+    ],
+    "answer": "krāsns",
+    "hint": "pie + Ģen.",
+    "explain": "pie krāsns."
+  },
+  {
+    "id": "d6-20",
+    "scene": "viesistaba",
+    "lemma": "krāsns",
+    "prompt": "Bērns paskatījās uz ____ (virzienā).",
+    "case": "AccSg (uz + Akuz.)",
+    "options": [
+      "krāsni",
+      "krāsns",
+      "krāsnī",
+      "krāsnis"
+    ],
+    "answer": "krāsni",
+    "hint": "uz (kurieni?) → Akuz.",
+    "explain": "uz krāsni."
+  },
+  {
+    "id": "d6-21",
+    "scene": "virtuve",
+    "lemma": "brokastis (pl., only)",
+    "prompt": "Viesnīcā bija garšīgas _____.",
+    "case": "NomPl",
+    "options": [
+      "brokastis",
+      "brokastīm",
+      "brokastis (sg)",
+      "brokastu"
+    ],
+    "answer": "brokastis",
+    "hint": "Plural‑only.",
+    "explain": "brokastis."
+  },
+  {
+    "id": "d6-22",
+    "scene": "koridors",
+    "lemma": "durvis (pl., only)",
+    "prompt": "Aiz ____ stāv skapis.",
+    "case": "GenPl",
+    "options": [
+      "durvju",
+      "durvīm",
+      "durvis",
+      "durvīs"
+    ],
+    "answer": "durvju",
+    "hint": "Ģen.pl: durvju.",
+    "explain": "aiz durvju."
+  },
+  {
+    "id": "d6-23",
+    "scene": "karte",
+    "lemma": "pils (Cēsis)",
+    "prompt": "Mēs braucam uz ____ (pilsēta).",
+    "case": "AccPl (place name with plural forms)",
+    "options": [
+      "Cēsīm",
+      "Cēsis",
+      "Cēsu",
+      "Cēsīs"
+    ],
+    "answer": "Cēsīm",
+    "hint": "Uz + Akuz.; plural place name → -īm.",
+    "explain": "uz Cēsīm."
+  },
+  {
+    "id": "d6-24",
+    "scene": "karte",
+    "lemma": "valsts",
+    "prompt": "Latvija ir skaista _____.",
+    "case": "NomSg",
+    "options": [
+      "valsts",
+      "valsti",
+      "valstī",
+      "valsts (pl.)"
+    ],
+    "answer": "valsts",
+    "hint": "Nom.sg.",
+    "explain": "skaista valsts."
+  },
+  {
+    "id": "d6-25",
+    "scene": "karte",
+    "lemma": "valsts",
+    "prompt": "Es dzīvoju brīvā _____.",
+    "case": "LocSg",
+    "options": [
+      "valstī",
+      "valsti",
+      "valsts",
+      "valstīm"
+    ],
+    "answer": "valstī",
+    "hint": "Kur? → Lok.",
+    "explain": "valstī."
+  },
+  {
+    "id": "d6-26",
+    "scene": "pagalms",
+    "lemma": "zoss",
+    "prompt": "Bērni baro ____ ar graudiem.",
+    "case": "AccSg",
+    "options": [
+      "zosi",
+      "zoss",
+      "zosu",
+      "zošu"
+    ],
+    "answer": "zosi",
+    "hint": "Ko? → Akuz.sg -i.",
+    "explain": "zosi."
+  },
+  {
+    "id": "d6-27",
+    "scene": "parks",
+    "lemma": "zivs",
+    "prompt": "Viņi vēro ____ dīķī.",
+    "case": "AccPl",
+    "options": [
+      "zivis",
+      "zivju",
+      "zivīm",
+      "zivs"
+    ],
+    "answer": "zivis",
+    "hint": "Ko? (daudz) → Akuz.pl.",
+    "explain": "zivis."
+  },
+  {
+    "id": "d6-28",
+    "scene": "pludmale",
+    "lemma": "smiltis (pl., only)",
+    "prompt": "Bērni spēlējas _____.",
+    "case": "LocPl",
+    "options": [
+      "smiltīs",
+      "smiltis",
+      "smilšu",
+      "smiltīm"
+    ],
+    "answer": "smiltīs",
+    "hint": "Kur? → Lok.pl -īs.",
+    "explain": "smiltīs."
+  }
+]

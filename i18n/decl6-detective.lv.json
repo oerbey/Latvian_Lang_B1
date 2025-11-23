@@ -1,0 +1,16 @@
+{
+  "title": "Kas ir manā mājā? — 6. deklinācijas detektīvs",
+  "start": "Sākt",
+  "mode_mcq": "Detektīvkartes",
+  "mode_typein": "Istabas būvētājs",
+  "check": "Pārbaudīt",
+  "next": "Nākamais",
+  "score": "Punkti",
+  "streak": "Sērija",
+  "hint": "Padoms",
+  "correct": "Pareizi!",
+  "wrong": "Mēģini vēlreiz!",
+  "level_complete": "Līmenis pabeigts!",
+  "instructions_mcq": "Izvēlies pareizo 6. deklinācijas formu.",
+  "instructions_typein": "Ieraksti trūkstošo formu ar diakritiskajām zīmēm."
+}

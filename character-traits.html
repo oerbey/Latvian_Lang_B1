@@ -11,7 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="character-traits-page">
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
@@ -72,11 +72,15 @@
               <button type="button" class="btn btn-outline-primary" id="mode-translate" disabled>Latviešu ➜ angļu</button>
             </div>
             <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mode-label">Ielādē datus…</span>
+            <span class="badge bg-light border text-dark" id="last-result" aria-live="polite"></span>
           </div>
+
+          <div class="d-flex flex-wrap gap-2 mb-3 small" id="group-stats" aria-live="polite"></div>
+          <div class="visually-hidden" id="live-region" aria-live="polite"></div>
 
           <div id="question-area">
             <p class="text-muted small mb-1" id="question-progress">Jautājums 0 / 10</p>
-            <h2 class="h3 mb-3" id="question-text">Ielādē datus…</h2>
+            <h2 class="h3 mb-3" id="question-text" tabindex="-1">Ielādē datus…</h2>
             <div id="choices" class="d-grid gap-2"></div>
             <div class="alert alert-secondary mt-3" id="feedback" role="status" aria-live="polite">
               <div id="feedback-text">Izvēlies atbildi un saņem uzreiz skaidrojumu.</div>
@@ -84,7 +88,7 @@
             </div>
           </div>
 
-          <div id="summary-area" class="d-none">
+          <div id="summary-area" class="d-none" tabindex="-1" aria-live="polite">
             <h2 class="h4 mb-2">Kopsavilkums</h2>
             <p class="mb-1" id="summary-score"></p>
             <p class="text-secondary mb-3" id="summary-verdict"></p>
@@ -121,324 +125,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="theme.js"></script>
     <script src="scripts/page-init.js" defer></script>
-    <script type="module">
-      const QUESTIONS_PER_ROUND = 10;
-      const MODE_GROUPS = 'groups';
-      const MODE_TRANSLATE = 'translate';
-
-      const state = {
-        mode: MODE_GROUPS,
-        allWords: [],
-        groupWords: [],
-        questionPool: [],
-        questionIndex: 0,
-        asked: 0,
-        correct: 0,
-        mistakes: [],
-        locked: false,
-      };
-
-      const modeButtons = {
-        [MODE_GROUPS]: document.getElementById('mode-groups'),
-        [MODE_TRANSLATE]: document.getElementById('mode-translate'),
-      };
-      document.getElementById('year').textContent = new Date().getFullYear();
-      const questionText = document.getElementById('question-text');
-      const questionProgress = document.getElementById('question-progress');
-      const choices = document.getElementById('choices');
-      const feedback = document.getElementById('feedback');
-      const feedbackText = document.getElementById('feedback-text');
-      const translationLine = document.getElementById('translation-line');
-      const scoreBadge = document.getElementById('score');
-      const counterBadge = document.getElementById('counter');
-      const modeLabel = document.getElementById('mode-label');
-      const nextBtn = document.getElementById('next-btn');
-      const restartBtn = document.getElementById('restart-btn');
-      const questionArea = document.getElementById('question-area');
-      const summaryArea = document.getElementById('summary-area');
-      const summaryScore = document.getElementById('summary-score');
-      const summaryVerdict = document.getElementById('summary-verdict');
-      const mistakesList = document.getElementById('mistakes-list');
-
-      function shuffle(arr) {
-        const copy = [...arr];
-        for (let i = copy.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [copy[i], copy[j]] = [copy[j], copy[i]];
-        }
-        return copy;
-      }
-
-      function parseCsv(text) {
-        const lines = text.trim().split(/\r?\n/);
-        const rows = [];
-        lines.slice(1).forEach((line) => {
-          if (!line.trim()) return;
-          const parts = line.split(',');
-          const [id, lv, en, group, ...rest] = parts;
-          if (!id || !lv || !en || !group) return;
-          rows.push({
-            id: id.trim(),
-            lv: lv.trim(),
-            en: en.trim(),
-            group: group.trim(),
-            notes: rest.join(',').trim(),
-          });
-        });
-        return rows;
-      }
-
-      function setModeBadge() {
-        modeLabel.textContent = state.mode === MODE_GROUPS ? 'Optimists vai pesimists' : 'Latviešu ➜ angļu';
-      }
-
-      function setActiveModeButton(mode) {
-        Object.entries(modeButtons).forEach(([key, btn]) => {
-          if (!btn) return;
-          if (key === mode) {
-            btn.classList.add('active');
-            btn.setAttribute('aria-pressed', 'true');
-          } else {
-            btn.classList.remove('active');
-            btn.setAttribute('aria-pressed', 'false');
-          }
-        });
-      }
-
-      function setFeedbackNeutral() {
-        feedback.className = 'alert alert-secondary mt-3';
-        feedbackText.textContent = 'Izvēlies atbildi un saņem uzreiz skaidrojumu.';
-        translationLine.textContent = '';
-      }
-
-      function updateScore() {
-        scoreBadge.textContent = `Punkti: ${state.correct} / ${state.asked}`;
-        counterBadge.textContent = `Jautājums ${Math.min(state.questionIndex + 1, QUESTIONS_PER_ROUND)} / ${QUESTIONS_PER_ROUND}`;
-        questionProgress.textContent = `Jautājums ${Math.min(state.questionIndex + 1, QUESTIONS_PER_ROUND)} / ${QUESTIONS_PER_ROUND}`;
-      }
-
-      function buildQuestionPool(source) {
-        if (!source.length) return [];
-        const shuffled = shuffle(source);
-        return shuffled.slice(0, Math.min(QUESTIONS_PER_ROUND, shuffled.length));
-      }
-
-      function pickDistractors(correctEn) {
-        const pool = state.allWords.filter((item) => item.en !== correctEn).map((item) => item.en);
-        const unique = [...new Set(pool)];
-        return shuffle(unique).slice(0, 3);
-      }
-
-      function renderChoices(question) {
-        choices.innerHTML = '';
-        const optionButtons = [];
-        if (state.mode === MODE_GROUPS) {
-          const options = [
-            { label: 'Optimists', value: 'optimists' },
-            { label: 'Pesimists', value: 'pesimists' },
-          ];
-          options.forEach((opt) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'btn btn-outline-primary btn-lg text-start';
-            btn.dataset.value = opt.value;
-            btn.textContent = opt.label;
-            btn.addEventListener('click', () => handleAnswer(opt.value, btn));
-            optionButtons.push(btn);
-          });
-        } else {
-          const distractors = pickDistractors(question.en);
-          const options = shuffle([question.en, ...distractors]);
-          options.forEach((opt) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'btn btn-outline-primary btn-lg text-start';
-            btn.dataset.value = opt;
-            btn.textContent = opt;
-            btn.addEventListener('click', () => handleAnswer(opt, btn));
-            optionButtons.push(btn);
-          });
-        }
-        optionButtons.forEach((btn) => choices.appendChild(btn));
-      }
-
-      function showFeedback(isCorrect, question, selectedValue) {
-        const correctGroup = question.group === 'optimists' ? 'optimistu' : 'pesimistu';
-        if (isCorrect) {
-          feedback.className = 'alert alert-success mt-3';
-          feedbackText.textContent =
-            state.mode === MODE_GROUPS
-              ? `Pareizi, šī īpašība raksturo ${correctGroup}.`
-              : 'Pareizi! Tu atceries tulkojumu.';
-        } else {
-          feedback.className = 'alert alert-danger mt-3';
-          feedbackText.textContent =
-            state.mode === MODE_GROUPS
-              ? `Nē, tas vairāk raksturo ${correctGroup}.`
-              : 'Šoreiz nepareizi. Paskaties uz pareizo tulkojumu.';
-        }
-        translationLine.textContent = `Tulkojums: ${question.en}`;
-
-        const optionButtons = choices.querySelectorAll('button');
-        optionButtons.forEach((btn) => {
-          const value = btn.dataset.value;
-          const isCorrectOption = state.mode === MODE_GROUPS ? value === question.group : value === question.en;
-          btn.disabled = true;
-          btn.classList.remove('btn-outline-primary');
-          if (isCorrectOption) {
-            btn.classList.add('btn-success');
-          } else if (value === selectedValue) {
-            btn.classList.add('btn-danger');
-          } else {
-            btn.classList.add('btn-outline-secondary');
-          }
-        });
-      }
-
-      function recordMistake(question, selectedValue) {
-        state.mistakes.push({
-          lv: question.lv,
-          en: question.en,
-          group: question.group,
-          selected: selectedValue,
-          mode: state.mode,
-        });
-      }
-
-      function handleAnswer(selectedValue) {
-        if (state.locked) return;
-        state.locked = true;
-        const question = state.questionPool[state.questionIndex];
-        const isCorrect =
-          state.mode === MODE_GROUPS ? selectedValue === question.group : selectedValue === question.en;
-        state.asked += 1;
-        if (isCorrect) {
-          state.correct += 1;
-        } else {
-          recordMistake(question, selectedValue);
-        }
-        updateScore();
-        showFeedback(isCorrect, question, selectedValue);
-        nextBtn.disabled = false;
-        nextBtn.textContent =
-          state.questionIndex >= QUESTIONS_PER_ROUND - 1 || state.questionIndex >= state.questionPool.length - 1
-            ? 'Kopsavilkums'
-            : 'Nākamais jautājums';
-      }
-
-      function verdictText(percent) {
-        if (percent >= 90) return 'Lieliski!';
-        if (percent >= 60) return 'Labi, tu labi pārzini rakstura īpašības.';
-        return 'Vajag vēl patrennēties.';
-      }
-
-      function formatGroup(group) {
-        if (!group || group === 'neutral') return '';
-        return group === 'optimists' ? 'optimists' : 'pesimists';
-      }
-
-      function showSummary() {
-        questionArea.classList.add('d-none');
-        summaryArea.classList.remove('d-none');
-        const percent = state.asked ? Math.round((state.correct / state.asked) * 100) : 0;
-        summaryScore.textContent = `Pareizi: ${state.correct} no ${state.asked} (${percent}%)`;
-        summaryVerdict.textContent = verdictText(percent);
-        mistakesList.innerHTML = '';
-        if (!state.mistakes.length) {
-          const ok = document.createElement('div');
-          ok.className = 'alert alert-success mb-0';
-          ok.textContent = 'Nav kļūdu — lieliski!';
-          mistakesList.appendChild(ok);
-        } else {
-          state.mistakes.forEach((item) => {
-            const groupLabel = formatGroup(item.group);
-            const li = document.createElement('div');
-            li.className = 'list-group-item d-flex flex-column flex-sm-row gap-1 gap-sm-2 justify-content-between align-items-sm-center';
-            li.innerHTML = `
-              <div>
-                <strong>${item.lv}</strong> — ${item.en}
-                ${groupLabel ? `<br><small class="text-muted">Grupa: ${groupLabel}</small>` : ''}
-              </div>
-              <span class="badge bg-light text-dark border">Tava atbilde: ${item.selected}</span>
-            `;
-            mistakesList.appendChild(li);
-          });
-        }
-        nextBtn.disabled = true;
-      }
-
-      function renderQuestion() {
-        if (!state.questionPool.length) {
-          questionText.textContent = 'Nav pietiekamu datu. Pārbaudi CSV failu.';
-          counterBadge.textContent = 'Jautājums 0 / 0';
-          questionProgress.textContent = 'Jautājums 0 / 0';
-          return;
-        }
-        state.locked = false;
-        setFeedbackNeutral();
-        summaryArea.classList.add('d-none');
-        questionArea.classList.remove('d-none');
-        const question = state.questionPool[state.questionIndex];
-        questionText.textContent = question.lv;
-        renderChoices(question);
-        nextBtn.disabled = true;
-        nextBtn.textContent = 'Nākamais jautājums';
-        updateScore();
-      }
-
-      function nextStep() {
-        if (summaryArea.classList.contains('d-none')) {
-          if (state.questionIndex >= state.questionPool.length - 1) {
-            showSummary();
-          } else {
-            state.questionIndex += 1;
-            renderQuestion();
-          }
-        }
-      }
-
-      function startRound(mode) {
-        state.mode = mode;
-        setActiveModeButton(mode);
-        setModeBadge();
-        state.questionIndex = 0;
-        state.asked = 0;
-        state.correct = 0;
-        state.mistakes = [];
-        state.questionPool = buildQuestionPool(mode === MODE_GROUPS ? state.groupWords : state.allWords);
-        renderQuestion();
-      }
-
-      async function loadData() {
-        questionText.textContent = 'Ielādē datus…';
-        setFeedbackNeutral();
-        try {
-          const res = await fetch('data/personality_words.csv');
-          if (!res.ok) throw new Error('Neizdevās ielādēt CSV');
-          const csvText = await res.text();
-          const parsed = parseCsv(csvText);
-          state.allWords = parsed;
-          state.groupWords = parsed.filter((item) => item.group === 'optimists' || item.group === 'pesimists');
-          Object.values(modeButtons).forEach((btn) => btn.removeAttribute('disabled'));
-          document.getElementById('year').textContent = new Date().getFullYear();
-          startRound(state.mode);
-        } catch (err) {
-          console.error(err);
-          questionText.textContent = 'Radās problēma ar datu ielādi.';
-          feedbackText.textContent = 'Pārbaudi failu data/personality_words.csv un mēģini vēlreiz.';
-        }
-      }
-
-      modeButtons[MODE_GROUPS].addEventListener('click', () => {
-        if (state.allWords.length) startRound(MODE_GROUPS);
-      });
-      modeButtons[MODE_TRANSLATE].addEventListener('click', () => {
-        if (state.allWords.length) startRound(MODE_TRANSLATE);
-      });
-      nextBtn.addEventListener('click', nextStep);
-      restartBtn.addEventListener('click', () => startRound(state.mode));
-
-      loadData();
-    </script>
+    <script type="module" src="src/games/character-traits/index.js"></script>
   </body>
 </html>

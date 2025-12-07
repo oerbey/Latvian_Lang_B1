@@ -1,0 +1,497 @@
+const QUESTIONS_PER_ROUND = 10;
+const AUTO_ADVANCE_MS = 1400;
+const MODE_GROUPS = 'groups';
+const MODE_TRANSLATE = 'translate';
+const GROUP_VALUES = ['optimists', 'pesimists', 'neutral'];
+const STORAGE_KEY = 'characterTraits:lastResult';
+
+const els = {
+  year: document.getElementById('year'),
+  modeButtons: {
+    [MODE_GROUPS]: document.getElementById('mode-groups'),
+    [MODE_TRANSLATE]: document.getElementById('mode-translate'),
+  },
+  modeLabel: document.getElementById('mode-label'),
+  lastResult: document.getElementById('last-result'),
+  groupStats: document.getElementById('group-stats'),
+  liveRegion: document.getElementById('live-region'),
+  questionArea: document.getElementById('question-area'),
+  questionText: document.getElementById('question-text'),
+  questionProgress: document.getElementById('question-progress'),
+  choices: document.getElementById('choices'),
+  feedback: document.getElementById('feedback'),
+  feedbackText: document.getElementById('feedback-text'),
+  translationLine: document.getElementById('translation-line'),
+  summaryArea: document.getElementById('summary-area'),
+  summaryScore: document.getElementById('summary-score'),
+  summaryVerdict: document.getElementById('summary-verdict'),
+  mistakesList: document.getElementById('mistakes-list'),
+  scoreBadge: document.getElementById('score'),
+  counterBadge: document.getElementById('counter'),
+  nextBtn: document.getElementById('next-btn'),
+  restartBtn: document.getElementById('restart-btn'),
+};
+
+const state = {
+  mode: MODE_GROUPS,
+  allWords: [],
+  groupWords: [],
+  decks: {
+    [MODE_GROUPS]: [],
+    [MODE_TRANSLATE]: [],
+  },
+  deckIndex: {
+    [MODE_GROUPS]: 0,
+    [MODE_TRANSLATE]: 0,
+  },
+  questionPool: [],
+  questionIndex: 0,
+  asked: 0,
+  correct: 0,
+  mistakes: [],
+  locked: false,
+  groupStats: {
+    optimists: { correct: 0, total: 0 },
+    pesimists: { correct: 0, total: 0 },
+    neutral: { correct: 0, total: 0 },
+  },
+  autoAdvanceTimer: null,
+  lastResult: loadLastResult(),
+};
+
+function assetUrl(path) {
+  return new URL(path, document.baseURI).href;
+}
+
+function announce(text) {
+  if (!els.liveRegion) return;
+  els.liveRegion.textContent = '';
+  requestAnimationFrame(() => {
+    els.liveRegion.textContent = text;
+  });
+}
+
+function shuffle(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  lines.shift();
+  const rows = [];
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const cols = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i += 1) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuotes && line[i + 1] === '"') {
+          current += '"';
+          i += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (ch === ',' && !inQuotes) {
+        cols.push(current);
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+    cols.push(current);
+    if (cols.length < 4) continue;
+    const [id, lv, en, group, ...rest] = cols;
+    const cleanGroup = group.trim().toLowerCase();
+    if (!id.trim() || !lv.trim() || !en.trim()) continue;
+    if (!GROUP_VALUES.includes(cleanGroup)) continue;
+    const enVariants = en
+      .split(';')
+      .map((part) => part.trim())
+      .filter(Boolean);
+    rows.push({
+      id: id.trim(),
+      lv: lv.trim(),
+      en: enVariants.join('; '),
+      enVariants,
+      group: cleanGroup,
+      notes: rest.join(',').trim(),
+    });
+  }
+  return rows;
+}
+
+function setActiveModeButton(mode) {
+  Object.entries(els.modeButtons).forEach(([key, btn]) => {
+    if (!btn) return;
+    const isActive = key === mode;
+    btn.classList.toggle('active', isActive);
+    btn.classList.toggle('btn-primary', isActive);
+    btn.classList.toggle('btn-outline-primary', !isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
+  });
+  els.modeLabel.textContent = mode === MODE_GROUPS ? 'Optimists vai pesimists' : 'Latviešu ➜ angļu';
+}
+
+function formatOption(enVariants) {
+  return enVariants.length ? enVariants.join(' / ') : '';
+}
+
+function renderGroupStats() {
+  const container = els.groupStats;
+  if (!container) return;
+  container.innerHTML = '';
+  const labels = {
+    optimists: 'Optimisti',
+    pesimists: 'Pesimisti',
+    neutral: 'Neitrāli',
+  };
+  Object.entries(state.groupStats).forEach(([key, val]) => {
+    const badge = document.createElement('span');
+    badge.className = 'badge bg-secondary-subtle text-secondary-emphasis';
+    badge.textContent = `${labels[key]}: ${val.correct}/${val.total}`;
+    container.appendChild(badge);
+  });
+}
+
+function renderLastResult() {
+  if (!els.lastResult) return;
+  const res = state.lastResult;
+  if (!res) {
+    els.lastResult.textContent = '';
+    els.lastResult.classList.add('d-none');
+    return;
+  }
+  els.lastResult.classList.remove('d-none');
+  els.lastResult.textContent = `Pēdējais: ${res.correct}/${res.total} (${res.percent}%) ${res.mode === MODE_GROUPS ? 'optimists/pesimists' : 'LV→EN'}`;
+}
+
+function setFeedbackNeutral() {
+  els.feedback.className = 'alert alert-secondary mt-3';
+  els.feedbackText.textContent = 'Izvēlies atbildi un saņem uzreiz skaidrojumu.';
+  els.translationLine.textContent = '';
+  els.feedback.classList.remove('d-none');
+}
+
+function updateScoreBadges() {
+  const step = Math.min(state.questionIndex + 1, QUESTIONS_PER_ROUND);
+  els.scoreBadge.textContent = `Punkti: ${state.correct} / ${state.asked}`;
+  els.counterBadge.textContent = `Jautājums ${step} / ${QUESTIONS_PER_ROUND}`;
+  els.questionProgress.textContent = `Jautājums ${step} / ${QUESTIONS_PER_ROUND}`;
+}
+
+function resetGroupStats() {
+  state.groupStats = {
+    optimists: { correct: 0, total: 0 },
+    pesimists: { correct: 0, total: 0 },
+    neutral: { correct: 0, total: 0 },
+  };
+}
+
+function updateGroupStats(question, isCorrect) {
+  const target = state.groupStats[question.group];
+  if (!target) return;
+  target.total += 1;
+  if (isCorrect) target.correct += 1;
+}
+
+function formatQuestionPool(source, mode) {
+  if (!source.length) return [];
+  const deck = state.decks[mode];
+  const deckIdx = state.deckIndex[mode];
+  if (!deck.length || deckIdx >= deck.length) {
+    state.decks[mode] = shuffle(source);
+    state.deckIndex[mode] = 0;
+  }
+  const pool = [];
+  while (pool.length < QUESTIONS_PER_ROUND && state.deckIndex[mode] < state.decks[mode].length) {
+    pool.push(state.decks[mode][state.deckIndex[mode]]);
+    state.deckIndex[mode] += 1;
+  }
+  if (pool.length < QUESTIONS_PER_ROUND && source.length) {
+    const refill = shuffle(source);
+    for (let i = 0; i < refill.length && pool.length < QUESTIONS_PER_ROUND; i += 1) {
+      pool.push(refill[i]);
+    }
+  }
+  return pool;
+}
+
+function pickDistractors(question) {
+  const pool = state.allWords
+    .filter((item) => item.id !== question.id)
+    .flatMap((item) => item.enVariants);
+  const unique = Array.from(new Set(pool.filter((text) => text && text !== question.en)));
+  return shuffle(unique).slice(0, 3);
+}
+
+function handleOptionClick(value) {
+  if (state.locked) return;
+  state.locked = true;
+  const question = state.questionPool[state.questionIndex];
+  const correctValue = state.mode === MODE_GROUPS ? question.group : formatOption(question.enVariants);
+  const isCorrect =
+    state.mode === MODE_GROUPS ? value === question.group : value.toLowerCase() === correctValue.toLowerCase();
+  state.asked += 1;
+  if (isCorrect) state.correct += 1;
+  updateGroupStats(question, isCorrect);
+  if (!isCorrect) {
+    state.mistakes.push({
+      lv: question.lv,
+      en: question.en,
+      enVariants: question.enVariants,
+      group: question.group,
+      selected: value,
+      mode: state.mode,
+      notes: question.notes,
+    });
+  }
+  updateScoreBadges();
+  renderGroupStats();
+  showFeedback(isCorrect, question, value, correctValue);
+  els.nextBtn.disabled = false;
+  els.nextBtn.textContent =
+    state.questionIndex >= state.questionPool.length - 1 ? 'Kopsavilkums' : 'Nākamais jautājums';
+  scheduleAutoAdvance();
+}
+
+function renderChoices(question) {
+  els.choices.innerHTML = '';
+  const buttons = [];
+  if (state.mode === MODE_GROUPS) {
+    const options = [
+      { label: 'Optimists', value: 'optimists' },
+      { label: 'Pesimists', value: 'pesimists' },
+    ];
+    options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-outline-primary btn-lg text-start';
+      btn.dataset.value = opt.value;
+      btn.textContent = opt.label;
+      btn.addEventListener('click', () => handleOptionClick(opt.value));
+      buttons.push(btn);
+    });
+  } else {
+    const distractors = pickDistractors(question);
+    const options = shuffle([formatOption(question.enVariants), ...distractors]);
+    options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-outline-primary btn-lg text-start';
+      btn.dataset.value = opt;
+      btn.textContent = opt;
+      btn.addEventListener('click', () => handleOptionClick(opt));
+      buttons.push(btn);
+    });
+  }
+  buttons.forEach((btn) => els.choices.appendChild(btn));
+}
+
+function showFeedback(isCorrect, question, selectedValue, correctValue) {
+  const rationale =
+    state.mode === MODE_GROUPS
+      ? question.group === 'optimists'
+        ? 'Šī īpašība parasti raksturo optimistu, jo tā meklē labo.'
+        : 'Šī īpašība biežāk raksturo pesimistu, jo tā uzsver grūtības.'
+      : 'Pārbaudi tulkojumu, lai nostiprinātu vārdu.';
+  els.feedback.className = isCorrect ? 'alert alert-success mt-3' : 'alert alert-danger mt-3';
+  els.feedbackText.textContent = isCorrect ? 'Pareizi!' : 'Šoreiz nepareizi.';
+  const translation = state.mode === MODE_GROUPS ? formatOption(question.enVariants) : correctValue;
+  els.translationLine.textContent = `Tulkojums: ${translation}. ${rationale}`;
+  const optionButtons = els.choices.querySelectorAll('button');
+  optionButtons.forEach((btn) => {
+    const value = btn.dataset.value;
+    const isCorrectOption =
+      state.mode === MODE_GROUPS ? value === question.group : value.toLowerCase() === correctValue.toLowerCase();
+    btn.disabled = true;
+    btn.classList.remove('btn-outline-primary');
+    if (isCorrectOption) {
+      btn.classList.add('btn-success');
+    } else if (value === selectedValue) {
+      btn.classList.add('btn-danger');
+    } else {
+      btn.classList.add('btn-outline-secondary');
+    }
+  });
+  els.feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function formatGroupLabel(group) {
+  if (group === 'optimists') return 'optimists';
+  if (group === 'pesimists') return 'pesimists';
+  return 'neitrāls';
+}
+
+function showSummary() {
+  clearTimeout(state.autoAdvanceTimer);
+  state.autoAdvanceTimer = null;
+  els.questionArea.classList.add('d-none');
+  els.summaryArea.classList.remove('d-none');
+  els.feedback.classList.add('d-none');
+  const percent = state.asked ? Math.round((state.correct / state.asked) * 100) : 0;
+  els.summaryScore.textContent = `Pareizi: ${state.correct} no ${state.asked} (${percent}%)`;
+  const verdict =
+    percent >= 90 ? 'Lieliski!' : percent >= 60 ? 'Labi, tu labi pārzini rakstura īpašības.' : 'Vajag vēl patrennēties.';
+  els.summaryVerdict.textContent = verdict;
+  els.mistakesList.innerHTML = '';
+  if (!state.mistakes.length) {
+    const ok = document.createElement('div');
+    ok.className = 'alert alert-success mb-0';
+    ok.textContent = 'Nav kļūdu — lieliski!';
+    els.mistakesList.appendChild(ok);
+  } else {
+    state.mistakes.forEach((item) => {
+      const groupLabel = formatGroupLabel(item.group);
+      const row = document.createElement('div');
+      row.className = 'list-group-item';
+      row.innerHTML = `
+        <div class="d-flex flex-column gap-1">
+          <div><strong>${item.lv}</strong> — ${formatOption(item.enVariants)}</div>
+          <div class="d-flex flex-wrap gap-2 small">
+            ${groupLabel ? `<span class="badge bg-secondary-subtle text-secondary-emphasis">Grupa: ${groupLabel}</span>` : ''}
+            ${
+              item.notes
+                ? `<span class="badge bg-light text-dark border" title="${item.notes}">Piezīme: ${item.notes}</span>`
+                : ''
+            }
+          </div>
+          <div class="d-flex flex-wrap gap-2 small">
+            <span class="badge bg-success-subtle text-success-emphasis border">Pareizi: ${
+              state.mode === MODE_GROUPS ? item.group : formatOption(item.enVariants)
+            }</span>
+            <span class="badge bg-danger-subtle text-danger-emphasis border">Tava atbilde: ${item.selected}</span>
+          </div>
+        </div>
+      `;
+      els.mistakesList.appendChild(row);
+    });
+  }
+  els.counterBadge.textContent = 'Kopsavilkums';
+  els.nextBtn.disabled = true;
+  els.summaryArea.focus();
+  els.summaryArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  saveLastResult({ mode: state.mode, correct: state.correct, total: state.asked, percent });
+}
+
+function renderQuestion() {
+  clearTimeout(state.autoAdvanceTimer);
+  state.autoAdvanceTimer = null;
+  if (!state.questionPool.length) {
+    els.questionText.textContent = 'Nav pietiekamu datu. Pārbaudi CSV failu.';
+    els.counterBadge.textContent = 'Jautājums 0 / 0';
+    els.questionProgress.textContent = 'Jautājums 0 / 0';
+    return;
+  }
+  state.locked = false;
+  els.summaryArea.classList.add('d-none');
+  els.questionArea.classList.remove('d-none');
+  setFeedbackNeutral();
+  const question = state.questionPool[state.questionIndex];
+  els.questionText.textContent = question.lv;
+  renderChoices(question);
+  els.nextBtn.disabled = true;
+  els.nextBtn.textContent = 'Nākamais jautājums';
+  updateScoreBadges();
+  renderGroupStats();
+  els.questionText.focus();
+}
+
+function nextStep() {
+  if (!els.summaryArea.classList.contains('d-none')) return;
+  if (state.questionIndex >= state.questionPool.length - 1) {
+    showSummary();
+  } else {
+    state.questionIndex += 1;
+    renderQuestion();
+  }
+}
+
+function startRound(mode) {
+  state.mode = mode;
+  setActiveModeButton(mode);
+  state.questionIndex = 0;
+  state.asked = 0;
+  state.correct = 0;
+  state.mistakes = [];
+  resetGroupStats();
+  state.questionPool = formatQuestionPool(mode === MODE_GROUPS ? state.groupWords : state.allWords, mode);
+  renderQuestion();
+  announce('Jauns raunds sākts');
+}
+
+function scheduleAutoAdvance() {
+  clearTimeout(state.autoAdvanceTimer);
+  state.autoAdvanceTimer = setTimeout(() => {
+    if (!state.locked) return;
+    nextStep();
+  }, AUTO_ADVANCE_MS);
+}
+
+function saveLastResult(result) {
+  state.lastResult = result;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+  } catch (err) {
+    console.warn('Cannot store result', err);
+  }
+  renderLastResult();
+}
+
+function loadLastResult() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (err) {
+    return null;
+  }
+}
+
+async function loadData() {
+  els.questionText.textContent = 'Ielādē datus…';
+  setFeedbackNeutral();
+  try {
+    const res = await fetch(assetUrl('data/personality_words.csv'));
+    if (!res.ok) throw new Error('Neizdevās ielādēt CSV');
+    const csvText = await res.text();
+    const parsed = parseCsv(csvText);
+    state.allWords = parsed;
+    state.groupWords = parsed.filter((item) => item.group === 'optimists' || item.group === 'pesimists');
+    Object.values(els.modeButtons).forEach((btn) => btn.removeAttribute('disabled'));
+    els.year.textContent = new Date().getFullYear();
+    renderLastResult();
+    announce('Dati ielādēti, vari sākt spēli.');
+    startRound(state.mode);
+  } catch (err) {
+    console.error(err);
+    els.questionText.textContent = 'Radās problēma ar datu ielādi.';
+    els.feedbackText.textContent = 'Pārbaudi failu data/personality_words.csv un mēģini vēlreiz.';
+  }
+}
+
+function init() {
+  els.year.textContent = new Date().getFullYear();
+  setActiveModeButton(state.mode);
+  renderGroupStats();
+  renderLastResult();
+  els.modeButtons[MODE_GROUPS].addEventListener('click', () => {
+    if (!state.allWords.length) return;
+    startRound(MODE_GROUPS);
+  });
+  els.modeButtons[MODE_TRANSLATE].addEventListener('click', () => {
+    if (!state.allWords.length) return;
+    startRound(MODE_TRANSLATE);
+  });
+  els.nextBtn.addEventListener('click', nextStep);
+  els.restartBtn.addEventListener('click', () => startRound(state.mode));
+  loadData();
+}
+
+init();

@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#0e0f13" />
-    <meta name="description" content="Latviešu valodas darbības vārdu spēle B1 līmenim." />
-    <title>Latviešu valoda – Darbības Vārdi (B1)</title>
+    <meta name="description" content="Rakstura īpašības — pāru spēle ar papildu mācību režīmiem. Optimistu/pesimistu vārdu krājums ar slēgtu kopas iespēju." />
+    <title>Rakstura īpašības — pāru spēle (paplašināta)</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="favicon.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -30,13 +30,16 @@
           <div class="offcanvas-body align-items-lg-center">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="darbibas-vards.html">Darbības Vārds</a></li>
+              <li class="nav-item"><a class="nav-link" href="darbibas-vards.html">Darbības Vārds</a></li>
               <li class="nav-item"><a class="nav-link" href="conjugation-sprint.html">Conjugation Sprint</a></li>
               <li class="nav-item"><a class="nav-link" href="endings-builder.html">Endings Builder</a></li>
+              <li class="nav-item"><a class="nav-link" href="passive-lab.html">Ciešamās Kārtas Laboratorija</a></li>
               <li class="nav-item"><a class="nav-link" href="travel-tracker.html">Travel Tracker</a></li>
               <li class="nav-item"><a class="nav-link" href="maini-vai-mainies.html">Maini vai mainies?</a></li>
               <li class="nav-item"><a class="nav-link" href="duty-dispatcher.html">Kas jādara kam?</a></li>
-              <li class="nav-item"><a class="nav-link" href="rakstura-ipasibas-expansion.html">Rakstura īpašības — pāri (paplašināta)</a></li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="rakstura-ipasibas-expansion.html">Rakstura īpašības — pāri (paplašināta)</a>
+              </li>
               <li class="nav-item"><a class="nav-link" href="rakstura-ipasibas-match.html">Rakstura īpašības — pāri</a></li>
               <li class="nav-item"><a class="nav-link" href="character-traits.html">Rakstura īpašības</a></li>
               <li class="nav-item"><a class="nav-link" href="week1.html">Week 1</a></li>
@@ -59,57 +62,53 @@
       <header class="mb-4">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-2">
           <div>
-            <h1 class="h4 mb-1">Latviešu valoda – Darbības Vārdi (B1)</h1>
-            <p class="mb-0">Sašauj latviešu vārdu ar tulkojumu. Strādā ar peli vai tastatūru.</p>
+            <h1 class="h4 mb-1">Rakstura īpašības — pāru spēle (paplašināta)</h1>
+            <p class="mb-0">Sašauj rakstura īpašību ar tulkojumu. Papildu mācību iespējas ar slēgtajām kopām.</p>
           </div>
-          <div class="d-flex gap-2">
-            <select id="language-select" class="form-select w-auto" aria-label="Language selection">
-              <option value="eng">English</option>
-              <option value="ru">Русский</option>
-            </select>
+          <div class="d-flex flex-wrap gap-2">
             <select id="count-select" class="form-select w-auto" aria-label="Word count">
               <option value="6">6</option>
               <option value="8">8</option>
               <option value="10" selected>10</option>
               <option value="12">12</option>
             </select>
+            <div class="form-check form-switch align-self-center">
+              <input class="form-check-input" type="checkbox" role="switch" id="prioritize-mistakes" />
+              <label class="form-check-label" for="prioritize-mistakes">Prioritizē kļūdas</label>
+            </div>
           </div>
         </div>
       </header>
 
-      <section class="card border-0 shadow-sm mb-4" aria-labelledby="locked-mode-heading">
+      <section class="card border-0 shadow-sm mb-4" aria-labelledby="study-mode-heading">
         <div class="card-body d-flex flex-column gap-3">
           <div class="d-flex flex-wrap align-items-center gap-3">
-            <span id="locked-mode-heading" class="fw-semibold">Study mode</span>
+            <span id="study-mode-heading" class="fw-semibold">Mācību režīms</span>
             <div class="btn-group" role="group" aria-label="Study mode toggle">
               <input type="radio" class="btn-check" name="study-mode" id="mode-use-all" value="all" checked />
-              <label class="btn btn-outline-secondary" for="mode-use-all">Use all</label>
+              <label class="btn btn-outline-secondary" for="mode-use-all">Visi vārdi</label>
               <input type="radio" class="btn-check" name="study-mode" id="mode-locked-set" value="locked" />
-              <label class="btn btn-outline-secondary" for="mode-locked-set">Locked set</label>
+              <label class="btn btn-outline-secondary" for="mode-locked-set">Slēgts komplekts</label>
             </div>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="locked-indicator"></span>
           </div>
           <div id="locked-controls" class="row gy-3 gx-3 d-none">
             <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
-              <label for="locked-set-size" class="form-label mb-0">Set size</label>
+              <label for="locked-set-size" class="form-label mb-0">Kopas izmērs</label>
               <select id="locked-set-size" class="form-select form-select-sm w-auto" aria-label="Locked set size">
                 <option value="10">10</option>
+                <option value="15" selected>15</option>
                 <option value="20">20</option>
-                <option value="custom">Custom</option>
+                <option value="custom">Pielāgots</option>
               </select>
               <input type="number" id="locked-set-custom" class="form-control form-control-sm w-auto d-none" min="5" step="1" value="15" aria-label="Custom set size" />
             </div>
             <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
-              <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">New mix</button>
-              <button id="btn-reset-locked" class="btn btn-outline-secondary btn-sm" type="button">Reset locked set</button>
-            </div>
-            <div class="col-12 col-md-auto">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="prioritize-mistakes" />
-                <label class="form-check-label" for="prioritize-mistakes">Prioritize mistakes</label>
-              </div>
+              <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">Jauna sajaukšana</button>
+              <button id="btn-reset-locked" class="btn btn-outline-secondary btn-sm" type="button">Atiestatīt slēgto kopu</button>
             </div>
             <div class="col-12">
-              <div id="locked-indicator" class="text-secondary small"></div>
+              <div id="locked-indicator-details" class="text-secondary small"></div>
               <div id="locked-progress" class="text-secondary small"></div>
               <div id="locked-feedback" class="text-warning small"></div>
             </div>
@@ -120,6 +119,10 @@
       <section aria-labelledby="status-heading">
         <h2 id="status-heading" class="visually-hidden">Statuss</h2>
         <div id="score" class="status" aria-live="polite">Pareizi: 0 | Nepareizi: 0</div>
+      </section>
+
+      <section class="mb-3">
+        <div id="group-progress" class="text-secondary small fw-semibold"></div>
       </section>
 
       <section class="grid-words" aria-label="Vārdu saraksti">
@@ -143,7 +146,7 @@
         <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
         <nav class="small">
           <a class="link-secondary me-3" href="index.html">Home</a>
-          <a class="link-secondary me-3" href="darbibas-vards.html">Verbs</a>
+          <a class="link-secondary me-3" href="darbibas-vards.html">Darbības Vārds</a>
           <a class="link-secondary me-3" href="conjugation-sprint.html">Conjugation Sprint</a>
           <a class="link-secondary me-3" href="endings-builder.html">Endings Builder</a>
           <a class="link-secondary me-3" href="travel-tracker.html">Travel Tracker</a>
@@ -155,9 +158,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="data/words.offline.js" defer></script>
-    <script src="assets/app.js" defer></script>
-    <script src="theme.js"></script>
     <script src="scripts/page-init.js" defer></script>
+    <script src="theme.js"></script>
+    <script type="module" src="src/games/character-traits-expansion/index.js"></script>
   </body>
 </html>

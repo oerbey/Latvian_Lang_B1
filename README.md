@@ -68,7 +68,9 @@ A comprehensive browser-based collection of interactive educational games and to
 ├── data/                              # Vocabulary & game data
 │   ├── words.json                     # Primary vocabulary list
 │   ├── routes.json                    # Travel tracker routes
-│   ├── personality_words.csv          # Character traits data
+│   ├── personality/                   # Character traits data
+│   │   ├── words.csv                  # Source vocabulary list
+│   │   └── words.json                 # Generated runtime artifact
 │   ├── endings-builder/
 │   │   ├── tables.json                # Morphology rule tables
 │   │   └── items.json                 # Game item definitions
@@ -165,6 +167,9 @@ serve .
 # Convert Excel spreadsheet to JSON
 npm run build:data
 
+# Build personality words JSON from CSV
+npm run build:personality
+
 # Generate offline study packs
 npm run build:offline
 
@@ -195,6 +200,11 @@ npm test
 - **Source**: Excel spreadsheet converted via `npm run build:data`
 - **Structure**: Array of word objects with `lv`, `eng`, `ru`, tags, and conjugation tables
 - **Generated from**: `scripts/xlsx_to_json.mjs`
+
+### Personality Traits Data (`data/personality/words.csv`)
+- **Source**: CSV vocabulary list
+- **Build step**: Run `npm run build:personality` after editing `data/personality/words.csv`
+- **Output**: `data/personality/words.json` used at runtime
 
 ### Verb Inflections (`data/legacy/verbs_conjugated.json`)
 - **Optional enrichment** from Tezaurs API

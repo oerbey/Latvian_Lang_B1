@@ -12,7 +12,7 @@ The game must fit into the existing `Latvian_Lang_B1` project and reuse its layo
 
 ## Data source
 
-Use `data/personality_words.csv` as the canonical list of vocabulary items.
+Use `data/personality/words.csv` as the canonical list of vocabulary items.
 
 Columns:
 
@@ -23,6 +23,17 @@ Columns:
 - `notes`: free text notes (e.g. “abstract noun”, “phrase about behaviour”).
 
 Only `"optimists"` and `"pesimists"` rows are used in the “optimist vs pessimist” mode. All rows are used in the translation mode.
+
+## Data management
+
+- CSV is the editable source at `data/personality/words.csv`.
+- Run `npm run build:personality` to generate `data/personality/words.json`.
+- JSON is a runtime artifact; do not edit it directly.
+- Workflow: edit CSV → run build → commit both files.
+- Folder structure mirrors the pattern used by `data/duty-dispatcher/`.
+- The folder layout supports future packs (e.g., regional variants) without changing the loader.
+
+Future enhancement (not implemented yet): add multiple packs under `data/personality/` (e.g., regional variants or difficulty tiers) and select them in the UI.
 
 ## Game page
 
@@ -59,8 +70,8 @@ Use existing CSS classes and modern responsive layout that already exists in the
 
 ### Data loading
 
-- On page load, fetch `data/personality_words.csv`.
-- Parse CSV into an array of objects `{ id, lv, en, group }`.
+- On page load, fetch `data/personality/words.json`.
+- Load JSON into an array of objects `{ id, lv, eng, group, notes }`.
 - Disable interaction until data is loaded; show a short “Ielādē datus…” message.
 
 ### Rounds and scoring

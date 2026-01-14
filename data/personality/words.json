@@ -1,0 +1,289 @@
+[
+  {
+    "id": "apmierinats",
+    "lv": "apmierināts",
+    "eng": "satisfied / content",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "aspratigs",
+    "lv": "asprātīgs",
+    "eng": "witty / quick-witted",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "atbalsta_citus",
+    "lv": "atbalsta citus",
+    "eng": "supports others",
+    "group": "optimists",
+    "notes": "phrase about behaviour"
+  },
+  {
+    "id": "atbildigs",
+    "lv": "atbildīgs",
+    "eng": "responsible / reliable",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "bedigs",
+    "lv": "bēdīgs",
+    "eng": "sad",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "bezpalidziba",
+    "lv": "bezpalīdzība",
+    "eng": "helplessness",
+    "group": "pesimists",
+    "notes": "abstract noun"
+  },
+  {
+    "id": "bezpalidzigs",
+    "lv": "bezpalīdzīgs",
+    "eng": "helpless",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "bezpalidzigs_cilveks",
+    "lv": "bezpalīdzīgs cilvēks",
+    "eng": "a helpless person",
+    "group": "pesimists",
+    "notes": "person description"
+  },
+  {
+    "id": "cakls",
+    "lv": "čakls",
+    "eng": "hard-working",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "centigs",
+    "lv": "centīgs",
+    "eng": "diligent / industrious",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "dasns",
+    "lv": "dāsns",
+    "eng": "generous",
+    "group": "optimists",
+    "notes": "adjective; synonym of devīgs"
+  },
+  {
+    "id": "devigs",
+    "lv": "devīgs",
+    "eng": "generous / giving",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "drosmigs",
+    "lv": "drosmīgs",
+    "eng": "brave / courageous",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "drums",
+    "lv": "drūms",
+    "eng": "gloomy",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "igns",
+    "lv": "īgns",
+    "eng": "grumpy / annoyed",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "igns_cilveks",
+    "lv": "īgns cilvēks",
+    "eng": "a grumpy person",
+    "group": "pesimists",
+    "notes": "person description"
+  },
+  {
+    "id": "ignums",
+    "lv": "īgnums",
+    "eng": "grumpiness / annoyance",
+    "group": "pesimists",
+    "notes": "abstract noun"
+  },
+  {
+    "id": "izpalidzigs",
+    "lv": "izpalīdzīgs",
+    "eng": "helpful",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "kautrigs",
+    "lv": "kautrīgs",
+    "eng": "shy / timid",
+    "group": "neutral",
+    "notes": "adjective"
+  },
+  {
+    "id": "laimigs",
+    "lv": "laimīgs",
+    "eng": "happy",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "merktiecigs",
+    "lv": "mērķtiecīgs",
+    "eng": "purposeful / goal-oriented",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "mierigs",
+    "lv": "mierīgs",
+    "eng": "calm / peaceful",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "negaida_nakotne",
+    "lv": "negaida neko labu nākotnē",
+    "eng": "doesn't expect anything good in the future",
+    "group": "pesimists",
+    "notes": "phrase about attitude"
+  },
+  {
+    "id": "nevienam_netic",
+    "lv": "nevienam netic",
+    "eng": "doesn't believe anyone",
+    "group": "pesimists",
+    "notes": "phrase about attitude"
+  },
+  {
+    "id": "noslegtiba",
+    "lv": "noslēgtība",
+    "eng": "seclusion / closedness",
+    "group": "pesimists",
+    "notes": "abstract noun"
+  },
+  {
+    "id": "noslegts",
+    "lv": "noslēgts",
+    "eng": "reserved / closed",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "noslegts_cilveks",
+    "lv": "noslēgts cilvēks",
+    "eng": "a reserved person",
+    "group": "pesimists",
+    "notes": "person description"
+  },
+  {
+    "id": "pacietigs",
+    "lv": "pacietīgs",
+    "eng": "patient",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "parliecinats",
+    "lv": "pārliecināts par sevi",
+    "eng": "self-confident",
+    "group": "optimists",
+    "notes": "phrase about attitude"
+  },
+  {
+    "id": "priecigs",
+    "lv": "priecīgs",
+    "eng": "cheerful / joyful",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "skops",
+    "lv": "skops",
+    "eng": "stingy",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "slinks",
+    "lv": "slinks",
+    "eng": "lazy",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "taisnigs",
+    "lv": "taisnīgs",
+    "eng": "fair / just",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "tic_labajam",
+    "lv": "tic labajam cilvēkā",
+    "eng": "believes in the good in people",
+    "group": "optimists",
+    "notes": "phrase about attitude"
+  },
+  {
+    "id": "uznemiba",
+    "lv": "uzņēmība",
+    "eng": "enterprise / initiative",
+    "group": "optimists",
+    "notes": "abstract noun"
+  },
+  {
+    "id": "uznemigs",
+    "lv": "uzņēmīgs",
+    "eng": "enterprising / proactive",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "uznemigs_cilveks",
+    "lv": "uzņēmīgs cilvēks",
+    "eng": "an enterprising person",
+    "group": "optimists",
+    "notes": "person description"
+  },
+  {
+    "id": "vaino_sevi",
+    "lv": "vaino sevi",
+    "eng": "blames themself",
+    "group": "pesimists",
+    "notes": "phrase about attitude"
+  },
+  {
+    "id": "varonigs",
+    "lv": "varonīgs",
+    "eng": "heroic",
+    "group": "optimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "vieglpratigs",
+    "lv": "vieglprātīgs",
+    "eng": "frivolous / careless",
+    "group": "pesimists",
+    "notes": "adjective"
+  },
+  {
+    "id": "zelojas",
+    "lv": "žēlojas par savu dzīvi",
+    "eng": "complains about their life",
+    "group": "pesimists",
+    "notes": "phrase about behaviour"
+  }
+]

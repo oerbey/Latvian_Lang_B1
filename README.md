@@ -123,7 +123,7 @@ A comprehensive browser-based collection of interactive educational games and to
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js 16+** (for build tooling)
+- **Node.js 18+** (for build tooling and tests)
 - **Python 3** (optional, for data regeneration)
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
@@ -140,19 +140,25 @@ npm install
 
 ### Running Locally
 
-**Option 1: Using Python's built-in server**
+**Option 1: Using npm start (recommended)**
+```bash
+npm run start
+# Open http://localhost:5173
+```
+
+**Option 2: Using Python's built-in server**
 ```bash
 python3 -m http.server 8000
 # Open http://localhost:8000/index.html
 ```
 
-**Option 2: Using Node's http-server**
+**Option 3: Using Node's http-server**
 ```bash
 npx http-server .
 # Open http://localhost:8080
 ```
 
-**Option 3: Using serve package**
+**Option 4: Using serve package**
 ```bash
 npm install -g serve
 serve .
@@ -160,6 +166,14 @@ serve .
 ```
 
 ## 🛠️ Development
+
+### Development Commands
+```bash
+npm install
+npm run start
+npm test
+npm run test:watch
+```
 
 ### Building Data
 
@@ -174,7 +188,7 @@ npm run build:personality
 npm run build:offline
 
 # Run linter (ESLint + Prettier)
-npm lint
+npm run lint
 ```
 
 ### Testing
@@ -182,6 +196,9 @@ npm lint
 ```bash
 # Run Node.js test suites
 npm test
+
+# Watch tests during development
+npm run test:watch
 
 # Tests mirror the src/ structure under test/
 # Example: test/games/conjugation-sprint/index.test.js

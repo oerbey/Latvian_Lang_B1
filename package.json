@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "npx http-server . -p 5173",
     "test": "node --test",
+    "test:watch": "node --test --watch",
     "build:data": "node scripts/xlsx_to_json.mjs",
     "build:personality": "node scripts/personality_csv_to_json.mjs",
     "build:offline": "python3 scripts/build_week1_offline.py",
@@ -14,6 +16,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "http-server": "^14.1.1",
     "prettier": "^3.3.3",
     "xlsx": "^0.18.5"
   }

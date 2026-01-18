@@ -280,6 +280,7 @@ CI runs `npm test` on every PR and push to `main`.
 - **Cache Version**: Update `CACHE_VERSION` when adding/changing assets
 - **Precached Assets**: Defined in `CORE_ASSETS` array
 - **Registration**: Handled by `scripts/page-init.js`
+- **Updates**: Users see an “Update available” prompt and can reload to activate a new worker
 
 ### Manifest
 - **File**: `manifest.json`

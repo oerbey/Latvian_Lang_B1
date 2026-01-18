@@ -241,3 +241,33 @@ html, body {
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
+
+.llb1-sw-update {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 999px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.25);
+  font-size: 0.95rem;
+}
+
+.llb1-sw-update button {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.llb1-sw-update button:hover {
+  background: #0ea5e9;
+}

@@ -3,6 +3,7 @@ import { mountDnD } from './dnd.js';
 import { getEnding, getTable } from './endings-resolver.js';
 import { norm, equalsLoose } from './norm.js';
 import { assetUrl } from '../../lib/paths.js';
+import { shuffle } from '../../lib/utils.js';
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -327,16 +328,13 @@ function buildOptions(round) {
   }
   const choices = [...values].filter(v => v != null);
   const correct = round.ending;
-  const filtered = choices.filter(v => v !== correct);
-  shuffle(filtered);
+  const filtered = shuffle(choices.filter(v => v !== correct));
   const needed = Math.max(0, 3 - filtered.length);
   if (needed > 0) {
-    const global = collectGlobalEndings(correct);
-    shuffle(global);
+    const global = shuffle(collectGlobalEndings(correct));
     filtered.push(...global.slice(0, needed));
   }
-  const picked = [correct, ...filtered.slice(0, 3)];
-  shuffle(picked);
+  const picked = shuffle([correct, ...filtered.slice(0, 3)]);
   return picked;
 }
 
@@ -533,12 +531,4 @@ function collectColumnKeys(tableData) {
     Object.keys(row).forEach(key => keys.add(key));
   });
   return [...keys];
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
 }

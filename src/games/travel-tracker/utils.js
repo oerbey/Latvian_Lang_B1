@@ -1,3 +1,5 @@
+import { MULBERRY32_CONSTANT } from '../../lib/constants.js';
+
 const MAX_UINT32 = 0xffffffff;
 
 function toUint32(value) {
@@ -11,9 +13,9 @@ function toUint32(value) {
 }
 
 export function createSeededRng(seed) {
-  let state = toUint32(seed) || 0x6d2b79f5;
+  let state = toUint32(seed) || MULBERRY32_CONSTANT;
   return function rng() {
-    state += 0x6d2b79f5;
+    state += MULBERRY32_CONSTANT;
     let t = state;
     t = Math.imul(t ^ (t >>> 15), t | 1);
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
@@ -42,4 +44,3 @@ export function stringToSeed(str) {
   }
   return hash >>> 0;
 }
-

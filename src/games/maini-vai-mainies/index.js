@@ -1,5 +1,6 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
+import { shuffle } from '../../lib/utils.js';
 
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
 const STORAGE_KEY = 'llb1:maini-vai-mainies:progress';
@@ -42,15 +43,6 @@ const state = {
 
 function normalizeAnswer(value) {
   return (value ?? '').trim().toLowerCase();
-}
-
-function shuffle(list) {
-  const arr = [...list];
-  for (let i = arr.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
 }
 
 function readProgress() {

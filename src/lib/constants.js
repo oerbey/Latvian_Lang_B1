@@ -1,0 +1,1 @@
+export const MULBERRY32_CONSTANT = 0x6d2b79f5;

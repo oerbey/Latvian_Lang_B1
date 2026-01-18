@@ -1,4 +1,6 @@
+import { mustId, on } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
+import { shuffle } from '../../lib/utils.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:decl6-detective:progress';
@@ -35,18 +37,6 @@ import { assetUrl } from '../../lib/paths.js';
     pagalms: { label: 'Pagalms', emoji: '🏡', color: '#4ade80' },
     parks: { label: 'Parks', emoji: '🌳', color: '#22c55e' },
     pludmale: { label: 'Pludmale', emoji: '🏖️', color: '#f97316' },
-  };
-
-  const $id = (id) => document.getElementById(id);
-  const mustId = (id) => {
-    const el = $id(id);
-    if (!el) throw new Error(`Missing required element: #${id}`);
-    return el;
-  };
-  const on = (el, event, handler, options) => {
-    if (!el) return false;
-    el.addEventListener(event, handler, options);
-    return true;
   };
 
   const nodes = {
@@ -96,15 +86,6 @@ import { assetUrl } from '../../lib/paths.js';
   let xp = 0;
   let streak = 0;
   let progress = { xp: 0, streak: 0, lastPlayedISO: null };
-
-  function shuffle(array) {
-    const copy = array.slice();
-    for (let i = copy.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
-  }
 
   function normalizeAnswer(value = '') {
     return value

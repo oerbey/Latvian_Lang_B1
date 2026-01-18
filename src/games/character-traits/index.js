@@ -1,5 +1,6 @@
 import { loadPersonalityWords } from '../../lib/personality-data.js';
 import { mustId } from '../../lib/dom.js';
+import { shuffle } from '../../lib/utils.js';
 
 const QUESTIONS_PER_ROUND = 10;
 const AUTO_ADVANCE_MS = 1400;
@@ -67,15 +68,6 @@ function announce(text) {
   requestAnimationFrame(() => {
     els.liveRegion.textContent = text;
   });
-}
-
-function shuffle(arr) {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
 }
 
 function setActiveModeButton(mode) {

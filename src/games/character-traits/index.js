@@ -90,7 +90,7 @@ function formatOption(enVariants) {
 function renderGroupStats() {
   const container = els.groupStats;
   if (!container) return;
-  container.replaceChildren();
+  container.innerHTML = '';
   const labels = {
     optimists: 'Optimisti',
     pesimists: 'Pesimisti',
@@ -206,7 +206,7 @@ function handleOptionClick(value) {
 }
 
 function renderChoices(question) {
-  els.choices.replaceChildren();
+  els.choices.innerHTML = '';
   const buttons = [];
   if (state.mode === MODE_GROUPS) {
     const options = [
@@ -284,7 +284,7 @@ function showSummary() {
   const verdict =
     percent >= 90 ? 'Lieliski!' : percent >= 60 ? 'Labi, tu labi pārzini rakstura īpašības.' : 'Vajag vēl patrennēties.';
   els.summaryVerdict.textContent = verdict;
-  els.mistakesList.replaceChildren();
+  els.mistakesList.innerHTML = '';
   if (!state.mistakes.length) {
     const ok = document.createElement('div');
     ok.className = 'alert alert-success mb-0';
@@ -295,42 +295,25 @@ function showSummary() {
       const groupLabel = formatGroupLabel(item.group);
       const row = document.createElement('div');
       row.className = 'list-group-item';
-      const content = document.createElement('div');
-      content.className = 'd-flex flex-column gap-1';
-
-      const title = document.createElement('div');
-      const strong = document.createElement('strong');
-      strong.textContent = item.lv;
-      title.append(strong, document.createTextNode(` — ${formatOption(item.enVariants)}`));
-
-      const meta = document.createElement('div');
-      meta.className = 'd-flex flex-wrap gap-2 small';
-      if (groupLabel) {
-        const groupBadge = document.createElement('span');
-        groupBadge.className = 'badge bg-secondary-subtle text-secondary-emphasis';
-        groupBadge.textContent = `Grupa: ${groupLabel}`;
-        meta.append(groupBadge);
-      }
-      if (item.notes) {
-        const noteBadge = document.createElement('span');
-        noteBadge.className = 'badge bg-light text-dark border';
-        noteBadge.title = item.notes;
-        noteBadge.textContent = `Piezīme: ${item.notes}`;
-        meta.append(noteBadge);
-      }
-
-      const answers = document.createElement('div');
-      answers.className = 'd-flex flex-wrap gap-2 small';
-      const correctBadge = document.createElement('span');
-      correctBadge.className = 'badge bg-success-subtle text-success-emphasis border';
-      correctBadge.textContent = `Pareizi: ${state.mode === MODE_GROUPS ? item.group : formatOption(item.enVariants)}`;
-      const answerBadge = document.createElement('span');
-      answerBadge.className = 'badge bg-danger-subtle text-danger-emphasis border';
-      answerBadge.textContent = `Tava atbilde: ${item.selected}`;
-      answers.append(correctBadge, answerBadge);
-
-      content.append(title, meta, answers);
-      row.append(content);
+      row.innerHTML = `
+        <div class="d-flex flex-column gap-1">
+          <div><strong>${item.lv}</strong> — ${formatOption(item.enVariants)}</div>
+          <div class="d-flex flex-wrap gap-2 small">
+            ${groupLabel ? `<span class="badge bg-secondary-subtle text-secondary-emphasis">Grupa: ${groupLabel}</span>` : ''}
+            ${
+              item.notes
+                ? `<span class="badge bg-light text-dark border" title="${item.notes}">Piezīme: ${item.notes}</span>`
+                : ''
+            }
+          </div>
+          <div class="d-flex flex-wrap gap-2 small">
+            <span class="badge bg-success-subtle text-success-emphasis border">Pareizi: ${
+              state.mode === MODE_GROUPS ? item.group : formatOption(item.enVariants)
+            }</span>
+            <span class="badge bg-danger-subtle text-danger-emphasis border">Tava atbilde: ${item.selected}</span>
+          </div>
+        </div>
+      `;
       els.mistakesList.appendChild(row);
     });
   }

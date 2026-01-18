@@ -64,7 +64,7 @@ export function drawMatch(){
   const sr = $id('sr-game-state');
   const srList = sr ? document.createElement('ul') : null;
   if (sr) {
-    sr.replaceChildren();
+    sr.innerHTML = '';
     sr.appendChild(srList);
   }
   const targetLabel = state.targetLang.toUpperCase();

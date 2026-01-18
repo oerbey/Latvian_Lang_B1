@@ -255,7 +255,7 @@ function nextRound() {
   shell.setRuleActive(false);
   shell.setRuleLabel(strings.buttons.rule);
   explainEl.classList.add('visually-hidden');
-  explainEl.replaceChildren();
+  explainEl.innerHTML = '';
   setFeedback('', '');
   answerInput.value = '';
   answerInput.disabled = false;
@@ -276,8 +276,8 @@ function pickNextRound() {
 }
 
 function renderRound(round) {
-  board.replaceChildren();
-  pool.replaceChildren();
+  board.innerHTML = '';
+  pool.innerHTML = '';
   const stemEl = document.createElement('div');
   stemEl.className = 'eb-stem';
   stemEl.dataset.pos = round.item.pos;
@@ -436,7 +436,7 @@ function setFeedback(icon, text) {
 }
 
 function setupKeypad() {
-  keypadEl.replaceChildren();
+  keypadEl.innerHTML = '';
   LETTERS.forEach(ch => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -462,7 +462,7 @@ function toggleRule() {
   const active = !explainEl.classList.contains('visually-hidden');
   if (active) {
     explainEl.classList.add('visually-hidden');
-    explainEl.replaceChildren();
+    explainEl.innerHTML = '';
     shell.setRuleActive(false);
     shell.setRuleLabel(strings.buttons.rule);
     return;
@@ -476,11 +476,9 @@ function renderExplanation() {
   const meta = explain(round);
   const table = buildRuleTable(round);
   const body = document.createElement('div');
-  const metaParagraph = document.createElement('p');
-  metaParagraph.textContent = meta;
-  body.append(metaParagraph);
+  body.innerHTML = `<p>${meta}</p>`;
   if (table) body.append(table);
-  explainEl.replaceChildren();
+  explainEl.innerHTML = '';
   explainEl.append(body);
   explainEl.classList.remove('visually-hidden');
   shell.setRuleActive(true);
@@ -497,9 +495,7 @@ function buildRuleTable(round) {
   if (!tableData) return null;
   const table = document.createElement('table');
   const header = document.createElement('tr');
-  const headerCell = document.createElement('th');
-  headerCell.textContent = strings.labels.case;
-  header.append(headerCell);
+  header.innerHTML = `<th>${strings.labels.case}</th>`;
   const columnKeys = collectColumnKeys(tableData);
   columnKeys.forEach(key => {
     const th = document.createElement('th');

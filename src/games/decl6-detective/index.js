@@ -221,7 +221,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     nodes.mcqHint.textContent = '';
     nodes.mcqExplain.classList.add('visually-hidden');
     nodes.mcqExplain.textContent = '';
-    nodes.mcqOptions.innerHTML = '';
+    nodes.mcqOptions.replaceChildren();
     nodes.mcqNext.disabled = true;
     setMcqProgress();
     updateLevelStatus();
@@ -243,7 +243,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     nodes.mcqExplain.textContent = currentMcqItem.explain ?? '';
     nodes.mcqNext.disabled = true;
     applySceneTheme(nodes.mcqCard, nodes.mcqSceneEmoji, nodes.mcqSceneName, currentMcqItem.scene);
-    nodes.mcqOptions.innerHTML = '';
+    nodes.mcqOptions.replaceChildren();
     const options = shuffle(currentMcqItem.options ?? []);
     options.forEach(optionText => {
       const button = document.createElement('button');

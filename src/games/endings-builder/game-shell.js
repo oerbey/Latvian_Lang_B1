@@ -23,7 +23,7 @@ export function mountGameShell({
   onStrictChange
 }) {
   const shellHost = root.querySelector('[data-game-shell]') || root;
-  shellHost.innerHTML = '';
+  shellHost.replaceChildren();
 
   const shell = document.createElement('section');
   shell.className = 'eb-shell';
@@ -51,11 +51,14 @@ export function mountGameShell({
 
   const strictWrap = document.createElement('label');
   strictWrap.className = 'eb-shell__toggle form-check form-switch mb-0';
-  strictWrap.innerHTML = `
-    <input type="checkbox" class="form-check-input" role="switch" />
-    <span class="form-check-label">${strings.labels.strict}</span>
-  `;
-  const strictInput = strictWrap.querySelector('input');
+  const strictInput = document.createElement('input');
+  strictInput.type = 'checkbox';
+  strictInput.className = 'form-check-input';
+  strictInput.role = 'switch';
+  const strictLabel = document.createElement('span');
+  strictLabel.className = 'form-check-label';
+  strictLabel.textContent = strings.labels.strict;
+  strictWrap.append(strictInput, strictLabel);
 
   const reportBtn = button(strings.buttons.report, {
     className: 'btn btn-outline-danger'
@@ -71,8 +74,19 @@ export function mountGameShell({
   root.append(live);
 
   const updateScore = ({ attempts = 0, correct = 0, streak = 0 }) => {
-    scoreHits.innerHTML = `${strings.labels.score}: <strong>${correct}/${attempts}</strong>`;
-    scoreStreak.innerHTML = `${strings.labels.streak}: <strong>${streak}</strong>`;
+    scoreHits.replaceChildren();
+    scoreStreak.replaceChildren();
+    const hitsText = document.createElement('span');
+    hitsText.textContent = `${strings.labels.score}: `;
+    const hitsStrong = document.createElement('strong');
+    hitsStrong.textContent = `${correct}/${attempts}`;
+    scoreHits.append(hitsText, hitsStrong);
+
+    const streakText = document.createElement('span');
+    streakText.textContent = `${strings.labels.streak}: `;
+    const streakStrong = document.createElement('strong');
+    streakStrong.textContent = `${streak}`;
+    scoreStreak.append(streakText, streakStrong);
   };
 
   checkBtn.addEventListener('click', () => onCheck?.());

@@ -108,8 +108,8 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
       mEl.textContent = v.eng || "";
     }
 
-    if(cEl) {
-      cEl.innerHTML = "";
+    if (cEl) {
+      cEl.replaceChildren();
       options.forEach(opt => {
         const b = document.createElement("button");
         b.className = "btn btn-outline-secondary";
@@ -161,8 +161,13 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
       const pct = seen ? Math.round(100 * right / seen) : 0;
       return pct;
     });
-    if(perStatsEl) {
-      perStatsEl.innerHTML = rows.map(v => `<div>${v}%</div>`).join("");
+    if (perStatsEl) {
+      perStatsEl.replaceChildren();
+      rows.forEach(v => {
+        const cell = document.createElement("div");
+        cell.textContent = `${v}%`;
+        perStatsEl.appendChild(cell);
+      });
     }
   }
 
@@ -173,8 +178,8 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
     if(mEl) {
       mEl.textContent = "Replay to reinforce weak pronouns. Aim for 90%+ across all six slots.";
     }
-    if(cEl) {
-      cEl.innerHTML = "";
+    if (cEl) {
+      cEl.replaceChildren();
     }
   }
 })();

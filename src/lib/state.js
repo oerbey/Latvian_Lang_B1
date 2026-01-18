@@ -1,3 +1,5 @@
+import { mustId } from './dom.js';
+
 export function mulberry32(a){
   return function(){
     a|=0; a = a + 0x6D2B79F5 | 0;
@@ -25,7 +27,7 @@ export function choice(arr){ return arr[(state.rng()*arr.length)|0]; }
 export function now(){ return performance.now(); }
 export let HELP_TEXT = '';
 export function setHelpText(t){ HELP_TEXT = t; }
-export function setStatus(s){ document.getElementById('status').textContent = s || ''; }
+export function setStatus(s){ mustId('status').textContent = s || ''; }
 export let clickables = [];
 export function hitAt(x,y){ for(const c of clickables){ if(x>=c.x && x<=c.x+c.w && y>=c.y && y<=c.y+c.h) return c; } return null; }
 export function resetClicks(){ clickables.length=0; }

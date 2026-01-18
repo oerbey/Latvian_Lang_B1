@@ -1,4 +1,7 @@
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
 /**
  * Anti-scroll-trap for mobile:
@@ -81,4 +84,3 @@ window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
 });
-

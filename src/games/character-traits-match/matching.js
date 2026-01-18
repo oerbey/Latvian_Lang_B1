@@ -1,5 +1,6 @@
 import { initMatchingGame, MATCHING_CONSTANTS } from '../../lib/matching-game.js';
 import { loadPersonalityWords } from '../../lib/personality-data.js';
+import { $id, mustId } from '../../lib/dom.js';
 
 function renderGroupProgress(container, items) {
   if (!container) return;
@@ -17,26 +18,26 @@ function renderGroupProgress(container, items) {
 
 export function initTraitsMatching({ defaultMode = MATCHING_CONSTANTS.MODE_ALL } = {}) {
   const elements = {
-    lvList: document.getElementById('list-lv'),
-    trList: document.getElementById('list-tr'),
-    score: document.getElementById('score'),
-    btnNew: document.getElementById('btn-new'),
-    btnSpeak: document.getElementById('btn-speak'),
-    help: document.getElementById('help'),
-    languageSelect: document.getElementById('language-select'),
-    countSelect: document.getElementById('count-select'),
-    modeAll: document.getElementById('mode-use-all'),
-    modeLocked: document.getElementById('mode-locked-set'),
-    lockedControls: document.getElementById('locked-controls'),
-    lockedSizeSelect: document.getElementById('locked-set-size'),
-    lockedCustomInput: document.getElementById('locked-set-custom'),
-    btnNewMix: document.getElementById('btn-new-mix'),
-    btnResetLocked: document.getElementById('btn-reset-locked'),
-    prioritizeSwitch: document.getElementById('prioritize-mistakes'),
-    lockedIndicator: document.getElementById('locked-indicator'),
-    lockedProgress: document.getElementById('locked-progress'),
-    lockedFeedback: document.getElementById('locked-feedback'),
-    groupProgress: document.getElementById('group-progress'),
+    lvList: mustId('list-lv'),
+    trList: mustId('list-tr'),
+    score: mustId('score'),
+    btnNew: $id('btn-new'),
+    btnSpeak: $id('btn-speak'),
+    help: mustId('help'),
+    languageSelect: $id('language-select'),
+    countSelect: $id('count-select'),
+    modeAll: $id('mode-use-all'),
+    modeLocked: $id('mode-locked-set'),
+    lockedControls: $id('locked-controls'),
+    lockedSizeSelect: $id('locked-set-size'),
+    lockedCustomInput: $id('locked-set-custom'),
+    btnNewMix: $id('btn-new-mix'),
+    btnResetLocked: $id('btn-reset-locked'),
+    prioritizeSwitch: $id('prioritize-mistakes'),
+    lockedIndicator: $id('locked-indicator'),
+    lockedProgress: $id('locked-progress'),
+    lockedFeedback: $id('locked-feedback'),
+    groupProgress: $id('group-progress'),
   };
 
   initMatchingGame({

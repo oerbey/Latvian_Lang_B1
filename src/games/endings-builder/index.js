@@ -50,14 +50,22 @@ if (!root) {
   throw new Error('Endings Builder root missing');
 }
 
-const board = root.querySelector('#ebBoard');
-const pool = root.querySelector('#ebOptions');
-const feedbackEl = root.querySelector('.eb-feedback');
-const explainEl = root.querySelector('[data-eb-explain]');
-const headingEl = root.querySelector('[data-eb-heading]');
-const subtitleEl = root.querySelector('[data-eb-subtitle]');
-const answerInput = root.querySelector('.eb-answer');
-const keypadEl = root.querySelector('.eb-keypad');
+const mustQuery = (selector) => {
+  const el = root.querySelector(selector);
+  if (!el) {
+    throw new Error(`Endings Builder missing element: ${selector}`);
+  }
+  return el;
+};
+
+const board = mustQuery('#ebBoard');
+const pool = mustQuery('#ebOptions');
+const feedbackEl = mustQuery('.eb-feedback');
+const explainEl = mustQuery('[data-eb-explain]');
+const headingEl = mustQuery('[data-eb-heading]');
+const subtitleEl = mustQuery('[data-eb-subtitle]');
+const answerInput = mustQuery('.eb-answer');
+const keypadEl = mustQuery('.eb-keypad');
 
 let strings = await loadStrings();
 applyStrings();

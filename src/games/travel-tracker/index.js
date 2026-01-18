@@ -1,4 +1,5 @@
 import { createSeededRng, seededShuffle } from './utils.js';
+import { mustId } from '../../lib/dom.js';
 
 const STORAGE_KEY = 'llb1:travel-tracker:progress';
 const SESSION_SEED_KEY = 'llb1:travel-tracker:seed';
@@ -7,24 +8,24 @@ const DATA_PATH = 'data/travel-tracker/routes.json';
 const BUS_ANIMATION_MS = 1100;
 
 const selectors = {
-  mapInner: document.getElementById('tt-map-inner'),
-  bus: document.getElementById('tt-bus'),
-  routeLayer: document.getElementById('tt-route'),
-  gap: document.getElementById('tt-gap'),
-  hint: document.getElementById('tt-hint'),
-  feedback: document.getElementById('tt-feedback'),
-  input: document.getElementById('tt-input'),
-  check: document.getElementById('checkBtn'),
-  next: document.getElementById('tt-next'),
-  start: document.getElementById('tt-start'),
-  restart: document.getElementById('tt-restart'),
-  choices: document.getElementById('tt-choices'),
-  score: document.getElementById('tt-score'),
-  streak: document.getElementById('tt-streak'),
-  level: document.getElementById('tt-level'),
-  routeMeta: document.getElementById('tt-route-meta'),
-  liveRegion: document.getElementById('tt-live'),
-  progress: document.getElementById('tt-progress'),
+  mapInner: mustId('tt-map-inner'),
+  bus: mustId('tt-bus'),
+  routeLayer: mustId('tt-route'),
+  gap: mustId('tt-gap'),
+  hint: mustId('tt-hint'),
+  feedback: mustId('tt-feedback'),
+  input: mustId('tt-input'),
+  check: mustId('checkBtn'),
+  next: mustId('tt-next'),
+  start: mustId('tt-start'),
+  restart: mustId('tt-restart'),
+  choices: mustId('tt-choices'),
+  score: mustId('tt-score'),
+  streak: mustId('tt-streak'),
+  level: mustId('tt-level'),
+  routeMeta: mustId('tt-route-meta'),
+  liveRegion: mustId('tt-live'),
+  progress: mustId('tt-progress'),
 };
 
 const state = {

@@ -1,6 +1,7 @@
 import { state } from './state.js';
+import { mustId } from './dom.js';
 
-const canvas = document.getElementById('canvas');
+const canvas = mustId('canvas');
 const ctx = canvas.getContext('2d');
 export { canvas, ctx };
 

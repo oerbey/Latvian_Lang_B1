@@ -2,6 +2,7 @@ import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, rounde
 import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
 import { startMatchRound, drawMatch } from './src/lib/match.js';
 import { startForgeRound, drawForge } from './src/lib/forge.js';
+import { $id, mustId, on } from './src/lib/dom.js';
 
 /* -----------------------------------------------------------
    Subpath-safe asset resolution for GitHub Pages / any subdir
@@ -56,36 +57,38 @@ async function loadTranslations(lang){
 
 function applyTranslations(){
   document.title = i18n.html.title;
-  document.querySelector('.week-badge').textContent = i18n.badge;
-  document.getElementById('title').textContent = i18n.gameTitle;
-  const btnMatch = document.getElementById('mode-match');
+  const weekBadge = document.querySelector('.week-badge');
+  if (weekBadge) weekBadge.textContent = i18n.badge;
+  mustId('title').textContent = i18n.gameTitle;
+  const btnMatch = mustId('mode-match');
   btnMatch.textContent = i18n.buttons.modeMatch;
-  const btnForge = document.getElementById('mode-forge');
+  const btnForge = mustId('mode-forge');
   btnForge.textContent = i18n.buttons.modeForge;
-  const btnPractice = document.getElementById('btn-practice');
+  const btnPractice = mustId('btn-practice');
   btnPractice.textContent = i18n.buttons.practice;
   btnPractice.setAttribute('aria-label', i18n.buttons.practice);
-  const btnChallenge = document.getElementById('btn-challenge');
+  const btnChallenge = mustId('btn-challenge');
   btnChallenge.textContent = i18n.buttons.challenge;
   btnChallenge.setAttribute('aria-label', i18n.buttons.challenge);
-  document.getElementById('btn-prev').setAttribute('aria-label', i18n.buttons.prevAria);
-  document.getElementById('btn-next').setAttribute('aria-label', i18n.buttons.nextAria);
-  const deckBtn = document.getElementById('btn-deck-size');
+  mustId('btn-prev').setAttribute('aria-label', i18n.buttons.prevAria);
+  mustId('btn-next').setAttribute('aria-label', i18n.buttons.nextAria);
+  const deckBtn = mustId('btn-deck-size');
   deckBtn.setAttribute('aria-label', i18n.buttons.deckSizeAria);
   deckBtn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
-  const btnExport = document.getElementById('btn-export');
+  const btnExport = mustId('btn-export');
   btnExport.textContent = i18n.buttons.export;
   btnExport.setAttribute('aria-label', i18n.buttons.exportAria);
-  const btnHelp = document.getElementById('btn-help');
+  const btnHelp = mustId('btn-help');
   btnHelp.textContent = i18n.buttons.help;
   btnHelp.setAttribute('aria-label', i18n.buttons.helpAria);
-  document.getElementById('loading').textContent = i18n.labels.loading;
-  document.getElementById('legend').innerHTML = i18n.labels.legend;
-  const langSel = document.getElementById('language-select');
+  const loadingEl = mustId('loading');
+  loadingEl.textContent = i18n.labels.loading;
+  mustId('legend').innerHTML = i18n.labels.legend;
+  const langSel = mustId('language-select');
   langSel.value = currentLang;
   langSel.setAttribute('aria-label', i18n.labels.languageSelect);
-  document.getElementById('ui').setAttribute('aria-label', i18n.labels.controls);
-  document.getElementById('sr-game-state').setAttribute('aria-label', i18n.labels.gameState);
+  mustId('ui').setAttribute('aria-label', i18n.labels.controls);
+  mustId('sr-game-state').setAttribute('aria-label', i18n.labels.gameState);
   setStatus(i18n.status.ready);
   setHelpText(i18n.help.lines.join('\n'));
   triggerRedraw();
@@ -131,24 +134,26 @@ setRedraw(draw);
 
 function toggleDeckSize(){
   state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
-  const btn = document.getElementById('btn-deck-size');
-  btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
-  btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+  const btn = $id('btn-deck-size');
+  if (btn) {
+    btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
+    btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+  }
   setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
   if(state.mode === MODES.MATCH) startMatchRound();
 }
 
 function setupEventListeners(){
-  document.getElementById('mode-match').addEventListener('click', ()=>{ state.mode=MODES.MATCH; state.roundIndex=0; startMatchRound(); });
-  document.getElementById('mode-forge').addEventListener('click', ()=>{ state.mode=MODES.FORGE; state.roundIndex=0; startForgeRound(); });
-  document.getElementById('btn-practice').addEventListener('click', ()=>{ state.difficulty='practice'; setStatus(i18n.status.practice); });
-  document.getElementById('btn-challenge').addEventListener('click', ()=>{ state.difficulty='challenge'; setStatus(i18n.status.challenge); });
-  document.getElementById('btn-prev').addEventListener('click', ()=>{ state.roundIndex=Math.max(0,state.roundIndex-1); state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
-  document.getElementById('btn-next').addEventListener('click', ()=>{ state.roundIndex++; state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
-  document.getElementById('btn-deck-size').addEventListener('click', toggleDeckSize);
-  document.getElementById('btn-help').addEventListener('click', ()=>{ state.showHelp=!state.showHelp; triggerRedraw(); });
-  document.getElementById('btn-export').addEventListener('click', exportCSV);
-  document.getElementById('language-select').addEventListener('change', async e=>{
+  on(mustId('mode-match'), 'click', ()=>{ state.mode=MODES.MATCH; state.roundIndex=0; startMatchRound(); });
+  on(mustId('mode-forge'), 'click', ()=>{ state.mode=MODES.FORGE; state.roundIndex=0; startForgeRound(); });
+  on(mustId('btn-practice'), 'click', ()=>{ state.difficulty='practice'; setStatus(i18n.status.practice); });
+  on(mustId('btn-challenge'), 'click', ()=>{ state.difficulty='challenge'; setStatus(i18n.status.challenge); });
+  on(mustId('btn-prev'), 'click', ()=>{ state.roundIndex=Math.max(0,state.roundIndex-1); state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
+  on(mustId('btn-next'), 'click', ()=>{ state.roundIndex++; state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
+  on(mustId('btn-deck-size'), 'click', toggleDeckSize);
+  on(mustId('btn-help'), 'click', ()=>{ state.showHelp=!state.showHelp; triggerRedraw(); });
+  on(mustId('btn-export'), 'click', exportCSV);
+  on(mustId('language-select'), 'change', async e=>{
     const lang = e.target.value;
     try {
       await loadTranslations(lang);
@@ -163,11 +168,11 @@ function setupEventListeners(){
       e.target.value = currentLang;
     }
   });
-  canvas.addEventListener('mousemove', e=>{
+  on(canvas, 'mousemove', e=>{
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
     canvas.style.cursor = hitAt(coords.x, coords.y) ? 'pointer' : 'default';
   });
-  canvas.addEventListener('click', e=>{
+  on(canvas, 'click', e=>{
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
     const t = hitAt(coords.x, coords.y);
     if(t && t.onClick) t.onClick({ x: coords.x, y: coords.y, target: t });
@@ -176,14 +181,14 @@ function setupEventListeners(){
   let touchStartScrollY = 0;
   let touchStartTime = 0;
   let touchMoved = false;
-    canvas.addEventListener('touchstart', e=>{
+    on(canvas, 'touchstart', e=>{
       const t=e.touches[0];
       getCanvasCoordinates(t.clientX, t.clientY);
       touchStartY = t.clientY; touchStartTime = Date.now();
       touchStartScrollY = state.matchState ? state.matchState.scrollY : 0;
       touchMoved = false;
     }, { passive: true });
-    canvas.addEventListener('touchmove', e=>{
+    on(canvas, 'touchmove', e=>{
       const t = e.touches[0];
       const dy = t.clientY - touchStartY;
       if(Math.abs(dy) > 5) touchMoved = true;
@@ -198,7 +203,7 @@ function setupEventListeners(){
         }
       }
     }, { passive: false });
-  canvas.addEventListener('touchend', e=>{
+  on(canvas, 'touchend', e=>{
     const dt = Date.now()-touchStartTime;
     if(dt<200 && !touchMoved){
       const t=e.changedTouches[0];
@@ -207,7 +212,7 @@ function setupEventListeners(){
       if(hit&&hit.onClick){ hit.onClick({ x: coords.x, y: coords.y, target: hit }); e.preventDefault(); }
     }
   }, { passive: false });
-    canvas.addEventListener('wheel', e=>{
+    on(canvas, 'wheel', e=>{
       if(state.mode !== MODES.MATCH || !state.matchState) return;
       const ms = state.matchState;
       const viewH = ms.viewBottom - ms.viewTop;
@@ -218,8 +223,8 @@ function setupEventListeners(){
         e.preventDefault();
       }
     }, { passive: false });
-  window.addEventListener('resize', ()=>{ updateCanvasScale(); triggerRedraw(); });
-  document.addEventListener('keydown', e=>{
+  on(window, 'resize', ()=>{ updateCanvasScale(); triggerRedraw(); });
+  on(document, 'keydown', e=>{
     if(e.key==='1'){ state.mode=MODES.MATCH; startMatchRound(); }
     if(e.key==='2'){ state.mode=MODES.FORGE; startForgeRound(); }
     if(e.key==='h' || e.key==='H'){ state.showHelp=!state.showHelp; triggerRedraw(); }
@@ -236,15 +241,25 @@ function exportCSV(){
   const a = document.createElement('a'); a.href=url; a.download="b1_game_results.csv"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
 
-const loadingOverlay = document.getElementById('loading');
+const loadingOverlay = $id('loading');
 const canvasElement = canvas;
-loadingOverlay.classList.add('visible');
+if (loadingOverlay) loadingOverlay.classList.add('visible');
 canvasElement.classList.add('loading');
+
+function showFatalError(message) {
+  if (loadingOverlay) {
+    loadingOverlay.textContent = message;
+    loadingOverlay.classList.add('visible');
+  } else {
+    document.body.textContent = message;
+  }
+  canvasElement.classList.remove('loading');
+}
 
 function initializeGame(){
   updateCanvasScale();
   startMatchRound();
-  loadingOverlay.classList.remove('visible');
+  if (loadingOverlay) loadingOverlay.classList.remove('visible');
   canvasElement.classList.remove('loading');
 }
 
@@ -291,20 +306,18 @@ async function loadVocabulary(from='lv', to='en'){
 async function startInit(){
   try {
     await loadTranslations(currentLang);
-  } catch(e){
-    console.error('Failed to load translations', e);
-    loadingOverlay.textContent = 'Failed to load translations';
-    canvasElement.classList.remove('loading');
+    setupEventListeners();
+  } catch (e) {
+    console.error('Failed to initialize UI', e);
+    showFatalError('Something went wrong loading the page. Please refresh.');
     return;
   }
-  setupEventListeners();
   try {
     const target = currentLang === 'ru' ? 'ru' : 'en';
     await loadVocabulary('lv',target);
   } catch(e){
     console.error('Failed to load vocabulary', e);
-    loadingOverlay.textContent = i18n.labels?.loadError || 'Failed to load data';
-    canvasElement.classList.remove('loading');
+    showFatalError(i18n.labels?.loadError || 'Failed to load data');
     return;
   }
   const startGame = () => {
@@ -312,8 +325,7 @@ async function startInit(){
       initializeGame();
     } catch (err) {
       console.error('Initialization error', err);
-      loadingOverlay.textContent = i18n.labels?.loadError || 'Failed to load data';
-      canvasElement.classList.remove('loading');
+      showFatalError(i18n.labels?.loadError || 'Failed to load data');
     }
   };
 

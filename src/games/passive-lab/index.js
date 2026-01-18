@@ -1,3 +1,5 @@
+import { mustId } from '../../lib/dom.js';
+
 (() => {
   const STORAGE_KEY = 'llb1:passive-lab:progress';
   const TENSES = ['present', 'past', 'future'];
@@ -16,26 +18,32 @@
     error: 'assets/img/passive-lab/glyph-error.svg',
   };
 
+  const mustSelect = (selector) => {
+    const el = document.querySelector(selector);
+    if (!el) throw new Error(`Missing required element: ${selector}`);
+    return el;
+  };
+
   const nodes = {
-    statusText: document.getElementById('pl-status-text'),
-    statusIcon: document.getElementById('pl-status-icon'),
-    feedback: document.querySelector('.passive-lab-feedback'),
-    activeSentence: document.getElementById('pl-active-sentence'),
-    targetLabel: document.getElementById('pl-tense-target-label'),
-    patientContainer: document.getElementById('pl-builder-patients'),
-    tenseSelect: document.getElementById('pl-tense-select'),
-    endingSelect: document.getElementById('pl-ending-select'),
-    builderCheck: document.getElementById('pl-builder-check'),
-    typeCheck: document.getElementById('pl-type-check'),
-    typeInput: document.getElementById('pl-type-input'),
-    nextButton: document.getElementById('pl-next'),
-    resultPanel: document.querySelector('.passive-lab-result'),
-    resultSentence: document.getElementById('pl-result-sentence'),
-    itemHint: document.getElementById('pl-item-hint'),
-    endingHint: document.getElementById('pl-ending-hint'),
-    scoreValue: document.getElementById('pl-score-value'),
-    streakValue: document.getElementById('pl-streak-value'),
-    lastPlayedValue: document.getElementById('pl-last-played-value'),
+    statusText: mustId('pl-status-text'),
+    statusIcon: mustId('pl-status-icon'),
+    feedback: mustSelect('.passive-lab-feedback'),
+    activeSentence: mustId('pl-active-sentence'),
+    targetLabel: mustId('pl-tense-target-label'),
+    patientContainer: mustId('pl-builder-patients'),
+    tenseSelect: mustId('pl-tense-select'),
+    endingSelect: mustId('pl-ending-select'),
+    builderCheck: mustId('pl-builder-check'),
+    typeCheck: mustId('pl-type-check'),
+    typeInput: mustId('pl-type-input'),
+    nextButton: mustId('pl-next'),
+    resultPanel: mustSelect('.passive-lab-result'),
+    resultSentence: mustId('pl-result-sentence'),
+    itemHint: mustId('pl-item-hint'),
+    endingHint: mustId('pl-ending-hint'),
+    scoreValue: mustId('pl-score-value'),
+    streakValue: mustId('pl-streak-value'),
+    lastPlayedValue: mustId('pl-last-played-value'),
     modeButtons: Array.from(document.querySelectorAll('[data-mode]')),
     modePanels: Array.from(document.querySelectorAll('[data-mode-panel]')),
   };

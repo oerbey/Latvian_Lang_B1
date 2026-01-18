@@ -1,4 +1,5 @@
 import { state, shuffle, choice, now, resetClicks, clickables, setStatus, triggerRedraw } from './state.js';
+import { $id } from './dom.js';
 import { W, H, scale, roundedRect, drawText, clear, confetti, ctx } from './render.js';
 
 export const ALL_PREFIXES = ["iz","pār","no","sa","ap","ie","pie","uz","at","aiz","pa"];
@@ -29,13 +30,15 @@ export function startForgeRound(){
 export function drawForge(){
   const fs = state.forgeState;
   clear(); resetClicks();
-  const sr = document.getElementById('sr-game-state');
-  sr.innerHTML='';
-  const srHeader = document.createElement('p');
-  srHeader.textContent = `${state.targetLang.toUpperCase()}: ${fs.clue}. Root: ${fs.base}`;
-  sr.appendChild(srHeader);
-  const srList = document.createElement('ul');
-  sr.appendChild(srList);
+  const sr = $id('sr-game-state');
+  const srList = sr ? document.createElement('ul') : null;
+  if (sr) {
+    sr.innerHTML = '';
+    const srHeader = document.createElement('p');
+    srHeader.textContent = `${state.targetLang.toUpperCase()}: ${fs.clue}. Root: ${fs.base}`;
+    sr.appendChild(srHeader);
+    sr.appendChild(srList);
+  }
   drawText("PREFIX FORGE — pievieno pareizo priedēkli", 28, 40, {font:'bold 22px system-ui'});
   drawText(`${state.targetLang.toUpperCase()}: ${fs.clue}`, 28, 78, {font:'16px system-ui', color:'#a8b3c7'});
   drawText(`_____${fs.base}`, 28, 120, {font:'bold 30px system-ui'});
@@ -72,7 +75,10 @@ export function drawForge(){
     const btn=document.createElement('button');
     btn.textContent=p+'-';
     btn.addEventListener('click', ()=>handleChoice(p));
-    li.appendChild(btn); srList.appendChild(li);
+    li.appendChild(btn);
+    if (srList) {
+      srList.appendChild(li);
+    }
     ox += bw + gap;
   });
 }

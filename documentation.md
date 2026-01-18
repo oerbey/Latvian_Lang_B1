@@ -3,7 +3,7 @@
 ## Overview
 - Browser-based collection of Latvian B1 study games built as static pages that can be hosted on GitHub Pages or any static server.
 - Core canvas game (loaded from `index.html`) offers two modes: vocabulary matching (`src/lib/match.js`) and prefix forge (`src/lib/forge.js`), both rendered on a responsive `<canvas>` via helpers in `src/lib/render.js` and orchestrated by shared state in `src/lib/state.js`.
-- Additional standalone games live under dedicated HTML entry points: `darbibas-vards.html` (drag-and-match vocabulary), `conjugation-sprint.html` (timed conjugation quiz), and `endings-builder.html` (morphology drag-and-drop trainer).
+- Additional standalone games live under dedicated HTML entry points, including `darbibas-vards.html`, `conjugation-sprint.html`, `endings-builder.html`, `passive-lab.html`, `decl6-detective.html`, `duty-dispatcher.html`, `maini-vai-mainies.html`, `travel-tracker.html`, `character-traits.html`, `rakstura-ipasibas-match.html`, `rakstura-ipasibas-expansion.html`, and `week1.html`.
 - Data lives under `data/` (including endings-builder payloads in `data/endings-builder/`); scripts in `scripts/` and legacy Python utilities within `scripts/legacy/` help regenerate those datasets.
 
 ## Technology Stack
@@ -18,14 +18,14 @@
 - `assets/` — vocabulary pairing game assets (`assets/app.js`, `assets/styles.css`).
 - `data/words.json` — primary vocabulary list with conjugation tables consumed by several games.
 - `src/games/endings-builder/` — modular endings builder implementation (`index.js`, drag-and-drop controller, normalization helpers, i18n loader).
-- `scripts/` — developer tooling such as `xlsx_to_json.mjs` and shared page bootstrap (`page-init.js`).
+- `scripts/` — developer tooling such as `xlsx_to_json.mjs`, `personality_csv_to_json.mjs`, `build_week1_offline.py`, and shared page bootstrap (`page-init.js`).
 - `styles.css` — global visual language shared across pages.
 - `test/` — Node test suites with DOM stubs for rendering units (run via `npm test`).
 - `scripts/legacy/Latvian_Verb_Filler.py` — Python helper that fills verb conjugations by querying the Tezaurs inflection API into `data/legacy/verbs_conjugated.json`.
 
 ## Game Modules
 ### Canvas Match & Forge (`index.html` + `app.js`)
-- Loads translations from `i18n/*.json` and vocabulary units from `data/units.json` generated offline (see Data Tools section).
+- Loads translations from `i18n/*.json` and unit indexes from `data/lv-en/units.json` or `data/lv-ru/units.json`, then per-unit JSON under `data/<lang>/units/`; falls back to `data/week1.offline.js` when fetch fails.
 - Match mode (`src/lib/match.js`) dynamically sizes the deck based on viewport, tracks accuracy/time/streak, supports keyboard navigation, and pushes results into `state.results`.
 - Forge mode (`src/lib/forge.js`) quizzes on verb prefixes, using hints from `state.DATA.notes` and dynamically shuffles plausible distractors.
 - Rendering is abstracted through `src/lib/render.js`, which handles resolution scaling, rounded rectangles, typography, and celebratory confetti.
@@ -47,6 +47,33 @@
 - Keyboard-accessible drag-and-drop via `src/games/endings-builder/dnd.js`; normalization helpers (`norm.js`) offer relaxed comparisons while strict mode enforces exact diacritics.
 - Supports inline rule tables per schema by calling `getTable` from `src/games/endings-builder/endings-resolver.js`.
 
+### Passive Lab (`passive-lab.html`, `src/games/passive-lab/index.js`)
+- Exercises passive voice prompts using `data/passive-lab/items.json`.
+- Page-specific styles live in `src/games/passive-lab/styles.css`.
+
+### Decl6 Detective (`decl6-detective.html`, `src/games/decl6-detective/index.js`)
+- Locative case detective game backed by `data/decl6-detective/items.json`.
+- Uses `src/games/decl6-detective/styles.css` for layout.
+
+### Duty Dispatcher (`duty-dispatcher.html`, `src/games/duty-dispatcher/index.js`)
+- Dative-role assignment practice built from `data/duty-dispatcher/roles.json` and `data/duty-dispatcher/tasks.json`.
+- Styling lives in `src/games/duty-dispatcher/styles.css`.
+
+### Maini vai mainies? (`maini-vai-mainies.html`, `src/games/maini-vai-mainies/index.js`)
+- Active vs. passive discrimination rounds loaded from `data/maini-vai-mainies/items.json`.
+- Uses `src/games/maini-vai-mainies/styles.css`.
+
+### Travel Tracker (`travel-tracker.html`, `src/games/travel-tracker/index.js`)
+- Map-based routing game powered by `data/travel-tracker/routes.json` and the SVG map at `assets/img/travel-tracker/latvia.svg`.
+- Styles live in `src/games/travel-tracker/styles.css`.
+
+### Character Traits (`character-traits.html`, `rakstura-ipasibas-match.html`, `rakstura-ipasibas-expansion.html`)
+- Personality vocabulary modes built on `src/games/character-traits*` modules and shared data from `data/personality/words.json`.
+- Shared loader/normalizer lives in `src/lib/personality-data.js`.
+
+### Week 1 (`week1.html`)
+- Uses the main canvas game (`app.js`) with the offline pack in `data/week1.offline.js` and localized strings in `i18n/offline.js`.
+
 ## Internationalization
 - Language files live under `i18n/` (`en.json`, `lv.json`, `ru.json`).
 - `app.js` swaps button labels, help overlays, ARIA text, and triggers reloading of vocabulary translations.
@@ -57,7 +84,7 @@
 - **Vocabulary (`data/words.json`)**: Generated from `data/latvian_words_with_translations.xlsx` using `npm run build:data`. Columns `lv`, `eng`, `ru`, and optional tags populate each entry.
 - **Verb Inflections (`data/legacy/verbs_conjugated.json`)**: Optional enrichments produced by running `scripts/legacy/Latvian_Verb_Filler.py` (requires `requests`). The script retries Tezaurs API requests and maps MULTEXT-East tags into the JSON schema used by the sprint game.
 - **Endings Data (`data/endings-builder/*.json`)**: Hand-authored schema tables and item definitions. When editing, keep UUID-like `id` stable because progress is keyed by it.
-- **Units Data (`data/units.json` et al.)**: Used by the canvas match/forge game. Ensure each entry declares which mini-games it supports (`games: ['match', 'forge']`) and includes translation keys for every supported UI language.
+- **Units Data (`data/lv-en/units.json`, `data/lv-ru/units.json`)**: Used by the canvas match/forge game. Unit files live under `data/lv-en/units/` and `data/lv-ru/units/`. Ensure each entry declares which mini-games it supports (`games: ['match', 'forge']`) and includes translation keys for every supported UI language.
 
 ## Progressive Web App
 - `sw.js` precaches the core pages, assets, and i18n files. Update `CORE_ASSETS` when adding new entry points or static resources that should be offline-ready.
@@ -85,17 +112,17 @@
 
 ## Development Workflow
 - Install dependencies: `npm install` (pulls `xlsx` for data conversion). For Python tooling, `pip install requests`.
-- Build datasets: `npm run build:data` converts the Excel sheet to `data/words.json`. Run the Python script manually when refreshing verb inflections.
+- Build datasets: `npm run build:data` converts the Excel sheet to `data/words.json`; `npm run build:personality` refreshes `data/personality/words.json`; `npm run build:offline` rebuilds offline packs. Run the Python script manually when refreshing verb inflections.
 - Serve locally: use any static file server (e.g. `npx http-server .` or `python -m http.server`) from the project root; no build step is required for the web assets.
 - Tests: execute `npm test` to run Node test suites under `test/`. DOM-heavy modules use stubs from `test/helpers/dom-stubs.js`.
-- Linting is not configured; rely on browser console and tests for feedback.
+- Linting: run `npm run lint` (ESLint + Prettier config).
 
 ## Deployment Tips
 - For GitHub Pages, deploy the root directory; ensure `assetUrl()` usage in `app.js` continues to resolve assets relative to `document.baseURI`.
 - Bump `CACHE_VERSION` in `sw.js` after adding assets or changing caching strategy.
 - Verify offline behavior using browser dev tools (Application ► Service Workers) before releasing.
 
-## Star a simple server for local test
+## Start a simple server for local test
 - python3 -m http.server 8000
 - http://localhost:8000/endings-builder.html
 

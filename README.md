@@ -58,8 +58,19 @@ A comprehensive browser-based collection of interactive educational games and to
 │   │   ├── decl6-detective/
 │   │   ├── duty-dispatcher/
 │   │   ├── maini-vai-mainies/
-│   │   └── character-traits/
+│   │   ├── character-traits/
+│   │   ├── character-traits-match/
+│   │   └── character-traits-expansion/
 │   └── lib/                           # Shared utilities
+│       ├── dom.js                     # DOM safety helpers
+│       ├── paths.js                   # Base-path-safe asset URLs
+│       ├── storage.js                 # localStorage wrapper + migrations
+│       ├── errors.js                  # Global error handling overlay
+│       ├── utils.js                   # Shared pure helpers
+│       ├── constants.js               # Shared constants
+│       ├── safeHtml.js                # Trusted HTML helper
+│       ├── matching-game.js           # Shared matching game logic
+│       ├── personality-data.js        # Character traits data helpers
 │       ├── match.js                   # Match game mode logic
 │       ├── forge.js                   # Forge game mode logic
 │       ├── render.js                  # Canvas rendering helpers
@@ -67,7 +78,9 @@ A comprehensive browser-based collection of interactive educational games and to
 │
 ├── data/                              # Vocabulary & game data
 │   ├── words.json                     # Primary vocabulary list
-│   ├── routes.json                    # Travel tracker routes
+│   ├── lv-en/                         # LV->EN unit indexes and unit files
+│   ├── lv-ru/                         # LV->RU unit indexes and unit files
+│   ├── routes.json                    # Legacy copy (Travel Tracker uses data/travel-tracker/routes.json)
 │   ├── personality/                   # Character traits data
 │   │   ├── words.csv                  # Source vocabulary list
 │   │   └── words.json                 # Generated runtime artifact
@@ -94,7 +107,8 @@ A comprehensive browser-based collection of interactive educational games and to
 │   └── offline.js                     # Offline i18n loader
 │
 ├── scripts/                           # Build & utility scripts
-│   ├── xlsx_to_json.mjs               # Excel → JSON converter
+│   ├── xlsx_to_json.mjs               # Excel -> JSON converter
+│   ├── personality_csv_to_json.mjs    # Personality CSV -> JSON converter
 │   ├── build_week1_offline.py         # Offline pack builder
 │   ├── page-init.js                   # Shared page initialization
 │   └── legacy/

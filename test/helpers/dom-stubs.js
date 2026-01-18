@@ -34,7 +34,13 @@ export function stubForgeDom() {
     getBoundingClientRect: () => ({ left: 0, top: 0 })
   };
   const statusEl = { textContent: '' };
-  const srEl = { innerHTML: '', appendChild() {} };
+  const srEl = {
+    innerHTML: '',
+    appendChild() {},
+    replaceChildren() {
+      this.innerHTML = '';
+    },
+  };
   global.document = {
     createElement: (tag) => {
       if (tag === 'ul') return { appendChild() {} };
@@ -68,6 +74,9 @@ export function stubMatchDom() {
   const srEl = {
     innerHTML: '',
     appendChild() {},
+    replaceChildren() {
+      this.innerHTML = '';
+    },
   };
 
   global.document = {

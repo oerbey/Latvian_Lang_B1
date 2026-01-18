@@ -1,6 +1,7 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
+import { loadJSON, saveJSON } from '../../lib/storage.js';
 
 const ROLES_PATH = 'data/duty-dispatcher/roles.json';
 const TASKS_PATH = 'data/duty-dispatcher/tasks.json';
@@ -49,9 +50,7 @@ function loadJSON(path) {
 
 function readProgress() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
+    const parsed = loadJSON(STORAGE_KEY, null);
     if (!parsed || typeof parsed !== 'object') return null;
     const xp = Number(parsed.xp);
     const streak = Number(parsed.streak);
@@ -72,7 +71,7 @@ function persistProgress() {
       streak: state.streak,
       lastPlayedISO: new Date().toISOString(),
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    saveJSON(STORAGE_KEY, data);
   } catch (err) {
     console.warn('Unable to persist progress', err);
   }

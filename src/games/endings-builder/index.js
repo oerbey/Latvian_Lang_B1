@@ -4,6 +4,7 @@ import { getEnding, getTable } from './endings-resolver.js';
 import { norm, equalsLoose } from './norm.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
+import { loadJSON, loadString, saveJSON, saveString } from '../../lib/storage.js';
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -107,7 +108,7 @@ nextRound();
 async function loadStrings() {
   const langFallback = document.documentElement.lang || 'lv';
   const params = new URLSearchParams(location.search);
-  const langPref = params.get('lang') || localStorage.getItem('lang') || langFallback;
+  const langPref = params.get('lang') || loadString('lang', '') || langFallback;
   const order = [...new Set([langPref, 'en'])];
   const isFile = typeof window !== 'undefined' && window.location?.protocol === 'file:';
 
@@ -200,25 +201,24 @@ function applyStrings() {
 
 function loadProgress() {
   try {
-    const raw = localStorage.getItem(PROGRESS_KEY);
-    if (!raw) return {};
-    return JSON.parse(raw);
+    const parsed = loadJSON(PROGRESS_KEY, null);
+    return parsed && typeof parsed === 'object' ? parsed : {};
   } catch (_) {
     return {};
   }
 }
 
 function saveProgress() {
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  saveJSON(PROGRESS_KEY, progress);
 }
 
 function loadStrict() {
-  return localStorage.getItem(STRICT_KEY) === '1';
+  return loadString(STRICT_KEY, '') === '1';
 }
 
 function setStrict(value) {
   strict = value;
-  localStorage.setItem(STRICT_KEY, value ? '1' : '0');
+  saveString(STRICT_KEY, value ? '1' : '0');
   shell.announce(value ? strings.strictMode.on : strings.strictMode.off);
 }
 

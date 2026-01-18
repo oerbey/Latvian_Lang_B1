@@ -1,6 +1,7 @@
 import { mustId, on } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
+import { loadJSON, saveJSON } from '../../lib/storage.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:decl6-detective:progress';
@@ -105,9 +106,10 @@ import { shuffle } from '../../lib/utils.js';
 
   function readProgress() {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) return { xp: 0, streak: 0, lastPlayedISO: null };
-      const parsed = JSON.parse(stored);
+      const parsed = loadJSON(STORAGE_KEY, null);
+      if (!parsed || typeof parsed !== 'object') {
+        return { xp: 0, streak: 0, lastPlayedISO: null };
+      }
       return {
         xp: Number.isFinite(parsed?.xp) ? parsed.xp : 0,
         streak: Number.isFinite(parsed?.streak) ? parsed.streak : 0,
@@ -127,7 +129,7 @@ import { shuffle } from '../../lib/utils.js';
     };
     progress = payload;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      saveJSON(STORAGE_KEY, payload);
     } catch (err) {
       console.warn('Unable to persist decl6 progress', err);
     }

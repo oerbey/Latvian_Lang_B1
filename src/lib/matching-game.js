@@ -1,4 +1,5 @@
 import { shuffleInPlace } from './utils.js';
+import { loadJSON, remove, saveJSON } from './storage.js';
 
 const MODE_ALL = 'all';
 const MODE_LOCKED = 'locked';
@@ -16,38 +17,16 @@ const DEFAULT_TEXTS = {
     'Dati ielādēti no iebūvētās kopijas. Atver lapu caur serveri, lai redzētu jaunāko sarakstu.',
 };
 
-const safeLocalStorage = (() => {
-  try {
-    const probe = '__matching_storage_probe__';
-    window.localStorage.setItem(probe, '1');
-    window.localStorage.removeItem(probe);
-    return window.localStorage;
-  } catch {
-    return null;
-  }
-})();
-
 function readState(key, fallback) {
-  if (!safeLocalStorage) return fallback;
-  try {
-    const raw = safeLocalStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
+  return loadJSON(key, fallback);
 }
 
 function writeState(key, value) {
-  if (!safeLocalStorage) return;
-  try {
-    if (value === null || value === undefined) {
-      safeLocalStorage.removeItem(key);
-    } else {
-      safeLocalStorage.setItem(key, JSON.stringify(value));
-    }
-  } catch {
-    // ignore quota / private mode errors
+  if (value === null || value === undefined) {
+    remove(key);
+    return;
   }
+  saveJSON(key, value);
 }
 
 export function initMatchingGame(options) {

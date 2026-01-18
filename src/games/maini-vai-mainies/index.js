@@ -1,6 +1,7 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
+import { loadJSON, saveJSON } from '../../lib/storage.js';
 
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
 const STORAGE_KEY = 'llb1:maini-vai-mainies:progress';
@@ -47,9 +48,7 @@ function normalizeAnswer(value) {
 
 function readProgress() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
+    const parsed = loadJSON(STORAGE_KEY, null);
     if (!parsed || typeof parsed !== 'object') return null;
     const xp = Number(parsed.xp);
     const streak = Number(parsed.streak);
@@ -71,7 +70,7 @@ function persistProgress() {
       streak: state.streak,
       lastPlayedISO: new Date().toISOString(),
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    saveJSON(STORAGE_KEY, payload);
   } catch (err) {
     console.warn('Unable to persist progress', err);
   }

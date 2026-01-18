@@ -175,6 +175,12 @@ npm test
 npm run test:watch
 ```
 
+### Optional: GitHub CLI (local)
+If you use the bundled GitHub CLI for PRs:
+```bash
+./.tools/gh auth login
+```
+
 ### Building Data
 
 ```bash

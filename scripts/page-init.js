@@ -83,8 +83,54 @@ if (yearEl) {
 })();
 
 // Register the service worker after the window has fully loaded
+function showUpdatePrompt(registration) {
+  if (!registration?.waiting) return;
+  if (document.getElementById('llb1-sw-update')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'llb1-sw-update';
+  banner.className = 'llb1-sw-update';
+
+  const text = document.createElement('span');
+  text.textContent = 'Update available — Reload';
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.textContent = 'Reload';
+  button.addEventListener('click', () => {
+    registration.waiting?.postMessage({ type: 'SKIP_WAITING' });
+  });
+
+  banner.append(text, button);
+  document.body.appendChild(banner);
+}
+
 window.addEventListener('load', () => {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  }
+  if (!('serviceWorker' in navigator)) return;
+
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+
+  navigator.serviceWorker
+    .register('sw.js')
+    .then((registration) => {
+      if (registration.waiting) {
+        showUpdatePrompt(registration);
+      }
+
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (!newWorker) return;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            showUpdatePrompt(registration);
+          }
+        });
+      });
+    })
+    .catch(() => {});
 });

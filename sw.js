@@ -1,67 +1,37 @@
-const CACHE_VERSION = 'v9';
-const CACHE_NAME = `ll-b1-${CACHE_VERSION}`;
+const CACHE_VERSION = 'v10';
+const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [
   './',
   './index.html',
-  './travel-tracker.html',
-  './darbibas-vards.html',
-  './conjugation-sprint.html',
-  './endings-builder.html',
-  './passive-lab.html',
-  './decl6-detective.html',
-  './assets/styles.css',
-  './assets/app.js',
+  './styles.css',
+  './theme.js',
+  './scripts/page-init.js',
   './app.js',
+  './manifest.json',
+  './favicon.ico',
+  './src/lib/constants.js',
+  './src/lib/dom.js',
+  './src/lib/errors.js',
+  './src/lib/paths.js',
+  './src/lib/safeHtml.js',
   './src/lib/state.js',
+  './src/lib/storage.js',
+  './src/lib/utils.js',
   './src/lib/render.js',
   './src/lib/match.js',
   './src/lib/forge.js',
-  './assets/img/travel-tracker/latvia.svg',
-  './assets/img/travel-tracker/bus.svg',
-  './assets/img/passive-lab/lab.svg',
-  './assets/img/passive-lab/glyph-ok.svg',
-  './assets/img/passive-lab/glyph-error.svg',
+  './conjugation-sprint.html',
+  './src/games/conjugation-sprint/index.js',
   './data/words.json',
   './data/words.offline.js',
-  './data/week1.offline.js',
-  './data/travel-tracker/routes.json',
-  './data/passive-lab/items.json',
-  './manifest.json',
-  './src/games/endings-builder/index.js',
-  './src/games/endings-builder/game-shell.js',
-  './src/games/endings-builder/dnd.js',
-  './src/games/endings-builder/endings-resolver.js',
-  './src/games/endings-builder/norm.js',
-  './src/games/endings-builder/styles.css',
-  './data/endings-builder/tables.json',
-  './data/endings-builder/items.json',
-  './data/endings-builder/offline.js',
-  './src/games/conjugation-sprint/index.js',
-  './src/games/passive-lab/index.js',
-  './src/games/travel-tracker/index.js',
-  './src/games/travel-tracker/utils.js',
-  './src/games/travel-tracker/styles.css',
-  './src/games/passive-lab/styles.css',
-  './src/games/decl6-detective/index.js',
-  './src/games/decl6-detective/styles.css',
-  './i18n/en.json',
   './i18n/lv.json',
+  './i18n/en.json',
   './i18n/ru.json',
-  './i18n/offline.js',
-  './i18n/travel-tracker.en.json',
-  './i18n/travel-tracker.lv.json',
-  './i18n/passive-lab.en.json',
-  './i18n/passive-lab.lv.json',
-  './i18n/decl6-detective.en.json',
-  './i18n/decl6-detective.lv.json',
-  './data/decl6-detective/items.json',
-  './assets/img/decl6-detective/plan.svg',
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS)));
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
@@ -69,40 +39,82 @@ self.addEventListener('activate', event => {
     caches
       .keys()
       .then(keys =>
-        Promise.all(keys.filter(key => key.startsWith('ll-b1-') && key !== CACHE_NAME).map(key => caches.delete(key))),
+        Promise.all(
+          keys
+            .filter(key => key.startsWith('llb1-cache-') && key !== CACHE_NAME)
+            .map(key => caches.delete(key)),
+        ),
       ),
   );
   self.clients.claim();
 });
 
+self.addEventListener('message', event => {
+  if (event?.data?.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('fetch', event => {
   const { request } = event;
+  const url = new URL(request.url);
 
-  if (request.url.endsWith('/data/words.json')) {
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
         .then(response => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          }
           return response;
         })
-        .catch(() => caches.match(request)),
+        .catch(() =>
+          caches.match(request).then(cached => cached || caches.match('./index.html')),
+        ),
     );
     return;
   }
 
-  event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).catch(() => {
-        if (request.destination === 'document') {
-          return new Response(
-            `<!doctype html><html lang="lv"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><body style="font-family: system-ui, sans-serif; padding:1rem"><h1>Bezsaistes režīms</h1><p>Saturs nav pieejams bezsaistē. Atgriezies tiešsaistē un mēģini vēlreiz.</p></body></html>`,
-            { headers: { 'Content-Type': 'text/html; charset=utf-8' } },
-          );
-        }
-        return undefined;
-      });
-    }),
-  );
+  if (url.origin === self.location.origin && url.pathname.endsWith('.json')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(cache =>
+        cache.match(request).then(cached => {
+          const fetchPromise = fetch(request)
+            .then(response => {
+              if (response.ok) {
+                cache.put(request, response.clone());
+              }
+              return response;
+            })
+            .catch(() => cached);
+          if (cached) {
+            event.waitUntil(fetchPromise.catch(() => {}));
+            return cached;
+          }
+          return fetchPromise;
+        }),
+      ),
+    );
+    return;
+  }
+
+  if (url.origin === self.location.origin && ['script', 'style', 'image', 'font'].includes(request.destination)) {
+    event.respondWith(
+      caches.match(request).then(cached => {
+        if (cached) return cached;
+        return fetch(request).then(response => {
+          if (response.ok) {
+            caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
+          }
+          return response;
+        });
+      }),
+    );
+    return;
+  }
 });

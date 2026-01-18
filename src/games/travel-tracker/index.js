@@ -1,6 +1,7 @@
 import { createSeededRng, seededShuffle } from './utils.js';
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
+import { loadJSON, remove, saveJSON } from '../../lib/storage.js';
 
 const STORAGE_KEY = 'llb1:travel-tracker:progress';
 const SESSION_SEED_KEY = 'llb1:travel-tracker:seed';
@@ -452,7 +453,7 @@ function saveProgress(overrides = {}) {
     ...overrides,
   };
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    saveJSON(STORAGE_KEY, payload);
   } catch (err) {
     console.warn('Failed to persist travel tracker progress', err);
   }
@@ -460,7 +461,7 @@ function saveProgress(overrides = {}) {
 
 function clearProgress() {
   try {
-    localStorage.removeItem(STORAGE_KEY);
+    remove(STORAGE_KEY);
   } catch (err) {
     console.warn('Failed to clear travel tracker progress', err);
   }
@@ -468,10 +469,8 @@ function clearProgress() {
 
 function loadProgress() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-    const data = JSON.parse(raw);
-    if (typeof data !== 'object' || data === null) return;
+    const data = loadJSON(STORAGE_KEY, null);
+    if (!data || typeof data !== 'object') return;
     if (Number.isFinite(data.seed) && data.seed !== state.seed) {
       return;
     }

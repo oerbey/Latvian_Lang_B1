@@ -1,6 +1,7 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { pickRandom, shuffle } from '../../lib/utils.js';
+import { loadJSON, saveJSON } from '../../lib/storage.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:passive-lab:progress';
@@ -78,9 +79,10 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
 
   function readProgress() {
     try {
-      const serialized = localStorage.getItem(STORAGE_KEY);
-      if (!serialized) return { xp: 0, streak: 0, lastPlayedISO: null };
-      const parsed = JSON.parse(serialized);
+      const parsed = loadJSON(STORAGE_KEY, null);
+      if (!parsed || typeof parsed !== 'object') {
+        return { xp: 0, streak: 0, lastPlayedISO: null };
+      }
       return {
         xp: Number.isFinite(parsed?.xp) ? parsed.xp : 0,
         streak: Number.isFinite(parsed?.streak) ? parsed.streak : 0,
@@ -99,7 +101,7 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
         streak,
         lastPlayedISO: progress.lastPlayedISO ?? null,
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      saveJSON(STORAGE_KEY, progress);
     } catch (err) {
       console.warn('Unable to persist passive lab progress', err);
     }

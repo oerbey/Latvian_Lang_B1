@@ -1,6 +1,7 @@
 import { loadPersonalityWords } from '../../lib/personality-data.js';
 import { mustId } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';
+import { loadJSON, saveJSON } from '../../lib/storage.js';
 
 const QUESTIONS_PER_ROUND = 10;
 const AUTO_ADVANCE_MS = 1400;
@@ -380,7 +381,7 @@ function scheduleAutoAdvance() {
 function saveLastResult(result) {
   state.lastResult = result;
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+    saveJSON(STORAGE_KEY, result);
   } catch (err) {
     console.warn('Cannot store result', err);
   }
@@ -389,9 +390,8 @@ function saveLastResult(result) {
 
 function loadLastResult() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw);
+    const parsed = loadJSON(STORAGE_KEY, null);
+    return parsed && typeof parsed === 'object' ? parsed : null;
   } catch (err) {
     return null;
   }

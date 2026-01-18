@@ -1,3 +1,7 @@
+import { installGlobalErrorHandlers } from '../src/lib/errors.js';
+
+installGlobalErrorHandlers();
+
 const yearEl = document.getElementById('year');
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();

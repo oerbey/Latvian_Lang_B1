@@ -4,6 +4,9 @@ import { startMatchRound, drawMatch } from './src/lib/match.js';
 import { startForgeRound, drawForge } from './src/lib/forge.js';
 import { $id, mustId, on } from './src/lib/dom.js';
 import { assetUrl } from './src/lib/paths.js';
+import { installGlobalErrorHandlers, showFatalError } from './src/lib/errors.js';
+
+installGlobalErrorHandlers();
 
 let i18n = {};
 let currentLang = 'lv';
@@ -240,16 +243,6 @@ const canvasElement = canvas;
 if (loadingOverlay) loadingOverlay.classList.add('visible');
 canvasElement.classList.add('loading');
 
-function showFatalError(message) {
-  if (loadingOverlay) {
-    loadingOverlay.textContent = message;
-    loadingOverlay.classList.add('visible');
-  } else {
-    document.body.textContent = message;
-  }
-  canvasElement.classList.remove('loading');
-}
-
 function initializeGame(){
   updateCanvasScale();
   startMatchRound();
@@ -308,7 +301,7 @@ async function startInit(){
     setupEventListeners();
   } catch (e) {
     console.error('Failed to initialize UI', e);
-    showFatalError('Something went wrong loading the page. Please refresh.');
+    showFatalError(new Error('Something went wrong loading the page. Please refresh.'));
     return;
   }
   try {
@@ -316,7 +309,7 @@ async function startInit(){
     await loadVocabulary('lv',target);
   } catch(e){
     console.error('Failed to load vocabulary', e);
-    showFatalError(i18n.labels?.loadError || 'Failed to load data');
+    showFatalError(new Error(i18n.labels?.loadError || 'Failed to load data'));
     return;
   }
   const startGame = () => {
@@ -324,7 +317,7 @@ async function startInit(){
       initializeGame();
     } catch (err) {
       console.error('Initialization error', err);
-      showFatalError(i18n.labels?.loadError || 'Failed to load data');
+      showFatalError(new Error(i18n.labels?.loadError || 'Failed to load data'));
     }
   };
 

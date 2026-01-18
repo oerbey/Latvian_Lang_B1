@@ -1,4 +1,5 @@
 import { assetUrl } from '../../lib/paths.js';
+import { pickRandom, shuffle } from '../../lib/utils.js';
 
 (() => {
   const PRONS = ["es", "tu", "viņš/viņa", "mēs", "jūs", "viņi/viņas"];
@@ -76,8 +77,6 @@ import { assetUrl } from '../../lib/paths.js';
   }
 
   function id(x) { return document.getElementById(x); }
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-  function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
 
   let current = null;
   function next() {
@@ -88,9 +87,9 @@ import { assetUrl } from '../../lib/paths.js';
     }
     if (round > maxRounds) { finish(); return; }
 
-    const v = pick(bank);
-    const tense = tenseMode === "random" ? pick(TENSES) : tenseMode;
-    const pron = pick(PRONS);
+    const v = pickRandom(bank);
+    const tense = tenseMode === "random" ? pickRandom(TENSES) : tenseMode;
+    const pron = pickRandom(PRONS);
     const slot = IDX[pron];
     const correct = v.conj[tense][slot];
 
@@ -98,10 +97,8 @@ import { assetUrl } from '../../lib/paths.js';
     const forms = Array.from(new Set(
       Object.values(IDX).map(k => v.conj[tense][k])
     ));
-    const distractors = forms.filter(f => f !== correct);
-    shuffle(distractors);
-    let options = [correct, ...distractors.slice(0, 3)];
-    shuffle(options);
+    const distractors = shuffle(forms.filter(f => f !== correct));
+    let options = shuffle([correct, ...distractors.slice(0, 3)]);
 
     current = { v, tense, pron, slot, correct };
     if(qEl) {

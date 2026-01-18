@@ -1,5 +1,6 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
+import { pickRandom, shuffle } from '../../lib/utils.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:passive-lab:progress';
@@ -191,20 +192,6 @@ import { assetUrl } from '../../lib/paths.js';
 
   function patientKey(patient) {
     return `${patient.form}|${patient.gender}.${patient.number}`;
-  }
-
-  function shuffle(array) {
-    const copy = array.slice();
-    for (let i = copy.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
-  }
-
-  function pickRandom(array) {
-    if (!array.length) return null;
-    return array[Math.floor(Math.random() * array.length)];
   }
 
   function createPatientChoices() {

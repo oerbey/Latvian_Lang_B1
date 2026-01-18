@@ -273,10 +273,6 @@ function normalizeAnswer(str) {
   return str.trim().toLocaleLowerCase('lv-LV');
 }
 
-function shuffle(list, rng = Math.random) {
-  return seededShuffle(list, rng);
-}
-
 function moveBusTo(point) {
   if (!point) return;
   const { x, y } = point;
@@ -392,7 +388,7 @@ function updateChoices(route) {
   if (!route) return;
   const options = new Set([...(route.answers ?? []), ...(route.distractors ?? [])]);
   if (options.size === 0) return;
-  const optionList = shuffle([...options]);
+  const optionList = seededShuffle([...options]);
   optionList.forEach((option, idx) => {
     const btn = document.createElement('button');
     btn.type = 'button';

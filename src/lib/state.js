@@ -1,8 +1,10 @@
 import { mustId } from './dom.js';
+import { MULBERRY32_CONSTANT } from './constants.js';
+import { pickRandom, shuffleInPlace } from './utils.js';
 
 export function mulberry32(a){
   return function(){
-    a|=0; a = a + 0x6D2B79F5 | 0;
+    a|=0; a = a + MULBERRY32_CONSTANT | 0;
     let t = Math.imul(a ^ a>>>15, 1 | a);
     t = t + Math.imul(t ^ t>>>7, 61 | t) ^ t;
     return ((t ^ t>>>14) >>> 0) / 4294967296;
@@ -22,8 +24,8 @@ export const state = {
   DATA: null,
   targetLang: 'en'
 };
-export function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=(state.rng()*(i+1))|0; [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
-export function choice(arr){ return arr[(state.rng()*arr.length)|0]; }
+export function shuffle(arr){ return shuffleInPlace(arr, state.rng); }
+export function choice(arr){ return pickRandom(arr, state.rng); }
 export function now(){ return performance.now(); }
 export let HELP_TEXT = '';
 export function setHelpText(t){ HELP_TEXT = t; }

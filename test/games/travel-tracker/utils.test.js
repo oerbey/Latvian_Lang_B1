@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { createSeededRng, seededShuffle } from '../../../src/games/travel-tracker/utils.js';
+import { createSeededRng, seededShuffle, stringToSeed } from '../../../src/games/travel-tracker/utils.js';
 
 test('seededShuffle produces deterministic order for the same seed', () => {
   const seed = 0xdeadbeef;
@@ -30,4 +30,26 @@ test('createSeededRng values stay within [0, 1)', () => {
     const value = rng();
     assert.ok(value >= 0 && value < 1, `rng value ${value} should be within [0, 1)`);
   }
+});
+
+test('stringToSeed returns stable hashes', () => {
+  assert.equal(stringToSeed('riga'), 4048136408);
+});
+
+test('createSeededRng produces deterministic values', () => {
+  const rng = createSeededRng('riga');
+  const values = [rng(), rng(), rng()];
+  const expected = [0.5110218906775117, 0.2162245069630444, 0.009080308489501476];
+
+  values.forEach((value, index) => {
+    assert.ok(Math.abs(value - expected[index]) < 1e-12);
+  });
+});
+
+test('seededShuffle preserves items with a stable order', () => {
+  const input = ['a', 'b', 'c', 'd'];
+  const output = seededShuffle(input, createSeededRng('riga'));
+
+  assert.deepEqual(output, ['b', 'd', 'a', 'c']);
+  assert.deepEqual(input, ['a', 'b', 'c', 'd']);
 });

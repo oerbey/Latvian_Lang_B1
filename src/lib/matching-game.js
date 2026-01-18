@@ -82,9 +82,18 @@ export function initMatchingGame(options) {
     els.score.textContent = `Pareizi: ${state.score.right} | Nepareizi: ${state.score.wrong}`;
   }
 
-  function cardHTML(text, key, list) {
-    const id = `${list}-${key}`;
-    return `<div class="word-card" role="option" tabindex="0" id="${id}" data-key="${key}" data-list="${list}" aria-pressed="false" aria-disabled="false">${text}</div>`;
+  function createCard(text, key, list) {
+    const card = document.createElement('div');
+    card.className = 'word-card';
+    card.role = 'option';
+    card.tabIndex = 0;
+    card.id = `${list}-${key}`;
+    card.dataset.key = String(key);
+    card.dataset.list = list;
+    card.setAttribute('aria-pressed', 'false');
+    card.setAttribute('aria-disabled', 'false');
+    card.textContent = text;
+    return card;
   }
 
   function getTranslation(item) {
@@ -97,19 +106,18 @@ export function initMatchingGame(options) {
   }
 
   function renderRound(items) {
-    els.lvList.innerHTML = '';
-    els.trList.innerHTML = '';
+    els.lvList.replaceChildren();
+    els.trList.replaceChildren();
 
     const lv = items.map((it, idx) => ({ key: idx, text: it.lv }));
     const tr = items.map((it, idx) => ({ key: idx, text: getTranslation(it) }));
 
-    const lvHTML = lv.map((o) => cardHTML(o.text, o.key, 'lv')).join('');
-    const trHTML = shuffleInPlace(tr.slice())
-      .map((o) => cardHTML(o.text, o.key, 'tr'))
-      .join('');
-
-    els.lvList.innerHTML = lvHTML;
-    els.trList.innerHTML = trHTML;
+    lv.forEach((o) => {
+      els.lvList.appendChild(createCard(o.text, o.key, 'lv'));
+    });
+    shuffleInPlace(tr.slice()).forEach((o) => {
+      els.trList.appendChild(createCard(o.text, o.key, 'tr'));
+    });
 
     const first = els.lvList.querySelector('.word-card');
     if (first) first.focus();

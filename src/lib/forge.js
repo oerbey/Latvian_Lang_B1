@@ -33,7 +33,7 @@ export function drawForge(){
   const sr = $id('sr-game-state');
   const srList = sr ? document.createElement('ul') : null;
   if (sr) {
-    sr.innerHTML = '';
+    sr.replaceChildren();
     const srHeader = document.createElement('p');
     srHeader.textContent = `${state.targetLang.toUpperCase()}: ${fs.clue}. Root: ${fs.base}`;
     sr.appendChild(srHeader);

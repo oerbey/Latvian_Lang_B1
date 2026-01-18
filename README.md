@@ -320,6 +320,12 @@ CI runs `npm test` on every PR and push to `main`.
 ### Screen Reader Support
 - Canvas game mirrors interactions into screen-reader-only `<ul>` with `<button>` elements
 - `aria-live` regions for game status updates
+
+## 🔐 Security
+
+- External CDN assets include Subresource Integrity (SRI) hashes.
+- Content Security Policy is enforced via a meta tag in HTML.
+- Prefer safe DOM APIs over `innerHTML` for user-facing content.
 - ARIA labels on all interactive controls
 
 ### Keyboard Navigation

@@ -5,6 +5,7 @@ import { startForgeRound, drawForge } from './src/lib/forge.js';
 import { $id, mustId, on } from './src/lib/dom.js';
 import { assetUrl } from './src/lib/paths.js';
 import { installGlobalErrorHandlers, showFatalError } from './src/lib/errors.js';
+import { setTrustedHTML } from './src/lib/safeHtml.js';
 
 installGlobalErrorHandlers();
 
@@ -80,7 +81,7 @@ function applyTranslations(){
   btnHelp.setAttribute('aria-label', i18n.buttons.helpAria);
   const loadingEl = mustId('loading');
   loadingEl.textContent = i18n.labels.loading;
-  mustId('legend').innerHTML = i18n.labels.legend;
+  setTrustedHTML(mustId('legend'), i18n.labels.legend);
   const langSel = mustId('language-select');
   langSel.value = currentLang;
   langSel.setAttribute('aria-label', i18n.labels.languageSelect);

@@ -2,6 +2,7 @@ import { createSeededRng, seededShuffle } from './utils.js';
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { loadJSON, remove, saveJSON } from '../../lib/storage.js';
+import { setTrustedHTML } from '../../lib/safeHtml.js';
 
 const STORAGE_KEY = 'llb1:travel-tracker:progress';
 const SESSION_SEED_KEY = 'llb1:travel-tracker:seed';
@@ -148,7 +149,12 @@ function updateProgressIndicator() {
     return;
   }
   const label = strings.progressLabel ?? 'Question';
-  selectors.progress.innerHTML = `${label} <strong>${current}/${total}</strong>`;
+  selectors.progress.replaceChildren();
+  const labelNode = document.createElement('span');
+  labelNode.textContent = `${label} `;
+  const strong = document.createElement('strong');
+  strong.textContent = `${current}/${total}`;
+  selectors.progress.append(labelNode, strong);
   const ofSegment = strings.progressOf ? `${strings.progressOf} ${total}` : `${total}`;
   selectors.progress.setAttribute('aria-label', `${label} ${current} ${ofSegment}`.trim());
 }
@@ -209,7 +215,7 @@ async function loadStrings(lang) {
 
 async function loadMap() {
   const markup = await loadText(MAP_PATH);
-  selectors.mapInner.innerHTML = markup;
+  setTrustedHTML(selectors.mapInner, markup);
   const svg = selectors.mapInner.querySelector('svg');
   if (!svg) {
     throw new Error('Latvia SVG missing');
@@ -236,7 +242,7 @@ async function loadMap() {
   overlaySvg.setAttribute('viewBox', `0 0 ${viewBox.width} ${viewBox.height}`);
   overlaySvg.setAttribute('aria-hidden', 'true');
   overlaySvg.setAttribute('focusable', 'false');
-  selectors.routeLayer.innerHTML = '';
+  selectors.routeLayer.replaceChildren();
   selectors.routeLayer.appendChild(overlaySvg);
   selectors.bus.classList.add('travel-map__bus--hidden');
 }
@@ -310,7 +316,7 @@ function animateBus(from, to, onComplete) {
 
 function drawRouteLine(from, to, { completed } = { completed: false }) {
   if (!overlaySvg) return;
-  overlaySvg.innerHTML = '';
+  overlaySvg.replaceChildren();
   if (!from || !to) return;
   const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
   line.setAttribute('x1', from.x);
@@ -335,7 +341,12 @@ function updateScoreboard() {
   const level = state.levels[state.levelIndex];
   if (levelBadge) {
     if (level) {
-      levelBadge.innerHTML = `${strings.level} <strong>${state.levelIndex + 1}/${state.levels.length}</strong>`;
+      levelBadge.replaceChildren();
+      const levelLabel = document.createElement('span');
+      levelLabel.textContent = `${strings.level} `;
+      const levelStrong = document.createElement('strong');
+      levelStrong.textContent = `${state.levelIndex + 1}/${state.levels.length}`;
+      levelBadge.append(levelLabel, levelStrong);
     } else {
       levelBadge.textContent = `${strings.level ?? 'Level'} —`;
     }
@@ -385,7 +396,7 @@ function syncChoiceSelection(value = '') {
 }
 
 function updateChoices(route) {
-  selectors.choices.innerHTML = '';
+  selectors.choices.replaceChildren();
   if (!route) return;
   const options = new Set([...(route.answers ?? []), ...(route.distractors ?? [])]);
   if (options.size === 0) return;

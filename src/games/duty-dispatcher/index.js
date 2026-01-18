@@ -410,7 +410,7 @@ function applyStrings(strings) {
 
 function renderRoles(roles) {
   if (!selectors.rolesGrid) return;
-  selectors.rolesGrid.innerHTML = '';
+  selectors.rolesGrid.replaceChildren();
   roles.forEach(role => {
     const button = document.createElement('button');
     button.type = 'button';

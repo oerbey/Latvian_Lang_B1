@@ -166,7 +166,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
 
   function populateTenseOptions() {
     if (!nodes.tenseSelect) return;
-    nodes.tenseSelect.innerHTML = '';
+    nodes.tenseSelect.replaceChildren();
     TENSES.forEach(tense => {
       const opt = document.createElement('option');
       opt.value = tense;
@@ -214,7 +214,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
 
   function renderPatientChoices() {
     if (!nodes.patientContainer) return;
-    nodes.patientContainer.innerHTML = '';
+    nodes.patientContainer.replaceChildren();
     builderChoices.forEach(choice => {
       const button = document.createElement('button');
       button.type = 'button';

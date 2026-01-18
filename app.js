@@ -3,15 +3,7 @@ import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HEL
 import { startMatchRound, drawMatch } from './src/lib/match.js';
 import { startForgeRound, drawForge } from './src/lib/forge.js';
 import { $id, mustId, on } from './src/lib/dom.js';
-
-/* -----------------------------------------------------------
-   Subpath-safe asset resolution for GitHub Pages / any subdir
-   Example: assetUrl('data/lv-en/units.json')
-            → <origin>/<repo>/data/lv-en/units.json
------------------------------------------------------------ */
-function assetUrl(path) {
-  return new URL(path, document.baseURI).href;
-}
+import { assetUrl } from './src/lib/paths.js';
 
 let i18n = {};
 let currentLang = 'lv';
@@ -25,10 +17,12 @@ async function loadTranslations(lang){
   let resolvedLang = lang;
   let data = null;
   try {
-    const res = await fetch(assetUrl(`i18n/${lang}.json`));
-    if(res.ok){
-      data = await res.json();
+    const url = assetUrl(`i18n/${lang}.json`);
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`Failed to load ${url}: ${res.status}`);
     }
+    data = await res.json();
   } catch (err) {
     console.warn('Failed to fetch translations', lang, err);
   }
@@ -267,18 +261,23 @@ async function loadVocabulary(from='lv', to='en'){
   usingOfflineVocabulary = false;
   const base = `data/${from}-${to}/`;
   try {
-    const idxRes = await fetch(assetUrl(base + 'units.json'));
-    if(!idxRes.ok) throw new Error('Units index not found');
+    const indexUrl = assetUrl(base + 'units.json');
+    const idxRes = await fetch(indexUrl);
+    if (!idxRes.ok) throw new Error(`Failed to load ${indexUrl}: ${idxRes.status}`);
     const idx = await idxRes.json();
 
     const unitPromises = idx.units.map(async u => {
-      const res = await fetch(assetUrl(base + u.file));
-      return res.ok ? await res.json() : null;
+      const unitUrl = assetUrl(base + u.file);
+      const res = await fetch(unitUrl);
+      if (!res.ok) throw new Error(`Failed to load ${unitUrl}: ${res.status}`);
+      return res.json();
     });
-    const units = (await Promise.all(unitPromises)).filter(Boolean);
+    const units = await Promise.all(unitPromises);
 
-    const forgeRes = await fetch(assetUrl(base + 'forge.json'));
-    const forgeData = forgeRes.ok ? await forgeRes.json() : {entries:[], notes:{}};
+    const forgeUrl = assetUrl(base + 'forge.json');
+    const forgeRes = await fetch(forgeUrl);
+    if (!forgeRes.ok) throw new Error(`Failed to load ${forgeUrl}: ${forgeRes.status}`);
+    const forgeData = await forgeRes.json();
     state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
     state.targetLang = to;
     return;

@@ -1,4 +1,5 @@
 import { mustId } from '../../lib/dom.js';
+import { assetUrl } from '../../lib/paths.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:passive-lab:progress';
@@ -62,10 +63,6 @@ import { mustId } from '../../lib/dom.js';
   let streak = 0;
   let progress = { xp: 0, streak: 0, lastPlayedISO: null };
   let builderSelectedKey = '';
-
-  function assetUrl(path) {
-    return new URL(path, document.baseURI).href;
-  }
 
   function getTranslation(key, fallback = '') {
     if (!key) return fallback;
@@ -146,8 +143,11 @@ import { mustId } from '../../lib/dom.js';
     const candidates = [lang.slice(0, 2), 'lv', 'en'];
     for (const code of candidates) {
       try {
-        const response = await fetch(assetUrl(`i18n/passive-lab.${code}.json`), { cache: 'no-store' });
-        if (!response.ok) continue;
+        const url = assetUrl(`i18n/passive-lab.${code}.json`);
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Failed to load ${url}: ${response.status}`);
+        }
         const payload = await response.json();
         i18n = payload;
         currentLang = code;
@@ -458,9 +458,10 @@ import { mustId } from '../../lib/dom.js';
 
   async function loadData() {
     try {
-      const response = await fetch(assetUrl('data/passive-lab/items.json'), { cache: 'no-store' });
+      const url = assetUrl('data/passive-lab/items.json');
+      const response = await fetch(url, { cache: 'no-store' });
       if (!response.ok) {
-        throw new Error(`Failed to load items: ${response.status}`);
+        throw new Error(`Failed to load ${url}: ${response.status}`);
       }
       const payload = await response.json();
       items = Array.isArray(payload) ? payload : [];

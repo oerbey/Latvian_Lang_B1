@@ -1,4 +1,5 @@
 import { mustId } from '../../lib/dom.js';
+import { assetUrl } from '../../lib/paths.js';
 
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
 const STORAGE_KEY = 'llb1:maini-vai-mainies:progress';
@@ -41,10 +42,6 @@ const state = {
 
 function normalizeAnswer(value) {
   return (value ?? '').trim().toLowerCase();
-}
-
-function asset(path) {
-  return new URL(path, document.baseURI).href;
 }
 
 function shuffle(list) {
@@ -107,7 +104,7 @@ function dispatchAnalytics(event, meta = {}) {
 function setAvatar(mode) {
   const key = AVATARS[mode] ? mode : 'neutral';
   if (selectors.avatar) {
-    selectors.avatar.src = asset(AVATARS[key]);
+    selectors.avatar.src = assetUrl(AVATARS[key]);
   }
 }
 
@@ -310,8 +307,9 @@ function applyStrings(strings) {
 }
 
 async function loadJSON(path) {
-  const res = await fetch(path, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const url = assetUrl(path);
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
   return res.json();
 }
 

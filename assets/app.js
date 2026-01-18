@@ -1,4 +1,5 @@
 import { initMatchingGame, MATCHING_CONSTANTS } from '../src/lib/matching-game.js';
+import { assetUrl } from '../src/lib/paths.js';
 
 const els = {
   lvList: document.getElementById('list-lv'),
@@ -27,8 +28,9 @@ function makeWordsLoader() {
     let usingFallback = false;
     let items = [];
     try {
-      const res = await fetch('data/words.json', { cache: 'force-cache' });
-      if (!res.ok) throw new Error('Neizdevās ielādēt datus.');
+      const url = assetUrl('data/words.json');
+      const res = await fetch(url, { cache: 'force-cache' });
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
       items = await res.json();
     } catch (err) {
       if (Array.isArray(window.__LATVIAN_WORDS__)) {

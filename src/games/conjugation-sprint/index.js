@@ -1,3 +1,5 @@
+import { assetUrl } from '../../lib/paths.js';
+
 (() => {
   const PRONS = ["es", "tu", "viņš/viņa", "mēs", "jūs", "viņi/viņas"];
   const IDX = { "es": "1s", "tu": "2s", "viņš/viņa": "3s", "mēs": "1p", "jūs": "2p", "viņi/viņas": "3p" };
@@ -35,9 +37,10 @@
 
   (async () => {
     try {
-      const res = await fetch("data/words.json");
+      const url = assetUrl("data/words.json");
+      const res = await fetch(url);
       if (!res.ok) {
-        throw new Error(`Unexpected status ${res.status}`);
+        throw new Error(`Failed to load ${url}: ${res.status}`);
       }
       const data = await res.json();
       bank = data.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);

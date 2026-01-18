@@ -2,6 +2,7 @@ import { mountGameShell } from './game-shell.js';
 import { mountDnD } from './dnd.js';
 import { getEnding, getTable } from './endings-resolver.js';
 import { norm, equalsLoose } from './norm.js';
+import { assetUrl } from '../../lib/paths.js';
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -113,10 +114,12 @@ async function loadStrings() {
     let data = null;
     if (!isFile) {
       try {
-        const res = await fetch(`i18n/${lang}.json`);
-        if (res.ok) {
-          data = await res.json();
+        const url = assetUrl(`i18n/${lang}.json`);
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`Failed to load ${url}: ${res.status}`);
         }
+        data = await res.json();
       } catch (err) {
         console.warn('Failed loading i18n', lang, err);
       }

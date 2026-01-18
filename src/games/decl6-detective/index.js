@@ -35,35 +35,47 @@
     pludmale: { label: 'Pludmale', emoji: '🏖️', color: '#f97316' },
   };
 
+  const $id = (id) => document.getElementById(id);
+  const mustId = (id) => {
+    const el = $id(id);
+    if (!el) throw new Error(`Missing required element: #${id}`);
+    return el;
+  };
+  const on = (el, event, handler, options) => {
+    if (!el) return false;
+    el.addEventListener(event, handler, options);
+    return true;
+  };
+
   const nodes = {
-    mcqCard: document.getElementById('decl6-mcq-card'),
-    mcqPrompt: document.getElementById('decl6-mcq-prompt'),
-    mcqCase: document.getElementById('decl6-mcq-case'),
-    mcqHint: document.getElementById('decl6-mcq-hint'),
-    mcqOptions: document.getElementById('decl6-mcq-options'),
-    mcqExplain: document.getElementById('decl6-mcq-explain'),
-    mcqNext: document.getElementById('decl6-mcq-next'),
-    mcqProgress: document.getElementById('decl6-mcq-progress'),
-    mcqSceneEmoji: document.getElementById('decl6-mcq-scene-emoji'),
-    mcqSceneName: document.getElementById('decl6-mcq-scene-name'),
-    typeCard: document.getElementById('decl6-builder-card'),
-    typePrompt: document.getElementById('decl6-type-prompt'),
-    typeCase: document.getElementById('decl6-type-case'),
-    typeHint: document.getElementById('decl6-type-hint'),
-    typeInput: document.getElementById('decl6-type-input'),
-    typeCheck: document.getElementById('decl6-type-check'),
-    typeExplain: document.getElementById('decl6-type-explain'),
-    typeNext: document.getElementById('decl6-type-next'),
-    typeProgress: document.getElementById('decl6-type-progress'),
-    typeSceneEmoji: document.getElementById('decl6-type-scene-emoji'),
-    typeSceneName: document.getElementById('decl6-type-scene-name'),
-    planImage: document.getElementById('decl6-plan'),
-    liveRegion: document.getElementById('decl6-live-region'),
-    scoreValue: document.getElementById('decl6-score'),
-    streakValue: document.getElementById('decl6-streak'),
-    lastPlayedValue: document.getElementById('decl6-last'),
-    restart: document.getElementById('decl6-restart'),
-    levelStatus: document.getElementById('decl6-level-status'),
+    mcqCard: mustId('decl6-mcq-card'),
+    mcqPrompt: mustId('decl6-mcq-prompt'),
+    mcqCase: mustId('decl6-mcq-case'),
+    mcqHint: mustId('decl6-mcq-hint'),
+    mcqOptions: mustId('decl6-mcq-options'),
+    mcqExplain: mustId('decl6-mcq-explain'),
+    mcqNext: mustId('decl6-mcq-next'),
+    mcqProgress: mustId('decl6-mcq-progress'),
+    mcqSceneEmoji: mustId('decl6-mcq-scene-emoji'),
+    mcqSceneName: mustId('decl6-mcq-scene-name'),
+    typeCard: mustId('decl6-builder-card'),
+    typePrompt: mustId('decl6-type-prompt'),
+    typeCase: mustId('decl6-type-case'),
+    typeHint: mustId('decl6-type-hint'),
+    typeInput: mustId('decl6-type-input'),
+    typeCheck: mustId('decl6-type-check'),
+    typeExplain: mustId('decl6-type-explain'),
+    typeNext: mustId('decl6-type-next'),
+    typeProgress: mustId('decl6-type-progress'),
+    typeSceneEmoji: mustId('decl6-type-scene-emoji'),
+    typeSceneName: mustId('decl6-type-scene-name'),
+    planImage: mustId('decl6-plan'),
+    liveRegion: mustId('decl6-live-region'),
+    scoreValue: mustId('decl6-score'),
+    streakValue: mustId('decl6-streak'),
+    lastPlayedValue: mustId('decl6-last'),
+    restart: mustId('decl6-restart'),
+    levelStatus: mustId('decl6-level-status'),
   };
 
   let strings = { ...DEFAULT_STRINGS };
@@ -414,46 +426,34 @@
   }
 
   function attachEventListeners() {
-    if (nodes.mcqNext) {
-      nodes.mcqNext.addEventListener('click', handleMcqNext);
-    }
-    if (nodes.typeCheck) {
-      nodes.typeCheck.addEventListener('click', handleTypeCheck);
-    }
-    if (nodes.typeNext) {
-      nodes.typeNext.addEventListener('click', handleTypeNext);
-    }
-    if (nodes.restart) {
-      nodes.restart.addEventListener('click', () => {
-        updateLiveRegion('');
-        startSession();
-      });
-    }
-    if (nodes.typeInput) {
-      nodes.typeInput.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-          handleTypeCheck();
-        }
-      });
-    }
-    if (nodes.mcqOptions) {
-      nodes.mcqOptions.addEventListener('keydown', event => {
-        const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-        if (!keys.includes(event.key)) return;
-        const buttons = Array.from(nodes.mcqOptions.querySelectorAll('button'));
-        if (!buttons.length) return;
+    on(nodes.mcqNext, 'click', handleMcqNext);
+    on(nodes.typeCheck, 'click', handleTypeCheck);
+    on(nodes.typeNext, 'click', handleTypeNext);
+    on(nodes.restart, 'click', () => {
+      updateLiveRegion('');
+      startSession();
+    });
+    on(nodes.typeInput, 'keydown', event => {
+      if (event.key === 'Enter') {
         event.preventDefault();
-        const currentIndex = buttons.indexOf(document.activeElement);
-        if (currentIndex < 0) {
-          buttons[0].focus();
-          return;
-        }
-        const delta = event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1;
-        const nextIndex = (currentIndex + delta + buttons.length) % buttons.length;
-        buttons[nextIndex].focus();
-      });
-    }
+        handleTypeCheck();
+      }
+    });
+    on(nodes.mcqOptions, 'keydown', event => {
+      const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+      if (!keys.includes(event.key)) return;
+      const buttons = Array.from(nodes.mcqOptions.querySelectorAll('button'));
+      if (!buttons.length) return;
+      event.preventDefault();
+      const currentIndex = buttons.indexOf(document.activeElement);
+      if (currentIndex < 0) {
+        buttons[0].focus();
+        return;
+      }
+      const delta = event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1;
+      const nextIndex = (currentIndex + delta + buttons.length) % buttons.length;
+      buttons[nextIndex].focus();
+    });
   }
 
   function startSession() {

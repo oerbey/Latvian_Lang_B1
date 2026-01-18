@@ -1,4 +1,5 @@
 import { loadPersonalityWords } from '../../lib/personality-data.js';
+import { mustId } from '../../lib/dom.js';
 
 const QUESTIONS_PER_ROUND = 10;
 const AUTO_ADVANCE_MS = 1400;
@@ -7,30 +8,30 @@ const MODE_TRANSLATE = 'translate';
 const STORAGE_KEY = 'characterTraits:lastResult';
 
 const els = {
-  year: document.getElementById('year'),
+  year: mustId('year'),
   modeButtons: {
-    [MODE_GROUPS]: document.getElementById('mode-groups'),
-    [MODE_TRANSLATE]: document.getElementById('mode-translate'),
+    [MODE_GROUPS]: mustId('mode-groups'),
+    [MODE_TRANSLATE]: mustId('mode-translate'),
   },
-  modeLabel: document.getElementById('mode-label'),
-  lastResult: document.getElementById('last-result'),
-  groupStats: document.getElementById('group-stats'),
-  liveRegion: document.getElementById('live-region'),
-  questionArea: document.getElementById('question-area'),
-  questionText: document.getElementById('question-text'),
-  questionProgress: document.getElementById('question-progress'),
-  choices: document.getElementById('choices'),
-  feedback: document.getElementById('feedback'),
-  feedbackText: document.getElementById('feedback-text'),
-  translationLine: document.getElementById('translation-line'),
-  summaryArea: document.getElementById('summary-area'),
-  summaryScore: document.getElementById('summary-score'),
-  summaryVerdict: document.getElementById('summary-verdict'),
-  mistakesList: document.getElementById('mistakes-list'),
-  scoreBadge: document.getElementById('score'),
-  counterBadge: document.getElementById('counter'),
-  nextBtn: document.getElementById('next-btn'),
-  restartBtn: document.getElementById('restart-btn'),
+  modeLabel: mustId('mode-label'),
+  lastResult: mustId('last-result'),
+  groupStats: mustId('group-stats'),
+  liveRegion: mustId('live-region'),
+  questionArea: mustId('question-area'),
+  questionText: mustId('question-text'),
+  questionProgress: mustId('question-progress'),
+  choices: mustId('choices'),
+  feedback: mustId('feedback'),
+  feedbackText: mustId('feedback-text'),
+  translationLine: mustId('translation-line'),
+  summaryArea: mustId('summary-area'),
+  summaryScore: mustId('summary-score'),
+  summaryVerdict: mustId('summary-verdict'),
+  mistakesList: mustId('mistakes-list'),
+  scoreBadge: mustId('score'),
+  counterBadge: mustId('counter'),
+  nextBtn: mustId('next-btn'),
+  restartBtn: mustId('restart-btn'),
 };
 
 const state = {

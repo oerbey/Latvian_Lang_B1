@@ -1,5 +1,6 @@
 import { state, MODES, shuffle, choice, now, resetClicks, clickables, setStatus, triggerRedraw } from './state.js';
 import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti, setCanvasHeight } from './render.js';
+import { $id } from './dom.js';
 
 function buildMatchDeck(){
   return state.DATA.units.flatMap(u=>
@@ -60,10 +61,12 @@ export function startMatchRound(){
 export function drawMatch(){
   const ms = state.matchState;
   clear(); resetClicks();
-  const sr = document.getElementById('sr-game-state');
-  sr.innerHTML = '';
-  const srList = document.createElement('ul');
-  sr.appendChild(srList);
+  const sr = $id('sr-game-state');
+  const srList = sr ? document.createElement('ul') : null;
+  if (sr) {
+    sr.innerHTML = '';
+    sr.appendChild(srList);
+  }
   const targetLabel = state.targetLang.toUpperCase();
   drawText(`MATCH RUSH — LV → ${targetLabel}`, 28, 40, {font:'bold 22px system-ui'});
   const elapsed=((now()-ms.start)/1000)|0;
@@ -130,7 +133,10 @@ export function drawMatch(){
       btn.textContent=`${side==='L'?'LV':targetLabel}: ${it.txt}`;
       if(solved) btn.disabled=true;
       btn.addEventListener('click', ()=>handleSelection(side,it));
-      li.appendChild(btn); srList.appendChild(li);
+      li.appendChild(btn);
+      if (srList) {
+        srList.appendChild(li);
+      }
     }
   }
   drawColumn(ms.left, Lx, 'L');

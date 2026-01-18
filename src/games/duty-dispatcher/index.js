@@ -1,22 +1,24 @@
+import { mustId } from '../../lib/dom.js';
+
 const ROLES_PATH = 'data/duty-dispatcher/roles.json';
 const TASKS_PATH = 'data/duty-dispatcher/tasks.json';
 const STORAGE_KEY = 'llb1:duty-dispatcher:progress';
 const GAME_NAME = 'duty-dispatcher';
 
 const selectors = {
-  title: document.getElementById('ddTitle'),
-  instructions: document.getElementById('ddInstructions'),
-  scenario: document.getElementById('ddScenario'),
-  dutyCard: document.getElementById('ddDutyCard'),
-  rolesGrid: document.getElementById('ddRoles'),
-  feedback: document.getElementById('ddFeedback'),
-  hint: document.getElementById('ddHint'),
-  score: document.getElementById('ddScore'),
-  streak: document.getElementById('ddStreak'),
-  start: document.getElementById('ddStart'),
-  next: document.getElementById('ddNext'),
-  live: document.getElementById('ddLive'),
-  progress: document.getElementById('ddProgress'),
+  title: mustId('ddTitle'),
+  instructions: mustId('ddInstructions'),
+  scenario: mustId('ddScenario'),
+  dutyCard: mustId('ddDutyCard'),
+  rolesGrid: mustId('ddRoles'),
+  feedback: mustId('ddFeedback'),
+  hint: mustId('ddHint'),
+  score: mustId('ddScore'),
+  streak: mustId('ddStreak'),
+  start: mustId('ddStart'),
+  next: mustId('ddNext'),
+  live: mustId('ddLive'),
+  progress: mustId('ddProgress'),
 };
 
 const state = {

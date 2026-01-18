@@ -1,3 +1,5 @@
+import { mustId } from '../../lib/dom.js';
+
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
 const STORAGE_KEY = 'llb1:maini-vai-mainies:progress';
 const GAME_NAME = 'maini-vai-mainies';
@@ -8,20 +10,20 @@ const AVATARS = {
 };
 
 const selectors = {
-  title: document.getElementById('mvmTitle'),
-  instructions: document.getElementById('mvmInstructions'),
-  sentence: document.getElementById('mvmSentence'),
-  choiceA: document.getElementById('mvmChoiceA'),
-  choiceB: document.getElementById('mvmChoiceB'),
+  title: mustId('mvmTitle'),
+  instructions: mustId('mvmInstructions'),
+  sentence: mustId('mvmSentence'),
+  choiceA: mustId('mvmChoiceA'),
+  choiceB: mustId('mvmChoiceB'),
   buttons: Array.from(document.querySelectorAll('.mvm-choice')),
-  feedback: document.getElementById('mvmFeedback'),
-  hint: document.getElementById('mvmHint'),
-  score: document.getElementById('mvmScore'),
-  streak: document.getElementById('mvmStreak'),
-  start: document.getElementById('mvmStart'),
-  next: document.getElementById('mvmNext'),
-  live: document.getElementById('mvmLive'),
-  avatar: document.getElementById('mvmAvatar'),
+  feedback: mustId('mvmFeedback'),
+  hint: mustId('mvmHint'),
+  score: mustId('mvmScore'),
+  streak: mustId('mvmStreak'),
+  start: mustId('mvmStart'),
+  next: mustId('mvmNext'),
+  live: mustId('mvmLive'),
+  avatar: mustId('mvmAvatar'),
 };
 
 const state = {

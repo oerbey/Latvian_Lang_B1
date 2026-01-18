@@ -204,6 +204,8 @@ npm run test:watch
 # Example: test/games/conjugation-sprint/index.test.js
 ```
 
+CI runs `npm test` on every PR and push to `main`.
+
 ### Code Style
 
 - **Language**: ES modules (no bundler needed)

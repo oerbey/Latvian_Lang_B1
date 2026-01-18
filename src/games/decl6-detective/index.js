@@ -1,3 +1,5 @@
+import { assetUrl } from '../../lib/paths.js';
+
 (() => {
   const STORAGE_KEY = 'llb1:decl6-detective:progress';
   const DATA_PATH = 'data/decl6-detective/items.json';
@@ -94,10 +96,6 @@
   let xp = 0;
   let streak = 0;
   let progress = { xp: 0, streak: 0, lastPlayedISO: null };
-
-  function assetUrl(path) {
-    return new URL(path, document.baseURI).href;
-  }
 
   function shuffle(array) {
     const copy = array.slice();
@@ -472,8 +470,11 @@
     const candidates = [navigator.language?.slice(0, 2), 'lv', 'en'].filter(Boolean);
     for (const code of candidates) {
       try {
-        const response = await fetch(assetUrl(`i18n/decl6-detective.${code}.json`), { cache: 'no-store' });
-        if (!response.ok) continue;
+        const url = assetUrl(`i18n/decl6-detective.${code}.json`);
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Failed to load ${url}: ${response.status}`);
+        }
         const payload = await response.json();
         strings = { ...DEFAULT_STRINGS, ...payload };
         currentLang = code;
@@ -488,9 +489,10 @@
   }
 
   async function loadData() {
-    const response = await fetch(assetUrl(DATA_PATH), { cache: 'no-store' });
+    const url = assetUrl(DATA_PATH);
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) {
-      throw new Error(`Unable to load ${DATA_PATH}`);
+      throw new Error(`Failed to load ${url}: ${response.status}`);
     }
     return response.json();
   }

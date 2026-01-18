@@ -1,6 +1,4 @@
-function assetUrl(path) {
-  return new URL(path, document.baseURI).href;
-}
+import { assetUrl } from './paths.js';
 
 function parseEngVariants(value) {
   if (typeof value !== 'string') return [];
@@ -16,8 +14,9 @@ function normalizeEng(value) {
 }
 
 export async function loadPersonalityWords() {
-  const res = await fetch(assetUrl('data/personality/words.json'));
-  if (!res.ok) throw new Error('Neizdevās ielādēt datus');
+  const url = assetUrl('data/personality/words.json');
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
   const payload = await res.json();
   const source = Array.isArray(payload) ? payload : [];
   const rows = source

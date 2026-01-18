@@ -1,4 +1,5 @@
 import { mustId } from '../../lib/dom.js';
+import { assetUrl } from '../../lib/paths.js';
 
 const ROLES_PATH = 'data/duty-dispatcher/roles.json';
 const TASKS_PATH = 'data/duty-dispatcher/tasks.json';
@@ -44,14 +45,11 @@ function shuffle(items) {
   return list;
 }
 
-function asset(path) {
-  return new URL(path, document.baseURI).href;
-}
-
 function loadJSON(path) {
-  return fetch(path, { cache: 'no-store' }).then(res => {
+  const url = assetUrl(path);
+  return fetch(url, { cache: 'no-store' }).then(res => {
     if (!res.ok) {
-      throw new Error(`Failed to load ${path}: ${res.status}`);
+      throw new Error(`Failed to load ${url}: ${res.status}`);
     }
     return res.json();
   });
@@ -433,7 +431,7 @@ function renderRoles(roles) {
     const avatarWrapper = document.createElement('span');
     avatarWrapper.className = 'dd-role__avatar';
     const img = document.createElement('img');
-    img.src = asset(`assets/img/duty-dispatcher/${role.avatar}.svg`);
+    img.src = assetUrl(`assets/img/duty-dispatcher/${role.avatar}.svg`);
     img.alt = role.label;
     avatarWrapper.appendChild(img);
 

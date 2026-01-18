@@ -1,5 +1,6 @@
 import { createSeededRng, seededShuffle } from './utils.js';
 import { mustId } from '../../lib/dom.js';
+import { assetUrl } from '../../lib/paths.js';
 
 const STORAGE_KEY = 'llb1:travel-tracker:progress';
 const SESSION_SEED_KEY = 'llb1:travel-tracker:seed';
@@ -176,19 +177,17 @@ function attachButtonBehavior(node, handler) {
   }
 }
 
-function assetUrl(path) {
-  return new URL(path, document.baseURI).href;
-}
-
 async function loadJSON(path) {
-  const res = await fetch(assetUrl(path), { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const url = assetUrl(path);
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
   return res.json();
 }
 
 async function loadText(path) {
-  const res = await fetch(assetUrl(path), { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const url = assetUrl(path);
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
   return res.text();
 }
 

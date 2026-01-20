@@ -13,7 +13,6 @@ const baseBodyPaddingTop = (() => {
   const padding = Number.parseFloat(getComputedStyle(document.body).paddingTop);
   return Number.isFinite(padding) ? padding : 0;
 })();
-document.documentElement.style.setProperty('--base-body-padding', `${baseBodyPaddingTop}px`);
 
 function updateNavOffset() {
   if (!nav) return;
@@ -24,10 +23,14 @@ function updateNavOffset() {
     mainMarginTop = Number.isFinite(mt) ? mt : 0;
   }
   const extraOffset = Math.max(0, navHeight - (baseBodyPaddingTop + mainMarginTop));
-  document.documentElement.style.setProperty('--nav-offset', `${extraOffset}px`);
+  const totalPadding = baseBodyPaddingTop + extraOffset;
+  document.body.style.paddingTop = `${totalPadding}px`;
 }
 
 updateNavOffset();
+if (document.fonts?.ready) {
+  document.fonts.ready.then(updateNavOffset).catch(() => {});
+}
 window.addEventListener('resize', updateNavOffset);
 if ('ResizeObserver' in window && nav) {
   const observer = new ResizeObserver(updateNavOffset);

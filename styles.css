@@ -1,4 +1,6 @@
 :root {
+  --nav-offset: 0px;
+  --base-body-padding: 0px;
   --bg: #f4f7fb;
   --surface: #ffffff;
   --surface-alt: rgba(255, 255, 255, 0.92);
@@ -58,6 +60,7 @@
      Global look & feel - RESPONSIVE
      =========================== */
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden;}
+  body{padding-top:calc(var(--base-body-padding, 0px) + var(--nav-offset, 0px));}
   #wrap{max-width:980px;margin:0 auto;padding:12px;width:100%;box-sizing:border-box;}
   h1{font-weight:800;margin:8px 0 4px;font-size:clamp(18px,4vw,24px);}  
   #ui{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px;justify-content:center;}

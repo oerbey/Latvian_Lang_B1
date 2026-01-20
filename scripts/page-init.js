@@ -7,6 +7,33 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+const nav = document.querySelector('.navbar.fixed-top');
+const main = document.querySelector('main');
+const baseBodyPaddingTop = (() => {
+  const padding = Number.parseFloat(getComputedStyle(document.body).paddingTop);
+  return Number.isFinite(padding) ? padding : 0;
+})();
+document.documentElement.style.setProperty('--base-body-padding', `${baseBodyPaddingTop}px`);
+
+function updateNavOffset() {
+  if (!nav) return;
+  const navHeight = nav.getBoundingClientRect().height;
+  let mainMarginTop = 0;
+  if (main) {
+    const mt = Number.parseFloat(getComputedStyle(main).marginTop);
+    mainMarginTop = Number.isFinite(mt) ? mt : 0;
+  }
+  const extraOffset = Math.max(0, navHeight - (baseBodyPaddingTop + mainMarginTop));
+  document.documentElement.style.setProperty('--nav-offset', `${extraOffset}px`);
+}
+
+updateNavOffset();
+window.addEventListener('resize', updateNavOffset);
+if ('ResizeObserver' in window && nav) {
+  const observer = new ResizeObserver(updateNavOffset);
+  observer.observe(nav);
+}
+
 /**
  * Anti-scroll-trap for mobile:
  * - Never cancel vertical swipes.

@@ -36,6 +36,7 @@ export const state = {
 
 Adopt TypeScript gradually using JSDoc annotations (no build step required):
 
+{% raw %}
 ```javascript
 // src/lib/state.js
 
@@ -99,6 +100,7 @@ export const state = {
   // ... IDE now has type information
 };
 ```
+{% endraw %}
 
 Enable type checking with tsconfig:
 
@@ -149,6 +151,7 @@ No GitHub Actions or other CI/CD configuration found.
 
 Create comprehensive GitHub Actions workflow:
 
+{% raw %}
 ```yaml
 # .github/workflows/ci.yml
 name: CI
@@ -253,6 +256,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 ```
+{% endraw %}
 
 ### Impact
 - Automated quality checks

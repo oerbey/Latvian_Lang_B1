@@ -2,6 +2,8 @@ import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { pickRandom, shuffle } from '../../lib/utils.js';
 import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { createGameBase } from '../../lib/game-base.js';
+import { showFatalError } from '../../lib/errors.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:passive-lab:progress';
@@ -486,18 +488,30 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     }
   }
 
-  async function init() {
+  async function initUI({ strings }) {
+    if (strings) {
+      i18n = strings;
+      applyTranslations();
+    }
     progress = readProgress();
     xp = progress.xp;
     streak = progress.streak;
     updateScoreboard();
-    await loadTranslations(navigator.language || 'lv');
     toggleMode('builder');
     setupListeners();
-    await loadData();
   }
 
   if (typeof document !== 'undefined') {
-    init();
+    const game = createGameBase({
+      loadStrings: () => loadTranslations(navigator.language || 'lv'),
+      loadData,
+      initUI,
+      onError: (err) => {
+        console.error('Failed to initialize Passive Lab', err);
+        const safeError = err instanceof Error ? err : new Error('Failed to load Passive Lab.');
+        showFatalError(safeError);
+      },
+    });
+    game.init();
   }
 })();

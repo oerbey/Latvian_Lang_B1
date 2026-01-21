@@ -5,7 +5,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 1) ✅ 01-game-init-error-handling.md - Wrap game initialization and top-level awaits with error handling
 2) ✅ 02-travel-tracker-loadjson-shadow.md - Remove loadJSON shadowing in travel-tracker
 3) ✅ 03-game-base-helper.md - Add a shared GameBase helper for common lifecycle work
-4) 04-migrate-one-game-to-game-base.md - Migrate one pilot game to GameBase
+4) ✅ 04-migrate-one-game-to-game-base.md - Migrate one pilot game to GameBase
 5) 05-split-travel-tracker-module.md - Split travel-tracker into smaller modules
 6) 06-split-endings-builder-module.md - Split endings-builder into smaller modules
 7) 07-split-other-large-modules.md - Split duty-dispatcher, decl6-detective, passive-lab, matching-game

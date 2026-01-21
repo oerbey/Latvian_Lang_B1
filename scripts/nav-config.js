@@ -1,0 +1,15 @@
+export const NAV_ITEMS = [
+  { href: 'index.html', label: 'Home' },
+  { href: 'darbibas-vards.html', label: 'Darbības Vārds' },
+  { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },
+  { href: 'endings-builder.html', label: 'Endings Builder' },
+  { href: 'passive-lab.html', label: 'Ciešamās Kārtas Laboratorija' },
+  { href: 'decl6-detective.html', label: 'Kas ir manā mājā?' },
+  { href: 'travel-tracker.html', label: 'Travel Tracker' },
+  { href: 'maini-vai-mainies.html', label: 'Maini vai mainies?' },
+  { href: 'duty-dispatcher.html', label: 'Kas jādara kam?' },
+  { href: 'rakstura-ipasibas-expansion.html', label: 'Rakstura īpašības — pāri (paplašināta)' },
+  { href: 'rakstura-ipasibas-match.html', label: 'Rakstura īpašības — pāri' },
+  { href: 'character-traits.html', label: 'Rakstura īpašības' },
+  { href: 'week1.html', label: 'Week 1' },
+];

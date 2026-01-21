@@ -2,6 +2,8 @@ import { loadPersonalityWords } from '../../lib/personality-data.js';
 import { mustId } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';
 import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 
 const QUESTIONS_PER_ROUND = 10;
 const AUTO_ADVANCE_MS = 1400;
@@ -415,6 +417,7 @@ function loadLastResult() {
 }
 
 async function loadData() {
+  showLoading('Loading game data...');
   els.questionText.textContent = 'Ielādē datus…';
   setFeedbackNeutral();
   try {
@@ -430,6 +433,10 @@ async function loadData() {
     console.error(err);
     els.questionText.textContent = 'Radās problēma ar datu ielādi.';
     els.feedbackText.textContent = 'Pārbaudi failu data/personality/words.csv un mēģini vēlreiz.';
+    const safeError = err instanceof Error ? err : new Error('Failed to load character traits data.');
+    showFatalError(safeError);
+  } finally {
+    hideLoading();
   }
 }
 

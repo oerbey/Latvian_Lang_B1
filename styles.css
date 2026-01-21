@@ -193,6 +193,55 @@ html, body { height: 100%; scroll-behavior: smooth; }
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 }
 
+/* --- Loading overlay --- */
+.llb1-loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 9998;
+}
+
+.llb1-loading-overlay[hidden] {
+  display: none;
+}
+
+.llb1-loading-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  min-width: 220px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.2);
+}
+
+.llb1-loading-spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid rgba(148, 163, 184, 0.45);
+  border-top-color: var(--accent);
+  animation: llb1-spin 0.8s linear infinite;
+}
+
+.llb1-loading-message {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+@keyframes llb1-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Color tweaks per mode (BS 5.3 color variables) */
 :root, [data-bs-theme="light"] { --brand-accent: #0d6efd; }
 [data-bs-theme="dark"] { --brand-accent: #66b2ff; }

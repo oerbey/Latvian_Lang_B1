@@ -12,7 +12,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 8) ✅ 08-state-store-refactor.md - Replace global mutable state with a store pattern
 9) ✅ 09-state-dom-decoupling.md - Remove DOM writes from state and move clickables to render context
 10) ✅ 10-shared-navigation.md - Generate navbar and footer from a shared source
-11) 11-game-loading-and-error-states.md - Add consistent loading and error UI per game
+11) ✅ 11-game-loading-and-error-states.md - Add consistent loading and error UI per game
 12) 12-touch-target-audit.md - Enforce 48px touch targets across UI
 13) 13-json-schema-validation.md - Add JSON schema validation for data files
 14) 14-language-key-standardization.md - Standardize language keys in data and loaders

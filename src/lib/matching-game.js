@@ -1,4 +1,6 @@
 import { shuffleInPlace } from './utils.js';
+import { showFatalError } from './errors.js';
+import { hideLoading, showLoading } from './loading.js';
 import { DEFAULT_TEXTS, MODE_ALL, MODE_LOCKED } from './matching-game/constants.js';
 import { announceStatus, clearSelections, disablePair, getTranslation, renderRound, speakLV } from './matching-game/render.js';
 import { readState, writeState } from './matching-game/storage.js';
@@ -629,6 +631,7 @@ export function initMatchingGame(options) {
   // Bootstrap ----------------------------------------------------
   (async () => {
     announceStatus(els, state.score);
+    showLoading('Loading game data...');
     try {
       await loadData();
       hydrateStoredState();
@@ -642,6 +645,10 @@ export function initMatchingGame(options) {
     } catch (e) {
       console.error(e);
       els.help.textContent = mergedTexts.dataUnavailable;
+      const safeError = e instanceof Error ? e : new Error('Failed to load game data.');
+      showFatalError(safeError);
+    } finally {
+      hideLoading();
     }
   })();
 }

@@ -1,5 +1,7 @@
 import { assetUrl } from '../../lib/paths.js';
 import { pickRandom, shuffle } from '../../lib/utils.js';
+import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 
 (() => {
   const PRONS = ["es", "tu", "viņš/viņa", "mēs", "jūs", "viņi/viņas"];
@@ -37,6 +39,7 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
   }
 
   (async () => {
+    showLoading('Loading game data...');
     try {
       const url = assetUrl("data/words.json");
       const res = await fetch(url);
@@ -50,23 +53,28 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
         console.warn("words.json fetch failed; using embedded fallback dataset.", err);
         bank = window.__LATVIAN_WORDS__.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
       } else {
-        if(qEl) {
+        if (qEl) {
           qEl.textContent = "Failed to load words data.";
         }
         console.error(err);
+        hideLoading();
+        const safeError = err instanceof Error ? err : new Error('Failed to load words data.');
+        showFatalError(safeError);
         return;
       }
     }
 
     if (bank.length === 0) {
-      if(qEl) {
+      if (qEl) {
         qEl.textContent = "No verbs with conjugations found.";
       }
+      hideLoading();
       return;
     }
     if (tenseFilterEl) {
       tenseFilterEl.disabled = false;
     }
+    hideLoading();
     reset();
   })();
 

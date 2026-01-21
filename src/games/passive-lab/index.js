@@ -2,6 +2,7 @@ import { mustId } from '../../lib/dom.js';
 import { pickRandom, shuffle } from '../../lib/utils.js';
 import { createGameBase } from '../../lib/game-base.js';
 import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 import {
   applyTranslations,
   formatString,
@@ -354,6 +355,9 @@ import {
         showFatalError(safeError);
       },
     });
-    game.init();
+    showLoading('Loading game data...');
+    game.init().finally(() => {
+      hideLoading();
+    });
   }
 })();

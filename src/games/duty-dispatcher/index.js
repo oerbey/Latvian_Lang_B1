@@ -1,14 +1,25 @@
 import { mustId } from '../../lib/dom.js';
-import { assetUrl } from '../../lib/paths.js';
-import { shuffle } from '../../lib/utils.js';
-import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { loadRoles, loadStrings, loadTasks } from './data.js';
+import { readProgress, persistProgress } from './progress.js';
+import {
+  applyStrings,
+  clearRoleHighlights,
+  disableRoles,
+  markRole,
+  renderRoles,
+  setFeedback,
+  setHint,
+  updateMetrics,
+  updateProgress,
+} from './ui.js';
+import { createHandlers } from './handlers.js';
 
 const ROLES_PATH = 'data/duty-dispatcher/roles.json';
 const TASKS_PATH = 'data/duty-dispatcher/tasks.json';
 const STORAGE_KEY = 'llb1:duty-dispatcher:progress';
 const GAME_NAME = 'duty-dispatcher';
 
-const selectors = {
+const elements = {
   title: mustId('ddTitle'),
   instructions: mustId('ddInstructions'),
   scenario: mustId('ddScenario'),
@@ -38,45 +49,6 @@ const state = {
   started: false,
 };
 
-function loadJSON(path) {
-  const url = assetUrl(path);
-  return fetch(url, { cache: 'no-store' }).then(res => {
-    if (!res.ok) {
-      throw new Error(`Failed to load ${url}: ${res.status}`);
-    }
-    return res.json();
-  });
-}
-
-function readProgress() {
-  try {
-    const parsed = loadJSON(STORAGE_KEY, null);
-    if (!parsed || typeof parsed !== 'object') return null;
-    const xp = Number(parsed.xp);
-    const streak = Number(parsed.streak);
-    return {
-      xp: Number.isFinite(xp) ? xp : 0,
-      streak: Number.isFinite(streak) ? streak : 0,
-    };
-  } catch (err) {
-    console.warn('Unable to read stored progress', err);
-    return null;
-  }
-}
-
-function persistProgress() {
-  try {
-    const data = {
-      xp: state.score,
-      streak: state.streak,
-      lastPlayedISO: new Date().toISOString(),
-    };
-    saveJSON(STORAGE_KEY, data);
-  } catch (err) {
-    console.warn('Unable to persist progress', err);
-  }
-}
-
 function dispatchAnalytics(event, meta = {}) {
   try {
     window.dispatchEvent(
@@ -93,417 +65,64 @@ function dispatchAnalytics(event, meta = {}) {
   }
 }
 
-function setFeedback(message = '') {
-  if (selectors.feedback) selectors.feedback.textContent = message;
-  if (selectors.live) selectors.live.textContent = message;
-}
-
-function setHint(message = '') {
-  if (selectors.hint) selectors.hint.textContent = message;
-}
-
-function formatScore(value) {
-  return `${state.strings.scoreLabel ?? 'Score'}: ${value}`;
-}
-
-function formatStreak(value) {
-  return `${state.strings.streakLabel ?? 'Streak'}: ${value}`;
-}
-
-function updateMetrics() {
-  if (selectors.score) selectors.score.textContent = formatScore(state.score);
-  if (selectors.streak) selectors.streak.textContent = formatStreak(state.streak);
-}
-
-function updateProgress() {
-  if (!selectors.progress) return;
-  const total = state.order.length;
-  const current = state.index >= 0 ? Math.min(state.index + 1, total) : 0;
-  selectors.progress.textContent = `${current}/${total}`;
-  const label = state.strings.progressLabel ?? 'Task';
-  selectors.progress.setAttribute('aria-label', `${label} ${current} / ${total}`);
-}
-
-function clearRoleHighlights() {
-  const buttons = selectors.rolesGrid ? [...selectors.rolesGrid.querySelectorAll('.dd-role')] : [];
-  buttons.forEach(btn => {
-    btn.classList.remove('dd-role--correct', 'dd-role--wrong', 'dd-role--hover');
-    btn.disabled = false;
-    const dutyEl = btn.querySelector('.dd-role__duty');
-    if (dutyEl) dutyEl.textContent = '';
-  });
-}
-
-function disableRoles() {
-  const buttons = selectors.rolesGrid ? [...selectors.rolesGrid.querySelectorAll('.dd-role')] : [];
-  buttons.forEach(btn => {
-    btn.disabled = true;
-    btn.classList.remove('dd-role--hover');
-  });
-}
-
-function markRole(roleId, status, dutyText) {
-  if (!selectors.rolesGrid) return null;
-  const node = selectors.rolesGrid.querySelector(`.dd-role[data-role-id="${roleId}"]`);
-  if (!node) return null;
-  node.classList.remove('dd-role--correct', 'dd-role--wrong', 'dd-role--hover');
-  if (status === 'correct') {
-    node.classList.add('dd-role--correct');
-    const dutyEl = node.querySelector('.dd-role__duty');
-    if (dutyEl) dutyEl.textContent = dutyText ?? '';
-  } else if (status === 'wrong') {
-    node.classList.add('dd-role--wrong');
-  }
-  return node;
-}
-
-function currentTask() {
-  if (state.index < 0 || state.index >= state.order.length) return null;
-  return state.order[state.index];
-}
-
-function awardScore() {
-  const earned = Math.max(1, state.potential);
-  state.score += earned;
-  state.streak += 1;
-  let bonus = 0;
-  if (state.streak > 0 && state.streak % 5 === 0) {
-    state.score += 10;
-    bonus = 10;
-  }
-  persistProgress();
-  updateMetrics();
-  return { earned, bonus };
-}
-
-function capitalizeDative(word = '') {
-  if (!word) return '';
-  const [first, ...rest] = word.trim();
-  if (first === undefined) return '';
-  const upper = typeof first.toLocaleUpperCase === 'function' ? first.toLocaleUpperCase('lv-LV') : first.toUpperCase();
-  return upper + rest.join('');
-}
-
-function ensureTrailingPeriod(text = '') {
-  const trimmed = text.trim();
-  if (!trimmed) return '';
-  return /[.!?…]$/.test(trimmed) ? trimmed : `${trimmed}.`;
-}
-
-function buildExplain(task) {
-  if (task?.explain) return task.explain;
-  const recipients = Array.isArray(task?.validRecipients) ? task.validRecipients : [];
-  const firstRole = state.roles.find(role => recipients.includes(role.id));
-  const name = firstRole?.dative ? capitalizeDative(firstRole.dative) : firstRole?.label;
-  const rawCard = (task?.card ?? '').trim();
-  const lower = rawCard.toLowerCase();
-  const hasAux = lower.startsWith('ir ') || lower.startsWith('bija ') || lower.startsWith('būs ');
-  let phrase = rawCard;
-  if (!hasAux) {
-    const prefix = task?.tense === 'past' ? 'bija' : task?.tense === 'future' ? 'būs' : 'ir';
-    phrase = `${prefix} ${rawCard}`.trim();
-  }
-  if (name) {
-    return `${name} ${phrase}`.trim();
-  }
-  return phrase;
-}
-
-function handleCorrect(roleId) {
-  const task = currentTask();
-  if (!task) return;
-  markRole(roleId, 'correct', task.card);
-  disableRoles();
-  state.readyForNext = true;
-  const { earned, bonus } = awardScore();
-  const correctMsg = state.strings.correct ?? 'Correct!';
-  const bonusMsg = bonus ? ` (+${bonus})` : '';
-  const base = `${correctMsg} +${earned}${bonusMsg}`.trim();
-  const explain = ensureTrailingPeriod(buildExplain(task));
-  const message = explain ? `${base}. ${explain}` : `${base}.`;
-  setFeedback(message);
-  setHint('');
-  if (selectors.next) {
-    selectors.next.disabled = false;
-    selectors.next.focus({ preventScroll: true });
-  }
-  if (selectors.dutyCard) {
-    selectors.dutyCard.setAttribute('aria-disabled', 'true');
-    selectors.dutyCard.draggable = false;
-  }
-  dispatchAnalytics('correct', { taskId: task.id });
-}
-
-function handleWrong(roleId) {
-  const task = currentTask();
-  if (!task) return;
-  state.streak = 0;
-  state.attempts += 1;
-  state.potential = Math.max(1, state.potential - 3);
-  persistProgress();
-  updateMetrics();
-
-  const btn = markRole(roleId, 'wrong');
-  if (btn) {
-    btn.classList.remove('dd-role--hover');
-    window.setTimeout(() => {
-      btn.classList.remove('dd-role--wrong');
-      if (!btn.disabled) {
-        btn.focus({ preventScroll: false });
-      }
-    }, 600);
-  }
-  const wrongMsg = state.strings.wrong ?? 'Try again!';
-  setFeedback(wrongMsg);
-  const hintLabel = state.strings.hintLabel ?? 'Hint';
-  setHint(task.hint ? `${hintLabel}: ${task.hint}` : '');
-  dispatchAnalytics('wrong', { taskId: task.id });
-}
-
-function assignDuty(roleId) {
-  if (!state.started || state.readyForNext) return;
-  const task = currentTask();
-  if (!task) return;
-  if (!Array.isArray(task.validRecipients)) return;
-  if (task.validRecipients.includes(roleId)) {
-    handleCorrect(roleId);
-  } else {
-    handleWrong(roleId);
-  }
-}
-
-function prepareTask() {
-  const task = currentTask();
-  if (!task) return;
-  state.potential = 10;
-  state.attempts = 0;
-  state.readyForNext = false;
-
-  if (selectors.scenario) selectors.scenario.textContent = task.s ?? '—';
-  if (selectors.dutyCard) {
-    selectors.dutyCard.textContent = task.card ?? '—';
-    selectors.dutyCard.removeAttribute('aria-disabled');
-    selectors.dutyCard.draggable = true;
-    selectors.dutyCard.setAttribute('aria-label', task.card ?? '');
-  }
-  setFeedback('');
-  setHint('');
-  clearRoleHighlights();
-  if (selectors.next) selectors.next.disabled = true;
-  updateProgress();
-  window.requestAnimationFrame(() => {
-    selectors.dutyCard?.focus({ preventScroll: true });
-  });
-}
-
-function advance() {
-  state.index += 1;
-  if (state.index >= state.order.length) {
-    handleComplete();
-    return;
-  }
-  prepareTask();
-}
-
-function handleComplete() {
-  state.started = false;
-  state.readyForNext = false;
-  disableRoles();
-  if (selectors.dutyCard) {
-    selectors.dutyCard.setAttribute('aria-disabled', 'true');
-    selectors.dutyCard.draggable = false;
-  }
-  const message = state.strings.complete ?? 'Level complete!';
-  const goal = state.score >= 80 ? state.strings.levelGoal ?? '' : '';
-  const combined = goal ? `${message} ${goal}`.trim() : message;
-  setFeedback(ensureTrailingPeriod(combined));
-  setHint('');
-  if (selectors.next) {
-    selectors.next.disabled = true;
-  }
-  if (selectors.start) {
-    selectors.start.disabled = false;
-    selectors.start.focus({ preventScroll: true });
-  }
-  dispatchAnalytics('complete', {});
-}
-
-function startSession() {
-  if (!state.tasks.length) return;
-  state.order = shuffle(state.tasks);
-  state.index = -1;
-  state.started = true;
-  state.readyForNext = false;
-  if (selectors.next) selectors.next.disabled = true;
-  if (selectors.start) selectors.start.disabled = true;
-  dispatchAnalytics('start', {});
-  advance();
-}
-
-function handleRoleActivation(event) {
-  event.preventDefault();
-  const roleId = event.currentTarget?.dataset?.roleId;
-  if (!roleId) return;
-  assignDuty(roleId);
-}
-
-function handleRoleKeydown(event) {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault();
-    handleRoleActivation(event);
-  }
-}
-
-function handleDragStart(event) {
-  if (!state.started || state.readyForNext) {
-    event.preventDefault();
-    return;
-  }
-  event.dataTransfer?.setData('text/plain', 'duty-card');
-  event.dataTransfer?.setDragImage?.(event.currentTarget, 20, 20);
-}
-
-function handleDragOver(event) {
-  if (!state.started || state.readyForNext) return;
-  event.preventDefault();
-  event.dataTransfer.dropEffect = 'move';
-}
-
-function handleDragEnter(event) {
-  if (!state.started || state.readyForNext) return;
-  event.preventDefault();
-  event.currentTarget?.classList.add('dd-role--hover');
-}
-
-function handleDragLeave(event) {
-  event.currentTarget?.classList.remove('dd-role--hover');
-}
-
-function handleDrop(event) {
-  if (!state.started || state.readyForNext) return;
-  event.preventDefault();
-  const roleId = event.currentTarget?.dataset?.roleId;
-  event.currentTarget?.classList.remove('dd-role--hover');
-  if (!roleId) return;
-  assignDuty(roleId);
-}
-
-function applyStrings(strings) {
-  const merged = {
-    ...strings,
-    scoreLabel: strings?.score ?? 'Score',
-    streakLabel: strings?.streak ?? 'Streak',
-    hintLabel: strings?.hint ?? 'Hint',
-    correct: strings?.correct ?? 'Correct!',
-    wrong: strings?.wrong ?? 'Try again!',
-    complete: strings?.level_complete ?? 'Level complete!',
-    levelGoal: strings?.level_goal ?? 'Sasniedz 80 punktus!',
-    progressLabel: strings?.progress_label ?? 'Uzdevums',
-  };
-  state.strings = merged;
-  if (selectors.title && strings?.title) selectors.title.textContent = strings.title;
-  if (selectors.instructions && strings?.instructions) selectors.instructions.textContent = strings.instructions;
-  if (selectors.start && strings?.start) selectors.start.textContent = strings.start;
-  if (selectors.next && strings?.next) selectors.next.textContent = strings.next;
-  updateMetrics();
-}
-
-function renderRoles(roles) {
-  if (!selectors.rolesGrid) return;
-  selectors.rolesGrid.replaceChildren();
-  roles.forEach(role => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'dd-role';
-    button.dataset.roleId = role.id;
-    button.setAttribute('role', 'listitem');
-    button.setAttribute('aria-label', `${role.dative} — ${role.label}`);
-
-    const avatarWrapper = document.createElement('span');
-    avatarWrapper.className = 'dd-role__avatar';
-    const img = document.createElement('img');
-    img.src = assetUrl(`assets/img/duty-dispatcher/${role.avatar}.svg`);
-    img.alt = role.label;
-    avatarWrapper.appendChild(img);
-
-    const dative = document.createElement('span');
-    dative.className = 'dd-role__dative';
-    dative.textContent = role.dative;
-
-    const duty = document.createElement('span');
-    duty.className = 'dd-role__duty';
-    duty.textContent = '';
-
-    button.append(avatarWrapper, dative, duty);
-
-    button.addEventListener('click', handleRoleActivation);
-    button.addEventListener('keydown', handleRoleKeydown);
-    button.addEventListener('dragover', handleDragOver);
-    button.addEventListener('dragenter', handleDragEnter);
-    button.addEventListener('dragleave', handleDragLeave);
-    button.addEventListener('drop', handleDrop);
-
-    selectors.rolesGrid.appendChild(button);
-  });
-}
-
-async function loadStrings() {
-  const lang = document.documentElement?.lang?.split('-')?.[0]?.toLowerCase() || 'lv';
-  const fallback = lang === 'lv' ? ['lv', 'en'] : [lang, 'lv', 'en'];
-  for (const code of fallback) {
-    try {
-      const data = await loadJSON(`i18n/${GAME_NAME}.${code}.json`);
-      if (data) return data;
-    } catch {
-      // continue
-    }
-  }
-  return {};
-}
+const handlers = createHandlers({
+  state,
+  elements,
+  setFeedback: message => setFeedback(elements, message),
+  setHint: message => setHint(elements, message),
+  updateMetrics: () => updateMetrics(elements, state.strings, state.score, state.streak),
+  updateProgress: () => updateProgress(elements, state.strings, state.index, state.order.length),
+  clearRoleHighlights: () => clearRoleHighlights(elements.rolesGrid),
+  disableRoles: () => disableRoles(elements.rolesGrid),
+  markRole: (roleId, status, dutyText) => markRole(elements.rolesGrid, roleId, status, dutyText),
+  persistProgress: (score, streak) => persistProgress(STORAGE_KEY, score, streak),
+  dispatchAnalytics,
+});
 
 async function bootstrap() {
-  selectors.start.disabled = true;
-  selectors.next.disabled = true;
-  if (selectors.dutyCard) {
-    selectors.dutyCard.addEventListener('dragstart', handleDragStart);
+  elements.start.disabled = true;
+  elements.next.disabled = true;
+  if (elements.dutyCard) {
+    elements.dutyCard.addEventListener('dragstart', handlers.handleDragStart);
   }
-  if (selectors.start) {
-    selectors.start.addEventListener('click', () => {
-      startSession();
+  if (elements.start) {
+    elements.start.addEventListener('click', () => {
+      handlers.startSession();
     });
   }
-  if (selectors.next) {
-    selectors.next.addEventListener('click', () => {
+  if (elements.next) {
+    elements.next.addEventListener('click', () => {
       if (!state.readyForNext) return;
-      if (selectors.next) selectors.next.disabled = true;
-      advance();
+      if (elements.next) elements.next.disabled = true;
+      handlers.advance();
     });
   }
 
-  const strings = await loadStrings();
-  applyStrings(strings);
+  const strings = await loadStrings(GAME_NAME);
+  state.strings = applyStrings(elements, strings);
+  updateMetrics(elements, state.strings, state.score, state.streak);
 
-  const stored = readProgress();
+  const stored = readProgress(STORAGE_KEY);
   if (stored) {
     state.score = stored.xp ?? 0;
     state.streak = stored.streak ?? 0;
-    updateMetrics();
+    updateMetrics(elements, state.strings, state.score, state.streak);
   }
 
-  const [roles, tasks] = await Promise.all([loadJSON(ROLES_PATH), loadJSON(TASKS_PATH)]);
+  const [roles, tasks] = await Promise.all([loadRoles(ROLES_PATH), loadTasks(TASKS_PATH)]);
   state.roles = Array.isArray(roles) ? roles : [];
   state.tasks = Array.isArray(tasks) ? tasks : [];
-  renderRoles(state.roles);
+  renderRoles(state.roles, elements, handlers);
   const hasTasks = state.tasks.length > 0;
-  selectors.start.disabled = !hasTasks;
+  elements.start.disabled = !hasTasks;
   if (!hasTasks) {
-    setFeedback('Nav pieejamu uzdevumu.');
+    setFeedback(elements, 'Nav pieejamu uzdevumu.');
     return;
   }
-  updateProgress();
+  updateProgress(elements, state.strings, state.index, state.order.length);
 }
 
 bootstrap().catch(err => {
   console.error('Failed to initialize Duty Dispatcher', err);
-  setFeedback('Neizdevās ielādēt datus.');
+  setFeedback(elements, 'Neizdevās ielādēt datus.');
 });

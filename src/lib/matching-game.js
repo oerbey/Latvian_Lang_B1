@@ -1,33 +1,7 @@
 import { shuffleInPlace } from './utils.js';
-import { loadJSON, remove, saveJSON } from './storage.js';
-
-const MODE_ALL = 'all';
-const MODE_LOCKED = 'locked';
-const DEFAULT_TEXTS = {
-  correct: 'Labi! Pareizs pāris.',
-  incorrect: (lv, tr) => `Nē. “${lv}” nav “${tr}”. Pamēģini vēlreiz.`,
-  lockedMissing: 'Create a locked set via “New mix”.',
-  lockedReady: (count) => `Locked set ready: ${count} items.`,
-  lockedNote: {
-    capped: (poolSize) => `Only ${poolSize} items available, so the set is capped.`,
-    smallSet: (setSize) => `Board shows all ${setSize} items because the set is smaller than the board size.`,
-  },
-  dataUnavailable: 'Dati nav pieejami bezsaistē. Mēģini vēlreiz ar internetu.',
-  fallbackUsed:
-    'Dati ielādēti no iebūvētās kopijas. Atver lapu caur serveri, lai redzētu jaunāko sarakstu.',
-};
-
-function readState(key, fallback) {
-  return loadJSON(key, fallback);
-}
-
-function writeState(key, value) {
-  if (value === null || value === undefined) {
-    remove(key);
-    return;
-  }
-  saveJSON(key, value);
-}
+import { DEFAULT_TEXTS, MODE_ALL, MODE_LOCKED } from './matching-game/constants.js';
+import { announceStatus, clearSelections, disablePair, getTranslation, renderRound, speakLV } from './matching-game/render.js';
+import { readState, writeState } from './matching-game/storage.js';
 
 export function initMatchingGame(options) {
   const {
@@ -77,81 +51,6 @@ export function initMatchingGame(options) {
   };
 
   const els = elements;
-
-  function announceStatus() {
-    els.score.textContent = `Pareizi: ${state.score.right} | Nepareizi: ${state.score.wrong}`;
-  }
-
-  function createCard(text, key, list) {
-    const card = document.createElement('div');
-    card.className = 'word-card';
-    card.role = 'option';
-    card.tabIndex = 0;
-    card.id = `${list}-${key}`;
-    card.dataset.key = String(key);
-    card.dataset.list = list;
-    card.setAttribute('aria-pressed', 'false');
-    card.setAttribute('aria-disabled', 'false');
-    card.textContent = text;
-    return card;
-  }
-
-  function getTranslation(item) {
-    if (!item) return '';
-    if (item[state.currentLang] !== undefined) return item[state.currentLang];
-    if (item.translations && item.translations[state.currentLang] !== undefined) {
-      return item.translations[state.currentLang];
-    }
-    return item.eng || item.en || '';
-  }
-
-  function renderRound(items) {
-    els.lvList.replaceChildren();
-    els.trList.replaceChildren();
-
-    const lv = items.map((it, idx) => ({ key: idx, text: it.lv }));
-    const tr = items.map((it, idx) => ({ key: idx, text: getTranslation(it) }));
-
-    lv.forEach((o) => {
-      els.lvList.appendChild(createCard(o.text, o.key, 'lv'));
-    });
-    shuffleInPlace(tr.slice()).forEach((o) => {
-      els.trList.appendChild(createCard(o.text, o.key, 'tr'));
-    });
-
-    const first = els.lvList.querySelector('.word-card');
-    if (first) first.focus();
-    onRoundRendered?.(items);
-  }
-
-  function speakLV(text) {
-    if (!state.speakOn || !('speechSynthesis' in window)) return;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = speakLang;
-    window.speechSynthesis.speak(u);
-  }
-
-  function clearSelections() {
-    state.selections.lv = null;
-    state.selections.tr = null;
-    els.lvList.querySelectorAll(".word-card[aria-pressed='true']").forEach((el) => {
-      el.setAttribute('aria-pressed', 'false');
-      el.classList.remove('selected');
-    });
-    els.trList.querySelectorAll(".word-card[aria-pressed='true']").forEach((el) => {
-      el.setAttribute('aria-pressed', 'false');
-      el.classList.remove('selected');
-    });
-  }
-
-  function disablePair(key) {
-    document.querySelectorAll(`.word-card[data-key="${key}"]`).forEach((el) => {
-      el.setAttribute('aria-disabled', 'true');
-      el.setAttribute('tabindex', '-1');
-      el.classList.remove('selected');
-      el.setAttribute('aria-pressed', 'false');
-    });
-  }
 
   function persistConfig() {
     if (!storageKeys?.config) return;
@@ -228,7 +127,7 @@ export function initMatchingGame(options) {
         state.selections.lv = key;
         el.setAttribute('aria-pressed', 'true');
         el.classList.add('selected');
-        speakLV(state.current[key].lv);
+        speakLV(state, speakLang, state.current[key].lv);
       }
     } else {
       if (state.selections.tr === key) {
@@ -249,15 +148,17 @@ export function initMatchingGame(options) {
     if (state.selections.lv !== null && state.selections.tr !== null) {
       if (state.selections.lv === state.selections.tr) {
         state.score.right += 1;
-        announceStatus();
+        announceStatus(els, state.score);
         els.help.textContent = mergedTexts.correct;
         disablePair(state.selections.lv);
         recordResult(state.current[state.selections.lv], true);
       } else {
         state.score.wrong += 1;
-        announceStatus();
+        announceStatus(els, state.score);
         const lvWord = state.current[state.selections.lv]?.lv || '';
-        const trCandidate = state.current[state.selections.tr] ? getTranslation(state.current[state.selections.tr]) : '';
+        const trCandidate = state.current[state.selections.tr]
+          ? getTranslation(state.current[state.selections.tr], state.currentLang)
+          : '';
         const incorrectText =
           typeof mergedTexts.incorrect === 'function'
             ? mergedTexts.incorrect(lvWord, trCandidate)
@@ -265,7 +166,7 @@ export function initMatchingGame(options) {
         els.help.textContent = incorrectText;
         recordResult(state.current[state.selections.lv], false);
       }
-      clearSelections();
+      clearSelections(state, els);
     }
   }
 
@@ -575,7 +476,7 @@ export function initMatchingGame(options) {
   function newGame(options = {}) {
     els.help.textContent = '';
     state.score = { right: 0, wrong: 0 };
-    announceStatus();
+    announceStatus(els, state.score);
     state.selections = { lv: null, tr: null };
 
     if (state.lockedConfig.mode === MODE_LOCKED) {
@@ -597,7 +498,7 @@ export function initMatchingGame(options) {
       }
       state.lastSliceStart = slice.start;
       state.current = slice.items;
-      renderRound(state.current);
+      renderRound({ elements: els, items: state.current, currentLang: state.currentLang, onRoundRendered });
       updateLockedUI(slice);
       return;
     }
@@ -618,7 +519,7 @@ export function initMatchingGame(options) {
       }
     }
     state.current = sample;
-    renderRound(state.current);
+    renderRound({ elements: els, items: state.current, currentLang: state.currentLang, onRoundRendered });
     updateLockedUI();
   }
 
@@ -691,7 +592,7 @@ export function initMatchingGame(options) {
 
   els.languageSelect?.addEventListener('change', () => {
     state.currentLang = els.languageSelect.value;
-    renderRound(state.current);
+    renderRound({ elements: els, items: state.current, currentLang: state.currentLang, onRoundRendered });
   });
 
   els.countSelect?.addEventListener('change', () => {
@@ -727,7 +628,7 @@ export function initMatchingGame(options) {
 
   // Bootstrap ----------------------------------------------------
   (async () => {
-    announceStatus();
+    announceStatus(els, state.score);
     try {
       await loadData();
       hydrateStoredState();

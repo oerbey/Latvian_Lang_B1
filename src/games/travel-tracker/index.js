@@ -184,7 +184,7 @@ function attachButtonBehavior(node, handler) {
   }
 }
 
-async function loadJSON(path) {
+async function fetchJSON(path) {
   const url = assetUrl(path);
   const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
@@ -202,7 +202,7 @@ async function loadStrings(lang) {
   const langToTry = [lang, 'en'];
   for (const code of langToTry) {
     try {
-      const data = await loadJSON(`i18n/travel-tracker.${code}.json`);
+      const data = await fetchJSON(`i18n/travel-tracker.${code}.json`);
       if (data) {
         return { data, lang: code };
       }
@@ -732,7 +732,7 @@ async function init() {
     const lang = document.documentElement.lang || 'lv';
     const [{ data: loadedStrings }, routes] = await Promise.all([
       loadStrings(lang),
-      loadJSON(DATA_PATH),
+      fetchJSON(DATA_PATH),
     ]);
     strings = {
       check: 'Check',

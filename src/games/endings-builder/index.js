@@ -5,6 +5,7 @@ import { norm, equalsLoose } from './norm.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
 import { loadJSON, loadString, saveJSON, saveString } from '../../lib/storage.js';
+import { showFatalError } from '../../lib/errors.js';
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -42,18 +43,32 @@ async function loadItems() {
   }
 }
 
-const ITEMS = await loadItems();
+let ITEMS = [];
 
 const PROGRESS_KEY = 'eb-progress-v1';
 const STRICT_KEY = 'eb-strict-v1';
 const LETTERS = ['ā', 'ē', 'ī', 'ū', 'č', 'ģ', 'ķ', 'ļ', 'ņ', 'š', 'ž'];
 
-const root = document.querySelector('.eb-wrapper');
-if (!root) {
-  throw new Error('Endings Builder root missing');
-}
+let root = null;
+let board = null;
+let pool = null;
+let feedbackEl = null;
+let explainEl = null;
+let headingEl = null;
+let subtitleEl = null;
+let answerInput = null;
+let keypadEl = null;
+let shell = null;
+let strict = false;
+let strings = {};
+let progress = {};
+let rounds = [];
+let state = null;
 
 const mustQuery = (selector) => {
+  if (!root) {
+    throw new Error('Endings Builder root missing');
+  }
   const el = root.querySelector(selector);
   if (!el) {
     throw new Error(`Endings Builder missing element: ${selector}`);
@@ -61,49 +76,65 @@ const mustQuery = (selector) => {
   return el;
 };
 
-const board = mustQuery('#ebBoard');
-const pool = mustQuery('#ebOptions');
-const feedbackEl = mustQuery('.eb-feedback');
-const explainEl = mustQuery('[data-eb-explain]');
-const headingEl = mustQuery('[data-eb-heading]');
-const subtitleEl = mustQuery('[data-eb-subtitle]');
-const answerInput = mustQuery('.eb-answer');
-const keypadEl = mustQuery('.eb-keypad');
+async function init() {
+  try {
+    ITEMS = await loadItems();
+    root = document.querySelector('.eb-wrapper');
+    if (!root) {
+      throw new Error('Endings Builder root missing');
+    }
 
-let strings = await loadStrings();
-applyStrings();
+    board = mustQuery('#ebBoard');
+    pool = mustQuery('#ebOptions');
+    feedbackEl = mustQuery('.eb-feedback');
+    explainEl = mustQuery('[data-eb-explain]');
+    headingEl = mustQuery('[data-eb-heading]');
+    subtitleEl = mustQuery('[data-eb-subtitle]');
+    answerInput = mustQuery('.eb-answer');
+    keypadEl = mustQuery('.eb-keypad');
 
-const progress = loadProgress();
-const rounds = buildRounds();
+    strings = await loadStrings();
+    applyStrings();
 
-let state = {
-  current: null,
-  solved: false,
-  attempts: 0,
-  correct: 0,
-  streak: 0,
-  lastAttemptKey: null
-};
+    progress = loadProgress();
+    rounds = buildRounds();
 
-const shell = mountGameShell({
-  root,
-  strings,
-  onCheck: () => checkTyped(),
-  onNext: () => nextRound(),
-  onToggleRule: () => toggleRule(),
-  onStrictChange: val => setStrict(val)
-});
+    state = {
+      current: null,
+      solved: false,
+      attempts: 0,
+      correct: 0,
+      streak: 0,
+      lastAttemptKey: null
+    };
 
-let strict = loadStrict();
-shell.setStrict(strict);
-shell.setScore({ attempts: state.attempts, correct: state.correct, streak: state.streak });
+    shell = mountGameShell({
+      root,
+      strings,
+      onCheck: () => checkTyped(),
+      onNext: () => nextRound(),
+      onToggleRule: () => toggleRule(),
+      onStrictChange: val => setStrict(val)
+    });
 
-setupKeypad();
-answerInput.addEventListener('input', () => {
-  state.lastAttemptKey = null;
-});
+    strict = loadStrict();
+    shell.setStrict(strict);
+    shell.setScore({ attempts: state.attempts, correct: state.correct, streak: state.streak });
 
-nextRound();
+    setupKeypad();
+    answerInput.addEventListener('input', () => {
+      state.lastAttemptKey = null;
+    });
+
+    nextRound();
+  } catch (err) {
+    console.error('Failed to initialize Endings Builder', err);
+    const safeError = err instanceof Error ? err : new Error('Failed to load Endings Builder.');
+    showFatalError(safeError);
+  }
+}
+
+init();
 
 async function loadStrings() {
   const langFallback = document.documentElement.lang || 'lv';

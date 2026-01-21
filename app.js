@@ -1,5 +1,5 @@
 import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale } from './src/lib/render.js';
-import { state, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
+import { getState, setState, updateState, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
 import { startMatchRound, drawMatch } from './src/lib/match.js';
 import { startForgeRound, drawForge } from './src/lib/forge.js';
 import { $id, mustId, on } from './src/lib/dom.js';
@@ -72,7 +72,8 @@ function applyTranslations(){
   mustId('btn-next').setAttribute('aria-label', i18n.buttons.nextAria);
   const deckBtn = mustId('btn-deck-size');
   deckBtn.setAttribute('aria-label', i18n.buttons.deckSizeAria);
-  deckBtn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
+  const { deckSizeMode } = getState();
+  deckBtn.title = deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
   const btnExport = mustId('btn-export');
   btnExport.textContent = i18n.buttons.export;
   btnExport.setAttribute('aria-label', i18n.buttons.exportAria);
@@ -116,10 +117,11 @@ function drawHelp(){
   const by = y + h - bh - 14;
   roundedRect(bx,by,bw,bh,10,'#334','#556');
   drawText(i18n.help.close, bx + (isMobile ? 8 : 12), by + (isMobile ? 22 : 20), {font:`${isMobile ? 12 : 14}px system-ui`});
-  clickables.push({x:bx,y:by,w:bw,h:bh,onClick:()=>{ state.showHelp=false; triggerRedraw(); }});
+  clickables.push({x:bx,y:by,w:bw,h:bh,onClick:()=>{ updateState(state => { state.showHelp = false; }); triggerRedraw(); }});
 }
 
 function draw(){
+  const state = getState();
   if(state.mode===MODES.MATCH){
     if(state.matchState) drawMatch();
   } else {
@@ -131,7 +133,10 @@ function draw(){
 setRedraw(draw);
 
 function toggleDeckSize(){
-  state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
+  updateState(state => {
+    state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';
+  });
+  const state = getState();
   const btn = $id('btn-deck-size');
   if (btn) {
     btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
@@ -142,14 +147,14 @@ function toggleDeckSize(){
 }
 
 function setupEventListeners(){
-  on(mustId('mode-match'), 'click', ()=>{ state.mode=MODES.MATCH; state.roundIndex=0; startMatchRound(); });
-  on(mustId('mode-forge'), 'click', ()=>{ state.mode=MODES.FORGE; state.roundIndex=0; startForgeRound(); });
-  on(mustId('btn-practice'), 'click', ()=>{ state.difficulty='practice'; setStatus(i18n.status.practice); });
-  on(mustId('btn-challenge'), 'click', ()=>{ state.difficulty='challenge'; setStatus(i18n.status.challenge); });
-  on(mustId('btn-prev'), 'click', ()=>{ state.roundIndex=Math.max(0,state.roundIndex-1); state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
-  on(mustId('btn-next'), 'click', ()=>{ state.roundIndex++; state.mode===MODES.MATCH?startMatchRound():startForgeRound(); });
+  on(mustId('mode-match'), 'click', ()=>{ updateState(state => { state.mode = MODES.MATCH; state.roundIndex = 0; }); startMatchRound(); });
+  on(mustId('mode-forge'), 'click', ()=>{ updateState(state => { state.mode = MODES.FORGE; state.roundIndex = 0; }); startForgeRound(); });
+  on(mustId('btn-practice'), 'click', ()=>{ updateState(state => { state.difficulty = 'practice'; }); setStatus(i18n.status.practice); });
+  on(mustId('btn-challenge'), 'click', ()=>{ updateState(state => { state.difficulty = 'challenge'; }); setStatus(i18n.status.challenge); });
+  on(mustId('btn-prev'), 'click', ()=>{ updateState(state => { state.roundIndex = Math.max(0, state.roundIndex - 1); }); const { mode } = getState(); mode===MODES.MATCH?startMatchRound():startForgeRound(); });
+  on(mustId('btn-next'), 'click', ()=>{ updateState(state => { state.roundIndex += 1; }); const { mode } = getState(); mode===MODES.MATCH?startMatchRound():startForgeRound(); });
   on(mustId('btn-deck-size'), 'click', toggleDeckSize);
-  on(mustId('btn-help'), 'click', ()=>{ state.showHelp=!state.showHelp; triggerRedraw(); });
+  on(mustId('btn-help'), 'click', ()=>{ updateState(state => { state.showHelp = !state.showHelp; }); triggerRedraw(); });
   on(mustId('btn-export'), 'click', exportCSV);
   on(mustId('language-select'), 'change', async e=>{
     const lang = e.target.value;
@@ -158,8 +163,9 @@ function setupEventListeners(){
       const target = lang === 'ru' ? 'ru' : 'en';
       await loadVocabulary('lv', target);
 
-      state.roundIndex = 0;
-      state.mode===MODES.MATCH?startMatchRound():startForgeRound();
+      updateState(state => { state.roundIndex = 0; });
+      const { mode } = getState();
+      mode===MODES.MATCH?startMatchRound():startForgeRound();
     } catch(err) {
       console.error('Failed to load translations', err);
       alert('Failed to load translations');
@@ -183,6 +189,7 @@ function setupEventListeners(){
       const t=e.touches[0];
       getCanvasCoordinates(t.clientX, t.clientY);
       touchStartY = t.clientY; touchStartTime = Date.now();
+      const state = getState();
       touchStartScrollY = state.matchState ? state.matchState.scrollY : 0;
       touchMoved = false;
     }, { passive: true });
@@ -190,11 +197,17 @@ function setupEventListeners(){
       const t = e.touches[0];
       const dy = t.clientY - touchStartY;
       if(Math.abs(dy) > 5) touchMoved = true;
+      const state = getState();
       if(state.mode === MODES.MATCH && state.matchState){
-        const ms = state.matchState;
-        const viewH = ms.viewBottom - ms.viewTop;
-        const maxScroll = Math.max(0, ms.contentH - viewH);
-        ms.scrollY = Math.max(0, Math.min(maxScroll, touchStartScrollY - dy));
+        const viewH = state.matchState.viewBottom - state.matchState.viewTop;
+        const maxScroll = Math.max(0, state.matchState.contentH - viewH);
+        updateState(state => {
+          const ms = state.matchState;
+          if (!ms) return;
+          const viewH = ms.viewBottom - ms.viewTop;
+          const maxScroll = Math.max(0, ms.contentH - viewH);
+          ms.scrollY = Math.max(0, Math.min(maxScroll, touchStartScrollY - dy));
+        });
         triggerRedraw();
         if (maxScroll > 0) {
           e.preventDefault();
@@ -211,11 +224,17 @@ function setupEventListeners(){
     }
   }, { passive: false });
     on(canvas, 'wheel', e=>{
+      const state = getState();
       if(state.mode !== MODES.MATCH || !state.matchState) return;
-      const ms = state.matchState;
-      const viewH = ms.viewBottom - ms.viewTop;
-      const maxScroll = Math.max(0, ms.contentH - viewH);
-      ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + e.deltaY));
+      const viewH = state.matchState.viewBottom - state.matchState.viewTop;
+      const maxScroll = Math.max(0, state.matchState.contentH - viewH);
+      updateState(state => {
+        const ms = state.matchState;
+        if (!ms) return;
+        const viewH = ms.viewBottom - ms.viewTop;
+        const maxScroll = Math.max(0, ms.contentH - viewH);
+        ms.scrollY = Math.max(0, Math.min(maxScroll, ms.scrollY + e.deltaY));
+      });
       triggerRedraw();
       if (maxScroll > 0) {
         e.preventDefault();
@@ -223,16 +242,17 @@ function setupEventListeners(){
     }, { passive: false });
   on(window, 'resize', ()=>{ updateCanvasScale(); triggerRedraw(); });
   on(document, 'keydown', e=>{
-    if(e.key==='1'){ state.mode=MODES.MATCH; startMatchRound(); }
-    if(e.key==='2'){ state.mode=MODES.FORGE; startForgeRound(); }
-    if(e.key==='h' || e.key==='H'){ state.showHelp=!state.showHelp; triggerRedraw(); }
-    if(e.key==='r' || e.key==='R'){ state.mode===MODES.MATCH?startMatchRound():startForgeRound(); }
+    if(e.key==='1'){ updateState(state => { state.mode = MODES.MATCH; }); startMatchRound(); }
+    if(e.key==='2'){ updateState(state => { state.mode = MODES.FORGE; }); startForgeRound(); }
+    if(e.key==='h' || e.key==='H'){ updateState(state => { state.showHelp = !state.showHelp; }); triggerRedraw(); }
+    if(e.key==='r' || e.key==='R'){ const { mode } = getState(); mode===MODES.MATCH?startMatchRound():startForgeRound(); }
     if(e.key==='d' || e.key==='D') toggleDeckSize();
   });
 }
 
 function exportCSV(){
   const rows = [["mode","timestamp","correct","total","time_s","detail"].join(",")];
+  const state = getState();
   for(const r of state.results){ const d = JSON.stringify(r.details).replaceAll('"','""'); rows.push([r.mode,r.ts,r.correct,r.total,r.time,`"${d}"`].join(",")); }
   const blob = new Blob([rows.join("\n")], {type:"text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);
@@ -272,8 +292,7 @@ async function loadVocabulary(from='lv', to='en'){
     const forgeRes = await fetch(forgeUrl);
     if (!forgeRes.ok) throw new Error(`Failed to load ${forgeUrl}: ${forgeRes.status}`);
     const forgeData = await forgeRes.json();
-    state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
-    state.targetLang = to;
+    setState({ DATA: { units, forge: forgeData.entries || [], notes: forgeData.notes || {} }, targetLang: to });
     return;
   } catch (err) {
     console.warn(`Failed to load vocabulary via fetch for ${from}-${to}`, err);
@@ -292,8 +311,7 @@ async function loadVocabulary(from='lv', to='en'){
     .filter(Boolean)
     .map(deepCopy);
   const forgeData = deepCopy(offline.forge || { entries: [], notes: {} });
-  state.DATA = { units, forge: forgeData.entries || [], notes: forgeData.notes || {} };
-  state.targetLang = to;
+  setState({ DATA: { units, forge: forgeData.entries || [], notes: forgeData.notes || {} }, targetLang: to });
 }
 
 async function startInit(){

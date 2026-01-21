@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mulberry32, state, shuffle, choice } from '../../src/lib/state.js';
+import { mulberry32, setState, shuffle, choice, resetState } from '../../src/lib/state.js';
 
 // mulberry32 should produce a deterministic sequence for a given seed
 
@@ -13,7 +13,8 @@ test('mulberry32 produces deterministic values', () => {
 // shuffle should reorder array deterministically with seeded rng
 
 test('shuffle reorders array using state.rng', () => {
-  state.rng = mulberry32(1);
+  resetState();
+  setState({ rng: mulberry32(1) });
   const arr = [1, 2, 3, 4, 5];
   const result = shuffle(arr.slice());
   assert.deepStrictEqual(result, [5, 3, 2, 1, 4]);
@@ -22,7 +23,8 @@ test('shuffle reorders array using state.rng', () => {
 // choice should pick an element based on state.rng
 
 test('choice selects element from array', () => {
-  state.rng = mulberry32(1);
+  resetState();
+  setState({ rng: mulberry32(1) });
   const value = choice(['a', 'b', 'c']);
   assert.equal(value, 'b');
 });

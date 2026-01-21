@@ -4,7 +4,7 @@ import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 const { statusEl } = stubMatchDom();
 
-const { state, mulberry32, clickables, resetClicks } = await import('../../src/lib/state.js');
+const { getState, resetState, setState, mulberry32, clickables } = await import('../../src/lib/state.js');
 const match = await import('../../src/lib/match.js');
 
 test('full deck size caps at 15', () => {
@@ -12,35 +12,42 @@ test('full deck size caps at 15', () => {
     translations: { lv: 'lv' + i, en: 'en' + i },
     games: ['match']
   }));
-  state.DATA = { units: [{ name: 'u', entries: many }] };
-  state.targetLang = 'en';
-  state.deckSizeMode = 'full';
-  state.difficulty = 'practice';
-  state.rng = mulberry32(42);
+  resetState();
+  setState({
+    DATA: { units: [{ name: 'u', entries: many }] },
+    targetLang: 'en',
+    deckSizeMode: 'full',
+    difficulty: 'practice',
+    rng: mulberry32(42),
+  });
 
   match.startMatchRound();
-  assert.equal(state.matchState.total, 15);
-  assert.equal(state.matchState.left.length, 15);
-  assert.equal(state.matchState.right.length, 15);
+  const ms = getState().matchState;
+  assert.equal(ms.total, 15);
+  assert.equal(ms.left.length, 15);
+  assert.equal(ms.right.length, 15);
 });
 
 test('mismatch shows prefix hint and increments errors', () => {
-  state.DATA = {
-    notes: { 'prefix:iz': 'to the outside', 'prefix:pa': 'across/over' },
-    units: [
-      {
-        name: 'u',
-        entries: [
-          { translations: { lv: 'iet', en: 'go' }, games: ['match'], tags: ['prefix:iz'] },
-          { translations: { lv: 'iet2', en: 'go2' }, games: ['match'], tags: ['prefix:pa'] }
-        ]
-      }
-    ]
-  };
-  state.targetLang = 'en';
-  state.deckSizeMode = 'full';
-  state.difficulty = 'practice';
-  state.rng = mulberry32(7);
+  resetState();
+  setState({
+    DATA: {
+      notes: { 'prefix:iz': 'to the outside', 'prefix:pa': 'across/over' },
+      units: [
+        {
+          name: 'u',
+          entries: [
+            { translations: { lv: 'iet', en: 'go' }, games: ['match'], tags: ['prefix:iz'] },
+            { translations: { lv: 'iet2', en: 'go2' }, games: ['match'], tags: ['prefix:pa'] }
+          ]
+        }
+      ]
+    },
+    targetLang: 'en',
+    deckSizeMode: 'full',
+    difficulty: 'practice',
+    rng: mulberry32(7),
+  });
 
   match.startMatchRound();
   match.drawMatch();
@@ -57,28 +64,31 @@ test('mismatch shows prefix hint and increments errors', () => {
   left.onClick();
   right.onClick();
 
-  const ms = state.matchState;
+  const ms = getState().matchState;
   assert.equal(ms.errors, 1);
   assert.ok(ms.feedback.startsWith('Priedēklis:'));
 });
 
 test('solving the only pair records result and restarts', () => {
-  state.DATA = {
-    notes: {},
-    units: [
-      {
-        name: 'u',
-        entries: [ { translations: { lv: 'braukt', en: 'drive' }, games: ['match'] } ]
-      }
-    ]
-  };
-  state.targetLang = 'en';
-  state.deckSizeMode = 'full';
-  state.difficulty = 'practice';
-  state.rng = mulberry32(9);
+  resetState();
+  setState({
+    DATA: {
+      notes: {},
+      units: [
+        {
+          name: 'u',
+          entries: [ { translations: { lv: 'braukt', en: 'drive' }, games: ['match'] } ]
+        }
+      ]
+    },
+    targetLang: 'en',
+    deckSizeMode: 'full',
+    difficulty: 'practice',
+    rng: mulberry32(9),
+  });
   statusEl.textContent = '';
 
-  const before = state.results.length;
+  const before = getState().results.length;
   match.startMatchRound();
   match.drawMatch();
 
@@ -89,8 +99,9 @@ test('solving the only pair records result and restarts', () => {
   right.onClick();
 
   // End of round should push a result and update status
-  assert.equal(state.results.length, before + 1);
-  const last = state.results[state.results.length - 1];
+  const results = getState().results;
+  assert.equal(results.length, before + 1);
+  const last = results[results.length - 1];
   assert.equal(last.mode, 'MATCH');
   assert.equal(last.correct, 1);
   assert.equal(last.total, 1);

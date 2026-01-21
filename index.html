@@ -47,8 +47,9 @@
     <script type="module" src="scripts/page-init.js"></script>
 
     <script>
-      // Footer year
-      document.getElementById('year').textContent = new Date().getFullYear();
+      // Footer year (nav.js injects footer later, so guard for null).
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
 
       // List your games here (title, link, icon, desc)
       const games = [

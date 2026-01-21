@@ -2,6 +2,8 @@ import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
 import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
 const STORAGE_KEY = 'llb1:maini-vai-mainies:progress';
@@ -319,35 +321,36 @@ async function loadStrings() {
 }
 
 async function bootstrap() {
-  selectors.start.disabled = true;
-  setButtonsDisabled(true);
-
-  selectors.buttons.forEach(btn => btn.addEventListener('click', handleChoice));
-
-  if (selectors.next) {
-    selectors.next.addEventListener('click', () => {
-      if (!state.started || !state.readyForNext) return;
-      advance();
-    });
-  }
-
-  if (selectors.start) {
-    selectors.start.addEventListener('click', () => {
-      startSession();
-    });
-  }
-
-  const strings = await loadStrings();
-  applyStrings(strings);
-
-  const progress = readProgress();
-  if (progress) {
-    state.score = progress.xp ?? 0;
-    state.streak = progress.streak ?? 0;
-    updateMetrics();
-  }
-
+  showLoading('Loading game data...');
   try {
+    selectors.start.disabled = true;
+    setButtonsDisabled(true);
+
+    selectors.buttons.forEach(btn => btn.addEventListener('click', handleChoice));
+
+    if (selectors.next) {
+      selectors.next.addEventListener('click', () => {
+        if (!state.started || !state.readyForNext) return;
+        advance();
+      });
+    }
+
+    if (selectors.start) {
+      selectors.start.addEventListener('click', () => {
+        startSession();
+      });
+    }
+
+    const strings = await loadStrings();
+    applyStrings(strings);
+
+    const progress = readProgress();
+    if (progress) {
+      state.score = progress.xp ?? 0;
+      state.streak = progress.streak ?? 0;
+      updateMetrics();
+    }
+
     const items = await loadJSON(DATA_PATH);
     if (!Array.isArray(items)) {
       throw new Error('Dataset malformed');
@@ -358,9 +361,16 @@ async function bootstrap() {
   } catch (err) {
     console.error(err);
     setFeedback('Neizdevās ielādēt datus.');
+    const safeError = err instanceof Error ? err : new Error('Failed to load game data.');
+    showFatalError(safeError);
+  } finally {
+    hideLoading();
   }
 }
 
 bootstrap().catch(err => {
   console.error('Failed to init game', err);
+  const safeError = err instanceof Error ? err : new Error('Failed to load game data.');
+  showFatalError(safeError);
+  hideLoading();
 });

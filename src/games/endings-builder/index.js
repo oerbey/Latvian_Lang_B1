@@ -1,6 +1,7 @@
 import { mountGameShell } from './game-shell.js';
 import { norm, equalsLoose } from './norm.js';
 import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 import { loadItems, loadStrings } from './data.js';
 import { loadProgress, loadStrict, saveProgress, saveStrict } from './progress.js';
 import { buildOptions, buildRounds } from './rounds.js';
@@ -33,6 +34,7 @@ const mustQuery = (selector) => {
 };
 
 async function init() {
+  showLoading('Loading game data...');
   try {
     items = await loadItems();
     root = document.querySelector('.eb-wrapper');
@@ -112,6 +114,8 @@ async function init() {
     console.error('Failed to initialize Endings Builder', err);
     const safeError = err instanceof Error ? err : new Error('Failed to load Endings Builder.');
     showFatalError(safeError);
+  } finally {
+    hideLoading();
   }
 }
 

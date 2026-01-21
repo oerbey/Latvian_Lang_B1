@@ -1,5 +1,7 @@
 import { mustId } from '../../lib/dom.js';
 import { loadJSON, remove, saveJSON } from '../../lib/storage.js';
+import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 import {
   applySeed,
   clearSessionSeed,
@@ -309,6 +311,7 @@ function handleRestart() {
 }
 
 async function init() {
+  showLoading('Loading game data...');
   try {
     const lang = document.documentElement.lang || 'lv';
     const [{ data: loadedStrings }, routes] = await Promise.all([
@@ -381,6 +384,10 @@ async function init() {
     if (selectors.feedback) {
       selectors.feedback.textContent = 'Failed to load Travel Tracker.';
     }
+    const safeError = err instanceof Error ? err : new Error('Failed to load Travel Tracker.');
+    showFatalError(safeError);
+  } finally {
+    hideLoading();
   }
 }
 

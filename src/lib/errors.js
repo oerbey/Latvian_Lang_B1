@@ -79,6 +79,9 @@ function buildOverlay(doc, info) {
   const overlay = doc.createElement('div');
   overlay.id = 'llb1-error-overlay';
   overlay.className = 'llb1-error-overlay';
+  overlay.setAttribute('role', 'alert');
+  overlay.setAttribute('aria-live', 'assertive');
+  overlay.setAttribute('aria-atomic', 'true');
 
   const panel = doc.createElement('div');
   panel.className = 'llb1-error-panel';

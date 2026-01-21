@@ -1,5 +1,7 @@
 import { mustId, on } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';
+import { showFatalError } from '../../lib/errors.js';
+import { hideLoading, showLoading } from '../../lib/loading.js';
 import { loadItems, loadTranslations } from './data.js';
 import { readProgress, persistProgress } from './progress.js';
 import {
@@ -347,6 +349,7 @@ import {
   }
 
   async function init() {
+    showLoading('Loading game data...');
     progress = readProgress(STORAGE_KEY);
     xp = progress.xp ?? 0;
     streak = progress.streak ?? 0;
@@ -363,6 +366,10 @@ import {
     } catch (err) {
       console.error(err);
       updateLiveRegion(nodes, 'Unable to load the detective game right now.');
+      const safeError = err instanceof Error ? err : new Error('Failed to load the detective game.');
+      showFatalError(safeError);
+    } finally {
+      hideLoading();
     }
   }
 

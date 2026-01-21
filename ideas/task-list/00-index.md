@@ -9,7 +9,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 5) ✅ 05-split-travel-tracker-module.md - Split travel-tracker into smaller modules
 6) ✅ 06-split-endings-builder-module.md - Split endings-builder into smaller modules
 7) ✅ 07-split-other-large-modules.md - Split duty-dispatcher, decl6-detective, passive-lab, matching-game
-8) 08-state-store-refactor.md - Replace global mutable state with a store pattern
+8) ✅ 08-state-store-refactor.md - Replace global mutable state with a store pattern
 9) 09-state-dom-decoupling.md - Remove DOM writes from state and move clickables to render context
 10) 10-shared-navigation.md - Generate navbar and footer from a shared source
 11) 11-game-loading-and-error-states.md - Add consistent loading and error UI per game

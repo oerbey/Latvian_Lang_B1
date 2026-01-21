@@ -1,4 +1,4 @@
-import { state } from './state.js';
+import { getState } from './state.js';
 import { mustId } from './dom.js';
 
 const canvas = mustId('canvas');
@@ -80,6 +80,7 @@ export function drawBadge(txt,x,y,color){
 
 let bursts=[];
 export function confetti(y){
+  const state = getState();
   for(let i=0;i<14;i++){
     bursts.push({x:W/2+(state.rng()*160-80), y:y+(state.rng()*20-10), vx:state.rng()*2-1, vy:-2-state.rng()*2, life:60});
   }

@@ -32,7 +32,13 @@ async function loadEndings() {
   }
 }
 
-const ENDINGS = await loadEndings();
+let ENDINGS = {};
+try {
+  ENDINGS = await loadEndings();
+} catch (err) {
+  console.error('Failed to load endings tables.', err);
+  ENDINGS = {};
+}
 
 export function getEnding({ pos, schema, gram }) {
   const table = ENDINGS[pos]?.[schema];

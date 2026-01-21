@@ -1,4 +1,3 @@
-import { mustId } from './dom.js';
 import { MULBERRY32_CONSTANT } from './constants.js';
 import { pickRandom, shuffleInPlace } from './utils.js';
 
@@ -91,10 +90,6 @@ export function now() {
 
 export let HELP_TEXT = '';
 export function setHelpText(t) { HELP_TEXT = t; }
-export function setStatus(s) { mustId('status').textContent = s || ''; }
-export let clickables = [];
-export function hitAt(x, y) { for (const c of clickables) { if (x >= c.x && x <= c.x + c.w && y >= c.y && y <= c.y + c.h) return c; } return null; }
-export function resetClicks() { clickables.length = 0; }
 let redraw = () => { };
 export function setRedraw(fn) { redraw = fn; }
 export function triggerRedraw() { redraw(); }

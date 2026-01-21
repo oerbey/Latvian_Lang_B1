@@ -5,7 +5,12 @@ import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 const { statusEl } = stubMatchDom();
 
+const { setStatusHandler } = await import('../../src/lib/status.js');
 const { startMatchRound } = await import('../../src/lib/match.js');
+
+setStatusHandler((message) => {
+  statusEl.textContent = message || '';
+});
 
 test('startMatchRound uses target language entries', () => {
   resetState();

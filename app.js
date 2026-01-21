@@ -1,5 +1,7 @@
 import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale } from './src/lib/render.js';
-import { getState, setState, updateState, MODES, setStatus, hitAt, resetClicks, clickables, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
+import { getState, setState, updateState, MODES, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
+import { clickables, hitAt } from './src/lib/clickables.js';
+import { setStatus, setStatusHandler } from './src/lib/status.js';
 import { startMatchRound, drawMatch } from './src/lib/match.js';
 import { startForgeRound, drawForge } from './src/lib/forge.js';
 import { $id, mustId, on } from './src/lib/dom.js';
@@ -8,6 +10,9 @@ import { installGlobalErrorHandlers, showFatalError } from './src/lib/errors.js'
 import { setTrustedHTML } from './src/lib/safeHtml.js';
 
 installGlobalErrorHandlers();
+setStatusHandler((message) => {
+  mustId('status').textContent = message || '';
+});
 
 let i18n = {};
 let currentLang = 'lv';

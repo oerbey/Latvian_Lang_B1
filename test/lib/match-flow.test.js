@@ -4,8 +4,14 @@ import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 const { statusEl } = stubMatchDom();
 
-const { getState, resetState, setState, mulberry32, clickables } = await import('../../src/lib/state.js');
+const { getState, resetState, setState, mulberry32 } = await import('../../src/lib/state.js');
+const { clickables } = await import('../../src/lib/clickables.js');
+const { setStatusHandler } = await import('../../src/lib/status.js');
 const match = await import('../../src/lib/match.js');
+
+setStatusHandler((message) => {
+  statusEl.textContent = message || '';
+});
 
 test('full deck size caps at 15', () => {
   const many = Array.from({ length: 20 }, (_, i) => ({

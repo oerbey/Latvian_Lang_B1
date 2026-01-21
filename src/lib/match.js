@@ -1,4 +1,6 @@
-import { getState, shuffle, choice, now, resetClicks, clickables, setStatus, triggerRedraw, updateState } from './state.js';
+import { getState, shuffle, choice, now, triggerRedraw, updateState } from './state.js';
+import { clickables, resetClicks } from './clickables.js';
+import { setStatus } from './status.js';
 import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti, setCanvasHeight } from './render.js';
 import { $id } from './dom.js';
 

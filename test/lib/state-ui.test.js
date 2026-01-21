@@ -4,7 +4,12 @@ import { stubMatchDom } from '../helpers/dom-stubs.js';
 
 const { statusEl } = stubMatchDom();
 
-const { setStatus, clickables, hitAt, resetClicks } = await import('../../src/lib/state.js');
+const { setStatus, setStatusHandler } = await import('../../src/lib/status.js');
+const { clickables, hitAt, resetClicks } = await import('../../src/lib/clickables.js');
+
+setStatusHandler((message) => {
+  statusEl.textContent = message || '';
+});
 
 test('setStatus updates status element text', () => {
   setStatus('Hello');

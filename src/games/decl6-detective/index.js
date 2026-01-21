@@ -1,7 +1,16 @@
 import { mustId, on } from '../../lib/dom.js';
-import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
-import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { loadItems, loadTranslations } from './data.js';
+import { readProgress, persistProgress } from './progress.js';
+import {
+  applySceneTheme,
+  applyTranslations,
+  setMcqProgress,
+  setTypeProgress,
+  updateLevelStatus,
+  updateLiveRegion,
+  updateScoreboard,
+} from './ui.js';
 
 (() => {
   const STORAGE_KEY = 'llb1:decl6-detective:progress';
@@ -24,20 +33,6 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     level_complete: 'Level complete!',
     instructions_mcq: 'Choose the correct 6th-declension form.',
     instructions_typein: 'Type the missing form (supports Latvian diacritics).',
-  };
-
-  const SCENE_META = {
-    virtuve: { label: 'Virtuve', emoji: '🍲', color: '#fb923c' },
-    pirts: { label: 'Pirts', emoji: '🪵', color: '#fb7185' },
-    klēts: { label: 'Klēts', emoji: '🌾', color: '#22c55e' },
-    kūts: { label: 'Kūts', emoji: '🐄', color: '#ca8a04' },
-    telts: { label: 'Telts', emoji: '⛺', color: '#38bdf8' },
-    viesistaba: { label: 'Viesistaba', emoji: '🛋️', color: '#a855f7' },
-    koridors: { label: 'Koridors', emoji: '🚪', color: '#64748b' },
-    karte: { label: 'Karte', emoji: '🗺️', color: '#0ea5e9' },
-    pagalms: { label: 'Pagalms', emoji: '🏡', color: '#4ade80' },
-    parks: { label: 'Parks', emoji: '🌳', color: '#22c55e' },
-    pludmale: { label: 'Pludmale', emoji: '🏖️', color: '#f97316' },
   };
 
   const nodes = {
@@ -97,93 +92,13 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
       .replace(/\s+/g, ' ');
   }
 
-  function formatLastPlayed(value) {
-    if (!value) return '—';
-    const when = new Date(value);
-    if (Number.isNaN(when.getTime())) return '—';
-    return when.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
-  }
-
-  function readProgress() {
-    try {
-      const parsed = loadJSON(STORAGE_KEY, null);
-      if (!parsed || typeof parsed !== 'object') {
-        return { xp: 0, streak: 0, lastPlayedISO: null };
-      }
-      return {
-        xp: Number.isFinite(parsed?.xp) ? parsed.xp : 0,
-        streak: Number.isFinite(parsed?.streak) ? parsed.streak : 0,
-        lastPlayedISO: parsed?.lastPlayedISO ?? null,
-      };
-    } catch (err) {
-      console.warn('Failed to read decl6 progress', err);
-      return { xp: 0, streak: 0, lastPlayedISO: null };
-    }
-  }
-
-  function persistProgress(touchLastPlayed = false) {
-    const payload = {
-      xp,
-      streak,
-      lastPlayedISO: touchLastPlayed ? new Date().toISOString() : progress.lastPlayedISO,
-    };
-    progress = payload;
-    try {
-      saveJSON(STORAGE_KEY, payload);
-    } catch (err) {
-      console.warn('Unable to persist decl6 progress', err);
-    }
-    updateScoreboard();
-  }
-
-  function updateScoreboard() {
-    if (nodes.scoreValue) nodes.scoreValue.textContent = String(xp);
-    if (nodes.streakValue) nodes.streakValue.textContent = String(streak);
-    if (nodes.lastPlayedValue) nodes.lastPlayedValue.textContent = formatLastPlayed(progress.lastPlayedISO);
-  }
-
-  function applyTranslations() {
-    document.title = strings.title || document.title;
-    document.documentElement.lang = currentLang;
-    document.querySelectorAll('[data-i18n-key]').forEach(node => {
-      const key = node.dataset.i18nKey;
-      if (!key) return;
-      const value = strings[key];
-      if (!value) return;
-      if (node.tagName.toLowerCase() === 'input') {
-        node.setAttribute('placeholder', value);
-      } else {
-        node.textContent = value;
-      }
-    });
-  }
-
-  function getSceneMeta(scene) {
-    if (scene && Object.prototype.hasOwnProperty.call(SCENE_META, scene)) {
-      return SCENE_META[scene];
-    }
-    if (!scene) {
-      return { label: 'Scene', emoji: '🏠', color: 'var(--accent)' };
-    }
-    const capitalized = scene.charAt(0).toUpperCase() + scene.slice(1);
-    return { label: capitalized, emoji: '🏠', color: 'var(--accent)' };
-  }
-
-  function applySceneTheme(card, emojiEl, labelEl, scene) {
-    if (!card) return;
-    const theme = getSceneMeta(scene);
-    card.style.setProperty('--scene-color', theme.color);
-    if (emojiEl) emojiEl.textContent = theme.emoji;
-    if (labelEl) labelEl.textContent = theme.label;
-    if (card === nodes.typeCard && nodes.planImage && scene && scene !== nodes.planImage.dataset.scene) {
-      nodes.planImage.dataset.scene = scene;
-      nodes.planImage.alt = `House floor plan — ${theme.label}`;
-    }
-  }
-
-  function updateLiveRegion(message) {
-    if (!nodes.liveRegion) return;
-    nodes.liveRegion.textContent = message;
+  function saveProgress(touchLastPlayed = false) {
+    progress = persistProgress(
+      STORAGE_KEY,
+      { xp, streak, lastPlayedISO: progress.lastPlayedISO },
+      touchLastPlayed,
+    );
+    updateScoreboard(nodes, progress);
   }
 
   function prepareQueue(target) {
@@ -201,18 +116,6 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     return queue;
   }
 
-  function setMcqProgress() {
-    if (!nodes.mcqProgress) return;
-    const visible = Math.min(mcqIndex + 1, MCQ_TARGET);
-    nodes.mcqProgress.textContent = `${visible}/${MCQ_TARGET}`;
-  }
-
-  function setTypeProgress() {
-    if (!nodes.typeProgress) return;
-    const visible = Math.min(typeIndex + 1, TYPE_TARGET);
-    nodes.typeProgress.textContent = `${visible}/${TYPE_TARGET}`;
-  }
-
   function finalizeMcqSection() {
     currentMcqItem = null;
     mcqSolved = false;
@@ -223,8 +126,8 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     nodes.mcqExplain.textContent = '';
     nodes.mcqOptions.replaceChildren();
     nodes.mcqNext.disabled = true;
-    setMcqProgress();
-    updateLevelStatus();
+    setMcqProgress(nodes, mcqIndex, MCQ_TARGET);
+    updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
   }
 
   function loadMcqItem() {
@@ -242,7 +145,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     nodes.mcqExplain.classList.add('visually-hidden');
     nodes.mcqExplain.textContent = currentMcqItem.explain ?? '';
     nodes.mcqNext.disabled = true;
-    applySceneTheme(nodes.mcqCard, nodes.mcqSceneEmoji, nodes.mcqSceneName, currentMcqItem.scene);
+    applySceneTheme(nodes.mcqCard, nodes.mcqSceneEmoji, nodes.mcqSceneName, null, currentMcqItem.scene);
     nodes.mcqOptions.replaceChildren();
     const options = shuffle(currentMcqItem.options ?? []);
     options.forEach(optionText => {
@@ -256,7 +159,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
       button.addEventListener('click', handleMcqChoice);
       nodes.mcqOptions.appendChild(button);
     });
-    setMcqProgress();
+    setMcqProgress(nodes, mcqIndex, MCQ_TARGET);
   }
 
   function handleMcqChoice(event) {
@@ -285,18 +188,18 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
       nodes.mcqExplain.textContent = explanation;
       nodes.mcqExplain.classList.remove('visually-hidden');
       nodes.mcqNext.disabled = false;
-      persistProgress(true);
+      saveProgress(true);
       let message = `${strings.correct} ${explanation}`.trim();
       if (bonus) {
         message = `${message} +${bonus} xp`;
       }
-      updateLiveRegion(message);
-      updateLevelStatus();
+      updateLiveRegion(nodes, message);
+      updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
     } else {
       button.classList.add('incorrect');
-      updateLiveRegion(strings.wrong);
+      updateLiveRegion(nodes, strings.wrong);
       streak = 0;
-      persistProgress(false);
+      saveProgress(false);
     }
   }
 
@@ -313,8 +216,8 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     nodes.typeCheck.disabled = true;
     nodes.typeNext.disabled = true;
     nodes.typeInput.classList.remove('is-valid', 'is-invalid');
-    updateLevelStatus();
-    setTypeProgress();
+    updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
+    setTypeProgress(nodes, typeIndex, TYPE_TARGET);
   }
 
   function loadTypeItem() {
@@ -335,8 +238,8 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     nodes.typeInput.classList.remove('is-valid', 'is-invalid');
     nodes.typeCheck.disabled = false;
     nodes.typeNext.disabled = true;
-    applySceneTheme(nodes.typeCard, nodes.typeSceneEmoji, nodes.typeSceneName, currentTypeItem.scene);
-    setTypeProgress();
+    applySceneTheme(nodes.typeCard, nodes.typeSceneEmoji, nodes.typeSceneName, nodes.planImage, currentTypeItem.scene);
+    setTypeProgress(nodes, typeIndex, TYPE_TARGET);
   }
 
   function handleTypeCheck() {
@@ -362,18 +265,18 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
         bonus = 10;
         xp += bonus;
       }
-      persistProgress(true);
+      saveProgress(true);
       let message = `${strings.correct} ${(currentTypeItem.explain ?? '').trim()}`.trim();
       if (bonus) {
         message = `${message} +${bonus} xp`;
       }
-      updateLiveRegion(message);
-      updateLevelStatus();
+      updateLiveRegion(nodes, message);
+      updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
     } else {
       nodes.typeInput.classList.add('is-invalid');
-      updateLiveRegion(strings.wrong);
+      updateLiveRegion(nodes, strings.wrong);
       streak = 0;
-      persistProgress(false);
+      saveProgress(false);
     }
   }
 
@@ -382,8 +285,8 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     typeIndex += 1;
     if (typeIndex >= TYPE_TARGET) {
       finalizeTypeSection();
-      updateLevelStatus();
-      updateLiveRegion(strings.level_complete);
+      updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
+      updateLiveRegion(nodes, strings.level_complete);
       return;
     }
     loadTypeItem();
@@ -394,16 +297,10 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     mcqIndex += 1;
     if (mcqIndex >= MCQ_TARGET) {
       finalizeMcqSection();
-      updateLiveRegion(strings.level_complete);
+      updateLiveRegion(nodes, strings.level_complete);
       return;
     }
     loadMcqItem();
-  }
-
-  function updateLevelStatus() {
-    const finished = mcqIndex >= MCQ_TARGET && typeIndex >= TYPE_TARGET;
-    if (!nodes.levelStatus) return;
-    nodes.levelStatus.classList.toggle('visually-hidden', !finished);
   }
 
   function attachEventListeners() {
@@ -411,7 +308,7 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     on(nodes.typeCheck, 'click', handleTypeCheck);
     on(nodes.typeNext, 'click', handleTypeNext);
     on(nodes.restart, 'click', () => {
-      updateLiveRegion('');
+      updateLiveRegion(nodes, '');
       startSession();
     });
     on(nodes.typeInput, 'keydown', event => {
@@ -446,54 +343,26 @@ import { loadJSON, saveJSON } from '../../lib/storage.js';
     typeSolved = false;
     loadMcqItem();
     loadTypeItem();
-    updateLevelStatus();
-  }
-
-  async function loadTranslations() {
-    const candidates = [navigator.language?.slice(0, 2), 'lv', 'en'].filter(Boolean);
-    for (const code of candidates) {
-      try {
-        const url = assetUrl(`i18n/decl6-detective.${code}.json`);
-        const response = await fetch(url, { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error(`Failed to load ${url}: ${response.status}`);
-        }
-        const payload = await response.json();
-        strings = { ...DEFAULT_STRINGS, ...payload };
-        currentLang = code;
-        applyTranslations();
-        return;
-      } catch (err) {
-        console.warn('Unable to load decl6 translations for', code, err);
-      }
-    }
-    strings = { ...DEFAULT_STRINGS };
-    applyTranslations();
-  }
-
-  async function loadData() {
-    const url = assetUrl(DATA_PATH);
-    const response = await fetch(url, { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Failed to load ${url}: ${response.status}`);
-    }
-    return response.json();
+    updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
   }
 
   async function init() {
-    progress = readProgress();
+    progress = readProgress(STORAGE_KEY);
     xp = progress.xp ?? 0;
     streak = progress.streak ?? 0;
-    updateScoreboard();
+    updateScoreboard(nodes, progress);
     try {
-      await loadTranslations();
-      items = await loadData();
+      const translations = await loadTranslations(DEFAULT_STRINGS);
+      strings = translations.strings;
+      currentLang = translations.lang;
+      applyTranslations(strings, currentLang);
+      items = await loadItems(DATA_PATH);
       if (!items.length) throw new Error('No items in decl6 data');
       startSession();
       attachEventListeners();
     } catch (err) {
       console.error(err);
-      updateLiveRegion('Unable to load the detective game right now.');
+      updateLiveRegion(nodes, 'Unable to load the detective game right now.');
     }
   }
 

@@ -24,7 +24,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 20) ✅ 20-sw-cache-expansion.md - Expand SW cache or add dynamic caching for game assets
 21) ✅ 21-testing-jsdom-setup.md - Add JSDOM setup and test helpers
 22) ✅ 22-testing-coverage.md - Add coverage reporting
-23) 23-testing-playwright-e2e.md - Add Playwright E2E smoke tests
+23) ✅ 23-testing-playwright-e2e.md - Add Playwright E2E smoke tests
 24) 24-security-csp-inline-removal.md - Remove inline scripts and tighten CSP
 25) 25-security-input-sanitization.md - Sanitize user input and enforce storage validation
 26) 26-accessibility-skip-links.md - Add skip links on all pages

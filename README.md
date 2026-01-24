@@ -217,6 +217,9 @@ npm run test:watch
 # Generate coverage report
 npm run test:coverage
 
+# Run Playwright smoke tests
+npm run test:e2e
+
 # Tests mirror the src/ structure under test/
 # Example: test/games/conjugation-sprint/index.test.js
 ```

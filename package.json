@@ -8,6 +8,7 @@
     "test": "node --test --import ./scripts/jsdom-setup.js",
     "test:watch": "node --test --watch --import ./scripts/jsdom-setup.js",
     "test:coverage": "node --test --experimental-test-coverage --import ./scripts/jsdom-setup.js",
+    "test:e2e": "playwright test",
     "validate:data": "node scripts/validate-data.mjs",
     "build:data": "node scripts/xlsx_to_json.mjs",
     "build:words:chunks": "node scripts/split-words-json.mjs",
@@ -16,6 +17,7 @@
     "lint": "eslint . --ext .js"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.0",
     "ajv": "^8.17.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

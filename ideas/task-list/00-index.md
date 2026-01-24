@@ -14,7 +14,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 10) ✅ 10-shared-navigation.md - Generate navbar and footer from a shared source
 11) ✅ 11-game-loading-and-error-states.md - Add consistent loading and error UI per game
 12) ✅ 12-touch-target-audit.md - Enforce 48px touch targets across UI
-13) 13-json-schema-validation.md - Add JSON schema validation for data files
+13) ✅ 13-json-schema-validation.md - Add JSON schema validation for data files
 14) 14-language-key-standardization.md - Standardize language keys in data and loaders
 15) 15-words-json-split-and-loader.md - Split words.json and update loaders
 16) 16-progress-schema-unification.md - Unify progress storage schema and migrations

@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Duty Dispatcher tasks",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "s", "card", "tense", "validRecipients", "hint", "explain"],
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "s": { "type": "string", "minLength": 1 },
+      "card": { "type": "string", "minLength": 1 },
+      "tense": { "type": "string", "enum": ["present", "past", "future"] },
+      "validRecipients": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 },
+        "minItems": 1
+      },
+      "hint": { "type": "string", "minLength": 1 },
+      "explain": { "type": "string", "minLength": 1 }
+    }
+  }
+}

@@ -7,12 +7,14 @@
     "start": "npx http-server . -p 5173",
     "test": "node --test",
     "test:watch": "node --test --watch",
+    "validate:data": "node scripts/validate-data.mjs",
     "build:data": "node scripts/xlsx_to_json.mjs",
     "build:personality": "node scripts/personality_csv_to_json.mjs",
     "build:offline": "python3 scripts/build_week1_offline.py",
     "lint": "eslint . --ext .js"
   },
   "devDependencies": {
+    "ajv": "^8.17.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Duty Dispatcher roles",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "label", "dative", "avatar"],
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "label": { "type": "string", "minLength": 1 },
+      "dative": { "type": "string", "minLength": 1 },
+      "avatar": { "type": "string", "minLength": 1 }
+    }
+  }
+}

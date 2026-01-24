@@ -1,8 +1,9 @@
 import { seededShuffle } from './utils.js';
+import { sanitizeText } from '../../lib/sanitize.js';
 import { getCurrentLevel, getCurrentRoute, getProgressPosition } from './state.js';
 
 export function normalizeAnswer(str) {
-  return str.trim().toLocaleLowerCase('lv-LV');
+  return sanitizeText(str).toLocaleLowerCase('lv-LV');
 }
 
 export function attachButtonBehavior(node, handler) {

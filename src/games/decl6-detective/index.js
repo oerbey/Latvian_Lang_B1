@@ -1,5 +1,6 @@
 import { mustId, on } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';
+import { sanitizeText } from '../../lib/sanitize.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { loadItems, loadTranslations } from './data.js';
@@ -85,8 +86,7 @@ import {
   let progress = { xp: 0, streak: 0, lastPlayedISO: null };
 
   function normalizeAnswer(value = '') {
-    return value
-      .trim()
+    return sanitizeText(value)
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')

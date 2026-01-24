@@ -1,6 +1,7 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
+import { sanitizeText } from '../../lib/sanitize.js';
 import { loadJSON, readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
@@ -45,7 +46,7 @@ const state = {
 };
 
 function normalizeAnswer(value) {
-  return (value ?? '').trim().toLowerCase();
+  return sanitizeText(value).toLowerCase();
 }
 
 function readProgress() {

@@ -1,4 +1,5 @@
 import { shuffleInPlace } from './utils.js';
+import { sanitizeText } from './sanitize.js';
 import { showFatalError } from './errors.js';
 import { hideLoading, showLoading } from './loading.js';
 import { DEFAULT_TEXTS, MODE_ALL, MODE_LOCKED } from './matching-game/constants.js';
@@ -27,6 +28,8 @@ export function initMatchingGame(options) {
     throw new Error('initMatchingGame: required DOM elements are missing.');
   }
   if (!dataLoader) throw new Error('initMatchingGame: dataLoader is required.');
+
+  const isPlainObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 
   const mergedTexts = {
     ...DEFAULT_TEXTS,
@@ -378,7 +381,7 @@ export function initMatchingGame(options) {
 
   function getClampedCustomSize(value) {
     const poolSize = getCurrentPool().length || minCustomSize;
-    const raw = Number(value);
+    const raw = Number(sanitizeText(value));
     if (!Number.isFinite(raw) || raw < minCustomSize) return minCustomSize;
     return Math.min(raw, Math.max(poolSize, minCustomSize));
   }
@@ -542,7 +545,7 @@ export function initMatchingGame(options) {
 
   function hydrateStoredState() {
     if (storageKeys?.config) {
-      const savedConfig = readState(storageKeys.config, null);
+      const savedConfig = readState(storageKeys.config, {}, isPlainObject);
       if (savedConfig && typeof savedConfig === 'object') {
         state.lockedConfig = {
           ...state.lockedConfig,
@@ -552,7 +555,7 @@ export function initMatchingGame(options) {
       }
     }
     if (storageKeys?.activeSet) {
-      const savedSet = readState(storageKeys.activeSet, null);
+      const savedSet = readState(storageKeys.activeSet, [], Array.isArray);
       state.lockedOrder = Array.isArray(savedSet) ? savedSet.filter((id) => state.itemById.has(id)) : [];
     }
     if (storageKeys?.cursor) {
@@ -561,14 +564,14 @@ export function initMatchingGame(options) {
     }
     sanitizeLockedOrder();
     if (storageKeys?.recent) {
-      const savedRecents = readState(storageKeys.recent, []);
+      const savedRecents = readState(storageKeys.recent, [], Array.isArray);
       state.recentSets = Array.isArray(savedRecents)
         ? savedRecents
             .map((set) => (Array.isArray(set) ? set.filter((id) => state.itemById.has(id)) : []))
             .filter((set) => set.length)
         : [];
     }
-    if (storageKeys?.stats) state.stats = readState(storageKeys.stats, {}) || {};
+    if (storageKeys?.stats) state.stats = readState(storageKeys.stats, {}, isPlainObject) || {};
     syncSetSizeControls();
     if (els.prioritizeSwitch) els.prioritizeSwitch.checked = !!state.lockedConfig.prioritizeMistakes;
     if (els.modeAll) els.modeAll.checked = state.lockedConfig.mode === MODE_ALL;

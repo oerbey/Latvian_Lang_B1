@@ -1,5 +1,5 @@
 import { initMatchingGame, MATCHING_CONSTANTS } from '../src/lib/matching-game.js';
-import { assetUrl } from '../src/lib/paths.js';
+import { loadWords } from '../src/lib/words-data.js';
 
 const els = {
   lvList: document.getElementById('list-lv'),
@@ -24,25 +24,7 @@ const els = {
 };
 
 function makeWordsLoader() {
-  return async () => {
-    let usingFallback = false;
-    let items = [];
-    try {
-      const url = assetUrl('data/words.json');
-      const res = await fetch(url, { cache: 'force-cache' });
-      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
-      items = await res.json();
-    } catch (err) {
-      if (Array.isArray(window.__LATVIAN_WORDS__)) {
-        console.warn('words.json fetch failed; using embedded fallback dataset.', err);
-        items = window.__LATVIAN_WORDS__;
-        usingFallback = true;
-      } else {
-        throw err;
-      }
-    }
-    return { items, usingFallback };
-  };
+  return async () => loadWords({ cache: 'force-cache' });
 }
 
 initMatchingGame({

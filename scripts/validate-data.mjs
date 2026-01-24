@@ -11,6 +11,11 @@ const DATASETS = [
     schemaPath: 'schemas/words.schema.json',
   },
   {
+    name: 'words index',
+    dataPath: 'data/words/index.json',
+    schemaPath: 'schemas/words-index.schema.json',
+  },
+  {
     name: 'maini-vai-mainies items',
     dataPath: 'data/maini-vai-mainies/items.json',
     schemaPath: 'schemas/maini-vai-mainies-items.schema.json',
@@ -66,6 +71,47 @@ async function validateDataset(entry) {
   return valid;
 }
 
+async function validateWordChunks() {
+  const indexFile = path.resolve(ROOT, 'data/words/index.json');
+  const wordsSchemaFile = path.resolve(ROOT, 'schemas/words.schema.json');
+  const index = await readJson(indexFile);
+  const wordsSchema = await readJson(wordsSchemaFile);
+  const validate = ajv.compile(wordsSchema);
+
+  const chunks = Array.isArray(index?.chunks) ? index.chunks : [];
+  if (!chunks.length) {
+    console.error('\nSchema validation failed for words chunks');
+    console.error('File: data/words/index.json');
+    console.error('  - /chunks must contain at least one entry');
+    return false;
+  }
+
+  let ok = true;
+  let totalCount = 0;
+
+  for (const chunkPath of chunks) {
+    const dataFile = path.resolve(ROOT, chunkPath);
+    const data = await readJson(dataFile);
+    totalCount += Array.isArray(data) ? data.length : 0;
+    const valid = validate(data);
+    if (!valid) {
+      ok = false;
+      const lines = formatErrors(validate.errors);
+      console.error(`\nSchema validation failed for words chunk`);
+      console.error(`File: ${chunkPath}`);
+      lines.forEach((line) => console.error(line));
+    }
+  }
+
+  if (Number.isInteger(index.total) && totalCount !== index.total) {
+    ok = false;
+    console.error('\nWords chunk total mismatch');
+    console.error(`Expected ${index.total}, found ${totalCount}`);
+  }
+
+  return ok;
+}
+
 async function main() {
   let ok = true;
   for (const entry of DATASETS) {
@@ -78,6 +124,15 @@ async function main() {
       console.error(`File: ${entry.dataPath}`);
       console.error(err instanceof Error ? err.message : String(err));
     }
+  }
+
+  try {
+    const validChunks = await validateWordChunks();
+    if (!validChunks) ok = false;
+  } catch (err) {
+    ok = false;
+    console.error('\nFailed to validate word chunks');
+    console.error(err instanceof Error ? err.message : String(err));
   }
 
   if (!ok) {

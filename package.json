@@ -9,6 +9,7 @@
     "test:watch": "node --test --watch",
     "validate:data": "node scripts/validate-data.mjs",
     "build:data": "node scripts/xlsx_to_json.mjs",
+    "build:words:chunks": "node scripts/split-words-json.mjs",
     "build:personality": "node scripts/personality_csv_to_json.mjs",
     "build:offline": "python3 scripts/build_week1_offline.py",
     "lint": "eslint . --ext .js"

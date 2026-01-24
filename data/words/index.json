@@ -1,0 +1,10 @@
+{
+  "total": 382,
+  "chunkSize": 100,
+  "chunks": [
+    "data/words/chunk-01.json",
+    "data/words/chunk-02.json",
+    "data/words/chunk-03.json",
+    "data/words/chunk-04.json"
+  ]
+}

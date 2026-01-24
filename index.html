@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- CSP allows inline scripts/styles for existing inline snippets -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
+    <!-- CSP allows inline styles for existing inline snippets -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
 
     <title>Latvian Language B1 Games</title>
 
@@ -47,51 +47,6 @@
     <script type="module" src="theme.js"></script>
     <script type="module" src="scripts/nav.js"></script>
     <script type="module" src="scripts/page-init.js"></script>
-
-    <script>
-      // Footer year (nav.js injects footer later, so guard for null).
-      const yearEl = document.getElementById('year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-      // List your games here (title, link, icon, desc)
-      const games = [
-        { title: 'Darbības Vārds', href: 'darbibas-vards.html', icon: 'bi-joystick', desc: 'Verb practice game' },
-        { title: 'Conjugation Sprint', href: 'conjugation-sprint.html', icon: 'bi-speedometer2', desc: 'Verb conjugation race' },
-        { title: 'Endings Builder', href: 'endings-builder.html', icon: 'bi-slash', desc: 'Build verbs from pieces' },
-        { title: 'Passive Voice Builder', href: 'passive-lab.html', icon: 'bi-flask', desc: 'Construct passive forms with tikt + participle' },
-        { title: 'Kas ir manā mājā?', href: 'decl6-detective.html', icon: 'bi-house-door', desc: 'Detect 6th-declension forms with cards + room builder' },
-        { title: 'Travel Tracker', href: 'travel-tracker.html', icon: 'bi-bus-front', desc: 'Follow routes with prefixes' },
-        { title: 'Maini vai mainies?', href: 'maini-vai-mainies.html', icon: 'bi-shuffle', desc: 'Reflexive vs. non-reflexive verbs' },
-        { title: 'Kas jādara kam?', href: 'duty-dispatcher.html', icon: 'bi-people', desc: 'Assign duties with the debitive' },
-        { title: 'Rakstura īpašības — pāri', href: 'rakstura-ipasibas-match.html', icon: 'bi-list-check', desc: 'Savieno rakstura īpašības ar tulkojumiem slēgtā kopā vai pilnajā sarakstā.' },
-        { title: 'Rakstura īpašības', href: 'character-traits.html', icon: 'bi-emoji-smile', desc: 'Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.' },
-        { title: 'Week 1', href: 'week1.html', icon: 'bi-lightning-charge', desc: 'Weekly exercises' },
-        // { title: 'Nouns', href: 'lietvardi.html', icon: 'bi-book', desc: 'Noun practice' },
-      ];
-
-      // Build responsive cards
-      const grid = document.getElementById('gamesGrid');
-      games.forEach(g => {
-        const col = document.createElement('div');
-        col.className = 'col-12 col-sm-6 col-lg-4';
-        col.innerHTML = `
-          <a class="text-reset text-decoration-none" href="${g.href}">
-            <div class="card h-100 hover-lift">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-2">
-                  <i class="bi ${g.icon} fs-3 me-2"></i>
-                  <h2 class="h5 mb-0">${g.title}</h2>
-                </div>
-                <p class="text-secondary mb-3">${g.desc}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="badge bg-secondary-subtle text-secondary-emphasis">B1</span>
-                  <span class="btn btn-primary">Play</span>
-                </div>
-              </div>
-            </div>
-          </a>`;
-        grid.appendChild(col);
-      });
-    </script>
+    <script type="module" src="scripts/homepage.js"></script>
   </body>
 </html>

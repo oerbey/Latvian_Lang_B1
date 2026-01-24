@@ -4,3 +4,7 @@
 # Node dependencies
 node_modules/
 .npm-cache/
+playwright-report/
+playwright-results/
+test-results/
+.npm-cache/

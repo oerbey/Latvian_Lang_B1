@@ -9,8 +9,8 @@ export function initMatchingGame(options) {
   const {
     elements,
     dataLoader,
-    languages = [{ id: 'eng', label: 'English' }],
-    defaultLanguage = languages[0]?.id || 'eng',
+    languages = [{ id: 'en', label: 'English' }],
+    defaultLanguage = languages[0]?.id || 'en',
     storageKeys,
     defaultConfig = { mode: MODE_ALL, size: 10, prioritizeMistakes: false },
     minCustomSize = 5,

@@ -60,15 +60,15 @@ export function buildPersonalityData(text) {
       skipped.push({ line: lineNumber, reason: 'missing required fields' });
       return;
     }
-    const eng = normalizeEnglish(en);
-    if (!eng) {
-      skipped.push({ line: lineNumber, reason: 'missing eng after normalization' });
+    const normalizedEn = normalizeEnglish(en);
+    if (!normalizedEn) {
+      skipped.push({ line: lineNumber, reason: 'missing en after normalization' });
       return;
     }
     items.push({
       id: id.trim(),
       lv: lv.trim(),
-      eng,
+      en: normalizedEn,
       group: (group || '').trim(),
       notes: rest.join(',').trim(),
     });

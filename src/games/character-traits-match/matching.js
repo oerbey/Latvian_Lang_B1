@@ -43,8 +43,8 @@ export function initTraitsMatching({ defaultMode = MATCHING_CONSTANTS.MODE_ALL }
   initMatchingGame({
     elements,
     dataLoader: async () => ({ items: await loadPersonalityWords() }),
-    languages: [{ id: 'eng', label: 'Angļu' }],
-    defaultLanguage: 'eng',
+    languages: [{ id: 'en', label: 'Angļu' }],
+    defaultLanguage: 'en',
     storageKeys: {
       config: 'traits_match_config',
       activeSet: 'traits_match_activeSet',

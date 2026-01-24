@@ -15,7 +15,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 11) ✅ 11-game-loading-and-error-states.md - Add consistent loading and error UI per game
 12) ✅ 12-touch-target-audit.md - Enforce 48px touch targets across UI
 13) ✅ 13-json-schema-validation.md - Add JSON schema validation for data files
-14) 14-language-key-standardization.md - Standardize language keys in data and loaders
+14) ✅ 14-language-key-standardization.md - Standardize language keys in data and loaders
 15) 15-words-json-split-and-loader.md - Split words.json and update loaders
 16) 16-progress-schema-unification.md - Unify progress storage schema and migrations
 17) 17-confetti-raf-fix.md - Fix confetti render loop and cancel RAFs

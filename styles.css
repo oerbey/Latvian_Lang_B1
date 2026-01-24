@@ -108,7 +108,7 @@
     button{padding:12px 10px;font-size:16px;min-width:60px;min-height:48px;}
     #ui{gap:6px;flex-wrap:wrap;}
     /* Smaller buttons for tiny screens but still touch-friendly */
-    .small{min-width:55px;padding:10px 8px;min-height:44px;font-size:14px;}
+    .small{min-width:55px;padding:10px 8px;min-height:48px;font-size:14px;}
     #legend{font-size:13px;}
   }
 
@@ -172,12 +172,27 @@
 
   /* Windows touch device optimizations */
   @media (pointer: coarse) {
-    button {
-      min-height: 44px; /* Windows touch guidelines */
+    button,
+    .btn,
+    .btn-sm,
+    .btn-lg,
+    .nav-link,
+    .navbar-toggler,
+    .btn-close,
+    .form-select,
+    .form-control {
+      min-height: 48px;
+      min-width: 48px;
     }
-    
+
     .small {
-      min-height: 36px;
+      min-height: 48px;
+      min-width: 48px;
+    }
+
+    .nav-link {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
     }
   }
 
@@ -311,6 +326,8 @@ html, body {
   border: none;
   border-radius: 999px;
   padding: 6px 14px;
+  min-height: 48px;
+  min-width: 48px;
   background: #38bdf8;
   color: #0f172a;
   font-weight: 600;

@@ -103,6 +103,7 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 0.9rem 1rem;
+  min-height: 48px;
   background: var(--surface-subtle);
   font-weight: 600;
   text-align: center;

@@ -20,6 +20,7 @@
   padding-block: 0.9rem;
   font-size: 1.1rem;
   font-weight: 600;
+  min-height: 48px;
 }
 
 .mvm-feedback {

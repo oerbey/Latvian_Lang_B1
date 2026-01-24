@@ -358,7 +358,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 48px;
+  min-width: 48px;
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
   border: 1px solid transparent;

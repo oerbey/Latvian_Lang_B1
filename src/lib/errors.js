@@ -53,6 +53,8 @@ function ensureStyles(doc) {
       border: none;
       border-radius: 999px;
       padding: 10px 18px;
+      min-height: 48px;
+      min-width: 48px;
       font-weight: 600;
       cursor: pointer;
     }

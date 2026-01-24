@@ -1,6 +1,6 @@
 import { assetUrl } from './paths.js';
 
-function parseEngVariants(value) {
+function parseEnVariants(value) {
   if (typeof value !== 'string') return [];
   const parts = value.includes(';') ? value.split(';') : value.split(' / ');
   return parts
@@ -8,8 +8,8 @@ function parseEngVariants(value) {
     .filter(Boolean);
 }
 
-function normalizeEng(value) {
-  const parts = parseEngVariants(value);
+function normalizeEn(value) {
+  const parts = parseEnVariants(value);
   return parts.join(' / ');
 }
 
@@ -24,15 +24,14 @@ export async function loadPersonalityWords() {
       if (!item || typeof item !== 'object') return null;
       const id = typeof item.id === 'string' ? item.id.trim() : '';
       const lv = typeof item.lv === 'string' ? item.lv.trim() : '';
-      const rawEng = typeof item.eng === 'string' ? item.eng : item.en;
-      const eng = normalizeEng(rawEng);
-      if (!id || !lv || !eng) return null;
-      const enVariants = parseEngVariants(eng);
+      const rawEn = typeof item.en === 'string' ? item.en : '';
+      const en = normalizeEn(rawEn);
+      if (!id || !lv || !en) return null;
+      const enVariants = parseEnVariants(en);
       return {
         id,
         lv,
-        eng,
-        en: enVariants.join('; '),
+        en,
         enVariants,
         group: typeof item.group === 'string' ? item.group.trim().toLowerCase() : '',
         notes: typeof item.notes === 'string' ? item.notes.trim() : '',

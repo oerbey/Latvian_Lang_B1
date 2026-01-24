@@ -2,7 +2,7 @@
 window.__LATVIAN_WORDS__ = [
   {
     "lv": "abonēt",
-    "eng": "to subscribe",
+    "en": "to subscribe",
     "ru": "подписываться",
     "conj": {
       "present": {"1s": "abonēju", "2s": "abonē", "3s": "abonē", "1p": "abonējam", "2p": "abonējat", "3p": "abonē"},
@@ -12,7 +12,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "absolvēt",
-    "eng": "to graduate (from), to complete (a course)",
+    "en": "to graduate (from), to complete (a course)",
     "ru": "оканчивать (учебное заведение), выпускаться",
     "conj": {
       "present": {"1s": "absolvēju", "2s": "absolvē", "3s": "absolvē", "1p": "absolvējam", "2p": "absolvējat", "3p": "absolvē"},
@@ -22,7 +22,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "adīt",
-    "eng": "to knit",
+    "en": "to knit",
     "ru": "вязать",
     "conj": {
       "present": {"1s": "adu", "2s": "adi", "3s": "ada", "1p": "adām", "2p": "adāt", "3p": "ada"},
@@ -32,7 +32,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "aicināt",
-    "eng": "to invite, to call for",
+    "en": "to invite, to call for",
     "ru": "приглашать, призывать",
     "conj": {
       "present": {"1s": "aicinu", "2s": "aicini", "3s": "aicina", "1p": "aicinām", "2p": "aicināt", "3p": "aicina"},
@@ -42,7 +42,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "aiziet",
-    "eng": "to go away, to leave, (euph.) to pass away",
+    "en": "to go away, to leave, (euph.) to pass away",
     "ru": "уходить, уйти; (эвф.) умереть",
     "conj": {
       "present": {"1s": "aizeju", "2s": "aizej", "3s": "aiziet", "1p": "aizejam", "2p": "aizejat", "3p": "aiziet"},
@@ -52,7 +52,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "aizmirst",
-    "eng": "to forget",
+    "en": "to forget",
     "ru": "забывать",
     "conj": {
       "present": {"1s": "aizmirstu", "2s": "aizmirsti", "3s": "aizmirst", "1p": "aizmirstam", "2p": "aizmirstat", "3p": "aizmirst"},
@@ -62,7 +62,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "aiznest",
-    "eng": "to take (away), to carry (to)",
+    "en": "to take (away), to carry (to)",
     "ru": "уносить, унести; относить, отнести",
     "conj": {
       "present": {"1s": "aiznesu", "2s": "aiznes", "3s": "aiznes", "1p": "aiznesam", "2p": "aiznesat", "3p": "aiznes"},
@@ -72,7 +72,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "aizpildīt",
-    "eng": "to fill in, to fill out",
+    "en": "to fill in, to fill out",
     "ru": "заполнять",
     "conj": {
       "present": {"1s": "aizpildu", "2s": "aizpildi", "3s": "aizpilda", "1p": "aizpildām", "2p": "aizpildāt", "3p": "aizpilda"},
@@ -82,7 +82,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apciemot",
-    "eng": "to visit (a person)",
+    "en": "to visit (a person)",
     "ru": "навещать, навестить",
     "conj": {
       "present": {"1s": "apciemoju", "2s": "apciemo", "3s": "apciemo", "1p": "apciemojam", "2p": "apciemojat", "3p": "apciemo"},
@@ -92,7 +92,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apgūt",
-    "eng": "to learn, to master, to acquire",
+    "en": "to learn, to master, to acquire",
     "ru": "осваивать, освоить; изучать",
     "conj": {
       "present": {"1s": "apgūstu", "2s": "apgūsti", "3s": "apgūst", "1p": "apgūstam", "2p": "apgūstat", "3p": "apgūst"},
@@ -102,7 +102,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apjiet",
-    "eng": "to go around, to bypass",
+    "en": "to go around, to bypass",
     "ru": "обходить, обойти",
     "conj": {
       "present": {"1s": "apeju", "2s": "apej", "3s": "apiet", "1p": "apejam", "2p": "apejat", "3p": "apiet"},
@@ -112,7 +112,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apkalpot",
-    "eng": "to serve, to service",
+    "en": "to serve, to service",
     "ru": "обслуживать",
     "conj": {
       "present": {"1s": "apkalpoju", "2s": "apkalpo", "3s": "apkalpo", "1p": "apkalpojam", "2p": "apkalpojat", "3p": "apkalpo"},
@@ -122,7 +122,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apkopot",
-    "eng": "to summarize, to compile, to bring together",
+    "en": "to summarize, to compile, to bring together",
     "ru": "обобщать, систематизировать",
     "conj": {
       "present": {"1s": "apkopoju", "2s": "apkopo", "3s": "apkopo", "1p": "apkopojam", "2p": "apkopojat", "3p": "apkopo"},
@@ -132,7 +132,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apmeklēt",
-    "eng": "to visit, to attend",
+    "en": "to visit, to attend",
     "ru": "посещать",
     "conj": {
       "present": {"1s": "apmeklēju", "2s": "apmeklē", "3s": "apmeklē", "1p": "apmeklējam", "2p": "apmeklējat", "3p": "apmeklē"},
@@ -142,7 +142,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apmierināt",
-    "eng": "to satisfy, to please",
+    "en": "to satisfy, to please",
     "ru": "удовлетворять",
     "conj": {
       "present": {"1s": "apmierinu", "2s": "apmierini", "3s": "apmierina", "1p": "apmierinām", "2p": "apmierināt", "3p": "apmierina"},
@@ -152,7 +152,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apskatīt",
-    "eng": "to look at, to examine, to view",
+    "en": "to look at, to examine, to view",
     "ru": "осмотреть, посмотреть",
     "conj": {
       "present": {"1s": "apskatu", "2s": "apskati", "3s": "apskata", "1p": "apskatām", "2p": "apskatāt", "3p": "apskata"},
@@ -162,7 +162,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "apsveikt",
-    "eng": "to congratulate",
+    "en": "to congratulate",
     "ru": "поздравлять",
     "conj": {
       "present": {"1s": "apsveicu", "2s": "apsveic", "3s": "apsveic", "1p": "apsveicam", "2p": "apsveicat", "3p": "apsveic"},
@@ -172,7 +172,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ārstēt",
-    "eng": "to treat (medically)",
+    "en": "to treat (medically)",
     "ru": "лечить",
     "conj": {
       "present": {"1s": "ārstēju", "2s": "ārstē", "3s": "ārstē", "1p": "ārstējam", "2p": "ārstējat", "3p": "ārstē"},
@@ -182,7 +182,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atbildēt",
-    "eng": "to answer, to reply",
+    "en": "to answer, to reply",
     "ru": "отвечать",
     "conj": {
       "present": {"1s": "atbildu", "2s": "atbildi", "3s": "atbild", "1p": "atbildam", "2p": "atbildat", "3p": "atbild"},
@@ -192,7 +192,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atcerēties",
-    "eng": "to remember",
+    "en": "to remember",
     "ru": "помнить, вспоминать",
     "conj": {
       "present": {"1s": "atceros", "2s": "atceries", "3s": "atceras", "1p": "atceramies", "2p": "atceraties", "3p": "atceras"},
@@ -202,7 +202,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atgriezties",
-    "eng": "to return, to come back",
+    "en": "to return, to come back",
     "ru": "возвращаться",
     "conj": {
       "present": {"1s": "atgriežos", "2s": "atgriezies", "3s": "atgriežas", "1p": "atgriežamies", "2p": "atgriežaties", "3p": "atgriežas"},
@@ -212,7 +212,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atkārtot",
-    "eng": "to repeat, to revise",
+    "en": "to repeat, to revise",
     "ru": "повторять",
     "conj": {
       "present": {"1s": "atkārtoju", "2s": "atkārto", "3s": "atkārto", "1p": "atkārtojam", "2p": "atkārtojat", "3p": "atkārto"},
@@ -222,7 +222,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atnest",
-    "eng": "to bring (here)",
+    "en": "to bring (here)",
     "ru": "приносить, принести",
     "conj": {
       "present": {"1s": "atnesu", "2s": "atnes", "3s": "atnes", "1p": "atnesam", "2p": "atnesat", "3p": "atnes"},
@@ -232,7 +232,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atpūsties",
-    "eng": "to rest, to relax",
+    "en": "to rest, to relax",
     "ru": "отдыхать",
     "conj": {
       "present": {"1s": "atpūšos", "2s": "atpūties", "3s": "atpūšas", "1p": "atpūšamies", "2p": "atpūšaties", "3p": "atpūšas"},
@@ -242,7 +242,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atrast",
-    "eng": "to find",
+    "en": "to find",
     "ru": "находить, найти",
     "conj": {
       "present": {"1s": "atrodu", "2s": "atrodi", "3s": "atrod", "1p": "atrodam", "2p": "atrodat", "3p": "atrod"},
@@ -252,7 +252,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atrasties",
-    "eng": "to be located, to be situated",
+    "en": "to be located, to be situated",
     "ru": "находиться, располагаться",
     "conj": {
       "present": {"1s": "atrodos", "2s": "atrodies", "3s": "atrodas", "1p": "atrodamies", "2p": "atrodaties", "3p": "atrodas"},
@@ -262,7 +262,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atsūtīt",
-    "eng": "to send, to send over (to someone)",
+    "en": "to send, to send over (to someone)",
     "ru": "присылать, прислать",
     "conj": {
       "present": {"1s": "atsūtu", "2s": "atsūti", "3s": "atsūta", "1p": "atsūtām", "2p": "atsūtāt", "3p": "atsūta"},
@@ -272,7 +272,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "atzīmēt",
-    "eng": "to mark, to note, to celebrate",
+    "en": "to mark, to note, to celebrate",
     "ru": "отмечать, отметить",
     "conj": {
       "present": {"1s": "atzīmēju", "2s": "atzīmē", "3s": "atzīmē", "1p": "atzīmējam", "2p": "atzīmējat", "3p": "atzīmē"},
@@ -282,7 +282,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "augt",
-    "eng": "to grow",
+    "en": "to grow",
     "ru": "расти",
     "conj": {
       "present": {"1s": "augu", "2s": "aug", "3s": "aug", "1p": "augam", "2p": "augat", "3p": "aug"},
@@ -292,7 +292,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "beigt",
-    "eng": "to finish, to end",
+    "en": "to finish, to end",
     "ru": "заканчивать, закончить",
     "conj": {
       "present": {"1s": "beidzu", "2s": "beidz", "3s": "beidz", "1p": "beidzam", "2p": "beidzat", "3p": "beidz"},
@@ -302,7 +302,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "beigties",
-    "eng": "to end, to finish (intrans.)",
+    "en": "to end, to finish (intrans.)",
     "ru": "заканчиваться, закончиться",
     "conj": {
       "present": {"1s": "beidzos", "2s": "beidzies", "3s": "beidzas", "1p": "beidzamies", "2p": "beidzaties", "3p": "beidzas"},
@@ -312,7 +312,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "braukt",
-    "eng": "to go (by vehicle), to drive, to ride",
+    "en": "to go (by vehicle), to drive, to ride",
     "ru": "ехать, ездить; ехать на (транспорте)",
     "conj": {
       "present": {"1s": "braucu", "2s": "brauc", "3s": "brauc", "1p": "braucam", "2p": "braucat", "3p": "brauc"},
@@ -322,7 +322,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "būt",
-    "eng": "to be",
+    "en": "to be",
     "ru": "быть",
     "conj": {
       "present": {"1s": "esmu", "2s": "esi", "3s": "ir", "1p": "esam", "2p": "esat", "3p": "ir"},
@@ -332,7 +332,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "būvēt",
-    "eng": "to build",
+    "en": "to build",
     "ru": "строить",
     "conj": {
       "present": {"1s": "būvēju", "2s": "būvē", "3s": "būvē", "1p": "būvējam", "2p": "būvējat", "3p": "būvē"},
@@ -342,7 +342,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "celt",
-    "eng": "to lift, to raise; to build",
+    "en": "to lift, to raise; to build",
     "ru": "поднимать; строить",
     "conj": {
       "present": {"1s": "ceļu", "2s": "cel", "3s": "ceļ", "1p": "ceļam", "2p": "ceļat", "3p": "ceļ"},
@@ -352,7 +352,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "celties",
-    "eng": "to get up, to rise",
+    "en": "to get up, to rise",
     "ru": "вставать, подниматься",
     "conj": {
       "present": {"1s": "ceļos", "2s": "celies", "3s": "ceļas", "1p": "ceļamies", "2p": "ceļaties", "3p": "ceļas"},
@@ -362,7 +362,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ceļot",
-    "eng": "to travel",
+    "en": "to travel",
     "ru": "путешествовать",
     "conj": {
       "present": {"1s": "ceļoju", "2s": "ceļo", "3s": "ceļo", "1p": "ceļojam", "2p": "ceļojat", "3p": "ceļo"},
@@ -372,7 +372,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "cerēt",
-    "eng": "to hope",
+    "en": "to hope",
     "ru": "надеяться",
     "conj": {
       "present": {"1s": "ceru", "2s": "ceri", "3s": "cer", "1p": "ceram", "2p": "cerat", "3p": "cer"},
@@ -382,7 +382,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ciemoties",
-    "eng": "to visit, to be a guest",
+    "en": "to visit, to be a guest",
     "ru": "гостить, быть в гостях",
     "conj": {
       "present": {"1s": "ciemojos", "2s": "ciemies", "3s": "ciemojas", "1p": "ciemojamies", "2p": "ciemojaties", "3p": "ciemojas"},
@@ -392,7 +392,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "darināt",
-    "eng": "to make, to craft",
+    "en": "to make, to craft",
     "ru": "изготавливать",
     "conj": {
       "present": {"1s": "darinu", "2s": "darini", "3s": "darina", "1p": "darinām", "2p": "darināt", "3p": "darina"},
@@ -402,7 +402,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "darīt",
-    "eng": "to do, to make",
+    "en": "to do, to make",
     "ru": "делать",
     "conj": {
       "present": {"1s": "daru", "2s": "dari", "3s": "dara", "1p": "darām", "2p": "darāt", "3p": "dara"},
@@ -412,7 +412,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dāvināt",
-    "eng": "to give (as a gift)",
+    "en": "to give (as a gift)",
     "ru": "дарить",
     "conj": {
       "present": {"1s": "dāvinu", "2s": "dāvini", "3s": "dāvina", "1p": "dāvinām", "2p": "dāvināt", "3p": "dāvina"},
@@ -422,7 +422,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dejot",
-    "eng": "to dance",
+    "en": "to dance",
     "ru": "танцевать",
     "conj": {
       "present": {"1s": "dejoju", "2s": "dejo", "3s": "dejo", "1p": "dejojam", "2p": "dejojat", "3p": "dejo"},
@@ -432,7 +432,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dibināt",
-    "eng": "to found, to establish",
+    "en": "to found, to establish",
     "ru": "основывать, учреждать",
     "conj": {
       "present": {"1s": "dibinu", "2s": "dibini", "3s": "dibina", "1p": "dibinām", "2p": "dibināt", "3p": "dibina"},
@@ -442,7 +442,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "domāt",
-    "eng": "to think",
+    "en": "to think",
     "ru": "думать",
     "conj": {
       "present": {"1s": "domāju", "2s": "domā", "3s": "domā", "1p": "domājam", "2p": "domājat", "3p": "domā"},
@@ -452,7 +452,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dot",
-    "eng": "to give",
+    "en": "to give",
     "ru": "давать",
     "conj": {
       "present": {"1s": "dodu", "2s": "dod", "3s": "dod", "1p": "dodam", "2p": "dodat", "3p": "dod"},
@@ -462,7 +462,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "doties",
-    "eng": "to go, to set off",
+    "en": "to go, to set off",
     "ru": "отправляться",
     "conj": {
       "present": {"1s": "dodos", "2s": "dodies", "3s": "dodas", "1p": "dodamies", "2p": "dodaties", "3p": "dodas"},
@@ -472,7 +472,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "draudzēties",
-    "eng": "to be friends, to date",
+    "en": "to be friends, to date",
     "ru": "дружить, встречаться",
     "conj": {
       "present": {"1s": "draudzējos", "2s": "draudzējies", "3s": "draudzējas", "1p": "draudzējamies", "2p": "draudzējaties", "3p": "draudzējas"},
@@ -482,7 +482,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "drīkstēt",
-    "eng": "to be allowed (to), may",
+    "en": "to be allowed (to), may",
     "ru": "иметь право, мочь (когда разрешено)",
     "conj": {
       "present": {"1s": "drīkstu", "2s": "drīksti", "3s": "drīkst", "1p": "drīkstam", "2p": "drīkstat", "3p": "drīkst"},
@@ -492,7 +492,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dzert",
-    "eng": "to drink",
+    "en": "to drink",
     "ru": "пить",
     "conj": {
       "present": {"1s": "dzeru", "2s": "dzer", "3s": "dzer", "1p": "dzeram", "2p": "dzerat", "3p": "dzer"},
@@ -502,7 +502,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dziedāt",
-    "eng": "to sing",
+    "en": "to sing",
     "ru": "петь",
     "conj": {
       "present": {"1s": "dziedu", "2s": "dziedi", "3s": "dzied", "1p": "dziedam", "2p": "dziedat", "3p": "dzied"},
@@ -512,7 +512,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dzirdēt",
-    "eng": "to hear",
+    "en": "to hear",
     "ru": "слышать",
     "conj": {
       "present": {"1s": "dzirdu", "2s": "dzirdi", "3s": "dzird", "1p": "dzirdam", "2p": "dzirdat", "3p": "dzird"},
@@ -522,7 +522,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "dzīvot",
-    "eng": "to live",
+    "en": "to live",
     "ru": "жить",
     "conj": {
       "present": {"1s": "dzīvoju", "2s": "dzīvo", "3s": "dzīvo", "1p": "dzīvojam", "2p": "dzīvojat", "3p": "dzīvo"},
@@ -532,7 +532,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ēst",
-    "eng": "to eat",
+    "en": "to eat",
     "ru": "есть",
     "conj": {
       "present": {"1s": "ēdu", "2s": "ēd", "3s": "ēd", "1p": "ēdam", "2p": "ēdat", "3p": "ēd"},
@@ -542,7 +542,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "flizēt",
-    "eng": "to tile, to lay tiles",
+    "en": "to tile, to lay tiles",
     "ru": "облицовывать плиткой",
     "conj": {
       "present": {"1s": "flizēju", "2s": "flizē", "3s": "flizē", "1p": "flizējam", "2p": "flizējat", "3p": "flizē"},
@@ -552,7 +552,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "fotografēt",
-    "eng": "to photograph, to take photos",
+    "en": "to photograph, to take photos",
     "ru": "фотографировать",
     "conj": {
       "present": {"1s": "fotografēju", "2s": "fotografē", "3s": "fotografē", "1p": "fotografējam", "2p": "fotografējat", "3p": "fotografē"},
@@ -562,7 +562,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gaidīt",
-    "eng": "to wait",
+    "en": "to wait",
     "ru": "ждать",
     "conj": {
       "present": {"1s": "gaidu", "2s": "gaidi", "3s": "gaida", "1p": "gaidām", "2p": "gaidāt", "3p": "gaida"},
@@ -572,7 +572,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "garšot",
-    "eng": "to taste (have a taste), to be tasty",
+    "en": "to taste (have a taste), to be tasty",
     "ru": "нравиться (на вкус), быть вкусным",
     "conj": {
       "present": {"1s": "garšoju", "2s": "garšo", "3s": "garšo", "1p": "garšojam", "2p": "garšojat", "3p": "garšo"},
@@ -582,7 +582,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gatavot",
-    "eng": "to prepare, to cook",
+    "en": "to prepare, to cook",
     "ru": "готовить",
     "conj": {
       "present": {"1s": "gatavoju", "2s": "gatavo", "3s": "gatavo", "1p": "gatavojam", "2p": "gatavojat", "3p": "gatavo"},
@@ -592,7 +592,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gatavoties",
-    "eng": "to prepare oneself, to get ready",
+    "en": "to prepare oneself, to get ready",
     "ru": "готовиться",
     "conj": {
       "present": {"1s": "gatavojos", "2s": "gatavojies", "3s": "gatavojas", "1p": "gatavojamies", "2p": "gatavojaties", "3p": "gatavojas"},
@@ -602,7 +602,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gleznot",
-    "eng": "to paint (art)",
+    "en": "to paint (art)",
     "ru": "рисовать красками, писать картины",
     "conj": {
       "present": {"1s": "gleznoju", "2s": "glezno", "3s": "glezno", "1p": "gleznojam", "2p": "gleznojat", "3p": "glezno"},
@@ -612,7 +612,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gribēt",
-    "eng": "to want",
+    "en": "to want",
     "ru": "хотеть",
     "conj": {
       "present": {"1s": "gribu", "2s": "gribi", "3s": "grib", "1p": "gribam", "2p": "gribat", "3p": "grib"},
@@ -622,7 +622,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gulēt",
-    "eng": "to sleep",
+    "en": "to sleep",
     "ru": "спать",
     "conj": {
       "present": {"1s": "guļu", "2s": "guli", "3s": "guļ", "1p": "guļam", "2p": "guļat", "3p": "guļ"},
@@ -632,7 +632,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "gūt",
-    "eng": "to gain, to obtain; to sustain (an injury)",
+    "en": "to gain, to obtain; to sustain (an injury)",
     "ru": "получать, приобретать; получить (травму)",
     "conj": {
       "present": {"1s": "gūstu", "2s": "gūsti", "3s": "gūst", "1p": "gūstam", "2p": "gūstat", "3p": "gūst"},
@@ -642,7 +642,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ģērbties",
-    "eng": "to get dressed",
+    "en": "to get dressed",
     "ru": "одеваться",
     "conj": {
       "present": {"1s": "ģērbjos", "2s": "ģērbies", "3s": "ģērbjas", "1p": "ģērbjamies", "2p": "ģērbjaties", "3p": "ģērbjas"},
@@ -652,7 +652,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iegūt",
-    "eng": "to obtain, to acquire, to get",
+    "en": "to obtain, to acquire, to get",
     "ru": "получать, приобретать",
     "conj": {
       "present": {"1s": "iegūstu", "2s": "iegūsti", "3s": "iegūst", "1p": "iegūstam", "2p": "iegūstat", "3p": "iegūst"},
@@ -662,7 +662,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ielidot",
-    "eng": "to fly in, to arrive (by plane)",
+    "en": "to fly in, to arrive (by plane)",
     "ru": "прилетать, прилететь",
     "conj": {
       "present": {"1s": "ielidoju", "2s": "ielido", "3s": "ielido", "1p": "ielidojam", "2p": "ielidojat", "3p": "ielido"},
@@ -672,7 +672,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ielūgt",
-    "eng": "to invite",
+    "en": "to invite",
     "ru": "приглашать, пригласить",
     "conj": {
       "present": {"1s": "ielūdzu", "2s": "ielūdz", "3s": "ielūdz", "1p": "ielūdzam", "2p": "ielūdzat", "3p": "ielūdz"},
@@ -682,7 +682,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iepazīstināt",
-    "eng": "to introduce (someone)",
+    "en": "to introduce (someone)",
     "ru": "представлять, познакомить",
     "conj": {
       "present": {"1s": "iepazīstinu", "2s": "iepazīstini", "3s": "iepazīstina", "1p": "iepazīstinām", "2p": "iepazīstināt", "3p": "iepazīstina"},
@@ -692,7 +692,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iepirkties",
-    "eng": "to shop, to go shopping",
+    "en": "to shop, to go shopping",
     "ru": "делать покупки",
     "conj": {
       "present": {"1s": "iepērkos", "2s": "iepērcies", "3s": "iepērkas", "1p": "iepērkamies", "2p": "iepērkaties", "3p": "iepērkas"},
@@ -702,7 +702,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iesaiņot",
-    "eng": "to wrap, to package",
+    "en": "to wrap, to package",
     "ru": "упаковывать",
     "conj": {
       "present": {"1s": "iesaiņoju", "2s": "iesaiņo", "3s": "iesaiņo", "1p": "iesaiņojam", "2p": "iesaiņojat", "3p": "iesaiņo"},
@@ -712,7 +712,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ieslēgt",
-    "eng": "to turn on, to switch on",
+    "en": "to turn on, to switch on",
     "ru": "включать, включить",
     "conj": {
       "present": {"1s": "ieslēdzu", "2s": "ieslēdz", "3s": "ieslēdz", "1p": "ieslēdzam", "2p": "ieslēdzat", "3p": "ieslēdz"},
@@ -722,7 +722,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iesniegt",
-    "eng": "to submit, to file (documents)",
+    "en": "to submit, to file (documents)",
     "ru": "подавать, подать",
     "conj": {
       "present": {"1s": "iesniedzu", "2s": "iesniedz", "3s": "iesniedz", "1p": "iesniedzam", "2p": "iesniedzat", "3p": "iesniedz"},
@@ -732,7 +732,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iet",
-    "eng": "to go (on foot), to walk",
+    "en": "to go (on foot), to walk",
     "ru": "идти, ходить",
     "conj": {
       "present": {"1s": "eju", "2s": "ej", "3s": "iet", "1p": "ejam", "2p": "ejat", "3p": "iet"},
@@ -742,7 +742,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ieveidot",
-    "eng": "to style, to shape (e.g., hair)",
+    "en": "to style, to shape (e.g., hair)",
     "ru": "уложить (волосы), формировать",
     "conj": {
       "present": {"1s": "ieveidoju", "2s": "ieveido", "3s": "ieveido", "1p": "ieveidojam", "2p": "ieveidojat", "3p": "ieveido"},
@@ -752,7 +752,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "interesēt",
-    "eng": "to interest",
+    "en": "to interest",
     "ru": "интересовать",
     "conj": {
       "present": {"1s": "interesēju", "2s": "interesē", "3s": "interesē", "1p": "interesējam", "2p": "interesējat", "3p": "interesē"},
@@ -762,7 +762,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "interesēties",
-    "eng": "to be interested (in), to inquire",
+    "en": "to be interested (in), to inquire",
     "ru": "интересоваться",
     "conj": {
       "present": {"1s": "interesējos", "2s": "interesējies", "3s": "interesējas", "1p": "interesējamies", "2p": "interesējaties", "3p": "interesējas"},
@@ -772,7 +772,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "īrēt",
-    "eng": "to rent, to hire",
+    "en": "to rent, to hire",
     "ru": "арендовать, снимать",
     "conj": {
       "present": {"1s": "īrēju", "2s": "īrē", "3s": "īrē", "1p": "īrējam", "2p": "īrējat", "3p": "īrē"},
@@ -782,7 +782,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izdarīt",
-    "eng": "to do, to carry out, to accomplish",
+    "en": "to do, to carry out, to accomplish",
     "ru": "сделать, выполнить",
     "conj": {
       "present": {"1s": "izdaru", "2s": "izdari", "3s": "izdara", "1p": "izdarām", "2p": "izdarāt", "3p": "izdara"},
@@ -792,7 +792,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izgatavot",
-    "eng": "to manufacture, to produce, to make",
+    "en": "to manufacture, to produce, to make",
     "ru": "изготавливать, производить",
     "conj": {
       "present": {"1s": "izgatavoju", "2s": "izgatavo", "3s": "izgatavo", "1p": "izgatavojam", "2p": "izgatavojat", "3p": "izgatavo"},
@@ -802,7 +802,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iziet",
-    "eng": "to go out, to exit; to pass (an exam)",
+    "en": "to go out, to exit; to pass (an exam)",
     "ru": "выходить, выйти; пройти (экзамен)",
     "conj": {
       "present": {"1s": "izeju", "2s": "izej", "3s": "iziet", "1p": "izejam", "2p": "izejat", "3p": "iziet"},
@@ -812,7 +812,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izklaidēties",
-    "eng": "to have fun, to entertain oneself",
+    "en": "to have fun, to entertain oneself",
     "ru": "развлекаться",
     "conj": {
       "present": {"1s": "izklaidējos", "2s": "izklaidējies", "3s": "izklaidējas", "1p": "izklaidējamies", "2p": "izklaidējaties", "3p": "izklaidējas"},
@@ -822,7 +822,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izķemmēt",
-    "eng": "to comb out (thoroughly)",
+    "en": "to comb out (thoroughly)",
     "ru": "вычесывать",
     "conj": {
       "present": {"1s": "izķemmēju", "2s": "izķemmē", "3s": "izķemmē", "1p": "izķemmējam", "2p": "izķemmējat", "3p": "izķemmē"},
@@ -832,7 +832,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izlasīt",
-    "eng": "to read through",
+    "en": "to read through",
     "ru": "прочитать",
     "conj": {
       "present": {"1s": "izlasu", "2s": "izlasi", "3s": "izlasa", "1p": "izlasām", "2p": "izlasāt", "3p": "izlasa"},
@@ -842,7 +842,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izlidot",
-    "eng": "to fly out",
+    "en": "to fly out",
     "ru": "вылетать, вылететь",
     "conj": {
       "present": {"1s": "izlidoju", "2s": "izlido", "3s": "izlido", "1p": "izlidojam", "2p": "izlidojat", "3p": "izlido"},
@@ -852,7 +852,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izskatīties",
-    "eng": "to look, to appear, to seem",
+    "en": "to look, to appear, to seem",
     "ru": "выглядеть, казаться",
     "conj": {
       "present": {"1s": "izskatos", "2s": "izskaties", "3s": "izskatās", "1p": "izskatāmies", "2p": "izskatāties", "3p": "izskatās"},
@@ -862,7 +862,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izslēgt",
-    "eng": "to turn off, to switch off; to exclude",
+    "en": "to turn off, to switch off; to exclude",
     "ru": "выключать, выключить; исключать",
     "conj": {
       "present": {"1s": "izslēdzu", "2s": "izslēdz", "3s": "izslēdz", "1p": "izslēdzam", "2p": "izslēdzat", "3p": "izslēdz"},
@@ -872,7 +872,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izsniegt",
-    "eng": "to issue, to give out",
+    "en": "to issue, to give out",
     "ru": "выдавать, выдать",
     "conj": {
       "present": {"1s": "izsniedzu", "2s": "izsniedz", "3s": "izsniedz", "1p": "izsniedzam", "2p": "izsniedzat", "3p": "izsniedz"},
@@ -882,7 +882,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "iztīrīt",
-    "eng": "to clean, to clean out",
+    "en": "to clean, to clean out",
     "ru": "вычистить, очистить",
     "conj": {
       "present": {"1s": "iztīru", "2s": "iztīri", "3s": "iztīra", "1p": "iztīrām", "2p": "iztīrāt", "3p": "iztīra"},
@@ -892,7 +892,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "izvēlēties",
-    "eng": "to choose, to select",
+    "en": "to choose, to select",
     "ru": "выбирать, выбрать",
     "conj": {
       "present": {"1s": "izvēlos", "2s": "izvēlies", "3s": "izvēlas", "1p": "izvēlamies", "2p": "izvēlaties", "3p": "izvēlas"},
@@ -902,7 +902,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "jautāt",
-    "eng": "to ask",
+    "en": "to ask",
     "ru": "спрашивать",
     "conj": {
       "present": {"1s": "jautāju", "2s": "jautā", "3s": "jautā", "1p": "jautājam", "2p": "jautājat", "3p": "jautā"},
@@ -912,7 +912,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "just",
-    "eng": "to feel, to sense, to perceive",
+    "en": "to feel, to sense, to perceive",
     "ru": "чувствовать, ощущать",
     "conj": {
       "present": {"1s": "jūtu", "2s": "jūti", "3s": "jūt", "1p": "jūtam", "2p": "jūtat", "3p": "jūt"},
@@ -922,7 +922,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "justies",
-    "eng": "to feel (oneself)",
+    "en": "to feel (oneself)",
     "ru": "чувствовать себя",
     "conj": {
       "present": {"1s": "jūtos", "2s": "jūties", "3s": "jūtas", "1p": "jūtamies", "2p": "jūtaties", "3p": "jūtas"},
@@ -932,7 +932,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "kāpt",
-    "eng": "to climb, to go up; to get on (transport)",
+    "en": "to climb, to go up; to get on (transport)",
     "ru": "подниматься; залезать; входить (в транспорт)",
     "conj": {
       "present": {"1s": "kāpju", "2s": "kāp", "3s": "kāpj", "1p": "kāpjam", "2p": "kāpjat", "3p": "kāpj"},
@@ -942,7 +942,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "klāt",
-    "eng": "to cover; to set (the table); to spread (on)",
+    "en": "to cover; to set (the table); to spread (on)",
     "ru": "покрывать; накрывать (на стол); намазывать",
     "conj": {
       "present": {"1s": "klāju", "2s": "klāj", "3s": "klāj", "1p": "klājam", "2p": "klājat", "3p": "klāj"},
@@ -952,7 +952,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "klausīties",
-    "eng": "to listen",
+    "en": "to listen",
     "ru": "слушать",
     "conj": {
       "present": {"1s": "klausos", "2s": "klausies", "3s": "klausās", "1p": "klausāmies", "2p": "klausāties", "3p": "klausās"},
@@ -962,7 +962,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "kļūt",
-    "eng": "to become",
+    "en": "to become",
     "ru": "становиться",
     "conj": {
       "present": {"1s": "kļūstu", "2s": "kļūsti", "3s": "kļūst", "1p": "kļūstam", "2p": "kļūstat", "3p": "kļūst"},
@@ -972,7 +972,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "krāsot",
-    "eng": "to paint, to color, to dye",
+    "en": "to paint, to color, to dye",
     "ru": "красить",
     "conj": {
       "present": {"1s": "krāsoju", "2s": "krāso", "3s": "krāso", "1p": "krāsojam", "2p": "krāsojat", "3p": "krāso"},
@@ -982,7 +982,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "kursēt",
-    "eng": "to run (of transport on a route)",
+    "en": "to run (of transport on a route)",
     "ru": "курсировать",
     "conj": {
       "present": {"1s": "kursēju", "2s": "kursē", "3s": "kursē", "1p": "kursējam", "2p": "kursējat", "3p": "kursē"},
@@ -992,7 +992,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ķemmēt",
-    "eng": "to comb",
+    "en": "to comb",
     "ru": "причёсывать, расчёсывать",
     "conj": {
       "present": {"1s": "ķemmēju", "2s": "ķemmē", "3s": "ķemmē", "1p": "ķemmējam", "2p": "ķemmējat", "3p": "ķemmē"},
@@ -1002,7 +1002,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "labot",
-    "eng": "to correct, to fix, to repair, to edit",
+    "en": "to correct, to fix, to repair, to edit",
     "ru": "исправлять; чинить; редактировать",
     "conj": {
       "present": {"1s": "laboju", "2s": "labo", "3s": "labo", "1p": "labojam", "2p": "labojat", "3p": "labo"},
@@ -1012,7 +1012,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "lasīt",
-    "eng": "to read",
+    "en": "to read",
     "ru": "читать",
     "conj": {
       "present": {"1s": "lasu", "2s": "lasi", "3s": "lasa", "1p": "lasām", "2p": "lasāt", "3p": "lasa"},
@@ -1022,7 +1022,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "lauzt",
-    "eng": "to break, to force open",
+    "en": "to break, to force open",
     "ru": "ломать, взламывать",
     "conj": {
       "present": {"1s": "laužu", "2s": "lauz", "3s": "lauž", "1p": "laužam", "2p": "laužat", "3p": "lauž"},
@@ -1032,7 +1032,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "lidot",
-    "eng": "to fly",
+    "en": "to fly",
     "ru": "лететь, летать",
     "conj": {
       "present": {"1s": "lidoju", "2s": "lido", "3s": "lido", "1p": "lidojam", "2p": "lidojat", "3p": "lido"},
@@ -1042,7 +1042,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "lietot",
-    "eng": "to use; to take (medicine); to consume",
+    "en": "to use; to take (medicine); to consume",
     "ru": "использовать; употреблять; принимать (лекарство)",
     "conj": {
       "present": {"1s": "lietoju", "2s": "lieto", "3s": "lieto", "1p": "lietojam", "2p": "lietojat", "3p": "lieto"},
@@ -1052,7 +1052,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "likt",
-    "eng": "to put, to place; to make (someone do)",
+    "en": "to put, to place; to make (someone do)",
     "ru": "класть, ставить; заставлять",
     "conj": {
       "present": {"1s": "lieku", "2s": "liek", "3s": "liek", "1p": "liekam", "2p": "liekat", "3p": "liek"},
@@ -1062,7 +1062,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "lūgt",
-    "eng": "to ask, to request; to pray",
+    "en": "to ask, to request; to pray",
     "ru": "просить; молиться",
     "conj": {
       "present": {"1s": "lūdzu", "2s": "lūdz", "3s": "lūdz", "1p": "lūdzam", "2p": "lūdzat", "3p": "lūdz"},
@@ -1072,7 +1072,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "lūzt",
-    "eng": "to break (intrans.)",
+    "en": "to break (intrans.)",
     "ru": "ломаться",
     "conj": {
       "present": {"1s": "lūztu", "2s": "lūzti", "3s": "lūzt", "1p": "lūztam", "2p": "lūztat", "3p": "lūzt"},
@@ -1082,7 +1082,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mācīt",
-    "eng": "to teach",
+    "en": "to teach",
     "ru": "учить, обучать",
     "conj": {
       "present": {"1s": "mācu", "2s": "māci", "3s": "māca", "1p": "mācām", "2p": "mācāt", "3p": "māca"},
@@ -1092,7 +1092,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mācīties",
-    "eng": "to study, to learn",
+    "en": "to study, to learn",
     "ru": "учиться, изучать",
     "conj": {
       "present": {"1s": "mācos", "2s": "mācies", "3s": "mācās", "1p": "mācāmies", "2p": "mācāties", "3p": "mācās"},
@@ -1102,7 +1102,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mainīt",
-    "eng": "to change, to replace",
+    "en": "to change, to replace",
     "ru": "менять, заменить",
     "conj": {
       "present": {"1s": "mainu", "2s": "maini", "3s": "maina", "1p": "mainām", "2p": "maināt", "3p": "maina"},
@@ -1112,7 +1112,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maizēt",
-    "eng": "to butter (spread on bread)",
+    "en": "to butter (spread on bread)",
     "ru": "намазывать (масло на хлеб)",
     "conj": {
       "present": {"1s": "maizeju", "2s": "maizē", "3s": "maizē", "1p": "maizējam", "2p": "maizējat", "3p": "maizē"},
@@ -1122,7 +1122,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mainīties",
-    "eng": "to change oneself, to exchange",
+    "en": "to change oneself, to exchange",
     "ru": "меняться, обмениваться",
     "conj": {
       "present": {"1s": "mainos", "2s": "mainies", "3s": "mainās", "1p": "maināmies", "2p": "maināties", "3p": "mainās"},
@@ -1132,7 +1132,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maitāt",
-    "eng": "to spoil, to ruin",
+    "en": "to spoil, to ruin",
     "ru": "портить",
     "conj": {
       "present": {"1s": "maitāju", "2s": "maitā", "3s": "maitā", "1p": "maitājam", "2p": "maitājat", "3p": "maitā"},
@@ -1142,7 +1142,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maitāties",
-    "eng": "to get spoiled, to rot",
+    "en": "to get spoiled, to rot",
     "ru": "портиться, гнить",
     "conj": {
       "present": {"1s": "maitājos", "2s": "maitājies", "3s": "maitājas", "1p": "maitājamies", "2p": "maitājaties", "3p": "maitājas"},
@@ -1152,7 +1152,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "majot",
-    "eng": "to dwell, to reside (archaic)",
+    "en": "to dwell, to reside (archaic)",
     "ru": "жить, обитать (устар.)",
     "conj": {
       "present": {"1s": "majoju", "2s": "majo", "3s": "majo", "1p": "majojam", "2p": "majojat", "3p": "majo"},
@@ -1162,7 +1162,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "majoties",
-    "eng": "to dwell oneself (archaic, reflexive)",
+    "en": "to dwell oneself (archaic, reflexive)",
     "ru": "жить (о себе, устар.)",
     "conj": {
       "present": {"1s": "majojos", "2s": "majies", "3s": "majojas", "1p": "majojamies", "2p": "majaties", "3p": "majojas"},
@@ -1172,7 +1172,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "makšķerēt",
-    "eng": "to fish (with a rod)",
+    "en": "to fish (with a rod)",
     "ru": "ловить рыбу (удочкой)",
     "conj": {
       "present": {"1s": "makšķerēju", "2s": "makšķerē", "3s": "makšķerē", "1p": "makšķerējam", "2p": "makšķerējat", "3p": "makšķerē"},
@@ -1182,7 +1182,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malēties",
-    "eng": "to be ground (oneself), to mill oneself",
+    "en": "to be ground (oneself), to mill oneself",
     "ru": "молоться (о себе)",
     "conj": {
       "present": {"1s": "malējos", "2s": "malējies", "3s": "malējas", "1p": "malējamies", "2p": "malējaties", "3p": "malējas"},
@@ -1192,7 +1192,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malināt",
-    "eng": "to grind finely, to mill",
+    "en": "to grind finely, to mill",
     "ru": "мелко молоть, размалывать",
     "conj": {
       "present": {"1s": "malinu", "2s": "malini", "3s": "malina", "1p": "malinām", "2p": "malināt", "3p": "malina"},
@@ -1202,7 +1202,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malināties",
-    "eng": "to be finely ground (oneself)",
+    "en": "to be finely ground (oneself)",
     "ru": "размалываться (о себе)",
     "conj": {
       "present": {"1s": "malinājos", "2s": "malinājies", "3s": "malinājas", "1p": "malinājamies", "2p": "malinājaties", "3p": "malinājas"},
@@ -1212,7 +1212,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maloties",
-    "eng": "to babble oneself, to prattle (reflexive)",
+    "en": "to babble oneself, to prattle (reflexive)",
     "ru": "болтать (о себе), молоть вздор",
     "conj": {
       "present": {"1s": "malojos", "2s": "maloties", "3s": "malojas", "1p": "malojamies", "2p": "maloties", "3p": "malojas"},
@@ -1222,7 +1222,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malt",
-    "eng": "to grind, to mince",
+    "en": "to grind, to mince",
     "ru": "молоть, измельчать",
     "conj": {
       "present": {"1s": "maļu", "2s": "mal", "3s": "maļ", "1p": "maļam", "2p": "maļat", "3p": "maļ"},
@@ -1232,7 +1232,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malties",
-    "eng": "to be ground (oneself), to mince oneself",
+    "en": "to be ground (oneself), to mince oneself",
     "ru": "молоться (о себе), измельчаться",
     "conj": {
       "present": {"1s": "malos", "2s": "malies", "3s": "malas", "1p": "malamies", "2p": "malaties", "3p": "malas"},
@@ -1242,7 +1242,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manīties",
-    "eng": "to change oneself, to exchange (reflexive)",
+    "en": "to change oneself, to exchange (reflexive)",
     "ru": "меняться (о себе), обмениваться",
     "conj": {
       "present": {"1s": "manos", "2s": "manies", "3s": "manās", "1p": "manāmies", "2p": "manāties", "3p": "manās"},
@@ -1252,7 +1252,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mantot",
-    "eng": "to inherit",
+    "en": "to inherit",
     "ru": "наследовать",
     "conj": {
       "present": {"1s": "mantoju", "2s": "manto", "3s": "manto", "1p": "mantojam", "2p": "mantojat", "3p": "manto"},
@@ -1262,7 +1262,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maksāties",
-    "eng": "to cost oneself, to be worth (reflexive)",
+    "en": "to cost oneself, to be worth (reflexive)",
     "ru": "стоить (о себе), окупаться"
     ,"conj": {
       "present": {"1s": "maksājos", "2s": "maksājies", "3s": "maksājas", "1p": "maksājamies", "2p": "maksājaties", "3p": "maksājas"},
@@ -1272,7 +1272,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manīt",
-    "eng": "to notice, to perceive",
+    "en": "to notice, to perceive",
     "ru": "замечать, примечать",
     "conj": {
       "present": {"1s": "manu", "2s": "mani", "3s": "mana", "1p": "manām", "2p": "manāt", "3p": "mana"},
@@ -1282,7 +1282,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manīties",
-    "eng": "to notice oneself, to mind oneself",
+    "en": "to notice oneself, to mind oneself",
     "ru": "замечаться, быть замеченным",
     "conj": {
       "present": {"1s": "manos", "2s": "manies", "3s": "manās", "1p": "manāmies", "2p": "manāties", "3p": "manās"},
@@ -1292,7 +1292,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "marinēt",
-    "eng": "to marinate, to pickle",
+    "en": "to marinate, to pickle",
     "ru": "мариновать",
     "conj": {
       "present": {"1s": "marinēju", "2s": "marinē", "3s": "marinē", "1p": "marinējam", "2p": "marinējat", "3p": "marinē"},
@@ -1302,7 +1302,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "marinēties",
-    "eng": "to marinate oneself (to be marinated)",
+    "en": "to marinate oneself (to be marinated)",
     "ru": "мариноваться (о себе)",
     "conj": {
       "present": {"1s": "marinējos", "2s": "marinējies", "3s": "marinējas", "1p": "marinējamies", "2p": "marinējaties", "3p": "marinējas"},
@@ -1312,7 +1312,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mazgāties",
-    "eng": "to wash oneself, to bathe",
+    "en": "to wash oneself, to bathe",
     "ru": "мыться, умываться",
     "conj": {
       "present": {"1s": "mazgājos", "2s": "mazgājies", "3s": "mazgājas", "1p": "mazgājamies", "2p": "mazgājaties", "3p": "mazgājas"},
@@ -1322,7 +1322,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mācēties",
-    "eng": "to be able (archaic/rare reflexive)",
+    "en": "to be able (archaic/rare reflexive)",
     "ru": "уметься (устар.)",
     "conj": {
       "present": {"1s": "mācējos", "2s": "mācējies", "3s": "mācējas", "1p": "mācējamies", "2p": "mācējaties", "3p": "mācējas"},
@@ -1332,7 +1332,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mācēt",
-    "eng": "to be able, to know how",
+    "en": "to be able, to know how",
     "ru": "уметь",
     "conj": {
       "present": {"1s": "māku", "2s": "māki", "3s": "māk", "1p": "mākam", "2p": "mākat", "3p": "māk"},
@@ -1342,7 +1342,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mācītiesies",
-    "eng": "to learn oneself intensively (very rare, intensive)",
+    "en": "to learn oneself intensively (very rare, intensive)",
     "ru": "учиться (очень интенсивно, редк.)",
     "conj": {
       "present": {"1s": "mācītiesos", "2s": "mācītiesies", "3s": "mācītiesās", "1p": "mācītiesamies", "2p": "mācītiesaties", "3p": "mācītiesās"},
@@ -1352,7 +1352,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mēģinātīt",
-    "eng": "to try hard, to attempt intensively (rare)",
+    "en": "to try hard, to attempt intensively (rare)",
     "ru": "очень стараться, пытаться (редк.)",
     "conj": {
       "present": {"1s": "mēģinātīju", "2s": "mēģinātī", "3s": "mēģināta", "1p": "mēģinātām", "2p": "mēģinātāt", "3p": "mēģināta"},
@@ -1362,7 +1362,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "meklētiesies",
-    "eng": "to search oneself intensively (very rare, intensive)",
+    "en": "to search oneself intensively (very rare, intensive)",
     "ru": "искаться (интенсивно, редк.)",
     "conj": {
       "present": {"1s": "meklētiesos", "2s": "meklētiesies", "3s": "meklētiesās", "1p": "meklētiesamies", "2p": "meklētiesaties", "3p": "meklētiesās"},
@@ -1372,7 +1372,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "meloties",
-    "eng": "to lie to oneself, to fib (reflexive)",
+    "en": "to lie to oneself, to fib (reflexive)",
     "ru": "лгать себе, обманываться",
     "conj": {
       "present": {"1s": "melojos", "2s": "meloties", "3s": "melojas", "1p": "melojamies", "2p": "meloties", "3p": "melojas"},
@@ -1382,7 +1382,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mestīt",
-    "eng": "to throw repeatedly, to toss about (intensive)",
+    "en": "to throw repeatedly, to toss about (intensive)",
     "ru": "бросать много раз, швырять",
     "conj": {
       "present": {"1s": "mestīju", "2s": "mestī", "3s": "mesta", "1p": "mestām", "2p": "mestāt", "3p": "mesta"},
@@ -1392,7 +1392,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mestīties",
-    "eng": "to toss oneself about, to rush around (intensive)",
+    "en": "to toss oneself about, to rush around (intensive)",
     "ru": "метаться, бросаться (интенсивно)",
     "conj": {
       "present": {"1s": "mestījos", "2s": "mestījies", "3s": "mestījas", "1p": "mestījamies", "2p": "mestījaties", "3p": "mestījas"},
@@ -1402,7 +1402,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maizīt",
-    "eng": "to spread (e.g. butter on bread)",
+    "en": "to spread (e.g. butter on bread)",
     "ru": "намазывать",
     "conj": {
       "present": {"1s": "maizu", "2s": "maizi", "3s": "maiza", "1p": "maizām", "2p": "maizāt", "3p": "maiza"},
@@ -1412,7 +1412,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maizīties",
-    "eng": "to spread oneself (to become spread)",
+    "en": "to spread oneself (to become spread)",
     "ru": "намазываться, размазываться",
     "conj": {
       "present": {"1s": "maizos", "2s": "maizies", "3s": "maizās", "1p": "maizāmies", "2p": "maizāties", "3p": "maizās"},
@@ -1422,7 +1422,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "majināt",
-    "eng": "to try, to attempt (archaic/rare)",
+    "en": "to try, to attempt (archaic/rare)",
     "ru": "пытаться (устар.)",
     "conj": {
       "present": {"1s": "majinu", "2s": "majini", "3s": "majina", "1p": "majinām", "2p": "majināt", "3p": "majina"},
@@ -1432,7 +1432,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "majināties",
-    "eng": "to try oneself (archaic/rare)",
+    "en": "to try oneself (archaic/rare)",
     "ru": "пытаться (о себе, устар.)",
     "conj": {
       "present": {"1s": "majinājos", "2s": "majinājies", "3s": "majinājas", "1p": "majinājamies", "2p": "majinājaties", "3p": "majinājas"},
@@ -1442,7 +1442,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "makšķerniekot",
-    "eng": "to go fishing (as an angler)",
+    "en": "to go fishing (as an angler)",
     "ru": "заниматься рыбалкой",
     "conj": {
       "present": {"1s": "makšķerniekoju", "2s": "makšķernieko", "3s": "makšķernieko", "1p": "makšķerniekojam", "2p": "makšķerniekojat", "3p": "makšķernieko"},
@@ -1452,7 +1452,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malēt",
-    "eng": "to grind",
+    "en": "to grind",
     "ru": "молоть",
     "conj": {
       "present": {"1s": "malēju", "2s": "malē", "3s": "malē", "1p": "malējam", "2p": "malējat", "3p": "malē"},
@@ -1462,7 +1462,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malināties",
-    "eng": "to be ground, to be milled",
+    "en": "to be ground, to be milled",
     "ru": "молоться (о себе)",
     "conj": {
       "present": {"1s": "malinos", "2s": "malinies", "3s": "malinās", "1p": "malināmies", "2p": "malināties", "3p": "malinās"},
@@ -1472,7 +1472,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malstīt",
-    "eng": "to roam, to wander",
+    "en": "to roam, to wander",
     "ru": "бродить, скитаться",
     "conj": {
       "present": {"1s": "malstīju", "2s": "malstī", "3s": "malsta", "1p": "malstām", "2p": "malstāt", "3p": "malsta"},
@@ -1482,7 +1482,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malstīties",
-    "eng": "to roam oneself, to wander aimlessly",
+    "en": "to roam oneself, to wander aimlessly",
     "ru": "бродить (о себе), блуждать",
     "conj": {
       "present": {"1s": "malstījos", "2s": "malstījies", "3s": "malstījas", "1p": "malstījamies", "2p": "malstījaties", "3p": "malstījas"},
@@ -1492,7 +1492,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manākt",
-    "eng": "to dawn, to get light",
+    "en": "to dawn, to get light",
     "ru": "светать",
     "conj": {
       "present": {"1s": "manāku", "2s": "manāc", "3s": "manāk", "1p": "manākam", "2p": "manākat", "3p": "manāk"},
@@ -1502,7 +1502,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manākties",
-    "eng": "to get light (oneself), to dawn (reflexive)",
+    "en": "to get light (oneself), to dawn (reflexive)",
     "ru": "рассветать (о себе)",
     "conj": {
       "present": {"1s": "manākos", "2s": "manākies", "3s": "manākas", "1p": "manākamies", "2p": "manākaties", "3p": "manākas"},
@@ -1512,7 +1512,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mandarēt",
-    "eng": "to suit, to fit (rare)",
+    "en": "to suit, to fit (rare)",
     "ru": "подходить, устраивать (редк.)",
     "conj": {
       "present": {"1s": "mandarēju", "2s": "mandarē", "3s": "mandarē", "1p": "mandarējam", "2p": "mandarējat", "3p": "mandarē"},
@@ -1522,7 +1522,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mandarīties",
-    "eng": "to suit oneself, to fit oneself (rare)",
+    "en": "to suit oneself, to fit oneself (rare)",
     "ru": "подходить себе (редк.)",
     "conj": {
       "present": {"1s": "mandarējos", "2s": "mandarējies", "3s": "mandarējas", "1p": "mandarējamies", "2p": "mandarējaties", "3p": "mandarējas"},
@@ -1532,7 +1532,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maksāt",
-    "eng": "to pay, to cost",
+    "en": "to pay, to cost",
     "ru": "платить, стоить",
     "conj": {
       "present": {"1s": "maksāju", "2s": "maksā", "3s": "maksā", "1p": "maksājam", "2p": "maksājat", "3p": "maksā"},
@@ -1542,7 +1542,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maldināties",
-    "eng": "to be misled, to deceive oneself",
+    "en": "to be misled, to deceive oneself",
     "ru": "заблуждаться, обманываться",
     "conj": {
       "present": {"1s": "maldinos", "2s": "maldinies", "3s": "maldinās", "1p": "maldināmies", "2p": "maldināties", "3p": "maldinās"},
@@ -1552,7 +1552,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malstīties",
-    "eng": "to wander, to roam (oneself)",
+    "en": "to wander, to roam (oneself)",
     "ru": "бродить (о себе), скитаться",
     "conj": {
       "present": {"1s": "malstos", "2s": "malsties", "3s": "malstās", "1p": "malstāmies", "2p": "malstāties", "3p": "malstās"},
@@ -1562,7 +1562,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mānīties",
-    "eng": "to deceive oneself, to pretend",
+    "en": "to deceive oneself, to pretend",
     "ru": "обманываться, притворяться",
     "conj": {
       "present": {"1s": "mānos", "2s": "mānies", "3s": "mānās", "1p": "mānāmies", "2p": "mānāties", "3p": "mānās"},
@@ -1572,7 +1572,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mašīnēt",
-    "eng": "to type (on a typewriter)",
+    "en": "to type (on a typewriter)",
     "ru": "печатать (на машинке)",
     "conj": {
       "present": {"1s": "mašīnu", "2s": "mašīni", "3s": "mašīnā", "1p": "mašīnām", "2p": "mašīnāt", "3p": "mašīnā"},
@@ -1582,7 +1582,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mēģināties",
-    "eng": "to try oneself, to attempt (reflexive)",
+    "en": "to try oneself, to attempt (reflexive)",
     "ru": "пытаться (о себе), пробовать себя",
     "conj": {
       "present": {"1s": "mēģinos", "2s": "mēģinies", "3s": "mēģinās", "1p": "mēģināmies", "2p": "mēģināties", "3p": "mēģinās"},
@@ -1592,7 +1592,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "meklēt",
-    "eng": "to search, to look for",
+    "en": "to search, to look for",
     "ru": "искать",
     "conj": {
       "present": {"1s": "meklēju", "2s": "meklē", "3s": "meklē", "1p": "meklējam", "2p": "meklējat", "3p": "meklē"},
@@ -1602,7 +1602,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "meklēties",
-    "eng": "to seek, to look for oneself",
+    "en": "to seek, to look for oneself",
     "ru": "искаться, искать себя",
     "conj": {
       "present": {"1s": "meklējos", "2s": "meklējies", "3s": "meklējas", "1p": "meklējamies", "2p": "meklējaties", "3p": "meklējas"},
@@ -1612,7 +1612,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "melot",
-    "eng": "to lie (not tell the truth)",
+    "en": "to lie (not tell the truth)",
     "ru": "лгать",
     "conj": {
       "present": {"1s": "meloju", "2s": "melo", "3s": "melo", "1p": "melojam", "2p": "melojat", "3p": "melo"},
@@ -1622,7 +1622,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "melties",
-    "eng": "to pour oneself, to spill (reflexive)",
+    "en": "to pour oneself, to spill (reflexive)",
     "ru": "литься, проливаться (о себе)",
     "conj": {
       "present": {"1s": "melos", "2s": "melies", "3s": "melas", "1p": "melamies", "2p": "melaties", "3p": "melas"},
@@ -1632,7 +1632,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mest",
-    "eng": "to throw, to cast",
+    "en": "to throw, to cast",
     "ru": "бросать, кидать",
     "conj": {
       "present": {"1s": "metu", "2s": "meti", "3s": "met", "1p": "metam", "2p": "metat", "3p": "met"},
@@ -1642,7 +1642,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mesties",
-    "eng": "to rush, to throw oneself",
+    "en": "to rush, to throw oneself",
     "ru": "бросаться, кидаться",
     "conj": {
       "present": {"1s": "metos", "2s": "meties", "3s": "metas", "1p": "metamies", "2p": "metaties", "3p": "metas"},
@@ -1652,7 +1652,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mētāt",
-    "eng": "to toss, to scatter",
+    "en": "to toss, to scatter",
     "ru": "разбрасывать, метать",
     "conj": {
       "present": {"1s": "mētu", "2s": "mētā", "3s": "mētā", "1p": "mētājam", "2p": "mētājat", "3p": "mētā"},
@@ -1662,7 +1662,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mētāties",
-    "eng": "to toss oneself, to scatter oneself",
+    "en": "to toss oneself, to scatter oneself",
     "ru": "метаться, разбрасываться (о себе)",
     "conj": {
       "present": {"1s": "mētājos", "2s": "mētājies", "3s": "mētājas", "1p": "mētājamies", "2p": "mētājaties", "3p": "mētājas"},
@@ -1672,7 +1672,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mēģināt",
-    "eng": "to try, to attempt",
+    "en": "to try, to attempt",
     "ru": "пытаться, пробовать",
     "conj": {
       "present": {"1s": "mēģinu", "2s": "mēģini", "3s": "mēģina", "1p": "mēģinām", "2p": "mēģināt", "3p": "mēģina"},
@@ -1682,7 +1682,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maldināt",
-    "eng": "to mislead, to deceive",
+    "en": "to mislead, to deceive",
     "ru": "вводить в заблуждение",
     "conj": {
       "present": {"1s": "maldinu", "2s": "maldini", "3s": "maldina", "1p": "maldinām", "2p": "maldināt", "3p": "maldina"},
@@ -1692,7 +1692,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malot",
-    "eng": "to grind (colloq.), to babble",
+    "en": "to grind (colloq.), to babble",
     "ru": "молоть, болтать",
     "conj": {
       "present": {"1s": "maloju", "2s": "malo", "3s": "malo", "1p": "malojam", "2p": "malojat", "3p": "malo"},
@@ -1702,7 +1702,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "marķēt",
-    "eng": "to mark (with a sign), to label",
+    "en": "to mark (with a sign), to label",
     "ru": "маркировать, помечать",
     "conj": {
       "present": {"1s": "marķēju", "2s": "marķē", "3s": "marķē", "1p": "marķējam", "2p": "marķējat", "3p": "marķē"},
@@ -1712,7 +1712,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mazināt",
-    "eng": "to reduce, to decrease",
+    "en": "to reduce, to decrease",
     "ru": "уменьшать, снижать",
     "conj": {
       "present": {"1s": "mazinu", "2s": "mazini", "3s": "mazina", "1p": "mazinām", "2p": "mazināt", "3p": "mazina"},
@@ -1722,7 +1722,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mēģināties",
-    "eng": "to try oneself, to attempt (reflexive)",
+    "en": "to try oneself, to attempt (reflexive)",
     "ru": "пытаться (о себе), пробовать себя",
     "conj": {
       "present": {"1s": "mēģinos", "2s": "mēģinies", "3s": "mēģinās", "1p": "mēģināmies", "2p": "mēģināties", "3p": "mēģinās"},
@@ -1732,7 +1732,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "meklēties",
-    "eng": "to seek, to look for oneself",
+    "en": "to seek, to look for oneself",
     "ru": "искаться, искать себя",
     "conj": {
       "present": {"1s": "meklējos", "2s": "meklējies", "3s": "meklējas", "1p": "meklējamies", "2p": "meklējaties", "3p": "meklējas"},
@@ -1742,7 +1742,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mētātīt",
-    "eng": "to toss about (colloq., intensive)",
+    "en": "to toss about (colloq., intensive)",
     "ru": "разбрасывать, метать (разг.)",
     "conj": {
       "present": {"1s": "mētātīju", "2s": "mētātī", "3s": "mētāta", "1p": "mētātām", "2p": "mētātāt", "3p": "mētāta"},
@@ -1752,7 +1752,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "miegoties",
-    "eng": "to doze oneself, to nap (reflexive)",
+    "en": "to doze oneself, to nap (reflexive)",
     "ru": "дремать (о себе)",
     "conj": {
       "present": {"1s": "miegojos", "2s": "miegojies", "3s": "miegojas", "1p": "miegojamies", "2p": "miegojaties", "3p": "miegojas"},
@@ -1762,7 +1762,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "migloties",
-    "eng": "to become misty, to fog up (reflexive)",
+    "en": "to become misty, to fog up (reflexive)",
     "ru": "затуманиваться, запотевать",
     "conj": {
       "present": {"1s": "miglojos", "2s": "miglojies", "3s": "miglojas", "1p": "miglojamies", "2p": "miglojaties", "3p": "miglojas"},
@@ -1772,7 +1772,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mikstināt",
-    "eng": "to soften",
+    "en": "to soften",
     "ru": "смягчать",
     "conj": {
       "present": {"1s": "mikstinu", "2s": "mikstini", "3s": "mikstina", "1p": "mikstinām", "2p": "mikstināt", "3p": "mikstina"},
@@ -1782,7 +1782,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "minēt",
-    "eng": "to guess, to mention",
+    "en": "to guess, to mention",
     "ru": "угадывать, упоминать",
     "conj": {
       "present": {"1s": "minu", "2s": "mini", "3s": "mina", "1p": "minām", "2p": "mināt", "3p": "mina"},
@@ -1792,7 +1792,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mirdzēt",
-    "eng": "to shine, to sparkle",
+    "en": "to shine, to sparkle",
     "ru": "сверкать, блестеть",
     "conj": {
       "present": {"1s": "mirdzu", "2s": "mirdzi", "3s": "mirdz", "1p": "mirdzam", "2p": "mirdzat", "3p": "mirdz"},
@@ -1802,7 +1802,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mirdzēties",
-    "eng": "to shine oneself, to sparkle (reflexive)",
+    "en": "to shine oneself, to sparkle (reflexive)",
     "ru": "сверкаться, блестеть (о себе)",
     "conj": {
       "present": {"1s": "mirdzos", "2s": "mirdzies", "3s": "mirdzas", "1p": "mirdzamies", "2p": "mirdzaties", "3p": "mirdzas"},
@@ -1812,7 +1812,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mirgot",
-    "eng": "to flicker, to twinkle",
+    "en": "to flicker, to twinkle",
     "ru": "мигать, мерцать",
     "conj": {
       "present": {"1s": "mirgoju", "2s": "mirgo", "3s": "mirgo", "1p": "mirgojam", "2p": "mirgojat", "3p": "mirgo"},
@@ -1822,7 +1822,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mirgoties",
-    "eng": "to flicker oneself, to twinkle (reflexive)",
+    "en": "to flicker oneself, to twinkle (reflexive)",
     "ru": "мерцать, мигать (о себе)",
     "conj": {
       "present": {"1s": "mirgojos", "2s": "mirgojies", "3s": "mirgojas", "1p": "mirgojamies", "2p": "mirgojaties", "3p": "mirgojas"},
@@ -1832,7 +1832,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maizīt",
-    "eng": "to spread (e.g. butter on bread)",
+    "en": "to spread (e.g. butter on bread)",
     "ru": "намазывать",
     "conj": {
       "present": {"1s": "maizu", "2s": "maizi", "3s": "maiza", "1p": "maizām", "2p": "maizāt", "3p": "maiza"},
@@ -1842,7 +1842,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maizīties",
-    "eng": "to spread oneself (to become spread)",
+    "en": "to spread oneself (to become spread)",
     "ru": "намазываться, размазываться",
     "conj": {
       "present": {"1s": "maizos", "2s": "maizies", "3s": "maizās", "1p": "maizāmies", "2p": "maizāties", "3p": "maizās"},
@@ -1852,7 +1852,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "majināt",
-    "eng": "to try, to attempt (archaic/rare)",
+    "en": "to try, to attempt (archaic/rare)",
     "ru": "пытаться (устар.)",
     "conj": {
       "present": {"1s": "majinu", "2s": "majini", "3s": "majina", "1p": "majinām", "2p": "majināt", "3p": "majina"},
@@ -1862,7 +1862,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "majināties",
-    "eng": "to try oneself (archaic/rare)",
+    "en": "to try oneself (archaic/rare)",
     "ru": "пытаться (о себе, устар.)",
     "conj": {
       "present": {"1s": "majinājos", "2s": "majinājies", "3s": "majinājas", "1p": "majinājamies", "2p": "majinājaties", "3p": "majinājas"},
@@ -1872,7 +1872,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "makšķerniekot",
-    "eng": "to go fishing (as an angler)",
+    "en": "to go fishing (as an angler)",
     "ru": "заниматься рыбалкой",
     "conj": {
       "present": {"1s": "makšķerniekoju", "2s": "makšķernieko", "3s": "makšķernieko", "1p": "makšķerniekojam", "2p": "makšķerniekojat", "3p": "makšķernieko"},
@@ -1882,7 +1882,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malēt",
-    "eng": "to grind",
+    "en": "to grind",
     "ru": "молоть",
     "conj": {
       "present": {"1s": "malēju", "2s": "malē", "3s": "malē", "1p": "malējam", "2p": "malējat", "3p": "malē"},
@@ -1892,7 +1892,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malināties",
-    "eng": "to be ground, to be milled",
+    "en": "to be ground, to be milled",
     "ru": "молоться (о себе)",
     "conj": {
       "present": {"1s": "malinos", "2s": "malinies", "3s": "malinās", "1p": "malināmies", "2p": "malināties", "3p": "malinās"},
@@ -1902,7 +1902,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malstīt",
-    "eng": "to roam, to wander",
+    "en": "to roam, to wander",
     "ru": "бродить, скитаться",
     "conj": {
       "present": {"1s": "malstīju", "2s": "malstī", "3s": "malsta", "1p": "malstām", "2p": "malstāt", "3p": "malsta"},
@@ -1912,7 +1912,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malstīties",
-    "eng": "to roam oneself, to wander aimlessly",
+    "en": "to roam oneself, to wander aimlessly",
     "ru": "бродить (о себе), блуждать",
     "conj": {
       "present": {"1s": "malstījos", "2s": "malstījies", "3s": "malstījas", "1p": "malstījamies", "2p": "malstījaties", "3p": "malstījas"},
@@ -1922,7 +1922,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manākt",
-    "eng": "to dawn, to get light",
+    "en": "to dawn, to get light",
     "ru": "светать",
     "conj": {
       "present": {"1s": "manāku", "2s": "manāc", "3s": "manāk", "1p": "manākam", "2p": "manākat", "3p": "manāk"},
@@ -1932,7 +1932,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manākties",
-    "eng": "to get light (oneself), to dawn (reflexive)",
+    "en": "to get light (oneself), to dawn (reflexive)",
     "ru": "рассветать (о себе)",
     "conj": {
       "present": {"1s": "manākos", "2s": "manākies", "3s": "manākas", "1p": "manākamies", "2p": "manākaties", "3p": "manākas"},
@@ -1942,7 +1942,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mandarēt",
-    "eng": "to suit, to fit (rare)",
+    "en": "to suit, to fit (rare)",
     "ru": "подходить, устраивать (редк.)",
     "conj": {
       "present": {"1s": "mandarēju", "2s": "mandarē", "3s": "mandarē", "1p": "mandarējam", "2p": "mandarējat", "3p": "mandarē"},
@@ -1952,7 +1952,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mandarīties",
-    "eng": "to suit oneself, to fit oneself (rare)",
+    "en": "to suit oneself, to fit oneself (rare)",
     "ru": "подходить себе (редк.)",
     "conj": {
       "present": {"1s": "mandarējos", "2s": "mandarējies", "3s": "mandarējas", "1p": "mandarējamies", "2p": "mandarējaties", "3p": "mandarējas"},
@@ -1962,7 +1962,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manīties",
-    "eng": "to change oneself, to swap",
+    "en": "to change oneself, to swap",
     "ru": "меняться (о себе), обмениваться",
     "conj": {
       "present": {"1s": "manos", "2s": "manies", "3s": "manās", "1p": "manāmies", "2p": "manāties", "3p": "manās"},
@@ -1972,7 +1972,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mantot",
-    "eng": "to inherit",
+    "en": "to inherit",
     "ru": "наследовать",
     "conj": {
       "present": {"1s": "mantoju", "2s": "manto", "3s": "manto", "1p": "mantojam", "2p": "mantojat", "3p": "manto"},
@@ -1982,7 +1982,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mantoties",
-    "eng": "to be inherited",
+    "en": "to be inherited",
     "ru": "наследоваться",
     "conj": {
       "present": {"1s": "mantojos", "2s": "mantojies", "3s": "mantojas", "1p": "mantojamies", "2p": "mantojaties", "3p": "mantojas"},
@@ -1992,7 +1992,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malināt",
-    "eng": "to grind, to mill",
+    "en": "to grind, to mill",
     "ru": "молоть, размалывать",
     "conj": {
       "present": {"1s": "malinu", "2s": "malini", "3s": "malina", "1p": "malinām", "2p": "malināt", "3p": "malina"},
@@ -2002,7 +2002,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maldīties",
-    "eng": "to be mistaken, to go astray",
+    "en": "to be mistaken, to go astray",
     "ru": "заблуждаться, сбиваться с пути",
     "conj": {
       "present": {"1s": "maldos", "2s": "maldies", "3s": "maldās", "1p": "maldāmies", "2p": "maldāties", "3p": "maldās"},
@@ -2012,7 +2012,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manīt",
-    "eng": "to notice, to perceive",
+    "en": "to notice, to perceive",
     "ru": "замечать, видеть",
     "conj": {
       "present": {"1s": "manu", "2s": "mani", "3s": "mana", "1p": "manām", "2p": "manāt", "3p": "mana"},
@@ -2022,7 +2022,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mānīt",
-    "eng": "to deceive, to cheat",
+    "en": "to deceive, to cheat",
     "ru": "обманывать",
     "conj": {
       "present": {"1s": "mānu", "2s": "māni", "3s": "māna", "1p": "mānām", "2p": "mānāt", "3p": "māna"},
@@ -2032,7 +2032,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "marinēt",
-    "eng": "to marinate, to pickle",
+    "en": "to marinate, to pickle",
     "ru": "мариновать",
     "conj": {
       "present": {"1s": "marinēju", "2s": "marinē", "3s": "marinē", "1p": "marinējam", "2p": "marinējat", "3p": "marinē"},
@@ -2042,7 +2042,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "māt",
-    "eng": "to wave (hand), to nod",
+    "en": "to wave (hand), to nod",
     "ru": "махать, кивать",
     "conj": {
       "present": {"1s": "maju", "2s": "maji", "3s": "maja", "1p": "mājam", "2p": "mājat", "3p": "maja"},
@@ -2052,7 +2052,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mātēt",
-    "eng": "to shimmer, to gleam",
+    "en": "to shimmer, to gleam",
     "ru": "мерцать, поблёскивать",
     "conj": {
       "present": {"1s": "mātēju", "2s": "mātē", "3s": "mātē", "1p": "mātējam", "2p": "mātējat", "3p": "mātē"},
@@ -2062,7 +2062,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maut",
-    "eng": "to pull on (clothes), to dash",
+    "en": "to pull on (clothes), to dash",
     "ru": "натягивать, нестись",
     "conj": {
       "present": {"1s": "mauju", "2s": "mauj", "3s": "mauj", "1p": "maujam", "2p": "maujat", "3p": "mauj"},
@@ -2072,7 +2072,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mēģināt",
-    "eng": "to try, to attempt",
+    "en": "to try, to attempt",
     "ru": "пытаться, пробовать",
     "conj": {
       "present": {"1s": "mēģinu", "2s": "mēģini", "3s": "mēģina", "1p": "mēģinām", "2p": "mēģināt", "3p": "mēģina"},
@@ -2082,7 +2082,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mērcēt",
-    "eng": "to soak, to dip",
+    "en": "to soak, to dip",
     "ru": "мочить, замачивать",
     "conj": {
       "present": {"1s": "mērcēju", "2s": "mērcē", "3s": "mērcē", "1p": "mērcējam", "2p": "mērcējat", "3p": "mērcē"},
@@ -2092,7 +2092,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mērot",
-    "eng": "to measure",
+    "en": "to measure",
     "ru": "мерить, измерять",
     "conj": {
       "present": {"1s": "mēru", "2s": "mēri", "3s": "mēra", "1p": "mērām", "2p": "mērāt", "3p": "mēra"},
@@ -2102,7 +2102,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mesties",
-    "eng": "to rush, to throw oneself",
+    "en": "to rush, to throw oneself",
     "ru": "бросаться, кидаться",
     "conj": {
       "present": {"1s": "metos", "2s": "meties", "3s": "metas", "1p": "metamies", "2p": "metaties", "3p": "metas"},
@@ -2112,7 +2112,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mainīties",
-    "eng": "to change (oneself), to vary",
+    "en": "to change (oneself), to vary",
     "ru": "меняться",
     "conj": {
       "present": {"1s": "mainos", "2s": "mainies", "3s": "mainās", "1p": "maināmies", "2p": "maināties", "3p": "mainās"},
@@ -2122,7 +2122,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "malināt",
-    "eng": "to grind, to mill",
+    "en": "to grind, to mill",
     "ru": "молоть, размалывать",
     "conj": {
       "present": {"1s": "malinu", "2s": "malini", "3s": "malina", "1p": "malinām", "2p": "malināt", "3p": "malina"},
@@ -2132,7 +2132,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maldīties",
-    "eng": "to be mistaken, to go astray",
+    "en": "to be mistaken, to go astray",
     "ru": "заблуждаться, сбиваться с пути",
     "conj": {
       "present": {"1s": "maldos", "2s": "maldies", "3s": "maldās", "1p": "maldāmies", "2p": "maldāties", "3p": "maldās"},
@@ -2142,7 +2142,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "manīt",
-    "eng": "to notice, to perceive",
+    "en": "to notice, to perceive",
     "ru": "замечать, видеть",
     "conj": {
       "present": {"1s": "manu", "2s": "mani", "3s": "mana", "1p": "manām", "2p": "manāt", "3p": "mana"},
@@ -2152,7 +2152,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mānīt",
-    "eng": "to deceive, to cheat",
+    "en": "to deceive, to cheat",
     "ru": "обманывать",
     "conj": {
       "present": {"1s": "mānu", "2s": "māni", "3s": "māna", "1p": "mānām", "2p": "mānāt", "3p": "māna"},
@@ -2162,7 +2162,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "marinēt",
-    "eng": "to marinate, to pickle",
+    "en": "to marinate, to pickle",
     "ru": "мариновать",
     "conj": {
       "present": {"1s": "marinēju", "2s": "marinē", "3s": "marinē", "1p": "marinējam", "2p": "marinējat", "3p": "marinē"},
@@ -2172,7 +2172,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "māt",
-    "eng": "to wave (hand), to nod",
+    "en": "to wave (hand), to nod",
     "ru": "махать, кивать",
     "conj": {
       "present": {"1s": "maju", "2s": "maji", "3s": "maja", "1p": "mājam", "2p": "mājat", "3p": "maja"},
@@ -2182,7 +2182,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mātēt",
-    "eng": "to shimmer, to gleam",
+    "en": "to shimmer, to gleam",
     "ru": "мерцать, поблёскивать",
     "conj": {
       "present": {"1s": "mātēju", "2s": "mātē", "3s": "mātē", "1p": "mātējam", "2p": "mātējat", "3p": "mātē"},
@@ -2192,7 +2192,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maut",
-    "eng": "to pull on (clothes), to dash",
+    "en": "to pull on (clothes), to dash",
     "ru": "натягивать, нестись",
     "conj": {
       "present": {"1s": "mauju", "2s": "mauj", "3s": "mauj", "1p": "maujam", "2p": "maujat", "3p": "mauj"},
@@ -2202,7 +2202,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mēģināt",
-    "eng": "to try, to attempt",
+    "en": "to try, to attempt",
     "ru": "пытаться, пробовать",
     "conj": {
       "present": {"1s": "mēģinu", "2s": "mēģini", "3s": "mēģina", "1p": "mēģinām", "2p": "mēģināt", "3p": "mēģina"},
@@ -2212,7 +2212,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mērcēt",
-    "eng": "to soak, to dip",
+    "en": "to soak, to dip",
     "ru": "мочить, замачивать",
     "conj": {
       "present": {"1s": "mērcēju", "2s": "mērcē", "3s": "mērcē", "1p": "mērcējam", "2p": "mērcējat", "3p": "mērcē"},
@@ -2222,7 +2222,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mērot",
-    "eng": "to measure",
+    "en": "to measure",
     "ru": "мерить, измерять",
     "conj": {
       "present": {"1s": "mēru", "2s": "mēri", "3s": "mēra", "1p": "mērām", "2p": "mērāt", "3p": "mēra"},
@@ -2232,7 +2232,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mesties",
-    "eng": "to rush, to throw oneself",
+    "en": "to rush, to throw oneself",
     "ru": "бросаться, кидаться",
     "conj": {
       "present": {"1s": "metos", "2s": "meties", "3s": "metas", "1p": "metamies", "2p": "metaties", "3p": "metas"},
@@ -2242,7 +2242,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mētāt",
-    "eng": "to toss, to throw repeatedly",
+    "en": "to toss, to throw repeatedly",
     "ru": "бросать, швырять",
     "conj": {
       "present": {"1s": "mētāju", "2s": "mētā", "3s": "mētā", "1p": "mētājam", "2p": "mētājat", "3p": "mētā"},
@@ -2252,7 +2252,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mētāties",
-    "eng": "to flounder, to be tossed about",
+    "en": "to flounder, to be tossed about",
     "ru": "метаться, бросаться",
     "conj": {
       "present": {"1s": "mētājos", "2s": "mētājies", "3s": "mētājas", "1p": "mētājamies", "2p": "mētājaties", "3p": "mētājas"},
@@ -2262,7 +2262,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "miegot",
-    "eng": "to doze, to nap",
+    "en": "to doze, to nap",
     "ru": "дремать, вздремнуть",
     "conj": {
       "present": {"1s": "miegoju", "2s": "miego", "3s": "miego", "1p": "miegojam", "2p": "miegojat", "3p": "miego"},
@@ -2272,7 +2272,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "miglēt",
-    "eng": "to mist, to spray",
+    "en": "to mist, to spray",
     "ru": "опрыскивать, распылять",
     "conj": {
       "present": {"1s": "miglēju", "2s": "miglē", "3s": "miglē", "1p": "miglējam", "2p": "miglējat", "3p": "miglē"},
@@ -2282,7 +2282,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mikēt",
-    "eng": "to mew, to miaow",
+    "en": "to mew, to miaow",
     "ru": "мяукать",
     "conj": {
       "present": {"1s": "mikēju", "2s": "mikē", "3s": "mikē", "1p": "mikējam", "2p": "mikējat", "3p": "mikē"},
@@ -2292,7 +2292,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "maksāt",
-    "eng": "to pay; to cost",
+    "en": "to pay; to cost",
     "ru": "платить; стоить",
     "conj": {
       "present": {"1s": "maksāju", "2s": "maksā", "3s": "maksā", "1p": "maksājam", "2p": "maksājat", "3p": "maksā"},
@@ -2302,7 +2302,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "makšķerēt",
-    "eng": "to fish",
+    "en": "to fish",
     "ru": "рыбачить",
     "conj": {
       "present": {"1s": "makšķerēju", "2s": "makšķerē", "3s": "makšķerē", "1p": "makšķerējam", "2p": "makšķerējat", "3p": "makšķerē"},
@@ -2312,7 +2312,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mazgāt",
-    "eng": "to wash",
+    "en": "to wash",
     "ru": "мыть",
     "conj": {
       "present": {"1s": "mazgāju", "2s": "mazgā", "3s": "mazgā", "1p": "mazgājam", "2p": "mazgājat", "3p": "mazgā"},
@@ -2322,7 +2322,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mazgāties",
-    "eng": "to wash (oneself), to bathe",
+    "en": "to wash (oneself), to bathe",
     "ru": "мыться, умываться",
     "conj": {
       "present": {"1s": "mazgājos", "2s": "mazgājies", "3s": "mazgājas", "1p": "mazgājamies", "2p": "mazgājaties", "3p": "mazgājas"},
@@ -2332,7 +2332,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "meklēt",
-    "eng": "to look for, to search",
+    "en": "to look for, to search",
     "ru": "искать",
     "conj": {
       "present": {"1s": "meklēju", "2s": "meklē", "3s": "meklē", "1p": "meklējam", "2p": "meklējat", "3p": "meklē"},
@@ -2342,7 +2342,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mest",
-    "eng": "to throw",
+    "en": "to throw",
     "ru": "бросать, кидать",
     "conj": {
       "present": {"1s": "metu", "2s": "meti", "3s": "met", "1p": "metam", "2p": "metat", "3p": "met"},
@@ -2352,7 +2352,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mīlēt",
-    "eng": "to love",
+    "en": "to love",
     "ru": "любить",
     "conj": {
       "present": {"1s": "mīlu", "2s": "mīli", "3s": "mīl", "1p": "mīlam", "2p": "mīlat", "3p": "mīl"},
@@ -2362,7 +2362,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "mūrēt",
-    "eng": "to do masonry, to lay bricks",
+    "en": "to do masonry, to lay bricks",
     "ru": "класть кирпич, выполнять кладку",
     "conj": {
       "present": {"1s": "mūrēju", "2s": "mūrē", "3s": "mūrē", "1p": "mūrējam", "2p": "mūrējat", "3p": "mūrē"},
@@ -2372,7 +2372,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nākt",
-    "eng": "to come",
+    "en": "to come",
     "ru": "приходить",
     "conj": {
       "present": {"1s": "nāku", "2s": "nāc", "3s": "nāk", "1p": "nākam", "2p": "nākat", "3p": "nāk"},
@@ -2382,7 +2382,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nest",
-    "eng": "to carry, to bring",
+    "en": "to carry, to bring",
     "ru": "нести; принести",
     "conj": {
       "present": {"1s": "nesu", "2s": "nes", "3s": "nes", "1p": "nesam", "2p": "nesat", "3p": "nes"},
@@ -2392,7 +2392,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nodarboties",
-    "eng": "to engage (in), to be occupied (with)",
+    "en": "to engage (in), to be occupied (with)",
     "ru": "заниматься",
     "conj": {
       "present": {"1s": "nodarbojos", "2s": "nodarbojies", "3s": "nodarbojas", "1p": "nodarbojamies", "2p": "nodarbojaties", "3p": "nodarbojas"},
@@ -2402,7 +2402,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "noformēt",
-    "eng": "to formalize, to draw up; to design",
+    "en": "to formalize, to draw up; to design",
     "ru": "оформлять",
     "conj": {
       "present": {"1s": "noformēju", "2s": "noformē", "3s": "noformē", "1p": "noformējam", "2p": "noformējat", "3p": "noformē"},
@@ -2412,7 +2412,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nokāpt",
-    "eng": "to descend, to get off (transport)",
+    "en": "to descend, to get off (transport)",
     "ru": "сходить, спускаться",
     "conj": {
       "present": {"1s": "nokāpju", "2s": "nokāp", "3s": "nokāpj", "1p": "nokāpjam", "2p": "nokāpjat", "3p": "nokāpj"},
@@ -2422,7 +2422,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nokavēt",
-    "eng": "to be late (for), to miss (transport)",
+    "en": "to be late (for), to miss (transport)",
     "ru": "опоздать; пропустить (транспорт)",
     "conj": {
       "present": {"1s": "nokavēju", "2s": "nokavē", "3s": "nokavē", "1p": "nokavējam", "2p": "nokavējat", "3p": "nokavē"},
@@ -2432,7 +2432,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nokrāsot",
-    "eng": "to paint, to dye",
+    "en": "to paint, to dye",
     "ru": "покрасить, окрасить",
     "conj": {
       "present": {"1s": "nokrāsoju", "2s": "nokrāso", "3s": "nokrāso", "1p": "nokrāsojam", "2p": "nokrāsojat", "3p": "nokrāso"},
@@ -2442,7 +2442,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nopirkt",
-    "eng": "to buy",
+    "en": "to buy",
     "ru": "покупать, купить",
     "conj": {
       "present": {"1s": "nopērku", "2s": "nopērc", "3s": "nopērk", "1p": "nopērkam", "2p": "nopērkat", "3p": "nopērk"},
@@ -2452,7 +2452,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "norādīt",
-    "eng": "to indicate, to specify, to point out",
+    "en": "to indicate, to specify, to point out",
     "ru": "указать, указывать",
     "conj": {
       "present": {"1s": "norādu", "2s": "norādi", "3s": "norāda", "1p": "norādām", "2p": "norādāt", "3p": "norāda"},
@@ -2462,7 +2462,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nosaukt",
-    "eng": "to name, to call",
+    "en": "to name, to call",
     "ru": "назвать, называть",
     "conj": {
       "present": {"1s": "nosaucu", "2s": "nosauc", "3s": "nosauc", "1p": "nosaucam", "2p": "nosaucat", "3p": "nosauc"},
@@ -2472,7 +2472,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "noskaidrot",
-    "eng": "to find out, to clarify",
+    "en": "to find out, to clarify",
     "ru": "выяснить, выяснять",
     "conj": {
       "present": {"1s": "noskaidroju", "2s": "noskaidro", "3s": "noskaidro", "1p": "noskaidrojam", "2p": "noskaidrojat", "3p": "noskaidro"},
@@ -2482,7 +2482,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "noskriet",
-    "eng": "to run (a distance), to run down",
+    "en": "to run (a distance), to run down",
     "ru": "пробежать",
     "conj": {
       "present": {"1s": "noskrienu", "2s": "noskrien", "3s": "noskrien", "1p": "noskrienam", "2p": "noskrienat", "3p": "noskrien"},
@@ -2492,7 +2492,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nosūtīt",
-    "eng": "to send",
+    "en": "to send",
     "ru": "послать, отправить",
     "conj": {
       "present": {"1s": "nosūtu", "2s": "nosūti", "3s": "nosūta", "1p": "nosūtām", "2p": "nosūtāt", "3p": "nosūta"},
@@ -2502,7 +2502,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "notikt",
-    "eng": "to happen, to take place",
+    "en": "to happen, to take place",
     "ru": "происходить, состояться",
     "conj": {
       "present": {"1s": "notieku", "2s": "notiec", "3s": "notiek", "1p": "notiekam", "2p": "notiekat", "3p": "notiek"},
@@ -2512,7 +2512,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "novēlēt",
-    "eng": "to wish",
+    "en": "to wish",
     "ru": "желать, пожелать",
     "conj": {
       "present": {"1s": "novēlu", "2s": "novēli", "3s": "novēl", "1p": "novēlam", "2p": "novēlat", "3p": "novēl"},
@@ -2522,7 +2522,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "nožēlot",
-    "eng": "to regret",
+    "en": "to regret",
     "ru": "сожалеть, раскаиваться",
     "conj": {
       "present": {"1s": "nožēloju", "2s": "nožēlo", "3s": "nožēlo", "1p": "nožēlojam", "2p": "nožēlojat", "3p": "nožēlo"},
@@ -2532,7 +2532,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ņemt",
-    "eng": "to take",
+    "en": "to take",
     "ru": "брать, взять",
     "conj": {
       "present": {"1s": "ņemu", "2s": "ņem", "3s": "ņem", "1p": "ņemam", "2p": "ņemat", "3p": "ņem"},
@@ -2542,7 +2542,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ogot",
-    "eng": "to pick berries",
+    "en": "to pick berries",
     "ru": "собирать ягоды",
     "conj": {
       "present": {"1s": "ogoju", "2s": "ogo", "3s": "ogo", "1p": "ogojam", "2p": "ogojat", "3p": "ogo"},
@@ -2552,7 +2552,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "organizēt",
-    "eng": "to organize",
+    "en": "to organize",
     "ru": "организовывать",
     "conj": {
       "present": {"1s": "organizēju", "2s": "organizē", "3s": "organizē", "1p": "organizējam", "2p": "organizējat", "3p": "organizē"},
@@ -2562,7 +2562,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pabeigt",
-    "eng": "to finish, to complete",
+    "en": "to finish, to complete",
     "ru": "заканчивать, завершать",
     "conj": {
       "present": {"1s": "pabeidzu", "2s": "pabeidz", "3s": "pabeidz", "1p": "pabeidzam", "2p": "pabeidzat", "3p": "pabeidz"},
@@ -2572,7 +2572,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pacelties",
-    "eng": "to rise, to take off (of a plane)",
+    "en": "to rise, to take off (of a plane)",
     "ru": "подниматься; взлетать",
     "conj": {
       "present": {"1s": "paceļos", "2s": "pacelies", "3s": "paceļas", "1p": "paceļamies", "2p": "paceļaties", "3p": "paceļas"},
@@ -2582,7 +2582,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "padarīt",
-    "eng": "to make, to render, to do",
+    "en": "to make, to render, to do",
     "ru": "сделать, придать",
     "conj": {
       "present": {"1s": "padaru", "2s": "padari", "3s": "padara", "1p": "padarām", "2p": "padarāt", "3p": "padara"},
@@ -2592,7 +2592,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "paēst",
-    "eng": "to have a meal, to eat enough",
+    "en": "to have a meal, to eat enough",
     "ru": "поесть, наесться",
     "conj": {
       "present": {"1s": "paēdu", "2s": "paēd", "3s": "paēd", "1p": "paēdam", "2p": "paēdat", "3p": "paēd"},
@@ -2602,7 +2602,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "paiet",
-    "eng": "to pass (time), to go by; to take (time)",
+    "en": "to pass (time), to go by; to take (time)",
     "ru": "проходить (о времени); занимать (о времени)",
     "conj": {
       "present": {"1s": "paeju", "2s": "paej", "3s": "paiet", "1p": "paejam", "2p": "paejat", "3p": "paiet"},
@@ -2612,7 +2612,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pajautāt",
-    "eng": "to ask (a question)",
+    "en": "to ask (a question)",
     "ru": "спросить, задать вопрос",
     "conj": {
       "present": {"1s": "pajautāju", "2s": "pajautā", "3s": "pajautā", "1p": "pajautājam", "2p": "pajautājat", "3p": "pajautā"},
@@ -2622,7 +2622,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "palīdzēt",
-    "eng": "to help",
+    "en": "to help",
     "ru": "помогать, помочь",
     "conj": {
       "present": {"1s": "palīdzu", "2s": "palīdzi", "3s": "palīdz", "1p": "palīdzam", "2p": "palīdzat", "3p": "palīdz"},
@@ -2632,7 +2632,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "palikt",
-    "eng": "to stay, to remain",
+    "en": "to stay, to remain",
     "ru": "оставаться, остаться",
     "conj": {
       "present": {"1s": "palieku", "2s": "paliec", "3s": "paliek", "1p": "paliekam", "2p": "paliekat", "3p": "paliek"},
@@ -2642,7 +2642,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pamatot",
-    "eng": "to justify, to substantiate",
+    "en": "to justify, to substantiate",
     "ru": "обосновывать, оправдывать",
     "conj": {
       "present": {"1s": "pamatoju", "2s": "pamato", "3s": "pamato", "1p": "pamatojam", "2p": "pamatojat", "3p": "pamato"},
@@ -2652,7 +2652,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "paņemt",
-    "eng": "to take",
+    "en": "to take",
     "ru": "взять",
     "conj": {
       "present": {"1s": "paņemu", "2s": "paņem", "3s": "paņem", "1p": "paņemam", "2p": "paņemat", "3p": "paņem"},
@@ -2662,7 +2662,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "parādīt",
-    "eng": "to show",
+    "en": "to show",
     "ru": "показать, показывать",
     "conj": {
       "present": {"1s": "parādu", "2s": "parādi", "3s": "parāda", "1p": "parādām", "2p": "parādāt", "3p": "parāda"},
@@ -2672,7 +2672,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "parakstīt",
-    "eng": "to sign",
+    "en": "to sign",
     "ru": "подписать",
     "conj": {
       "present": {"1s": "parakstu", "2s": "paraksti", "3s": "paraksta", "1p": "parakstām", "2p": "parakstāt", "3p": "paraksta"},
@@ -2682,7 +2682,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "parakstīties",
-    "eng": "to sign (one's name); to subscribe",
+    "en": "to sign (one's name); to subscribe",
     "ru": "расписаться; подписаться",
     "conj": {
       "present": {"1s": "parakstos", "2s": "paraksties", "3s": "parakstās", "1p": "parakstāmies", "2p": "parakstāties", "3p": "parakstās"},
@@ -2692,7 +2692,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pārdot",
-    "eng": "to sell",
+    "en": "to sell",
     "ru": "продавать, продать",
     "conj": {
       "present": {"1s": "pārdodu", "2s": "pārdod", "3s": "pārdod", "1p": "pārdodam", "2p": "pārdodat", "3p": "pārdod"},
@@ -2702,7 +2702,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pāriet",
-    "eng": "to cross, to pass, to switch (to)",
+    "en": "to cross, to pass, to switch (to)",
     "ru": "переходить, перейти",
     "conj": {
       "present": {"1s": "pāreju", "2s": "pārej", "3s": "pāriet", "1p": "pārejam", "2p": "pārejat", "3p": "pāriet"},
@@ -2712,7 +2712,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "paskatīties",
-    "eng": "to have a look, to look at",
+    "en": "to have a look, to look at",
     "ru": "посмотреть",
     "conj": {
       "present": {"1s": "paskatos", "2s": "paskaties", "3s": "paskatās", "1p": "paskatāmies", "2p": "paskatāties", "3p": "paskatās"},
@@ -2722,7 +2722,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pasniegt",
-    "eng": "to serve (food); to hand; to teach (a course)",
+    "en": "to serve (food); to hand; to teach (a course)",
     "ru": "подавать; вручать; преподавать",
     "conj": {
       "present": {"1s": "pasniedzu", "2s": "pasniedz", "3s": "pasniedz", "1p": "pasniedzam", "2p": "pasniedzat", "3p": "pasniedz"},
@@ -2732,7 +2732,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pastaigāties",
-    "eng": "to go for a walk, to stroll",
+    "en": "to go for a walk, to stroll",
     "ru": "гулять, прогуливаться",
     "conj": {
       "present": {"1s": "pastaigājos", "2s": "pastaigājies", "3s": "pastaigājas", "1p": "pastaigājamies", "2p": "pastaigājaties", "3p": "pastaigājas"},
@@ -2742,7 +2742,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pastāstīt",
-    "eng": "to tell (in detail), to relate",
+    "en": "to tell (in detail), to relate",
     "ru": "рассказать",
     "conj": {
       "present": {"1s": "pastāstu", "2s": "pastāsti", "3s": "pastāsta", "1p": "pastāstām", "2p": "pastāstāt", "3p": "pastāsta"},
@@ -2752,7 +2752,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pasūtīt",
-    "eng": "to order",
+    "en": "to order",
     "ru": "заказывать, заказать",
     "conj": {
       "present": {"1s": "pasūtu", "2s": "pasūti", "3s": "pasūta", "1p": "pasūtām", "2p": "pasūtāt", "3p": "pasūta"},
@@ -2762,7 +2762,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pateikt",
-    "eng": "to say, to tell",
+    "en": "to say, to tell",
     "ru": "сказать, сообщить",
     "conj": {
       "present": {"1s": "pasaku", "2s": "pasaki", "3s": "pasaka", "1p": "pasakām", "2p": "pasakāt", "3p": "pasaka"},
@@ -2772,7 +2772,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "patikt",
-    "eng": "to like (be pleasing)",
+    "en": "to like (be pleasing)",
     "ru": "нравиться",
     "conj": {
       "present": {"1s": "patīku", "2s": "patīc", "3s": "patīk", "1p": "patīkam", "2p": "patīkat", "3p": "patīk"},
@@ -2782,7 +2782,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pavadīt",
-    "eng": "to accompany; to spend (time)",
+    "en": "to accompany; to spend (time)",
     "ru": "провожать; проводить (время)",
     "conj": {
       "present": {"1s": "pavadu", "2s": "pavadi", "3s": "pavada", "1p": "pavadām", "2p": "pavadāt", "3p": "pavada"},
@@ -2792,7 +2792,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pazīt",
-    "eng": "to know (a person), to recognize",
+    "en": "to know (a person), to recognize",
     "ru": "знать; узнавать (кого-то)",
     "conj": {
       "present": {"1s": "pazīstu", "2s": "pazīsti", "3s": "pazīst", "1p": "pazīstam", "2p": "pazīstat", "3p": "pazīst"},
@@ -2802,7 +2802,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pazust",
-    "eng": "to disappear, to vanish",
+    "en": "to disappear, to vanish",
     "ru": "исчезать, исчезнуть; пропадать",
     "conj": {
       "present": {"1s": "pazūdu", "2s": "pazūdi", "3s": "pazūd", "1p": "pazūdam", "2p": "pazūdat", "3p": "pazūd"},
@@ -2812,7 +2812,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pārcelties",
-    "eng": "to move, to relocate",
+    "en": "to move, to relocate",
     "ru": "переезжать, переселяться",
     "conj": {
       "present": {"1s": "pārceļos", "2s": "pārcelies", "3s": "pārceļas", "1p": "pārceļamies", "2p": "pārceļaties", "3p": "pārceļas"},
@@ -2822,7 +2822,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "peldēt",
-    "eng": "to swim",
+    "en": "to swim",
     "ru": "плавать",
     "conj": {
       "present": {"1s": "peldu", "2s": "peldi", "3s": "peld", "1p": "peldam", "2p": "peldat", "3p": "peld"},
@@ -2832,7 +2832,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "peldēties",
-    "eng": "to bathe, to swim (recreationally)",
+    "en": "to bathe, to swim (recreationally)",
     "ru": "купаться",
     "conj": {
       "present": {"1s": "peldos", "2s": "peldies", "3s": "peldas", "1p": "peldamies", "2p": "peldaties", "3p": "peldas"},
@@ -2842,7 +2842,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pētīt",
-    "eng": "to research, to study, to explore",
+    "en": "to research, to study, to explore",
     "ru": "исследовать",
     "conj": {
       "present": {"1s": "pētu", "2s": "pēti", "3s": "pēta", "1p": "pētām", "2p": "pētāt", "3p": "pēta"},
@@ -2852,7 +2852,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "piecelties",
-    "eng": "to get up, to stand up",
+    "en": "to get up, to stand up",
     "ru": "вставать, встать",
     "conj": {
       "present": {"1s": "pieceļos", "2s": "piecelies", "3s": "pieceļas", "1p": "pieceļamies", "2p": "pieceļaties", "3p": "pieceļas"},
@@ -2862,7 +2862,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "piedāvāt",
-    "eng": "to offer",
+    "en": "to offer",
     "ru": "предлагать, предложить",
     "conj": {
       "present": {"1s": "piedāvāju", "2s": "piedāvā", "3s": "piedāvā", "1p": "piedāvājam", "2p": "piedāvājat", "3p": "piedāvā"},
@@ -2872,7 +2872,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "piederēt",
-    "eng": "to belong",
+    "en": "to belong",
     "ru": "принадлежать",
     "conj": {
       "present": {"1s": "piederu", "2s": "piederi", "3s": "pieder", "1p": "piederam", "2p": "piederat", "3p": "pieder"},
@@ -2882,7 +2882,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pietiet",
-    "eng": "(unclear lemma; needs review)",
+    "en": "(unclear lemma; needs review)",
     "ru": "(неясный глагол; нужна проверка)",
     "conj": {
       "present": {"1s": "pietieju", "2s": "pietie", "3s": "pietie", "1p": "pietiejam", "2p": "pietiejat", "3p": "pietie"},
@@ -2892,7 +2892,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pienākt",
-    "eng": "to arrive (time/train), to approach; to be due",
+    "en": "to arrive (time/train), to approach; to be due",
     "ru": "прибывать; подходить; наступать (о времени)",
     "conj": {
       "present": {"1s": "pienāku", "2s": "pienāc", "3s": "pienāk", "1p": "pienākam", "2p": "pienākat", "3p": "pienāk"},
@@ -2902,7 +2902,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pieņemt",
-    "eng": "to accept; to assume; to adopt; to receive",
+    "en": "to accept; to assume; to adopt; to receive",
     "ru": "принимать; предполагать; принимать (закон)",
     "conj": {
       "present": {"1s": "pieņemu", "2s": "pieņem", "3s": "pieņem", "1p": "pieņemam", "2p": "pieņemat", "3p": "pieņem"},
@@ -2912,7 +2912,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pierakstīt",
-    "eng": "to write down, to note",
+    "en": "to write down, to note",
     "ru": "записывать, записать",
     "conj": {
       "present": {"1s": "pierakstu", "2s": "pieraksti", "3s": "pieraksta", "1p": "pierakstām", "2p": "pierakstāt", "3p": "pieraksta"},
@@ -2922,7 +2922,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pierunāt",
-    "eng": "to persuade",
+    "en": "to persuade",
     "ru": "уговаривать, убедить",
     "conj": {
       "present": {"1s": "pierunāju", "2s": "pierunā", "3s": "pierunā", "1p": "pierunājam", "2p": "pierunājat", "3p": "pierunā"},
@@ -2932,7 +2932,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "piesacīties",
-    "eng": "to sign up, to register (possibly variant of 'pieteikties')",
+    "en": "to sign up, to register (possibly variant of 'pieteikties')",
     "ru": "записаться, зарегистрироваться",
     "conj": {
       "present": {"1s": "piesakos", "2s": "piesakies", "3s": "piesakās", "1p": "piesakāmies", "2p": "piesakāties", "3p": "piesakās"},
@@ -2942,7 +2942,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pieteikties",
-    "eng": "to apply (for), to sign up; (IT) to log in",
+    "en": "to apply (for), to sign up; (IT) to log in",
     "ru": "подать заявку, записаться; (IT) войти в систему",
     "conj": {
       "present": {"1s": "piesakos", "2s": "piesakies", "3s": "piesakās", "1p": "piesakāmies", "2p": "piesakāties", "3p": "piesakās"},
@@ -2952,7 +2952,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "piezvanīt",
-    "eng": "to call (by phone)",
+    "en": "to call (by phone)",
     "ru": "позвонить",
     "conj": {
       "present": {"1s": "piezvanu", "2s": "piezvani", "3s": "piezvana", "1p": "piezvanām", "2p": "piezvanāt", "3p": "piezvana"},
@@ -2962,7 +2962,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pildīt",
-    "eng": "to fulfill, to carry out; to fill",
+    "en": "to fulfill, to carry out; to fill",
     "ru": "выполнять; наполнять",
     "conj": {
       "present": {"1s": "pildu", "2s": "pildi", "3s": "pilda", "1p": "pildām", "2p": "pildāt", "3p": "pilda"},
@@ -2972,7 +2972,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "pirkt",
-    "eng": "to buy",
+    "en": "to buy",
     "ru": "покупать",
     "conj": {
       "present": {"1s": "pērku", "2s": "pērc", "3s": "pērk", "1p": "pērkam", "2p": "pērkat", "3p": "pērk"},
@@ -2982,7 +2982,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "plānot",
-    "eng": "to plan",
+    "en": "to plan",
     "ru": "планировать",
     "conj": {
       "present": {"1s": "plānoju", "2s": "plāno", "3s": "plāno", "1p": "plānojam", "2p": "plānojat", "3p": "plāno"},
@@ -2992,7 +2992,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "prast",
-    "eng": "to know how (to), to be able",
+    "en": "to know how (to), to be able",
     "ru": "уметь",
     "conj": {
       "present": {"1s": "protu", "2s": "proti", "3s": "prot", "1p": "protam", "2p": "protat", "3p": "prot"},
@@ -3002,7 +3002,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "priecāties",
-    "eng": "to rejoice, to be glad",
+    "en": "to rejoice, to be glad",
     "ru": "радоваться",
     "conj": {
       "present": {"1s": "priecājos", "2s": "priecājies", "3s": "priecājas", "1p": "priecājamies", "2p": "priecājaties", "3p": "priecājas"},
@@ -3012,7 +3012,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "rādīt",
-    "eng": "to show",
+    "en": "to show",
     "ru": "показывать",
     "conj": {
       "present": {"1s": "rādu", "2s": "rādi", "3s": "rāda", "1p": "rādām", "2p": "rādāt", "3p": "rāda"},
@@ -3022,7 +3022,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "rakstīt",
-    "eng": "to write",
+    "en": "to write",
     "ru": "писать",
     "conj": {
       "present": {"1s": "rakstu", "2s": "raksti", "3s": "raksta", "1p": "rakstām", "2p": "rakstāt", "3p": "raksta"},
@@ -3032,7 +3032,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "redzēt",
-    "eng": "to see",
+    "en": "to see",
     "ru": "видеть",
     "conj": {
       "present": {"1s": "redzu", "2s": "redzi", "3s": "redz", "1p": "redzam", "2p": "redzat", "3p": "redz"},
@@ -3042,7 +3042,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "reģistrēt",
-    "eng": "to register",
+    "en": "to register",
     "ru": "регистрировать",
     "conj": {
       "present": {"1s": "reģistrēju", "2s": "reģistrē", "3s": "reģistrē", "1p": "reģistrējam", "2p": "reģistrējat", "3p": "reģistrē"},
@@ -3052,7 +3052,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "reģistrēties",
-    "eng": "to register (oneself)",
+    "en": "to register (oneself)",
     "ru": "регистрироваться",
     "conj": {
       "present": {"1s": "reģistrējos", "2s": "reģistrējies", "3s": "reģistrējas", "1p": "reģistrējamies", "2p": "reģistrējaties", "3p": "reģistrējas"},
@@ -3062,7 +3062,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "rēķināt",
-    "eng": "to calculate, to count",
+    "en": "to calculate, to count",
     "ru": "считать, вычислять",
     "conj": {
       "present": {"1s": "rēķinu", "2s": "rēķini", "3s": "rēķina", "1p": "rēķinām", "2p": "rēķināt", "3p": "rēķina"},
@@ -3072,7 +3072,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "remontēt",
-    "eng": "to repair, to renovate",
+    "en": "to repair, to renovate",
     "ru": "ремонтировать",
     "conj": {
       "present": {"1s": "remontēju", "2s": "remontē", "3s": "remontē", "1p": "remontējam", "2p": "remontējat", "3p": "remontē"},
@@ -3082,7 +3082,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "rezervēt",
-    "eng": "to reserve, to book",
+    "en": "to reserve, to book",
     "ru": "бронировать, резервировать",
     "conj": {
       "present": {"1s": "rezervēju", "2s": "rezervē", "3s": "rezervē", "1p": "rezervējam", "2p": "rezervējat", "3p": "rezervē"},
@@ -3092,7 +3092,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "robežoties",
-    "eng": "to border (on/with)",
+    "en": "to border (on/with)",
     "ru": "граничить",
     "conj": {
       "present": {"1s": "robežojos", "2s": "robežojies", "3s": "robežojas", "1p": "robežojamies", "2p": "robežojaties", "3p": "robežojas"},
@@ -3102,7 +3102,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "runāt",
-    "eng": "to speak, to talk",
+    "en": "to speak, to talk",
     "ru": "говорить, разговаривать",
     "conj": {
       "present": {"1s": "runāju", "2s": "runā", "3s": "runā", "1p": "runājam", "2p": "runājat", "3p": "runā"},
@@ -3112,7 +3112,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sacīt",
-    "eng": "to say",
+    "en": "to say",
     "ru": "сказать",
     "conj": {
       "present": {"1s": "saku", "2s": "saki", "3s": "saka", "1p": "sakām", "2p": "sakāt", "3p": "saka"},
@@ -3122,7 +3122,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sagaidīt",
-    "eng": "to meet; to expect; to wait for",
+    "en": "to meet; to expect; to wait for",
     "ru": "встречать; ожидать",
     "conj": {
       "present": {"1s": "sagaidu", "2s": "sagaidi", "3s": "sagaida", "1p": "sagaidām", "2p": "sagaidāt", "3p": "sagaida"},
@@ -3132,7 +3132,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sagatavot",
-    "eng": "to prepare",
+    "en": "to prepare",
     "ru": "подготовить, приготовить",
     "conj": {
       "present": {"1s": "sagatavoju", "2s": "sagatavo", "3s": "sagatavo", "1p": "sagatavojam", "2p": "sagatavojat", "3p": "sagatavo"},
@@ -3142,7 +3142,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "saģērbties",
-    "eng": "to get dressed",
+    "en": "to get dressed",
     "ru": "одеться",
     "conj": {
       "present": {"1s": "saģērbjos", "2s": "saģērbies", "3s": "saģērbjas", "1p": "saģērbjamies", "2p": "saģērbjaties", "3p": "saģērbjas"},
@@ -3152,7 +3152,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sajust",
-    "eng": "to feel, to sense",
+    "en": "to feel, to sense",
     "ru": "ощутить, почувствовать",
     "conj": {
       "present": {"1s": "sajūtu", "2s": "sajūti", "3s": "sajūt", "1p": "sajūtam", "2p": "sajūtat", "3p": "sajūt"},
@@ -3162,7 +3162,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sākt",
-    "eng": "to begin, to start",
+    "en": "to begin, to start",
     "ru": "начинать, начать",
     "conj": {
       "present": {"1s": "sāku", "2s": "sāc", "3s": "sāk", "1p": "sākam", "2p": "sākat", "3p": "sāk"},
@@ -3172,7 +3172,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sākties",
-    "eng": "to begin, to start (intrans.)",
+    "en": "to begin, to start (intrans.)",
     "ru": "начинаться",
     "conj": {
       "present": {"1s": "sākos", "2s": "sākies", "3s": "sākas", "1p": "sākamies", "2p": "sākaties", "3p": "sākas"},
@@ -3182,7 +3182,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "salabot",
-    "eng": "to fix, to repair",
+    "en": "to fix, to repair",
     "ru": "починить, исправить",
     "conj": {
       "present": {"1s": "salaboju", "2s": "salabo", "3s": "salabo", "1p": "salabojam", "2p": "salabojat", "3p": "salabo"},
@@ -3192,7 +3192,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "samaksāt",
-    "eng": "to pay",
+    "en": "to pay",
     "ru": "заплатить",
     "conj": {
       "present": {"1s": "samaksāju", "2s": "samaksā", "3s": "samaksā", "1p": "samaksājam", "2p": "samaksājat", "3p": "samaksā"},
@@ -3202,7 +3202,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "saņemt",
-    "eng": "to receive",
+    "en": "to receive",
     "ru": "получать",
     "conj": {
       "present": {"1s": "saņemu", "2s": "saņem", "3s": "saņem", "1p": "saņemam", "2p": "saņemat", "3p": "saņem"},
@@ -3212,12 +3212,12 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sāpēt",
-    "eng": "to ache, to hurt",
+    "en": "to ache, to hurt",
     "ru": "болеть"
   },
   {
     "lv": "sargāt",
-    "eng": "to guard, to protect",
+    "en": "to guard, to protect",
     "ru": "охранять, беречь",
     "conj": {
       "present": {"1s": "sargāju", "2s": "sargā", "3s": "sargā", "1p": "sargājam", "2p": "sargājat", "3p": "sargā"},
@@ -3227,7 +3227,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sarunāties",
-    "eng": "to converse, to talk",
+    "en": "to converse, to talk",
     "ru": "беседовать, разговаривать",
     "conj": {
       "present": {"1s": "sarunājos", "2s": "sarunājies", "3s": "sarunājas", "1p": "sarunājamies", "2p": "sarunājaties", "3p": "sarunājas"},
@@ -3237,7 +3237,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "satikt",
-    "eng": "to meet",
+    "en": "to meet",
     "ru": "встретить",
     "conj": {
       "present": {"1s": "satieku", "2s": "satiec", "3s": "satiek", "1p": "satiekam", "2p": "satiekat", "3p": "satiek"},
@@ -3247,7 +3247,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "satikties",
-    "eng": "to meet (each other)",
+    "en": "to meet (each other)",
     "ru": "встречаться, встретиться",
     "conj": {
       "present": {"1s": "satiekos", "2s": "satiecies", "3s": "satiekas", "1p": "satiekamies", "2p": "satiekaties", "3p": "satiekas"},
@@ -3257,7 +3257,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "saukt",
-    "eng": "to call; to name",
+    "en": "to call; to name",
     "ru": "звать; называть",
     "conj": {
       "present": {"1s": "saucu", "2s": "sauc", "3s": "sauc", "1p": "saucam", "2p": "saucat", "3p": "sauc"},
@@ -3267,7 +3267,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sauļoties",
-    "eng": "to sunbathe",
+    "en": "to sunbathe",
     "ru": "загорать",
     "conj": {
       "present": {"1s": "sauļojos", "2s": "sauļojies", "3s": "sauļojas", "1p": "sauļojamies", "2p": "sauļojaties", "3p": "sauļojas"},
@@ -3277,7 +3277,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sēņot",
-    "eng": "to pick mushrooms",
+    "en": "to pick mushrooms",
     "ru": "собирать грибы",
     "conj": {
       "present": {"1s": "sēņoju", "2s": "sēņo", "3s": "sēņo", "1p": "sēņojam", "2p": "sēņojat", "3p": "sēņo"},
@@ -3287,7 +3287,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sērfot",
-    "eng": "to surf; (internet) to browse",
+    "en": "to surf; (internet) to browse",
     "ru": "заниматься сёрфингом; серфить в интернете",
     "conj": {
       "present": {"1s": "sērfoju", "2s": "sērfo", "3s": "sērfo", "1p": "sērfojam", "2p": "sērfojat", "3p": "sērfo"},
@@ -3297,7 +3297,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "skanēt",
-    "eng": "to sound, to ring",
+    "en": "to sound, to ring",
     "ru": "звучать",
     "conj": {
       "present": {"1s": "skanu", "2s": "skani", "3s": "skan", "1p": "skanam", "2p": "skanat", "3p": "skan"},
@@ -3307,7 +3307,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "skatīties",
-    "eng": "to watch, to look (at)",
+    "en": "to watch, to look (at)",
     "ru": "смотреть",
     "conj": {
       "present": {"1s": "skatos", "2s": "skaties", "3s": "skatās", "1p": "skatāmies", "2p": "skatāties", "3p": "skatās"},
@@ -3317,7 +3317,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "skriet",
-    "eng": "to run",
+    "en": "to run",
     "ru": "бежать, бегать",
     "conj": {
       "present": {"1s": "skrienu", "2s": "skrien", "3s": "skrien", "1p": "skrienam", "2p": "skrienat", "3p": "skrien"},
@@ -3327,7 +3327,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "slēgt",
-    "eng": "to close; to conclude (an agreement); to switch off",
+    "en": "to close; to conclude (an agreement); to switch off",
     "ru": "закрывать; заключать; выключать",
     "conj": {
       "present": {"1s": "slēdzu", "2s": "slēdz", "3s": "slēdz", "1p": "slēdzam", "2p": "slēdzat", "3p": "slēdz"},
@@ -3337,7 +3337,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "slēpot",
-    "eng": "to ski",
+    "en": "to ski",
     "ru": "кататься на лыжах",
     "conj": {
       "present": {"1s": "slēpoju", "2s": "slēpo", "3s": "slēpo", "1p": "slēpojam", "2p": "slēpojat", "3p": "slēpo"},
@@ -3347,7 +3347,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "slidot",
-    "eng": "to skate",
+    "en": "to skate",
     "ru": "кататься на коньках",
     "conj": {
       "present": {"1s": "slidoju", "2s": "slido", "3s": "slido", "1p": "slidojam", "2p": "slidojat", "3p": "slido"},
@@ -3357,7 +3357,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "smēķēt",
-    "eng": "to smoke",
+    "en": "to smoke",
     "ru": "курить",
     "conj": {
       "present": {"1s": "smēķēju", "2s": "smēķē", "3s": "smēķē", "1p": "smēķējam", "2p": "smēķējat", "3p": "smēķē"},
@@ -3367,7 +3367,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "smieties",
-    "eng": "to laugh",
+    "en": "to laugh",
     "ru": "смеяться",
     "conj": {
       "present": {"1s": "smejos", "2s": "smejies", "3s": "smejas", "1p": "smejamies", "2p": "smejaties", "3p": "smejas"},
@@ -3377,7 +3377,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sniegt",
-    "eng": "to provide, to give (services, information)",
+    "en": "to provide, to give (services, information)",
     "ru": "предоставлять, оказывать",
     "conj": {
       "present": {"1s": "sniedzu", "2s": "sniedz", "3s": "sniedz", "1p": "sniedzam", "2p": "sniedzat", "3p": "sniedz"},
@@ -3387,7 +3387,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "spēlēt",
-    "eng": "to play (a game, instrument)",
+    "en": "to play (a game, instrument)",
     "ru": "играть",
     "conj": {
       "present": {"1s": "spēlēju", "2s": "spēlē", "3s": "spēlē", "1p": "spēlējam", "2p": "spēlējat", "3p": "spēlē"},
@@ -3397,7 +3397,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "spēt",
-    "eng": "to be able to, to manage to",
+    "en": "to be able to, to manage to",
     "ru": "смочь, быть в состоянии",
     "conj": {
       "present": {"1s": "spēju", "2s": "spēj", "3s": "spēj", "1p": "spējam", "2p": "spējat", "3p": "spēj"},
@@ -3407,7 +3407,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "spīdēt",
-    "eng": "to shine",
+    "en": "to shine",
     "ru": "светить, сиять",
     "conj": {
       "present": {"1s": "spīdu", "2s": "spīdi", "3s": "spīd", "1p": "spīdam", "2p": "spīdat", "3p": "spīd"},
@@ -3417,7 +3417,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sportot",
-    "eng": "to do sports, to exercise",
+    "en": "to do sports, to exercise",
     "ru": "заниматься спортом",
     "conj": {
       "present": {"1s": "sportoju", "2s": "sporto", "3s": "sporto", "1p": "sportojam", "2p": "sportojat", "3p": "sporto"},
@@ -3427,7 +3427,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "staigāt",
-    "eng": "to walk, to stroll",
+    "en": "to walk, to stroll",
     "ru": "ходить, гулять",
     "conj": {
       "present": {"1s": "staigāju", "2s": "staigā", "3s": "staigā", "1p": "staigājam", "2p": "staigājat", "3p": "staigā"},
@@ -3437,7 +3437,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "stāvēt",
-    "eng": "to stand",
+    "en": "to stand",
     "ru": "стоять",
     "conj": {
       "present": {"1s": "stāvu", "2s": "stāvi", "3s": "stāv", "1p": "stāvam", "2p": "stāvat", "3p": "stāv"},
@@ -3447,7 +3447,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "strādāt",
-    "eng": "to work",
+    "en": "to work",
     "ru": "работать",
     "conj": {
       "present": {"1s": "strādāju", "2s": "strādā", "3s": "strādā", "1p": "strādājam", "2p": "strādājat", "3p": "strādā"},
@@ -3457,7 +3457,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "studēt",
-    "eng": "to study",
+    "en": "to study",
     "ru": "изучать, учиться (в вузе)",
     "conj": {
       "present": {"1s": "studēju", "2s": "studē", "3s": "studē", "1p": "studējam", "2p": "studējat", "3p": "studē"},
@@ -3467,7 +3467,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "sūtīt",
-    "eng": "to send",
+    "en": "to send",
     "ru": "отправлять, посылать",
     "conj": {
       "present": {"1s": "sūtu", "2s": "sūti", "3s": "sūta", "1p": "sūtām", "2p": "sūtāt", "3p": "sūta"},
@@ -3477,7 +3477,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "svērt",
-    "eng": "to weigh (something)",
+    "en": "to weigh (something)",
     "ru": "взвешивать",
     "conj": {
       "present": {"1s": "sveru", "2s": "sver", "3s": "sver", "1p": "sveram", "2p": "sverat", "3p": "sver"},
@@ -3487,7 +3487,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "svērties",
-    "eng": "to weigh oneself",
+    "en": "to weigh oneself",
     "ru": "взвешиваться",
     "conj": {
       "present": {"1s": "sveros", "2s": "sveries", "3s": "sveras", "1p": "sveramies", "2p": "sveraties", "3p": "sveras"},
@@ -3497,7 +3497,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "svinēt",
-    "eng": "to celebrate",
+    "en": "to celebrate",
     "ru": "праздновать",
     "conj": {
       "present": {"1s": "svinu", "2s": "svini", "3s": "svin", "1p": "svinam", "2p": "svinat", "3p": "svin"},
@@ -3507,7 +3507,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "teikt",
-    "eng": "to say, to tell",
+    "en": "to say, to tell",
     "ru": "сказать",
     "conj": {
       "present": {"1s": "saku", "2s": "saki", "3s": "saka", "1p": "sakām", "2p": "sakāt", "3p": "saka"},
@@ -3517,7 +3517,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "tikt",
-    "eng": "to get; to manage; (auxiliary for passive)",
+    "en": "to get; to manage; (auxiliary for passive)",
     "ru": "попасть; удаваться; становиться (в пассивных конструкциях)",
     "conj": {
       "present": {"1s": "tieku", "2s": "tiec", "3s": "tiek", "1p": "tiekam", "2p": "tiekat", "3p": "tiek"},
@@ -3527,7 +3527,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "tikties",
-    "eng": "to meet (with)",
+    "en": "to meet (with)",
     "ru": "встречаться",
     "conj": {
       "present": {"1s": "tiekos", "2s": "tiekies", "3s": "tiekas", "1p": "tiekamies", "2p": "tiekaties", "3p": "tiekas"},
@@ -3537,7 +3537,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "tīrīt",
-    "eng": "to clean",
+    "en": "to clean",
     "ru": "чистить, убирать",
     "conj": {
       "present": {"1s": "tīru", "2s": "tīri", "3s": "tīra", "1p": "tīrām", "2p": "tīrāt", "3p": "tīra"},
@@ -3547,7 +3547,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "tuvooties",
-    "eng": "to approach, to draw near",
+    "en": "to approach, to draw near",
     "ru": "приближаться",
     "conj": {
       "present": {"1s": "tuvojos", "2s": "tuvojies", "3s": "tuvojas", "1p": "tuvojamies", "2p": "tuvojaties", "3p": "tuvojas"},
@@ -3557,7 +3557,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzcelt",
-    "eng": "to build, to raise, to erect",
+    "en": "to build, to raise, to erect",
     "ru": "возводить, построить; поднимать",
     "conj": {
       "present": {"1s": "uzceļu", "2s": "uzcel", "3s": "uzceļ", "1p": "uzceļam", "2p": "uzceļat", "3p": "uzceļ"},
@@ -3567,7 +3567,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzdāvināt",
-    "eng": "to give as a present",
+    "en": "to give as a present",
     "ru": "подарить",
     "conj": {
       "present": {"1s": "uzdāvinu", "2s": "uzdāvini", "3s": "uzdāvina", "1p": "uzdāvinām", "2p": "uzdāvināt", "3p": "uzdāvina"},
@@ -3577,7 +3577,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzklāt",
-    "eng": "to lay out; to set (the table); to spread (on)",
+    "en": "to lay out; to set (the table); to spread (on)",
     "ru": "накрыть (на стол); разложить; намазать",
     "conj": {
       "present": {"1s": "uzklāju", "2s": "uzklāj", "3s": "uzklāj", "1p": "uzklājam", "2p": "uzklājat", "3p": "uzklāj"},
@@ -3587,7 +3587,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzlikt",
-    "eng": "to put on; to impose; to install",
+    "en": "to put on; to impose; to install",
     "ru": "положить; надеть; наложить; установить",
     "conj": {
       "present": {"1s": "uzlieku", "2s": "uzliec", "3s": "uzliek", "1p": "uzliekam", "2p": "uzliekat", "3p": "uzliek"},
@@ -3597,7 +3597,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzlūgt",
-    "eng": "to invite (formally)",
+    "en": "to invite (formally)",
     "ru": "пригласить",
     "conj": {
       "present": {"1s": "uzlūdzu", "2s": "uzlūdz", "3s": "uzlūdz", "1p": "uzlūdzam", "2p": "uzlūdzat", "3p": "uzlūdz"},
@@ -3607,7 +3607,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzmanīt",
-    "eng": "to keep an eye on, to watch; to notice",
+    "en": "to keep an eye on, to watch; to notice",
     "ru": "присматривать, наблюдать; заметить",
     "conj": {
       "present": {"1s": "uzmanu", "2s": "uzmani", "3s": "uzmana", "1p": "uzmanām", "2p": "uzmanāt", "3p": "uzmana"},
@@ -3617,7 +3617,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzrādīt",
-    "eng": "to present, to show (documents/results)",
+    "en": "to present, to show (documents/results)",
     "ru": "предъявлять, предъявить; показывать",
     "conj": {
       "present": {"1s": "uzrādu", "2s": "uzrādi", "3s": "uzrāda", "1p": "uzrādām", "2p": "uzrādāt", "3p": "uzrāda"},
@@ -3627,7 +3627,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzrakstīt",
-    "eng": "to write, to write down",
+    "en": "to write, to write down",
     "ru": "написать",
     "conj": {
       "present": {"1s": "uzrakstu", "2s": "uzraksti", "3s": "uzraksta", "1p": "uzrakstām", "2p": "uzrakstāt", "3p": "uzraksta"},
@@ -3637,7 +3637,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzvilkt",
-    "eng": "to put on (clothes); to pull (up/on)",
+    "en": "to put on (clothes); to pull (up/on)",
     "ru": "надеть; натянуть; тянуть",
     "conj": {
       "present": {"1s": "uzvelku", "2s": "uzvelc", "3s": "uzvelk", "1p": "uzvelkam", "2p": "uzvelkat", "3p": "uzvelk"},
@@ -3647,7 +3647,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "uzzināt",
-    "eng": "to find out, to learn",
+    "en": "to find out, to learn",
     "ru": "узнать",
     "conj": {
       "present": {"1s": "uzzinu", "2s": "uzzini", "3s": "uzzina", "1p": "uzzinām", "2p": "uzzināt", "3p": "uzzina"},
@@ -3657,7 +3657,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "vadīt",
-    "eng": "to drive; to lead; to conduct",
+    "en": "to drive; to lead; to conduct",
     "ru": "вести; управлять; водить (машину)",
     "conj": {
       "present": {"1s": "vadu", "2s": "vadi", "3s": "vada", "1p": "vadām", "2p": "vadāt", "3p": "vada"},
@@ -3667,7 +3667,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "vajadzēt",
-    "eng": "to need, should, ought to",
+    "en": "to need, should, ought to",
     "ru": "нужно, следует",
     "conj": {
       "present": {"1s": "", "2s": "", "3s": "vajag", "1p": "", "2p": "", "3p": "vajag"},
@@ -3677,7 +3677,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "varēt",
-    "eng": "to be able, can",
+    "en": "to be able, can",
     "ru": "мочь, уметь",
     "conj": {
       "present": {"1s": "varu", "2s": "vari", "3s": "var", "1p": "varam", "2p": "varat", "3p": "var"},
@@ -3687,7 +3687,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "veidot",
-    "eng": "to form, to shape, to create",
+    "en": "to form, to shape, to create",
     "ru": "формировать, создавать",
     "conj": {
       "present": {"1s": "veidoju", "2s": "veido", "3s": "veido", "1p": "veidojam", "2p": "veidojat", "3p": "veido"},
@@ -3697,7 +3697,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "veikt",
-    "eng": "to perform, to carry out, to accomplish",
+    "en": "to perform, to carry out, to accomplish",
     "ru": "выполнять, совершать",
     "conj": {
       "present": {"1s": "veicu", "2s": "veic", "3s": "veic", "1p": "veicam", "2p": "veicat", "3p": "veic"},
@@ -3707,7 +3707,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "vēlēties",
-    "eng": "to wish, to want",
+    "en": "to wish, to want",
     "ru": "желать, хотеть",
     "conj": {
       "present": {"1s": "vēlos", "2s": "vēlies", "3s": "vēlas", "1p": "vēlamies", "2p": "vēlaties", "3p": "vēlas"},
@@ -3717,7 +3717,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "veltīt",
-    "eng": "to devote, to dedicate",
+    "en": "to devote, to dedicate",
     "ru": "посвящать",
     "conj": {
       "present": {"1s": "veltu", "2s": "velti", "3s": "veltī", "1p": "veltām", "2p": "veltāt", "3p": "veltī"},
@@ -3727,7 +3727,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "vest",
-    "eng": "to take, to lead, to transport",
+    "en": "to take, to lead, to transport",
     "ru": "везти; вести",
     "conj": {
       "present": {"1s": "vedu", "2s": "ved", "3s": "ved", "1p": "vedam", "2p": "vedat", "3p": "ved"},
@@ -3737,7 +3737,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "vilkt",
-    "eng": "to pull, to draw; (colloq.) to wear",
+    "en": "to pull, to draw; (colloq.) to wear",
     "ru": "тянуть, тащить; надевать (разг.)",
     "conj": {
       "present": {"1s": "velku", "2s": "velc", "3s": "velk", "1p": "velkam", "2p": "velkat", "3p": "velk"},
@@ -3747,7 +3747,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "vingrot",
-    "eng": "to exercise, to do gymnastics",
+    "en": "to exercise, to do gymnastics",
     "ru": "заниматься гимнастикой",
     "conj": {
       "present": {"1s": "vingroju", "2s": "vingro", "3s": "vingro", "1p": "vingrojam", "2p": "vingrojat", "3p": "vingro"},
@@ -3757,7 +3757,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "zāģēt",
-    "eng": "to saw; (slang) to nag",
+    "en": "to saw; (slang) to nag",
     "ru": "пилить",
     "conj": {
       "present": {"1s": "zāģēju", "2s": "zāģē", "3s": "zāģē", "1p": "zāģējam", "2p": "zāģējat", "3p": "zāģē"},
@@ -3767,7 +3767,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "ziedēt",
-    "eng": "to bloom, to flower",
+    "en": "to bloom, to flower",
     "ru": "цвести",
     "conj": {
       "present": {"1s": "ziedu", "2s": "ziedi", "3s": "zied", "1p": "ziedam", "2p": "ziedat", "3p": "zied"},
@@ -3777,7 +3777,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "zīmēt",
-    "eng": "to draw",
+    "en": "to draw",
     "ru": "рисовать",
     "conj": {
       "present": {"1s": "zīmēju", "2s": "zīmē", "3s": "zīmē", "1p": "zīmējam", "2p": "zīmējat", "3p": "zīmē"},
@@ -3787,7 +3787,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "zināt",
-    "eng": "to know",
+    "en": "to know",
     "ru": "знать",
     "conj": {
       "present": {"1s": "zinu", "2s": "zini", "3s": "zina", "1p": "zinām", "2p": "zināt", "3p": "zina"},
@@ -3797,7 +3797,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "zust",
-    "eng": "to vanish, to disappear",
+    "en": "to vanish, to disappear",
     "ru": "исчезать, пропадать",
     "conj": {
       "present": {"1s": "zūdu", "2s": "zūdi", "3s": "zūd", "1p": "zūdam", "2p": "zūdat", "3p": "zūd"},
@@ -3807,7 +3807,7 @@ window.__LATVIAN_WORDS__ = [
   },
   {
     "lv": "zvanīt",
-    "eng": "to call, to ring",
+    "en": "to call, to ring",
     "ru": "звонить, позвонить",
     "conj": {
       "present": {"1s": "zvanu", "2s": "zvani", "3s": "zvana", "1p": "zvanām", "2p": "zvanāt", "3p": "zvana"},

@@ -24,7 +24,7 @@ export function getTranslation(item, currentLang) {
   if (item.translations && item.translations[currentLang] !== undefined) {
     return item.translations[currentLang];
   }
-  return item.eng || item.en || '';
+  return item.en || '';
 }
 
 export function renderRound({ elements, items, currentLang, onRoundRendered }) {

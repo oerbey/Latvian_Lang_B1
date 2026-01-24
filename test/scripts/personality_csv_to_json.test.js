@@ -18,14 +18,14 @@ test('buildPersonalityData normalizes English and sorts by id', () => {
     {
       id: 'a',
       lv: 'old',
-      eng: 'worn / used',
+      en: 'worn / used',
       group: 'neutral',
       notes: 'note, with comma',
     },
     {
       id: 'b',
       lv: 'good',
-      eng: 'free / independent',
+      en: 'free / independent',
       group: 'optimists',
       notes: 'adjective',
     },

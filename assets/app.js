@@ -49,10 +49,10 @@ initMatchingGame({
   elements: els,
   dataLoader: makeWordsLoader(),
   languages: [
-    { id: 'eng', label: 'English' },
+    { id: 'en', label: 'English' },
     { id: 'ru', label: 'Русский' },
   ],
-  defaultLanguage: 'eng',
+  defaultLanguage: 'en',
   storageKeys: {
     config: 'dv_config',
     activeSet: 'dv_activeSet',

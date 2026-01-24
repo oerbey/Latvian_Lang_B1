@@ -5,10 +5,10 @@
   "items": {
     "type": "object",
     "additionalProperties": false,
-    "required": ["lv", "eng", "ru"],
+    "required": ["lv", "en", "ru"],
     "properties": {
       "lv": { "type": "string", "minLength": 1 },
-      "eng": { "type": "string", "minLength": 1 },
+      "en": { "type": "string", "minLength": 1 },
       "ru": { "type": "string", "minLength": 1 },
       "conj": {
         "type": "object",

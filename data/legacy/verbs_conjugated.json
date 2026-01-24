@@ -1,7 +1,7 @@
 [
   {
     "lv": "pieteikties",
-    "eng": "to apply (for), to sign up; (IT) to log in",
+    "en": "to apply (for), to sign up; (IT) to log in",
     "ru": "подать заявку, записаться; (IT) войти в систему",
     "conj": {
       "present": {
@@ -32,7 +32,7 @@
   },
   {
     "lv": "piezvanīt",
-    "eng": "to call (by phone)",
+    "en": "to call (by phone)",
     "ru": "позвонить",
     "conj": {
       "present": {
@@ -63,7 +63,7 @@
   },
   {
     "lv": "pildīt",
-    "eng": "to fulfill, to carry out; to fill",
+    "en": "to fulfill, to carry out; to fill",
     "ru": "выполнять; наполнять",
     "conj": {
       "present": {
@@ -94,7 +94,7 @@
   },
   {
     "lv": "pirkt",
-    "eng": "to buy",
+    "en": "to buy",
     "ru": "покупать",
     "conj": {
       "present": {
@@ -125,7 +125,7 @@
   },
   {
     "lv": "plānot",
-    "eng": "to plan",
+    "en": "to plan",
     "ru": "планировать",
     "conj": {
       "present": {
@@ -156,7 +156,7 @@
   },
   {
     "lv": "prast",
-    "eng": "to know how (to), to be able",
+    "en": "to know how (to), to be able",
     "ru": "уметь",
     "conj": {
       "present": {
@@ -187,7 +187,7 @@
   },
   {
     "lv": "priecāties",
-    "eng": "to rejoice, to be glad",
+    "en": "to rejoice, to be glad",
     "ru": "радоваться",
     "conj": {
       "present": {
@@ -218,7 +218,7 @@
   },
   {
     "lv": "rādīt",
-    "eng": "to show",
+    "en": "to show",
     "ru": "показывать",
     "conj": {
       "present": {
@@ -249,7 +249,7 @@
   },
   {
     "lv": "rakstīt",
-    "eng": "to write",
+    "en": "to write",
     "ru": "писать",
     "conj": {
       "present": {
@@ -280,7 +280,7 @@
   },
   {
     "lv": "redzēt",
-    "eng": "to see",
+    "en": "to see",
     "ru": "видеть",
     "conj": {
       "present": {
@@ -311,7 +311,7 @@
   },
   {
     "lv": "reģistrēt",
-    "eng": "to register",
+    "en": "to register",
     "ru": "регистрировать",
     "conj": {
       "present": {
@@ -342,7 +342,7 @@
   },
   {
     "lv": "reģistrēties",
-    "eng": "to register (oneself)",
+    "en": "to register (oneself)",
     "ru": "регистрироваться",
     "conj": {
       "present": {
@@ -373,7 +373,7 @@
   },
   {
     "lv": "rēķināt",
-    "eng": "to calculate, to count",
+    "en": "to calculate, to count",
     "ru": "считать, вычислять",
     "conj": {
       "present": {
@@ -404,7 +404,7 @@
   },
   {
     "lv": "remontēt",
-    "eng": "to repair, to renovate",
+    "en": "to repair, to renovate",
     "ru": "ремонтировать",
     "conj": {
       "present": {
@@ -435,7 +435,7 @@
   },
   {
     "lv": "rezervēt",
-    "eng": "to reserve, to book",
+    "en": "to reserve, to book",
     "ru": "бронировать, резервировать",
     "conj": {
       "present": {
@@ -466,7 +466,7 @@
   },
   {
     "lv": "robežoties",
-    "eng": "to border (on/with)",
+    "en": "to border (on/with)",
     "ru": "граничить",
     "conj": {
       "present": {
@@ -497,7 +497,7 @@
   },
   {
     "lv": "runāt",
-    "eng": "to speak, to talk",
+    "en": "to speak, to talk",
     "ru": "говорить, разговаривать",
     "conj": {
       "present": {
@@ -528,7 +528,7 @@
   },
   {
     "lv": "sacīt",
-    "eng": "to say",
+    "en": "to say",
     "ru": "сказать",
     "conj": {
       "present": {
@@ -559,7 +559,7 @@
   },
   {
     "lv": "sagaidīt",
-    "eng": "to meet; to expect; to wait for",
+    "en": "to meet; to expect; to wait for",
     "ru": "встречать; ожидать",
     "conj": {
       "present": {
@@ -590,7 +590,7 @@
   },
   {
     "lv": "sagatavot",
-    "eng": "to prepare",
+    "en": "to prepare",
     "ru": "подготовить, приготовить",
     "conj": {
       "present": {
@@ -621,7 +621,7 @@
   },
   {
     "lv": "saģērbties",
-    "eng": "to get dressed",
+    "en": "to get dressed",
     "ru": "одеться",
     "conj": {
       "present": {
@@ -652,7 +652,7 @@
   },
   {
     "lv": "sajust",
-    "eng": "to feel, to sense",
+    "en": "to feel, to sense",
     "ru": "ощутить, почувствовать",
     "conj": {
       "present": {
@@ -683,7 +683,7 @@
   },
   {
     "lv": "sākt",
-    "eng": "to begin, to start",
+    "en": "to begin, to start",
     "ru": "начинать, начать",
     "conj": {
       "present": {
@@ -714,7 +714,7 @@
   },
   {
     "lv": "sākties",
-    "eng": "to begin, to start (intrans.)",
+    "en": "to begin, to start (intrans.)",
     "ru": "начинаться",
     "conj": {
       "present": {
@@ -745,7 +745,7 @@
   },
   {
     "lv": "salabot",
-    "eng": "to fix, to repair",
+    "en": "to fix, to repair",
     "ru": "починить, исправить",
     "conj": {
       "present": {
@@ -776,7 +776,7 @@
   },
   {
     "lv": "samaksāt",
-    "eng": "to pay",
+    "en": "to pay",
     "ru": "заплатить",
     "conj": {
       "present": {
@@ -807,7 +807,7 @@
   },
   {
     "lv": "saņemt",
-    "eng": "to receive",
+    "en": "to receive",
     "ru": "получать",
     "conj": {
       "present": {
@@ -838,7 +838,7 @@
   },
   {
     "lv": "sāpēt",
-    "eng": "to ache, to hurt",
+    "en": "to ache, to hurt",
     "ru": "болеть",
     "conj": {
       "present": {
@@ -869,7 +869,7 @@
   },
   {
     "lv": "sargāt",
-    "eng": "to guard, to protect",
+    "en": "to guard, to protect",
     "ru": "охранять, беречь",
     "conj": {
       "present": {
@@ -900,7 +900,7 @@
   },
   {
     "lv": "sarunāties",
-    "eng": "to converse, to talk",
+    "en": "to converse, to talk",
     "ru": "беседовать, разговаривать",
     "conj": {
       "present": {
@@ -931,7 +931,7 @@
   },
   {
     "lv": "satikt",
-    "eng": "to meet",
+    "en": "to meet",
     "ru": "встретить",
     "conj": {
       "present": {
@@ -962,7 +962,7 @@
   },
   {
     "lv": "satikties",
-    "eng": "to meet (each other)",
+    "en": "to meet (each other)",
     "ru": "встречаться, встретиться",
     "conj": {
       "present": {
@@ -993,7 +993,7 @@
   },
   {
     "lv": "saukt",
-    "eng": "to call; to name",
+    "en": "to call; to name",
     "ru": "звать; называть",
     "conj": {
       "present": {
@@ -1024,7 +1024,7 @@
   },
   {
     "lv": "sauļoties",
-    "eng": "to sunbathe",
+    "en": "to sunbathe",
     "ru": "загорать",
     "conj": {
       "present": {
@@ -1055,7 +1055,7 @@
   },
   {
     "lv": "sēņot",
-    "eng": "to pick mushrooms",
+    "en": "to pick mushrooms",
     "ru": "собирать грибы",
     "conj": {
       "present": {
@@ -1086,7 +1086,7 @@
   },
   {
     "lv": "sērfot",
-    "eng": "to surf; (internet) to browse",
+    "en": "to surf; (internet) to browse",
     "ru": "заниматься сёрфингом; серфить в интернете",
     "conj": {
       "present": {
@@ -1117,7 +1117,7 @@
   },
   {
     "lv": "skanēt",
-    "eng": "to sound, to ring",
+    "en": "to sound, to ring",
     "ru": "звучать",
     "conj": {
       "present": {
@@ -1148,7 +1148,7 @@
   },
   {
     "lv": "skatīties",
-    "eng": "to watch, to look (at)",
+    "en": "to watch, to look (at)",
     "ru": "смотреть",
     "conj": {
       "present": {
@@ -1179,7 +1179,7 @@
   },
   {
     "lv": "skriet",
-    "eng": "to run",
+    "en": "to run",
     "ru": "бежать, бегать",
     "conj": {
       "present": {
@@ -1210,7 +1210,7 @@
   },
   {
     "lv": "slēgt",
-    "eng": "to close; to conclude (an agreement); to switch off",
+    "en": "to close; to conclude (an agreement); to switch off",
     "ru": "закрывать; заключать; выключать",
     "conj": {
       "present": {
@@ -1241,7 +1241,7 @@
   },
   {
     "lv": "slēpot",
-    "eng": "to ski",
+    "en": "to ski",
     "ru": "кататься на лыжах",
     "conj": {
       "present": {
@@ -1272,7 +1272,7 @@
   },
   {
     "lv": "slidot",
-    "eng": "to skate",
+    "en": "to skate",
     "ru": "кататься на коньках",
     "conj": {
       "present": {
@@ -1303,7 +1303,7 @@
   },
   {
     "lv": "smēķēt",
-    "eng": "to smoke",
+    "en": "to smoke",
     "ru": "курить",
     "conj": {
       "present": {
@@ -1334,7 +1334,7 @@
   },
   {
     "lv": "smieties",
-    "eng": "to laugh",
+    "en": "to laugh",
     "ru": "смеяться",
     "conj": {
       "present": {
@@ -1365,7 +1365,7 @@
   },
   {
     "lv": "sniegt",
-    "eng": "to provide, to give (services, information)",
+    "en": "to provide, to give (services, information)",
     "ru": "предоставлять, оказывать",
     "conj": {
       "present": {
@@ -1396,7 +1396,7 @@
   },
   {
     "lv": "spēlēt",
-    "eng": "to play (a game, instrument)",
+    "en": "to play (a game, instrument)",
     "ru": "играть",
     "conj": {
       "present": {
@@ -1427,7 +1427,7 @@
   },
   {
     "lv": "spēt",
-    "eng": "to be able to, to manage to",
+    "en": "to be able to, to manage to",
     "ru": "смочь, быть в состоянии",
     "conj": {
       "present": {
@@ -1458,7 +1458,7 @@
   },
   {
     "lv": "spīdēt",
-    "eng": "to shine",
+    "en": "to shine",
     "ru": "светить, сиять",
     "conj": {
       "present": {
@@ -1489,7 +1489,7 @@
   },
   {
     "lv": "sportot",
-    "eng": "to do sports, to exercise",
+    "en": "to do sports, to exercise",
     "ru": "заниматься спортом",
     "conj": {
       "present": {
@@ -1520,7 +1520,7 @@
   },
   {
     "lv": "staigāt",
-    "eng": "to walk, to stroll",
+    "en": "to walk, to stroll",
     "ru": "ходить, гулять",
     "conj": {
       "present": {
@@ -1551,7 +1551,7 @@
   },
   {
     "lv": "stāvēt",
-    "eng": "to stand",
+    "en": "to stand",
     "ru": "стоять",
     "conj": {
       "present": {
@@ -1582,7 +1582,7 @@
   },
   {
     "lv": "strādāt",
-    "eng": "to work",
+    "en": "to work",
     "ru": "работать",
     "conj": {
       "present": {
@@ -1613,7 +1613,7 @@
   },
   {
     "lv": "studēt",
-    "eng": "to study",
+    "en": "to study",
     "ru": "изучать, учиться (в вузе)",
     "conj": {
       "present": {
@@ -1644,7 +1644,7 @@
   },
   {
     "lv": "sūtīt",
-    "eng": "to send",
+    "en": "to send",
     "ru": "отправлять, посылать",
     "conj": {
       "present": {
@@ -1675,7 +1675,7 @@
   },
   {
     "lv": "svērt",
-    "eng": "to weigh (something)",
+    "en": "to weigh (something)",
     "ru": "взвешивать",
     "conj": {
       "present": {
@@ -1706,7 +1706,7 @@
   },
   {
     "lv": "svērties",
-    "eng": "to weigh oneself",
+    "en": "to weigh oneself",
     "ru": "взвешиваться",
     "conj": {
       "present": {
@@ -1737,7 +1737,7 @@
   },
   {
     "lv": "svinēt",
-    "eng": "to celebrate",
+    "en": "to celebrate",
     "ru": "праздновать",
     "conj": {
       "present": {
@@ -1768,7 +1768,7 @@
   },
   {
     "lv": "teikt",
-    "eng": "to say, to tell",
+    "en": "to say, to tell",
     "ru": "сказать",
     "conj": {
       "present": {
@@ -1799,7 +1799,7 @@
   },
   {
     "lv": "tikt",
-    "eng": "to get; to manage; (auxiliary for passive)",
+    "en": "to get; to manage; (auxiliary for passive)",
     "ru": "попасть; удаваться; становиться (в пассивных конструкциях)",
     "conj": {
       "present": {
@@ -1830,7 +1830,7 @@
   },
   {
     "lv": "tikties",
-    "eng": "to meet (with)",
+    "en": "to meet (with)",
     "ru": "встречаться",
     "conj": {
       "present": {
@@ -1861,7 +1861,7 @@
   },
   {
     "lv": "tīrīt",
-    "eng": "to clean",
+    "en": "to clean",
     "ru": "чистить, убирать",
     "conj": {
       "present": {
@@ -1892,7 +1892,7 @@
   },
   {
     "lv": "tuvooties",
-    "eng": "to approach, to draw near",
+    "en": "to approach, to draw near",
     "ru": "приближаться",
     "conj": {
       "present": {
@@ -1923,7 +1923,7 @@
   },
   {
     "lv": "uzcelt",
-    "eng": "to build, to raise, to erect",
+    "en": "to build, to raise, to erect",
     "ru": "возводить, построить; поднимать",
     "conj": {
       "present": {
@@ -1954,7 +1954,7 @@
   },
   {
     "lv": "uzdāvināt",
-    "eng": "to give as a present",
+    "en": "to give as a present",
     "ru": "подарить",
     "conj": {
       "present": {
@@ -1985,7 +1985,7 @@
   },
   {
     "lv": "uzklāt",
-    "eng": "to lay out; to set (the table); to spread (on)",
+    "en": "to lay out; to set (the table); to spread (on)",
     "ru": "накрыть (на стол); разложить; намазать",
     "conj": {
       "present": {
@@ -2016,7 +2016,7 @@
   },
   {
     "lv": "uzlikt",
-    "eng": "to put on; to impose; to install",
+    "en": "to put on; to impose; to install",
     "ru": "положить; надеть; наложить; установить",
     "conj": {
       "present": {
@@ -2047,7 +2047,7 @@
   },
   {
     "lv": "uzlūgt",
-    "eng": "to invite (formally)",
+    "en": "to invite (formally)",
     "ru": "пригласить",
     "conj": {
       "present": {
@@ -2078,7 +2078,7 @@
   },
   {
     "lv": "uzmanīt",
-    "eng": "to keep an eye on, to watch; to notice",
+    "en": "to keep an eye on, to watch; to notice",
     "ru": "присматривать, наблюдать; заметить",
     "conj": {
       "present": {
@@ -2109,7 +2109,7 @@
   },
   {
     "lv": "uzrādīt",
-    "eng": "to present, to show (documents/results)",
+    "en": "to present, to show (documents/results)",
     "ru": "предъявлять, предъявить; показывать",
     "conj": {
       "present": {
@@ -2140,7 +2140,7 @@
   },
   {
     "lv": "uzrakstīt",
-    "eng": "to write, to write down",
+    "en": "to write, to write down",
     "ru": "написать",
     "conj": {
       "present": {
@@ -2171,7 +2171,7 @@
   },
   {
     "lv": "uzvilkt",
-    "eng": "to put on (clothes); to pull (up/on)",
+    "en": "to put on (clothes); to pull (up/on)",
     "ru": "надеть; натянуть; тянуть",
     "conj": {
       "present": {
@@ -2202,7 +2202,7 @@
   },
   {
     "lv": "uzzināt",
-    "eng": "to find out, to learn",
+    "en": "to find out, to learn",
     "ru": "узнать",
     "conj": {
       "present": {
@@ -2233,7 +2233,7 @@
   },
   {
     "lv": "vadīt",
-    "eng": "to drive; to lead; to conduct",
+    "en": "to drive; to lead; to conduct",
     "ru": "вести; управлять; водить (машину)",
     "conj": {
       "present": {
@@ -2264,7 +2264,7 @@
   },
   {
     "lv": "vajadzēt",
-    "eng": "to need, should, ought to",
+    "en": "to need, should, ought to",
     "ru": "нужно, следует",
     "conj": {
       "present": {
@@ -2295,7 +2295,7 @@
   },
   {
     "lv": "varēt",
-    "eng": "to be able, can",
+    "en": "to be able, can",
     "ru": "мочь, уметь",
     "conj": {
       "present": {
@@ -2326,7 +2326,7 @@
   },
   {
     "lv": "veidot",
-    "eng": "to form, to shape, to create",
+    "en": "to form, to shape, to create",
     "ru": "формировать, создавать",
     "conj": {
       "present": {
@@ -2357,7 +2357,7 @@
   },
   {
     "lv": "veikt",
-    "eng": "to perform, to carry out, to accomplish",
+    "en": "to perform, to carry out, to accomplish",
     "ru": "выполнять, совершать",
     "conj": {
       "present": {
@@ -2388,7 +2388,7 @@
   },
   {
     "lv": "vēlēties",
-    "eng": "to wish, to want",
+    "en": "to wish, to want",
     "ru": "желать, хотеть",
     "conj": {
       "present": {
@@ -2419,7 +2419,7 @@
   },
   {
     "lv": "veltīt",
-    "eng": "to devote, to dedicate",
+    "en": "to devote, to dedicate",
     "ru": "посвящать",
     "conj": {
       "present": {
@@ -2450,7 +2450,7 @@
   },
   {
     "lv": "vest",
-    "eng": "to take, to lead, to transport",
+    "en": "to take, to lead, to transport",
     "ru": "везти; вести",
     "conj": {
       "present": {
@@ -2481,7 +2481,7 @@
   },
   {
     "lv": "vilkt",
-    "eng": "to pull, to draw; (colloq.) to wear",
+    "en": "to pull, to draw; (colloq.) to wear",
     "ru": "тянуть, тащить; надевать (разг.)",
     "conj": {
       "present": {
@@ -2512,7 +2512,7 @@
   },
   {
     "lv": "vingrot",
-    "eng": "to exercise, to do gymnastics",
+    "en": "to exercise, to do gymnastics",
     "ru": "заниматься гимнастикой",
     "conj": {
       "present": {
@@ -2543,7 +2543,7 @@
   },
   {
     "lv": "zāģēt",
-    "eng": "to saw; (slang) to nag",
+    "en": "to saw; (slang) to nag",
     "ru": "пилить",
     "conj": {
       "present": {
@@ -2574,7 +2574,7 @@
   },
   {
     "lv": "ziedēt",
-    "eng": "to bloom, to flower",
+    "en": "to bloom, to flower",
     "ru": "цвести",
     "conj": {
       "present": {
@@ -2605,7 +2605,7 @@
   },
   {
     "lv": "zīmēt",
-    "eng": "to draw",
+    "en": "to draw",
     "ru": "рисовать",
     "conj": {
       "present": {
@@ -2636,7 +2636,7 @@
   },
   {
     "lv": "zināt",
-    "eng": "to know",
+    "en": "to know",
     "ru": "знать",
     "conj": {
       "present": {
@@ -2667,7 +2667,7 @@
   },
   {
     "lv": "zust",
-    "eng": "to vanish, to disappear",
+    "en": "to vanish, to disappear",
     "ru": "исчезать, пропадать",
     "conj": {
       "present": {
@@ -2698,7 +2698,7 @@
   },
   {
     "lv": "zvanīt",
-    "eng": "to call, to ring",
+    "en": "to call, to ring",
     "ru": "звонить, позвонить",
     "conj": {
       "present": {

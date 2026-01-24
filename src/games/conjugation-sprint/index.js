@@ -112,8 +112,8 @@ import { hideLoading, showLoading } from '../../lib/loading.js';
     if(qEl) {
       qEl.textContent = `${v.lv} — ${pron} (${tense})`;
     }
-    if(mEl) {
-      mEl.textContent = v.eng || "";
+    if (mEl) {
+      mEl.textContent = v.en || "";
     }
 
     if (cEl) {

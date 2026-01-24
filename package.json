@@ -7,6 +7,7 @@
     "start": "npx http-server . -p 5173",
     "test": "node --test --import ./scripts/jsdom-setup.js",
     "test:watch": "node --test --watch --import ./scripts/jsdom-setup.js",
+    "test:coverage": "node --test --experimental-test-coverage --import ./scripts/jsdom-setup.js",
     "validate:data": "node scripts/validate-data.mjs",
     "build:data": "node scripts/xlsx_to_json.mjs",
     "build:words:chunks": "node scripts/split-words-json.mjs",

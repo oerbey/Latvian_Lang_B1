@@ -21,6 +21,8 @@ function createDocumentStub() {
     },
     setAttribute() {},
     addEventListener() {},
+    querySelectorAll() { return []; },
+    querySelector() { return null; },
   });
 
   const head = makeNode();

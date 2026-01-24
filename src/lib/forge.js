@@ -2,6 +2,7 @@ import { getState, shuffle, choice, now, triggerRedraw, updateState } from './st
 import { clickables, resetClicks } from './clickables.js';
 import { setStatus } from './status.js';
 import { $id } from './dom.js';
+import { announceLive } from './aria.js';
 import { W, H, scale, roundedRect, drawText, clear, confetti, ctx } from './render.js';
 
 export const ALL_PREFIXES = ["iz","pār","no","sa","ap","ie","pie","uz","at","aiz","pa"];
@@ -41,13 +42,13 @@ export function drawForge() {
   clear();
   resetClicks();
   const sr = $id('sr-game-state');
-  const srList = sr ? document.createElement('ul') : null;
+  let srList = null;
   if (sr) {
-    sr.replaceChildren();
-    const srHeader = document.createElement('p');
-    srHeader.textContent = `${state.targetLang.toUpperCase()}: ${fs.clue}. Root: ${fs.base}`;
-    sr.appendChild(srHeader);
-    sr.appendChild(srList);
+    const srSummary = sr.querySelector('[data-llb1-sr-summary="forge"]') ?? document.createElement('p');
+    srSummary.dataset.llb1SrSummary = 'forge';
+    srList = document.createElement('ul');
+    sr.replaceChildren(srSummary, srList);
+    announceLive(srSummary, `Prefix forge. ${state.targetLang.toUpperCase()}: ${fs.clue}. Root ${fs.base}.`);
   }
   drawText("PREFIX FORGE — pievieno pareizo priedēkli", 28, 40, { font: 'bold 22px system-ui' });
   drawText(`${state.targetLang.toUpperCase()}: ${fs.clue}`, 28, 78, { font: '16px system-ui', color: '#a8b3c7' });

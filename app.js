@@ -1,4 +1,4 @@
-import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale } from './src/lib/render.js';
+import { canvas, updateCanvasScale, getCanvasCoordinates, renderConfetti, roundedRect, drawText, W, H, scale, setConfettiRenderer } from './src/lib/render.js';
 import { getState, setState, updateState, MODES, setRedraw, HELP_TEXT, setHelpText, triggerRedraw } from './src/lib/state.js';
 import { clickables, hitAt } from './src/lib/clickables.js';
 import { setStatus, setStatusHandler } from './src/lib/status.js';
@@ -132,10 +132,11 @@ function draw(){
   } else {
     if(state.forgeState) drawForge();
   }
-  if(renderConfetti()) requestAnimationFrame(draw);
+  renderConfetti();
   if(state.showHelp) drawHelp();
 }
 setRedraw(draw);
+setConfettiRenderer(draw);
 
 function toggleDeckSize(){
   updateState(state => {

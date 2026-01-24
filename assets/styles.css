@@ -34,6 +34,7 @@ padding: 1rem;
   cursor: pointer;
   user-select: none;
   transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+  min-height: 48px;
 }
 .word-card:hover:not([aria-disabled="true"]) { transform: translateY(-1px); }
 .word-card:active:not([aria-disabled="true"]) { transform: scale(0.98); }
@@ -62,4 +63,3 @@ overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 .status {
 min-height: 1.25rem;
 }
-

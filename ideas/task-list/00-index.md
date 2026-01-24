@@ -19,7 +19,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 15) ✅ 15-words-json-split-and-loader.md - Split words.json and update loaders
 16) ✅ 16-progress-schema-unification.md - Unify progress storage schema and migrations
 17) ✅ 17-confetti-raf-fix.md - Fix confetti render loop and cancel RAFs
-18) 18-redraw-throttling.md - Throttle canvas redraws and support dirty regions
+18) ✅ 18-redraw-throttling.md - Throttle canvas redraws and support dirty regions
 19) 19-pwa-icons-manifest.md - Add PWA icons and update manifest and HTML
 20) 20-sw-cache-expansion.md - Expand SW cache or add dynamic caching for game assets
 21) 21-testing-jsdom-setup.md - Add JSDOM setup and test helpers

@@ -78,19 +78,68 @@ export function drawBadge(txt,x,y,color){
   drawText(txt,x+pad,y+2,{font:'12px system-ui',color:'#fff'});
 }
 
-let bursts=[];
-export function confetti(y){
-  const state = getState();
-  for(let i=0;i<14;i++){
-    bursts.push({x:W/2+(state.rng()*160-80), y:y+(state.rng()*20-10), vx:state.rng()*2-1, vy:-2-state.rng()*2, life:60});
+let bursts = [];
+let confettiFrameId = null;
+let confettiRenderer = null;
+
+export function setConfettiRenderer(renderer) {
+  confettiRenderer = typeof renderer === 'function' ? renderer : null;
+}
+
+function scheduleConfettiFrame() {
+  if (typeof requestAnimationFrame !== 'function') return;
+  if (confettiFrameId !== null) return;
+  confettiFrameId = requestAnimationFrame(stepConfetti);
+}
+
+function stepConfetti() {
+  confettiFrameId = null;
+  if (!bursts.length) return;
+  if (confettiRenderer) {
+    confettiRenderer();
+  } else {
+    renderConfetti();
+  }
+  if (bursts.length && typeof requestAnimationFrame === 'function') {
+    confettiFrameId = requestAnimationFrame(stepConfetti);
   }
 }
+
+export function confetti(y){
+  const state = getState();
+  for (let i = 0; i < 14; i += 1) {
+    bursts.push({
+      x: W / 2 + (state.rng() * 160 - 80),
+      y: y + (state.rng() * 20 - 10),
+      vx: state.rng() * 2 - 1,
+      vy: -2 - state.rng() * 2,
+      life: 60,
+    });
+  }
+  scheduleConfettiFrame();
+}
+
 export function renderConfetti(){
-  if(!bursts.length) return false;
-  bursts.forEach(b=>{ b.x+=b.vx; b.y+=b.vy; b.vy+=0.06; b.life--; });
-  bursts = bursts.filter(b=>b.life>0);
+  if (!bursts.length) return false;
+  let writeIndex = 0;
+  for (let i = 0; i < bursts.length; i += 1) {
+    const b = bursts[i];
+    b.x += b.vx;
+    b.y += b.vy;
+    b.vy += 0.06;
+    b.life -= 1;
+    if (b.life > 0) {
+      bursts[writeIndex] = b;
+      writeIndex += 1;
+    }
+  }
+  bursts.length = writeIndex;
   ctx.save();
-  bursts.forEach(b=>{ ctx.globalAlpha=Math.max(0,b.life/60); roundedRect(b.x,b.y,6,6,2,`hsl(${(b.x+b.y)%360}deg 60% 60%)`); });
+  for (let i = 0; i < bursts.length; i += 1) {
+    const b = bursts[i];
+    ctx.globalAlpha = Math.max(0, b.life / 60);
+    roundedRect(b.x, b.y, 6, 6, 2, `hsl(${(b.x + b.y) % 360}deg 60% 60%)`);
+  }
   ctx.restore();
-  return bursts.length>0;
+  return bursts.length > 0;
 }

@@ -214,6 +214,9 @@ npm test
 # Watch tests during development
 npm run test:watch
 
+# Generate coverage report
+npm run test:coverage
+
 # Tests mirror the src/ structure under test/
 # Example: test/games/conjugation-sprint/index.test.js
 ```

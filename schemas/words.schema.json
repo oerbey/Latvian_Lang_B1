@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Latvian words dataset",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["lv", "eng", "ru"],
+    "properties": {
+      "lv": { "type": "string", "minLength": 1 },
+      "eng": { "type": "string", "minLength": 1 },
+      "ru": { "type": "string", "minLength": 1 },
+      "conj": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["present", "past", "future"],
+        "properties": {
+          "present": { "$ref": "#/$defs/conjTense" },
+          "past": { "$ref": "#/$defs/conjTense" },
+          "future": { "$ref": "#/$defs/conjTense" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "conjTense": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "1s": { "type": "string" },
+        "2s": { "type": "string" },
+        "3s": { "type": "string" },
+        "1p": { "type": "string" },
+        "2p": { "type": "string" },
+        "3p": { "type": "string" }
+      }
+    }
+  }
+}

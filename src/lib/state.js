@@ -92,4 +92,17 @@ export let HELP_TEXT = '';
 export function setHelpText(t) { HELP_TEXT = t; }
 let redraw = () => { };
 export function setRedraw(fn) { redraw = fn; }
-export function triggerRedraw() { redraw(); }
+let redrawScheduled = false;
+
+export function triggerRedraw() {
+  if (typeof requestAnimationFrame !== 'function') {
+    redraw();
+    return;
+  }
+  if (redrawScheduled) return;
+  redrawScheduled = true;
+  requestAnimationFrame(() => {
+    redrawScheduled = false;
+    redraw();
+  });
+}

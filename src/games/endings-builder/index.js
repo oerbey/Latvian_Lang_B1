@@ -8,8 +8,6 @@ import { buildOptions, buildRounds } from './rounds.js';
 import { applyStrings, insertChar, renderRound, renderExplanation, setFeedback, setupKeypad } from './ui.js';
 import { createHandlers } from './handlers.js';
 
-const PROGRESS_KEY = 'eb-progress-v1';
-const STRICT_KEY = 'eb-strict-v1';
 const LETTERS = ['ā', 'ē', 'ī', 'ū', 'č', 'ģ', 'ķ', 'ļ', 'ņ', 'š', 'ž'];
 
 let items = [];
@@ -56,7 +54,7 @@ async function init() {
     strings = await loadStrings();
     applyStrings({ elements, strings });
 
-    progress = loadProgress(PROGRESS_KEY);
+    progress = loadProgress();
     rounds = buildRounds(items);
 
     state = {
@@ -77,7 +75,7 @@ async function init() {
       onStrictChange: val => setStrict(val)
     });
 
-    strict = loadStrict(STRICT_KEY);
+    strict = loadStrict();
     shell.setStrict(strict);
     shell.setScore({ attempts: state.attempts, correct: state.correct, streak: state.streak });
 
@@ -89,7 +87,7 @@ async function init() {
       getRounds: () => rounds,
       getProgress: () => progress,
       getStrict: () => strict,
-      saveProgress: () => saveProgress(PROGRESS_KEY, progress),
+      saveProgress: () => saveProgress(progress),
       buildOptions: (round) => buildOptions(round, items),
       renderRound: ({ round, elements: roundElements, strings: roundStrings, buildOptions, onDrop }) =>
         renderRound({ round, elements: roundElements, strings: roundStrings, buildOptions, onDrop }),
@@ -121,7 +119,7 @@ async function init() {
 
 function setStrict(value) {
   strict = value;
-  saveStrict(STRICT_KEY, value);
+  saveStrict(value);
   shell.announce(value ? strings.strictMode.on : strings.strictMode.off);
 }
 

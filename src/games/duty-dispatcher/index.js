@@ -18,7 +18,6 @@ import { createHandlers } from './handlers.js';
 
 const ROLES_PATH = 'data/duty-dispatcher/roles.json';
 const TASKS_PATH = 'data/duty-dispatcher/tasks.json';
-const STORAGE_KEY = 'llb1:duty-dispatcher:progress';
 const GAME_NAME = 'duty-dispatcher';
 
 const elements = {
@@ -77,7 +76,7 @@ const handlers = createHandlers({
   clearRoleHighlights: () => clearRoleHighlights(elements.rolesGrid),
   disableRoles: () => disableRoles(elements.rolesGrid),
   markRole: (roleId, status, dutyText) => markRole(elements.rolesGrid, roleId, status, dutyText),
-  persistProgress: (score, streak) => persistProgress(STORAGE_KEY, score, streak),
+  persistProgress: (score, streak) => persistProgress(score, streak),
   dispatchAnalytics,
 });
 
@@ -106,7 +105,7 @@ async function bootstrap() {
     state.strings = applyStrings(elements, strings);
     updateMetrics(elements, state.strings, state.score, state.streak);
 
-    const stored = readProgress(STORAGE_KEY);
+  const stored = readProgress();
     if (stored) {
       state.score = stored.xp ?? 0;
       state.streak = stored.streak ?? 0;

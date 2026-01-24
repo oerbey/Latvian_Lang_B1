@@ -1,6 +1,11 @@
 let hasShown = false;
 let handlersInstalled = false;
 
+function isDevEnvironment() {
+  if (typeof location === 'undefined') return false;
+  return location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+}
+
 export function formatError(error) {
   if (error instanceof Error) {
     return {
@@ -116,7 +121,9 @@ function buildOverlay(doc, info) {
   panel.appendChild(title);
   panel.appendChild(message);
   panel.appendChild(button);
-  panel.appendChild(details);
+  if (isDevEnvironment()) {
+    panel.appendChild(details);
+  }
   overlay.appendChild(panel);
   return overlay;
 }

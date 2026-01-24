@@ -18,6 +18,7 @@ let i18n = {};
 let currentLang = 'lv';
 let usingOfflineTranslations = false;
 let usingOfflineVocabulary = false;
+let lastHelpFocus = null;
 
 const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 
@@ -85,6 +86,7 @@ function applyTranslations(){
   const btnHelp = mustId('btn-help');
   btnHelp.textContent = i18n.buttons.help;
   btnHelp.setAttribute('aria-label', i18n.buttons.helpAria);
+  btnHelp.setAttribute('aria-expanded', getState().showHelp ? 'true' : 'false');
   const loadingEl = mustId('loading');
   loadingEl.textContent = i18n.labels.loading;
   setTrustedHTML(mustId('legend'), i18n.labels.legend);
@@ -95,6 +97,31 @@ function applyTranslations(){
   mustId('sr-game-state').setAttribute('aria-label', i18n.labels.gameState);
   setStatus(i18n.status.ready);
   setHelpText(i18n.help.lines.join('\n'));
+  triggerRedraw();
+}
+
+function setHelpVisibility(show) {
+  updateState(state => {
+    state.showHelp = show;
+  });
+  const btnHelp = $id('btn-help');
+  if (btnHelp) {
+    btnHelp.setAttribute('aria-expanded', show ? 'true' : 'false');
+  }
+  if (show) {
+    lastHelpFocus = document.activeElement;
+    if (canvas && canvas.focus) {
+      canvas.focus();
+    }
+  } else {
+    const restoreTarget = lastHelpFocus;
+    lastHelpFocus = null;
+    if (restoreTarget && document.contains(restoreTarget)) {
+      restoreTarget.focus();
+    } else if (btnHelp && btnHelp.focus) {
+      btnHelp.focus();
+    }
+  }
   triggerRedraw();
 }
 
@@ -122,7 +149,7 @@ function drawHelp(){
   const by = y + h - bh - 14;
   roundedRect(bx,by,bw,bh,10,'#334','#556');
   drawText(i18n.help.close, bx + (isMobile ? 8 : 12), by + (isMobile ? 22 : 20), {font:`${isMobile ? 12 : 14}px system-ui`});
-  clickables.push({x:bx,y:by,w:bw,h:bh,onClick:()=>{ updateState(state => { state.showHelp = false; }); triggerRedraw(); }});
+  clickables.push({x:bx,y:by,w:bw,h:bh,onClick:()=>{ setHelpVisibility(false); }});
 }
 
 function draw(){
@@ -160,7 +187,7 @@ function setupEventListeners(){
   on(mustId('btn-prev'), 'click', ()=>{ updateState(state => { state.roundIndex = Math.max(0, state.roundIndex - 1); }); const { mode } = getState(); mode===MODES.MATCH?startMatchRound():startForgeRound(); });
   on(mustId('btn-next'), 'click', ()=>{ updateState(state => { state.roundIndex += 1; }); const { mode } = getState(); mode===MODES.MATCH?startMatchRound():startForgeRound(); });
   on(mustId('btn-deck-size'), 'click', toggleDeckSize);
-  on(mustId('btn-help'), 'click', ()=>{ updateState(state => { state.showHelp = !state.showHelp; }); triggerRedraw(); });
+  on(mustId('btn-help'), 'click', ()=>{ setHelpVisibility(!getState().showHelp); });
   on(mustId('btn-export'), 'click', exportCSV);
   on(mustId('language-select'), 'change', async e=>{
     const lang = e.target.value;
@@ -250,7 +277,7 @@ function setupEventListeners(){
   on(document, 'keydown', e=>{
     if(e.key==='1'){ updateState(state => { state.mode = MODES.MATCH; }); startMatchRound(); }
     if(e.key==='2'){ updateState(state => { state.mode = MODES.FORGE; }); startForgeRound(); }
-    if(e.key==='h' || e.key==='H'){ updateState(state => { state.showHelp = !state.showHelp; }); triggerRedraw(); }
+    if(e.key==='h' || e.key==='H'){ setHelpVisibility(!getState().showHelp); }
     if(e.key==='r' || e.key==='R'){ const { mode } = getState(); mode===MODES.MATCH?startMatchRound():startForgeRound(); }
     if(e.key==='d' || e.key==='D') toggleDeckSize();
   });

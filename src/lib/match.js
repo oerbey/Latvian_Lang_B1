@@ -3,6 +3,7 @@ import { clickables, resetClicks } from './clickables.js';
 import { setStatus } from './status.js';
 import { W, H, scale, roundedRect, drawText, drawBadge, clear, confetti, setCanvasHeight } from './render.js';
 import { $id } from './dom.js';
+import { announceLive } from './aria.js';
 
 function buildMatchDeck(state) {
   return state.DATA.units.flatMap(u =>
@@ -79,10 +80,14 @@ export function drawMatch() {
   clear();
   resetClicks();
   const sr = $id('sr-game-state');
-  const srList = sr ? document.createElement('ul') : null;
+  let srList = null;
   if (sr) {
-    sr.replaceChildren();
-    sr.appendChild(srList);
+    const srSummary = sr.querySelector('[data-llb1-sr-summary="match"]') ?? document.createElement('p');
+    srSummary.dataset.llb1SrSummary = 'match';
+    srList = document.createElement('ul');
+    sr.replaceChildren(srSummary, srList);
+    const livesLabel = ms.lives === Infinity ? 'infinite' : String(ms.lives);
+    announceLive(srSummary, `Match rush. Correct ${ms.correct} of ${ms.total}. Lives ${livesLabel}.`);
   }
   const targetLabel = state.targetLang.toUpperCase();
   drawText(`MATCH RUSH — LV → ${targetLabel}`, 28, 40, { font: 'bold 22px system-ui' });

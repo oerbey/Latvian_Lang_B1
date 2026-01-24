@@ -82,6 +82,45 @@ function ensureStyles(doc) {
   doc.head ? doc.head.appendChild(style) : doc.documentElement.appendChild(style);
 }
 
+function getFocusableElements(container) {
+  const selector = 'button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
+  return Array.from(container.querySelectorAll(selector)).filter(el => !el.hasAttribute('disabled'));
+}
+
+function trapFocus(overlay) {
+  const getFocusables = () => getFocusableElements(overlay);
+  const focusables = getFocusables();
+  if (!focusables.length) return;
+  const focusFirst = () => {
+    const current = getFocusables();
+    if (current.length) current[0].focus();
+  };
+
+  overlay.addEventListener('keydown', (event) => {
+    if (event.key !== 'Tab') return;
+    const current = getFocusables();
+    if (!current.length) return;
+    const first = current[0];
+    const last = current[current.length - 1];
+    if (current.length === 1) {
+      event.preventDefault();
+      first.focus();
+      return;
+    }
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  focusFirst();
+}
+
 function buildOverlay(doc, info) {
   const overlay = doc.createElement('div');
   overlay.id = 'llb1-error-overlay';
@@ -92,6 +131,7 @@ function buildOverlay(doc, info) {
 
   const panel = doc.createElement('div');
   panel.className = 'llb1-error-panel';
+  panel.tabIndex = -1;
 
   const title = doc.createElement('h1');
   title.textContent = 'Something went wrong.';
@@ -146,6 +186,7 @@ export function showFatalError(error) {
   } else {
     document.documentElement.appendChild(overlay);
   }
+  trapFocus(overlay);
   return true;
 }
 

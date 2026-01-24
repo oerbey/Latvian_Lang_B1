@@ -36,17 +36,21 @@ export function stubForgeDom() {
   const statusEl = { textContent: '' };
   const srEl = {
     innerHTML: '',
+    dataset: {},
     appendChild() {},
-    replaceChildren() {
+    replaceChildren(...nodes) {
       this.innerHTML = '';
+      this._children = nodes;
     },
+    querySelector() { return null; },
+    querySelectorAll() { return []; },
   };
   global.document = {
     createElement: (tag) => {
       if (tag === 'ul') return { appendChild() {} };
       if (tag === 'li') return { appendChild() {} };
       if (tag === 'button') return { addEventListener() {}, textContent: '' };
-      if (tag === 'p') return { textContent: '' };
+      if (tag === 'p') return { textContent: '', dataset: {} };
       return { appendChild() {} };
     },
     getElementById: (id) => {
@@ -73,10 +77,14 @@ export function stubMatchDom() {
   const statusEl = { textContent: '' };
   const srEl = {
     innerHTML: '',
+    dataset: {},
     appendChild() {},
-    replaceChildren() {
+    replaceChildren(...nodes) {
       this.innerHTML = '';
+      this._children = nodes;
     },
+    querySelector() { return null; },
+    querySelectorAll() { return []; },
   };
 
   global.document = {
@@ -84,6 +92,7 @@ export function stubMatchDom() {
       if (tag === 'ul') return { appendChild() {} };
       if (tag === 'li') return { appendChild() {} };
       if (tag === 'button') return { addEventListener() {}, textContent: '' };
+      if (tag === 'p') return { textContent: '', dataset: {} };
       return { appendChild() {} };
     },
     getElementById: (id) => {

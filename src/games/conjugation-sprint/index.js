@@ -1,7 +1,7 @@
-import { assetUrl } from '../../lib/paths.js';
 import { pickRandom, shuffle } from '../../lib/utils.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
+import { loadWords } from '../../lib/words-data.js';
 
 (() => {
   const PRONS = ["es", "tu", "viņš/viņa", "mēs", "jūs", "viņi/viņas"];
@@ -41,27 +41,17 @@ import { hideLoading, showLoading } from '../../lib/loading.js';
   (async () => {
     showLoading('Loading game data...');
     try {
-      const url = assetUrl("data/words.json");
-      const res = await fetch(url);
-      if (!res.ok) {
-        throw new Error(`Failed to load ${url}: ${res.status}`);
-      }
-      const data = await res.json();
-      bank = data.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
+      const { items } = await loadWords();
+      bank = items.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
     } catch (err) {
-      if (Array.isArray(window.__LATVIAN_WORDS__)) {
-        console.warn("words.json fetch failed; using embedded fallback dataset.", err);
-        bank = window.__LATVIAN_WORDS__.filter(v => v.conj && v.conj.present && v.conj.past && v.conj.future);
-      } else {
-        if (qEl) {
-          qEl.textContent = "Failed to load words data.";
-        }
-        console.error(err);
-        hideLoading();
-        const safeError = err instanceof Error ? err : new Error('Failed to load words data.');
-        showFatalError(safeError);
-        return;
+      if (qEl) {
+        qEl.textContent = "Failed to load words data.";
       }
+      console.error(err);
+      hideLoading();
+      const safeError = err instanceof Error ? err : new Error('Failed to load words data.');
+      showFatalError(safeError);
+      return;
     }
 
     if (bank.length === 0) {

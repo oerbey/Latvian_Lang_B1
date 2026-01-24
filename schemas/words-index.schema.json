@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Words index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["total", "chunkSize", "chunks"],
+  "properties": {
+    "total": { "type": "integer", "minimum": 1 },
+    "chunkSize": { "type": "integer", "minimum": 1 },
+    "chunks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    }
+  }
+}

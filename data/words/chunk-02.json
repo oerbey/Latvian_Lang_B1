@@ -1,0 +1,3102 @@
+[
+  {
+    "lv": "labot",
+    "en": "to correct, to fix, to repair, to edit",
+    "ru": "исправлять; чинить; редактировать",
+    "conj": {
+      "present": {
+        "1s": "laboju",
+        "2s": "labo",
+        "3s": "labo",
+        "1p": "labojam",
+        "2p": "labojat",
+        "3p": "labo"
+      },
+      "past": {
+        "1s": "laboju",
+        "2s": "laboji",
+        "3s": "laboja",
+        "1p": "labojām",
+        "2p": "labojāt",
+        "3p": "laboja"
+      },
+      "future": {
+        "1s": "labošu",
+        "2s": "labosi",
+        "3s": "labos",
+        "1p": "labosim",
+        "2p": "labosiet",
+        "3p": "labos"
+      }
+    }
+  },
+  {
+    "lv": "lasīt",
+    "en": "to read",
+    "ru": "читать",
+    "conj": {
+      "present": {
+        "1s": "lasu",
+        "2s": "lasi",
+        "3s": "lasa",
+        "1p": "lasām",
+        "2p": "lasāt",
+        "3p": "lasa"
+      },
+      "past": {
+        "1s": "lasīju",
+        "2s": "lasīji",
+        "3s": "lasīja",
+        "1p": "lasījām",
+        "2p": "lasījāt",
+        "3p": "lasīja"
+      },
+      "future": {
+        "1s": "lasīšu",
+        "2s": "lasīsi",
+        "3s": "lasīs",
+        "1p": "lasīsim",
+        "2p": "lasīsiet",
+        "3p": "lasīs"
+      }
+    }
+  },
+  {
+    "lv": "lauzt",
+    "en": "to break, to force open",
+    "ru": "ломать, взламывать",
+    "conj": {
+      "present": {
+        "1s": "laužu",
+        "2s": "lauz",
+        "3s": "lauž",
+        "1p": "laužam",
+        "2p": "laužat",
+        "3p": "lauž"
+      },
+      "past": {
+        "1s": "lauzu",
+        "2s": "lauzi",
+        "3s": "lauza",
+        "1p": "lauzām",
+        "2p": "lauzāt",
+        "3p": "lauza"
+      },
+      "future": {
+        "1s": "lauzīšu",
+        "2s": "lauzīsi",
+        "3s": "lauzīs",
+        "1p": "lauzīsim",
+        "2p": "lauzīsiet",
+        "3p": "lauzīs"
+      }
+    }
+  },
+  {
+    "lv": "lidot",
+    "en": "to fly",
+    "ru": "лететь, летать",
+    "conj": {
+      "present": {
+        "1s": "lidoju",
+        "2s": "lido",
+        "3s": "lido",
+        "1p": "lidojam",
+        "2p": "lidojat",
+        "3p": "lido"
+      },
+      "past": {
+        "1s": "lidoju",
+        "2s": "lidoji",
+        "3s": "lidoja",
+        "1p": "lidojām",
+        "2p": "lidojāt",
+        "3p": "lidoja"
+      },
+      "future": {
+        "1s": "lidošu",
+        "2s": "lidosi",
+        "3s": "lidos",
+        "1p": "lidosim",
+        "2p": "lidosiet",
+        "3p": "lidos"
+      }
+    }
+  },
+  {
+    "lv": "lietot",
+    "en": "to use; to take (medicine); to consume",
+    "ru": "использовать; употреблять; принимать (лекарство)",
+    "conj": {
+      "present": {
+        "1s": "lietoju",
+        "2s": "lieto",
+        "3s": "lieto",
+        "1p": "lietojam",
+        "2p": "lietojat",
+        "3p": "lieto"
+      },
+      "past": {
+        "1s": "lietoju",
+        "2s": "lietoji",
+        "3s": "lietoja",
+        "1p": "lietojām",
+        "2p": "lietojāt",
+        "3p": "lietoja"
+      },
+      "future": {
+        "1s": "lietošu",
+        "2s": "lietosi",
+        "3s": "lietos",
+        "1p": "lietosim",
+        "2p": "lietosiet",
+        "3p": "lietos"
+      }
+    }
+  },
+  {
+    "lv": "likt",
+    "en": "to put, to place; to make (someone do)",
+    "ru": "класть, ставить; заставлять",
+    "conj": {
+      "present": {
+        "1s": "lieku",
+        "2s": "liek",
+        "3s": "liek",
+        "1p": "liekam",
+        "2p": "liekat",
+        "3p": "liek"
+      },
+      "past": {
+        "1s": "liku",
+        "2s": "liki",
+        "3s": "lika",
+        "1p": "likām",
+        "2p": "likāt",
+        "3p": "lika"
+      },
+      "future": {
+        "1s": "likšu",
+        "2s": "liksi",
+        "3s": "liks",
+        "1p": "liksim",
+        "2p": "liksiet",
+        "3p": "liks"
+      }
+    }
+  },
+  {
+    "lv": "lūgt",
+    "en": "to ask, to request; to pray",
+    "ru": "просить; молиться",
+    "conj": {
+      "present": {
+        "1s": "lūdzu",
+        "2s": "lūdz",
+        "3s": "lūdz",
+        "1p": "lūdzam",
+        "2p": "lūdzat",
+        "3p": "lūdz"
+      },
+      "past": {
+        "1s": "lūdzu",
+        "2s": "lūdzi",
+        "3s": "lūdza",
+        "1p": "lūdzām",
+        "2p": "lūdzāt",
+        "3p": "lūdza"
+      },
+      "future": {
+        "1s": "lūgšu",
+        "2s": "lūgsi",
+        "3s": "lūgs",
+        "1p": "lūgsim",
+        "2p": "lūgsiet",
+        "3p": "lūgs"
+      }
+    }
+  },
+  {
+    "lv": "lūzt",
+    "en": "to break (intrans.)",
+    "ru": "ломаться",
+    "conj": {
+      "present": {
+        "1s": "lūztu",
+        "2s": "lūzti",
+        "3s": "lūzt",
+        "1p": "lūztam",
+        "2p": "lūztat",
+        "3p": "lūzt"
+      },
+      "past": {
+        "1s": "lūzu",
+        "2s": "lūzi",
+        "3s": "lūza",
+        "1p": "lūzām",
+        "2p": "lūzāt",
+        "3p": "lūza"
+      },
+      "future": {
+        "1s": "lūzīšu",
+        "2s": "lūzīsi",
+        "3s": "lūzīs",
+        "1p": "lūzīsim",
+        "2p": "lūzīsiet",
+        "3p": "lūzīs"
+      }
+    }
+  },
+  {
+    "lv": "mācīt",
+    "en": "to teach",
+    "ru": "учить, обучать",
+    "conj": {
+      "present": {
+        "1s": "mācu",
+        "2s": "māci",
+        "3s": "māca",
+        "1p": "mācām",
+        "2p": "mācāt",
+        "3p": "māca"
+      },
+      "past": {
+        "1s": "mācīju",
+        "2s": "mācīji",
+        "3s": "mācīja",
+        "1p": "mācījām",
+        "2p": "mācījāt",
+        "3p": "mācīja"
+      },
+      "future": {
+        "1s": "mācīšu",
+        "2s": "mācīsi",
+        "3s": "mācīs",
+        "1p": "mācīsim",
+        "2p": "mācīsiet",
+        "3p": "mācīs"
+      }
+    }
+  },
+  {
+    "lv": "mācīties",
+    "en": "to study, to learn",
+    "ru": "учиться, изучать",
+    "conj": {
+      "present": {
+        "1s": "mācos",
+        "2s": "mācies",
+        "3s": "mācās",
+        "1p": "mācāmies",
+        "2p": "mācāties",
+        "3p": "mācās"
+      },
+      "past": {
+        "1s": "mācījos",
+        "2s": "mācījies",
+        "3s": "mācījās",
+        "1p": "mācījāmies",
+        "2p": "mācījāties",
+        "3p": "mācījās"
+      },
+      "future": {
+        "1s": "mācīšos",
+        "2s": "mācīsies",
+        "3s": "mācīsies",
+        "1p": "mācīsimies",
+        "2p": "mācīsieties",
+        "3p": "mācīsies"
+      }
+    }
+  },
+  {
+    "lv": "mainīt",
+    "en": "to change, to replace",
+    "ru": "менять, заменить",
+    "conj": {
+      "present": {
+        "1s": "mainu",
+        "2s": "maini",
+        "3s": "maina",
+        "1p": "mainām",
+        "2p": "maināt",
+        "3p": "maina"
+      },
+      "past": {
+        "1s": "mainīju",
+        "2s": "mainīji",
+        "3s": "mainīja",
+        "1p": "mainījām",
+        "2p": "mainījāt",
+        "3p": "mainīja"
+      },
+      "future": {
+        "1s": "mainīšu",
+        "2s": "mainīsi",
+        "3s": "mainīs",
+        "1p": "mainīsim",
+        "2p": "mainīsiet",
+        "3p": "mainīs"
+      }
+    }
+  },
+  {
+    "lv": "maizēt",
+    "en": "to butter (spread on bread)",
+    "ru": "намазывать (масло на хлеб)",
+    "conj": {
+      "present": {
+        "1s": "maizeju",
+        "2s": "maizē",
+        "3s": "maizē",
+        "1p": "maizējam",
+        "2p": "maizējat",
+        "3p": "maizē"
+      },
+      "past": {
+        "1s": "maizeju",
+        "2s": "maizēji",
+        "3s": "maizēja",
+        "1p": "maizējām",
+        "2p": "maizējāt",
+        "3p": "maizēja"
+      },
+      "future": {
+        "1s": "maizēšu",
+        "2s": "maizēsi",
+        "3s": "maizēs",
+        "1p": "maizēsim",
+        "2p": "maizēsiet",
+        "3p": "maizēs"
+      }
+    }
+  },
+  {
+    "lv": "mainīties",
+    "en": "to change oneself, to exchange",
+    "ru": "меняться, обмениваться",
+    "conj": {
+      "present": {
+        "1s": "mainos",
+        "2s": "mainies",
+        "3s": "mainās",
+        "1p": "maināmies",
+        "2p": "maināties",
+        "3p": "mainās"
+      },
+      "past": {
+        "1s": "mainījos",
+        "2s": "mainījies",
+        "3s": "mainījās",
+        "1p": "mainījāmies",
+        "2p": "mainījāties",
+        "3p": "mainījās"
+      },
+      "future": {
+        "1s": "mainīšos",
+        "2s": "mainīsies",
+        "3s": "mainīsies",
+        "1p": "mainīsimies",
+        "2p": "mainīsieties",
+        "3p": "mainīsies"
+      }
+    }
+  },
+  {
+    "lv": "maitāt",
+    "en": "to spoil, to ruin",
+    "ru": "портить",
+    "conj": {
+      "present": {
+        "1s": "maitāju",
+        "2s": "maitā",
+        "3s": "maitā",
+        "1p": "maitājam",
+        "2p": "maitājat",
+        "3p": "maitā"
+      },
+      "past": {
+        "1s": "maitāju",
+        "2s": "maitāji",
+        "3s": "maitāja",
+        "1p": "maitājām",
+        "2p": "maitājāt",
+        "3p": "maitāja"
+      },
+      "future": {
+        "1s": "maitāšu",
+        "2s": "maitāsi",
+        "3s": "maitās",
+        "1p": "maitāsim",
+        "2p": "maitāsiet",
+        "3p": "maitās"
+      }
+    }
+  },
+  {
+    "lv": "maitāties",
+    "en": "to get spoiled, to rot",
+    "ru": "портиться, гнить",
+    "conj": {
+      "present": {
+        "1s": "maitājos",
+        "2s": "maitājies",
+        "3s": "maitājas",
+        "1p": "maitājamies",
+        "2p": "maitājaties",
+        "3p": "maitājas"
+      },
+      "past": {
+        "1s": "maitājos",
+        "2s": "maitājies",
+        "3s": "maitājās",
+        "1p": "maitājāmies",
+        "2p": "maitājāties",
+        "3p": "maitājās"
+      },
+      "future": {
+        "1s": "maitāšos",
+        "2s": "maitāsies",
+        "3s": "maitāsies",
+        "1p": "maitāsimies",
+        "2p": "maitāsieties",
+        "3p": "maitāsies"
+      }
+    }
+  },
+  {
+    "lv": "majot",
+    "en": "to dwell, to reside (archaic)",
+    "ru": "жить, обитать (устар.)",
+    "conj": {
+      "present": {
+        "1s": "majoju",
+        "2s": "majo",
+        "3s": "majo",
+        "1p": "majojam",
+        "2p": "majojat",
+        "3p": "majo"
+      },
+      "past": {
+        "1s": "majoju",
+        "2s": "majoji",
+        "3s": "majoja",
+        "1p": "majojām",
+        "2p": "majojāt",
+        "3p": "majoja"
+      },
+      "future": {
+        "1s": "majošu",
+        "2s": "majoši",
+        "3s": "majos",
+        "1p": "majosim",
+        "2p": "majosiet",
+        "3p": "majos"
+      }
+    }
+  },
+  {
+    "lv": "majoties",
+    "en": "to dwell oneself (archaic, reflexive)",
+    "ru": "жить (о себе, устар.)",
+    "conj": {
+      "present": {
+        "1s": "majojos",
+        "2s": "majies",
+        "3s": "majojas",
+        "1p": "majojamies",
+        "2p": "majaties",
+        "3p": "majojas"
+      },
+      "past": {
+        "1s": "majojos",
+        "2s": "majies",
+        "3s": "majojās",
+        "1p": "majojāmies",
+        "2p": "majojāties",
+        "3p": "majojās"
+      },
+      "future": {
+        "1s": "majošos",
+        "2s": "majosies",
+        "3s": "majosies",
+        "1p": "majosimies",
+        "2p": "majosieties",
+        "3p": "majosies"
+      }
+    }
+  },
+  {
+    "lv": "makšķerēt",
+    "en": "to fish (with a rod)",
+    "ru": "ловить рыбу (удочкой)",
+    "conj": {
+      "present": {
+        "1s": "makšķerēju",
+        "2s": "makšķerē",
+        "3s": "makšķerē",
+        "1p": "makšķerējam",
+        "2p": "makšķerējat",
+        "3p": "makšķerē"
+      },
+      "past": {
+        "1s": "makšķerēju",
+        "2s": "makšķerēji",
+        "3s": "makšķerēja",
+        "1p": "makšķerējām",
+        "2p": "makšķerējāt",
+        "3p": "makšķerēja"
+      },
+      "future": {
+        "1s": "makšķerēšu",
+        "2s": "makšķerēsi",
+        "3s": "makšķerēs",
+        "1p": "makšķerēsim",
+        "2p": "makšķerēsiet",
+        "3p": "makšķerēs"
+      }
+    }
+  },
+  {
+    "lv": "malēties",
+    "en": "to be ground (oneself), to mill oneself",
+    "ru": "молоться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "malējos",
+        "2s": "malējies",
+        "3s": "malējas",
+        "1p": "malējamies",
+        "2p": "malējaties",
+        "3p": "malējas"
+      },
+      "past": {
+        "1s": "malējos",
+        "2s": "malējies",
+        "3s": "malējās",
+        "1p": "malējāmies",
+        "2p": "malējāties",
+        "3p": "malējās"
+      },
+      "future": {
+        "1s": "malēšos",
+        "2s": "malēsies",
+        "3s": "malēsies",
+        "1p": "malēsimies",
+        "2p": "malēsieties",
+        "3p": "malēsies"
+      }
+    }
+  },
+  {
+    "lv": "malināt",
+    "en": "to grind finely, to mill",
+    "ru": "мелко молоть, размалывать",
+    "conj": {
+      "present": {
+        "1s": "malinu",
+        "2s": "malini",
+        "3s": "malina",
+        "1p": "malinām",
+        "2p": "malināt",
+        "3p": "malina"
+      },
+      "past": {
+        "1s": "malināju",
+        "2s": "malināji",
+        "3s": "malināja",
+        "1p": "malinājām",
+        "2p": "malinājāt",
+        "3p": "malināja"
+      },
+      "future": {
+        "1s": "malināšu",
+        "2s": "malināsi",
+        "3s": "malinās",
+        "1p": "malināsim",
+        "2p": "malināsiet",
+        "3p": "malinās"
+      }
+    }
+  },
+  {
+    "lv": "malināties",
+    "en": "to be finely ground (oneself)",
+    "ru": "размалываться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "malinājos",
+        "2s": "malinājies",
+        "3s": "malinājas",
+        "1p": "malinājamies",
+        "2p": "malinājaties",
+        "3p": "malinājas"
+      },
+      "past": {
+        "1s": "malinājos",
+        "2s": "malinājies",
+        "3s": "malinājās",
+        "1p": "malinājāmies",
+        "2p": "malinājāties",
+        "3p": "malinājās"
+      },
+      "future": {
+        "1s": "malināšos",
+        "2s": "malināsies",
+        "3s": "malināsies",
+        "1p": "malināsimies",
+        "2p": "malināsieties",
+        "3p": "malināsies"
+      }
+    }
+  },
+  {
+    "lv": "maloties",
+    "en": "to babble oneself, to prattle (reflexive)",
+    "ru": "болтать (о себе), молоть вздор",
+    "conj": {
+      "present": {
+        "1s": "malojos",
+        "2s": "maloties",
+        "3s": "malojas",
+        "1p": "malojamies",
+        "2p": "maloties",
+        "3p": "malojas"
+      },
+      "past": {
+        "1s": "malojos",
+        "2s": "maloties",
+        "3s": "molojās",
+        "1p": "malojāmies",
+        "2p": "malojāties",
+        "3p": "molojās"
+      },
+      "future": {
+        "1s": "malošos",
+        "2s": "malosies",
+        "3s": "malosies",
+        "1p": "malosimies",
+        "2p": "malosieties",
+        "3p": "malosies"
+      }
+    }
+  },
+  {
+    "lv": "malt",
+    "en": "to grind, to mince",
+    "ru": "молоть, измельчать",
+    "conj": {
+      "present": {
+        "1s": "maļu",
+        "2s": "mal",
+        "3s": "maļ",
+        "1p": "maļam",
+        "2p": "maļat",
+        "3p": "maļ"
+      },
+      "past": {
+        "1s": "malu",
+        "2s": "mali",
+        "3s": "mala",
+        "1p": "malām",
+        "2p": "malāt",
+        "3p": "mala"
+      },
+      "future": {
+        "1s": "malšu",
+        "2s": "malsi",
+        "3s": "mals",
+        "1p": "malsim",
+        "2p": "malsiet",
+        "3p": "mals"
+      }
+    }
+  },
+  {
+    "lv": "malties",
+    "en": "to be ground (oneself), to mince oneself",
+    "ru": "молоться (о себе), измельчаться",
+    "conj": {
+      "present": {
+        "1s": "malos",
+        "2s": "malies",
+        "3s": "malas",
+        "1p": "malamies",
+        "2p": "malaties",
+        "3p": "malas"
+      },
+      "past": {
+        "1s": "malos",
+        "2s": "malies",
+        "3s": "malās",
+        "1p": "malāmies",
+        "2p": "malāties",
+        "3p": "malās"
+      },
+      "future": {
+        "1s": "malšos",
+        "2s": "malsies",
+        "3s": "malsies",
+        "1p": "malsimies",
+        "2p": "malsieties",
+        "3p": "malsies"
+      }
+    }
+  },
+  {
+    "lv": "manīties",
+    "en": "to change oneself, to exchange (reflexive)",
+    "ru": "меняться (о себе), обмениваться",
+    "conj": {
+      "present": {
+        "1s": "manos",
+        "2s": "manies",
+        "3s": "manās",
+        "1p": "manāmies",
+        "2p": "manāties",
+        "3p": "manās"
+      },
+      "past": {
+        "1s": "manījos",
+        "2s": "manījies",
+        "3s": "manījās",
+        "1p": "manījāmies",
+        "2p": "manījāties",
+        "3p": "manījās"
+      },
+      "future": {
+        "1s": "manīšos",
+        "2s": "manīsies",
+        "3s": "manīsies",
+        "1p": "manīsimies",
+        "2p": "manīsieties",
+        "3p": "manīsies"
+      }
+    }
+  },
+  {
+    "lv": "mantot",
+    "en": "to inherit",
+    "ru": "наследовать",
+    "conj": {
+      "present": {
+        "1s": "mantoju",
+        "2s": "manto",
+        "3s": "manto",
+        "1p": "mantojam",
+        "2p": "mantojat",
+        "3p": "manto"
+      },
+      "past": {
+        "1s": "mantoju",
+        "2s": "mantoji",
+        "3s": "mantoja",
+        "1p": "mantojām",
+        "2p": "mantojāt",
+        "3p": "mantoja"
+      },
+      "future": {
+        "1s": "mantošu",
+        "2s": "mantosi",
+        "3s": "mantos",
+        "1p": "mantosim",
+        "2p": "mantosiet",
+        "3p": "mantos"
+      }
+    }
+  },
+  {
+    "lv": "maksāties",
+    "en": "to cost oneself, to be worth (reflexive)",
+    "ru": "стоить (о себе), окупаться",
+    "conj": {
+      "present": {
+        "1s": "maksājos",
+        "2s": "maksājies",
+        "3s": "maksājas",
+        "1p": "maksājamies",
+        "2p": "maksājaties",
+        "3p": "maksājas"
+      },
+      "past": {
+        "1s": "maksājos",
+        "2s": "maksājies",
+        "3s": "maksājās",
+        "1p": "maksājāmies",
+        "2p": "maksājāties",
+        "3p": "maksājās"
+      },
+      "future": {
+        "1s": "maksāšos",
+        "2s": "maksāsies",
+        "3s": "maksāsies",
+        "1p": "maksāsimies",
+        "2p": "maksāsieties",
+        "3p": "maksāsies"
+      }
+    }
+  },
+  {
+    "lv": "manīt",
+    "en": "to notice, to perceive",
+    "ru": "замечать, примечать",
+    "conj": {
+      "present": {
+        "1s": "manu",
+        "2s": "mani",
+        "3s": "mana",
+        "1p": "manām",
+        "2p": "manāt",
+        "3p": "mana"
+      },
+      "past": {
+        "1s": "manīju",
+        "2s": "manīji",
+        "3s": "manīja",
+        "1p": "manījām",
+        "2p": "manījāt",
+        "3p": "manīja"
+      },
+      "future": {
+        "1s": "manīšu",
+        "2s": "manīsi",
+        "3s": "manīs",
+        "1p": "manīsim",
+        "2p": "manīsiet",
+        "3p": "manīs"
+      }
+    }
+  },
+  {
+    "lv": "manīties",
+    "en": "to notice oneself, to mind oneself",
+    "ru": "замечаться, быть замеченным",
+    "conj": {
+      "present": {
+        "1s": "manos",
+        "2s": "manies",
+        "3s": "manās",
+        "1p": "manāmies",
+        "2p": "manāties",
+        "3p": "manās"
+      },
+      "past": {
+        "1s": "manījos",
+        "2s": "manījies",
+        "3s": "manījās",
+        "1p": "manījāmies",
+        "2p": "manījāties",
+        "3p": "manījās"
+      },
+      "future": {
+        "1s": "manīšos",
+        "2s": "manīsies",
+        "3s": "manīsies",
+        "1p": "manīsimies",
+        "2p": "manīsieties",
+        "3p": "manīsies"
+      }
+    }
+  },
+  {
+    "lv": "marinēt",
+    "en": "to marinate, to pickle",
+    "ru": "мариновать",
+    "conj": {
+      "present": {
+        "1s": "marinēju",
+        "2s": "marinē",
+        "3s": "marinē",
+        "1p": "marinējam",
+        "2p": "marinējat",
+        "3p": "marinē"
+      },
+      "past": {
+        "1s": "marinēju",
+        "2s": "marinēji",
+        "3s": "marinēja",
+        "1p": "marinējām",
+        "2p": "marinējāt",
+        "3p": "marinēja"
+      },
+      "future": {
+        "1s": "marinēšu",
+        "2s": "marinēsi",
+        "3s": "marinēs",
+        "1p": "marinēsim",
+        "2p": "marinēsiet",
+        "3p": "marinēs"
+      }
+    }
+  },
+  {
+    "lv": "marinēties",
+    "en": "to marinate oneself (to be marinated)",
+    "ru": "мариноваться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "marinējos",
+        "2s": "marinējies",
+        "3s": "marinējas",
+        "1p": "marinējamies",
+        "2p": "marinējaties",
+        "3p": "marinējas"
+      },
+      "past": {
+        "1s": "marinējos",
+        "2s": "marinējies",
+        "3s": "marinējās",
+        "1p": "marinējāmies",
+        "2p": "marinējāties",
+        "3p": "marinējās"
+      },
+      "future": {
+        "1s": "marinēšos",
+        "2s": "marinēsies",
+        "3s": "marinēsies",
+        "1p": "marinēsimies",
+        "2p": "marinēsieties",
+        "3p": "marinēsies"
+      }
+    }
+  },
+  {
+    "lv": "mazgāties",
+    "en": "to wash oneself, to bathe",
+    "ru": "мыться, умываться",
+    "conj": {
+      "present": {
+        "1s": "mazgājos",
+        "2s": "mazgājies",
+        "3s": "mazgājas",
+        "1p": "mazgājamies",
+        "2p": "mazgājaties",
+        "3p": "mazgājas"
+      },
+      "past": {
+        "1s": "mazgājos",
+        "2s": "mazgājies",
+        "3s": "mazgājās",
+        "1p": "mazgājāmies",
+        "2p": "mazgājāties",
+        "3p": "mazgājās"
+      },
+      "future": {
+        "1s": "mazgāšos",
+        "2s": "mazgāsies",
+        "3s": "mazgāsies",
+        "1p": "mazgāsimies",
+        "2p": "mazgāsieties",
+        "3p": "mazgāsies"
+      }
+    }
+  },
+  {
+    "lv": "mācēties",
+    "en": "to be able (archaic/rare reflexive)",
+    "ru": "уметься (устар.)",
+    "conj": {
+      "present": {
+        "1s": "mācējos",
+        "2s": "mācējies",
+        "3s": "mācējas",
+        "1p": "mācējamies",
+        "2p": "mācējaties",
+        "3p": "mācējas"
+      },
+      "past": {
+        "1s": "mācējos",
+        "2s": "mācējies",
+        "3s": "mācējās",
+        "1p": "mācējāmies",
+        "2p": "mācējāties",
+        "3p": "mācējās"
+      },
+      "future": {
+        "1s": "mācēšos",
+        "2s": "mācēsies",
+        "3s": "mācēsies",
+        "1p": "mācēsimies",
+        "2p": "mācēsieties",
+        "3p": "mācēsies"
+      }
+    }
+  },
+  {
+    "lv": "mācēt",
+    "en": "to be able, to know how",
+    "ru": "уметь",
+    "conj": {
+      "present": {
+        "1s": "māku",
+        "2s": "māki",
+        "3s": "māk",
+        "1p": "mākam",
+        "2p": "mākat",
+        "3p": "māk"
+      },
+      "past": {
+        "1s": "mācēju",
+        "2s": "mācēji",
+        "3s": "mācēja",
+        "1p": "mācējām",
+        "2p": "mācējāt",
+        "3p": "mācēja"
+      },
+      "future": {
+        "1s": "mācēšu",
+        "2s": "mācēsi",
+        "3s": "mācēs",
+        "1p": "mācēsim",
+        "2p": "mācēsiet",
+        "3p": "mācēs"
+      }
+    }
+  },
+  {
+    "lv": "mācītiesies",
+    "en": "to learn oneself intensively (very rare, intensive)",
+    "ru": "учиться (очень интенсивно, редк.)",
+    "conj": {
+      "present": {
+        "1s": "mācītiesos",
+        "2s": "mācītiesies",
+        "3s": "mācītiesās",
+        "1p": "mācītiesamies",
+        "2p": "mācītiesaties",
+        "3p": "mācītiesās"
+      },
+      "past": {
+        "1s": "mācītiesos",
+        "2s": "mācītiesies",
+        "3s": "mācītiesās",
+        "1p": "mācītiesāmies",
+        "2p": "mācītiesāties",
+        "3p": "mācītiesās"
+      },
+      "future": {
+        "1s": "mācītiesšos",
+        "2s": "mācītiesies",
+        "3s": "mācītiesies",
+        "1p": "mācītiesimies",
+        "2p": "mācītiesieties",
+        "3p": "mācītiesies"
+      }
+    }
+  },
+  {
+    "lv": "mēģinātīt",
+    "en": "to try hard, to attempt intensively (rare)",
+    "ru": "очень стараться, пытаться (редк.)",
+    "conj": {
+      "present": {
+        "1s": "mēģinātīju",
+        "2s": "mēģinātī",
+        "3s": "mēģināta",
+        "1p": "mēģinātām",
+        "2p": "mēģinātāt",
+        "3p": "mēģināta"
+      },
+      "past": {
+        "1s": "mēģinātīju",
+        "2s": "mēģinātīji",
+        "3s": "mēģinātīja",
+        "1p": "mēģinātījām",
+        "2p": "mēģinātījāt",
+        "3p": "mēģinātīja"
+      },
+      "future": {
+        "1s": "mēģinātīšu",
+        "2s": "mēģinātīsi",
+        "3s": "mēģinātīs",
+        "1p": "mēģinātīsim",
+        "2p": "mēģinātīsiet",
+        "3p": "mēģinātīs"
+      }
+    }
+  },
+  {
+    "lv": "meklētiesies",
+    "en": "to search oneself intensively (very rare, intensive)",
+    "ru": "искаться (интенсивно, редк.)",
+    "conj": {
+      "present": {
+        "1s": "meklētiesos",
+        "2s": "meklētiesies",
+        "3s": "meklētiesās",
+        "1p": "meklētiesamies",
+        "2p": "meklētiesaties",
+        "3p": "meklētiesās"
+      },
+      "past": {
+        "1s": "meklētiesos",
+        "2s": "meklētiesies",
+        "3s": "meklētiesās",
+        "1p": "meklētiesāmies",
+        "2p": "meklētiesāties",
+        "3p": "meklētiesās"
+      },
+      "future": {
+        "1s": "meklētiesšos",
+        "2s": "meklētiesies",
+        "3s": "meklētiesies",
+        "1p": "meklētiesimies",
+        "2p": "meklētiesieties",
+        "3p": "meklētiesies"
+      }
+    }
+  },
+  {
+    "lv": "meloties",
+    "en": "to lie to oneself, to fib (reflexive)",
+    "ru": "лгать себе, обманываться",
+    "conj": {
+      "present": {
+        "1s": "melojos",
+        "2s": "meloties",
+        "3s": "melojas",
+        "1p": "melojamies",
+        "2p": "meloties",
+        "3p": "melojas"
+      },
+      "past": {
+        "1s": "melojos",
+        "2s": "meloties",
+        "3s": "melojās",
+        "1p": "melojāmies",
+        "2p": "melojāties",
+        "3p": "melojās"
+      },
+      "future": {
+        "1s": "melošos",
+        "2s": "melosies",
+        "3s": "melosies",
+        "1p": "melosimies",
+        "2p": "melosieties",
+        "3p": "melosies"
+      }
+    }
+  },
+  {
+    "lv": "mestīt",
+    "en": "to throw repeatedly, to toss about (intensive)",
+    "ru": "бросать много раз, швырять",
+    "conj": {
+      "present": {
+        "1s": "mestīju",
+        "2s": "mestī",
+        "3s": "mesta",
+        "1p": "mestām",
+        "2p": "mestāt",
+        "3p": "mesta"
+      },
+      "past": {
+        "1s": "mestīju",
+        "2s": "mestīji",
+        "3s": "mestīja",
+        "1p": "mestījām",
+        "2p": "mestījāt",
+        "3p": "mestīja"
+      },
+      "future": {
+        "1s": "mestīšu",
+        "2s": "mestīsi",
+        "3s": "mestīs",
+        "1p": "mestīsim",
+        "2p": "mestīsiet",
+        "3p": "mestīs"
+      }
+    }
+  },
+  {
+    "lv": "mestīties",
+    "en": "to toss oneself about, to rush around (intensive)",
+    "ru": "метаться, бросаться (интенсивно)",
+    "conj": {
+      "present": {
+        "1s": "mestījos",
+        "2s": "mestījies",
+        "3s": "mestījas",
+        "1p": "mestījamies",
+        "2p": "mestījaties",
+        "3p": "mestījas"
+      },
+      "past": {
+        "1s": "mestījos",
+        "2s": "mestījies",
+        "3s": "mestījās",
+        "1p": "mestījāmies",
+        "2p": "mestījāties",
+        "3p": "mestījās"
+      },
+      "future": {
+        "1s": "mestīšos",
+        "2s": "mestīsies",
+        "3s": "mestīsies",
+        "1p": "mestīsimies",
+        "2p": "mestīsieties",
+        "3p": "mestīsies"
+      }
+    }
+  },
+  {
+    "lv": "maizīt",
+    "en": "to spread (e.g. butter on bread)",
+    "ru": "намазывать",
+    "conj": {
+      "present": {
+        "1s": "maizu",
+        "2s": "maizi",
+        "3s": "maiza",
+        "1p": "maizām",
+        "2p": "maizāt",
+        "3p": "maiza"
+      },
+      "past": {
+        "1s": "maizīju",
+        "2s": "maizīji",
+        "3s": "maizīja",
+        "1p": "maizījām",
+        "2p": "maizījāt",
+        "3p": "maizīja"
+      },
+      "future": {
+        "1s": "maizīšu",
+        "2s": "maizīsi",
+        "3s": "maizīs",
+        "1p": "maizīsim",
+        "2p": "maizīsiet",
+        "3p": "maizīs"
+      }
+    }
+  },
+  {
+    "lv": "maizīties",
+    "en": "to spread oneself (to become spread)",
+    "ru": "намазываться, размазываться",
+    "conj": {
+      "present": {
+        "1s": "maizos",
+        "2s": "maizies",
+        "3s": "maizās",
+        "1p": "maizāmies",
+        "2p": "maizāties",
+        "3p": "maizās"
+      },
+      "past": {
+        "1s": "maizījos",
+        "2s": "maizījies",
+        "3s": "maizījās",
+        "1p": "maizījāmies",
+        "2p": "maizījāties",
+        "3p": "maizījās"
+      },
+      "future": {
+        "1s": "maizīšos",
+        "2s": "maizīsies",
+        "3s": "maizīsies",
+        "1p": "maizīsimies",
+        "2p": "maizīsieties",
+        "3p": "maizīsies"
+      }
+    }
+  },
+  {
+    "lv": "majināt",
+    "en": "to try, to attempt (archaic/rare)",
+    "ru": "пытаться (устар.)",
+    "conj": {
+      "present": {
+        "1s": "majinu",
+        "2s": "majini",
+        "3s": "majina",
+        "1p": "majinām",
+        "2p": "majināt",
+        "3p": "majina"
+      },
+      "past": {
+        "1s": "majināju",
+        "2s": "majināji",
+        "3s": "majināja",
+        "1p": "majinājām",
+        "2p": "majinājāt",
+        "3p": "majināja"
+      },
+      "future": {
+        "1s": "majināšu",
+        "2s": "majināsi",
+        "3s": "majinās",
+        "1p": "majināsim",
+        "2p": "majināsiet",
+        "3p": "majinās"
+      }
+    }
+  },
+  {
+    "lv": "majināties",
+    "en": "to try oneself (archaic/rare)",
+    "ru": "пытаться (о себе, устар.)",
+    "conj": {
+      "present": {
+        "1s": "majinājos",
+        "2s": "majinājies",
+        "3s": "majinājas",
+        "1p": "majinājamies",
+        "2p": "majinājaties",
+        "3p": "majinājas"
+      },
+      "past": {
+        "1s": "majinājos",
+        "2s": "majinājies",
+        "3s": "majinājās",
+        "1p": "majinājāmies",
+        "2p": "majinājāties",
+        "3p": "majinājās"
+      },
+      "future": {
+        "1s": "majināšos",
+        "2s": "majināsies",
+        "3s": "majināsies",
+        "1p": "majināsimies",
+        "2p": "majināsieties",
+        "3p": "majināsies"
+      }
+    }
+  },
+  {
+    "lv": "makšķerniekot",
+    "en": "to go fishing (as an angler)",
+    "ru": "заниматься рыбалкой",
+    "conj": {
+      "present": {
+        "1s": "makšķerniekoju",
+        "2s": "makšķernieko",
+        "3s": "makšķernieko",
+        "1p": "makšķerniekojam",
+        "2p": "makšķerniekojat",
+        "3p": "makšķernieko"
+      },
+      "past": {
+        "1s": "makšķerniekoju",
+        "2s": "makšķerniekoji",
+        "3s": "makšķerniekoja",
+        "1p": "makšķerniekojām",
+        "2p": "makšķerniekojāt",
+        "3p": "makšķerniekoja"
+      },
+      "future": {
+        "1s": "makšķerniekošu",
+        "2s": "makšķerniekosi",
+        "3s": "makšķerniekos",
+        "1p": "makšķerniekosim",
+        "2p": "makšķerniekosiet",
+        "3p": "makšķerniekos"
+      }
+    }
+  },
+  {
+    "lv": "malēt",
+    "en": "to grind",
+    "ru": "молоть",
+    "conj": {
+      "present": {
+        "1s": "malēju",
+        "2s": "malē",
+        "3s": "malē",
+        "1p": "malējam",
+        "2p": "malējat",
+        "3p": "malē"
+      },
+      "past": {
+        "1s": "malēju",
+        "2s": "malēji",
+        "3s": "malēja",
+        "1p": "malējām",
+        "2p": "malējāt",
+        "3p": "malēja"
+      },
+      "future": {
+        "1s": "malēšu",
+        "2s": "malēsi",
+        "3s": "malēs",
+        "1p": "malēsim",
+        "2p": "malēsiet",
+        "3p": "malēs"
+      }
+    }
+  },
+  {
+    "lv": "malināties",
+    "en": "to be ground, to be milled",
+    "ru": "молоться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "malinos",
+        "2s": "malinies",
+        "3s": "malinās",
+        "1p": "malināmies",
+        "2p": "malināties",
+        "3p": "malinās"
+      },
+      "past": {
+        "1s": "malinājos",
+        "2s": "malinājies",
+        "3s": "malinājās",
+        "1p": "malinājāmies",
+        "2p": "malinājāties",
+        "3p": "malinājās"
+      },
+      "future": {
+        "1s": "malināšos",
+        "2s": "malināsies",
+        "3s": "malināsies",
+        "1p": "malināsimies",
+        "2p": "malināsieties",
+        "3p": "malināsies"
+      }
+    }
+  },
+  {
+    "lv": "malstīt",
+    "en": "to roam, to wander",
+    "ru": "бродить, скитаться",
+    "conj": {
+      "present": {
+        "1s": "malstīju",
+        "2s": "malstī",
+        "3s": "malsta",
+        "1p": "malstām",
+        "2p": "malstāt",
+        "3p": "malsta"
+      },
+      "past": {
+        "1s": "malstīju",
+        "2s": "malstīji",
+        "3s": "malstīja",
+        "1p": "malstījām",
+        "2p": "malstījāt",
+        "3p": "malstīja"
+      },
+      "future": {
+        "1s": "malstīšu",
+        "2s": "malstīsi",
+        "3s": "malstīs",
+        "1p": "malstīsim",
+        "2p": "malstīsiet",
+        "3p": "malstīs"
+      }
+    }
+  },
+  {
+    "lv": "malstīties",
+    "en": "to roam oneself, to wander aimlessly",
+    "ru": "бродить (о себе), блуждать",
+    "conj": {
+      "present": {
+        "1s": "malstījos",
+        "2s": "malstījies",
+        "3s": "malstījas",
+        "1p": "malstījamies",
+        "2p": "malstījaties",
+        "3p": "malstījas"
+      },
+      "past": {
+        "1s": "malstījos",
+        "2s": "malstījies",
+        "3s": "malstījās",
+        "1p": "malstījāmies",
+        "2p": "malstījāties",
+        "3p": "malstījās"
+      },
+      "future": {
+        "1s": "malstīšos",
+        "2s": "malstīsies",
+        "3s": "malstīsies",
+        "1p": "malstīsimies",
+        "2p": "malstīsieties",
+        "3p": "malstīsies"
+      }
+    }
+  },
+  {
+    "lv": "manākt",
+    "en": "to dawn, to get light",
+    "ru": "светать",
+    "conj": {
+      "present": {
+        "1s": "manāku",
+        "2s": "manāc",
+        "3s": "manāk",
+        "1p": "manākam",
+        "2p": "manākat",
+        "3p": "manāk"
+      },
+      "past": {
+        "1s": "manācu",
+        "2s": "manāci",
+        "3s": "manāca",
+        "1p": "manācām",
+        "2p": "manācāt",
+        "3p": "manāca"
+      },
+      "future": {
+        "1s": "manākšu",
+        "2s": "manāksi",
+        "3s": "manāks",
+        "1p": "manāksim",
+        "2p": "manāksiet",
+        "3p": "manāks"
+      }
+    }
+  },
+  {
+    "lv": "manākties",
+    "en": "to get light (oneself), to dawn (reflexive)",
+    "ru": "рассветать (о себе)",
+    "conj": {
+      "present": {
+        "1s": "manākos",
+        "2s": "manākies",
+        "3s": "manākas",
+        "1p": "manākamies",
+        "2p": "manākaties",
+        "3p": "manākas"
+      },
+      "past": {
+        "1s": "manācos",
+        "2s": "manācies",
+        "3s": "manācās",
+        "1p": "manācāmies",
+        "2p": "manācāties",
+        "3p": "manācās"
+      },
+      "future": {
+        "1s": "manākšos",
+        "2s": "manāksies",
+        "3s": "manāksies",
+        "1p": "manāksimies",
+        "2p": "manāksieties",
+        "3p": "manāksies"
+      }
+    }
+  },
+  {
+    "lv": "mandarēt",
+    "en": "to suit, to fit (rare)",
+    "ru": "подходить, устраивать (редк.)",
+    "conj": {
+      "present": {
+        "1s": "mandarēju",
+        "2s": "mandarē",
+        "3s": "mandarē",
+        "1p": "mandarējam",
+        "2p": "mandarējat",
+        "3p": "mandarē"
+      },
+      "past": {
+        "1s": "mandarēju",
+        "2s": "mandarēji",
+        "3s": "mandarēja",
+        "1p": "mandarējām",
+        "2p": "mandarējāt",
+        "3p": "mandarēja"
+      },
+      "future": {
+        "1s": "mandarēšu",
+        "2s": "mandarēsi",
+        "3s": "mandarēs",
+        "1p": "mandarēsim",
+        "2p": "mandarēsiet",
+        "3p": "mandarēs"
+      }
+    }
+  },
+  {
+    "lv": "mandarīties",
+    "en": "to suit oneself, to fit oneself (rare)",
+    "ru": "подходить себе (редк.)",
+    "conj": {
+      "present": {
+        "1s": "mandarējos",
+        "2s": "mandarējies",
+        "3s": "mandarējas",
+        "1p": "mandarējamies",
+        "2p": "mandarējaties",
+        "3p": "mandarējas"
+      },
+      "past": {
+        "1s": "mandarējos",
+        "2s": "mandarējies",
+        "3s": "mandarējās",
+        "1p": "mandarējāmies",
+        "2p": "mandarējāties",
+        "3p": "mandarējās"
+      },
+      "future": {
+        "1s": "mandarēšos",
+        "2s": "mandarēsies",
+        "3s": "mandarēsies",
+        "1p": "mandarēsimies",
+        "2p": "mandarēsieties",
+        "3p": "mandarēsies"
+      }
+    }
+  },
+  {
+    "lv": "maksāt",
+    "en": "to pay, to cost",
+    "ru": "платить, стоить",
+    "conj": {
+      "present": {
+        "1s": "maksāju",
+        "2s": "maksā",
+        "3s": "maksā",
+        "1p": "maksājam",
+        "2p": "maksājat",
+        "3p": "maksā"
+      },
+      "past": {
+        "1s": "maksāju",
+        "2s": "maksāji",
+        "3s": "maksāja",
+        "1p": "maksājām",
+        "2p": "maksājāt",
+        "3p": "maksāja"
+      },
+      "future": {
+        "1s": "maksāšu",
+        "2s": "maksāsi",
+        "3s": "maksās",
+        "1p": "maksāsim",
+        "2p": "maksāsiet",
+        "3p": "maksās"
+      }
+    }
+  },
+  {
+    "lv": "maldināties",
+    "en": "to be misled, to deceive oneself",
+    "ru": "заблуждаться, обманываться",
+    "conj": {
+      "present": {
+        "1s": "maldinos",
+        "2s": "maldinies",
+        "3s": "maldinās",
+        "1p": "maldināmies",
+        "2p": "maldināties",
+        "3p": "maldinās"
+      },
+      "past": {
+        "1s": "maldinājos",
+        "2s": "maldinājies",
+        "3s": "maldinājās",
+        "1p": "maldinājāmies",
+        "2p": "maldinājāties",
+        "3p": "maldinājās"
+      },
+      "future": {
+        "1s": "maldināšos",
+        "2s": "maldināsies",
+        "3s": "maldināsies",
+        "1p": "maldināsimies",
+        "2p": "maldināsieties",
+        "3p": "maldināsies"
+      }
+    }
+  },
+  {
+    "lv": "malstīties",
+    "en": "to wander, to roam (oneself)",
+    "ru": "бродить (о себе), скитаться",
+    "conj": {
+      "present": {
+        "1s": "malstos",
+        "2s": "malsties",
+        "3s": "malstās",
+        "1p": "malstāmies",
+        "2p": "malstāties",
+        "3p": "malstās"
+      },
+      "past": {
+        "1s": "malstījos",
+        "2s": "malstījies",
+        "3s": "malstījās",
+        "1p": "malstījāmies",
+        "2p": "malstījāties",
+        "3p": "malstījās"
+      },
+      "future": {
+        "1s": "malstīšos",
+        "2s": "malstīsies",
+        "3s": "malstīsies",
+        "1p": "malstīsimies",
+        "2p": "malstīsieties",
+        "3p": "malstīsies"
+      }
+    }
+  },
+  {
+    "lv": "mānīties",
+    "en": "to deceive oneself, to pretend",
+    "ru": "обманываться, притворяться",
+    "conj": {
+      "present": {
+        "1s": "mānos",
+        "2s": "mānies",
+        "3s": "mānās",
+        "1p": "mānāmies",
+        "2p": "mānāties",
+        "3p": "mānās"
+      },
+      "past": {
+        "1s": "mānījos",
+        "2s": "mānījies",
+        "3s": "mānījās",
+        "1p": "mānījāmies",
+        "2p": "mānījāties",
+        "3p": "mānījās"
+      },
+      "future": {
+        "1s": "mānīšos",
+        "2s": "mānīsies",
+        "3s": "mānīsies",
+        "1p": "mānīsimies",
+        "2p": "mānīsieties",
+        "3p": "mānīsies"
+      }
+    }
+  },
+  {
+    "lv": "mašīnēt",
+    "en": "to type (on a typewriter)",
+    "ru": "печатать (на машинке)",
+    "conj": {
+      "present": {
+        "1s": "mašīnu",
+        "2s": "mašīni",
+        "3s": "mašīnā",
+        "1p": "mašīnām",
+        "2p": "mašīnāt",
+        "3p": "mašīnā"
+      },
+      "past": {
+        "1s": "mašīnēju",
+        "2s": "mašīņēji",
+        "3s": "mašīnēja",
+        "1p": "mašīņējām",
+        "2p": "mašīņējāt",
+        "3p": "mašīnēja"
+      },
+      "future": {
+        "1s": "mašīnēšu",
+        "2s": "mašīnēsi",
+        "3s": "mašīnēs",
+        "1p": "mašīnēsim",
+        "2p": "mašīnēsiet",
+        "3p": "mašīnēs"
+      }
+    }
+  },
+  {
+    "lv": "mēģināties",
+    "en": "to try oneself, to attempt (reflexive)",
+    "ru": "пытаться (о себе), пробовать себя",
+    "conj": {
+      "present": {
+        "1s": "mēģinos",
+        "2s": "mēģinies",
+        "3s": "mēģinās",
+        "1p": "mēģināmies",
+        "2p": "mēģināties",
+        "3p": "mēģinās"
+      },
+      "past": {
+        "1s": "mēģinājos",
+        "2s": "mēģinājies",
+        "3s": "mēģinājās",
+        "1p": "mēģinājāmies",
+        "2p": "mēģinājāties",
+        "3p": "mēģinājās"
+      },
+      "future": {
+        "1s": "mēģināšos",
+        "2s": "mēģināsies",
+        "3s": "mēģināsies",
+        "1p": "mēģināsimies",
+        "2p": "mēģināsieties",
+        "3p": "mēģināsies"
+      }
+    }
+  },
+  {
+    "lv": "meklēt",
+    "en": "to search, to look for",
+    "ru": "искать",
+    "conj": {
+      "present": {
+        "1s": "meklēju",
+        "2s": "meklē",
+        "3s": "meklē",
+        "1p": "meklējam",
+        "2p": "meklējat",
+        "3p": "meklē"
+      },
+      "past": {
+        "1s": "meklēju",
+        "2s": "meklēji",
+        "3s": "meklēja",
+        "1p": "meklējām",
+        "2p": "meklējāt",
+        "3p": "meklēja"
+      },
+      "future": {
+        "1s": "meklēšu",
+        "2s": "meklēsi",
+        "3s": "meklēs",
+        "1p": "meklēsim",
+        "2p": "meklēsiet",
+        "3p": "meklēs"
+      }
+    }
+  },
+  {
+    "lv": "meklēties",
+    "en": "to seek, to look for oneself",
+    "ru": "искаться, искать себя",
+    "conj": {
+      "present": {
+        "1s": "meklējos",
+        "2s": "meklējies",
+        "3s": "meklējas",
+        "1p": "meklējamies",
+        "2p": "meklējaties",
+        "3p": "meklējas"
+      },
+      "past": {
+        "1s": "meklējos",
+        "2s": "meklējies",
+        "3s": "meklējās",
+        "1p": "meklējāmies",
+        "2p": "meklējāties",
+        "3p": "meklējās"
+      },
+      "future": {
+        "1s": "meklēšos",
+        "2s": "meklēsies",
+        "3s": "meklēsies",
+        "1p": "meklēsimies",
+        "2p": "meklēsieties",
+        "3p": "meklēsies"
+      }
+    }
+  },
+  {
+    "lv": "melot",
+    "en": "to lie (not tell the truth)",
+    "ru": "лгать",
+    "conj": {
+      "present": {
+        "1s": "meloju",
+        "2s": "melo",
+        "3s": "melo",
+        "1p": "melojam",
+        "2p": "melojat",
+        "3p": "melo"
+      },
+      "past": {
+        "1s": "meloju",
+        "2s": "meloji",
+        "3s": "meloja",
+        "1p": "melojām",
+        "2p": "melojāt",
+        "3p": "meloja"
+      },
+      "future": {
+        "1s": "melošu",
+        "2s": "melosi",
+        "3s": "melos",
+        "1p": "melosim",
+        "2p": "melosiet",
+        "3p": "melos"
+      }
+    }
+  },
+  {
+    "lv": "melties",
+    "en": "to pour oneself, to spill (reflexive)",
+    "ru": "литься, проливаться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "melos",
+        "2s": "melies",
+        "3s": "melas",
+        "1p": "melamies",
+        "2p": "melaties",
+        "3p": "melas"
+      },
+      "past": {
+        "1s": "melos",
+        "2s": "melies",
+        "3s": "melās",
+        "1p": "melāmies",
+        "2p": "melāties",
+        "3p": "melās"
+      },
+      "future": {
+        "1s": "melšos",
+        "2s": "melsies",
+        "3s": "melsies",
+        "1p": "melsimies",
+        "2p": "melsieties",
+        "3p": "melsies"
+      }
+    }
+  },
+  {
+    "lv": "mest",
+    "en": "to throw, to cast",
+    "ru": "бросать, кидать",
+    "conj": {
+      "present": {
+        "1s": "metu",
+        "2s": "meti",
+        "3s": "met",
+        "1p": "metam",
+        "2p": "metat",
+        "3p": "met"
+      },
+      "past": {
+        "1s": "metu",
+        "2s": "meti",
+        "3s": "meta",
+        "1p": "metām",
+        "2p": "metāt",
+        "3p": "meta"
+      },
+      "future": {
+        "1s": "metīšu",
+        "2s": "metīsi",
+        "3s": "metīs",
+        "1p": "metīsim",
+        "2p": "metīsiet",
+        "3p": "metīs"
+      }
+    }
+  },
+  {
+    "lv": "mesties",
+    "en": "to rush, to throw oneself",
+    "ru": "бросаться, кидаться",
+    "conj": {
+      "present": {
+        "1s": "metos",
+        "2s": "meties",
+        "3s": "metas",
+        "1p": "metamies",
+        "2p": "metaties",
+        "3p": "metas"
+      },
+      "past": {
+        "1s": "metos",
+        "2s": "meties",
+        "3s": "metās",
+        "1p": "metāmies",
+        "2p": "metāties",
+        "3p": "metās"
+      },
+      "future": {
+        "1s": "metīšos",
+        "2s": "metīsies",
+        "3s": "metīsies",
+        "1p": "metīsimies",
+        "2p": "metīsieties",
+        "3p": "metīsies"
+      }
+    }
+  },
+  {
+    "lv": "mētāt",
+    "en": "to toss, to scatter",
+    "ru": "разбрасывать, метать",
+    "conj": {
+      "present": {
+        "1s": "mētu",
+        "2s": "mētā",
+        "3s": "mētā",
+        "1p": "mētājam",
+        "2p": "mētājat",
+        "3p": "mētā"
+      },
+      "past": {
+        "1s": "mētāju",
+        "2s": "mētāji",
+        "3s": "mētāja",
+        "1p": "mētājām",
+        "2p": "mētājāt",
+        "3p": "mētāja"
+      },
+      "future": {
+        "1s": "mētāšu",
+        "2s": "mētāsi",
+        "3s": "mētās",
+        "1p": "mētāsim",
+        "2p": "mētāsiet",
+        "3p": "mētās"
+      }
+    }
+  },
+  {
+    "lv": "mētāties",
+    "en": "to toss oneself, to scatter oneself",
+    "ru": "метаться, разбрасываться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "mētājos",
+        "2s": "mētājies",
+        "3s": "mētājas",
+        "1p": "mētājamies",
+        "2p": "mētājaties",
+        "3p": "mētājas"
+      },
+      "past": {
+        "1s": "mētājos",
+        "2s": "mētājies",
+        "3s": "mētājās",
+        "1p": "mētājāmies",
+        "2p": "mētājāties",
+        "3p": "mētājās"
+      },
+      "future": {
+        "1s": "mētāšos",
+        "2s": "mētāsies",
+        "3s": "mētāsies",
+        "1p": "mētāsimies",
+        "2p": "mētāsieties",
+        "3p": "mētāsies"
+      }
+    }
+  },
+  {
+    "lv": "mēģināt",
+    "en": "to try, to attempt",
+    "ru": "пытаться, пробовать",
+    "conj": {
+      "present": {
+        "1s": "mēģinu",
+        "2s": "mēģini",
+        "3s": "mēģina",
+        "1p": "mēģinām",
+        "2p": "mēģināt",
+        "3p": "mēģina"
+      },
+      "past": {
+        "1s": "mēģināju",
+        "2s": "mēģināji",
+        "3s": "mēģināja",
+        "1p": "mēģinājām",
+        "2p": "mēģinājāt",
+        "3p": "mēģināja"
+      },
+      "future": {
+        "1s": "mēģināšu",
+        "2s": "mēģināsi",
+        "3s": "mēģinās",
+        "1p": "mēģināsim",
+        "2p": "mēģināsiet",
+        "3p": "mēģinās"
+      }
+    }
+  },
+  {
+    "lv": "maldināt",
+    "en": "to mislead, to deceive",
+    "ru": "вводить в заблуждение",
+    "conj": {
+      "present": {
+        "1s": "maldinu",
+        "2s": "maldini",
+        "3s": "maldina",
+        "1p": "maldinām",
+        "2p": "maldināt",
+        "3p": "maldina"
+      },
+      "past": {
+        "1s": "maldināju",
+        "2s": "maldināji",
+        "3s": "maldināja",
+        "1p": "maldinājām",
+        "2p": "maldinājāt",
+        "3p": "maldināja"
+      },
+      "future": {
+        "1s": "maldināšu",
+        "2s": "maldināsi",
+        "3s": "maldinās",
+        "1p": "maldināsim",
+        "2p": "maldināsiet",
+        "3p": "maldinās"
+      }
+    }
+  },
+  {
+    "lv": "malot",
+    "en": "to grind (colloq.), to babble",
+    "ru": "молоть, болтать",
+    "conj": {
+      "present": {
+        "1s": "maloju",
+        "2s": "malo",
+        "3s": "malo",
+        "1p": "malojam",
+        "2p": "malojat",
+        "3p": "malo"
+      },
+      "past": {
+        "1s": "maloju",
+        "2s": "maloji",
+        "3s": "maloja",
+        "1p": "malojām",
+        "2p": "malojāt",
+        "3p": "maloja"
+      },
+      "future": {
+        "1s": "malošu",
+        "2s": "malosi",
+        "3s": "malos",
+        "1p": "malosim",
+        "2p": "malosiet",
+        "3p": "malos"
+      }
+    }
+  },
+  {
+    "lv": "marķēt",
+    "en": "to mark (with a sign), to label",
+    "ru": "маркировать, помечать",
+    "conj": {
+      "present": {
+        "1s": "marķēju",
+        "2s": "marķē",
+        "3s": "marķē",
+        "1p": "marķējam",
+        "2p": "marķējat",
+        "3p": "marķē"
+      },
+      "past": {
+        "1s": "marķēju",
+        "2s": "marķēji",
+        "3s": "marķēja",
+        "1p": "marķējām",
+        "2p": "marķējāt",
+        "3p": "marķēja"
+      },
+      "future": {
+        "1s": "marķēšu",
+        "2s": "marķēsi",
+        "3s": "marķēs",
+        "1p": "marķēsim",
+        "2p": "marķēsiet",
+        "3p": "marķēs"
+      }
+    }
+  },
+  {
+    "lv": "mazināt",
+    "en": "to reduce, to decrease",
+    "ru": "уменьшать, снижать",
+    "conj": {
+      "present": {
+        "1s": "mazinu",
+        "2s": "mazini",
+        "3s": "mazina",
+        "1p": "mazinām",
+        "2p": "mazināt",
+        "3p": "mazina"
+      },
+      "past": {
+        "1s": "mazināju",
+        "2s": "mazināji",
+        "3s": "mazināja",
+        "1p": "mazinājām",
+        "2p": "mazinājāt",
+        "3p": "mazināja"
+      },
+      "future": {
+        "1s": "mazināšu",
+        "2s": "mazināsi",
+        "3s": "mazinās",
+        "1p": "mazināsim",
+        "2p": "mazināsiet",
+        "3p": "mazinās"
+      }
+    }
+  },
+  {
+    "lv": "mēģināties",
+    "en": "to try oneself, to attempt (reflexive)",
+    "ru": "пытаться (о себе), пробовать себя",
+    "conj": {
+      "present": {
+        "1s": "mēģinos",
+        "2s": "mēģinies",
+        "3s": "mēģinās",
+        "1p": "mēģināmies",
+        "2p": "mēģināties",
+        "3p": "mēģinās"
+      },
+      "past": {
+        "1s": "mēģinājos",
+        "2s": "mēģinājies",
+        "3s": "mēģinājās",
+        "1p": "mēģinājāmies",
+        "2p": "mēģinājāties",
+        "3p": "mēģinājās"
+      },
+      "future": {
+        "1s": "mēģināšos",
+        "2s": "mēģināsies",
+        "3s": "mēģināsies",
+        "1p": "mēģināsimies",
+        "2p": "mēģināsieties",
+        "3p": "mēģināsies"
+      }
+    }
+  },
+  {
+    "lv": "meklēties",
+    "en": "to seek, to look for oneself",
+    "ru": "искаться, искать себя",
+    "conj": {
+      "present": {
+        "1s": "meklējos",
+        "2s": "meklējies",
+        "3s": "meklējas",
+        "1p": "meklējamies",
+        "2p": "meklējaties",
+        "3p": "meklējas"
+      },
+      "past": {
+        "1s": "meklējos",
+        "2s": "meklējies",
+        "3s": "meklējās",
+        "1p": "meklējāmies",
+        "2p": "meklējāties",
+        "3p": "meklējās"
+      },
+      "future": {
+        "1s": "meklēšos",
+        "2s": "meklēsies",
+        "3s": "meklēsies",
+        "1p": "meklēsimies",
+        "2p": "meklēsieties",
+        "3p": "meklēsies"
+      }
+    }
+  },
+  {
+    "lv": "mētātīt",
+    "en": "to toss about (colloq., intensive)",
+    "ru": "разбрасывать, метать (разг.)",
+    "conj": {
+      "present": {
+        "1s": "mētātīju",
+        "2s": "mētātī",
+        "3s": "mētāta",
+        "1p": "mētātām",
+        "2p": "mētātāt",
+        "3p": "mētāta"
+      },
+      "past": {
+        "1s": "mētātīju",
+        "2s": "mētātīji",
+        "3s": "mētātīja",
+        "1p": "mētātījām",
+        "2p": "mētātījāt",
+        "3p": "mētātīja"
+      },
+      "future": {
+        "1s": "mētātīšu",
+        "2s": "mētātīsi",
+        "3s": "mētātīs",
+        "1p": "mētātīsim",
+        "2p": "mētātīsiet",
+        "3p": "mētātīs"
+      }
+    }
+  },
+  {
+    "lv": "miegoties",
+    "en": "to doze oneself, to nap (reflexive)",
+    "ru": "дремать (о себе)",
+    "conj": {
+      "present": {
+        "1s": "miegojos",
+        "2s": "miegojies",
+        "3s": "miegojas",
+        "1p": "miegojamies",
+        "2p": "miegojaties",
+        "3p": "miegojas"
+      },
+      "past": {
+        "1s": "miegojos",
+        "2s": "miegojies",
+        "3s": "miegojās",
+        "1p": "miegojāmies",
+        "2p": "miegojāties",
+        "3p": "miegojās"
+      },
+      "future": {
+        "1s": "miegošos",
+        "2s": "miegosies",
+        "3s": "miegosies",
+        "1p": "miegosimies",
+        "2p": "miegosieties",
+        "3p": "miegosies"
+      }
+    }
+  },
+  {
+    "lv": "migloties",
+    "en": "to become misty, to fog up (reflexive)",
+    "ru": "затуманиваться, запотевать",
+    "conj": {
+      "present": {
+        "1s": "miglojos",
+        "2s": "miglojies",
+        "3s": "miglojas",
+        "1p": "miglojamies",
+        "2p": "miglojaties",
+        "3p": "miglojas"
+      },
+      "past": {
+        "1s": "miglojos",
+        "2s": "miglojies",
+        "3s": "miglojās",
+        "1p": "miglojāmies",
+        "2p": "miglojāties",
+        "3p": "miglojās"
+      },
+      "future": {
+        "1s": "miglošos",
+        "2s": "miglosies",
+        "3s": "miglosies",
+        "1p": "miglosimies",
+        "2p": "miglosieties",
+        "3p": "miglosies"
+      }
+    }
+  },
+  {
+    "lv": "mikstināt",
+    "en": "to soften",
+    "ru": "смягчать",
+    "conj": {
+      "present": {
+        "1s": "mikstinu",
+        "2s": "mikstini",
+        "3s": "mikstina",
+        "1p": "mikstinām",
+        "2p": "mikstināt",
+        "3p": "mikstina"
+      },
+      "past": {
+        "1s": "mikstināju",
+        "2s": "mikstināji",
+        "3s": "mikstināja",
+        "1p": "mikstinājām",
+        "2p": "mikstinājāt",
+        "3p": "mikstināja"
+      },
+      "future": {
+        "1s": "mikstināšu",
+        "2s": "mikstināsi",
+        "3s": "mikstinās",
+        "1p": "mikstināsim",
+        "2p": "mikstināsiet",
+        "3p": "mikstinās"
+      }
+    }
+  },
+  {
+    "lv": "minēt",
+    "en": "to guess, to mention",
+    "ru": "угадывать, упоминать",
+    "conj": {
+      "present": {
+        "1s": "minu",
+        "2s": "mini",
+        "3s": "mina",
+        "1p": "minām",
+        "2p": "mināt",
+        "3p": "mina"
+      },
+      "past": {
+        "1s": "minēju",
+        "2s": "minēji",
+        "3s": "minēja",
+        "1p": "minējām",
+        "2p": "minējāt",
+        "3p": "minēja"
+      },
+      "future": {
+        "1s": "minēšu",
+        "2s": "minēsi",
+        "3s": "minēs",
+        "1p": "minēsim",
+        "2p": "minēsiet",
+        "3p": "minēs"
+      }
+    }
+  },
+  {
+    "lv": "mirdzēt",
+    "en": "to shine, to sparkle",
+    "ru": "сверкать, блестеть",
+    "conj": {
+      "present": {
+        "1s": "mirdzu",
+        "2s": "mirdzi",
+        "3s": "mirdz",
+        "1p": "mirdzam",
+        "2p": "mirdzat",
+        "3p": "mirdz"
+      },
+      "past": {
+        "1s": "mirdzēju",
+        "2s": "mirdzēji",
+        "3s": "mirdzēja",
+        "1p": "mirdzējām",
+        "2p": "mirdzējāt",
+        "3p": "mirdzēja"
+      },
+      "future": {
+        "1s": "mirdzēšu",
+        "2s": "mirdzēsi",
+        "3s": "mirdzēs",
+        "1p": "mirdzēsim",
+        "2p": "mirdzēsiet",
+        "3p": "mirdzēs"
+      }
+    }
+  },
+  {
+    "lv": "mirdzēties",
+    "en": "to shine oneself, to sparkle (reflexive)",
+    "ru": "сверкаться, блестеть (о себе)",
+    "conj": {
+      "present": {
+        "1s": "mirdzos",
+        "2s": "mirdzies",
+        "3s": "mirdzas",
+        "1p": "mirdzamies",
+        "2p": "mirdzaties",
+        "3p": "mirdzas"
+      },
+      "past": {
+        "1s": "mirdzējos",
+        "2s": "mirdzējies",
+        "3s": "mirdzējās",
+        "1p": "mirdzējāmies",
+        "2p": "mirdzējāties",
+        "3p": "mirdzējās"
+      },
+      "future": {
+        "1s": "mirdzēšos",
+        "2s": "mirdzēsies",
+        "3s": "mirdzēsies",
+        "1p": "mirdzēsimies",
+        "2p": "mirdzēsieties",
+        "3p": "mirdzēsies"
+      }
+    }
+  },
+  {
+    "lv": "mirgot",
+    "en": "to flicker, to twinkle",
+    "ru": "мигать, мерцать",
+    "conj": {
+      "present": {
+        "1s": "mirgoju",
+        "2s": "mirgo",
+        "3s": "mirgo",
+        "1p": "mirgojam",
+        "2p": "mirgojat",
+        "3p": "mirgo"
+      },
+      "past": {
+        "1s": "mirgoju",
+        "2s": "mirgoji",
+        "3s": "mirgoja",
+        "1p": "mirgojām",
+        "2p": "mirgojāt",
+        "3p": "mirgoja"
+      },
+      "future": {
+        "1s": "mirgošu",
+        "2s": "mirgosi",
+        "3s": "mirgos",
+        "1p": "mirgosim",
+        "2p": "mirgosiet",
+        "3p": "mirgos"
+      }
+    }
+  },
+  {
+    "lv": "mirgoties",
+    "en": "to flicker oneself, to twinkle (reflexive)",
+    "ru": "мерцать, мигать (о себе)",
+    "conj": {
+      "present": {
+        "1s": "mirgojos",
+        "2s": "mirgojies",
+        "3s": "mirgojas",
+        "1p": "mirgojamies",
+        "2p": "mirgojaties",
+        "3p": "mirgojas"
+      },
+      "past": {
+        "1s": "mirgojos",
+        "2s": "mirgojies",
+        "3s": "mirgojās",
+        "1p": "mirgojāmies",
+        "2p": "mirgojāties",
+        "3p": "mirgojās"
+      },
+      "future": {
+        "1s": "mirgošos",
+        "2s": "mirgosies",
+        "3s": "mirgosies",
+        "1p": "mirgosimies",
+        "2p": "mirgosieties",
+        "3p": "mirgosies"
+      }
+    }
+  },
+  {
+    "lv": "maizīt",
+    "en": "to spread (e.g. butter on bread)",
+    "ru": "намазывать",
+    "conj": {
+      "present": {
+        "1s": "maizu",
+        "2s": "maizi",
+        "3s": "maiza",
+        "1p": "maizām",
+        "2p": "maizāt",
+        "3p": "maiza"
+      },
+      "past": {
+        "1s": "maizīju",
+        "2s": "maizīji",
+        "3s": "maizīja",
+        "1p": "maizījām",
+        "2p": "maizījāt",
+        "3p": "maizīja"
+      },
+      "future": {
+        "1s": "maizīšu",
+        "2s": "maizīsi",
+        "3s": "maizīs",
+        "1p": "maizīsim",
+        "2p": "maizīsiet",
+        "3p": "maizīs"
+      }
+    }
+  },
+  {
+    "lv": "maizīties",
+    "en": "to spread oneself (to become spread)",
+    "ru": "намазываться, размазываться",
+    "conj": {
+      "present": {
+        "1s": "maizos",
+        "2s": "maizies",
+        "3s": "maizās",
+        "1p": "maizāmies",
+        "2p": "maizāties",
+        "3p": "maizās"
+      },
+      "past": {
+        "1s": "maizījos",
+        "2s": "maizījies",
+        "3s": "maizījās",
+        "1p": "maizījāmies",
+        "2p": "maizījāties",
+        "3p": "maizījās"
+      },
+      "future": {
+        "1s": "maizīšos",
+        "2s": "maizīsies",
+        "3s": "maizīsies",
+        "1p": "maizīsimies",
+        "2p": "maizīsieties",
+        "3p": "maizīsies"
+      }
+    }
+  },
+  {
+    "lv": "majināt",
+    "en": "to try, to attempt (archaic/rare)",
+    "ru": "пытаться (устар.)",
+    "conj": {
+      "present": {
+        "1s": "majinu",
+        "2s": "majini",
+        "3s": "majina",
+        "1p": "majinām",
+        "2p": "majināt",
+        "3p": "majina"
+      },
+      "past": {
+        "1s": "majināju",
+        "2s": "majināji",
+        "3s": "majināja",
+        "1p": "majinājām",
+        "2p": "majinājāt",
+        "3p": "majināja"
+      },
+      "future": {
+        "1s": "majināšu",
+        "2s": "majināsi",
+        "3s": "majinās",
+        "1p": "majināsim",
+        "2p": "majināsiet",
+        "3p": "majinās"
+      }
+    }
+  },
+  {
+    "lv": "majināties",
+    "en": "to try oneself (archaic/rare)",
+    "ru": "пытаться (о себе, устар.)",
+    "conj": {
+      "present": {
+        "1s": "majinājos",
+        "2s": "majinājies",
+        "3s": "majinājas",
+        "1p": "majinājamies",
+        "2p": "majinājaties",
+        "3p": "majinājas"
+      },
+      "past": {
+        "1s": "majinājos",
+        "2s": "majinājies",
+        "3s": "majinājās",
+        "1p": "majinājāmies",
+        "2p": "majinājāties",
+        "3p": "majinājās"
+      },
+      "future": {
+        "1s": "majināšos",
+        "2s": "majināsies",
+        "3s": "majināsies",
+        "1p": "majināsimies",
+        "2p": "majināsieties",
+        "3p": "majināsies"
+      }
+    }
+  },
+  {
+    "lv": "makšķerniekot",
+    "en": "to go fishing (as an angler)",
+    "ru": "заниматься рыбалкой",
+    "conj": {
+      "present": {
+        "1s": "makšķerniekoju",
+        "2s": "makšķernieko",
+        "3s": "makšķernieko",
+        "1p": "makšķerniekojam",
+        "2p": "makšķerniekojat",
+        "3p": "makšķernieko"
+      },
+      "past": {
+        "1s": "makšķerniekoju",
+        "2s": "makšķerniekoji",
+        "3s": "makšķerniekoja",
+        "1p": "makšķerniekojām",
+        "2p": "makšķerniekojāt",
+        "3p": "makšķerniekoja"
+      },
+      "future": {
+        "1s": "makšķerniekošu",
+        "2s": "makšķerniekosi",
+        "3s": "makšķerniekos",
+        "1p": "makšķerniekosim",
+        "2p": "makšķerniekosiet",
+        "3p": "makšķerniekos"
+      }
+    }
+  },
+  {
+    "lv": "malēt",
+    "en": "to grind",
+    "ru": "молоть",
+    "conj": {
+      "present": {
+        "1s": "malēju",
+        "2s": "malē",
+        "3s": "malē",
+        "1p": "malējam",
+        "2p": "malējat",
+        "3p": "malē"
+      },
+      "past": {
+        "1s": "malēju",
+        "2s": "malēji",
+        "3s": "malēja",
+        "1p": "malējām",
+        "2p": "malējāt",
+        "3p": "malēja"
+      },
+      "future": {
+        "1s": "malēšu",
+        "2s": "malēsi",
+        "3s": "malēs",
+        "1p": "malēsim",
+        "2p": "malēsiet",
+        "3p": "malēs"
+      }
+    }
+  },
+  {
+    "lv": "malināties",
+    "en": "to be ground, to be milled",
+    "ru": "молоться (о себе)",
+    "conj": {
+      "present": {
+        "1s": "malinos",
+        "2s": "malinies",
+        "3s": "malinās",
+        "1p": "malināmies",
+        "2p": "malināties",
+        "3p": "malinās"
+      },
+      "past": {
+        "1s": "malinājos",
+        "2s": "malinājies",
+        "3s": "malinājās",
+        "1p": "malinājāmies",
+        "2p": "malinājāties",
+        "3p": "malinājās"
+      },
+      "future": {
+        "1s": "malināšos",
+        "2s": "malināsies",
+        "3s": "malināsies",
+        "1p": "malināsimies",
+        "2p": "malināsieties",
+        "3p": "malināsies"
+      }
+    }
+  },
+  {
+    "lv": "malstīt",
+    "en": "to roam, to wander",
+    "ru": "бродить, скитаться",
+    "conj": {
+      "present": {
+        "1s": "malstīju",
+        "2s": "malstī",
+        "3s": "malsta",
+        "1p": "malstām",
+        "2p": "malstāt",
+        "3p": "malsta"
+      },
+      "past": {
+        "1s": "malstīju",
+        "2s": "malstīji",
+        "3s": "malstīja",
+        "1p": "malstījām",
+        "2p": "malstījāt",
+        "3p": "malstīja"
+      },
+      "future": {
+        "1s": "malstīšu",
+        "2s": "malstīsi",
+        "3s": "malstīs",
+        "1p": "malstīsim",
+        "2p": "malstīsiet",
+        "3p": "malstīs"
+      }
+    }
+  },
+  {
+    "lv": "malstīties",
+    "en": "to roam oneself, to wander aimlessly",
+    "ru": "бродить (о себе), блуждать",
+    "conj": {
+      "present": {
+        "1s": "malstījos",
+        "2s": "malstījies",
+        "3s": "malstījas",
+        "1p": "malstījamies",
+        "2p": "malstījaties",
+        "3p": "malstījas"
+      },
+      "past": {
+        "1s": "malstījos",
+        "2s": "malstījies",
+        "3s": "malstījās",
+        "1p": "malstījāmies",
+        "2p": "malstījāties",
+        "3p": "malstījās"
+      },
+      "future": {
+        "1s": "malstīšos",
+        "2s": "malstīsies",
+        "3s": "malstīsies",
+        "1p": "malstīsimies",
+        "2p": "malstīsieties",
+        "3p": "malstīsies"
+      }
+    }
+  },
+  {
+    "lv": "manākt",
+    "en": "to dawn, to get light",
+    "ru": "светать",
+    "conj": {
+      "present": {
+        "1s": "manāku",
+        "2s": "manāc",
+        "3s": "manāk",
+        "1p": "manākam",
+        "2p": "manākat",
+        "3p": "manāk"
+      },
+      "past": {
+        "1s": "manācu",
+        "2s": "manāci",
+        "3s": "manāca",
+        "1p": "manācām",
+        "2p": "manācāt",
+        "3p": "manāca"
+      },
+      "future": {
+        "1s": "manākšu",
+        "2s": "manāksi",
+        "3s": "manāks",
+        "1p": "manāksim",
+        "2p": "manāksiet",
+        "3p": "manāks"
+      }
+    }
+  },
+  {
+    "lv": "manākties",
+    "en": "to get light (oneself), to dawn (reflexive)",
+    "ru": "рассветать (о себе)",
+    "conj": {
+      "present": {
+        "1s": "manākos",
+        "2s": "manākies",
+        "3s": "manākas",
+        "1p": "manākamies",
+        "2p": "manākaties",
+        "3p": "manākas"
+      },
+      "past": {
+        "1s": "manācos",
+        "2s": "manācies",
+        "3s": "manācās",
+        "1p": "manācāmies",
+        "2p": "manācāties",
+        "3p": "manācās"
+      },
+      "future": {
+        "1s": "manākšos",
+        "2s": "manāksies",
+        "3s": "manāksies",
+        "1p": "manāksimies",
+        "2p": "manāksieties",
+        "3p": "manāksies"
+      }
+    }
+  },
+  {
+    "lv": "mandarēt",
+    "en": "to suit, to fit (rare)",
+    "ru": "подходить, устраивать (редк.)",
+    "conj": {
+      "present": {
+        "1s": "mandarēju",
+        "2s": "mandarē",
+        "3s": "mandarē",
+        "1p": "mandarējam",
+        "2p": "mandarējat",
+        "3p": "mandarē"
+      },
+      "past": {
+        "1s": "mandarēju",
+        "2s": "mandarēji",
+        "3s": "mandarēja",
+        "1p": "mandarējām",
+        "2p": "mandarējāt",
+        "3p": "mandarēja"
+      },
+      "future": {
+        "1s": "mandarēšu",
+        "2s": "mandarēsi",
+        "3s": "mandarēs",
+        "1p": "mandarēsim",
+        "2p": "mandarēsiet",
+        "3p": "mandarēs"
+      }
+    }
+  },
+  {
+    "lv": "mandarīties",
+    "en": "to suit oneself, to fit oneself (rare)",
+    "ru": "подходить себе (редк.)",
+    "conj": {
+      "present": {
+        "1s": "mandarējos",
+        "2s": "mandarējies",
+        "3s": "mandarējas",
+        "1p": "mandarējamies",
+        "2p": "mandarējaties",
+        "3p": "mandarējas"
+      },
+      "past": {
+        "1s": "mandarējos",
+        "2s": "mandarējies",
+        "3s": "mandarējās",
+        "1p": "mandarējāmies",
+        "2p": "mandarējāties",
+        "3p": "mandarējās"
+      },
+      "future": {
+        "1s": "mandarēšos",
+        "2s": "mandarēsies",
+        "3s": "mandarēsies",
+        "1p": "mandarēsimies",
+        "2p": "mandarēsieties",
+        "3p": "mandarēsies"
+      }
+    }
+  },
+  {
+    "lv": "manīties",
+    "en": "to change oneself, to swap",
+    "ru": "меняться (о себе), обмениваться",
+    "conj": {
+      "present": {
+        "1s": "manos",
+        "2s": "manies",
+        "3s": "manās",
+        "1p": "manāmies",
+        "2p": "manāties",
+        "3p": "manās"
+      },
+      "past": {
+        "1s": "manījos",
+        "2s": "manījies",
+        "3s": "manījās",
+        "1p": "manījāmies",
+        "2p": "manījāties",
+        "3p": "manījās"
+      },
+      "future": {
+        "1s": "manīšos",
+        "2s": "manīsies",
+        "3s": "manīsies",
+        "1p": "manīsimies",
+        "2p": "manīsieties",
+        "3p": "manīsies"
+      }
+    }
+  },
+  {
+    "lv": "mantot",
+    "en": "to inherit",
+    "ru": "наследовать",
+    "conj": {
+      "present": {
+        "1s": "mantoju",
+        "2s": "manto",
+        "3s": "manto",
+        "1p": "mantojam",
+        "2p": "mantojat",
+        "3p": "manto"
+      },
+      "past": {
+        "1s": "mantoju",
+        "2s": "mantoji",
+        "3s": "mantoja",
+        "1p": "mantojām",
+        "2p": "mantojāt",
+        "3p": "mantoja"
+      },
+      "future": {
+        "1s": "mantošu",
+        "2s": "mantosi",
+        "3s": "mantos",
+        "1p": "mantosim",
+        "2p": "mantosiet",
+        "3p": "mantos"
+      }
+    }
+  },
+  {
+    "lv": "mantoties",
+    "en": "to be inherited",
+    "ru": "наследоваться",
+    "conj": {
+      "present": {
+        "1s": "mantojos",
+        "2s": "mantojies",
+        "3s": "mantojas",
+        "1p": "mantojamies",
+        "2p": "mantojaties",
+        "3p": "mantojas"
+      },
+      "past": {
+        "1s": "mantojos",
+        "2s": "mantojies",
+        "3s": "mantojās",
+        "1p": "mantojāmies",
+        "2p": "mantojāties",
+        "3p": "mantojās"
+      },
+      "future": {
+        "1s": "mantošos",
+        "2s": "mantosies",
+        "3s": "mantosies",
+        "1p": "mantosimies",
+        "2p": "mantosieties",
+        "3p": "mantosies"
+      }
+    }
+  },
+  {
+    "lv": "malināt",
+    "en": "to grind, to mill",
+    "ru": "молоть, размалывать",
+    "conj": {
+      "present": {
+        "1s": "malinu",
+        "2s": "malini",
+        "3s": "malina",
+        "1p": "malinām",
+        "2p": "malināt",
+        "3p": "malina"
+      },
+      "past": {
+        "1s": "malināju",
+        "2s": "malināji",
+        "3s": "malināja",
+        "1p": "malinājām",
+        "2p": "malinājāt",
+        "3p": "malināja"
+      },
+      "future": {
+        "1s": "malināšu",
+        "2s": "malināsi",
+        "3s": "malinās",
+        "1p": "malināsim",
+        "2p": "malināsiet",
+        "3p": "malinās"
+      }
+    }
+  }
+]

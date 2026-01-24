@@ -1,0 +1,3102 @@
+[
+  {
+    "lv": "abonēt",
+    "en": "to subscribe",
+    "ru": "подписываться",
+    "conj": {
+      "present": {
+        "1s": "abonēju",
+        "2s": "abonē",
+        "3s": "abonē",
+        "1p": "abonējam",
+        "2p": "abonējat",
+        "3p": "abonē"
+      },
+      "past": {
+        "1s": "abonēju",
+        "2s": "abonēji",
+        "3s": "abonēja",
+        "1p": "abonējām",
+        "2p": "abonējāt",
+        "3p": "abonēja"
+      },
+      "future": {
+        "1s": "abonēšu",
+        "2s": "abonēsi",
+        "3s": "abonēs",
+        "1p": "abonēsim",
+        "2p": "abonēsiet",
+        "3p": "abonēs"
+      }
+    }
+  },
+  {
+    "lv": "absolvēt",
+    "en": "to graduate (from), to complete (a course)",
+    "ru": "оканчивать (учебное заведение), выпускаться",
+    "conj": {
+      "present": {
+        "1s": "absolvēju",
+        "2s": "absolvē",
+        "3s": "absolvē",
+        "1p": "absolvējam",
+        "2p": "absolvējat",
+        "3p": "absolvē"
+      },
+      "past": {
+        "1s": "absolvēju",
+        "2s": "absolvēji",
+        "3s": "absolvēja",
+        "1p": "absolvējām",
+        "2p": "absolvējāt",
+        "3p": "absolvēja"
+      },
+      "future": {
+        "1s": "absolvēšu",
+        "2s": "absolvēsi",
+        "3s": "absolvēs",
+        "1p": "absolvēsim",
+        "2p": "absolvēsiet",
+        "3p": "absolvēs"
+      }
+    }
+  },
+  {
+    "lv": "adīt",
+    "en": "to knit",
+    "ru": "вязать",
+    "conj": {
+      "present": {
+        "1s": "adu",
+        "2s": "adi",
+        "3s": "ada",
+        "1p": "adām",
+        "2p": "adāt",
+        "3p": "ada"
+      },
+      "past": {
+        "1s": "adīju",
+        "2s": "adīji",
+        "3s": "adīja",
+        "1p": "adījām",
+        "2p": "adījāt",
+        "3p": "adīja"
+      },
+      "future": {
+        "1s": "adīšu",
+        "2s": "adīsi",
+        "3s": "adīs",
+        "1p": "adīsim",
+        "2p": "adīsiet",
+        "3p": "adīs"
+      }
+    }
+  },
+  {
+    "lv": "aicināt",
+    "en": "to invite, to call for",
+    "ru": "приглашать, призывать",
+    "conj": {
+      "present": {
+        "1s": "aicinu",
+        "2s": "aicini",
+        "3s": "aicina",
+        "1p": "aicinām",
+        "2p": "aicināt",
+        "3p": "aicina"
+      },
+      "past": {
+        "1s": "aicināju",
+        "2s": "aicināji",
+        "3s": "aicināja",
+        "1p": "aicinājām",
+        "2p": "aicinājāt",
+        "3p": "aicināja"
+      },
+      "future": {
+        "1s": "aicināšu",
+        "2s": "aicināsi",
+        "3s": "aicinās",
+        "1p": "aicināsim",
+        "2p": "aicināsiet",
+        "3p": "aicinās"
+      }
+    }
+  },
+  {
+    "lv": "aiziet",
+    "en": "to go away, to leave, (euph.) to pass away",
+    "ru": "уходить, уйти; (эвф.) умереть",
+    "conj": {
+      "present": {
+        "1s": "aizeju",
+        "2s": "aizej",
+        "3s": "aiziet",
+        "1p": "aizejam",
+        "2p": "aizejat",
+        "3p": "aiziet"
+      },
+      "past": {
+        "1s": "aizgāju",
+        "2s": "aizgāji",
+        "3s": "aizgāja",
+        "1p": "aizgājām",
+        "2p": "aizgājāt",
+        "3p": "aizgāja"
+      },
+      "future": {
+        "1s": "aiziešu",
+        "2s": "aiziesi",
+        "3s": "aizies",
+        "1p": "aiziesim",
+        "2p": "aiziesiet",
+        "3p": "aizies"
+      }
+    }
+  },
+  {
+    "lv": "aizmirst",
+    "en": "to forget",
+    "ru": "забывать",
+    "conj": {
+      "present": {
+        "1s": "aizmirstu",
+        "2s": "aizmirsti",
+        "3s": "aizmirst",
+        "1p": "aizmirstam",
+        "2p": "aizmirstat",
+        "3p": "aizmirst"
+      },
+      "past": {
+        "1s": "aizmirsu",
+        "2s": "aizmirsi",
+        "3s": "aizmirsa",
+        "1p": "aizmirsām",
+        "2p": "aizmirsāt",
+        "3p": "aizmirsa"
+      },
+      "future": {
+        "1s": "aizmirsīšu",
+        "2s": "aizmirsīsi",
+        "3s": "aizmirsīs",
+        "1p": "aizmirsīsim",
+        "2p": "aizmirsīsiet",
+        "3p": "aizmirsīs"
+      }
+    }
+  },
+  {
+    "lv": "aiznest",
+    "en": "to take (away), to carry (to)",
+    "ru": "уносить, унести; относить, отнести",
+    "conj": {
+      "present": {
+        "1s": "aiznesu",
+        "2s": "aiznes",
+        "3s": "aiznes",
+        "1p": "aiznesam",
+        "2p": "aiznesat",
+        "3p": "aiznes"
+      },
+      "past": {
+        "1s": "aiznesu",
+        "2s": "aiznesi",
+        "3s": "aiznesa",
+        "1p": "aiznesām",
+        "2p": "aiznesāt",
+        "3p": "aiznesa"
+      },
+      "future": {
+        "1s": "aiznesīšu",
+        "2s": "aiznesīsi",
+        "3s": "aiznesīs",
+        "1p": "aiznesīsim",
+        "2p": "aiznesīsiet",
+        "3p": "aiznesīs"
+      }
+    }
+  },
+  {
+    "lv": "aizpildīt",
+    "en": "to fill in, to fill out",
+    "ru": "заполнять",
+    "conj": {
+      "present": {
+        "1s": "aizpildu",
+        "2s": "aizpildi",
+        "3s": "aizpilda",
+        "1p": "aizpildām",
+        "2p": "aizpildāt",
+        "3p": "aizpilda"
+      },
+      "past": {
+        "1s": "aizpildīju",
+        "2s": "aizpildīji",
+        "3s": "aizpildīja",
+        "1p": "aizpildījām",
+        "2p": "aizpildījāt",
+        "3p": "aizpildīja"
+      },
+      "future": {
+        "1s": "aizpildīšu",
+        "2s": "aizpildīsi",
+        "3s": "aizpildīs",
+        "1p": "aizpildīsim",
+        "2p": "aizpildīsiet",
+        "3p": "aizpildīs"
+      }
+    }
+  },
+  {
+    "lv": "apciemot",
+    "en": "to visit (a person)",
+    "ru": "навещать, навестить",
+    "conj": {
+      "present": {
+        "1s": "apciemoju",
+        "2s": "apciemo",
+        "3s": "apciemo",
+        "1p": "apciemojam",
+        "2p": "apciemojat",
+        "3p": "apciemo"
+      },
+      "past": {
+        "1s": "apciemoju",
+        "2s": "apciemoji",
+        "3s": "apciemoja",
+        "1p": "apciemojām",
+        "2p": "apciemojāt",
+        "3p": "apciemoja"
+      },
+      "future": {
+        "1s": "apciemošu",
+        "2s": "apciemosi",
+        "3s": "apciemos",
+        "1p": "apciemosim",
+        "2p": "apciemosiet",
+        "3p": "apciemos"
+      }
+    }
+  },
+  {
+    "lv": "apgūt",
+    "en": "to learn, to master, to acquire",
+    "ru": "осваивать, освоить; изучать",
+    "conj": {
+      "present": {
+        "1s": "apgūstu",
+        "2s": "apgūsti",
+        "3s": "apgūst",
+        "1p": "apgūstam",
+        "2p": "apgūstat",
+        "3p": "apgūst"
+      },
+      "past": {
+        "1s": "apguvu",
+        "2s": "apguvi",
+        "3s": "apguva",
+        "1p": "apguvām",
+        "2p": "apguvāt",
+        "3p": "apguva"
+      },
+      "future": {
+        "1s": "apgūšu",
+        "2s": "apgūsi",
+        "3s": "apgūs",
+        "1p": "apgūsim",
+        "2p": "apgūsiet",
+        "3p": "apgūs"
+      }
+    }
+  },
+  {
+    "lv": "apjiet",
+    "en": "to go around, to bypass",
+    "ru": "обходить, обойти",
+    "conj": {
+      "present": {
+        "1s": "apeju",
+        "2s": "apej",
+        "3s": "apiet",
+        "1p": "apejam",
+        "2p": "apejat",
+        "3p": "apiet"
+      },
+      "past": {
+        "1s": "apgāju",
+        "2s": "apgāji",
+        "3s": "apgāja",
+        "1p": "apgājām",
+        "2p": "apgājāt",
+        "3p": "apgāja"
+      },
+      "future": {
+        "1s": "apiešu",
+        "2s": "apiesi",
+        "3s": "apies",
+        "1p": "apiesim",
+        "2p": "apiesiet",
+        "3p": "apies"
+      }
+    }
+  },
+  {
+    "lv": "apkalpot",
+    "en": "to serve, to service",
+    "ru": "обслуживать",
+    "conj": {
+      "present": {
+        "1s": "apkalpoju",
+        "2s": "apkalpo",
+        "3s": "apkalpo",
+        "1p": "apkalpojam",
+        "2p": "apkalpojat",
+        "3p": "apkalpo"
+      },
+      "past": {
+        "1s": "apkalpoju",
+        "2s": "apkalpoji",
+        "3s": "apkalpoja",
+        "1p": "apkalpojām",
+        "2p": "apkalpojāt",
+        "3p": "apkalpoja"
+      },
+      "future": {
+        "1s": "apkalpošu",
+        "2s": "apkalposi",
+        "3s": "apkalpos",
+        "1p": "apkalposim",
+        "2p": "apkalposiet",
+        "3p": "apkalpos"
+      }
+    }
+  },
+  {
+    "lv": "apkopot",
+    "en": "to summarize, to compile, to bring together",
+    "ru": "обобщать, систематизировать",
+    "conj": {
+      "present": {
+        "1s": "apkopoju",
+        "2s": "apkopo",
+        "3s": "apkopo",
+        "1p": "apkopojam",
+        "2p": "apkopojat",
+        "3p": "apkopo"
+      },
+      "past": {
+        "1s": "apkopoju",
+        "2s": "apkopoji",
+        "3s": "apkopoja",
+        "1p": "apkopojām",
+        "2p": "apkopojāt",
+        "3p": "apkopoja"
+      },
+      "future": {
+        "1s": "apkopošu",
+        "2s": "apkoposi",
+        "3s": "apkopos",
+        "1p": "apkoposim",
+        "2p": "apkoposiet",
+        "3p": "apkopos"
+      }
+    }
+  },
+  {
+    "lv": "apmeklēt",
+    "en": "to visit, to attend",
+    "ru": "посещать",
+    "conj": {
+      "present": {
+        "1s": "apmeklēju",
+        "2s": "apmeklē",
+        "3s": "apmeklē",
+        "1p": "apmeklējam",
+        "2p": "apmeklējat",
+        "3p": "apmeklē"
+      },
+      "past": {
+        "1s": "apmeklēju",
+        "2s": "apmeklēji",
+        "3s": "apmeklēja",
+        "1p": "apmeklējām",
+        "2p": "apmeklējāt",
+        "3p": "apmeklēja"
+      },
+      "future": {
+        "1s": "apmeklēšu",
+        "2s": "apmeklēsi",
+        "3s": "apmeklēs",
+        "1p": "apmeklēsim",
+        "2p": "apmeklēsiet",
+        "3p": "apmeklēs"
+      }
+    }
+  },
+  {
+    "lv": "apmierināt",
+    "en": "to satisfy, to please",
+    "ru": "удовлетворять",
+    "conj": {
+      "present": {
+        "1s": "apmierinu",
+        "2s": "apmierini",
+        "3s": "apmierina",
+        "1p": "apmierinām",
+        "2p": "apmierināt",
+        "3p": "apmierina"
+      },
+      "past": {
+        "1s": "apmierināju",
+        "2s": "apmierināji",
+        "3s": "apmierināja",
+        "1p": "apmierinājām",
+        "2p": "apmierinājāt",
+        "3p": "apmierināja"
+      },
+      "future": {
+        "1s": "apmierināšu",
+        "2s": "apmierināsi",
+        "3s": "apmierinās",
+        "1p": "apmierināsim",
+        "2p": "apmierināsiet",
+        "3p": "apmierinās"
+      }
+    }
+  },
+  {
+    "lv": "apskatīt",
+    "en": "to look at, to examine, to view",
+    "ru": "осмотреть, посмотреть",
+    "conj": {
+      "present": {
+        "1s": "apskatu",
+        "2s": "apskati",
+        "3s": "apskata",
+        "1p": "apskatām",
+        "2p": "apskatāt",
+        "3p": "apskata"
+      },
+      "past": {
+        "1s": "apskatīju",
+        "2s": "apskatīji",
+        "3s": "apskatīja",
+        "1p": "apskatījām",
+        "2p": "apskatījāt",
+        "3p": "apskatīja"
+      },
+      "future": {
+        "1s": "apskatīšu",
+        "2s": "apskatīsi",
+        "3s": "apskatīs",
+        "1p": "apskatīsim",
+        "2p": "apskatīsiet",
+        "3p": "apskatīs"
+      }
+    }
+  },
+  {
+    "lv": "apsveikt",
+    "en": "to congratulate",
+    "ru": "поздравлять",
+    "conj": {
+      "present": {
+        "1s": "apsveicu",
+        "2s": "apsveic",
+        "3s": "apsveic",
+        "1p": "apsveicam",
+        "2p": "apsveicat",
+        "3p": "apsveic"
+      },
+      "past": {
+        "1s": "apsveicu",
+        "2s": "apsveici",
+        "3s": "apsveica",
+        "1p": "apsveicām",
+        "2p": "apsveicāt",
+        "3p": "apsveica"
+      },
+      "future": {
+        "1s": "apsveikšu",
+        "2s": "apsveiksi",
+        "3s": "apsveiks",
+        "1p": "apsveiksim",
+        "2p": "apsveiksiet",
+        "3p": "apsveiks"
+      }
+    }
+  },
+  {
+    "lv": "ārstēt",
+    "en": "to treat (medically)",
+    "ru": "лечить",
+    "conj": {
+      "present": {
+        "1s": "ārstēju",
+        "2s": "ārstē",
+        "3s": "ārstē",
+        "1p": "ārstējam",
+        "2p": "ārstējat",
+        "3p": "ārstē"
+      },
+      "past": {
+        "1s": "ārstēju",
+        "2s": "ārstēji",
+        "3s": "ārstēja",
+        "1p": "ārstējām",
+        "2p": "ārstējāt",
+        "3p": "ārstēja"
+      },
+      "future": {
+        "1s": "ārstēšu",
+        "2s": "ārstēsi",
+        "3s": "ārstēs",
+        "1p": "ārstēsim",
+        "2p": "ārstēsiet",
+        "3p": "ārstēs"
+      }
+    }
+  },
+  {
+    "lv": "atbildēt",
+    "en": "to answer, to reply",
+    "ru": "отвечать",
+    "conj": {
+      "present": {
+        "1s": "atbildu",
+        "2s": "atbildi",
+        "3s": "atbild",
+        "1p": "atbildam",
+        "2p": "atbildat",
+        "3p": "atbild"
+      },
+      "past": {
+        "1s": "atbildēju",
+        "2s": "atbildēji",
+        "3s": "atbildēja",
+        "1p": "atbildējām",
+        "2p": "atbildējāt",
+        "3p": "atbildēja"
+      },
+      "future": {
+        "1s": "atbildēšu",
+        "2s": "atbildēsi",
+        "3s": "atbildēs",
+        "1p": "atbildēsim",
+        "2p": "atbildēsiet",
+        "3p": "atbildēs"
+      }
+    }
+  },
+  {
+    "lv": "atcerēties",
+    "en": "to remember",
+    "ru": "помнить, вспоминать",
+    "conj": {
+      "present": {
+        "1s": "atceros",
+        "2s": "atceries",
+        "3s": "atceras",
+        "1p": "atceramies",
+        "2p": "atceraties",
+        "3p": "atceras"
+      },
+      "past": {
+        "1s": "atcerējos",
+        "2s": "atcerējies",
+        "3s": "atcerējās",
+        "1p": "atcerējāmies",
+        "2p": "atcerējāties",
+        "3p": "atcerējās"
+      },
+      "future": {
+        "1s": "atcerēšos",
+        "2s": "atcerēsies",
+        "3s": "atcerēsies",
+        "1p": "atcerēsimies",
+        "2p": "atcerēsieties",
+        "3p": "atcerēsies"
+      }
+    }
+  },
+  {
+    "lv": "atgriezties",
+    "en": "to return, to come back",
+    "ru": "возвращаться",
+    "conj": {
+      "present": {
+        "1s": "atgriežos",
+        "2s": "atgriezies",
+        "3s": "atgriežas",
+        "1p": "atgriežamies",
+        "2p": "atgriežaties",
+        "3p": "atgriežas"
+      },
+      "past": {
+        "1s": "atgriezos",
+        "2s": "atgriezies",
+        "3s": "atgriezās",
+        "1p": "atgriezāmies",
+        "2p": "atgriezāties",
+        "3p": "atgriezās"
+      },
+      "future": {
+        "1s": "atgriezīšos",
+        "2s": "atgriezīsies",
+        "3s": "atgriezīsies",
+        "1p": "atgriezīsimies",
+        "2p": "atgriezīsieties",
+        "3p": "atgriezīsies"
+      }
+    }
+  },
+  {
+    "lv": "atkārtot",
+    "en": "to repeat, to revise",
+    "ru": "повторять",
+    "conj": {
+      "present": {
+        "1s": "atkārtoju",
+        "2s": "atkārto",
+        "3s": "atkārto",
+        "1p": "atkārtojam",
+        "2p": "atkārtojat",
+        "3p": "atkārto"
+      },
+      "past": {
+        "1s": "atkārtoju",
+        "2s": "atkārtoji",
+        "3s": "atkārtoja",
+        "1p": "atkārtojām",
+        "2p": "atkārtojāt",
+        "3p": "atkārtoja"
+      },
+      "future": {
+        "1s": "atkārtošu",
+        "2s": "atkārtosi",
+        "3s": "atkārtos",
+        "1p": "atkārtosim",
+        "2p": "atkārtosiet",
+        "3p": "atkārtos"
+      }
+    }
+  },
+  {
+    "lv": "atnest",
+    "en": "to bring (here)",
+    "ru": "приносить, принести",
+    "conj": {
+      "present": {
+        "1s": "atnesu",
+        "2s": "atnes",
+        "3s": "atnes",
+        "1p": "atnesam",
+        "2p": "atnesat",
+        "3p": "atnes"
+      },
+      "past": {
+        "1s": "atnesu",
+        "2s": "atnesi",
+        "3s": "atnesa",
+        "1p": "atnesām",
+        "2p": "atnesāt",
+        "3p": "atnesa"
+      },
+      "future": {
+        "1s": "atnesīšu",
+        "2s": "atnesīsi",
+        "3s": "atnesīs",
+        "1p": "atnesīsim",
+        "2p": "atnesīsiet",
+        "3p": "atnesīs"
+      }
+    }
+  },
+  {
+    "lv": "atpūsties",
+    "en": "to rest, to relax",
+    "ru": "отдыхать",
+    "conj": {
+      "present": {
+        "1s": "atpūšos",
+        "2s": "atpūties",
+        "3s": "atpūšas",
+        "1p": "atpūšamies",
+        "2p": "atpūšaties",
+        "3p": "atpūšas"
+      },
+      "past": {
+        "1s": "atpūtos",
+        "2s": "atpūties",
+        "3s": "atpūtās",
+        "1p": "atpūtāmies",
+        "2p": "atpūtāties",
+        "3p": "atpūtās"
+      },
+      "future": {
+        "1s": "atpūtīšos",
+        "2s": "atpūtīsies",
+        "3s": "atpūtīsies",
+        "1p": "atpūtīsimies",
+        "2p": "atpūtīsieties",
+        "3p": "atpūtīsies"
+      }
+    }
+  },
+  {
+    "lv": "atrast",
+    "en": "to find",
+    "ru": "находить, найти",
+    "conj": {
+      "present": {
+        "1s": "atrodu",
+        "2s": "atrodi",
+        "3s": "atrod",
+        "1p": "atrodam",
+        "2p": "atrodat",
+        "3p": "atrod"
+      },
+      "past": {
+        "1s": "atradu",
+        "2s": "atradi",
+        "3s": "atrada",
+        "1p": "atradām",
+        "2p": "atradāt",
+        "3p": "atrada"
+      },
+      "future": {
+        "1s": "atradīšu",
+        "2s": "atradīsi",
+        "3s": "atradīs",
+        "1p": "atradīsim",
+        "2p": "atradīsiet",
+        "3p": "atradīs"
+      }
+    }
+  },
+  {
+    "lv": "atrasties",
+    "en": "to be located, to be situated",
+    "ru": "находиться, располагаться",
+    "conj": {
+      "present": {
+        "1s": "atrodos",
+        "2s": "atrodies",
+        "3s": "atrodas",
+        "1p": "atrodamies",
+        "2p": "atrodaties",
+        "3p": "atrodas"
+      },
+      "past": {
+        "1s": "atrados",
+        "2s": "atradies",
+        "3s": "atradās",
+        "1p": "atradāmies",
+        "2p": "atradāties",
+        "3p": "atradās"
+      },
+      "future": {
+        "1s": "atradīšos",
+        "2s": "atradīsies",
+        "3s": "atradīsies",
+        "1p": "atradīsimies",
+        "2p": "atradīsieties",
+        "3p": "atradīsies"
+      }
+    }
+  },
+  {
+    "lv": "atsūtīt",
+    "en": "to send, to send over (to someone)",
+    "ru": "присылать, прислать",
+    "conj": {
+      "present": {
+        "1s": "atsūtu",
+        "2s": "atsūti",
+        "3s": "atsūta",
+        "1p": "atsūtām",
+        "2p": "atsūtāt",
+        "3p": "atsūta"
+      },
+      "past": {
+        "1s": "atsūtīju",
+        "2s": "atsūtīji",
+        "3s": "atsūtīja",
+        "1p": "atsūtījām",
+        "2p": "atsūtījāt",
+        "3p": "atsūtīja"
+      },
+      "future": {
+        "1s": "atsūtīšu",
+        "2s": "atsūtīsi",
+        "3s": "atsūtīs",
+        "1p": "atsūtīsim",
+        "2p": "atsūtīsiet",
+        "3p": "atsūtīs"
+      }
+    }
+  },
+  {
+    "lv": "atzīmēt",
+    "en": "to mark, to note, to celebrate",
+    "ru": "отмечать, отметить",
+    "conj": {
+      "present": {
+        "1s": "atzīmēju",
+        "2s": "atzīmē",
+        "3s": "atzīmē",
+        "1p": "atzīmējam",
+        "2p": "atzīmējat",
+        "3p": "atzīmē"
+      },
+      "past": {
+        "1s": "atzīmēju",
+        "2s": "atzīmēji",
+        "3s": "atzīmēja",
+        "1p": "atzīmējām",
+        "2p": "atzīmējāt",
+        "3p": "atzīmēja"
+      },
+      "future": {
+        "1s": "atzīmēšu",
+        "2s": "atzīmēsi",
+        "3s": "atzīmēs",
+        "1p": "atzīmēsim",
+        "2p": "atzīmēsiet",
+        "3p": "atzīmēs"
+      }
+    }
+  },
+  {
+    "lv": "augt",
+    "en": "to grow",
+    "ru": "расти",
+    "conj": {
+      "present": {
+        "1s": "augu",
+        "2s": "aug",
+        "3s": "aug",
+        "1p": "augam",
+        "2p": "augat",
+        "3p": "aug"
+      },
+      "past": {
+        "1s": "augu",
+        "2s": "augi",
+        "3s": "auga",
+        "1p": "augām",
+        "2p": "augāt",
+        "3p": "auga"
+      },
+      "future": {
+        "1s": "augšu",
+        "2s": "augsi",
+        "3s": "augs",
+        "1p": "augsim",
+        "2p": "augsiet",
+        "3p": "augs"
+      }
+    }
+  },
+  {
+    "lv": "beigt",
+    "en": "to finish, to end",
+    "ru": "заканчивать, закончить",
+    "conj": {
+      "present": {
+        "1s": "beidzu",
+        "2s": "beidz",
+        "3s": "beidz",
+        "1p": "beidzam",
+        "2p": "beidzat",
+        "3p": "beidz"
+      },
+      "past": {
+        "1s": "beidzu",
+        "2s": "beidzi",
+        "3s": "beidza",
+        "1p": "beidzām",
+        "2p": "beidzāt",
+        "3p": "beidza"
+      },
+      "future": {
+        "1s": "beigšu",
+        "2s": "beigsi",
+        "3s": "beigs",
+        "1p": "beigsim",
+        "2p": "beigsiet",
+        "3p": "beigs"
+      }
+    }
+  },
+  {
+    "lv": "beigties",
+    "en": "to end, to finish (intrans.)",
+    "ru": "заканчиваться, закончиться",
+    "conj": {
+      "present": {
+        "1s": "beidzos",
+        "2s": "beidzies",
+        "3s": "beidzas",
+        "1p": "beidzamies",
+        "2p": "beidzaties",
+        "3p": "beidzas"
+      },
+      "past": {
+        "1s": "beidzos",
+        "2s": "beidzies",
+        "3s": "beidzās",
+        "1p": "beidzāmies",
+        "2p": "beidzāties",
+        "3p": "beidzās"
+      },
+      "future": {
+        "1s": "beigšos",
+        "2s": "beigsies",
+        "3s": "beigsies",
+        "1p": "beigsimies",
+        "2p": "beigsieties",
+        "3p": "beigsies"
+      }
+    }
+  },
+  {
+    "lv": "braukt",
+    "en": "to go (by vehicle), to drive, to ride",
+    "ru": "ехать, ездить; ехать на (транспорте)",
+    "conj": {
+      "present": {
+        "1s": "braucu",
+        "2s": "brauc",
+        "3s": "brauc",
+        "1p": "braucam",
+        "2p": "braucat",
+        "3p": "brauc"
+      },
+      "past": {
+        "1s": "braucu",
+        "2s": "brauci",
+        "3s": "brauca",
+        "1p": "braucām",
+        "2p": "braucāt",
+        "3p": "brauca"
+      },
+      "future": {
+        "1s": "braukšu",
+        "2s": "brauksi",
+        "3s": "brauks",
+        "1p": "brauksim",
+        "2p": "brauksiet",
+        "3p": "brauks"
+      }
+    }
+  },
+  {
+    "lv": "būt",
+    "en": "to be",
+    "ru": "быть",
+    "conj": {
+      "present": {
+        "1s": "esmu",
+        "2s": "esi",
+        "3s": "ir",
+        "1p": "esam",
+        "2p": "esat",
+        "3p": "ir"
+      },
+      "past": {
+        "1s": "biju",
+        "2s": "biji",
+        "3s": "bija",
+        "1p": "bijām",
+        "2p": "bijāt",
+        "3p": "bija"
+      },
+      "future": {
+        "1s": "būšu",
+        "2s": "būsi",
+        "3s": "būs",
+        "1p": "būsim",
+        "2p": "būsiet",
+        "3p": "būs"
+      }
+    }
+  },
+  {
+    "lv": "būvēt",
+    "en": "to build",
+    "ru": "строить",
+    "conj": {
+      "present": {
+        "1s": "būvēju",
+        "2s": "būvē",
+        "3s": "būvē",
+        "1p": "būvējam",
+        "2p": "būvējat",
+        "3p": "būvē"
+      },
+      "past": {
+        "1s": "būvēju",
+        "2s": "būvēji",
+        "3s": "būvēja",
+        "1p": "būvējām",
+        "2p": "būvējāt",
+        "3p": "būvēja"
+      },
+      "future": {
+        "1s": "būvēšu",
+        "2s": "būvēsi",
+        "3s": "būvēs",
+        "1p": "būvēsim",
+        "2p": "būvēsiet",
+        "3p": "būvēs"
+      }
+    }
+  },
+  {
+    "lv": "celt",
+    "en": "to lift, to raise; to build",
+    "ru": "поднимать; строить",
+    "conj": {
+      "present": {
+        "1s": "ceļu",
+        "2s": "cel",
+        "3s": "ceļ",
+        "1p": "ceļam",
+        "2p": "ceļat",
+        "3p": "ceļ"
+      },
+      "past": {
+        "1s": "cēlu",
+        "2s": "cēli",
+        "3s": "cēla",
+        "1p": "cēlām",
+        "2p": "cēlāt",
+        "3p": "cēla"
+      },
+      "future": {
+        "1s": "celšu",
+        "2s": "celsi",
+        "3s": "cels",
+        "1p": "celsim",
+        "2p": "celsiet",
+        "3p": "cels"
+      }
+    }
+  },
+  {
+    "lv": "celties",
+    "en": "to get up, to rise",
+    "ru": "вставать, подниматься",
+    "conj": {
+      "present": {
+        "1s": "ceļos",
+        "2s": "celies",
+        "3s": "ceļas",
+        "1p": "ceļamies",
+        "2p": "ceļaties",
+        "3p": "ceļas"
+      },
+      "past": {
+        "1s": "cēlos",
+        "2s": "cēlies",
+        "3s": "cēlās",
+        "1p": "cēlāmies",
+        "2p": "cēlāties",
+        "3p": "cēlās"
+      },
+      "future": {
+        "1s": "celšos",
+        "2s": "celsies",
+        "3s": "celsies",
+        "1p": "celsimies",
+        "2p": "celsieties",
+        "3p": "celsies"
+      }
+    }
+  },
+  {
+    "lv": "ceļot",
+    "en": "to travel",
+    "ru": "путешествовать",
+    "conj": {
+      "present": {
+        "1s": "ceļoju",
+        "2s": "ceļo",
+        "3s": "ceļo",
+        "1p": "ceļojam",
+        "2p": "ceļojat",
+        "3p": "ceļo"
+      },
+      "past": {
+        "1s": "ceļoju",
+        "2s": "ceļoji",
+        "3s": "ceļoja",
+        "1p": "ceļojām",
+        "2p": "ceļojāt",
+        "3p": "ceļoja"
+      },
+      "future": {
+        "1s": "ceļošu",
+        "2s": "ceļosi",
+        "3s": "ceļos",
+        "1p": "ceļosim",
+        "2p": "ceļosiet",
+        "3p": "ceļos"
+      }
+    }
+  },
+  {
+    "lv": "cerēt",
+    "en": "to hope",
+    "ru": "надеяться",
+    "conj": {
+      "present": {
+        "1s": "ceru",
+        "2s": "ceri",
+        "3s": "cer",
+        "1p": "ceram",
+        "2p": "cerat",
+        "3p": "cer"
+      },
+      "past": {
+        "1s": "cerēju",
+        "2s": "cerēji",
+        "3s": "cerēja",
+        "1p": "cerējām",
+        "2p": "cerējāt",
+        "3p": "cerēja"
+      },
+      "future": {
+        "1s": "cerēšu",
+        "2s": "cerēsi",
+        "3s": "cerēs",
+        "1p": "cerēsim",
+        "2p": "cerēsiet",
+        "3p": "cerēs"
+      }
+    }
+  },
+  {
+    "lv": "ciemoties",
+    "en": "to visit, to be a guest",
+    "ru": "гостить, быть в гостях",
+    "conj": {
+      "present": {
+        "1s": "ciemojos",
+        "2s": "ciemies",
+        "3s": "ciemojas",
+        "1p": "ciemojamies",
+        "2p": "ciemojaties",
+        "3p": "ciemojas"
+      },
+      "past": {
+        "1s": "ciemojos",
+        "2s": "ciemojies",
+        "3s": "ciemojās",
+        "1p": "ciemojāmies",
+        "2p": "ciemojāties",
+        "3p": "ciemojās"
+      },
+      "future": {
+        "1s": "ciemošos",
+        "2s": "ciemosies",
+        "3s": "ciemosies",
+        "1p": "ciemosimies",
+        "2p": "ciemosieties",
+        "3p": "ciemosies"
+      }
+    }
+  },
+  {
+    "lv": "darināt",
+    "en": "to make, to craft",
+    "ru": "изготавливать",
+    "conj": {
+      "present": {
+        "1s": "darinu",
+        "2s": "darini",
+        "3s": "darina",
+        "1p": "darinām",
+        "2p": "darināt",
+        "3p": "darina"
+      },
+      "past": {
+        "1s": "darināju",
+        "2s": "darināji",
+        "3s": "darināja",
+        "1p": "darinājām",
+        "2p": "darinājāt",
+        "3p": "darināja"
+      },
+      "future": {
+        "1s": "darināšu",
+        "2s": "darināsi",
+        "3s": "darinās",
+        "1p": "darināsim",
+        "2p": "darināsiet",
+        "3p": "darinās"
+      }
+    }
+  },
+  {
+    "lv": "darīt",
+    "en": "to do, to make",
+    "ru": "делать",
+    "conj": {
+      "present": {
+        "1s": "daru",
+        "2s": "dari",
+        "3s": "dara",
+        "1p": "darām",
+        "2p": "darāt",
+        "3p": "dara"
+      },
+      "past": {
+        "1s": "darīju",
+        "2s": "darīji",
+        "3s": "darīja",
+        "1p": "darījām",
+        "2p": "darījāt",
+        "3p": "darīja"
+      },
+      "future": {
+        "1s": "darīšu",
+        "2s": "darīsi",
+        "3s": "darīs",
+        "1p": "darīsim",
+        "2p": "darīsiet",
+        "3p": "darīs"
+      }
+    }
+  },
+  {
+    "lv": "dāvināt",
+    "en": "to give (as a gift)",
+    "ru": "дарить",
+    "conj": {
+      "present": {
+        "1s": "dāvinu",
+        "2s": "dāvini",
+        "3s": "dāvina",
+        "1p": "dāvinām",
+        "2p": "dāvināt",
+        "3p": "dāvina"
+      },
+      "past": {
+        "1s": "dāvināju",
+        "2s": "dāvināji",
+        "3s": "dāvināja",
+        "1p": "dāvinājām",
+        "2p": "dāvinājāt",
+        "3p": "dāvināja"
+      },
+      "future": {
+        "1s": "dāvināšu",
+        "2s": "dāvināsi",
+        "3s": "dāvinās",
+        "1p": "dāvināsim",
+        "2p": "dāvināsiet",
+        "3p": "dāvinās"
+      }
+    }
+  },
+  {
+    "lv": "dejot",
+    "en": "to dance",
+    "ru": "танцевать",
+    "conj": {
+      "present": {
+        "1s": "dejoju",
+        "2s": "dejo",
+        "3s": "dejo",
+        "1p": "dejojam",
+        "2p": "dejojat",
+        "3p": "dejo"
+      },
+      "past": {
+        "1s": "dejoju",
+        "2s": "dejoji",
+        "3s": "dejoja",
+        "1p": "dejojām",
+        "2p": "dejojāt",
+        "3p": "dejoja"
+      },
+      "future": {
+        "1s": "dejošu",
+        "2s": "dejosi",
+        "3s": "dejos",
+        "1p": "dejosim",
+        "2p": "dejosiet",
+        "3p": "dejos"
+      }
+    }
+  },
+  {
+    "lv": "dibināt",
+    "en": "to found, to establish",
+    "ru": "основывать, учреждать",
+    "conj": {
+      "present": {
+        "1s": "dibinu",
+        "2s": "dibini",
+        "3s": "dibina",
+        "1p": "dibinām",
+        "2p": "dibināt",
+        "3p": "dibina"
+      },
+      "past": {
+        "1s": "dibināju",
+        "2s": "dibināji",
+        "3s": "dibināja",
+        "1p": "dibinājām",
+        "2p": "dibinājāt",
+        "3p": "dibināja"
+      },
+      "future": {
+        "1s": "dibināšu",
+        "2s": "dibināsi",
+        "3s": "dibinās",
+        "1p": "dibināsim",
+        "2p": "dibināsiet",
+        "3p": "dibinās"
+      }
+    }
+  },
+  {
+    "lv": "domāt",
+    "en": "to think",
+    "ru": "думать",
+    "conj": {
+      "present": {
+        "1s": "domāju",
+        "2s": "domā",
+        "3s": "domā",
+        "1p": "domājam",
+        "2p": "domājat",
+        "3p": "domā"
+      },
+      "past": {
+        "1s": "domāju",
+        "2s": "domāji",
+        "3s": "domāja",
+        "1p": "domājām",
+        "2p": "domājāt",
+        "3p": "domāja"
+      },
+      "future": {
+        "1s": "domāšu",
+        "2s": "domāsi",
+        "3s": "domās",
+        "1p": "domāsim",
+        "2p": "domāsiet",
+        "3p": "domās"
+      }
+    }
+  },
+  {
+    "lv": "dot",
+    "en": "to give",
+    "ru": "давать",
+    "conj": {
+      "present": {
+        "1s": "dodu",
+        "2s": "dod",
+        "3s": "dod",
+        "1p": "dodam",
+        "2p": "dodat",
+        "3p": "dod"
+      },
+      "past": {
+        "1s": "devu",
+        "2s": "devi",
+        "3s": "deva",
+        "1p": "devām",
+        "2p": "devāt",
+        "3p": "deva"
+      },
+      "future": {
+        "1s": "došu",
+        "2s": "dosi",
+        "3s": "dos",
+        "1p": "dosim",
+        "2p": "dosiet",
+        "3p": "dos"
+      }
+    }
+  },
+  {
+    "lv": "doties",
+    "en": "to go, to set off",
+    "ru": "отправляться",
+    "conj": {
+      "present": {
+        "1s": "dodos",
+        "2s": "dodies",
+        "3s": "dodas",
+        "1p": "dodamies",
+        "2p": "dodaties",
+        "3p": "dodas"
+      },
+      "past": {
+        "1s": "devos",
+        "2s": "devies",
+        "3s": "devās",
+        "1p": "devāmies",
+        "2p": "devāties",
+        "3p": "devās"
+      },
+      "future": {
+        "1s": "došos",
+        "2s": "dosies",
+        "3s": "dosies",
+        "1p": "dosimies",
+        "2p": "dosieties",
+        "3p": "dosies"
+      }
+    }
+  },
+  {
+    "lv": "draudzēties",
+    "en": "to be friends, to date",
+    "ru": "дружить, встречаться",
+    "conj": {
+      "present": {
+        "1s": "draudzējos",
+        "2s": "draudzējies",
+        "3s": "draudzējas",
+        "1p": "draudzējamies",
+        "2p": "draudzējaties",
+        "3p": "draudzējas"
+      },
+      "past": {
+        "1s": "draudzējos",
+        "2s": "draudzējies",
+        "3s": "draudzējās",
+        "1p": "draudzējāmies",
+        "2p": "draudzējāties",
+        "3p": "draudzējās"
+      },
+      "future": {
+        "1s": "draudzēšos",
+        "2s": "draudzēsies",
+        "3s": "draudzēsies",
+        "1p": "draudzēsimies",
+        "2p": "draudzēsieties",
+        "3p": "draudzēsies"
+      }
+    }
+  },
+  {
+    "lv": "drīkstēt",
+    "en": "to be allowed (to), may",
+    "ru": "иметь право, мочь (когда разрешено)",
+    "conj": {
+      "present": {
+        "1s": "drīkstu",
+        "2s": "drīksti",
+        "3s": "drīkst",
+        "1p": "drīkstam",
+        "2p": "drīkstat",
+        "3p": "drīkst"
+      },
+      "past": {
+        "1s": "drīkstēju",
+        "2s": "drīkstēji",
+        "3s": "drīkstēja",
+        "1p": "drīkstējām",
+        "2p": "drīkstējāt",
+        "3p": "drīkstēja"
+      },
+      "future": {
+        "1s": "drīkstēšu",
+        "2s": "drīkstēsi",
+        "3s": "drīkstēs",
+        "1p": "drīkstēsim",
+        "2p": "drīkstēsiet",
+        "3p": "drīkstēs"
+      }
+    }
+  },
+  {
+    "lv": "dzert",
+    "en": "to drink",
+    "ru": "пить",
+    "conj": {
+      "present": {
+        "1s": "dzeru",
+        "2s": "dzer",
+        "3s": "dzer",
+        "1p": "dzeram",
+        "2p": "dzerat",
+        "3p": "dzer"
+      },
+      "past": {
+        "1s": "dzēru",
+        "2s": "dzēri",
+        "3s": "dzēra",
+        "1p": "dzērām",
+        "2p": "dzērāt",
+        "3p": "dzēra"
+      },
+      "future": {
+        "1s": "dzeršu",
+        "2s": "dzersi",
+        "3s": "dzers",
+        "1p": "dzersim",
+        "2p": "dzersiet",
+        "3p": "dzers"
+      }
+    }
+  },
+  {
+    "lv": "dziedāt",
+    "en": "to sing",
+    "ru": "петь",
+    "conj": {
+      "present": {
+        "1s": "dziedu",
+        "2s": "dziedi",
+        "3s": "dzied",
+        "1p": "dziedam",
+        "2p": "dziedat",
+        "3p": "dzied"
+      },
+      "past": {
+        "1s": "dziedāju",
+        "2s": "dziedāji",
+        "3s": "dziedāja",
+        "1p": "dziedājām",
+        "2p": "dziedājāt",
+        "3p": "dziedāja"
+      },
+      "future": {
+        "1s": "dziedāšu",
+        "2s": "dziedāsi",
+        "3s": "dziedās",
+        "1p": "dziedāsim",
+        "2p": "dziedāsiet",
+        "3p": "dziedās"
+      }
+    }
+  },
+  {
+    "lv": "dzirdēt",
+    "en": "to hear",
+    "ru": "слышать",
+    "conj": {
+      "present": {
+        "1s": "dzirdu",
+        "2s": "dzirdi",
+        "3s": "dzird",
+        "1p": "dzirdam",
+        "2p": "dzirdat",
+        "3p": "dzird"
+      },
+      "past": {
+        "1s": "dzirdēju",
+        "2s": "dzirdēji",
+        "3s": "dzirdēja",
+        "1p": "dzirdējām",
+        "2p": "dzirdējāt",
+        "3p": "dzirdēja"
+      },
+      "future": {
+        "1s": "dzirdēšu",
+        "2s": "dzirdēsi",
+        "3s": "dzirdēs",
+        "1p": "dzirdēsim",
+        "2p": "dzirdēsiet",
+        "3p": "dzirdēs"
+      }
+    }
+  },
+  {
+    "lv": "dzīvot",
+    "en": "to live",
+    "ru": "жить",
+    "conj": {
+      "present": {
+        "1s": "dzīvoju",
+        "2s": "dzīvo",
+        "3s": "dzīvo",
+        "1p": "dzīvojam",
+        "2p": "dzīvojat",
+        "3p": "dzīvo"
+      },
+      "past": {
+        "1s": "dzīvoju",
+        "2s": "dzīvoji",
+        "3s": "dzīvoja",
+        "1p": "dzīvojām",
+        "2p": "dzīvojāt",
+        "3p": "dzīvoja"
+      },
+      "future": {
+        "1s": "dzīvošu",
+        "2s": "dzīvosi",
+        "3s": "dzīvos",
+        "1p": "dzīvosim",
+        "2p": "dzīvosiet",
+        "3p": "dzīvos"
+      }
+    }
+  },
+  {
+    "lv": "ēst",
+    "en": "to eat",
+    "ru": "есть",
+    "conj": {
+      "present": {
+        "1s": "ēdu",
+        "2s": "ēd",
+        "3s": "ēd",
+        "1p": "ēdam",
+        "2p": "ēdat",
+        "3p": "ēd"
+      },
+      "past": {
+        "1s": "ēdu",
+        "2s": "ēdi",
+        "3s": "ēda",
+        "1p": "ēdām",
+        "2p": "ēdāt",
+        "3p": "ēda"
+      },
+      "future": {
+        "1s": "ēdīšu",
+        "2s": "ēdīsi",
+        "3s": "ēdīs",
+        "1p": "ēdīsim",
+        "2p": "ēdīsiet",
+        "3p": "ēdīs"
+      }
+    }
+  },
+  {
+    "lv": "flizēt",
+    "en": "to tile, to lay tiles",
+    "ru": "облицовывать плиткой",
+    "conj": {
+      "present": {
+        "1s": "flizēju",
+        "2s": "flizē",
+        "3s": "flizē",
+        "1p": "flizējam",
+        "2p": "flizējat",
+        "3p": "flizē"
+      },
+      "past": {
+        "1s": "flizēju",
+        "2s": "flizēji",
+        "3s": "flizēja",
+        "1p": "flizējām",
+        "2p": "flizējāt",
+        "3p": "flizēja"
+      },
+      "future": {
+        "1s": "flizēšu",
+        "2s": "flizēsi",
+        "3s": "flizēs",
+        "1p": "flizēsim",
+        "2p": "flizēsiet",
+        "3p": "flizēs"
+      }
+    }
+  },
+  {
+    "lv": "fotografēt",
+    "en": "to photograph, to take photos",
+    "ru": "фотографировать",
+    "conj": {
+      "present": {
+        "1s": "fotografēju",
+        "2s": "fotografē",
+        "3s": "fotografē",
+        "1p": "fotografējam",
+        "2p": "fotografējat",
+        "3p": "fotografē"
+      },
+      "past": {
+        "1s": "fotografēju",
+        "2s": "fotografēji",
+        "3s": "fotografēja",
+        "1p": "fotografējām",
+        "2p": "fotografējāt",
+        "3p": "fotografēja"
+      },
+      "future": {
+        "1s": "fotografēšu",
+        "2s": "fotografēsi",
+        "3s": "fotografēs",
+        "1p": "fotografēsim",
+        "2p": "fotografēsiet",
+        "3p": "fotografēs"
+      }
+    }
+  },
+  {
+    "lv": "gaidīt",
+    "en": "to wait",
+    "ru": "ждать",
+    "conj": {
+      "present": {
+        "1s": "gaidu",
+        "2s": "gaidi",
+        "3s": "gaida",
+        "1p": "gaidām",
+        "2p": "gaidāt",
+        "3p": "gaida"
+      },
+      "past": {
+        "1s": "gaidīju",
+        "2s": "gaidīji",
+        "3s": "gaidīja",
+        "1p": "gaidījām",
+        "2p": "gaidījāt",
+        "3p": "gaidīja"
+      },
+      "future": {
+        "1s": "gaidīšu",
+        "2s": "gaidīsi",
+        "3s": "gaidīs",
+        "1p": "gaidīsim",
+        "2p": "gaidīsiet",
+        "3p": "gaidīs"
+      }
+    }
+  },
+  {
+    "lv": "garšot",
+    "en": "to taste (have a taste), to be tasty",
+    "ru": "нравиться (на вкус), быть вкусным",
+    "conj": {
+      "present": {
+        "1s": "garšoju",
+        "2s": "garšo",
+        "3s": "garšo",
+        "1p": "garšojam",
+        "2p": "garšojat",
+        "3p": "garšo"
+      },
+      "past": {
+        "1s": "garšoju",
+        "2s": "garšoji",
+        "3s": "garšoja",
+        "1p": "garšojām",
+        "2p": "garšojāt",
+        "3p": "garšoja"
+      },
+      "future": {
+        "1s": "garšošu",
+        "2s": "garšosi",
+        "3s": "garšos",
+        "1p": "garšosim",
+        "2p": "garšosiet",
+        "3p": "garšos"
+      }
+    }
+  },
+  {
+    "lv": "gatavot",
+    "en": "to prepare, to cook",
+    "ru": "готовить",
+    "conj": {
+      "present": {
+        "1s": "gatavoju",
+        "2s": "gatavo",
+        "3s": "gatavo",
+        "1p": "gatavojam",
+        "2p": "gatavojat",
+        "3p": "gatavo"
+      },
+      "past": {
+        "1s": "gatavoju",
+        "2s": "gatavoji",
+        "3s": "gatavoja",
+        "1p": "gatavojām",
+        "2p": "gatavojāt",
+        "3p": "gatavoja"
+      },
+      "future": {
+        "1s": "gatavošu",
+        "2s": "gatavosi",
+        "3s": "gatavos",
+        "1p": "gatavosim",
+        "2p": "gatavosiet",
+        "3p": "gatavos"
+      }
+    }
+  },
+  {
+    "lv": "gatavoties",
+    "en": "to prepare oneself, to get ready",
+    "ru": "готовиться",
+    "conj": {
+      "present": {
+        "1s": "gatavojos",
+        "2s": "gatavojies",
+        "3s": "gatavojas",
+        "1p": "gatavojamies",
+        "2p": "gatavojaties",
+        "3p": "gatavojas"
+      },
+      "past": {
+        "1s": "gatavojos",
+        "2s": "gatavojies",
+        "3s": "gatavojās",
+        "1p": "gatavojāmies",
+        "2p": "gatavojāties",
+        "3p": "gatavojās"
+      },
+      "future": {
+        "1s": "gatavošos",
+        "2s": "gatavosies",
+        "3s": "gatavosies",
+        "1p": "gatavosimies",
+        "2p": "gatavosieties",
+        "3p": "gatavosies"
+      }
+    }
+  },
+  {
+    "lv": "gleznot",
+    "en": "to paint (art)",
+    "ru": "рисовать красками, писать картины",
+    "conj": {
+      "present": {
+        "1s": "gleznoju",
+        "2s": "glezno",
+        "3s": "glezno",
+        "1p": "gleznojam",
+        "2p": "gleznojat",
+        "3p": "glezno"
+      },
+      "past": {
+        "1s": "gleznoju",
+        "2s": "gleznoji",
+        "3s": "gleznoja",
+        "1p": "gleznojām",
+        "2p": "gleznojāt",
+        "3p": "gleznoja"
+      },
+      "future": {
+        "1s": "gleznošu",
+        "2s": "gleznosi",
+        "3s": "gleznos",
+        "1p": "gleznosim",
+        "2p": "gleznosiet",
+        "3p": "gleznos"
+      }
+    }
+  },
+  {
+    "lv": "gribēt",
+    "en": "to want",
+    "ru": "хотеть",
+    "conj": {
+      "present": {
+        "1s": "gribu",
+        "2s": "gribi",
+        "3s": "grib",
+        "1p": "gribam",
+        "2p": "gribat",
+        "3p": "grib"
+      },
+      "past": {
+        "1s": "gribēju",
+        "2s": "gribēji",
+        "3s": "gribēja",
+        "1p": "gribējām",
+        "2p": "gribējāt",
+        "3p": "gribēja"
+      },
+      "future": {
+        "1s": "gribēšu",
+        "2s": "gribēsi",
+        "3s": "gribēs",
+        "1p": "gribēsim",
+        "2p": "gribēsiet",
+        "3p": "gribēs"
+      }
+    }
+  },
+  {
+    "lv": "gulēt",
+    "en": "to sleep",
+    "ru": "спать",
+    "conj": {
+      "present": {
+        "1s": "guļu",
+        "2s": "guli",
+        "3s": "guļ",
+        "1p": "guļam",
+        "2p": "guļat",
+        "3p": "guļ"
+      },
+      "past": {
+        "1s": "gulēju",
+        "2s": "gulēji",
+        "3s": "gulēja",
+        "1p": "gulējām",
+        "2p": "gulējāt",
+        "3p": "gulēja"
+      },
+      "future": {
+        "1s": "gulēšu",
+        "2s": "gulēsi",
+        "3s": "gulēs",
+        "1p": "gulēsim",
+        "2p": "gulēsiet",
+        "3p": "gulēs"
+      }
+    }
+  },
+  {
+    "lv": "gūt",
+    "en": "to gain, to obtain; to sustain (an injury)",
+    "ru": "получать, приобретать; получить (травму)",
+    "conj": {
+      "present": {
+        "1s": "gūstu",
+        "2s": "gūsti",
+        "3s": "gūst",
+        "1p": "gūstam",
+        "2p": "gūstat",
+        "3p": "gūst"
+      },
+      "past": {
+        "1s": "guvu",
+        "2s": "guvi",
+        "3s": "guva",
+        "1p": "guvām",
+        "2p": "guvāt",
+        "3p": "guva"
+      },
+      "future": {
+        "1s": "gūšu",
+        "2s": "gūsi",
+        "3s": "gūs",
+        "1p": "gūsim",
+        "2p": "gūsiet",
+        "3p": "gūs"
+      }
+    }
+  },
+  {
+    "lv": "ģērbties",
+    "en": "to get dressed",
+    "ru": "одеваться",
+    "conj": {
+      "present": {
+        "1s": "ģērbjos",
+        "2s": "ģērbies",
+        "3s": "ģērbjas",
+        "1p": "ģērbjamies",
+        "2p": "ģērbjaties",
+        "3p": "ģērbjas"
+      },
+      "past": {
+        "1s": "ģērbos",
+        "2s": "ģērbies",
+        "3s": "ģērbās",
+        "1p": "ģērbāmies",
+        "2p": "ģērbāties",
+        "3p": "ģērbās"
+      },
+      "future": {
+        "1s": "ģērbšos",
+        "2s": "ģērbsies",
+        "3s": "ģērbsies",
+        "1p": "ģērbsimies",
+        "2p": "ģērbsieties",
+        "3p": "ģērbsies"
+      }
+    }
+  },
+  {
+    "lv": "iegūt",
+    "en": "to obtain, to acquire, to get",
+    "ru": "получать, приобретать",
+    "conj": {
+      "present": {
+        "1s": "iegūstu",
+        "2s": "iegūsti",
+        "3s": "iegūst",
+        "1p": "iegūstam",
+        "2p": "iegūstat",
+        "3p": "iegūst"
+      },
+      "past": {
+        "1s": "ieguvu",
+        "2s": "ieguvi",
+        "3s": "ieguva",
+        "1p": "ieguvām",
+        "2p": "ieguvāt",
+        "3p": "ieguva"
+      },
+      "future": {
+        "1s": "iegūšu",
+        "2s": "iegūsi",
+        "3s": "iegūs",
+        "1p": "iegūsim",
+        "2p": "iegūsiet",
+        "3p": "iegūs"
+      }
+    }
+  },
+  {
+    "lv": "ielidot",
+    "en": "to fly in, to arrive (by plane)",
+    "ru": "прилетать, прилететь",
+    "conj": {
+      "present": {
+        "1s": "ielidoju",
+        "2s": "ielido",
+        "3s": "ielido",
+        "1p": "ielidojam",
+        "2p": "ielidojat",
+        "3p": "ielido"
+      },
+      "past": {
+        "1s": "ielidoju",
+        "2s": "ielidoji",
+        "3s": "ielidoja",
+        "1p": "ielidojām",
+        "2p": "ielidojāt",
+        "3p": "ielidoja"
+      },
+      "future": {
+        "1s": "ielidošu",
+        "2s": "ielidosi",
+        "3s": "ielidos",
+        "1p": "ielidosim",
+        "2p": "ielidosiet",
+        "3p": "ielidos"
+      }
+    }
+  },
+  {
+    "lv": "ielūgt",
+    "en": "to invite",
+    "ru": "приглашать, пригласить",
+    "conj": {
+      "present": {
+        "1s": "ielūdzu",
+        "2s": "ielūdz",
+        "3s": "ielūdz",
+        "1p": "ielūdzam",
+        "2p": "ielūdzat",
+        "3p": "ielūdz"
+      },
+      "past": {
+        "1s": "ielūdzu",
+        "2s": "ielūdzi",
+        "3s": "ielūdza",
+        "1p": "ielūdzām",
+        "2p": "ielūdzāt",
+        "3p": "ielūdza"
+      },
+      "future": {
+        "1s": "ielūgšu",
+        "2s": "ielūgsi",
+        "3s": "ielūgs",
+        "1p": "ielūgsim",
+        "2p": "ielūgsiet",
+        "3p": "ielūgs"
+      }
+    }
+  },
+  {
+    "lv": "iepazīstināt",
+    "en": "to introduce (someone)",
+    "ru": "представлять, познакомить",
+    "conj": {
+      "present": {
+        "1s": "iepazīstinu",
+        "2s": "iepazīstini",
+        "3s": "iepazīstina",
+        "1p": "iepazīstinām",
+        "2p": "iepazīstināt",
+        "3p": "iepazīstina"
+      },
+      "past": {
+        "1s": "iepazīstināju",
+        "2s": "iepazīstināji",
+        "3s": "iepazīstināja",
+        "1p": "iepazīstinājām",
+        "2p": "iepazīstinājāt",
+        "3p": "iepazīstināja"
+      },
+      "future": {
+        "1s": "iepazīstināšu",
+        "2s": "iepazīstināsi",
+        "3s": "iepazīstinās",
+        "1p": "iepazīstināsim",
+        "2p": "iepazīstināsiet",
+        "3p": "iepazīstinās"
+      }
+    }
+  },
+  {
+    "lv": "iepirkties",
+    "en": "to shop, to go shopping",
+    "ru": "делать покупки",
+    "conj": {
+      "present": {
+        "1s": "iepērkos",
+        "2s": "iepērcies",
+        "3s": "iepērkas",
+        "1p": "iepērkamies",
+        "2p": "iepērkaties",
+        "3p": "iepērkas"
+      },
+      "past": {
+        "1s": "iepirkos",
+        "2s": "iepirkies",
+        "3s": "iepirkās",
+        "1p": "iepirkāmies",
+        "2p": "iepirkāties",
+        "3p": "iepirkās"
+      },
+      "future": {
+        "1s": "iepirikšos",
+        "2s": "iepirksies",
+        "3s": "iepirksies",
+        "1p": "iepirksimies",
+        "2p": "iepirksieties",
+        "3p": "iepirksies"
+      }
+    }
+  },
+  {
+    "lv": "iesaiņot",
+    "en": "to wrap, to package",
+    "ru": "упаковывать",
+    "conj": {
+      "present": {
+        "1s": "iesaiņoju",
+        "2s": "iesaiņo",
+        "3s": "iesaiņo",
+        "1p": "iesaiņojam",
+        "2p": "iesaiņojat",
+        "3p": "iesaiņo"
+      },
+      "past": {
+        "1s": "iesaiņoju",
+        "2s": "iesaiņoji",
+        "3s": "iesaiņoja",
+        "1p": "iesaiņojām",
+        "2p": "iesaiņojāt",
+        "3p": "iesaiņoja"
+      },
+      "future": {
+        "1s": "iesaiņošu",
+        "2s": "iesaiņosi",
+        "3s": "iesaiņos",
+        "1p": "iesaiņosim",
+        "2p": "iesaiņosiet",
+        "3p": "iesaiņos"
+      }
+    }
+  },
+  {
+    "lv": "ieslēgt",
+    "en": "to turn on, to switch on",
+    "ru": "включать, включить",
+    "conj": {
+      "present": {
+        "1s": "ieslēdzu",
+        "2s": "ieslēdz",
+        "3s": "ieslēdz",
+        "1p": "ieslēdzam",
+        "2p": "ieslēdzat",
+        "3p": "ieslēdz"
+      },
+      "past": {
+        "1s": "ieslēdzu",
+        "2s": "ieslēdzi",
+        "3s": "ieslēdza",
+        "1p": "ieslēdzām",
+        "2p": "ieslēdzāt",
+        "3p": "ieslēdza"
+      },
+      "future": {
+        "1s": "ieslēgšu",
+        "2s": "ieslēgsi",
+        "3s": "ieslēgs",
+        "1p": "ieslēgsim",
+        "2p": "ieslēgsiet",
+        "3p": "ieslēgs"
+      }
+    }
+  },
+  {
+    "lv": "iesniegt",
+    "en": "to submit, to file (documents)",
+    "ru": "подавать, подать",
+    "conj": {
+      "present": {
+        "1s": "iesniedzu",
+        "2s": "iesniedz",
+        "3s": "iesniedz",
+        "1p": "iesniedzam",
+        "2p": "iesniedzat",
+        "3p": "iesniedz"
+      },
+      "past": {
+        "1s": "iesniedzu",
+        "2s": "iesniedzi",
+        "3s": "iesniedza",
+        "1p": "iesniedzām",
+        "2p": "iesniedzāt",
+        "3p": "iesniedza"
+      },
+      "future": {
+        "1s": "iesniegšu",
+        "2s": "iesniegsi",
+        "3s": "iesniegs",
+        "1p": "iesniegsim",
+        "2p": "iesniegsiet",
+        "3p": "iesniegs"
+      }
+    }
+  },
+  {
+    "lv": "iet",
+    "en": "to go (on foot), to walk",
+    "ru": "идти, ходить",
+    "conj": {
+      "present": {
+        "1s": "eju",
+        "2s": "ej",
+        "3s": "iet",
+        "1p": "ejam",
+        "2p": "ejat",
+        "3p": "iet"
+      },
+      "past": {
+        "1s": "gāju",
+        "2s": "gāji",
+        "3s": "gāja",
+        "1p": "gājām",
+        "2p": "gājāt",
+        "3p": "gāja"
+      },
+      "future": {
+        "1s": "iešu",
+        "2s": "iesi",
+        "3s": "ies",
+        "1p": "iesim",
+        "2p": "iesiet",
+        "3p": "ies"
+      }
+    }
+  },
+  {
+    "lv": "ieveidot",
+    "en": "to style, to shape (e.g., hair)",
+    "ru": "уложить (волосы), формировать",
+    "conj": {
+      "present": {
+        "1s": "ieveidoju",
+        "2s": "ieveido",
+        "3s": "ieveido",
+        "1p": "ieveidojam",
+        "2p": "ieveidojat",
+        "3p": "ieveido"
+      },
+      "past": {
+        "1s": "ieveidoju",
+        "2s": "ieveidoji",
+        "3s": "ieveidoja",
+        "1p": "ieveidojām",
+        "2p": "ieveidojāt",
+        "3p": "ieveidoja"
+      },
+      "future": {
+        "1s": "ieveidošu",
+        "2s": "ieveidosi",
+        "3s": "ieveidos",
+        "1p": "ieveidosim",
+        "2p": "ieveidosiet",
+        "3p": "ieveidos"
+      }
+    }
+  },
+  {
+    "lv": "interesēt",
+    "en": "to interest",
+    "ru": "интересовать",
+    "conj": {
+      "present": {
+        "1s": "interesēju",
+        "2s": "interesē",
+        "3s": "interesē",
+        "1p": "interesējam",
+        "2p": "interesējat",
+        "3p": "interesē"
+      },
+      "past": {
+        "1s": "interesēju",
+        "2s": "interesēji",
+        "3s": "interesēja",
+        "1p": "interesējām",
+        "2p": "interesējāt",
+        "3p": "interesēja"
+      },
+      "future": {
+        "1s": "interesēšu",
+        "2s": "interesēsi",
+        "3s": "interesēs",
+        "1p": "interesēsim",
+        "2p": "interesēsiet",
+        "3p": "interesēs"
+      }
+    }
+  },
+  {
+    "lv": "interesēties",
+    "en": "to be interested (in), to inquire",
+    "ru": "интересоваться",
+    "conj": {
+      "present": {
+        "1s": "interesējos",
+        "2s": "interesējies",
+        "3s": "interesējas",
+        "1p": "interesējamies",
+        "2p": "interesējaties",
+        "3p": "interesējas"
+      },
+      "past": {
+        "1s": "interesējos",
+        "2s": "interesējies",
+        "3s": "interesējās",
+        "1p": "interesējāmies",
+        "2p": "interesējāties",
+        "3p": "interesējās"
+      },
+      "future": {
+        "1s": "interesēšos",
+        "2s": "interesēsies",
+        "3s": "interesēsies",
+        "1p": "interesēsimies",
+        "2p": "interesēsieties",
+        "3p": "interesēsies"
+      }
+    }
+  },
+  {
+    "lv": "īrēt",
+    "en": "to rent, to hire",
+    "ru": "арендовать, снимать",
+    "conj": {
+      "present": {
+        "1s": "īrēju",
+        "2s": "īrē",
+        "3s": "īrē",
+        "1p": "īrējam",
+        "2p": "īrējat",
+        "3p": "īrē"
+      },
+      "past": {
+        "1s": "īrēju",
+        "2s": "īrēji",
+        "3s": "īrēja",
+        "1p": "īrējām",
+        "2p": "īrējāt",
+        "3p": "īrēja"
+      },
+      "future": {
+        "1s": "īrēšu",
+        "2s": "īrēsi",
+        "3s": "īrēs",
+        "1p": "īrēsim",
+        "2p": "īrēsiet",
+        "3p": "īrēs"
+      }
+    }
+  },
+  {
+    "lv": "izdarīt",
+    "en": "to do, to carry out, to accomplish",
+    "ru": "сделать, выполнить",
+    "conj": {
+      "present": {
+        "1s": "izdaru",
+        "2s": "izdari",
+        "3s": "izdara",
+        "1p": "izdarām",
+        "2p": "izdarāt",
+        "3p": "izdara"
+      },
+      "past": {
+        "1s": "izdarīju",
+        "2s": "izdarīji",
+        "3s": "izdarīja",
+        "1p": "izdarījām",
+        "2p": "izdarījāt",
+        "3p": "izdarīja"
+      },
+      "future": {
+        "1s": "izdarīšu",
+        "2s": "izdarīsi",
+        "3s": "izdarīs",
+        "1p": "izdarīsim",
+        "2p": "izdarīsiet",
+        "3p": "izdarīs"
+      }
+    }
+  },
+  {
+    "lv": "izgatavot",
+    "en": "to manufacture, to produce, to make",
+    "ru": "изготавливать, производить",
+    "conj": {
+      "present": {
+        "1s": "izgatavoju",
+        "2s": "izgatavo",
+        "3s": "izgatavo",
+        "1p": "izgatavojam",
+        "2p": "izgatavojat",
+        "3p": "izgatavo"
+      },
+      "past": {
+        "1s": "izgatavoju",
+        "2s": "izgatavoji",
+        "3s": "izgatavoja",
+        "1p": "izgatavojām",
+        "2p": "izgatavojāt",
+        "3p": "izgatavoja"
+      },
+      "future": {
+        "1s": "izgatavošu",
+        "2s": "izgatavosi",
+        "3s": "izgatavos",
+        "1p": "izgatavosim",
+        "2p": "izgatavosiet",
+        "3p": "izgatavos"
+      }
+    }
+  },
+  {
+    "lv": "iziet",
+    "en": "to go out, to exit; to pass (an exam)",
+    "ru": "выходить, выйти; пройти (экзамен)",
+    "conj": {
+      "present": {
+        "1s": "izeju",
+        "2s": "izej",
+        "3s": "iziet",
+        "1p": "izejam",
+        "2p": "izejat",
+        "3p": "iziet"
+      },
+      "past": {
+        "1s": "izgāju",
+        "2s": "izgāji",
+        "3s": "izgāja",
+        "1p": "izgājām",
+        "2p": "izgājāt",
+        "3p": "izgāja"
+      },
+      "future": {
+        "1s": "iziešu",
+        "2s": "iziesi",
+        "3s": "izies",
+        "1p": "iziesim",
+        "2p": "iziesiet",
+        "3p": "izies"
+      }
+    }
+  },
+  {
+    "lv": "izklaidēties",
+    "en": "to have fun, to entertain oneself",
+    "ru": "развлекаться",
+    "conj": {
+      "present": {
+        "1s": "izklaidējos",
+        "2s": "izklaidējies",
+        "3s": "izklaidējas",
+        "1p": "izklaidējamies",
+        "2p": "izklaidējaties",
+        "3p": "izklaidējas"
+      },
+      "past": {
+        "1s": "izklaidējos",
+        "2s": "izklaidējies",
+        "3s": "izklaidējās",
+        "1p": "izklaidējāmies",
+        "2p": "izklaidējāties",
+        "3p": "izklaidējās"
+      },
+      "future": {
+        "1s": "izklaidēšos",
+        "2s": "izklaidēsies",
+        "3s": "izklaidēsies",
+        "1p": "izklaidēsimies",
+        "2p": "izklaidēsieties",
+        "3p": "izklaidēsies"
+      }
+    }
+  },
+  {
+    "lv": "izķemmēt",
+    "en": "to comb out (thoroughly)",
+    "ru": "вычесывать",
+    "conj": {
+      "present": {
+        "1s": "izķemmēju",
+        "2s": "izķemmē",
+        "3s": "izķemmē",
+        "1p": "izķemmējam",
+        "2p": "izķemmējat",
+        "3p": "izķemmē"
+      },
+      "past": {
+        "1s": "izķemmēju",
+        "2s": "izķemmēji",
+        "3s": "izķemmēja",
+        "1p": "izķemmējām",
+        "2p": "izķemmējāt",
+        "3p": "izķemmēja"
+      },
+      "future": {
+        "1s": "izķemmēšu",
+        "2s": "izķemmēsi",
+        "3s": "izķemmēs",
+        "1p": "izķemmēsim",
+        "2p": "izķemmēsiet",
+        "3p": "izķemmēs"
+      }
+    }
+  },
+  {
+    "lv": "izlasīt",
+    "en": "to read through",
+    "ru": "прочитать",
+    "conj": {
+      "present": {
+        "1s": "izlasu",
+        "2s": "izlasi",
+        "3s": "izlasa",
+        "1p": "izlasām",
+        "2p": "izlasāt",
+        "3p": "izlasa"
+      },
+      "past": {
+        "1s": "izlasīju",
+        "2s": "izlasīji",
+        "3s": "izlasīja",
+        "1p": "izlasījām",
+        "2p": "izlasījāt",
+        "3p": "izlasīja"
+      },
+      "future": {
+        "1s": "izlasīšu",
+        "2s": "izlasīsi",
+        "3s": "izlasīs",
+        "1p": "izlasīsim",
+        "2p": "izlasīsiet",
+        "3p": "izlasīs"
+      }
+    }
+  },
+  {
+    "lv": "izlidot",
+    "en": "to fly out",
+    "ru": "вылетать, вылететь",
+    "conj": {
+      "present": {
+        "1s": "izlidoju",
+        "2s": "izlido",
+        "3s": "izlido",
+        "1p": "izlidojam",
+        "2p": "izlidojat",
+        "3p": "izlido"
+      },
+      "past": {
+        "1s": "izlidoju",
+        "2s": "izlidoji",
+        "3s": "izlidoja",
+        "1p": "izlidojām",
+        "2p": "izlidojāt",
+        "3p": "izlidoja"
+      },
+      "future": {
+        "1s": "izlidošu",
+        "2s": "izlidosi",
+        "3s": "izlidos",
+        "1p": "izlidosim",
+        "2p": "izlidosiet",
+        "3p": "izlidos"
+      }
+    }
+  },
+  {
+    "lv": "izskatīties",
+    "en": "to look, to appear, to seem",
+    "ru": "выглядеть, казаться",
+    "conj": {
+      "present": {
+        "1s": "izskatos",
+        "2s": "izskaties",
+        "3s": "izskatās",
+        "1p": "izskatāmies",
+        "2p": "izskatāties",
+        "3p": "izskatās"
+      },
+      "past": {
+        "1s": "izskatījos",
+        "2s": "izskatījies",
+        "3s": "izskatījās",
+        "1p": "izskatījāmies",
+        "2p": "izskatījāties",
+        "3p": "izskatījās"
+      },
+      "future": {
+        "1s": "izskatīšos",
+        "2s": "izskatīsies",
+        "3s": "izskatīsies",
+        "1p": "izskatīsimies",
+        "2p": "izskatīsieties",
+        "3p": "izskatīsies"
+      }
+    }
+  },
+  {
+    "lv": "izslēgt",
+    "en": "to turn off, to switch off; to exclude",
+    "ru": "выключать, выключить; исключать",
+    "conj": {
+      "present": {
+        "1s": "izslēdzu",
+        "2s": "izslēdz",
+        "3s": "izslēdz",
+        "1p": "izslēdzam",
+        "2p": "izslēdzat",
+        "3p": "izslēdz"
+      },
+      "past": {
+        "1s": "izslēdzu",
+        "2s": "izslēdzi",
+        "3s": "izslēdza",
+        "1p": "izslēdzām",
+        "2p": "izslēdzāt",
+        "3p": "izslēdza"
+      },
+      "future": {
+        "1s": "izslēgšu",
+        "2s": "izslēgsi",
+        "3s": "izslēgs",
+        "1p": "izslēgsim",
+        "2p": "izslēgsiet",
+        "3p": "izslēgs"
+      }
+    }
+  },
+  {
+    "lv": "izsniegt",
+    "en": "to issue, to give out",
+    "ru": "выдавать, выдать",
+    "conj": {
+      "present": {
+        "1s": "izsniedzu",
+        "2s": "izsniedz",
+        "3s": "izsniedz",
+        "1p": "izsniedzam",
+        "2p": "izsniedzat",
+        "3p": "izsniedz"
+      },
+      "past": {
+        "1s": "izsniedzu",
+        "2s": "izsniedzi",
+        "3s": "izsniedza",
+        "1p": "izsniedzām",
+        "2p": "izsniedzāt",
+        "3p": "izsniedza"
+      },
+      "future": {
+        "1s": "izsniegšu",
+        "2s": "izsniegsi",
+        "3s": "izsniegs",
+        "1p": "izsniegsim",
+        "2p": "izsniegsiet",
+        "3p": "izsniegs"
+      }
+    }
+  },
+  {
+    "lv": "iztīrīt",
+    "en": "to clean, to clean out",
+    "ru": "вычистить, очистить",
+    "conj": {
+      "present": {
+        "1s": "iztīru",
+        "2s": "iztīri",
+        "3s": "iztīra",
+        "1p": "iztīrām",
+        "2p": "iztīrāt",
+        "3p": "iztīra"
+      },
+      "past": {
+        "1s": "iztīrīju",
+        "2s": "iztīrīji",
+        "3s": "iztīrīja",
+        "1p": "iztīrījām",
+        "2p": "iztīrījāt",
+        "3p": "iztīrīja"
+      },
+      "future": {
+        "1s": "iztīrīšu",
+        "2s": "iztīrīsi",
+        "3s": "iztīrīs",
+        "1p": "iztīrīsim",
+        "2p": "iztīrīsiet",
+        "3p": "iztīrīs"
+      }
+    }
+  },
+  {
+    "lv": "izvēlēties",
+    "en": "to choose, to select",
+    "ru": "выбирать, выбрать",
+    "conj": {
+      "present": {
+        "1s": "izvēlos",
+        "2s": "izvēlies",
+        "3s": "izvēlas",
+        "1p": "izvēlamies",
+        "2p": "izvēlaties",
+        "3p": "izvēlas"
+      },
+      "past": {
+        "1s": "izvēlējos",
+        "2s": "izvēlējies",
+        "3s": "izvēlējās",
+        "1p": "izvēlējāmies",
+        "2p": "izvēlējāties",
+        "3p": "izvēlējās"
+      },
+      "future": {
+        "1s": "izvēlēšos",
+        "2s": "izvēlēsies",
+        "3s": "izvēlēsies",
+        "1p": "izvēlēsimies",
+        "2p": "izvēlēsieties",
+        "3p": "izvēlēsies"
+      }
+    }
+  },
+  {
+    "lv": "jautāt",
+    "en": "to ask",
+    "ru": "спрашивать",
+    "conj": {
+      "present": {
+        "1s": "jautāju",
+        "2s": "jautā",
+        "3s": "jautā",
+        "1p": "jautājam",
+        "2p": "jautājat",
+        "3p": "jautā"
+      },
+      "past": {
+        "1s": "jautāju",
+        "2s": "jautāji",
+        "3s": "jautāja",
+        "1p": "jautājām",
+        "2p": "jautājāt",
+        "3p": "jautāja"
+      },
+      "future": {
+        "1s": "jautāšu",
+        "2s": "jautāsi",
+        "3s": "jautās",
+        "1p": "jautāsim",
+        "2p": "jautāsiet",
+        "3p": "jautās"
+      }
+    }
+  },
+  {
+    "lv": "just",
+    "en": "to feel, to sense, to perceive",
+    "ru": "чувствовать, ощущать",
+    "conj": {
+      "present": {
+        "1s": "jūtu",
+        "2s": "jūti",
+        "3s": "jūt",
+        "1p": "jūtam",
+        "2p": "jūtat",
+        "3p": "jūt"
+      },
+      "past": {
+        "1s": "jutu",
+        "2s": "juti",
+        "3s": "juta",
+        "1p": "jutām",
+        "2p": "jutāt",
+        "3p": "juta"
+      },
+      "future": {
+        "1s": "jutīšu",
+        "2s": "jutīsi",
+        "3s": "jutīs",
+        "1p": "jutīsim",
+        "2p": "jutīsiet",
+        "3p": "jutīs"
+      }
+    }
+  },
+  {
+    "lv": "justies",
+    "en": "to feel (oneself)",
+    "ru": "чувствовать себя",
+    "conj": {
+      "present": {
+        "1s": "jūtos",
+        "2s": "jūties",
+        "3s": "jūtas",
+        "1p": "jūtamies",
+        "2p": "jūtaties",
+        "3p": "jūtas"
+      },
+      "past": {
+        "1s": "jutos",
+        "2s": "juties",
+        "3s": "jutās",
+        "1p": "jutāmies",
+        "2p": "jutāties",
+        "3p": "jutās"
+      },
+      "future": {
+        "1s": "jutīšos",
+        "2s": "jutīsies",
+        "3s": "jutīsies",
+        "1p": "jutīsimies",
+        "2p": "jutīsieties",
+        "3p": "jutīsies"
+      }
+    }
+  },
+  {
+    "lv": "kāpt",
+    "en": "to climb, to go up; to get on (transport)",
+    "ru": "подниматься; залезать; входить (в транспорт)",
+    "conj": {
+      "present": {
+        "1s": "kāpju",
+        "2s": "kāp",
+        "3s": "kāpj",
+        "1p": "kāpjam",
+        "2p": "kāpjat",
+        "3p": "kāpj"
+      },
+      "past": {
+        "1s": "kāpu",
+        "2s": "kāpi",
+        "3s": "kāpa",
+        "1p": "kāpām",
+        "2p": "kāpāt",
+        "3p": "kāpa"
+      },
+      "future": {
+        "1s": "kāpšu",
+        "2s": "kāpsi",
+        "3s": "kāps",
+        "1p": "kāpsim",
+        "2p": "kāpsiet",
+        "3p": "kāps"
+      }
+    }
+  },
+  {
+    "lv": "klāt",
+    "en": "to cover; to set (the table); to spread (on)",
+    "ru": "покрывать; накрывать (на стол); намазывать",
+    "conj": {
+      "present": {
+        "1s": "klāju",
+        "2s": "klāj",
+        "3s": "klāj",
+        "1p": "klājam",
+        "2p": "klājat",
+        "3p": "klāj"
+      },
+      "past": {
+        "1s": "klāju",
+        "2s": "klāji",
+        "3s": "klāja",
+        "1p": "klājām",
+        "2p": "klājāt",
+        "3p": "klāja"
+      },
+      "future": {
+        "1s": "klāšu",
+        "2s": "klāsi",
+        "3s": "klās",
+        "1p": "klāsim",
+        "2p": "klāsiet",
+        "3p": "klās"
+      }
+    }
+  },
+  {
+    "lv": "klausīties",
+    "en": "to listen",
+    "ru": "слушать",
+    "conj": {
+      "present": {
+        "1s": "klausos",
+        "2s": "klausies",
+        "3s": "klausās",
+        "1p": "klausāmies",
+        "2p": "klausāties",
+        "3p": "klausās"
+      },
+      "past": {
+        "1s": "klausījos",
+        "2s": "klausījies",
+        "3s": "klausījās",
+        "1p": "klausījāmies",
+        "2p": "klausījāties",
+        "3p": "klausījās"
+      },
+      "future": {
+        "1s": "klausīšos",
+        "2s": "klausīsies",
+        "3s": "klausīsies",
+        "1p": "klausīsimies",
+        "2p": "klausīsieties",
+        "3p": "klausīsies"
+      }
+    }
+  },
+  {
+    "lv": "kļūt",
+    "en": "to become",
+    "ru": "становиться",
+    "conj": {
+      "present": {
+        "1s": "kļūstu",
+        "2s": "kļūsti",
+        "3s": "kļūst",
+        "1p": "kļūstam",
+        "2p": "kļūstat",
+        "3p": "kļūst"
+      },
+      "past": {
+        "1s": "kļuvu",
+        "2s": "kļuvi",
+        "3s": "kļuva",
+        "1p": "kļuvām",
+        "2p": "kļuvāt",
+        "3p": "kļuva"
+      },
+      "future": {
+        "1s": "kļūšu",
+        "2s": "kļūsi",
+        "3s": "kļūs",
+        "1p": "kļūsim",
+        "2p": "kļūsiet",
+        "3p": "kļūs"
+      }
+    }
+  },
+  {
+    "lv": "krāsot",
+    "en": "to paint, to color, to dye",
+    "ru": "красить",
+    "conj": {
+      "present": {
+        "1s": "krāsoju",
+        "2s": "krāso",
+        "3s": "krāso",
+        "1p": "krāsojam",
+        "2p": "krāsojat",
+        "3p": "krāso"
+      },
+      "past": {
+        "1s": "krāsoju",
+        "2s": "krāsoji",
+        "3s": "krāsoja",
+        "1p": "krāsojām",
+        "2p": "krāsojāt",
+        "3p": "krāsoja"
+      },
+      "future": {
+        "1s": "krāsošu",
+        "2s": "krāsosi",
+        "3s": "krāsos",
+        "1p": "krāsosim",
+        "2p": "krāsosiet",
+        "3p": "krāsos"
+      }
+    }
+  },
+  {
+    "lv": "kursēt",
+    "en": "to run (of transport on a route)",
+    "ru": "курсировать",
+    "conj": {
+      "present": {
+        "1s": "kursēju",
+        "2s": "kursē",
+        "3s": "kursē",
+        "1p": "kursējam",
+        "2p": "kursējat",
+        "3p": "kursē"
+      },
+      "past": {
+        "1s": "kursēju",
+        "2s": "kursēji",
+        "3s": "kursēja",
+        "1p": "kursējām",
+        "2p": "kursējāt",
+        "3p": "kursēja"
+      },
+      "future": {
+        "1s": "kursēšu",
+        "2s": "kursēsi",
+        "3s": "kursēs",
+        "1p": "kursēsim",
+        "2p": "kursēsiet",
+        "3p": "kursēs"
+      }
+    }
+  },
+  {
+    "lv": "ķemmēt",
+    "en": "to comb",
+    "ru": "причёсывать, расчёсывать",
+    "conj": {
+      "present": {
+        "1s": "ķemmēju",
+        "2s": "ķemmē",
+        "3s": "ķemmē",
+        "1p": "ķemmējam",
+        "2p": "ķemmējat",
+        "3p": "ķemmē"
+      },
+      "past": {
+        "1s": "ķemmēju",
+        "2s": "ķemmēji",
+        "3s": "ķemmēja",
+        "1p": "ķemmējām",
+        "2p": "ķemmējāt",
+        "3p": "ķemmēja"
+      },
+      "future": {
+        "1s": "ķemmēšu",
+        "2s": "ķemmēsi",
+        "3s": "ķemmēs",
+        "1p": "ķemmēsim",
+        "2p": "ķemmēsiet",
+        "3p": "ķemmēs"
+      }
+    }
+  }
+]

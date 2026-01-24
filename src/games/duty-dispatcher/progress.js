@@ -1,9 +1,10 @@
-import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
-export function readProgress(key) {
+const GAME_ID = 'duty-dispatcher';
+
+export function readProgress() {
   try {
-    const parsed = loadJSON(key, null);
-    if (!parsed || typeof parsed !== 'object') return null;
+    const parsed = readGameProgress(GAME_ID, { xp: 0, streak: 0, lastPlayedISO: null });
     const xp = Number(parsed.xp);
     const streak = Number(parsed.streak);
     return {
@@ -16,14 +17,14 @@ export function readProgress(key) {
   }
 }
 
-export function persistProgress(key, score, streak) {
+export function persistProgress(score, streak) {
   try {
     const data = {
       xp: score,
       streak,
       lastPlayedISO: new Date().toISOString(),
     };
-    saveJSON(key, data);
+    writeGameProgress(GAME_ID, data);
   } catch (err) {
     console.warn('Unable to persist progress', err);
   }

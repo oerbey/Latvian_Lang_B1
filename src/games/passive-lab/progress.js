@@ -1,15 +1,14 @@
-import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
-export function readProgress(key) {
+const GAME_ID = 'passive-lab';
+
+export function readProgress() {
   try {
-    const parsed = loadJSON(key, null);
-    if (!parsed || typeof parsed !== 'object') {
-      return { xp: 0, streak: 0, lastPlayedISO: null };
-    }
+    const parsed = readGameProgress(GAME_ID, { xp: 0, streak: 0, lastPlayedISO: null });
     return {
       xp: Number.isFinite(parsed?.xp) ? parsed.xp : 0,
       streak: Number.isFinite(parsed?.streak) ? parsed.streak : 0,
-      lastPlayedISO: parsed?.lastPlayedISO ?? null,
+      lastPlayedISO: typeof parsed?.lastPlayedISO === 'string' ? parsed.lastPlayedISO : null,
     };
   } catch (err) {
     console.warn('Failed to read passive lab progress', err);
@@ -17,9 +16,9 @@ export function readProgress(key) {
   }
 }
 
-export function persistProgress(key, progress) {
+export function persistProgress(progress) {
   try {
-    saveJSON(key, progress);
+    writeGameProgress(GAME_ID, progress);
   } catch (err) {
     console.warn('Unable to persist passive lab progress', err);
   }

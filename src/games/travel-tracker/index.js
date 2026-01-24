@@ -1,5 +1,5 @@
 import { mustId } from '../../lib/dom.js';
-import { loadJSON, remove, saveJSON } from '../../lib/storage.js';
+import { clearGameProgress, readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import {
@@ -15,7 +15,7 @@ import { fetchJSON, loadMap, loadStrings } from './loaders.js';
 import { bindEvents } from './events.js';
 import { createUI, normalizeAnswer } from './ui.js';
 
-const STORAGE_KEY = 'llb1:travel-tracker:progress';
+const GAME_ID = 'travel-tracker';
 const MAP_PATH = 'assets/img/travel-tracker/latvia.svg';
 const DATA_PATH = 'data/travel-tracker/routes.json';
 const BUS_ANIMATION_MS = 1100;
@@ -79,7 +79,7 @@ function saveProgress(overrides = {}) {
     ...overrides,
   };
   try {
-    saveJSON(STORAGE_KEY, payload);
+    writeGameProgress(GAME_ID, payload);
   } catch (err) {
     console.warn('Failed to persist travel tracker progress', err);
   }
@@ -87,7 +87,7 @@ function saveProgress(overrides = {}) {
 
 function clearProgress() {
   try {
-    remove(STORAGE_KEY);
+    clearGameProgress(GAME_ID);
   } catch (err) {
     console.warn('Failed to clear travel tracker progress', err);
   }
@@ -95,7 +95,7 @@ function clearProgress() {
 
 function loadProgress() {
   try {
-    const data = loadJSON(STORAGE_KEY, null);
+    const data = readGameProgress(GAME_ID, {});
     if (!data || typeof data !== 'object') return;
     if (Number.isFinite(data.seed) && data.seed !== state.seed) {
       return;

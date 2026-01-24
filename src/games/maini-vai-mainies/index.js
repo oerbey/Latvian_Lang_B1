@@ -1,12 +1,12 @@
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
-import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { loadJSON, readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
-const STORAGE_KEY = 'llb1:maini-vai-mainies:progress';
+const GAME_ID = 'maini-vai-mainies';
 const GAME_NAME = 'maini-vai-mainies';
 const AVATARS = {
   neutral: 'assets/img/maini-vai-mainies/avatars/avatar-neutral.svg',
@@ -50,14 +50,13 @@ function normalizeAnswer(value) {
 
 function readProgress() {
   try {
-    const parsed = loadJSON(STORAGE_KEY, null);
-    if (!parsed || typeof parsed !== 'object') return null;
-    const xp = Number(parsed.xp);
-    const streak = Number(parsed.streak);
+    const parsed = readGameProgress(GAME_ID, { xp: 0, streak: 0, lastPlayedISO: null });
+    const xp = Number(parsed?.xp);
+    const streak = Number(parsed?.streak);
     return {
       xp: Number.isFinite(xp) ? xp : 0,
       streak: Number.isFinite(streak) ? streak : 0,
-      lastPlayedISO: typeof parsed.lastPlayedISO === 'string' ? parsed.lastPlayedISO : null,
+      lastPlayedISO: typeof parsed?.lastPlayedISO === 'string' ? parsed.lastPlayedISO : null,
     };
   } catch (err) {
     console.warn('Unable to read progress', err);
@@ -72,7 +71,7 @@ function persistProgress() {
       streak: state.streak,
       lastPlayedISO: new Date().toISOString(),
     };
-    saveJSON(STORAGE_KEY, payload);
+    writeGameProgress(GAME_ID, payload);
   } catch (err) {
     console.warn('Unable to persist progress', err);
   }

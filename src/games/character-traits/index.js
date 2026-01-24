@@ -1,7 +1,7 @@
 import { loadPersonalityWords } from '../../lib/personality-data.js';
 import { mustId } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';
-import { loadJSON, saveJSON } from '../../lib/storage.js';
+import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 
@@ -9,7 +9,7 @@ const QUESTIONS_PER_ROUND = 10;
 const AUTO_ADVANCE_MS = 1400;
 const MODE_GROUPS = 'groups';
 const MODE_TRANSLATE = 'translate';
-const STORAGE_KEY = 'characterTraits:lastResult';
+const GAME_ID = 'character-traits';
 
 const els = {
   year: mustId('year'),
@@ -64,6 +64,10 @@ const state = {
   autoAdvanceTimer: null,
   lastResult: loadLastResult(),
 };
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
 
 function announce(text) {
   if (!els.liveRegion) return;
@@ -400,7 +404,8 @@ function scheduleAutoAdvance() {
 function saveLastResult(result) {
   state.lastResult = result;
   try {
-    saveJSON(STORAGE_KEY, result);
+    const current = readGameProgress(GAME_ID, {});
+    writeGameProgress(GAME_ID, { ...current, lastResult: result });
   } catch (err) {
     console.warn('Cannot store result', err);
   }
@@ -409,8 +414,8 @@ function saveLastResult(result) {
 
 function loadLastResult() {
   try {
-    const parsed = loadJSON(STORAGE_KEY, null);
-    return parsed && typeof parsed === 'object' ? parsed : null;
+    const stored = readGameProgress(GAME_ID, {});
+    return isPlainObject(stored?.lastResult) ? stored.lastResult : null;
   } catch (err) {
     return null;
   }

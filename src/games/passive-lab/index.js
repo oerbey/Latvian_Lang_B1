@@ -23,7 +23,6 @@ import {
 } from './ui.js';
 
 (() => {
-  const STORAGE_KEY = 'llb1:passive-lab:progress';
   const TENSES = ['present', 'past', 'future'];
   const TENSE_PREFIX = { present: 'tiek', past: 'tika', future: 'tiks' };
   const BASE_POINTS = { builder: 4, typein: 5 };
@@ -146,7 +145,7 @@ import {
     }
     progress.lastPlayedISO = new Date().toISOString();
     progress = { xp, streak, lastPlayedISO: progress.lastPlayedISO };
-    persistProgress(STORAGE_KEY, progress);
+    persistProgress(progress);
     updateScoreboard(nodes, progress);
     renderResult();
     nodes.nextButton.disabled = false;
@@ -166,7 +165,7 @@ import {
   function handleFailure(detail = {}) {
     streak = 0;
     progress = { xp, streak, lastPlayedISO: progress.lastPlayedISO };
-    persistProgress(STORAGE_KEY, progress);
+    persistProgress(progress);
     updateScoreboard(nodes, progress);
     updateStatus(t('wrong') || 'Try again!', 'error');
     if (detail.reason === 'ending' && nodes.endingHint) {
@@ -329,7 +328,7 @@ import {
       applyTranslations(i18n, currentLang);
       populateTenseOptions(nodes, i18n, TENSES);
     }
-    progress = readProgress(STORAGE_KEY);
+    progress = readProgress();
     xp = progress.xp;
     streak = progress.streak;
     updateScoreboard(nodes, progress);

@@ -1,22 +1,33 @@
-import { loadJSON, loadString, saveJSON, saveString } from '../../lib/storage.js';
+import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
-export function loadProgress(key) {
-  try {
-    const parsed = loadJSON(key, null);
-    return parsed && typeof parsed === 'object' ? parsed : {};
-  } catch (_) {
-    return {};
-  }
+const GAME_ID = 'endings-builder';
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
-export function saveProgress(key, progress) {
-  saveJSON(key, progress);
+export function loadProgress() {
+  const stored = readGameProgress(GAME_ID, { itemProgress: {}, strict: false });
+  return isPlainObject(stored?.itemProgress) ? stored.itemProgress : {};
 }
 
-export function loadStrict(key) {
-  return loadString(key, '') === '1';
+export function saveProgress(progress) {
+  const stored = readGameProgress(GAME_ID, { itemProgress: {}, strict: false });
+  writeGameProgress(GAME_ID, {
+    ...stored,
+    itemProgress: isPlainObject(progress) ? progress : {},
+  });
 }
 
-export function saveStrict(key, value) {
-  saveString(key, value ? '1' : '0');
+export function loadStrict() {
+  const stored = readGameProgress(GAME_ID, { itemProgress: {}, strict: false });
+  return stored?.strict === true;
+}
+
+export function saveStrict(value) {
+  const stored = readGameProgress(GAME_ID, { itemProgress: {}, strict: false });
+  writeGameProgress(GAME_ID, {
+    ...stored,
+    strict: Boolean(value),
+  });
 }

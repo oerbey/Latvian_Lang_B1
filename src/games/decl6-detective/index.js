@@ -15,7 +15,6 @@ import {
 } from './ui.js';
 
 (() => {
-  const STORAGE_KEY = 'llb1:decl6-detective:progress';
   const DATA_PATH = 'data/decl6-detective/items.json';
   const MCQ_TARGET = 5;
   const TYPE_TARGET = 3;
@@ -96,7 +95,6 @@ import {
 
   function saveProgress(touchLastPlayed = false) {
     progress = persistProgress(
-      STORAGE_KEY,
       { xp, streak, lastPlayedISO: progress.lastPlayedISO },
       touchLastPlayed,
     );
@@ -350,7 +348,7 @@ import {
 
   async function init() {
     showLoading('Loading game data...');
-    progress = readProgress(STORAGE_KEY);
+    progress = readProgress();
     xp = progress.xp ?? 0;
     streak = progress.streak ?? 0;
     updateScoreboard(nodes, progress);

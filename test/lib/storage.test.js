@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 
 import {
   CURRENT_SCHEMA_VERSION,
+  PROGRESS_SCHEMA_VERSION,
   loadAppState,
+  loadProgressState,
   loadJSON,
   loadString,
+  readGameProgress,
   saveJSON,
   saveString,
+  writeGameProgress,
 } from '../../src/lib/storage.js';
 
 function createMemoryStorage() {
@@ -67,4 +71,25 @@ test('loadAppState resets on invalid types', () => {
   const state = loadAppState();
   assert.equal(state.schemaVersion, CURRENT_SCHEMA_VERSION);
   assert.equal(state.theme, null);
+});
+
+test('loadProgressState migrates legacy game progress', () => {
+  memoryStorage.clear();
+  memoryStorage.setItem(
+    'llb1:maini-vai-mainies:progress',
+    JSON.stringify({ xp: 12, streak: 3, lastPlayedISO: '2024-01-01T00:00:00.000Z' }),
+  );
+  const state = loadProgressState();
+  assert.equal(state.schemaVersion, PROGRESS_SCHEMA_VERSION);
+  assert.equal(state.games['maini-vai-mainies'].data.xp, 12);
+  assert.equal(state.games['maini-vai-mainies'].data.streak, 3);
+  assert.equal(memoryStorage.getItem('llb1:maini-vai-mainies:progress'), null);
+});
+
+test('readGameProgress/writeGameProgress round trip works', () => {
+  memoryStorage.clear();
+  const payload = { score: 10, streak: 4 };
+  writeGameProgress('demo-game', payload);
+  const stored = readGameProgress('demo-game', {});
+  assert.deepEqual(stored, payload);
 });

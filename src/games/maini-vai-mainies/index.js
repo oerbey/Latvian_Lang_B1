@@ -311,8 +311,9 @@ async function loadStrings() {
   const fallbackOrder = htmlLang === 'lv' ? ['lv', 'en'] : [htmlLang, 'lv', 'en'];
   for (const code of fallbackOrder) {
     try {
-      const data = await loadJSON(`i18n/${GAME_NAME}.${code}.json`);
-      if (data) return data;
+      const payload = await loadJSON(`i18n/${code}.json`);
+      if (payload?.mainiVaiMainies) return payload.mainiVaiMainies;
+      throw new Error(`Missing mainiVaiMainies strings for ${code}`);
     } catch (err) {
       console.warn(`Missing strings for ${code}`, err);
     }

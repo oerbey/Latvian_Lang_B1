@@ -37,6 +37,11 @@ import {
     instructions_typein: 'Type the missing form (supports Latvian diacritics).',
   };
 
+  function setI18nLoading(isLoading) {
+    if (!document?.body) return;
+    document.body.classList.toggle('i18n-loading', isLoading);
+  }
+
   const nodes = {
     mcqCard: mustId('decl6-mcq-card'),
     mcqPrompt: mustId('decl6-mcq-prompt'),
@@ -348,6 +353,7 @@ import {
 
   async function init() {
     showLoading('Loading game data...');
+    setI18nLoading(true);
     progress = readProgress();
     xp = progress.xp ?? 0;
     streak = progress.streak ?? 0;
@@ -357,6 +363,7 @@ import {
       strings = translations.strings;
       currentLang = translations.lang;
       applyTranslations(strings, currentLang);
+      setI18nLoading(false);
       items = await loadItems(DATA_PATH);
       if (!items.length) throw new Error('No items in decl6 data');
       startSession();
@@ -366,6 +373,7 @@ import {
       updateLiveRegion(nodes, 'Unable to load the detective game right now.');
       const safeError = err instanceof Error ? err : new Error('Failed to load the detective game.');
       showFatalError(safeError);
+      setI18nLoading(false);
     } finally {
       hideLoading();
     }

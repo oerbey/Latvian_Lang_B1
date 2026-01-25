@@ -29,7 +29,7 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 25) ✅ 25-security-input-sanitization.md - Sanitize user input and enforce storage validation
 26) ✅ 26-accessibility-skip-links.md - Add skip links on all pages
 27) ✅ 27-accessibility-screen-reader-focus.md - Improve screen reader updates and focus management
-28) 28-i18n-loading-guard.md - Prevent translation flash before strings load
+28) ✅ 28-i18n-loading-guard.md - Prevent translation flash before strings load
 29) 29-i18n-merge-validation.md - Merge i18n files and add validation
 30) 30-i18n-pluralization-formatting.md - Add pluralization and consistent formatting helpers
 31) 31-tooling-build-consolidation.md - Port Python data build to Node

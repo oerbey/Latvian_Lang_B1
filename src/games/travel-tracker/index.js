@@ -49,6 +49,11 @@ let viewBox = { width: 800, height: 500 };
 let cityCoords = new Map();
 let animationId = null;
 
+function setI18nLoading(isLoading) {
+  if (!document?.body) return;
+  document.body.classList.toggle('i18n-loading', isLoading);
+}
+
 const ui = createUI({
   selectors,
   state,
@@ -312,6 +317,7 @@ function handleRestart() {
 
 async function init() {
   showLoading('Loading game data...');
+  setI18nLoading(true);
   try {
     const lang = document.documentElement.lang || 'lv';
     const [{ data: loadedStrings }, routes] = await Promise.all([
@@ -345,6 +351,7 @@ async function init() {
     strings.noQuestion = strings.noQuestion ?? 'No questions available.';
     strings.noRoute = strings.noRoute ?? '—';
     ui.applyStrings();
+    setI18nLoading(false);
 
     state.originalLevels = (routes?.levels ?? []).map(level => ({
       ...level,
@@ -386,6 +393,7 @@ async function init() {
     }
     const safeError = err instanceof Error ? err : new Error('Failed to load Travel Tracker.');
     showFatalError(safeError);
+    setI18nLoading(false);
   } finally {
     hideLoading();
   }

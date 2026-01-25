@@ -87,6 +87,11 @@ import {
   const t = (key, fallback = '') => getTranslation(i18n, key, fallback);
   const fmt = (template, replacements = {}) => formatString(template, replacements);
 
+  function setI18nLoading(isLoading) {
+    if (!document?.body) return;
+    document.body.classList.toggle('i18n-loading', isLoading);
+  }
+
   function updateStatus(message, state) {
     setStatus(nodes, iconPaths, message, state);
   }
@@ -327,6 +332,7 @@ import {
       i18n = strings;
       applyTranslations(i18n, currentLang);
       populateTenseOptions(nodes, i18n, TENSES);
+      setI18nLoading(false);
     }
     progress = readProgress();
     xp = progress.xp;
@@ -337,6 +343,7 @@ import {
   }
 
   async function loadStrings() {
+    setI18nLoading(true);
     const translations = await loadTranslations(navigator.language || 'lv');
     i18n = translations.strings;
     currentLang = translations.lang;
@@ -352,6 +359,7 @@ import {
         console.error('Failed to initialize Passive Lab', err);
         const safeError = err instanceof Error ? err : new Error('Failed to load Passive Lab.');
         showFatalError(safeError);
+        setI18nLoading(false);
       },
     });
     showLoading('Loading game data...');

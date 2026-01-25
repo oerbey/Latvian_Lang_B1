@@ -7,6 +7,38 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+const OFFLINE_BANNER_ID = 'llb1-offline';
+
+function ensureOfflineBanner() {
+  const existing = document.getElementById(OFFLINE_BANNER_ID);
+  if (existing) return existing;
+  if (!document.body && !document.documentElement) return null;
+  const banner = document.createElement('div');
+  banner.id = OFFLINE_BANNER_ID;
+  banner.className = 'llb1-offline';
+  banner.setAttribute('role', 'status');
+  banner.setAttribute('aria-live', 'polite');
+  banner.textContent = 'Offline mode';
+  (document.body || document.documentElement).appendChild(banner);
+  return banner;
+}
+
+function updateOfflineBanner() {
+  const banner = ensureOfflineBanner();
+  if (!banner) return;
+  const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+  banner.hidden = !isOffline;
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', updateOfflineBanner, { once: true });
+} else {
+  updateOfflineBanner();
+}
+
+window.addEventListener('online', updateOfflineBanner);
+window.addEventListener('offline', updateOfflineBanner);
+
 const nav = document.querySelector('.navbar.fixed-top');
 const main = document.querySelector('main');
 const baseBodyPaddingTop = (() => {
@@ -57,24 +89,25 @@ if ('ResizeObserver' in window && nav) {
   };
 
   // Find likely scrollable containers (no hard-coded class names needed)
-  const candidates = Array.from(document.querySelectorAll('*')).filter(el => {
+  const candidates = Array.from(document.querySelectorAll('*')).filter((el) => {
     const cs = getComputedStyle(el);
     return /(auto|scroll)/.test(cs.overflowY) || /(auto|scroll)/.test(cs.overflow);
   });
 
   // Also include any big/fullscreen fixed elements that might eat touches
-  const fullscreenFixed = Array.from(document.querySelectorAll('*')).filter(el => {
+  const fullscreenFixed = Array.from(document.querySelectorAll('*')).filter((el) => {
     const cs = getComputedStyle(el);
     if (cs.position !== 'fixed') return false;
     const r = el.getBoundingClientRect();
-    return r.top <= 0 && r.left <= 0 &&
-           r.right >= window.innerWidth && r.bottom >= window.innerHeight;
+    return (
+      r.top <= 0 && r.left <= 0 && r.right >= window.innerWidth && r.bottom >= window.innerHeight
+    );
   });
 
   const targets = [...new Set([...candidates, ...fullscreenFixed])];
   if (targets.length === 0) return;
 
-  targets.forEach(el => {
+  targets.forEach((el) => {
     // Encourage browsers (esp. iOS Safari) to treat vertical pan as the default
     el.style.webkitOverflowScrolling = 'touch';
     // Let vertical panning through; allow pinch-zoom
@@ -83,25 +116,35 @@ if ('ResizeObserver' in window && nav) {
     }
     neutralizeTouchAction(el);
 
-    let sx = 0, sy = 0;
-    el.addEventListener('touchstart', (e) => {
-      const t = e.touches[0];
-      sx = t.clientX; sy = t.clientY;
-    }, { passive: true });
+    let sx = 0,
+      sy = 0;
+    el.addEventListener(
+      'touchstart',
+      (e) => {
+        const t = e.touches[0];
+        sx = t.clientX;
+        sy = t.clientY;
+      },
+      { passive: true },
+    );
 
-    el.addEventListener('touchmove', (e) => {
-      const t = e.touches[0];
-      const dx = Math.abs(t.clientX - sx);
-      const dy = Math.abs(t.clientY - sy);
+    el.addEventListener(
+      'touchmove',
+      (e) => {
+        const t = e.touches[0];
+        const dx = Math.abs(t.clientX - sx);
+        const dy = Math.abs(t.clientY - sy);
 
-      const isHorizontal = dx > dy;
-      // Only suppress default for horizontal gestures (e.g., custom sliders).
-      if (isHorizontal) {
-        e.preventDefault(); // requires passive:false
-      }
-      // If the element itself cannot scroll vertically, let the event bubble so the page can scroll.
-      // (Do NOT call preventDefault here.)
-    }, { passive: false });
+        const isHorizontal = dx > dy;
+        // Only suppress default for horizontal gestures (e.g., custom sliders).
+        if (isHorizontal) {
+          e.preventDefault(); // requires passive:false
+        }
+        // If the element itself cannot scroll vertically, let the event bubble so the page can scroll.
+        // (Do NOT call preventDefault here.)
+      },
+      { passive: false },
+    );
   });
 
   // Safety net: if the focused area still can't scroll and fills the screen exactly,

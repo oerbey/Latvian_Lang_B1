@@ -360,3 +360,16 @@ html, body {
 .llb1-sw-update button:hover {
   background: #0ea5e9;
 }
+
+.llb1-offline {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  left: calc(20px + env(safe-area-inset-left, 0px));
+  z-index: 9998;
+  padding: 10px 14px;
+  background: #b91c1c;
+  color: #fff5f5;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+}

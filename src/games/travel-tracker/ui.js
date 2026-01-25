@@ -1,5 +1,6 @@
 import { seededShuffle } from './utils.js';
 import { sanitizeText } from '../../lib/sanitize.js';
+import { formatNumber, formatPlural } from '../../lib/i18n-format.js';
 import { getCurrentLevel, getCurrentRoute, getProgressPosition } from './state.js';
 
 export function normalizeAnswer(str) {
@@ -51,15 +52,24 @@ export function createUI({
       selectors.progress.setAttribute('aria-label', strings.progressIdle ?? '');
       return;
     }
-    const label = strings.progressLabel ?? 'Question';
+    const locale = document.documentElement?.lang || 'lv';
+    const rawLabel = strings.progressLabel;
+    const label = typeof rawLabel === 'object'
+      ? formatPlural(locale, current, rawLabel, 'Question')
+      : (rawLabel ?? 'Question');
     selectors.progress.replaceChildren();
     const labelNode = document.createElement('span');
     labelNode.textContent = `${label} `;
     const strong = document.createElement('strong');
-    strong.textContent = `${current}/${total}`;
+    strong.textContent = `${formatNumber(current, locale)}/${formatNumber(total, locale)}`;
     selectors.progress.append(labelNode, strong);
-    const ofSegment = strings.progressOf ? `${strings.progressOf} ${total}` : `${total}`;
-    selectors.progress.setAttribute('aria-label', `${label} ${current} ${ofSegment}`.trim());
+    const ofSegment = strings.progressOf
+      ? `${strings.progressOf} ${formatNumber(total, locale)}`
+      : `${formatNumber(total, locale)}`;
+    selectors.progress.setAttribute(
+      'aria-label',
+      `${label} ${formatNumber(current, locale)} ${ofSegment}`.trim(),
+    );
   }
 
   function hasInputValue() {
@@ -154,10 +164,11 @@ export function createUI({
 
   function updateScoreboard() {
     const strings = getStrings();
+    const locale = document.documentElement?.lang || 'lv';
     const scoreValue = selectors.score.querySelector('strong');
     const streakValue = selectors.streak.querySelector('strong');
-    if (scoreValue) scoreValue.textContent = state.score.toString();
-    if (streakValue) streakValue.textContent = state.streak.toString();
+    if (scoreValue) scoreValue.textContent = formatNumber(state.score, locale);
+    if (streakValue) streakValue.textContent = formatNumber(state.streak, locale);
     const levelBadge = selectors.level;
     const level = getCurrentLevel(state);
     if (levelBadge) {

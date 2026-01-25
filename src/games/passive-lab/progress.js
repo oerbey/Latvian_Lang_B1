@@ -1,4 +1,5 @@
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
+import { formatDateTime } from '../../lib/i18n-format.js';
 
 const GAME_ID = 'passive-lab';
 
@@ -25,8 +26,5 @@ export function persistProgress(progress) {
 }
 
 export function formatLastPlayed(value) {
-  if (!value) return '—';
-  const when = new Date(value);
-  if (Number.isNaN(when.getTime())) return '—';
-  return when.toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' });
+  return formatDateTime(value);
 }

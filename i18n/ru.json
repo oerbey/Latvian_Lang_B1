@@ -132,7 +132,12 @@
     "correct": "Correct!",
     "wrong": "Try again!",
     "level_complete": "Level complete!",
-    "progressLabel": "Question",
+    "progressLabel": {
+      "one": "Вопрос",
+      "few": "Вопроса",
+      "many": "Вопросов",
+      "other": "Вопросов"
+    },
     "progressOf": "of",
     "progressIdle": "Ready",
     "noQuestion": "No questions available.",

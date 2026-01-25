@@ -1,3 +1,5 @@
+import { formatDateTime, formatNumber } from '../../lib/i18n-format.js';
+
 const SCENE_META = {
   virtuve: { label: 'Virtuve', emoji: '🍲', color: '#fb923c' },
   pirts: { label: 'Pirts', emoji: '🪵', color: '#fb7185' },
@@ -13,10 +15,7 @@ const SCENE_META = {
 };
 
 function formatLastPlayed(value) {
-  if (!value) return '—';
-  const when = new Date(value);
-  if (Number.isNaN(when.getTime())) return '—';
-  return when.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
+  return formatDateTime(value);
 }
 
 function getSceneMeta(scene) {
@@ -59,8 +58,8 @@ export function applySceneTheme(card, emojiEl, labelEl, planImage, scene) {
 }
 
 export function updateScoreboard(nodes, progress) {
-  if (nodes.scoreValue) nodes.scoreValue.textContent = String(progress.xp ?? 0);
-  if (nodes.streakValue) nodes.streakValue.textContent = String(progress.streak ?? 0);
+  if (nodes.scoreValue) nodes.scoreValue.textContent = formatNumber(progress.xp ?? 0);
+  if (nodes.streakValue) nodes.streakValue.textContent = formatNumber(progress.streak ?? 0);
   if (nodes.lastPlayedValue) nodes.lastPlayedValue.textContent = formatLastPlayed(progress.lastPlayedISO);
 }
 
@@ -72,13 +71,13 @@ export function updateLiveRegion(nodes, message) {
 export function setMcqProgress(nodes, index, target) {
   if (!nodes.mcqProgress) return;
   const visible = Math.min(index + 1, target);
-  nodes.mcqProgress.textContent = `${visible}/${target}`;
+  nodes.mcqProgress.textContent = `${formatNumber(visible)}/${formatNumber(target)}`;
 }
 
 export function setTypeProgress(nodes, index, target) {
   if (!nodes.typeProgress) return;
   const visible = Math.min(index + 1, target);
-  nodes.typeProgress.textContent = `${visible}/${target}`;
+  nodes.typeProgress.textContent = `${formatNumber(visible)}/${formatNumber(target)}`;
 }
 
 export function updateLevelStatus(nodes, mcqIndex, typeIndex, mcqTarget, typeTarget) {

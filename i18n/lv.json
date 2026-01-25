@@ -132,7 +132,12 @@
     "correct": "Pareizi!",
     "wrong": "Mēģini vēlreiz!",
     "level_complete": "Līmenis pabeigts!",
-    "progressLabel": "Jautājums",
+    "progressLabel": {
+      "one": "Jautājums",
+      "few": "Jautājumi",
+      "many": "Jautājumi",
+      "other": "Jautājumi"
+    },
     "progressOf": "no",
     "progressIdle": "Gatavs",
     "noQuestion": "Nav pieejamu jautājumu.",

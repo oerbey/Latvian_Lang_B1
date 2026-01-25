@@ -1,12 +1,13 @@
 import { assetUrl } from '../../lib/paths.js';
+import { formatNumber } from '../../lib/i18n-format.js';
 import { formatLastPlayed } from './progress.js';
 
 export function updateScoreboard(nodes, progress) {
   if (nodes.scoreValue) {
-    nodes.scoreValue.textContent = String(progress.xp ?? 0);
+    nodes.scoreValue.textContent = formatNumber(progress.xp ?? 0);
   }
   if (nodes.streakValue) {
-    nodes.streakValue.textContent = String(progress.streak ?? 0);
+    nodes.streakValue.textContent = formatNumber(progress.streak ?? 0);
   }
   if (nodes.lastPlayedValue) {
     nodes.lastPlayedValue.textContent = formatLastPlayed(progress.lastPlayedISO);

@@ -11,10 +11,11 @@
     "test:e2e": "playwright test",
     "validate:data": "node scripts/validate-data.mjs",
     "validate:i18n": "node scripts/validate-i18n.mjs",
+    "build:all": "npm run build:data && npm run build:words:chunks && npm run build:personality && npm run build:offline",
     "build:data": "node scripts/xlsx_to_json.mjs",
     "build:words:chunks": "node scripts/split-words-json.mjs",
     "build:personality": "node scripts/personality_csv_to_json.mjs",
-    "build:offline": "python3 scripts/build_week1_offline.py",
+    "build:offline": "node scripts/build_week1_offline.mjs",
     "lint": "eslint . --ext .js"
   },
   "devDependencies": {

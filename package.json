@@ -4,11 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "start": "npx http-server . -p 5173",
     "test": "node --test --import ./scripts/jsdom-setup.js",
     "test:watch": "node --test --watch --import ./scripts/jsdom-setup.js",
     "test:coverage": "node --test --experimental-test-coverage --import ./scripts/jsdom-setup.js",
     "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "validate:data": "node scripts/validate-data.mjs",
     "validate:i18n": "node scripts/validate-i18n.mjs",
     "build:all": "npm run build:data && npm run build:words:chunks && npm run build:personality && npm run build:offline",
@@ -18,14 +21,22 @@
     "build:offline": "node scripts/build_week1_offline.mjs",
     "lint": "eslint . --ext .js"
   },
+  "lint-staged": {
+    "*.{js,json}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "@playwright/test": "^1.58.0",
     "ajv": "^8.17.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "husky": "^9.1.6",
     "http-server": "^14.1.1",
     "jsdom": "^22.1.0",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "xlsx": "^0.18.5"
   }

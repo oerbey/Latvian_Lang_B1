@@ -12,6 +12,7 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "typecheck": "tsc -p tsconfig.check.json",
     "validate:data": "node scripts/validate-data.mjs",
     "validate:i18n": "node scripts/validate-i18n.mjs",
     "build:all": "npm run build:data && npm run build:words:chunks && npm run build:personality && npm run build:offline",
@@ -41,6 +42,7 @@
     "jsdom": "^22.1.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
+    "typescript": "^5.4.5",
     "xlsx": "^0.18.5"
   }
 }

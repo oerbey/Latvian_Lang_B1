@@ -34,5 +34,5 @@ Use one task file at a time. Each task is scoped to a clear change set so an AI 
 30) ✅ 30-i18n-pluralization-formatting.md - Add pluralization and consistent formatting helpers
 31) ✅ 31-tooling-build-consolidation.md - Port Python data build to Node
 32) ✅ 32-tooling-precommit-format.md - Add pre-commit hooks and formatting scripts
-33) 33-tooling-typecheck-jsdoc.md - Enable type checking and add JSDoc to core modules
+33) ✅ 33-tooling-typecheck-jsdoc.md - Enable type checking and add JSDoc to core modules
 34) 34-offline-indicator.md - Add offline banner and styles

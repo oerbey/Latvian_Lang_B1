@@ -22,8 +22,11 @@
     "lint": "eslint . --ext .js"
   },
   "lint-staged": {
-    "*.{js,json}": [
+    "*.js": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
       "prettier --write"
     ]
   },

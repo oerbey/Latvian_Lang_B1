@@ -47,13 +47,16 @@ export async function loadTranslations(lang) {
   const candidates = [lang.slice(0, 2), 'lv', 'en'];
   for (const code of candidates) {
     try {
-      const url = assetUrl(`i18n/passive-lab.${code}.json`);
+      const url = assetUrl(`i18n/${code}.json`);
       const response = await fetch(url, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error(`Failed to load ${url}: ${response.status}`);
       }
       const payload = await response.json();
-      return { strings: payload, lang: code };
+      if (!payload?.passiveLab) {
+        throw new Error(`Missing passiveLab strings in ${url}`);
+      }
+      return { strings: payload.passiveLab, lang: code };
     } catch (err) {
       console.warn('Unable to load passive lab translations for', code, err);
     }

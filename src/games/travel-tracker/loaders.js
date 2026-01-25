@@ -19,10 +19,11 @@ export async function loadStrings(lang) {
   const langToTry = [lang, 'en'];
   for (const code of langToTry) {
     try {
-      const data = await fetchJSON(`i18n/travel-tracker.${code}.json`);
-      if (data) {
-        return { data, lang: code };
+      const payload = await fetchJSON(`i18n/${code}.json`);
+      if (payload?.travelTracker) {
+        return { data: payload.travelTracker, lang: code };
       }
+      throw new Error(`Missing travelTracker strings in i18n/${code}.json`);
     } catch (err) {
       console.warn(`Travel tracker strings unavailable for ${code}`, err);
     }

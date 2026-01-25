@@ -1,10 +1,12 @@
 {
-  "html": { "title": "B1 LV→EN: Match Rush + Prefix Forge" },
+  "html": {
+    "title": "B1 LV→EN: Match Rush + Prefix Forge"
+  },
   "badge": "Week 1",
   "gameTitle": "LV→EN Vārdu Spēles (B1)",
   "buttons": {
-    "modeMatch": "\u25B6 Match Rush",
-    "modeForge": "\u25B6 Prefix Forge",
+    "modeMatch": "▶ Match Rush",
+    "modeForge": "▶ Prefix Forge",
     "practice": "Praktizēties",
     "challenge": "Izaicinājums",
     "prevAria": "Iepriekšējā kartīte",
@@ -39,14 +41,14 @@
     "title": "Palīdzība",
     "close": "Aizvērt",
     "lines": [
-      "\u25B6 MATCH RUSH — Klikšķini pāri: vispirms LV vārds, tad tā EN nozīme.",
+      "▶ MATCH RUSH — Klikšķini pāri: vispirms LV vārds, tad tā EN nozīme.",
       "Kļūdas praksē rāda īsu skaidrojumu (piem., -ties = refleksīvs).",
       "Challenge režīmā ir taimeris un sirdis.",
       "",
       "📏 Deck Size — Pārslēdz starp 'fit screen' (bez ritināšanas)",
       "un 'full deck' (ar ritināšanu, vairāk vārdu).",
       "",
-      "\u25B6 PREFIX FORGE — Pievieno pareizo priedēkli pie verbu saknes",
+      "▶ PREFIX FORGE — Pievieno pareizo priedēkli pie verbu saknes",
       "(piem., __mainīt → izmainīt) pēc dotās EN nozīmes.",
       "",
       "Īsceļi: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
@@ -87,12 +89,18 @@
       "incorrect": "Nepareizi — paskaties noteikumu.",
       "fallback": "Pieņēmu formu bez diakritiskajām zīmēm. Ieslēdz stingro režīmu, lai tās vingrinātu."
     },
-    "icons": { "correct": "✔️", "incorrect": "✖️", "info": "ℹ️" },
+    "icons": {
+      "correct": "✔️",
+      "incorrect": "✖️",
+      "info": "ℹ️"
+    },
     "announce": {
       "correct": "Pareiza galotne ievietota.",
       "incorrect": "Nepareiza galotne. Mēģini vēlreiz."
     },
-    "explain": { "prefix": "⇒" },
+    "explain": {
+      "prefix": "⇒"
+    },
     "strictMode": {
       "on": "Stingrais režīms ieslēgts.",
       "off": "Stingrais režīms izslēgts."
@@ -106,5 +114,123 @@
       "LOC": "Lokatīvs",
       "VOC": "Vokatīvs"
     }
+  },
+  "travelTracker": {
+    "title": "Travel Tracker",
+    "start": "Sākt",
+    "restart": "Sākt no jauna",
+    "restartShort": "Restartēt",
+    "check": "Pārbaudīt",
+    "next": "Nākamais maršruts",
+    "score": "Punkti",
+    "streak": "Sērija",
+    "level": "Līmenis",
+    "prompt": "Tava atbilde",
+    "enterAnswer": "Ieraksti atbildi vispirms.",
+    "hint": "Padoms",
+    "noHint": "Nav padoma.",
+    "correct": "Pareizi!",
+    "wrong": "Mēģini vēlreiz!",
+    "level_complete": "Līmenis pabeigts!",
+    "progressLabel": "Jautājums",
+    "progressOf": "no",
+    "progressIdle": "Gatavs",
+    "noQuestion": "Nav pieejamu jautājumu.",
+    "noRoute": "Nav maršruta.",
+    "instructions": "Aizpildi teikumu ar pareizo darbības vārda formu (priedēklis + laiks/persona), lai autobuss dotos uz nākamo pilsētu."
+  },
+  "passiveLab": {
+    "title": "Ciešamās Kārtas Laboratorija",
+    "heroBadge": "B1 prakse",
+    "heroAlt": "Laboratorijas ilustrācija",
+    "start": "Sākt",
+    "builder": "Būvēt teikumu",
+    "typein": "Rakstīt pats",
+    "check": "Pārbaudīt",
+    "next": "Nākamais uzdevums",
+    "score": "Punkti",
+    "streak": "Sērija",
+    "hint": "Padoms",
+    "correct": "Pareizi!",
+    "wrong": "Mēģini vēlreiz!",
+    "level_complete": "Līmenis pabeigts!",
+    "instructions_builder": "Izvēlies laiku, pacientu un pareizo divdabja galotni.",
+    "instructions_typein": "Ieraksti teikumu ciešamajā kārtā (tiek/tika/tiks + divdabis).",
+    "patientLabel": "Pacients (Nom.)",
+    "labels": {
+      "tense": "Laiks",
+      "active": "Aktīvais teikums",
+      "ending": "Divdabja galotne",
+      "typeinPlaceholder": "Ieraksti ciešamo teikumu (tiek/tika/tiks + divdabis).",
+      "lastPlayed": "Pēdējā spēle"
+    },
+    "tenseOptions": {
+      "present": "Tagadne",
+      "past": "Pagātne",
+      "future": "Nākotne"
+    },
+    "genderLabels": {
+      "m": {
+        "sg": "m. vsk.",
+        "pl": "m. dsk."
+      },
+      "f": {
+        "sg": "s. vsk.",
+        "pl": "s. dsk."
+      }
+    },
+    "status": {
+      "idle": "Izvēlies režīmu un pārbaudi formu.",
+      "builderEndingHint": "Pareiza galotne: {ending} ({gender}).",
+      "streakBonus": "Sērijas bonuss! ({count}) +10 xp",
+      "noTasks": "Nav pieejamu uzdevumu.",
+      "loadError": "Neizdevās ielādēt uzdevumus."
+    },
+    "glyphAlt": {
+      "ok": "Veiksmes ikona",
+      "error": "Kļūdas ikona"
+    }
+  },
+  "decl6Detective": {
+    "title": "Kas ir manā mājā? — 6. deklinācijas detektīvs",
+    "start": "Sākt",
+    "mode_mcq": "Detektīvkartes",
+    "mode_typein": "Istabas būvētājs",
+    "check": "Pārbaudīt",
+    "next": "Nākamais",
+    "score": "Punkti",
+    "streak": "Sērija",
+    "hint": "Padoms",
+    "correct": "Pareizi!",
+    "wrong": "Mēģini vēlreiz!",
+    "level_complete": "Līmenis pabeigts!",
+    "instructions_mcq": "Izvēlies pareizo 6. deklinācijas formu.",
+    "instructions_typein": "Ieraksti trūkstošo formu ar diakritiskajām zīmēm."
+  },
+  "dutyDispatcher": {
+    "title": "Kas jādara kam?",
+    "start": "Sākt",
+    "check": "Pārbaudīt",
+    "next": "Nākamais uzdevums",
+    "score": "Punkti",
+    "streak": "Sērija",
+    "hint": "Padoms",
+    "correct": "Pareizi!",
+    "wrong": "Mēģini vēlreiz!",
+    "level_complete": "Līmenis pabeigts!",
+    "instructions": "Velc pienākuma kartīti pie pareizā adresāta (Dativs: kam?)."
+  },
+  "mainiVaiMainies": {
+    "title": "Maini vai mainies?",
+    "start": "Sākt",
+    "check": "Pārbaudīt",
+    "next": "Nākamā frāze",
+    "score": "Punkti",
+    "streak": "Sērija",
+    "hint": "Padoms",
+    "correct": "Pareizi!",
+    "wrong": "Mēģini vēlreiz!",
+    "level_complete": "Līmenis pabeigts!",
+    "instructions": "Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss) atbilstoši situācijai."
   }
 }

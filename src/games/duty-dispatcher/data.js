@@ -22,8 +22,9 @@ export async function loadStrings(gameName) {
   const fallback = lang === 'lv' ? ['lv', 'en'] : [lang, 'lv', 'en'];
   for (const code of fallback) {
     try {
-      const data = await fetchJSON(`i18n/${gameName}.${code}.json`);
-      if (data) return data;
+      const payload = await fetchJSON(`i18n/${code}.json`);
+      if (payload?.dutyDispatcher) return payload.dutyDispatcher;
+      throw new Error(`Missing dutyDispatcher strings for ${code}`);
     } catch {
       // continue
     }

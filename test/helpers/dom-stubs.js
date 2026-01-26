@@ -1,7 +1,9 @@
 function createCtxStub() {
   return {
     setTransform() {},
-    measureText(txt = '') { return { width: (txt || '').length * 7 }; },
+    measureText(txt = '') {
+      return { width: (txt || '').length * 7 };
+    },
     clearRect() {},
     beginPath() {},
     moveTo() {},
@@ -19,7 +21,7 @@ function createCtxStub() {
     textAlign: 'left',
     textBaseline: 'alphabetic',
     fillStyle: '#000',
-    strokeStyle: '#000'
+    strokeStyle: '#000',
   };
 }
 
@@ -31,7 +33,7 @@ export function stubForgeDom() {
     height: 560,
     style: {},
     parentElement: { offsetWidth: 980 },
-    getBoundingClientRect: () => ({ left: 0, top: 0 })
+    getBoundingClientRect: () => ({ left: 0, top: 0 }),
   };
   const statusEl = { textContent: '' };
   const srEl = {
@@ -42,8 +44,12 @@ export function stubForgeDom() {
       this.innerHTML = '';
       this._children = nodes;
     },
-    querySelector() { return null; },
-    querySelectorAll() { return []; },
+    querySelector() {
+      return null;
+    },
+    querySelectorAll() {
+      return [];
+    },
   };
   global.document = {
     createElement: (tag) => {
@@ -58,7 +64,7 @@ export function stubForgeDom() {
       if (id === 'status') return statusEl;
       if (id === 'sr-game-state') return srEl;
       return canvasEl;
-    }
+    },
   };
   return { canvasEl, statusEl, srEl };
 }
@@ -72,7 +78,7 @@ export function stubMatchDom() {
     height: 560,
     style: {},
     parentElement: { offsetWidth: 980 },
-    getBoundingClientRect: () => ({ left: 0, top: 0 })
+    getBoundingClientRect: () => ({ left: 0, top: 0 }),
   };
   const statusEl = { textContent: '' };
   const srEl = {
@@ -83,8 +89,12 @@ export function stubMatchDom() {
       this.innerHTML = '';
       this._children = nodes;
     },
-    querySelector() { return null; },
-    querySelectorAll() { return []; },
+    querySelector() {
+      return null;
+    },
+    querySelectorAll() {
+      return [];
+    },
   };
 
   global.document = {
@@ -100,8 +110,9 @@ export function stubMatchDom() {
       if (id === 'status') return statusEl;
       if (id === 'sr-game-state') return srEl;
       return canvasEl;
-    }
+    },
   };
 
   return { canvasEl, statusEl, srEl };
 }
+/* eslint-env node */

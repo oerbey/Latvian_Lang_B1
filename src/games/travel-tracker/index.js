@@ -60,7 +60,6 @@ const ui = createUI({
   getStrings: () => strings,
   getViewBox: () => viewBox,
   getOverlaySvg: () => overlaySvg,
-  getCityCoords: () => cityCoords,
   getAnimationId: () => animationId,
   setAnimationId: (value) => {
     animationId = value;
@@ -240,7 +239,7 @@ function handleCheck() {
     return;
   }
   const normalizedGuess = normalizeAnswer(guess);
-  const isCorrect = (route.answers || []).some(ans => normalizeAnswer(ans) === normalizedGuess);
+  const isCorrect = (route.answers || []).some((ans) => normalizeAnswer(ans) === normalizedGuess);
   if (isCorrect) {
     onCorrect(route);
   } else {
@@ -353,7 +352,7 @@ async function init() {
     ui.applyStrings();
     setI18nLoading(false);
 
-    state.originalLevels = (routes?.levels ?? []).map(level => ({
+    state.originalLevels = (routes?.levels ?? []).map((level) => ({
       ...level,
       routes: [...(level.routes ?? [])],
     }));

@@ -9,7 +9,7 @@ export function normalizeAnswer(str) {
 
 export function attachButtonBehavior(node, handler) {
   if (!node || typeof handler !== 'function') return;
-  const invoke = event => {
+  const invoke = (event) => {
     if (node.disabled) return;
     handler(event);
   };
@@ -22,7 +22,7 @@ export function attachButtonBehavior(node, handler) {
     (isAnchorConstructor && node instanceof HTMLAnchorElement && node.hasAttribute('href'));
 
   if (!isNativeButton) {
-    node.addEventListener('keydown', event => {
+    node.addEventListener('keydown', (event) => {
       if (node.disabled) return;
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -38,7 +38,6 @@ export function createUI({
   getStrings,
   getViewBox,
   getOverlaySvg,
-  getCityCoords,
   getAnimationId,
   setAnimationId,
   busAnimationMs,
@@ -54,9 +53,10 @@ export function createUI({
     }
     const locale = document.documentElement?.lang || 'lv';
     const rawLabel = strings.progressLabel;
-    const label = typeof rawLabel === 'object'
-      ? formatPlural(locale, current, rawLabel, 'Question')
-      : (rawLabel ?? 'Question');
+    const label =
+      typeof rawLabel === 'object'
+        ? formatPlural(locale, current, rawLabel, 'Question')
+        : (rawLabel ?? 'Question');
     selectors.progress.replaceChildren();
     const labelNode = document.createElement('span');
     labelNode.textContent = `${label} `;
@@ -82,7 +82,7 @@ export function createUI({
     const title = document.querySelector('[data-i18n-key="title"]');
     if (title && strings.title) title.textContent = strings.title;
 
-    document.querySelectorAll('[data-i18n-key="instructions"]').forEach(node => {
+    document.querySelectorAll('[data-i18n-key="instructions"]').forEach((node) => {
       if (strings.instructions) node.textContent = strings.instructions;
     });
 
@@ -100,9 +100,12 @@ export function createUI({
 
     selectors.check.textContent = strings.check ?? selectors.check.textContent;
     selectors.next.textContent = strings.next ?? selectors.next.textContent;
-    selectors.start.textContent = state.started ? strings.restart : (strings.start ?? selectors.start.textContent);
+    selectors.start.textContent = state.started
+      ? strings.restart
+      : (strings.start ?? selectors.start.textContent);
     if (selectors.restart) {
-      selectors.restart.textContent = strings.restartShort ?? strings.restart ?? selectors.restart.textContent;
+      selectors.restart.textContent =
+        strings.restartShort ?? strings.restart ?? selectors.restart.textContent;
     }
     updateProgressIndicator();
   }
@@ -127,7 +130,7 @@ export function createUI({
   function animateBus(from, to, onComplete) {
     cancelAnimation();
     const start = performance.now();
-    const step = now => {
+    const step = (now) => {
       const elapsed = Math.min(1, (now - start) / busAnimationMs);
       const eased = elapsed < 0.5 ? 2 * elapsed * elapsed : -1 + (4 - 2 * elapsed) * elapsed;
       const x = from.x + (to.x - from.x) * eased;
@@ -221,7 +224,7 @@ export function createUI({
   function syncChoiceSelection(value = '') {
     if (!selectors.choices) return;
     const normalized = normalizeAnswer(value);
-    selectors.choices.querySelectorAll('.tt-choice').forEach(btn => {
+    selectors.choices.querySelectorAll('.tt-choice').forEach((btn) => {
       const btnValue = normalizeAnswer(btn.dataset.value ?? '');
       const isActive = normalized !== '' && btnValue === normalized;
       btn.classList.toggle('is-selected', isActive);

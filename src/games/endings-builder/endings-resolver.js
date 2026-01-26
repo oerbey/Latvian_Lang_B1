@@ -1,35 +1,45 @@
+import { assetUrl } from '../../lib/paths.js';
+
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
 async function loadEndings() {
-  const url = new URL('../../../data/endings-builder/tables.json', import.meta.url);
+  const fileUrl = new URL('../../../data/endings-builder/tables.json', import.meta.url);
   const fallback = typeof window !== 'undefined' ? window.__ENDINGS_DATA__ : undefined;
 
   if (typeof window !== 'undefined' && window.location?.protocol === 'file:' && fallback) {
     return clone(fallback);
   }
 
-  try {
-    const mod = await import(url, { assert: { type: 'json' } });
-    return mod.default;
-  } catch (err) {
-    if (!fallback && typeof process !== 'undefined' && process.versions?.node) {
-      try {
-        const [{ readFile }, { fileURLToPath }] = await Promise.all([
-          import('node:fs/promises'),
-          import('node:url'),
-        ]);
-        const raw = await readFile(fileURLToPath(url), 'utf8');
-        return JSON.parse(raw);
-      } catch (fsErr) {
-        console.warn('Failed reading endings tables from filesystem fallback.', fsErr);
-      }
+  const isNode = typeof globalThis !== 'undefined' && globalThis.process?.versions?.node;
+  if (!fallback && isNode) {
+    try {
+      const [{ readFile }, { fileURLToPath }] = await Promise.all([
+        import('node:fs/promises'),
+        import('node:url'),
+      ]);
+      const raw = await readFile(fileURLToPath(fileUrl), 'utf8');
+      return JSON.parse(raw);
+    } catch (fsErr) {
+      console.warn('Failed reading endings tables from filesystem fallback.', fsErr);
     }
-    if (fallback) {
-      console.warn('Using embedded endings data fallback.', err);
-      return clone(fallback);
-    }
-    throw err;
   }
+
+  if (typeof fetch === 'function') {
+    try {
+      const url = assetUrl('data/endings-builder/tables.json');
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.warn('Failed loading endings tables via fetch.', err);
+    }
+  }
+
+  if (fallback) {
+    console.warn('Using embedded endings data fallback.');
+    return clone(fallback);
+  }
+  throw new Error('Failed to load endings tables.');
 }
 
 let ENDINGS = {};

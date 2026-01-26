@@ -8,7 +8,7 @@ stubMatchDom();
 const render = await import('../../src/lib/render.js');
 
 test('setCanvasHeight adjusts exported H accordingly', () => {
-  const { H, setCanvasHeight } = render;
+  const { setCanvasHeight } = render;
   // initial H from stub defaults to 560; set to a new value
   setCanvasHeight(720);
   assert.equal(render.H, 720);

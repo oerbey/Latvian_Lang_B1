@@ -69,8 +69,8 @@ function dispatchAnalytics(event, meta = {}) {
 const handlers = createHandlers({
   state,
   elements,
-  setFeedback: message => setFeedback(elements, message),
-  setHint: message => setHint(elements, message),
+  setFeedback: (message) => setFeedback(elements, message),
+  setHint: (message) => setHint(elements, message),
   updateMetrics: () => updateMetrics(elements, state.strings, state.score, state.streak),
   updateProgress: () => updateProgress(elements, state.strings, state.index, state.order.length),
   clearRoleHighlights: () => clearRoleHighlights(elements.rolesGrid),
@@ -101,11 +101,11 @@ async function bootstrap() {
       });
     }
 
-    const strings = await loadStrings(GAME_NAME);
+    const strings = await loadStrings();
     state.strings = applyStrings(elements, strings);
     updateMetrics(elements, state.strings, state.score, state.streak);
 
-  const stored = readProgress();
+    const stored = readProgress();
     if (stored) {
       state.score = stored.xp ?? 0;
       state.streak = stored.streak ?? 0;

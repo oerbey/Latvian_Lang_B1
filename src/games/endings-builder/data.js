@@ -4,35 +4,43 @@ import { loadString } from '../../lib/storage.js';
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
 export async function loadItems() {
-  const url = new URL('../../../data/endings-builder/items.json', import.meta.url);
+  const fileUrl = new URL('../../../data/endings-builder/items.json', import.meta.url);
   const fallback = typeof window !== 'undefined' ? window.__ENDINGS_ITEMS__ : undefined;
 
   if (typeof window !== 'undefined' && window.location?.protocol === 'file:' && fallback) {
     return clone(fallback);
   }
 
-  try {
-    const mod = await import(url, { assert: { type: 'json' } });
-    return mod.default;
-  } catch (err) {
-    if (!fallback && typeof process !== 'undefined' && process.versions?.node) {
-      try {
-        const [{ readFile }, { fileURLToPath }] = await Promise.all([
-          import('node:fs/promises'),
-          import('node:url'),
-        ]);
-        const raw = await readFile(fileURLToPath(url), 'utf8');
-        return JSON.parse(raw);
-      } catch (fsErr) {
-        console.warn('Failed reading endings items from filesystem fallback.', fsErr);
-      }
+  const isNode = typeof globalThis !== 'undefined' && globalThis.process?.versions?.node;
+  if (!fallback && isNode) {
+    try {
+      const [{ readFile }, { fileURLToPath }] = await Promise.all([
+        import('node:fs/promises'),
+        import('node:url'),
+      ]);
+      const raw = await readFile(fileURLToPath(fileUrl), 'utf8');
+      return JSON.parse(raw);
+    } catch (fsErr) {
+      console.warn('Failed reading endings items from filesystem fallback.', fsErr);
     }
-    if (fallback) {
-      console.warn('Using embedded endings item fallback.', err);
-      return clone(fallback);
-    }
-    throw err;
   }
+
+  if (typeof fetch === 'function') {
+    try {
+      const url = assetUrl('data/endings-builder/items.json');
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.warn('Failed loading endings items via fetch.', err);
+    }
+  }
+
+  if (fallback) {
+    console.warn('Using embedded endings item fallback.');
+    return clone(fallback);
+  }
+  throw new Error('Failed to load endings items.');
 }
 
 export async function loadStrings() {
@@ -82,7 +90,7 @@ export async function loadStrings() {
       next: 'Next',
       rule: 'Show rule',
       ruleHide: 'Hide rule',
-      report: 'Report error'
+      report: 'Report error',
     },
     labels: {
       score: 'Score',
@@ -101,21 +109,26 @@ export async function loadStrings() {
         SG_M: 'SG masc',
         SG_F: 'SG fem',
         PL_M: 'PL masc',
-        PL_F: 'PL fem'
-      }
+        PL_F: 'PL fem',
+      },
     },
     feedback: {
       correct: 'Correct!',
       incorrect: 'Try again.',
-      fallback: 'Accepted without diacritics. Enable strict mode to practise marks.'
+      fallback: 'Accepted without diacritics. Enable strict mode to practise marks.',
     },
     icons: { correct: '✔️', incorrect: '✖️', info: 'ℹ️' },
     announce: { correct: 'Correct ending placed.', incorrect: 'Wrong ending.' },
     explain: { prefix: '⇒' },
-    reportTemplate: 'Please describe the issue.' ,
+    reportTemplate: 'Please describe the issue.',
     strictMode: { on: 'Strict mode enabled', off: 'Strict mode disabled' },
     cases: {
-      NOM: 'NOM', GEN: 'GEN', DAT: 'DAT', ACC: 'ACC', LOC: 'LOC', VOC: 'VOC'
-    }
+      NOM: 'NOM',
+      GEN: 'GEN',
+      DAT: 'DAT',
+      ACC: 'ACC',
+      LOC: 'LOC',
+      VOC: 'VOC',
+    },
   };
 }

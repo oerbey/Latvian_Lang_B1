@@ -41,8 +41,8 @@ export async function loadMap(selectors, mapPath) {
 
   let viewBox = { width: 800, height: 500 };
   if (svg.hasAttribute('viewBox')) {
-    const [x, y, w, h] = svg.getAttribute('viewBox').split(/\s+/).map(Number);
-    viewBox = { width: w, height: h };
+    const parts = svg.getAttribute('viewBox').split(/\s+/).map(Number);
+    viewBox = { width: parts[2], height: parts[3] };
   } else {
     const w = Number(svg.getAttribute('width') || 800);
     const h = Number(svg.getAttribute('height') || 500);
@@ -51,7 +51,7 @@ export async function loadMap(selectors, mapPath) {
   }
 
   const cityCoords = new Map();
-  svg.querySelectorAll('[data-city]').forEach(node => {
+  svg.querySelectorAll('[data-city]').forEach((node) => {
     const name = node.getAttribute('data-city');
     const cx = Number(node.getAttribute('cx') || node.getAttribute('x'));
     const cy = Number(node.getAttribute('cy') || node.getAttribute('y'));

@@ -17,7 +17,7 @@ export function loadTasks(path) {
   return fetchJSON(path);
 }
 
-export async function loadStrings(gameName) {
+export async function loadStrings() {
   const lang = document.documentElement?.lang?.split('-')?.[0]?.toLowerCase() || 'lv';
   const fallback = lang === 'lv' ? ['lv', 'en'] : [lang, 'lv', 'en'];
   for (const code of fallback) {

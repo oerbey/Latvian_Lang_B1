@@ -1,5 +1,6 @@
 import { mountDnD } from './dnd.js';
 import { getTable } from './endings-resolver.js';
+import { createIcon, updateIcon } from '../../lib/icon.js';
 
 export function applyStrings({ elements, strings }) {
   const { headingEl, subtitleEl, feedbackEl, answerInput, keypadEl, pool } = elements;
@@ -12,8 +13,31 @@ export function applyStrings({ elements, strings }) {
 }
 
 export function setFeedback(feedbackEl, icon, text) {
-  feedbackEl.dataset.icon = icon || '';
-  feedbackEl.textContent = text || '';
+  if (!feedbackEl) return;
+  let iconEl = feedbackEl.querySelector('.eb-feedback__icon');
+  if (!iconEl || iconEl.tagName.toLowerCase() !== 'img') {
+    const created = createIcon({ name: icon || 'info', size: 20, alt: '', className: 'eb-feedback__icon' });
+    if (iconEl) {
+      iconEl.replaceWith(created);
+    } else {
+      feedbackEl.prepend(created);
+    }
+    iconEl = created;
+  }
+  if (icon) {
+    updateIcon(iconEl, { name: icon, size: 20, alt: '' });
+    iconEl.hidden = false;
+  } else {
+    iconEl.hidden = true;
+  }
+
+  let textEl = feedbackEl.querySelector('.eb-feedback__text');
+  if (!textEl) {
+    textEl = document.createElement('span');
+    textEl.className = 'eb-feedback__text';
+    feedbackEl.append(textEl);
+  }
+  textEl.textContent = text || '';
 }
 
 export function insertChar(answerInput, ch) {

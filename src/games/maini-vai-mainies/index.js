@@ -2,7 +2,7 @@ import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';
 import { sanitizeText } from '../../lib/sanitize.js';
-import { loadJSON, readGameProgress, writeGameProgress } from '../../lib/storage.js';
+import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 
@@ -134,13 +134,13 @@ function updateMetrics() {
 }
 
 function setButtonsDisabled(disabled) {
-  selectors.buttons.forEach(btn => {
+  selectors.buttons.forEach((btn) => {
     btn.disabled = disabled;
   });
 }
 
 function highlightSelection(button, correct) {
-  selectors.buttons.forEach(btn => {
+  selectors.buttons.forEach((btn) => {
     btn.classList.remove('btn-success', 'btn-danger');
     btn.classList.add('btn-outline-primary');
   });
@@ -167,7 +167,7 @@ function prepareNextItem() {
   state.potential = 5;
   state.readyForNext = false;
   setButtonsDisabled(false);
-  selectors.buttons.forEach(btn => {
+  selectors.buttons.forEach((btn) => {
     btn.classList.remove('btn-success', 'btn-danger');
     btn.classList.add('btn-outline-primary');
   });
@@ -205,7 +205,9 @@ function handleCorrect(button) {
   const { earned, bonus } = awardScore();
   const explainText = item.explain ? ` ${item.explain}` : '';
   const bonusText = bonus ? ` (+${bonus})` : '';
-  setFeedback(`${state.strings.correct ?? 'Correct!'} +${earned}${bonusText}.${explainText}`.trim());
+  setFeedback(
+    `${state.strings.correct ?? 'Correct!'} +${earned}${bonusText}.${explainText}`.trim(),
+  );
   setHint('');
   setAvatar('happy');
   if (selectors.next) {
@@ -293,13 +295,14 @@ function applyStrings(strings) {
   };
 
   if (selectors.title && strings?.title) selectors.title.textContent = strings.title;
-  if (selectors.instructions && strings?.instructions) selectors.instructions.textContent = strings.instructions;
+  if (selectors.instructions && strings?.instructions)
+    selectors.instructions.textContent = strings.instructions;
   if (selectors.start && strings?.start) selectors.start.textContent = strings.start;
   if (selectors.next && strings?.next) selectors.next.textContent = strings.next;
   updateMetrics();
 }
 
-async function loadJSON(path) {
+async function fetchJSON(path) {
   const url = assetUrl(path);
   const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
@@ -311,7 +314,7 @@ async function loadStrings() {
   const fallbackOrder = htmlLang === 'lv' ? ['lv', 'en'] : [htmlLang, 'lv', 'en'];
   for (const code of fallbackOrder) {
     try {
-      const payload = await loadJSON(`i18n/${code}.json`);
+      const payload = await fetchJSON(`i18n/${code}.json`);
       if (payload?.mainiVaiMainies) return payload.mainiVaiMainies;
       throw new Error(`Missing mainiVaiMainies strings for ${code}`);
     } catch (err) {
@@ -327,7 +330,7 @@ async function bootstrap() {
     selectors.start.disabled = true;
     setButtonsDisabled(true);
 
-    selectors.buttons.forEach(btn => btn.addEventListener('click', handleChoice));
+    selectors.buttons.forEach((btn) => btn.addEventListener('click', handleChoice));
 
     if (selectors.next) {
       selectors.next.addEventListener('click', () => {
@@ -352,7 +355,7 @@ async function bootstrap() {
       updateMetrics();
     }
 
-    const items = await loadJSON(DATA_PATH);
+    const items = await fetchJSON(DATA_PATH);
     if (!Array.isArray(items)) {
       throw new Error('Dataset malformed');
     }
@@ -369,7 +372,7 @@ async function bootstrap() {
   }
 }
 
-bootstrap().catch(err => {
+bootstrap().catch((err) => {
   console.error('Failed to init game', err);
   const safeError = err instanceof Error ? err : new Error('Failed to load game data.');
   showFatalError(safeError);

@@ -12,7 +12,6 @@
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet"  integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" crossorigin="anonymous" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/endings-builder/styles.css" />
   </head>
@@ -29,7 +28,10 @@
 
         <div data-game-shell></div>
 
-        <div class="eb-feedback" aria-live="polite" data-icon=""></div>
+        <div class="eb-feedback" aria-live="polite">
+          <span class="eb-feedback__icon" data-feedback-icon></span>
+          <span class="eb-feedback__text" data-feedback-text></span>
+        </div>
         <div class="eb-explain visually-hidden" data-eb-explain aria-live="polite"></div>
 
         <div class="eb-board" id="ebBoard"></div>

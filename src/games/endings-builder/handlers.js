@@ -15,6 +15,11 @@ export function createHandlers({
   equalsLoose,
 }) {
   const { answerInput, explainEl, pool } = elements;
+  const feedbackIcons = {
+    correct: 'check',
+    incorrect: 'close',
+    info: 'info',
+  };
 
   function bumpProgress(id, correct) {
     const progress = getProgress();
@@ -29,11 +34,11 @@ export function createHandlers({
     if (correct) {
       state.correct += 1;
       state.streak += 1;
-      const icon = fallback ? strings.icons.info : strings.icons.correct;
+      const icon = fallback ? feedbackIcons.info : feedbackIcons.correct;
       setFeedback(icon, fallback ? strings.feedback.fallback : strings.feedback.correct);
     } else {
       state.streak = 0;
-      setFeedback(strings.icons.incorrect, strings.feedback.incorrect);
+      setFeedback(feedbackIcons.incorrect, strings.feedback.incorrect);
     }
     shell.setScore({ attempts: state.attempts, correct: state.correct, streak: state.streak });
     bumpProgress(state.current.id, correct);

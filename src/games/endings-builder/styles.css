@@ -104,12 +104,13 @@
   min-height: 24px;
   line-height: 24px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.eb-feedback::before {
-  content: attr(data-icon);
-  display: inline-block;
-  width: 1.25em;
+.eb-feedback__icon {
+  flex-shrink: 0;
 }
 
 .eb-explain {

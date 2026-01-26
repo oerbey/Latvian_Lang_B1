@@ -1,15 +1,17 @@
+import { createIcon } from '../src/lib/icon.js';
+
 const games = [
-  { title: 'Darbības Vārds', href: 'darbibas-vards.html', icon: 'bi-joystick', desc: 'Verb practice game' },
-  { title: 'Conjugation Sprint', href: 'conjugation-sprint.html', icon: 'bi-speedometer2', desc: 'Verb conjugation race' },
-  { title: 'Endings Builder', href: 'endings-builder.html', icon: 'bi-slash', desc: 'Build verbs from pieces' },
-  { title: 'Passive Voice Builder', href: 'passive-lab.html', icon: 'bi-flask', desc: 'Construct passive forms with tikt + participle' },
-  { title: 'Kas ir manā mājā?', href: 'decl6-detective.html', icon: 'bi-house-door', desc: 'Detect 6th-declension forms with cards + room builder' },
-  { title: 'Travel Tracker', href: 'travel-tracker.html', icon: 'bi-bus-front', desc: 'Follow routes with prefixes' },
-  { title: 'Maini vai mainies?', href: 'maini-vai-mainies.html', icon: 'bi-shuffle', desc: 'Reflexive vs. non-reflexive verbs' },
-  { title: 'Kas jādara kam?', href: 'duty-dispatcher.html', icon: 'bi-people', desc: 'Assign duties with the debitive' },
-  { title: 'Rakstura īpašības — pāri', href: 'rakstura-ipasibas-match.html', icon: 'bi-list-check', desc: 'Savieno rakstura īpašības ar tulkojumiem slēgtā kopā vai pilnajā sarakstā.' },
-  { title: 'Rakstura īpašības', href: 'character-traits.html', icon: 'bi-emoji-smile', desc: 'Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.' },
-  { title: 'Week 1', href: 'week1.html', icon: 'bi-lightning-charge', desc: 'Weekly exercises' },
+  { title: 'Darbības Vārds', href: 'darbibas-vards.html', icon: 'book', desc: 'Verb practice game' },
+  { title: 'Conjugation Sprint', href: 'conjugation-sprint.html', icon: 'gamepad', desc: 'Verb conjugation race' },
+  { title: 'Endings Builder', href: 'endings-builder.html', icon: 'pencil', desc: 'Build verbs from pieces' },
+  { title: 'Passive Voice Builder', href: 'passive-lab.html', icon: 'book', desc: 'Construct passive forms with tikt + participle' },
+  { title: 'Kas ir manā mājā?', href: 'decl6-detective.html', icon: 'home', desc: 'Detect 6th-declension forms with cards + room builder' },
+  { title: 'Travel Tracker', href: 'travel-tracker.html', icon: 'map', desc: 'Follow routes with prefixes' },
+  { title: 'Maini vai mainies?', href: 'maini-vai-mainies.html', icon: 'refresh', desc: 'Reflexive vs. non-reflexive verbs' },
+  { title: 'Kas jādara kam?', href: 'duty-dispatcher.html', icon: 'user', desc: 'Assign duties with the debitive' },
+  { title: 'Rakstura īpašības — pāri', href: 'rakstura-ipasibas-match.html', icon: 'star', desc: 'Savieno rakstura īpašības ar tulkojumiem slēgtā kopā vai pilnajā sarakstā.' },
+  { title: 'Rakstura īpašības', href: 'character-traits.html', icon: 'user', desc: 'Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.' },
+  { title: 'Week 1', href: 'week1.html', icon: 'stats', desc: 'Weekly exercises' },
 ];
 
 function buildGameCard(game) {
@@ -29,8 +31,7 @@ function buildGameCard(game) {
   const header = document.createElement('div');
   header.className = 'd-flex align-items-center mb-2';
 
-  const icon = document.createElement('i');
-  icon.className = `bi ${game.icon} fs-3 me-2`;
+  const icon = createIcon({ name: game.icon, size: 24, alt: '', className: 'me-2' });
 
   const title = document.createElement('h2');
   title.className = 'h5 mb-0';

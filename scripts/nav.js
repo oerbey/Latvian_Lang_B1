@@ -1,4 +1,5 @@
 import { NAV_ITEMS } from './nav-config.js';
+import { upgradeIcons } from '../src/lib/icon.js';
 
 function getCurrentPage() {
   const path = new URL(window.location.href).pathname;
@@ -28,7 +29,8 @@ function renderNav() {
   nav.innerHTML = `
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <i class="bi bi-translate"></i> Latvian B1
+        <span class="me-1" data-icon="globe" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
+        Latvian B1
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav"
@@ -48,17 +50,28 @@ function renderNav() {
 
           <div class="d-flex gap-2">
             <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
-              <i class="bi bi-moon-stars-fill d-none" id="iconDark"></i>
-              <i class="bi bi-sun-fill" id="iconLight"></i>
+              <span class="d-none" id="iconDark" data-icon="moon" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
+              <span id="iconLight" data-icon="sun" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
             </button>
             <a class="btn btn-primary" href="https://github.com/oerbey/Latvian_Lang_B1" target="_blank" rel="noopener">
-              <i class="bi bi-github"></i> <span class="ms-1 d-none d-sm-inline">GitHub</span>
+              <span class="me-1" data-icon="info" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
+              <span class="ms-1 d-none d-sm-inline">GitHub</span>
             </a>
           </div>
         </div>
       </div>
     </div>
   `;
+
+  upgradeIcons(nav);
+
+  const iconDark = nav.querySelector('#iconDark');
+  const iconLight = nav.querySelector('#iconLight');
+  if (iconDark && iconLight) {
+    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+    iconDark.classList.toggle('d-none', !isDark);
+    iconLight.classList.toggle('d-none', isDark);
+  }
 
   const current = getCurrentPage();
   nav.querySelectorAll('.nav-link').forEach(link => {

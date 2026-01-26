@@ -1,6 +1,6 @@
-import { assetUrl } from '../../lib/paths.js';
 import { formatNumber } from '../../lib/i18n-format.js';
 import { formatLastPlayed } from './progress.js';
+import { updateIcon } from '../../lib/icon.js';
 
 export function updateScoreboard(nodes, progress) {
   if (nodes.scoreValue) {
@@ -63,14 +63,15 @@ export function hideResult(nodes) {
   }
 }
 
-export function setStatus(nodes, iconPaths, message, state) {
+export function setStatus(nodes, iconNames, message, state) {
   if (!nodes.statusText || !nodes.feedback || !nodes.statusIcon) return;
   nodes.statusText.textContent = message || '—';
   nodes.feedback.classList.toggle('show', Boolean(state));
   nodes.feedback.classList.toggle('passive-lab-feedback--success', state === 'success');
   nodes.feedback.classList.toggle('passive-lab-feedback--error', state === 'error');
-  if (state === 'success' || state === 'error') {
-    const path = assetUrl(iconPaths[state]);
-    nodes.statusIcon.src = path;
+  if (state && iconNames[state]) {
+    updateIcon(nodes.statusIcon, { name: iconNames[state], size: 20, alt: '' });
+  } else {
+    updateIcon(nodes.statusIcon, { name: 'info', size: 20, alt: '' });
   }
 }

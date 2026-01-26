@@ -1,6 +1,8 @@
 import { installGlobalErrorHandlers } from '../src/lib/errors.js';
+import { upgradeIcons } from '../src/lib/icon.js';
 
 installGlobalErrorHandlers();
+upgradeIcons();
 
 const yearEl = document.getElementById('year');
 if (yearEl) {

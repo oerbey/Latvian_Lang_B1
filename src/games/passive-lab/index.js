@@ -34,9 +34,9 @@ import {
     'm.pl': '-ti',
     'f.pl': '-tas',
   };
-  const iconPaths = {
-    success: 'assets/img/passive-lab/glyph-ok.svg',
-    error: 'assets/img/passive-lab/glyph-error.svg',
+  const iconNames = {
+    success: 'check',
+    error: 'close',
   };
 
   const mustSelect = (selector) => {
@@ -93,7 +93,7 @@ import {
   }
 
   function updateStatus(message, state) {
-    setStatus(nodes, iconPaths, message, state);
+    setStatus(nodes, iconNames, message, state);
   }
 
   function renderResult() {

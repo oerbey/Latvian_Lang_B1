@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="pencil icon">
+  <title>pencil icon</title>
+  <g style="stroke:#334155;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none">
+    <path d="M3 21l3.6-.7L19 7.9a1.7 1.7 0 0 0 0-2.4l-.5-.5a1.7 1.7 0 0 0-2.4 0L3.7 17.4 3 21z"/>
+    <line x1="13.7" y1="6.7" x2="17.3" y2="10.3"/>
+  </g>
+  <g>
+    <path style="fill:#be123c;fill-opacity:0.55;stroke:none" d="M3.8 17.2l3 3-3.2.6z"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="speaker icon">
+  <title>speaker icon</title>
+  <g style="stroke:#e5e7eb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none">
+    <path d="M4 10v4h3l5 4V6L7 10H4z"/>
+  </g>
+  <g>
+    <path style="stroke:#fb7185;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-opacity:0.9" d="M16 9a3 3 0 0 1 0 6"/>
+    <path style="stroke:#fb7185;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-opacity:0.9" d="M18.5 7.5a5.5 5.5 0 0 1 0 9"/>
+  </g>
+</svg>

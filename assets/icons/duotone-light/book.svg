@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="book icon">
+  <title>book icon</title>
+  <g style="stroke:#334155;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none">
+    <rect x="4" y="5" width="16" height="14" rx="2"/>
+    <line x1="12" y1="5" x2="12" y2="19"/>
+    <path d="M6 7h4"/>
+    <path d="M14 7h4"/>
+    <path d="M6 10h4"/>
+    <path d="M14 10h4"/>
+  </g>
+  <g>
+    <path style="fill:#be123c;fill-opacity:0.55;stroke:none" d="M7.2 5v6.3l1.8-1.2 1.8 1.2V5z"/>
+  </g>
+</svg>

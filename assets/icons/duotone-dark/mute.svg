@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="mute icon">
+  <title>mute icon</title>
+  <g style="stroke:#e5e7eb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none">
+    <path d="M4 10v4h3l5 4V6L7 10H4z"/>
+  </g>
+  <g>
+    <line style="stroke:#fb7185;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-opacity:0.9" x1="16.3" y1="10" x2="20.5" y2="14.2"/>
+    <line style="stroke:#fb7185;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-opacity:0.9" x1="20.5" y1="10" x2="16.3" y2="14.2"/>
+  </g>
+</svg>

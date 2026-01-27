@@ -18,7 +18,7 @@
 - `assets/` — vocabulary pairing game assets (`assets/app.js`, `assets/styles.css`).
 - `data/words.json` — primary vocabulary list with conjugation tables consumed by several games.
 - `src/games/endings-builder/` — modular endings builder implementation (`index.js`, drag-and-drop controller, normalization helpers, i18n loader).
-- `scripts/` — developer tooling such as `xlsx_to_json.mjs`, `personality_csv_to_json.mjs`, `build_week1_offline.py`, and shared page bootstrap (`page-init.js`).
+- `scripts/` — developer tooling such as `xlsx_to_json.mjs`, `split-words-json.mjs`, `personality_csv_to_json.mjs`, `build_week1_offline.mjs`, `validate-data.mjs`, `validate-i18n.mjs`, `jsdom-setup.js`, and shared page bootstrap (`page-init.js`).
 - `styles.css` — global visual language shared across pages.
 - `test/` — Node test suites with DOM stubs for rendering units (run via `npm test`).
 - `scripts/legacy/Latvian_Verb_Filler.py` — Python helper that fills verb conjugations by querying the Tezaurs inflection API into `data/legacy/verbs_conjugated.json`.
@@ -81,7 +81,9 @@
 - When adding a new language, mirror keys present in `i18n/en.json` and ensure `sw.js` caches the new manifest entry.
 
 ## Data & Tooling
-- **Vocabulary (`data/words.json`)**: Generated from `data/latvian_words_with_translations.xlsx` using `npm run build:data`. Columns `lv`, `eng`, `ru`, and optional tags populate each entry.
+- **Vocabulary (`data/words.json`)**: Generated from `data/latvian_words_with_translations.xlsx` using `npm run build:data`. Columns `lv`, `en`, `ru`, optional `tag`, and optional `conj` populate each entry.
+- **Chunked word payloads (`data/words/index.json`, `data/words/chunk-*.json`)**: Built via `npm run build:words:chunks` and loaded by `src/lib/words-data.js` for streaming fetches.
+- **Offline fallback (`data/words.offline.js`)**: Embedded word list written by `npm run build:data` and used when chunk fetches fail.
 - **Verb Inflections (`data/legacy/verbs_conjugated.json`)**: Optional enrichments produced by running `scripts/legacy/Latvian_Verb_Filler.py` (requires `requests`). The script retries Tezaurs API requests and maps MULTEXT-East tags into the JSON schema used by the sprint game.
 - **Endings Data (`data/endings-builder/*.json`)**: Hand-authored schema tables and item definitions. When editing, keep UUID-like `id` stable because progress is keyed by it.
 - **Units Data (`data/lv-en/units.json`, `data/lv-ru/units.json`)**: Used by the canvas match/forge game. Unit files live under `data/lv-en/units/` and `data/lv-ru/units/`. Ensure each entry declares which mini-games it supports (`games: ['match', 'forge']`) and includes translation keys for every supported UI language.
@@ -112,10 +114,12 @@
 
 ## Development Workflow
 - Install dependencies: `npm install` (pulls `xlsx` for data conversion). For Python tooling, `pip install requests`.
-- Build datasets: `npm run build:data` converts the Excel sheet to `data/words.json`; `npm run build:personality` refreshes `data/personality/words.json`; `npm run build:offline` rebuilds offline packs. Run the Python script manually when refreshing verb inflections.
+- Build datasets: `npm run build:data` converts the Excel sheet to `data/words.json`; `npm run build:words:chunks` regenerates `data/words/index.json` + chunk files; `npm run build:personality` refreshes `data/personality/words.json`; `npm run build:offline` rebuilds offline bundles; `npm run build:all` runs the full pipeline. Run the Python script manually when refreshing verb inflections.
 - Serve locally: use any static file server (e.g. `npx http-server .` or `python -m http.server`) from the project root; no build step is required for the web assets.
-- Tests: execute `npm test` to run Node test suites under `test/`. DOM-heavy modules use stubs from `test/helpers/dom-stubs.js`.
-- Linting: run `npm run lint` (ESLint + Prettier config).
+- Tests: execute `npm test` to run Node test suites under `test/` (bootstraps DOM APIs via `scripts/jsdom-setup.js`); DOM-heavy modules use stubs from `test/helpers/dom-stubs.js`.
+- Linting: run `npm run lint` (ESLint + Prettier config) and `npm run format` for formatting.
+- Validation: run `npm run validate:data` (JSON schemas + word chunk totals) and `npm run validate:i18n` (key parity across locale files).
+- Type checks: `npm run typecheck` (tsconfig-based validation for editor tooling).
 
 ## Deployment Tips
 - For GitHub Pages, deploy the root directory; ensure `assetUrl()` usage in `app.js` continues to resolve assets relative to `document.baseURI`.

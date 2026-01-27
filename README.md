@@ -108,8 +108,12 @@ A comprehensive browser-based collection of interactive educational games and to
 │
 ├── scripts/                           # Build & utility scripts
 │   ├── xlsx_to_json.mjs               # Excel -> JSON converter
+│   ├── split-words-json.mjs           # Chunk words.json for lazy loading
 │   ├── personality_csv_to_json.mjs    # Personality CSV -> JSON converter
-│   ├── build_week1_offline.py         # Offline pack builder
+│   ├── build_week1_offline.mjs        # Offline pack builder (i18n + week1 + endings)
+│   ├── validate-data.mjs              # JSON schema checks for datasets
+│   ├── validate-i18n.mjs              # i18n key parity checks
+│   ├── jsdom-setup.js                 # Test runner DOM bootstrap
 │   ├── page-init.js                   # Shared page initialization
 │   └── legacy/
 │       └── Latvian_Verb_Filler.py     # Verb conjugation scraper
@@ -187,6 +191,11 @@ npm install
 npm run start
 npm test
 npm run test:watch
+npm run lint
+npm run format
+npm run typecheck
+npm run validate:data
+npm run validate:i18n
 ```
 
 ### Building Data
@@ -195,13 +204,23 @@ npm run test:watch
 # Convert Excel spreadsheet to JSON
 npm run build:data
 
+# Split words.json into chunked payloads
+npm run build:words:chunks
+
 # Build personality words JSON from CSV
 npm run build:personality
 
-# Generate offline study packs
+# Generate offline study packs (i18n + week1 + endings builder)
 npm run build:offline
 
-# Run linter (ESLint + Prettier)
+# Run full data build pipeline
+npm run build:all
+
+# Validate data + i18n
+npm run validate:data
+npm run validate:i18n
+
+# Run linter (ESLint with Prettier config)
 npm run lint
 ```
 
@@ -220,25 +239,30 @@ npm run test:coverage
 # Run Playwright smoke tests
 npm run test:e2e
 
+# Install Playwright browsers (first-time setup)
+npx playwright install --with-deps chromium
+
 # Tests mirror the src/ structure under test/
 # Example: test/games/conjugation-sprint/index.test.js
 ```
 
-CI runs `npm test` on every PR and push to `main`.
+CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR and push to `main`.
 
 ### Code Style
 
 - **Language**: ES modules (no bundler needed)
 - **Style**: 2-space indentation, camelCase naming
-- **Formatting**: Prettier compatibility (run `prettier --write` before committing)
-- **Linting**: ESLint with import plugin
+- **Formatting**: `npm run format` (Prettier) or `npm run format:check`
+- **Linting**: `npm run lint` (ESLint with import + prettier-config)
 
 ## 📊 Data Management
 
 ### Vocabulary Data (`data/words.json`)
 - **Source**: Excel spreadsheet converted via `npm run build:data`
-- **Structure**: Array of word objects with `lv`, `eng`, `ru`, tags, and conjugation tables
+- **Structure**: Array of word objects with `lv`, `en`, `ru`, optional `tag`, and optional `conj` tables
 - **Generated from**: `scripts/xlsx_to_json.mjs`
+- **Chunked runtime data**: `data/words/index.json` + `data/words/chunk-*.json` (built via `npm run build:words:chunks`)
+- **Offline fallback**: `data/words.offline.js`
 
 ### Personality Traits Data (`data/personality/words.csv`)
 - **Source**: CSV vocabulary list
@@ -258,7 +282,7 @@ CI runs `npm test` on every PR and push to `main`.
 
 ### Offline Data
 - Treat generated files like `words.offline.js` as build artifacts
-- Regenerate with `npm run build:offline` after data changes
+- Regenerate bundles with `npm run build:offline` after data changes (writes `i18n/offline.js`, `data/week1.offline.js`, `data/endings-builder/offline.js`)
 
 ## 🌍 Internationalization (i18n)
 
@@ -371,7 +395,7 @@ CI runs `npm test` on every PR and push to `main`.
 - Include reproduction steps (for bug fixes)
 - Attach screenshots/videos for UI changes
 - Mention related issues or cards
-- Run `npm lint` and `npm test` before pushing
+- Run `npm run lint` and `npm test` before pushing
 
 ### After Switching Branches
 ```bash

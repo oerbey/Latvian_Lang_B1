@@ -9,15 +9,19 @@
 
 ## Build, Test, and Development Commands
 - `npm run build:data` converts the spreadsheet input to JSON via `scripts/xlsx_to_json.mjs`.
-- `npm run build:offline` refreshes offline study packs in `docs/` using Python.
+- `npm run build:words:chunks` splits `data/words.json` into `data/words/index.json` + chunk files.
+- `npm run build:offline` refreshes offline bundles (`i18n/offline.js`, `data/week1.offline.js`, `data/endings-builder/offline.js`) via `scripts/build_week1_offline.mjs`.
+- `npm run validate:data` checks JSON datasets against schemas (including word chunk totals).
+- `npm run validate:i18n` checks locale files for key parity.
 - `npm test` runs Node’s built-in test runner across `test/`.
 - `npm run lint` executes ESLint with Prettier compatibility; fix warnings before opening a PR.
+- `npm run format` applies Prettier formatting (use `npm run format:check` in CI).
 
 ## Coding Style & Naming Conventions
 - Use ES modules with top-level `const`/`let`; prefer pure helpers near their usage.
 - Favor descriptive camelCase for variables and functions (`tenseMode`, `buildChoiceButtons`).
 - Keep UI text in Latvian/English strings close to components or in `i18n/` when shared.
-- Format files with `prettier --write` (no repo script yet); match existing two-space indentation.
+- Format files with `npm run format`; match existing two-space indentation.
 
 ## Testing Guidelines
 - Add Node test files under `test/` mirroring the source tree (e.g., `games/conjugation-sprint/index.test.js`), keeping the `.test.js` suffix.

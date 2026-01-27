@@ -14,14 +14,17 @@ The project follows a file-per-feature approach with ES modules. While functiona
 ## 🔴 Critical Issues
 
 ### 1. Top-Level Await Without Try-Catch
+
 **Location:** Multiple game entry points  
-**Files:** 
+**Files:**
+
 - `src/games/endings-builder/index.js:44` — `const ITEMS = await loadItems();`
 - `src/games/endings-builder/index.js:73` — `let strings = await loadStrings();`
 
 **Problem:** If data loading fails, the entire module fails to initialize with an unhandled rejection.
 
 **Recommendation:**
+
 ```javascript
 // Wrap in IIFE with error handling
 (async function init() {
@@ -39,7 +42,9 @@ The project follows a file-per-feature approach with ES modules. While functiona
 ## 🟠 High Priority Issues
 
 ### 2. Massive Game Files Without Separation of Concerns
+
 **Locations:**
+
 - `src/games/travel-tracker/index.js` — 790 lines
 - `src/games/matching-game.js` — 749 lines
 - `src/games/endings-builder/index.js` — 539 lines
@@ -48,6 +53,7 @@ The project follows a file-per-feature approach with ES modules. While functiona
 - `src/games/passive-lab/index.js` — 504 lines
 
 **Problem:** Single files mixing:
+
 - DOM manipulation
 - State management
 - Business logic
@@ -55,6 +61,7 @@ The project follows a file-per-feature approach with ES modules. While functiona
 - Rendering
 
 **Recommendation:** Split each game into:
+
 ```
 games/travel-tracker/
 ├── index.js           # Entry point, orchestration
@@ -66,7 +73,9 @@ games/travel-tracker/
 ```
 
 ### 3. No Shared Game Abstraction
+
 **Problem:** Every game reimplements:
+
 - Progress loading/saving
 - i18n loading
 - Analytics dispatch
@@ -74,22 +83,35 @@ games/travel-tracker/
 - Start/Next button handling
 
 **Recommendation:** Create a `GameBase` class or factory:
+
 ```javascript
 // src/lib/game-base.js
 export function createGame(config) {
   return {
     state: createInitialState(config),
-    start() { /* ... */ },
-    cleanup() { /* ... */ },
-    saveProgress() { /* ... */ },
-    loadProgress() { /* ... */ },
-    dispatchEvent() { /* ... */ },
+    start() {
+      /* ... */
+    },
+    cleanup() {
+      /* ... */
+    },
+    saveProgress() {
+      /* ... */
+    },
+    loadProgress() {
+      /* ... */
+    },
+    dispatchEvent() {
+      /* ... */
+    },
   };
 }
 ```
 
 ### 4. Inconsistent Module Entry Points
+
 **Problem:** Some games use IIFE wrappers, others don't
+
 - `decl6-detective/index.js` — Wrapped in IIFE
 - `passive-lab/index.js` — Wrapped in IIFE
 - `travel-tracker/index.js` — No IIFE, uses top-level await
@@ -102,12 +124,14 @@ export function createGame(config) {
 ## 🟡 Medium Priority Issues
 
 ### 5. Duplicate Function Declarations Shadow Imports
+
 **Location:** `src/games/travel-tracker/index.js:172-177`
 
 ```javascript
 import { loadJSON, remove, saveJSON } from '../../lib/storage.js';
 // ...
-async function loadJSON(path) {  // SHADOWS THE IMPORT!
+async function loadJSON(path) {
+  // SHADOWS THE IMPORT!
   const url = assetUrl(path);
   // ...
 }
@@ -118,9 +142,11 @@ async function loadJSON(path) {  // SHADOWS THE IMPORT!
 **Recommendation:** Rename local function to `fetchJSON` or similar
 
 ### 6. Mixed Import Patterns
+
 **Problem:** Some files use named imports, others use namespace patterns inconsistently
 
 **Current:**
+
 ```javascript
 import { mustId, on } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
@@ -128,6 +154,7 @@ import { shuffle } from '../../lib/utils.js';
 ```
 
 **Recommendation:** Create a barrel export for common utilities:
+
 ```javascript
 // src/lib/index.js
 export * from './dom.js';
@@ -140,24 +167,32 @@ import { mustId, assetUrl, shuffle, loadJSON } from '../../lib/index.js';
 ```
 
 ### 7. Circular Dependency Risk
+
 **Files:** `state.js` imports from `dom.js`, which could import from `state.js` in future
 
-**Recommendation:** 
+**Recommendation:**
+
 - Keep `state.js` pure (no DOM imports)
 - Use dependency injection for status updates
 - Document module dependency hierarchy
 
 ### 8. No Dependency Injection
+
 **Problem:** Modules directly import dependencies, making testing and mocking difficult
 
 **Example:** `storage.js` directly accesses `globalThis.localStorage`
 
 **Recommendation:** Allow injection for testing:
+
 ```javascript
 export function createStorageAPI(storage = globalThis.localStorage) {
   return {
-    loadJSON(key, fallback) { /* ... */ },
-    saveJSON(key, value) { /* ... */ },
+    loadJSON(key, fallback) {
+      /* ... */
+    },
+    saveJSON(key, value) {
+      /* ... */
+    },
   };
 }
 
@@ -169,21 +204,33 @@ export const storage = createStorageAPI();
 ## 🟢 Low Priority Issues
 
 ### 9. Utility Function Sprawl
+
 **Problem:** `utils.js` is minimal (27 lines) while complex logic is duplicated in games
 
 **Recommendation:** Expand shared utilities:
+
 ```javascript
 // src/lib/utils.js additions
-export function debounce(fn, delay) { /* ... */ }
-export function throttle(fn, delay) { /* ... */ }
-export function formatDate(date, locale) { /* ... */ }
-export function normalizeAnswer(value) { /* ... */ } // Currently duplicated in 4+ games
+export function debounce(fn, delay) {
+  /* ... */
+}
+export function throttle(fn, delay) {
+  /* ... */
+}
+export function formatDate(date, locale) {
+  /* ... */
+}
+export function normalizeAnswer(value) {
+  /* ... */
+} // Currently duplicated in 4+ games
 ```
 
 ### 10. Missing Module Documentation
+
 **Problem:** Library modules lack JSDoc or header comments explaining purpose
 
 **Recommendation:** Add module headers:
+
 ```javascript
 /**
  * @fileoverview DOM utility functions for safe element access
@@ -228,4 +275,3 @@ src/
 
 - [State Management](./03-state-management.md)
 - [Testing Strategy](./08-testing-strategy.md)
-

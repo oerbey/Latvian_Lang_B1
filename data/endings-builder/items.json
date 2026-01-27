@@ -3,46 +3,46 @@
     "id": "skolotajs",
     "stem": "skolotāj",
     "display": "skolotāj-",
-    "translation": {"en": "teacher", "lv": "skolotājs"},
+    "translation": { "en": "teacher", "lv": "skolotājs" },
     "pos": "nouns",
     "schema": "decl1_masc",
     "grams": [
-      {"case": "NOM", "number": "SG"},
-      {"case": "GEN", "number": "SG"},
-      {"case": "DAT", "number": "SG"},
-      {"case": "ACC", "number": "SG"},
-      {"case": "LOC", "number": "SG"},
-      {"case": "NOM", "number": "PL"}
+      { "case": "NOM", "number": "SG" },
+      { "case": "GEN", "number": "SG" },
+      { "case": "DAT", "number": "SG" },
+      { "case": "ACC", "number": "SG" },
+      { "case": "LOC", "number": "SG" },
+      { "case": "NOM", "number": "PL" }
     ]
   },
   {
     "id": "maja",
     "stem": "māj",
     "display": "māj-",
-    "translation": {"en": "house", "lv": "māja"},
+    "translation": { "en": "house", "lv": "māja" },
     "pos": "nouns",
     "schema": "decl4_fem",
     "grams": [
-      {"case": "NOM", "number": "SG"},
-      {"case": "GEN", "number": "SG"},
-      {"case": "DAT", "number": "SG"},
-      {"case": "LOC", "number": "SG"},
-      {"case": "NOM", "number": "PL"}
+      { "case": "NOM", "number": "SG" },
+      { "case": "GEN", "number": "SG" },
+      { "case": "DAT", "number": "SG" },
+      { "case": "LOC", "number": "SG" },
+      { "case": "NOM", "number": "PL" }
     ]
   },
   {
     "id": "zals",
     "stem": "zaļ",
     "display": "zaļ-",
-    "translation": {"en": "green", "lv": "zaļš"},
+    "translation": { "en": "green", "lv": "zaļš" },
     "pos": "adjectives",
     "schema": "hard",
     "grams": [
-      {"case": "NOM", "number": "SG", "gender": "M"},
-      {"case": "NOM", "number": "SG", "gender": "F"},
-      {"case": "GEN", "number": "SG", "gender": "M"},
-      {"case": "GEN", "number": "PL", "gender": "F"},
-      {"case": "LOC", "number": "PL", "gender": "M"}
+      { "case": "NOM", "number": "SG", "gender": "M" },
+      { "case": "NOM", "number": "SG", "gender": "F" },
+      { "case": "GEN", "number": "SG", "gender": "M" },
+      { "case": "GEN", "number": "PL", "gender": "F" },
+      { "case": "LOC", "number": "PL", "gender": "M" }
     ]
   }
 ]

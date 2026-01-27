@@ -7,21 +7,22 @@
 
 ## 🔍 Current PWA Status
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Web App Manifest | ✅ Present | `manifest.json` |
-| Service Worker | ✅ Registered | `sw.js` |
-| Icons | ❌ Empty | No icons defined |
-| Offline Support | ⚠️ Partial | Core assets cached |
-| Add to Home Screen | ⚠️ Limited | No icons = poor experience |
-| Theme Color | ✅ Defined | `#0e0f13` |
-| Viewport | ✅ Configured | Responsive meta tag |
+| Feature            | Status        | Notes                      |
+| ------------------ | ------------- | -------------------------- |
+| Web App Manifest   | ✅ Present    | `manifest.json`            |
+| Service Worker     | ✅ Registered | `sw.js`                    |
+| Icons              | ❌ Empty      | No icons defined           |
+| Offline Support    | ⚠️ Partial    | Core assets cached         |
+| Add to Home Screen | ⚠️ Limited    | No icons = poor experience |
+| Theme Color        | ✅ Defined    | `#0e0f13`                  |
+| Viewport           | ✅ Configured | Responsive meta tag        |
 
 ---
 
 ## 🔴 Critical Issues
 
 ### 1. PWA Manifest Missing Icons
+
 **Location:** `manifest.json:8`
 
 ```json
@@ -32,16 +33,18 @@
   "display": "standalone",
   "background_color": "#0e0f13",
   "theme_color": "#0e0f13",
-  "icons": []  // ← EMPTY!
+  "icons": [] // ← EMPTY!
 }
 ```
 
-**Problem:** 
+**Problem:**
+
 - Can't install as PWA on mobile
 - No home screen icon
 - Browser will use generic icon or favicon
 
 **Recommendation:** Add multiple icon sizes:
+
 ```json
 {
   "icons": [
@@ -92,6 +95,7 @@
 ```
 
 Create icons using tools like:
+
 - https://realfavicongenerator.net/
 - https://www.pwabuilder.com/imageGenerator
 
@@ -100,9 +104,11 @@ Create icons using tools like:
 ## 🟠 High Priority Issues
 
 ### 2. Service Worker Cache Incomplete
+
 **Location:** `sw.js:5-30`
 
 **Current cached assets:**
+
 ```javascript
 const CORE_ASSETS = [
   './',
@@ -115,6 +121,7 @@ const CORE_ASSETS = [
 ```
 
 **Missing from cache:**
+
 - `travel-tracker.html`
 - `duty-dispatcher.html`
 - `passive-lab.html`
@@ -123,6 +130,7 @@ const CORE_ASSETS = [
 - Game-specific data files
 
 **Recommendation:** Cache all game assets:
+
 ```javascript
 const CORE_ASSETS = [
   // Core
@@ -132,7 +140,7 @@ const CORE_ASSETS = [
   './theme.js',
   './app.js',
   './manifest.json',
-  
+
   // All game pages
   './conjugation-sprint.html',
   './travel-tracker.html',
@@ -144,12 +152,12 @@ const CORE_ASSETS = [
   './character-traits.html',
   './rakstura-ipasibas-match.html',
   './week1.html',
-  
+
   // Game modules
   './src/games/travel-tracker/index.js',
   './src/games/duty-dispatcher/index.js',
   // ... etc
-  
+
   // Data files
   './data/words.json',
   './data/travel-tracker/routes.json',
@@ -160,20 +168,21 @@ const CORE_ASSETS = [
 ```
 
 Or use dynamic caching approach:
+
 ```javascript
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   // Cache JSON data on first access
   if (url.pathname.endsWith('.json')) {
     event.respondWith(
-      caches.open(CACHE_NAME).then(cache =>
-        cache.match(request).then(cached => {
-          const fetchPromise = fetch(request).then(response => {
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(request).then((cached) => {
+          const fetchPromise = fetch(request).then((response) => {
             if (response.ok) cache.put(request, response.clone());
             return response;
           });
           return cached || fetchPromise;
-        })
-      )
+        }),
+      ),
     );
   }
 });
@@ -184,19 +193,23 @@ self.addEventListener('fetch', event => {
 ## 🟡 Medium Priority Issues
 
 ### 3. iOS Safari Touch Issues
+
 **Location:** `styles.css:120-133`, `scripts/page-init.js:12-78`
 
 **Problem:** Complex anti-scroll-trap code suggests ongoing touch handling issues
 
 **Symptoms likely include:**
+
 - Scroll bounce/rubber-banding issues
 - Touch events not registering
 - Page getting stuck
 
 **Recommendation:** Simplify touch handling:
+
 ```css
 /* Prefer CSS-only solutions */
-html, body {
+html,
+body {
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -215,9 +228,11 @@ body {
 ```
 
 ### 4. No Splash Screen
+
 **Problem:** PWA shows blank screen while loading
 
 **Recommendation:** Add splash screen configuration:
+
 ```json
 // manifest.json
 {
@@ -235,22 +250,29 @@ body {
 ```
 
 For iOS, add Apple-specific tags:
+
 ```html
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Latvian B1">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Latvian B1" />
 
 <!-- iOS splash screens -->
-<link rel="apple-touch-startup-image" href="assets/splash/iphone.png" media="(device-width: 375px)">
+<link
+  rel="apple-touch-startup-image"
+  href="assets/splash/iphone.png"
+  media="(device-width: 375px)"
+/>
 ```
 
 ### 5. Offline Detection UX
+
 **Problem:** Users may not know they're offline or using cached content
 
 **Current:** Some fallback handling exists, but no clear indication
 
 **Recommendation:**
+
 ```javascript
 // Add offline detection
 window.addEventListener('online', () => showStatus('Back online'));
@@ -276,7 +298,7 @@ function showStatus(message) {
   background: var(--surface);
   padding: 12px 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 9999;
 }
 ```
@@ -286,12 +308,13 @@ function showStatus(message) {
 ## 🟢 Low Priority Issues
 
 ### 6. No Share API Integration
+
 **Opportunity:** Allow users to share scores/achievements
 
 ```javascript
 async function shareScore(gameTitle, score) {
   if (!navigator.share) return false;
-  
+
   try {
     await navigator.share({
       title: `${gameTitle} - Latvian B1`,
@@ -309,16 +332,18 @@ async function shareScore(gameTitle, score) {
 ```
 
 ### 7. Push Notifications (Future)
+
 **Opportunity:** Remind users to practice daily
 
 **Note:** Requires backend service for push notifications
 
 ### 8. Background Sync (Future)
+
 **Opportunity:** Sync progress when back online
 
 ```javascript
 // In service worker
-self.addEventListener('sync', event => {
+self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-progress') {
     event.waitUntil(syncProgressToServer());
   }
@@ -329,30 +354,30 @@ self.addEventListener('sync', event => {
 
 ## 📱 Mobile Testing Matrix
 
-| Device Type | OS | Browser | Priority |
-|-------------|-----|---------|----------|
-| iPhone SE | iOS 17 | Safari | High |
-| iPhone 14 | iOS 17 | Safari | High |
-| Pixel 7 | Android 14 | Chrome | High |
-| Samsung S23 | Android 14 | Samsung Internet | Medium |
-| iPad | iPadOS 17 | Safari | Medium |
-| Older Android | Android 11 | Chrome | Low |
+| Device Type   | OS         | Browser          | Priority |
+| ------------- | ---------- | ---------------- | -------- |
+| iPhone SE     | iOS 17     | Safari           | High     |
+| iPhone 14     | iOS 17     | Safari           | High     |
+| Pixel 7       | Android 14 | Chrome           | High     |
+| Samsung S23   | Android 14 | Samsung Internet | Medium   |
+| iPad          | iPadOS 17  | Safari           | Medium   |
+| Older Android | Android 11 | Chrome           | Low      |
 
 ---
 
 ## 📊 PWA Audit Checklist
 
-| Requirement | Status | Action |
-|-------------|--------|--------|
-| Valid manifest.json | ⚠️ | Add icons |
-| Service worker registered | ✅ | - |
-| HTTPS | ✅ | GitHub Pages |
-| 192px icon | ❌ | Create |
-| 512px icon | ❌ | Create |
-| Installable | ❌ | After icons |
-| Offline fallback | ⚠️ | Expand cache |
-| Fast loading | ⚠️ | Optimize |
-| Responsive | ✅ | - |
+| Requirement               | Status | Action       |
+| ------------------------- | ------ | ------------ |
+| Valid manifest.json       | ⚠️     | Add icons    |
+| Service worker registered | ✅     | -            |
+| HTTPS                     | ✅     | GitHub Pages |
+| 192px icon                | ❌     | Create       |
+| 512px icon                | ❌     | Create       |
+| Installable               | ❌     | After icons  |
+| Offline fallback          | ⚠️     | Expand cache |
+| Fast loading              | ⚠️     | Optimize     |
+| Responsive                | ✅     | -            |
 
 ---
 
@@ -360,4 +385,3 @@ self.addEventListener('sync', event => {
 
 - [Performance Optimization](./06-performance-optimization.md)
 - [UI/UX Improvements](./04-ui-ux-improvements.md)
-

@@ -30,12 +30,14 @@ test/
 ```
 
 ### Strengths
+
 - ✅ Uses modern Node.js test runner (no external dependencies)
 - ✅ Good unit tests for core utilities (`mulberry32`, `shuffle`, `choice`)
 - ✅ DOM stubs for canvas and basic elements
 - ✅ Tests for deterministic RNG behavior
 
 ### Gaps
+
 - ❌ No integration tests
 - ❌ No end-to-end tests
 - ❌ Limited coverage of game logic
@@ -49,7 +51,7 @@ test/
 
 **Priority**: High  
 **Category**: Testing, Quality Assurance  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
@@ -57,9 +59,15 @@ Only a few game behaviors are tested:
 
 ```javascript
 // test/lib/match.test.js
-test('startMatchRound uses target language entries', () => { /* ... */ });
-test('auto deck size does not exceed available cards', () => { /* ... */ });
-test('empty deck is handled gracefully', () => { /* ... */ });
+test('startMatchRound uses target language entries', () => {
+  /* ... */
+});
+test('auto deck size does not exceed available cards', () => {
+  /* ... */
+});
+test('empty deck is handled gracefully', () => {
+  /* ... */
+});
 ```
 
 ### Problem
@@ -121,21 +129,17 @@ test('reselecting on same side updates selection', () => {
 });
 
 test('cannot select already solved items', () => {
-  const model = new MatchModel([
-    { key: 'a', lv: 'viens', en: 'one' },
-  ]);
+  const model = new MatchModel([{ key: 'a', lv: 'viens', en: 'one' }]);
 
   model.select('L', 'a');
   model.select('R', 'a');
-  
+
   const result = model.select('L', 'a');
   assert.equal(result.type, 'already_solved');
 });
 
 test('isComplete returns true when all pairs solved', () => {
-  const model = new MatchModel([
-    { key: 'a', lv: 'viens', en: 'one' },
-  ]);
+  const model = new MatchModel([{ key: 'a', lv: 'viens', en: 'one' }]);
 
   model.select('L', 'a');
   const result = model.select('R', 'a');
@@ -158,7 +162,7 @@ test('correct prefix selection awards points', () => {
   });
 
   const result = model.select('iz');
-  
+
   assert.equal(result.correct, true);
   assert.equal(result.formed, 'izmainīt');
 });
@@ -171,7 +175,7 @@ test('incorrect prefix provides feedback', () => {
   });
 
   const result = model.select('pār');
-  
+
   assert.equal(result.correct, false);
   assert.equal(result.expected, 'izmainīt');
   assert.equal(result.actual, 'pārmainīt');
@@ -179,6 +183,7 @@ test('incorrect prefix provides feedback', () => {
 ```
 
 ### Impact
+
 - 80%+ coverage of critical paths
 - Confidence in refactoring
 - Regression prevention
@@ -190,7 +195,7 @@ test('incorrect prefix provides feedback', () => {
 
 **Priority**: High  
 **Category**: Testing, Integration  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -216,13 +221,15 @@ test('complete match game flow', async () => {
   const { game, state, events } = await setupTestEnvironment({
     game: 'match',
     data: {
-      units: [{
-        name: 'test',
-        entries: [
-          { translations: { lv: 'a', en: 'A' }, games: ['match'] },
-          { translations: { lv: 'b', en: 'B' }, games: ['match'] },
-        ],
-      }],
+      units: [
+        {
+          name: 'test',
+          entries: [
+            { translations: { lv: 'a', en: 'A' }, games: ['match'] },
+            { translations: { lv: 'b', en: 'B' }, games: ['match'] },
+          ],
+        },
+      ],
     },
   });
 
@@ -235,27 +242,27 @@ test('complete match game flow', async () => {
   // Make correct selection
   game.handleSelection('L', 'a');
   game.handleSelection('R', 'a');
-  
+
   assert.equal(state.matchState.correct, 1);
-  assert.ok(events.emitted.some(e => e.type === 'correct_match'));
+  assert.ok(events.emitted.some((e) => e.type === 'correct_match'));
 
   // Complete the game
   game.handleSelection('L', 'b');
   game.handleSelection('R', 'b');
-  
+
   assert.equal(state.matchState.correct, 2);
-  assert.ok(events.emitted.some(e => e.type === 'round_complete'));
+  assert.ok(events.emitted.some((e) => e.type === 'round_complete'));
 });
 
 test('progress persists across sessions', async () => {
   const mockStorage = new Map();
-  
+
   // First session
   const { game: game1 } = await setupTestEnvironment({
     game: 'duty-dispatcher',
     storage: mockStorage,
   });
-  
+
   game1.awardScore(10);
   game1.saveProgress();
 
@@ -281,6 +288,7 @@ test('language switching updates all UI elements', async () => {
 ```
 
 ### Impact
+
 - Validates component interactions
 - Catches integration bugs early
 - Tests real user flows
@@ -292,7 +300,7 @@ test('language switching updates all UI elements', async () => {
 
 **Priority**: Medium  
 **Category**: Testing, E2E  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
@@ -326,7 +334,7 @@ test.describe('Match Rush Game', () => {
 
   test('can switch to forge mode', async ({ page }) => {
     await page.click('#mode-forge');
-    
+
     // Canvas should show PREFIX FORGE title
     const canvas = page.locator('#canvas');
     // Use visual comparison or accessibility tree
@@ -337,10 +345,10 @@ test.describe('Match Rush Game', () => {
     // Click on canvas at approximate word location
     const canvas = page.locator('#canvas');
     const box = await canvas.boundingBox();
-    
+
     // Click first left column item
     await page.mouse.click(box.x + 100, box.y + 150);
-    
+
     // Verify selection via accessibility or visual change
     // This depends on implementation
   });
@@ -348,17 +356,16 @@ test.describe('Match Rush Game', () => {
   test('matching correct pair shows success feedback', async ({ page }) => {
     // This would require knowing exact coordinates or
     // using accessibility features
-    
     // Better approach: Add data-testid attributes
     // or use the SR (screen reader) list for clicking
   });
 
   test('help modal opens and closes', async ({ page }) => {
     await page.click('#btn-help');
-    
+
     // Wait for help overlay to be drawn
     await page.waitForTimeout(100);
-    
+
     // Press keyboard shortcut to close
     await page.keyboard.press('h');
   });
@@ -366,13 +373,13 @@ test.describe('Match Rush Game', () => {
   test('keyboard shortcuts work', async ({ page }) => {
     // Press 1 for Match mode
     await page.keyboard.press('1');
-    
+
     // Press 2 for Forge mode
     await page.keyboard.press('2');
-    
+
     // Press H for help
     await page.keyboard.press('h');
-    
+
     // Press H again to close
     await page.keyboard.press('h');
   });
@@ -412,6 +419,7 @@ test.describe('Travel Tracker', () => {
 ```
 
 **Playwright configuration:**
+
 ```javascript
 // playwright.config.js
 import { defineConfig } from '@playwright/test';
@@ -443,6 +451,7 @@ export default defineConfig({
 ```
 
 ### Impact
+
 - Tests in real browser environment
 - Cross-browser testing
 - Visual regression detection
@@ -454,7 +463,7 @@ export default defineConfig({
 
 **Priority**: Medium  
 **Category**: Testing, Accessibility  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -487,17 +496,19 @@ import { JSDOM } from 'jsdom';
 test('week1.html has no accessibility violations', async () => {
   const html = await readFile('week1.html', 'utf-8');
   const dom = new JSDOM(html);
-  
+
   const results = await axe(dom.window.document);
-  
+
   // Filter to critical and serious violations only
   const significant = results.violations.filter(
-    v => v.impact === 'critical' || v.impact === 'serious'
+    (v) => v.impact === 'critical' || v.impact === 'serious',
   );
-  
-  assert.equal(significant.length, 0, 
+
+  assert.equal(
+    significant.length,
+    0,
     `Found ${significant.length} accessibility violations: ` +
-    significant.map(v => v.description).join(', ')
+      significant.map((v) => v.description).join(', '),
   );
 });
 
@@ -520,12 +531,12 @@ test.describe('Accessibility', () => {
 
   test('keyboard navigation works', async ({ page }) => {
     await page.goto('/week1.html');
-    
+
     // Tab through interactive elements
     await page.keyboard.press('Tab');
     const first = await page.evaluate(() => document.activeElement.id);
     expect(first).toBeTruthy();
-    
+
     await page.keyboard.press('Tab');
     const second = await page.evaluate(() => document.activeElement.id);
     expect(second).not.toEqual(first);
@@ -533,7 +544,7 @@ test.describe('Accessibility', () => {
 
   test('screen reader announcements work', async ({ page }) => {
     await page.goto('/week1.html');
-    
+
     const liveRegion = page.locator('#sr-game-state');
     await expect(liveRegion).toHaveAttribute('aria-live', 'polite');
   });
@@ -541,6 +552,7 @@ test.describe('Accessibility', () => {
 ```
 
 ### Impact
+
 - Validated accessibility compliance
 - Protection against a11y regressions
 - Legal compliance (WCAG)
@@ -552,7 +564,7 @@ test.describe('Accessibility', () => {
 
 **Priority**: Medium  
 **Category**: Testing, Metrics  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -614,6 +626,7 @@ Add to CI:
 ```
 
 ### Impact
+
 - Visibility into test coverage
 - Coverage gates prevent quality degradation
 - Identify untested code
@@ -625,7 +638,7 @@ Add to CI:
 
 **Priority**: Low  
 **Category**: Testing, Maintainability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -633,10 +646,10 @@ Test data is defined inline in test files:
 
 ```javascript
 // test/lib/match.test.js
-state.DATA = { 
-  units: [ 
-    { name:'u1', entries:[{ translations:{ lv:'braukt', ru:'ехать' }, games:['match'] }] } 
-  ] 
+state.DATA = {
+  units: [
+    { name: 'u1', entries: [{ translations: { lv: 'braukt', ru: 'ехать' }, games: ['match'] }] },
+  ],
 };
 ```
 
@@ -702,6 +715,7 @@ export function createTestEntry(overrides = {}) {
 ```
 
 ### Impact
+
 - Consistent test data
 - Easier maintenance
 - More realistic testing
@@ -716,31 +730,31 @@ export function createTestEntry(overrides = {}) {
         /  \        E2E Tests (Playwright)
        /    \       - 10-15 critical user flows
       /------\      - Cross-browser
-     /        \     
+     /        \
     /  Integ.  \    Integration Tests
    /   Tests    \   - 20-30 component interactions
   /--------------\  - Data flow tests
- /                \ 
+ /                \
 /    Unit Tests    \ Unit Tests
 \                  / - 100+ isolated functions
  \----------------/  - Fast, deterministic
 ```
 
-| Level | Count | Focus |
-|-------|-------|-------|
-| Unit | 100+ | Pure functions, models, utilities |
+| Level       | Count | Focus                             |
+| ----------- | ----- | --------------------------------- |
+| Unit        | 100+  | Pure functions, models, utilities |
 | Integration | 20-30 | Component interactions, data flow |
-| E2E | 10-15 | Critical user journeys |
+| E2E         | 10-15 | Critical user journeys            |
 
 ---
 
 ## Summary Table
 
-| Issue | Priority | Effort | Impact |
-|-------|----------|--------|--------|
-| Limited Game Logic Coverage | High | Large | Regression prevention |
-| No Integration Tests | High | Medium | Component verification |
-| No E2E Tests | Medium | Large | Browser testing |
-| No Accessibility Tests | Medium | Small | WCAG compliance |
-| No Coverage Reporting | Medium | Small | Quality visibility |
-| Test Data Duplication | Low | Small | Maintainability |
+| Issue                       | Priority | Effort | Impact                 |
+| --------------------------- | -------- | ------ | ---------------------- |
+| Limited Game Logic Coverage | High     | Large  | Regression prevention  |
+| No Integration Tests        | High     | Medium | Component verification |
+| No E2E Tests                | Medium   | Large  | Browser testing        |
+| No Accessibility Tests      | Medium   | Small  | WCAG compliance        |
+| No Coverage Reporting       | Medium   | Small  | Quality visibility     |
+| Test Data Duplication       | Low      | Small  | Maintainability        |

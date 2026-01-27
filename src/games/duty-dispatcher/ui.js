@@ -32,7 +32,7 @@ export function updateProgress(elements, strings, index, total) {
 
 export function clearRoleHighlights(rolesGrid) {
   const buttons = rolesGrid ? [...rolesGrid.querySelectorAll('.dd-role')] : [];
-  buttons.forEach(btn => {
+  buttons.forEach((btn) => {
     btn.classList.remove('dd-role--correct', 'dd-role--wrong', 'dd-role--hover');
     btn.disabled = false;
     const dutyEl = btn.querySelector('.dd-role__duty');
@@ -42,7 +42,7 @@ export function clearRoleHighlights(rolesGrid) {
 
 export function disableRoles(rolesGrid) {
   const buttons = rolesGrid ? [...rolesGrid.querySelectorAll('.dd-role')] : [];
-  buttons.forEach(btn => {
+  buttons.forEach((btn) => {
     btn.disabled = true;
     btn.classList.remove('dd-role--hover');
   });
@@ -76,7 +76,8 @@ export function applyStrings(elements, strings) {
     progressLabel: strings?.progress_label ?? 'Uzdevums',
   };
   if (elements.title && strings?.title) elements.title.textContent = strings.title;
-  if (elements.instructions && strings?.instructions) elements.instructions.textContent = strings.instructions;
+  if (elements.instructions && strings?.instructions)
+    elements.instructions.textContent = strings.instructions;
   if (elements.start && strings?.start) elements.start.textContent = strings.start;
   if (elements.next && strings?.next) elements.next.textContent = strings.next;
   return merged;
@@ -85,7 +86,7 @@ export function applyStrings(elements, strings) {
 export function renderRoles(roles, elements, handlers) {
   if (!elements.rolesGrid) return;
   elements.rolesGrid.replaceChildren();
-  roles.forEach(role => {
+  roles.forEach((role) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'dd-role';

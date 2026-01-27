@@ -17,7 +17,7 @@ export function updateScoreboard(nodes, progress) {
 export function renderPatientChoices(nodes, choices, onSelect) {
   if (!nodes.patientContainer) return;
   nodes.patientContainer.replaceChildren();
-  choices.forEach(choice => {
+  choices.forEach((choice) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'passive-lab-patient-option';
@@ -31,7 +31,7 @@ export function renderPatientChoices(nodes, choices, onSelect) {
 
 export function updatePatientSelection(nodes, selectedKey) {
   if (!nodes.patientContainer) return;
-  nodes.patientContainer.querySelectorAll('button').forEach(button => {
+  nodes.patientContainer.querySelectorAll('button').forEach((button) => {
     const isSelected = button.dataset.choiceKey === selectedKey;
     button.setAttribute('aria-pressed', String(Boolean(isSelected)));
     button.classList.toggle('active', isSelected);

@@ -4,11 +4,7 @@
     "s": "Kaķis ir izsalcis.",
     "card": "jābaro kaķis",
     "tense": "present",
-    "validRecipients": [
-      "mammai",
-      "tetim",
-      "bernam"
-    ],
+    "validRecipients": ["mammai", "tetim", "bernam"],
     "hint": "kam + jā + 3.p. (baro) + kas?",
     "explain": "Sievietei bija jābaro kaķis."
   },
@@ -17,12 +13,7 @@
     "s": "Rīt eksāmens.",
     "card": "jāmācīties",
     "tense": "present",
-    "validRecipients": [
-      "studentam",
-      "studentei",
-      "man",
-      "mums"
-    ],
+    "validRecipients": ["studentam", "studentei", "man", "mums"],
     "hint": "kam + jā + 3.p. (mācās)",
     "explain": "Mums jāmācās latviešu valoda."
   },
@@ -31,12 +22,7 @@
     "s": "Šodien jāmaksā rēķini.",
     "card": "jāmaksā rēķini",
     "tense": "present",
-    "validRecipients": [
-      "man",
-      "vinai",
-      "vinam",
-      "jums"
-    ],
+    "validRecipients": ["man", "vinai", "vinam", "jums"],
     "hint": "kam + jā + 3.p. (maksā) + kas?",
     "explain": "Man jāmaksā rēķini."
   },
@@ -45,12 +31,7 @@
     "s": "Bibliotēka drīz slēdzas.",
     "card": "jāatdod grāmatas",
     "tense": "present",
-    "validRecipients": [
-      "studentam",
-      "studentei",
-      "vinai",
-      "vinam"
-    ],
+    "validRecipients": ["studentam", "studentei", "vinai", "vinam"],
     "hint": "kam + jā + 3.p. (atdod) + kas?",
     "explain": "Studentam jāatdod grāmatas."
   },
@@ -59,10 +40,7 @@
     "s": "Pacienti gaida.",
     "card": "jāpieņem pacienti",
     "tense": "present",
-    "validRecipients": [
-      "arstam",
-      "arstei"
-    ],
+    "validRecipients": ["arstam", "arstei"],
     "hint": "kam + jā + 3.p. (pieņem) + kas?",
     "explain": "Ārstam jāpieņem pacienti."
   },
@@ -71,12 +49,7 @@
     "s": "Draugs stāv pie durvīm.",
     "card": "jāatver durvis",
     "tense": "present",
-    "validRecipients": [
-      "mammai",
-      "tetim",
-      "bernam",
-      "man"
-    ],
+    "validRecipients": ["mammai", "tetim", "bernam", "man"],
     "hint": "kam + jā + 3.p. (atver) + kas?",
     "explain": "Man jāatver durvis."
   },
@@ -85,12 +58,7 @@
     "s": "Rīt no rīta lidojums.",
     "card": "būs jābūt lidostā plkst. 6.00",
     "tense": "future",
-    "validRecipients": [
-      "mums",
-      "jums",
-      "vinam",
-      "vinai"
-    ],
+    "validRecipients": ["mums", "jums", "vinam", "vinai"],
     "hint": "(būs) + jā + 3.p. (būt) + kur?",
     "explain": "Mums būs jābūt lidostā."
   },
@@ -99,11 +67,7 @@
     "s": "Vakar bija darba tikšanās.",
     "card": "bija jāierodas laikā",
     "tense": "past",
-    "validRecipients": [
-      "vaditajam",
-      "klientam",
-      "man"
-    ],
+    "validRecipients": ["vaditajam", "klientam", "man"],
     "hint": "(bija) + jā + 3.p. (ierodas)",
     "explain": "Vadītājam bija jāierodas laikā."
   },
@@ -112,11 +76,7 @@
     "s": "Šodien remonts virtuvē.",
     "card": "jāizslauka grīda",
     "tense": "present",
-    "validRecipients": [
-      "bernam",
-      "mammai",
-      "tetim"
-    ],
+    "validRecipients": ["bernam", "mammai", "tetim"],
     "hint": "kam + jā + 3.p. (izslauka) + kas?",
     "explain": "Bērnam jāizslauka grīda."
   },
@@ -125,11 +85,7 @@
     "s": "Svētdien talkā pie draugiem.",
     "card": "jāstrādā dārzā",
     "tense": "present",
-    "validRecipients": [
-      "mums",
-      "vini",
-      "vinas"
-    ],
+    "validRecipients": ["mums", "vini", "vinas"],
     "hint": "kam + jā + 3.p. (strādā) + kur?",
     "explain": "Mums jāstrādā dārzā."
   },
@@ -138,12 +94,7 @@
     "s": "Rīt svarīga prezentācija.",
     "card": "jāsagatavo slaidi",
     "tense": "present",
-    "validRecipients": [
-      "vaditajam",
-      "vinai",
-      "vinam",
-      "man"
-    ],
+    "validRecipients": ["vaditajam", "vinai", "vinam", "man"],
     "hint": "kam + jā + 3.p. (sagatavo) + kas?",
     "explain": "Vadītājam jāsagatavo slaidi."
   },
@@ -152,12 +103,7 @@
     "s": "Telefons zvana.",
     "card": "jāatbild uz zvanu",
     "tense": "present",
-    "validRecipients": [
-      "jums",
-      "mammai",
-      "tetim",
-      "skolotajai"
-    ],
+    "validRecipients": ["jums", "mammai", "tetim", "skolotajai"],
     "hint": "kam + jā + 3.p. (atbild) + uz ko?",
     "explain": "Jums jāatbild uz zvanu."
   },
@@ -166,11 +112,7 @@
     "s": "Šodien plānotas vizītes.",
     "card": "jāzvana pacientiem",
     "tense": "present",
-    "validRecipients": [
-      "arstam",
-      "arstei",
-      "skolotajai"
-    ],
+    "validRecipients": ["arstam", "arstei", "skolotajai"],
     "hint": "kam + jā + 3.p. (zvana) + kam?",
     "explain": "Ārstam jāzvana pacientiem."
   },
@@ -179,12 +121,7 @@
     "s": "Automašīna netīra.",
     "card": "jānomazgā mašīna",
     "tense": "present",
-    "validRecipients": [
-      "vinam",
-      "vinai",
-      "man",
-      "bernam"
-    ],
+    "validRecipients": ["vinam", "vinai", "man", "bernam"],
     "hint": "kam + jā + 3.p. (nomazgā) + kas?",
     "explain": "Viņam jānomazgā mašīna."
   },
@@ -193,11 +130,7 @@
     "s": "Bērna dzimšanas diena tuvojas.",
     "card": "jāiegādājas dāvana",
     "tense": "present",
-    "validRecipients": [
-      "mammai",
-      "tetim",
-      "jums"
-    ],
+    "validRecipients": ["mammai", "tetim", "jums"],
     "hint": "kam + jā + 3.p. (iegādājas) + kas?",
     "explain": "Mammai jāiegādājas dāvana."
   },
@@ -206,12 +139,7 @@
     "s": "Sapulce pēc 10 minūtēm.",
     "card": "jāsteidzas",
     "tense": "present",
-    "validRecipients": [
-      "mums",
-      "vaditajam",
-      "vinai",
-      "vinam"
-    ],
+    "validRecipients": ["mums", "vaditajam", "vinai", "vinam"],
     "hint": "kam + jā + 3.p. (steidzas)",
     "explain": "Mums jāsteidzas."
   },
@@ -220,12 +148,7 @@
     "s": "Vecāki atbrauc ciemos.",
     "card": "jāsakārto viesistaba",
     "tense": "present",
-    "validRecipients": [
-      "mammai",
-      "tetim",
-      "bernam",
-      "mums"
-    ],
+    "validRecipients": ["mammai", "tetim", "bernam", "mums"],
     "hint": "kam + jā + 3.p. (sakārto) + kas?",
     "explain": "Mums jāsakārto viesistaba."
   },
@@ -234,10 +157,7 @@
     "s": "Eksāmens beidzas 16:00.",
     "card": "jānodod darbs",
     "tense": "present",
-    "validRecipients": [
-      "studentam",
-      "studentei"
-    ],
+    "validRecipients": ["studentam", "studentei"],
     "hint": "kam + jā + 3.p. (nodod) + kas?",
     "explain": "Studentam jānodod darbs."
   },
@@ -246,11 +166,7 @@
     "s": "Pasta nodaļa tūlīt slēdzas.",
     "card": "jānosūta vēstule",
     "tense": "present",
-    "validRecipients": [
-      "klientam",
-      "vinai",
-      "vinam"
-    ],
+    "validRecipients": ["klientam", "vinai", "vinam"],
     "hint": "kam + jā + 3.p. (nosūta) + kas?",
     "explain": "Klientam jānosūta vēstule."
   },
@@ -259,10 +175,7 @@
     "s": "Mazulim nāk miegs.",
     "card": "jāiemidzina bērns",
     "tense": "present",
-    "validRecipients": [
-      "mammai",
-      "tetim"
-    ],
+    "validRecipients": ["mammai", "tetim"],
     "hint": "kam + jā + 3.p. (iemidzina) + kas?",
     "explain": "Tētim jāiemidzina bērns."
   },
@@ -271,11 +184,7 @@
     "s": "Viesi atnāk pēc stundas.",
     "card": "jāuzvāra tēja",
     "tense": "present",
-    "validRecipients": [
-      "mammai",
-      "vinai",
-      "vinam"
-    ],
+    "validRecipients": ["mammai", "vinai", "vinam"],
     "hint": "kam + jā + 3.p. (uzvāra) + kas?",
     "explain": "Viņai jāuzvāra tēja."
   },
@@ -284,10 +193,7 @@
     "s": "Darbnīcā auksti.",
     "card": "jāsilda telpa",
     "tense": "present",
-    "validRecipients": [
-      "vaditajam",
-      "vini"
-    ],
+    "validRecipients": ["vaditajam", "vini"],
     "hint": "kam + jā + 3.p. (silda) + kas?",
     "explain": "Vadītājam jāsilda telpa."
   },
@@ -296,11 +202,7 @@
     "s": "Rīt konkurss.",
     "card": "jāuzraksta pieteikums",
     "tense": "present",
-    "validRecipients": [
-      "studentam",
-      "studentei",
-      "man"
-    ],
+    "validRecipients": ["studentam", "studentei", "man"],
     "hint": "kam + jā + 3.p. (uzraksta) + kas?",
     "explain": "Studentei jāuzraksta pieteikums."
   },
@@ -309,12 +211,7 @@
     "s": "Tūlīt sākas izrāde.",
     "card": "jāizslēdz telefons",
     "tense": "present",
-    "validRecipients": [
-      "jums",
-      "vinai",
-      "vinam",
-      "mums"
-    ],
+    "validRecipients": ["jums", "vinai", "vinam", "mums"],
     "hint": "kam + jā + 3.p. (izslēdz) + kas?",
     "explain": "Jums jāizslēdz telefons."
   },
@@ -323,12 +220,7 @@
     "s": "Vakar autobuss kavējās.",
     "card": "bija jāgaida pieturā",
     "tense": "past",
-    "validRecipients": [
-      "man",
-      "jums",
-      "vinai",
-      "vinam"
-    ],
+    "validRecipients": ["man", "jums", "vinai", "vinam"],
     "hint": "(bija) + jā + 3.p. (gaida) + kur?",
     "explain": "Man bija jāgaida pieturā."
   },
@@ -337,11 +229,7 @@
     "s": "Rīt būs stiprs vējš.",
     "card": "būs jāpaliek mājās",
     "tense": "future",
-    "validRecipients": [
-      "vini",
-      "vinas",
-      "bernam"
-    ],
+    "validRecipients": ["vini", "vinas", "bernam"],
     "hint": "(būs) + jā + 3.p. (paliek) + kur?",
     "explain": "Viņiem būs jāpaliek mājās."
   },
@@ -350,12 +238,7 @@
     "s": "Par projektu nav skaidrības.",
     "card": "jārunā ar vadītāju",
     "tense": "present",
-    "validRecipients": [
-      "studentam",
-      "studentei",
-      "jums",
-      "man"
-    ],
+    "validRecipients": ["studentam", "studentei", "jums", "man"],
     "hint": "kam + jā + 3.p. (runā) + ar ko?",
     "explain": "Jums jārunā ar vadītāju."
   },
@@ -364,11 +247,7 @@
     "s": "Nav informācijas par datumu.",
     "card": "jāuzzina datums",
     "tense": "present",
-    "validRecipients": [
-      "vinai",
-      "vinam",
-      "klientam"
-    ],
+    "validRecipients": ["vinai", "vinam", "klientam"],
     "hint": "kam + jā + 3.p. (uzzina) + kas?",
     "explain": "Viņam jāuzzina datums."
   }

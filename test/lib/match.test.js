@@ -15,7 +15,14 @@ setStatusHandler((message) => {
 test('startMatchRound uses target language entries', () => {
   resetState();
   setState({
-    DATA: { units: [ { name:'u1', entries:[{ translations:{ lv:'braukt', ru:'ехать' }, games:['match'] }] } ] },
+    DATA: {
+      units: [
+        {
+          name: 'u1',
+          entries: [{ translations: { lv: 'braukt', ru: 'ехать' }, games: ['match'] }],
+        },
+      ],
+    },
     targetLang: 'ru',
     deckSizeMode: 'full',
     difficulty: 'practice',
@@ -31,7 +38,9 @@ test('startMatchRound uses target language entries', () => {
 test('auto deck size does not exceed available cards', () => {
   resetState();
   setState({
-    DATA: { units: [ { name:'u1', entries:[{ translations:{ lv:'a', en:'a' }, games:['match'] }] } ] },
+    DATA: {
+      units: [{ name: 'u1', entries: [{ translations: { lv: 'a', en: 'a' }, games: ['match'] }] }],
+    },
     targetLang: 'en',
     deckSizeMode: 'auto',
     difficulty: 'practice',

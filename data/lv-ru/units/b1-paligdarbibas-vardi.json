@@ -7,9 +7,7 @@
         "ru": "освоить"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -17,9 +15,7 @@
         "ru": "получить"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -27,9 +23,7 @@
         "ru": "стать"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -37,9 +31,7 @@
         "ru": "справиться"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -47,9 +39,7 @@
         "ru": "встретить"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -57,9 +47,7 @@
         "ru": "происходить"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -67,9 +55,7 @@
         "ru": "хватать"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -77,9 +63,7 @@
         "ru": "выполнить"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
@@ -87,9 +71,7 @@
         "ru": "закончить"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     }
   ]
 }

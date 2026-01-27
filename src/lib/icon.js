@@ -124,4 +124,3 @@ export function upgradeIcons(root = document) {
     el.replaceWith(icon);
   });
 }
-

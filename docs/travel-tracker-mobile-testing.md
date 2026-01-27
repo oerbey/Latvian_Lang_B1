@@ -4,12 +4,12 @@ Date: 2025-10-21
 
 ## Test Matrix
 
-| Device / Viewport | Orientation | Browser | Result |
-| --- | --- | --- | --- |
-| iPhone 14 Pro (390×844) | Portrait | Chrome DevTools Responsive | ✅ Layout stacks vertically, map height scales with clamp() sizing, scoreboard columns collapse.
-| iPhone 14 Pro (390×844) | Landscape | Chrome DevTools Responsive | ✅ Landscape media query forces single-column flow; scroll remains available for the control panel.
-| iPhone 12/13 (414×896) | Portrait | Chrome DevTools Responsive | ✅ Safe-area padding prevents bottom controls from overlapping home indicator; choice grid adapts.
-| iPhone SE (375×667) | Portrait | Chrome DevTools Responsive | ✅ Map honors 240–360px range, controls remain scrollable, text remains readable.
+| Device / Viewport       | Orientation | Browser                    | Result                                                                                              |
+| ----------------------- | ----------- | -------------------------- | --------------------------------------------------------------------------------------------------- |
+| iPhone 14 Pro (390×844) | Portrait    | Chrome DevTools Responsive | ✅ Layout stacks vertically, map height scales with clamp() sizing, scoreboard columns collapse.    |
+| iPhone 14 Pro (390×844) | Landscape   | Chrome DevTools Responsive | ✅ Landscape media query forces single-column flow; scroll remains available for the control panel. |
+| iPhone 12/13 (414×896)  | Portrait    | Chrome DevTools Responsive | ✅ Safe-area padding prevents bottom controls from overlapping home indicator; choice grid adapts.  |
+| iPhone SE (375×667)     | Portrait    | Chrome DevTools Responsive | ✅ Map honors 240–360px range, controls remain scrollable, text remains readable.                   |
 
 ## Manual Checks
 

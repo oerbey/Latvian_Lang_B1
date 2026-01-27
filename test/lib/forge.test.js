@@ -13,9 +13,7 @@ test('startForgeRound sets up forge state correctly', () => {
   resetState();
   setState({
     DATA: {
-      forge: [
-        { base: 'darit', translations: { en: 'do' }, correct: 'iz', games: ['forge'] }
-      ]
+      forge: [{ base: 'darit', translations: { en: 'do' }, correct: 'iz', games: ['forge'] }],
     },
     targetLang: 'en',
     roundIndex: 0,
@@ -31,16 +29,14 @@ test('startForgeRound sets up forge state correctly', () => {
   assert.equal(fs.options.length, 5);
   assert(fs.options.includes('iz'));
   assert.equal(new Set(fs.options).size, 5);
-  fs.options.forEach(p => assert(ALL_PREFIXES.includes(p)));
+  fs.options.forEach((p) => assert(ALL_PREFIXES.includes(p)));
 });
 
 test('startForgeRound uses target language clue', () => {
   resetState();
   setState({
     DATA: {
-      forge: [
-        { base: 'iet', translations: { ru: 'идти' }, correct: 'aiz', games: ['forge'] }
-      ]
+      forge: [{ base: 'iet', translations: { ru: 'идти' }, correct: 'aiz', games: ['forge'] }],
     },
     targetLang: 'ru',
     roundIndex: 0,

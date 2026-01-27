@@ -1,7 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { createSeededRng, seededShuffle, stringToSeed } from '../../../src/games/travel-tracker/utils.js';
+import {
+  createSeededRng,
+  seededShuffle,
+  stringToSeed,
+} from '../../../src/games/travel-tracker/utils.js';
 
 test('seededShuffle produces deterministic order for the same seed', () => {
   const seed = 0xdeadbeef;

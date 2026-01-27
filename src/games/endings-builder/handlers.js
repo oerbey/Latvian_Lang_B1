@@ -75,14 +75,12 @@ export function createHandlers({
   function pickNextRound(rounds) {
     const progress = getProgress();
     if (!rounds.length) throw new Error('No rounds configured');
-    const sorted = rounds
-      .slice()
-      .sort((a, b) => {
-        const pa = progress[a.id] ?? 0;
-        const pb = progress[b.id] ?? 0;
-        if (pa === pb) return Math.random() - 0.5;
-        return pa - pb;
-      });
+    const sorted = rounds.slice().sort((a, b) => {
+      const pa = progress[a.id] ?? 0;
+      const pb = progress[b.id] ?? 0;
+      if (pa === pb) return Math.random() - 0.5;
+      return pa - pb;
+    });
     return sorted[0];
   }
 
@@ -101,7 +99,7 @@ export function createHandlers({
     handleResult({
       correct,
       fallback: false,
-      source: 'drop'
+      source: 'drop',
     });
 
     if (correct) {

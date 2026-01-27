@@ -16,7 +16,7 @@ setStatusHandler((message) => {
 test('full deck size caps at 15', () => {
   const many = Array.from({ length: 20 }, (_, i) => ({
     translations: { lv: 'lv' + i, en: 'en' + i },
-    games: ['match']
+    games: ['match'],
   }));
   resetState();
   setState({
@@ -44,10 +44,10 @@ test('mismatch shows prefix hint and increments errors', () => {
           name: 'u',
           entries: [
             { translations: { lv: 'iet', en: 'go' }, games: ['match'], tags: ['prefix:iz'] },
-            { translations: { lv: 'iet2', en: 'go2' }, games: ['match'], tags: ['prefix:pa'] }
-          ]
-        }
-      ]
+            { translations: { lv: 'iet2', en: 'go2' }, games: ['match'], tags: ['prefix:pa'] },
+          ],
+        },
+      ],
     },
     targetLang: 'en',
     deckSizeMode: 'full',
@@ -59,10 +59,10 @@ test('mismatch shows prefix hint and increments errors', () => {
   match.drawMatch();
 
   // pick a left and a mismatching right
-  const lefts = clickables.filter(c => c.tag?.startsWith('L:'));
-  const rights = clickables.filter(c => c.tag?.startsWith('R:'));
+  const lefts = clickables.filter((c) => c.tag?.startsWith('L:'));
+  const rights = clickables.filter((c) => c.tag?.startsWith('R:'));
   const left = lefts[0];
-  const right = rights.find(r => r.data?.key !== left.data?.key);
+  const right = rights.find((r) => r.data?.key !== left.data?.key);
   // ensure we have a mismatch pair
   assert.ok(left && right && right.data.key !== left.data.key);
 
@@ -83,9 +83,9 @@ test('solving the only pair records result and restarts', () => {
       units: [
         {
           name: 'u',
-          entries: [ { translations: { lv: 'braukt', en: 'drive' }, games: ['match'] } ]
-        }
-      ]
+          entries: [{ translations: { lv: 'braukt', en: 'drive' }, games: ['match'] }],
+        },
+      ],
     },
     targetLang: 'en',
     deckSizeMode: 'full',
@@ -98,9 +98,9 @@ test('solving the only pair records result and restarts', () => {
   match.startMatchRound();
   match.drawMatch();
 
-  const left = clickables.find(c => c.tag?.startsWith('L:'));
-  const rights = clickables.filter(c => c.tag?.startsWith('R:'));
-  const right = rights.find(r => r.data?.key === left.data?.key);
+  const left = clickables.find((c) => c.tag?.startsWith('L:'));
+  const rights = clickables.filter((c) => c.tag?.startsWith('R:'));
+  const right = rights.find((r) => r.data?.key === left.data?.key);
   left.onClick();
   right.onClick();
 

@@ -3,9 +3,7 @@ import { assetUrl } from './paths.js';
 function parseEnVariants(value) {
   if (typeof value !== 'string') return [];
   const parts = value.includes(';') ? value.split(';') : value.split(' / ');
-  return parts
-    .map((part) => part.trim())
-    .filter(Boolean);
+  return parts.map((part) => part.trim()).filter(Boolean);
 }
 
 function normalizeEn(value) {

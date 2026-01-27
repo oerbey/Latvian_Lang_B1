@@ -7,6 +7,7 @@ This document catalogs low-effort, high-impact improvements that can be implemen
 ## 🎯 Overview
 
 Quick wins are improvements that:
+
 - Take **less than 1 day** to implement
 - Require **minimal risk** of breaking changes
 - Provide **immediate value**
@@ -18,9 +19,10 @@ Quick wins are improvements that:
 
 **Effort**: 30 minutes  
 **Impact**: Prevents runtime errors  
-**Risk**: None  
+**Risk**: None
 
 ### Problem
+
 DOM elements are accessed without null checks, causing crashes if HTML structure changes.
 
 ### Fix
@@ -44,6 +46,7 @@ $('title')?.textContent = 'Hello';
 ```
 
 ### Files to Update
+
 - `app.js` - Multiple getElementById calls
 - `src/games/*/index.js` - Selector objects
 
@@ -53,9 +56,10 @@ $('title')?.textContent = 'Hello';
 
 **Effort**: 15 minutes  
 **Impact**: Security hardening  
-**Risk**: None  
+**Risk**: None
 
 ### Problem
+
 External scripts load without integrity verification.
 
 ### Fix
@@ -65,12 +69,15 @@ External scripts load without integrity verification.
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- After -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-        crossorigin="anonymous"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
 ```
 
 ### How to Generate
+
 ```bash
 # Get hash from jsDelivr
 curl -s https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js | openssl dgst -sha384 -binary | openssl base64 -A
@@ -84,9 +91,10 @@ Or visit: https://www.srihash.org/
 
 **Effort**: 1 hour  
 **Impact**: Improved readability and maintainability  
-**Risk**: Very low  
+**Risk**: Very low
 
 ### Problem
+
 Magic numbers scattered throughout the code.
 
 ### Fix
@@ -127,7 +135,9 @@ export const ANIMATION = {
 import { LAYOUT, GAME } from './constants.js';
 
 const boxH = isMobile ? LAYOUT.MOBILE.BOX_HEIGHT : LAYOUT.DESKTOP.BOX_HEIGHT;
-if (streak % GAME.STREAK_BONUS_INTERVAL === 0) { /* ... */ }
+if (streak % GAME.STREAK_BONUS_INTERVAL === 0) {
+  /* ... */
+}
 ```
 
 ---
@@ -136,11 +146,12 @@ if (streak % GAME.STREAK_BONUS_INTERVAL === 0) { /* ... */ }
 
 **Effort**: 15 minutes  
 **Impact**: Project management, CI/CD readiness  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
 The repository already contains a `package.json`. The quick win is to make sure it covers the basics for contributors and CI:
+
 - `npm run start` (local dev server)
 - `npm test` (Node test runner)
 - `npm run build:offline` (offline bundling script)
@@ -165,7 +176,7 @@ Example minimal scripts section:
 
 **Effort**: 5 minutes  
 **Impact**: Better IntelliSense and navigation  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -195,7 +206,7 @@ Create `jsconfig.json`:
 
 **Effort**: 10 minutes  
 **Impact**: Faster page loads  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -203,15 +214,15 @@ Add to `<head>` section of HTML files:
 
 ```html
 <!-- Preconnect to CDNs -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
 <!-- Preload critical resources -->
-<link rel="preload" href="i18n/lv.json" as="fetch" crossorigin>
-<link rel="preload" href="app.js" as="script">
+<link rel="preload" href="i18n/lv.json" as="fetch" crossorigin />
+<link rel="preload" href="app.js" as="script" />
 
 <!-- Prefetch next likely resources -->
-<link rel="prefetch" href="data/lv-en/units.json">
+<link rel="prefetch" href="data/lv-en/units.json" />
 ```
 
 ---
@@ -220,7 +231,7 @@ Add to `<head>` section of HTML files:
 
 **Effort**: 20 minutes  
 **Impact**: Better UX on errors  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -232,9 +243,7 @@ Add error handling UI:
   <div class="error-content">
     <h1>😕 Something went wrong</h1>
     <p>The game encountered an error. Please try refreshing the page.</p>
-    <button onclick="location.reload()" class="btn btn-primary">
-      Refresh Page
-    </button>
+    <button onclick="location.reload()" class="btn btn-primary">Refresh Page</button>
   </div>
 </div>
 ```
@@ -272,7 +281,7 @@ window.onerror = () => {
 
 **Effort**: 45 minutes  
 **Impact**: Reduced code duplication, easier maintenance  
-**Risk**: Low (needs testing)  
+**Risk**: Low (needs testing)
 
 ### Fix
 
@@ -324,6 +333,7 @@ export function safeJsonParse(str, fallback = null) {
 ```
 
 Update imports in other files:
+
 ```javascript
 // Before
 const deepCopy = (value) => JSON.parse(JSON.stringify(value));
@@ -338,7 +348,7 @@ import { clone } from './lib/utils.js';
 
 **Effort**: 30 minutes  
 **Impact**: Better perceived performance  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -395,7 +405,7 @@ updateLoadingProgress(100, 'Ready!');
 
 **Effort**: 20 minutes  
 **Impact**: Better discoverability  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -437,7 +447,7 @@ function showShortcutsToast() {
 
 **Effort**: 10 minutes  
 **Impact**: Better sharing and SEO  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -445,21 +455,24 @@ Add to `<head>`:
 
 ```html
 <!-- Basic meta -->
-<meta name="description" content="Interactive games for learning Latvian vocabulary at B1 level. Practice matching, prefixes, and declensions.">
-<meta name="keywords" content="Latvian, language learning, vocabulary, B1, games">
-<meta name="author" content="Latvian B1 Team">
+<meta
+  name="description"
+  content="Interactive games for learning Latvian vocabulary at B1 level. Practice matching, prefixes, and declensions."
+/>
+<meta name="keywords" content="Latvian, language learning, vocabulary, B1, games" />
+<meta name="author" content="Latvian B1 Team" />
 
 <!-- Open Graph for social sharing -->
-<meta property="og:title" content="Latvian B1 Language Games">
-<meta property="og:description" content="Interactive games for learning Latvian vocabulary">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://oerbey.github.io/Latvian_Lang_B1/">
-<meta property="og:image" content="https://oerbey.github.io/Latvian_Lang_B1/assets/og-image.png">
+<meta property="og:title" content="Latvian B1 Language Games" />
+<meta property="og:description" content="Interactive games for learning Latvian vocabulary" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://oerbey.github.io/Latvian_Lang_B1/" />
+<meta property="og:image" content="https://oerbey.github.io/Latvian_Lang_B1/assets/og-image.png" />
 
 <!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Latvian B1 Language Games">
-<meta name="twitter:description" content="Interactive games for learning Latvian vocabulary">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Latvian B1 Language Games" />
+<meta name="twitter:description" content="Interactive games for learning Latvian vocabulary" />
 ```
 
 ---
@@ -468,7 +481,7 @@ Add to `<head>`:
 
 **Effort**: 5 minutes  
 **Impact**: Developer experience, branding  
-**Risk**: None  
+**Risk**: None
 
 ### Fix
 
@@ -476,16 +489,17 @@ Add to `<head>`:
 // Add to app.js start
 const isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 if (isDev) {
-  console.log(`
+  console.log(
+    `
 %c🇱🇻 Latvian B1 Language Games
 %c
 Welcome, developer! 
 Keyboard shortcuts: 1=Match, 2=Forge, H=Help, R=Restart, D=Deck size
 
 Report issues: https://github.com/oerbey/Latvian_Lang_B1/issues
-`, 
-  'font-size: 24px; font-weight: bold; color: #9b2335;',
-  'font-size: 12px; color: #666;'
+`,
+    'font-size: 24px; font-weight: bold; color: #9b2335;',
+    'font-size: 12px; color: #666;',
   );
 }
 ```
@@ -494,20 +508,20 @@ Report issues: https://github.com/oerbey/Latvian_Lang_B1/issues
 
 ## Implementation Priority
 
-| Quick Win | Time | Impact | Priority |
-|-----------|------|--------|----------|
-| #4 Audit & extend package.json | 15m | High | 🔴 Do First |
-| #2 SRI Hashes | 15m | High | 🔴 Do First |
-| #1 Null Checks | 30m | High | 🔴 Do First |
-| #5 jsconfig.json | 5m | Medium | 🟠 Do Soon |
-| #6 Preloading | 10m | Medium | 🟠 Do Soon |
-| #8 Consolidate Utils | 45m | Medium | 🟠 Do Soon |
-| #3 Constants | 1h | Medium | 🟡 This Week |
-| #7 Error Page | 20m | Medium | 🟡 This Week |
-| #9 Loading State | 30m | Medium | 🟡 This Week |
-| #10 Shortcut Reference | 20m | Low | 🟢 Nice to Have |
-| #11 Meta Tags | 10m | Low | 🟢 Nice to Have |
-| #12 Console Message | 5m | Low | 🟢 Nice to Have |
+| Quick Win                      | Time | Impact | Priority        |
+| ------------------------------ | ---- | ------ | --------------- |
+| #4 Audit & extend package.json | 15m  | High   | 🔴 Do First     |
+| #2 SRI Hashes                  | 15m  | High   | 🔴 Do First     |
+| #1 Null Checks                 | 30m  | High   | 🔴 Do First     |
+| #5 jsconfig.json               | 5m   | Medium | 🟠 Do Soon      |
+| #6 Preloading                  | 10m  | Medium | 🟠 Do Soon      |
+| #8 Consolidate Utils           | 45m  | Medium | 🟠 Do Soon      |
+| #3 Constants                   | 1h   | Medium | 🟡 This Week    |
+| #7 Error Page                  | 20m  | Medium | 🟡 This Week    |
+| #9 Loading State               | 30m  | Medium | 🟡 This Week    |
+| #10 Shortcut Reference         | 20m  | Low    | 🟢 Nice to Have |
+| #11 Meta Tags                  | 10m  | Low    | 🟢 Nice to Have |
+| #12 Console Message            | 5m   | Low    | 🟢 Nice to Have |
 
 ---
 
@@ -516,7 +530,7 @@ Report issues: https://github.com/oerbey/Latvian_Lang_B1/issues
 **Critical (Do First)**: ~1 hour  
 **Important (Do Soon)**: ~1 hour  
 **This Week**: ~2 hours  
-**Nice to Have**: ~35 minutes  
+**Nice to Have**: ~35 minutes
 
 **Total**: ~4.5 hours for all quick wins
 

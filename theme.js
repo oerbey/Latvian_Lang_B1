@@ -50,14 +50,14 @@ import { loadAppState, loadString, saveAppState, saveString } from './src/lib/st
   });
 
   try {
-    prefersDarkQuery.addEventListener('change', event => {
+    prefersDarkQuery.addEventListener('change', (event) => {
       if (loadString('bs-theme', null) || appState.theme) return;
       setTheme(event.matches ? 'dark' : 'light', false);
     });
   } catch (err) {
     // older browsers may not support addEventListener on matchMedia
     if (prefersDarkQuery.addListener) {
-      prefersDarkQuery.addListener(event => {
+      prefersDarkQuery.addListener((event) => {
         if (loadString('bs-theme', null) || appState.theme) return;
         setTheme(event.matches ? 'dark' : 'light', false);
       });

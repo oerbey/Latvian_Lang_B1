@@ -5,12 +5,7 @@
     "lemma": "plīts",
     "prompt": "Katls stāv uz _____.",
     "case": "GenSg (location with 'uz')",
-    "options": [
-      "plīts",
-      "plītis",
-      "plīti",
-      "plītī"
-    ],
+    "options": ["plīts", "plītis", "plīti", "plītī"],
     "answer": "plīts",
     "hint": "‘uz’ (kur?) → Ģen.",
     "explain": "Location: uz plīts."
@@ -21,12 +16,7 @@
     "lemma": "krāsns",
     "prompt": "Pīrāgs cepas _____. (Kur?)",
     "case": "LocSg",
-    "options": [
-      "krāsnī",
-      "krāsni",
-      "krāsns",
-      "krāsnis"
-    ],
+    "options": ["krāsnī", "krāsni", "krāsns", "krāsnis"],
     "answer": "krāsnī",
     "hint": "Kur? → Lok.",
     "explain": "Locative singular: krāsnī."
@@ -37,12 +27,7 @@
     "lemma": "plīts",
     "prompt": "Panna tiek nolikta uz ____ (virzienā).",
     "case": "AccSg (direction with 'uz')",
-    "options": [
-      "plīts",
-      "plīti",
-      "plītī",
-      "plītis"
-    ],
+    "options": ["plīts", "plīti", "plītī", "plītis"],
     "answer": "plīti",
     "hint": "Virziens ar ‘uz’ → Akuz.",
     "explain": "Direction: uz plīti."
@@ -53,12 +38,7 @@
     "lemma": "durvis (pl., only)",
     "prompt": "Lūdzu, aizver _____.",
     "case": "AccPl",
-    "options": [
-      "durvis",
-      "durvīm",
-      "durvju",
-      "durvīs"
-    ],
+    "options": ["durvis", "durvīm", "durvju", "durvīs"],
     "answer": "durvis",
     "hint": "Plural‑only; Akuz.=Nom.pl.",
     "explain": "Durvis (pl. only)."
@@ -69,12 +49,7 @@
     "lemma": "pirts",
     "prompt": "Malku tur aiz _____.",
     "case": "GenSg (aiz + Ģen.)",
-    "options": [
-      "pirts",
-      "pirti",
-      "pirtī",
-      "pirtis"
-    ],
+    "options": ["pirts", "pirti", "pirtī", "pirtis"],
     "answer": "pirts",
     "hint": "aiz + Ģen.",
     "explain": "aiz pirts."
@@ -85,12 +60,7 @@
     "lemma": "pirts",
     "prompt": "Slotas karājas _____. (Kur?)",
     "case": "LocSg",
-    "options": [
-      "pirtī",
-      "pirti",
-      "pirts",
-      "pirtis"
-    ],
+    "options": ["pirtī", "pirti", "pirts", "pirtis"],
     "answer": "pirtī",
     "hint": "Kur? → Lok.",
     "explain": "pirtī."
@@ -101,12 +71,7 @@
     "lemma": "zivs",
     "prompt": "Pēc pirts gatavosim ____ zupu.",
     "case": "GenPl",
-    "options": [
-      "zivju",
-      "zivīm",
-      "zivis",
-      "zivi"
-    ],
+    "options": ["zivju", "zivīm", "zivis", "zivi"],
     "answer": "zivju",
     "hint": "Sastāvdaļa → Ģen.pl.",
     "explain": "zivju zupa."
@@ -117,12 +82,7 @@
     "lemma": "klēts",
     "prompt": "Graudi glabājas _____. (Kur?)",
     "case": "LocSg",
-    "options": [
-      "klētī",
-      "klēti",
-      "klēts",
-      "klētis"
-    ],
+    "options": ["klētī", "klēti", "klēts", "klētis"],
     "answer": "klētī",
     "hint": "Kur? → Lok.",
     "explain": "klētī."
@@ -133,12 +93,7 @@
     "lemma": "kūts",
     "prompt": "Govis dzīvo _____. (Kur?)",
     "case": "LocSg",
-    "options": [
-      "kūtī",
-      "kūti",
-      "kūts",
-      "kūtis"
-    ],
+    "options": ["kūtī", "kūti", "kūts", "kūtis"],
     "answer": "kūtī",
     "hint": "Kur? → Lok.",
     "explain": "kūtī."
@@ -149,12 +104,7 @@
     "lemma": "govs",
     "prompt": "Rīt vedīs barību uz _____. (Uz kurieni?)",
     "case": "AccPl",
-    "options": [
-      "govis",
-      "goves",
-      "govīm",
-      "govi"
-    ],
+    "options": ["govis", "goves", "govīm", "govi"],
     "answer": "govis",
     "hint": "Akuz.pl = Nom.pl.",
     "explain": "govis."
@@ -165,12 +115,7 @@
     "lemma": "telts",
     "prompt": "Mēs nakšņojam _____. (Kur?)",
     "case": "LocSg",
-    "options": [
-      "teltī",
-      "telti",
-      "telts",
-      "teltis"
-    ],
+    "options": ["teltī", "telti", "telts", "teltis"],
     "answer": "teltī",
     "hint": "Kur? → Lok.",
     "explain": "teltī."
@@ -181,12 +126,7 @@
     "lemma": "telts",
     "prompt": "No rīta saliksim ____ atpakaļ somā.",
     "case": "AccSg",
-    "options": [
-      "telti",
-      "teltī",
-      "telts",
-      "teltis"
-    ],
+    "options": ["telti", "teltī", "telts", "teltis"],
     "answer": "telti",
     "hint": "Ko? → Akuz.sg -i.",
     "explain": "telti."
@@ -197,12 +137,7 @@
     "lemma": "krāsns",
     "prompt": "Vecajā mājā bija divas _____.",
     "case": "NomPl",
-    "options": [
-      "krāsnis",
-      "krāsns",
-      "krāsnīm",
-      "krāsnīs"
-    ],
+    "options": ["krāsnis", "krāsns", "krāsnīm", "krāsnīs"],
     "answer": "krāsnis",
     "hint": "Nom.pl -is.",
     "explain": "krāsnis."
@@ -213,12 +148,7 @@
     "lemma": "plīts",
     "prompt": "Dzīvoklī ir dažādas ____: gāzes, elektriskā, indukcijas.",
     "case": "NomPl",
-    "options": [
-      "plītis",
-      "plītis (noteiktā)",
-      "plīts",
-      "plītīm"
-    ],
+    "options": ["plītis", "plītis (noteiktā)", "plīts", "plītīm"],
     "answer": "plītis",
     "hint": "Nom.pl -is.",
     "explain": "plītis."
@@ -229,12 +159,7 @@
     "lemma": "zoss",
     "prompt": "Šovakar cepsim ____ kājas.",
     "case": "GenSg",
-    "options": [
-      "zoss",
-      "zosi",
-      "zosu",
-      "zosses"
-    ],
+    "options": ["zoss", "zosi", "zosu", "zosses"],
     "answer": "zoss",
     "hint": "Ģen.sg = zoss.",
     "explain": "zoss kājas."
@@ -245,12 +170,7 @@
     "lemma": "zivs",
     "prompt": "Bērniem negaršo ____ gaļa.",
     "case": "GenSg",
-    "options": [
-      "zivs",
-      "zivi",
-      "zivju",
-      "zivis"
-    ],
+    "options": ["zivs", "zivi", "zivju", "zivis"],
     "answer": "zivs",
     "hint": "Ģen.sg = lemma.",
     "explain": "zivs gaļa."
@@ -261,12 +181,7 @@
     "lemma": "klints",
     "prompt": "Takai jāiet pāri _____.",
     "case": "DatSg (pāri + Dat.)",
-    "options": [
-      "klintij",
-      "klints",
-      "klinti",
-      "klintī"
-    ],
+    "options": ["klintij", "klints", "klinti", "klintī"],
     "answer": "klintij",
     "hint": "pāri + Dat.",
     "explain": "pāri klintij."
@@ -277,12 +192,7 @@
     "lemma": "plīts",
     "prompt": "Katls ir virs _____.",
     "case": "GenSg",
-    "options": [
-      "plīts",
-      "plīti",
-      "plītī",
-      "plītis"
-    ],
+    "options": ["plīts", "plīti", "plītī", "plītis"],
     "answer": "plīts",
     "hint": "virs + Ģen.",
     "explain": "virs plīts."
@@ -293,12 +203,7 @@
     "lemma": "krāsns",
     "prompt": "Mēs stāvam pie _____.",
     "case": "GenSg",
-    "options": [
-      "krāsns",
-      "krāsnī",
-      "krāsni",
-      "krāsnis"
-    ],
+    "options": ["krāsns", "krāsnī", "krāsni", "krāsnis"],
     "answer": "krāsns",
     "hint": "pie + Ģen.",
     "explain": "pie krāsns."
@@ -309,12 +214,7 @@
     "lemma": "krāsns",
     "prompt": "Bērns paskatījās uz ____ (virzienā).",
     "case": "AccSg (uz + Akuz.)",
-    "options": [
-      "krāsni",
-      "krāsns",
-      "krāsnī",
-      "krāsnis"
-    ],
+    "options": ["krāsni", "krāsns", "krāsnī", "krāsnis"],
     "answer": "krāsni",
     "hint": "uz (kurieni?) → Akuz.",
     "explain": "uz krāsni."
@@ -325,12 +225,7 @@
     "lemma": "brokastis (pl., only)",
     "prompt": "Viesnīcā bija garšīgas _____.",
     "case": "NomPl",
-    "options": [
-      "brokastis",
-      "brokastīm",
-      "brokastis (sg)",
-      "brokastu"
-    ],
+    "options": ["brokastis", "brokastīm", "brokastis (sg)", "brokastu"],
     "answer": "brokastis",
     "hint": "Plural‑only.",
     "explain": "brokastis."
@@ -341,12 +236,7 @@
     "lemma": "durvis (pl., only)",
     "prompt": "Aiz ____ stāv skapis.",
     "case": "GenPl",
-    "options": [
-      "durvju",
-      "durvīm",
-      "durvis",
-      "durvīs"
-    ],
+    "options": ["durvju", "durvīm", "durvis", "durvīs"],
     "answer": "durvju",
     "hint": "Ģen.pl: durvju.",
     "explain": "aiz durvju."
@@ -357,12 +247,7 @@
     "lemma": "pils (Cēsis)",
     "prompt": "Mēs braucam uz ____ (pilsēta).",
     "case": "AccPl (place name with plural forms)",
-    "options": [
-      "Cēsīm",
-      "Cēsis",
-      "Cēsu",
-      "Cēsīs"
-    ],
+    "options": ["Cēsīm", "Cēsis", "Cēsu", "Cēsīs"],
     "answer": "Cēsīm",
     "hint": "Uz + Akuz.; plural place name → -īm.",
     "explain": "uz Cēsīm."
@@ -373,12 +258,7 @@
     "lemma": "valsts",
     "prompt": "Latvija ir skaista _____.",
     "case": "NomSg",
-    "options": [
-      "valsts",
-      "valsti",
-      "valstī",
-      "valsts (pl.)"
-    ],
+    "options": ["valsts", "valsti", "valstī", "valsts (pl.)"],
     "answer": "valsts",
     "hint": "Nom.sg.",
     "explain": "skaista valsts."
@@ -389,12 +269,7 @@
     "lemma": "valsts",
     "prompt": "Es dzīvoju brīvā _____.",
     "case": "LocSg",
-    "options": [
-      "valstī",
-      "valsti",
-      "valsts",
-      "valstīm"
-    ],
+    "options": ["valstī", "valsti", "valsts", "valstīm"],
     "answer": "valstī",
     "hint": "Kur? → Lok.",
     "explain": "valstī."
@@ -405,12 +280,7 @@
     "lemma": "zoss",
     "prompt": "Bērni baro ____ ar graudiem.",
     "case": "AccSg",
-    "options": [
-      "zosi",
-      "zoss",
-      "zosu",
-      "zošu"
-    ],
+    "options": ["zosi", "zoss", "zosu", "zošu"],
     "answer": "zosi",
     "hint": "Ko? → Akuz.sg -i.",
     "explain": "zosi."
@@ -421,12 +291,7 @@
     "lemma": "zivs",
     "prompt": "Viņi vēro ____ dīķī.",
     "case": "AccPl",
-    "options": [
-      "zivis",
-      "zivju",
-      "zivīm",
-      "zivs"
-    ],
+    "options": ["zivis", "zivju", "zivīm", "zivs"],
     "answer": "zivis",
     "hint": "Ko? (daudz) → Akuz.pl.",
     "explain": "zivis."
@@ -437,12 +302,7 @@
     "lemma": "smiltis (pl., only)",
     "prompt": "Bērni spēlējas _____.",
     "case": "LocPl",
-    "options": [
-      "smiltīs",
-      "smiltis",
-      "smilšu",
-      "smiltīm"
-    ],
+    "options": ["smiltīs", "smiltis", "smilšu", "smiltīm"],
     "answer": "smiltīs",
     "hint": "Kur? → Lok.pl -īs.",
     "explain": "smiltīs."

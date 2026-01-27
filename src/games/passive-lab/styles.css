@@ -134,7 +134,7 @@
 }
 
 .passive-lab-patient-option.active,
-.passive-lab-patient-option[aria-pressed="true"] {
+.passive-lab-patient-option[aria-pressed='true'] {
   border-color: var(--accent);
   background: var(--accent-soft);
 }

@@ -14,7 +14,7 @@ test('should load the game environment', () => {
 
 test('should have all necessary elements present', () => {
   const ids = ['qtext', 'meta', 'choices', 'score', 'streak', 'round', 'skip', 'again', 'perstats'];
-  ids.forEach(id => {
+  ids.forEach((id) => {
     assert.ok(new RegExp(`id="${id}"`).test(html), `missing id ${id}`);
   });
 });

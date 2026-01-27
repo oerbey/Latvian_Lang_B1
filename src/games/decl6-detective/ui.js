@@ -32,7 +32,7 @@ function getSceneMeta(scene) {
 export function applyTranslations(strings, lang) {
   document.title = strings.title || document.title;
   document.documentElement.lang = lang;
-  document.querySelectorAll('[data-i18n-key]').forEach(node => {
+  document.querySelectorAll('[data-i18n-key]').forEach((node) => {
     const key = node.dataset.i18nKey;
     if (!key) return;
     const value = strings[key];
@@ -60,7 +60,8 @@ export function applySceneTheme(card, emojiEl, labelEl, planImage, scene) {
 export function updateScoreboard(nodes, progress) {
   if (nodes.scoreValue) nodes.scoreValue.textContent = formatNumber(progress.xp ?? 0);
   if (nodes.streakValue) nodes.streakValue.textContent = formatNumber(progress.streak ?? 0);
-  if (nodes.lastPlayedValue) nodes.lastPlayedValue.textContent = formatLastPlayed(progress.lastPlayedISO);
+  if (nodes.lastPlayedValue)
+    nodes.lastPlayedValue.textContent = formatLastPlayed(progress.lastPlayedISO);
 }
 
 export function updateLiveRegion(nodes, message) {

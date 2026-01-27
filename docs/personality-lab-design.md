@@ -44,13 +44,11 @@ New file in repo root: `character-traits.html`.
 - Reuse global header / navigation and theme behaviour as in the other games.
 - Page `<title>` and main heading: **“Kāds es esmu? Rakstura īpašības”**.
 - Short intro text in Latvian that explains:
-
   - you will see character traits,
   - sometimes you decide: optimist or pessimist,
   - sometimes you choose the correct English translation.
 
 - Main content area:
-
   1. **Mode selector** (two buttons or tabs):
      - “Optimists vai pesimists”
      - “Latviešu ➜ angļu”
@@ -78,7 +76,6 @@ Use existing CSS classes and modern responsive layout that already exists in the
 
 - Each round has **10 questions** (easy to change via a constant).
 - Track:
-
   - `questionIndex` (0–9),
   - `correctCount`,
   - `askedCount`,
@@ -90,15 +87,12 @@ Use existing CSS classes and modern responsive layout that already exists in the
 
 - Use only items where `group` is `"optimists"` or `"pesimists"`.
 - For each question:
-
   - show `lv`,
   - provide two answer buttons: “Optimists” and “Pesimists”.
 
 - After click:
-
   - colour feedback (same style as other games),
   - short Latvian text, e.g.
-
     - correct: “Pareizi, šī īpašība raksturo optimistu.”
     - wrong: “Nē, tas vairāk raksturo pesimistu.”
 
@@ -110,17 +104,14 @@ Use existing CSS classes and modern responsive layout that already exists in the
 
 - Use **all** rows from CSV.
 - For each question:
-
   - show `lv` as the prompt,
   - generate **4 options**:
-
     - one correct (`en`),
     - three distractors chosen from other items’ `en` values.
 
   - shuffle the options.
 
 - After click:
-
   - show correct / incorrect message in Latvian,
   - clearly show the correct English gloss,
   - record mistakes and continue.
@@ -130,17 +121,14 @@ Use existing CSS classes and modern responsive layout that already exists in the
 When 10 questions are answered:
 
 - Show summary card:
-
   - correct answers,
   - percentage,
   - short Latvian evaluation depending on score, e.g.
-
     - 9–10: “Lieliski!”
     - 6–8: “Labi, tu labi pārzini rakstura īpašības.”
     - 0–5: “Vajag vēl patrennēties.”
 
 - Show table / list of mistakes with:
-
   - Latvian word / phrase,
   - correct English translation,
   - correct group (“optimists” or “pesimists”) where applicable.
@@ -152,9 +140,8 @@ When 10 questions are answered:
 - Add link / card in `index.html` that opens `character-traits.html`.
 - Reuse same visual pattern as other games.
 - Suggested Latvian label:
-
   - Title: **“Rakstura īpašības”**
-  - Description: *“Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.”*
+  - Description: _“Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.”_
 
 ## Technical notes
 

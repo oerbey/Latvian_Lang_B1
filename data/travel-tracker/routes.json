@@ -20,14 +20,8 @@
           "from": "Rīga",
           "to": "Sigulda",
           "gap": "Mēs ____ no Rīgas agrā rītā.",
-          "answers": [
-            "izbraucam",
-            "izbrauksim"
-          ],
-          "distractors": [
-            "iebraucam",
-            "apbraucam"
-          ],
+          "answers": ["izbraucam", "izbrauksim"],
+          "distractors": ["iebraucam", "apbraucam"],
           "hint": "iz- + no + ģenitīvs (no Rīgas).",
           "explain": "Izbraukt no pilsētas = leave the city."
         },
@@ -35,14 +29,8 @@
           "from": "Sigulda",
           "to": "Cēsis",
           "gap": "Pēc stundas mēs ____ Cēsīs.",
-          "answers": [
-            "iebraucam",
-            "iebrauksim"
-          ],
-          "distractors": [
-            "aizbrauksim",
-            "atbrauksim"
-          ],
+          "answers": ["iebraucam", "iebrauksim"],
+          "distractors": ["aizbrauksim", "atbrauksim"],
           "hint": "ie- (into) → lokatīvs (Cēsīs).",
           "explain": "Iebraukt Cēsīs = drive into Cēsis."
         },
@@ -50,13 +38,8 @@
           "from": "Cēsis",
           "to": "Valmiera",
           "gap": "Viņi vakar vēlu ____ no Cēsīm.",
-          "answers": [
-            "izbrauca"
-          ],
-          "distractors": [
-            "iebrauca",
-            "apbrauca"
-          ],
+          "answers": ["izbrauca"],
+          "distractors": ["iebrauca", "apbrauca"],
           "hint": "iz- + no + ģenitīvs (no Cēsīm).",
           "explain": "Izbraukt no Cēsīm = to depart from Cēsis."
         },
@@ -64,14 +47,8 @@
           "from": "Valmiera",
           "to": "Rīga",
           "gap": "Pēc pusdienām vilciens ____ Rīgā.",
-          "answers": [
-            "iebrauca",
-            "iebrauks"
-          ],
-          "distractors": [
-            "izbrauca",
-            "atbrauca"
-          ],
+          "answers": ["iebrauca", "iebrauks"],
+          "distractors": ["izbrauca", "atbrauca"],
           "hint": "ie- (into) → lokatīvs (Rīgā).",
           "explain": "Iebraukt Rīgā = arrive into Riga (by entering)."
         },
@@ -79,14 +56,8 @@
           "from": "Rīga",
           "to": "Jūrmala",
           "gap": "No pagalma mēs ātri ____ no mājas un devāmies ceļā.",
-          "answers": [
-            "izgājām",
-            "izbraucām"
-          ],
-          "distractors": [
-            "iebraucām",
-            "apgājām"
-          ],
+          "answers": ["izgājām", "izbraucām"],
+          "distractors": ["iebraucām", "apgājām"],
           "hint": "iz- + no + ģenitīvs (no mājas).",
           "explain": "Iziet/izbraukt no mājas = exit/drive out of home."
         },
@@ -94,13 +65,8 @@
           "from": "Jūrmala",
           "to": "Rīga",
           "gap": "Pēc pusdienām mēs ____ Rīgā un satikām draugus.",
-          "answers": [
-            "iebraucām"
-          ],
-          "distractors": [
-            "atbraucām",
-            "izbraucām"
-          ],
+          "answers": ["iebraucām"],
+          "distractors": ["atbraucām", "izbraucām"],
           "hint": "ie- (into) → lokatīvs (Rīgā).",
           "explain": "Iebraukt Rīgā = go into Riga."
         }
@@ -114,14 +80,8 @@
           "from": "Ventspils",
           "to": "Liepāja",
           "gap": "Mēs ____ uz Liepāju nākamajā nedēļā.",
-          "answers": [
-            "brauksim",
-            "braucam"
-          ],
-          "distractors": [
-            "aizbrauksim",
-            "atbrauksim"
-          ],
+          "answers": ["brauksim", "braucam"],
+          "distractors": ["aizbrauksim", "atbrauksim"],
           "hint": "Bez priedēkļa: braukt + uz + akuzatīvs (uz Liepāju).",
           "explain": "Plain 'braukt' takes 'uz + Acc.' for destination."
         },
@@ -129,13 +89,8 @@
           "from": "Jūrmala",
           "to": "Rīga",
           "gap": "Viņi vakar vakarā ____ uz Rīgu no koncerta.",
-          "answers": [
-            "atbrauca"
-          ],
-          "distractors": [
-            "brauca",
-            "izbrauca"
-          ],
+          "answers": ["atbrauca"],
+          "distractors": ["brauca", "izbrauca"],
           "hint": "at- = back/arrive (bieži ar uz + Acc.).",
           "explain": "Atbraukt uz Rīgu = arrive to Riga."
         },
@@ -143,14 +98,8 @@
           "from": "Rīga",
           "to": "Jelgava",
           "gap": "Rīt mēs agri ____ uz Jelgavu darbā.",
-          "answers": [
-            "aizbrauksim",
-            "aizbraucam",
-            "brauksim"
-          ],
-          "distractors": [
-            "atbrauksim"
-          ],
+          "answers": ["aizbrauksim", "aizbraucam", "brauksim"],
+          "distractors": ["atbrauksim"],
           "hint": "aiz- = go away/to (destination). Pretstats: plain 'braukt' + uz.",
           "explain": "Aizbraukt uz Jelgavu = go away to Jelgava."
         },
@@ -158,14 +107,8 @@
           "from": "Jelgava",
           "to": "Rīga",
           "gap": "Pēc sanāksmes kolēģi ____ uz Rīgu.",
-          "answers": [
-            "atbrauca",
-            "atbrauks"
-          ],
-          "distractors": [
-            "aizbrauca",
-            "izbrauca"
-          ],
+          "answers": ["atbrauca", "atbrauks"],
+          "distractors": ["aizbrauca", "izbrauca"],
           "hint": "at- = back/arrive to a reference point.",
           "explain": "Atbraukt (atpakaļ) uz Rīgu = return/arrive to Riga."
         },
@@ -173,13 +116,8 @@
           "from": "Ogre",
           "to": "Rīga",
           "gap": "Es bieži ____ uz Rīgu ar vilcienu.",
-          "answers": [
-            "braucu"
-          ],
-          "distractors": [
-            "aizbraucu",
-            "izbraucu"
-          ],
+          "answers": ["braucu"],
+          "distractors": ["aizbraucu", "izbraucu"],
           "hint": "Bez priedēkļa: braukt + uz + akuzatīvs (uz Rīgu).",
           "explain": "Contrast plain 'braukt' vs. prefixed forms."
         }
@@ -193,13 +131,8 @@
           "from": "Cēsis",
           "to": "Valmiera",
           "gap": "Mašīna ____ pie tilta, jo tur satiksme.",
-          "answers": [
-            "piebrauca"
-          ],
-          "distractors": [
-            "apbrauca",
-            "izbrauca"
-          ],
+          "answers": ["piebrauca"],
+          "distractors": ["apbrauca", "izbrauca"],
           "hint": "pie- + pie + ģenitīvs (pie tilta).",
           "explain": "Piebraukt pie tilta = drive up to the bridge."
         },
@@ -207,13 +140,8 @@
           "from": "Valmiera",
           "to": "Rīga",
           "gap": "Mēs ____ pār ielu pie luksofora.",
-          "answers": [
-            "pārbraucām"
-          ],
-          "distractors": [
-            "apbraucām",
-            "izbraucām"
-          ],
+          "answers": ["pārbraucām"],
+          "distractors": ["apbraucām", "izbraucām"],
           "hint": "pār- → 'across/over' (pār ielu – akuzatīvs).",
           "explain": "Pārbraukt pār ielu = drive across the street."
         },
@@ -221,14 +149,8 @@
           "from": "Sigulda",
           "to": "Sigulda",
           "gap": "Tūristu autobuss no rīta vairākas reizes ____ pār Gaujas tiltu.",
-          "answers": [
-            "pārbrauca",
-            "pārbrauks"
-          ],
-          "distractors": [
-            "apbrauca",
-            "izbrauca"
-          ],
+          "answers": ["pārbrauca", "pārbrauks"],
+          "distractors": ["apbrauca", "izbrauca"],
           "hint": "pār- + objektu: pār tiltu / pār ielu.",
           "explain": "Pārbraukt pār tiltu = cross the bridge by vehicle."
         },
@@ -236,13 +158,8 @@
           "from": "Rīga",
           "to": "Rīga",
           "gap": "Avārijas dēļ mēs ____ pie policijas iecirkņa.",
-          "answers": [
-            "piebraucām"
-          ],
-          "distractors": [
-            "apbraucām",
-            "izbraucām"
-          ],
+          "answers": ["piebraucām"],
+          "distractors": ["apbraucām", "izbraucām"],
           "hint": "pie- + pie + ģen. (pie iecirkņa).",
           "explain": "Piebraukt pie X = pull up to X."
         },
@@ -250,14 +167,8 @@
           "from": "Jelgava",
           "to": "Jelgava",
           "gap": "Vilciens nesteidzīgi ____ pār upi.",
-          "answers": [
-            "pārbrauca",
-            "pārbrauc"
-          ],
-          "distractors": [
-            "apbrauca",
-            "izbrauca"
-          ],
+          "answers": ["pārbrauca", "pārbrauc"],
+          "distractors": ["apbrauca", "izbrauca"],
           "hint": "pār- across/over.",
           "explain": "Pārbraukt pār upi = cross the river."
         }
@@ -271,13 +182,8 @@
           "from": "Rīga",
           "to": "Rīga",
           "gap": "Satiksmi centrā mēs ____ ap parku, lai izvairītos no sastrēguma.",
-          "answers": [
-            "apbraucām"
-          ],
-          "distractors": [
-            "pārbraucām",
-            "izbraucām"
-          ],
+          "answers": ["apbraucām"],
+          "distractors": ["pārbraucām", "izbraucām"],
           "hint": "ap- 'around': apbraukt ap parku / apkārt parkam.",
           "explain": "Apbraukt = go around."
         },
@@ -285,13 +191,8 @@
           "from": "Sigulda",
           "to": "Sigulda",
           "gap": "Pastaigas laikā mēs ____ garām muzejam un tālāk pa upi.",
-          "answers": [
-            "gājām"
-          ],
-          "distractors": [
-            "apgājām",
-            "izgājām"
-          ],
+          "answers": ["gājām"],
+          "distractors": ["apgājām", "izgājām"],
           "hint": "garām (Dat.) = past; pa + Akuz. = along.",
           "explain": "Paiet garām muzejam; iet pa upi."
         },
@@ -299,13 +200,8 @@
           "from": "Cēsis",
           "to": "Cēsis",
           "gap": "Autobuss ātri ____ gar parku un ap kvartālu.",
-          "answers": [
-            "brauca"
-          ],
-          "distractors": [
-            "apbrauca",
-            "pārbrauca"
-          ],
+          "answers": ["brauca"],
+          "distractors": ["apbrauca", "pārbrauca"],
           "hint": "pa/gar = along/past; ap = around.",
           "explain": "Braukt gar parku; ap kvartālu."
         },
@@ -313,14 +209,8 @@
           "from": "Jūrmala",
           "to": "Jūrmala",
           "gap": "Mēs ____ pa pludmali līdz kafejnīcai.",
-          "answers": [
-            "gājām",
-            "staigājām"
-          ],
-          "distractors": [
-            "apgājām",
-            "pārgājām"
-          ],
+          "answers": ["gājām", "staigājām"],
+          "distractors": ["apgājām", "pārgājām"],
           "hint": "pa + Akuz. = along (pa pludmali).",
           "explain": "Iet pa pludmali = walk along the beach."
         },
@@ -328,14 +218,8 @@
           "from": "Valmiera",
           "to": "Valmiera",
           "gap": "Rinda lēni ____ gar veikalu durvīm.",
-          "answers": [
-            "virzījās",
-            "gāja"
-          ],
-          "distractors": [
-            "apgāja",
-            "pārnāca"
-          ],
+          "answers": ["virzījās", "gāja"],
+          "distractors": ["apgāja", "pārnāca"],
           "hint": "gar + Dat. = past/by.",
           "explain": "Virzīties gar durvīm = move past the door."
         }
@@ -349,14 +233,8 @@
           "from": "Sigulda",
           "to": "Sigulda",
           "gap": "Tramvajs lēni ____ uz kalnu.",
-          "answers": [
-            "uzbrauca",
-            "uzbrauks"
-          ],
-          "distractors": [
-            "nobrauca",
-            "izbrauca"
-          ],
+          "answers": ["uzbrauca", "uzbrauks"],
+          "distractors": ["nobrauca", "izbrauca"],
           "hint": "uz- (onto/up): uzbraukt kalnā.",
           "explain": "Uzbraukt kalnā = go up the hill."
         },
@@ -364,14 +242,8 @@
           "from": "Sigulda",
           "to": "Sigulda",
           "gap": "Slēpotāji ātri ____ no kalna.",
-          "answers": [
-            "nobrauca",
-            "nobrauks"
-          ],
-          "distractors": [
-            "uzbrauca",
-            "izbrauca"
-          ],
+          "answers": ["nobrauca", "nobrauks"],
+          "distractors": ["uzbrauca", "izbrauca"],
           "hint": "no- (off/from): nobraukt no kalna.",
           "explain": "Nobraukt no kalna = go down from hill."
         },
@@ -379,13 +251,8 @@
           "from": "Rīga",
           "to": "Rīga",
           "gap": "Autobuss ____ uz tilta un tad pagriezās pa labi.",
-          "answers": [
-            "uzbrauca"
-          ],
-          "distractors": [
-            "nobrauca",
-            "pārbrauca"
-          ],
+          "answers": ["uzbrauca"],
+          "distractors": ["nobrauca", "pārbrauca"],
           "hint": "uz- (onto): uzbraukt uz tilta.",
           "explain": "Uzbraukt uz tilta = drive onto the bridge."
         },
@@ -393,13 +260,8 @@
           "from": "Rīga",
           "to": "Rīga",
           "gap": "Pēc straujā kāpuma mašīna ____ no tilta.",
-          "answers": [
-            "nobrauca"
-          ],
-          "distractors": [
-            "uzbrauca",
-            "izbrauca"
-          ],
+          "answers": ["nobrauca"],
+          "distractors": ["uzbrauca", "izbrauca"],
           "hint": "no- (off): nobraukt no tilta.",
           "explain": "Nobraukt no tilta = drive off the bridge (descent)."
         },
@@ -407,13 +269,8 @@
           "from": "Daugavpils",
           "to": "Rīga",
           "gap": "Mēs rīt ____ uz Rīgu ar autobusu.",
-          "answers": [
-            "brauksim"
-          ],
-          "distractors": [
-            "nobrauksim",
-            "uzbrauksim"
-          ],
+          "answers": ["brauksim"],
+          "distractors": ["nobrauksim", "uzbrauksim"],
           "hint": "Bez priedēkļa: braukt + uz + Akuz. (uz Rīgu).",
           "explain": "Plain 'braukt' uses uz + Acc. for destination."
         }
@@ -427,13 +284,8 @@
           "from": "Ogre",
           "to": "Jūrmala",
           "gap": "Sākās lietus, tāpēc mēs ____ ap pilsētas centru un devāmies uz šoseju.",
-          "answers": [
-            "apbraucām"
-          ],
-          "distractors": [
-            "pārbraucām",
-            "izbraucām"
-          ],
+          "answers": ["apbraucām"],
+          "distractors": ["pārbraucām", "izbraucām"],
           "hint": "ap- around obstacle.",
           "explain": "Apbraukt centru = bypass the center."
         },
@@ -441,13 +293,8 @@
           "from": "Jūrmala",
           "to": "Jelgava",
           "gap": "Kad kolonna ____ pie skolas, visi aplaudēja.",
-          "answers": [
-            "piebrauca"
-          ],
-          "distractors": [
-            "iebrauca",
-            "izbrauca"
-          ],
+          "answers": ["piebrauca"],
+          "distractors": ["iebrauca", "izbrauca"],
           "hint": "pie- + pie + ģen. (pie skolas).",
           "explain": "Piebraukt pie skolas = arrive up to the school."
         },
@@ -455,13 +302,8 @@
           "from": "Jelgava",
           "to": "Rīga",
           "gap": "Pēc koncerta mēs vēlu vakarā ____ uz Rīgu.",
-          "answers": [
-            "atbraucām"
-          ],
-          "distractors": [
-            "aizbraucām",
-            "izbraucām"
-          ],
+          "answers": ["atbraucām"],
+          "distractors": ["aizbraucām", "izbraucām"],
           "hint": "at- = back/arrive to the reference point.",
           "explain": "Atbraukt uz Rīgu = return/arrive to Riga."
         },
@@ -469,14 +311,8 @@
           "from": "Rīga",
           "to": "Ventspils",
           "gap": "Nākamvasar mēs ____ uz Ventspili un pēc tam ____ no pilsētas līdz pludmalei ar velosipēdiem.",
-          "answers": [
-            "brauksim",
-            "izbrauksim"
-          ],
-          "distractors": [
-            "aizbrauksim",
-            "nobrauksim"
-          ],
+          "answers": ["brauksim", "izbrauksim"],
+          "distractors": ["aizbrauksim", "nobrauksim"],
           "hint": "Bez priedēkļa: braukt + uz + Acc.; iz- + no + ģen.",
           "explain": "Braukt uz Ventspili; izbraukt no pilsētas."
         }

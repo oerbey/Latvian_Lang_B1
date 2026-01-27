@@ -48,7 +48,9 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .eb-ending {
@@ -71,7 +73,7 @@
   outline-offset: 2px;
 }
 
-.eb-ending[aria-grabbed="true"] {
+.eb-ending[aria-grabbed='true'] {
   cursor: grabbing;
   box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
   transform: translateY(-2px);
@@ -97,7 +99,7 @@
 }
 
 .eb-slot.has-ending::after {
-  content: "";
+  content: '';
 }
 
 .eb-feedback {
@@ -166,8 +168,8 @@
   font-size: 0.9rem;
 }
 
-[data-theme="dark"],
-[data-bs-theme="dark"] {
+[data-theme='dark'],
+[data-bs-theme='dark'] {
   --border: #3d4454;
   --surface: #1b2432;
   --surface-muted: rgba(13, 110, 253, 0.2);

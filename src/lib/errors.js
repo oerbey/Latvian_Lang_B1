@@ -83,8 +83,11 @@ function ensureStyles(doc) {
 }
 
 function getFocusableElements(container) {
-  const selector = 'button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
-  return Array.from(container.querySelectorAll(selector)).filter(el => !el.hasAttribute('disabled'));
+  const selector =
+    'button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
+  return Array.from(container.querySelectorAll(selector)).filter(
+    (el) => !el.hasAttribute('disabled'),
+  );
 }
 
 function trapFocus(overlay) {

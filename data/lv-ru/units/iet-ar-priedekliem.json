@@ -6,132 +6,88 @@
         "lv": "iet",
         "ru": "идти"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "ieiet",
         "ru": "войти"
       },
-      "tags": [
-        "prefix:ie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "iziet",
         "ru": "выйти"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aiziet",
         "ru": "уйти"
       },
-      "tags": [
-        "prefix:aiz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:aiz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "atiet",
         "ru": "отойти; отправиться"
       },
-      "tags": [
-        "prefix:at"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:at"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pieiet",
         "ru": "подойти"
       },
-      "tags": [
-        "prefix:pie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pāriet",
         "ru": "перейти; переключиться"
       },
-      "tags": [
-        "prefix:pār"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pār"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "apiet",
         "ru": "обойти"
       },
-      "tags": [
-        "prefix:ap"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ap"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "noiet",
         "ru": "сойти; пройти расстояние"
       },
-      "tags": [
-        "prefix:no"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:no"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "saiet",
         "ru": "собраться вместе"
       },
-      "tags": [
-        "prefix:sa"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:sa"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "paiet",
         "ru": "пройти (о времени)"
       },
-      "tags": [
-        "prefix:pa"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pa"],
+      "games": ["match"]
     }
   ]
 }

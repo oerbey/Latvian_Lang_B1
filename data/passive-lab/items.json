@@ -13,11 +13,7 @@
       "past": "Grāmatas tika lasītas.",
       "future": "Grāmatas tiks lasītas."
     },
-    "alsoAccept": [
-      "Grāmatas ir lasītas.",
-      "Grāmatas bija lasītas.",
-      "Grāmatas būs lasītas."
-    ],
+    "alsoAccept": ["Grāmatas ir lasītas.", "Grāmatas bija lasītas.", "Grāmatas būs lasītas."],
     "hint": "f.pl → -tas; tiek/tika/tiks.",
     "explain": "Plural feminine patient → participle -tas."
   },
@@ -57,11 +53,7 @@
       "past": "Līgums tika parakstīts.",
       "future": "Līgums tiks parakstīts."
     },
-    "alsoAccept": [
-      "Līgums ir parakstīts.",
-      "Līgums bija parakstīts.",
-      "Līgums būs parakstīts."
-    ],
+    "alsoAccept": ["Līgums ir parakstīts.", "Līgums bija parakstīts.", "Līgums būs parakstīts."],
     "hint": "-ts m.sg; -īt → -īts.",
     "explain": "Note participle stem change for -īt verbs."
   },
@@ -101,11 +93,7 @@
       "past": "Veikals tika atvērts.",
       "future": "Veikals tiks atvērts."
     },
-    "alsoAccept": [
-      "Veikals ir atvērts.",
-      "Veikals bija atvērts.",
-      "Veikals būs atvērts."
-    ],
+    "alsoAccept": ["Veikals ir atvērts.", "Veikals bija atvērts.", "Veikals būs atvērts."],
     "hint": "Future → tiks.",
     "explain": "Use tiks for future passive."
   },
@@ -123,11 +111,7 @@
       "past": "Zeme tika pārdota.",
       "future": "Zeme tiks pārdota."
     },
-    "alsoAccept": [
-      "Zeme ir pārdota.",
-      "Zeme bija pārdota.",
-      "Zeme būs pārdota."
-    ],
+    "alsoAccept": ["Zeme ir pārdota.", "Zeme bija pārdota.", "Zeme būs pārdota."],
     "hint": "f.sg → -ta.",
     "explain": "Feminine singular patient → -ta."
   },
@@ -145,11 +129,7 @@
       "past": "Darbs tika pabeigts.",
       "future": "Darbs tiks pabeigts."
     },
-    "alsoAccept": [
-      "Darbs ir pabeigts.",
-      "Darbs bija pabeigts.",
-      "Darbs būs pabeigts."
-    ],
+    "alsoAccept": ["Darbs ir pabeigts.", "Darbs bija pabeigts.", "Darbs būs pabeigts."],
     "hint": "-ts m.sg.",
     "explain": "Agreement with m.sg."
   },
@@ -167,11 +147,7 @@
       "past": "Eksāmens tika kārtots.",
       "future": "Eksāmens tiks kārtots."
     },
-    "alsoAccept": [
-      "Eksāmens ir kārtots.",
-      "Eksāmens bija kārtots.",
-      "Eksāmens būs kārtots."
-    ],
+    "alsoAccept": ["Eksāmens ir kārtots.", "Eksāmens bija kārtots.", "Eksāmens būs kārtots."],
     "hint": "Use appropriate tense; builder should guide.",
     "explain": "Focus on tikt + participle."
   },
@@ -189,11 +165,7 @@
       "past": "Roses tika pārstādītas.",
       "future": "Roses tiks pārstādītas."
     },
-    "alsoAccept": [
-      "Roses ir pārstādītas.",
-      "Roses bija pārstādītas.",
-      "Roses būs pārstādītas."
-    ],
+    "alsoAccept": ["Roses ir pārstādītas.", "Roses bija pārstādītas.", "Roses būs pārstādītas."],
     "hint": "f.pl → -tas.",
     "explain": "Plural feminine patient."
   },
@@ -211,11 +183,7 @@
       "past": "Pagalmi tika tīrīti.",
       "future": "Pagalmi tiks tīrīti."
     },
-    "alsoAccept": [
-      "Pagalmi ir tīrīti.",
-      "Pagalmi bija tīrīti.",
-      "Pagalmi būs tīrīti."
-    ],
+    "alsoAccept": ["Pagalmi ir tīrīti.", "Pagalmi bija tīrīti.", "Pagalmi būs tīrīti."],
     "hint": "m.pl → -ti.",
     "explain": "Plural masculine patient."
   },
@@ -255,11 +223,7 @@
       "past": "Māja tika uzcelta.",
       "future": "Māja tiks uzcelta."
     },
-    "alsoAccept": [
-      "Māja ir uzcelta.",
-      "Māja bija uzcelta.",
-      "Māja būs uzcelta."
-    ],
+    "alsoAccept": ["Māja ir uzcelta.", "Māja bija uzcelta.", "Māja būs uzcelta."],
     "hint": "Recognize past passive: tika + -ta.",
     "explain": "Recognition + tense swap."
   },
@@ -277,11 +241,7 @@
       "past": "Izstāde tika organizēta.",
       "future": "Izstāde tiks organizēta."
     },
-    "alsoAccept": [
-      "Izstāde ir organizēta.",
-      "Izstāde bija organizēta.",
-      "Izstāde būs organizēta."
-    ],
+    "alsoAccept": ["Izstāde ir organizēta.", "Izstāde bija organizēta.", "Izstāde būs organizēta."],
     "hint": "f.sg → -ta.",
     "explain": "Cultural events examples."
   },
@@ -299,11 +259,7 @@
       "past": "Viesi tika aicināti.",
       "future": "Viesi tiks aicināti."
     },
-    "alsoAccept": [
-      "Viesi ir aicināti.",
-      "Viesi bija aicināti.",
-      "Viesi būs aicināti."
-    ],
+    "alsoAccept": ["Viesi ir aicināti.", "Viesi bija aicināti.", "Viesi būs aicināti."],
     "hint": "m.pl → -ti.",
     "explain": "Recognition; keep agent implicit."
   },
@@ -365,11 +321,7 @@
       "past": "Dators tika izslēgts.",
       "future": "Dators tiks izslēgts."
     },
-    "alsoAccept": [
-      "Dators ir izslēgts.",
-      "Dators bija izslēgts.",
-      "Dators būs izslēgts."
-    ],
+    "alsoAccept": ["Dators ir izslēgts.", "Dators bija izslēgts.", "Dators būs izslēgts."],
     "hint": "izslēgt → izslēgts.",
     "explain": "Stem alternations are common."
   },
@@ -387,11 +339,7 @@
       "past": "Vēstule tika nosūtīta.",
       "future": "Vēstule tiks nosūtīta."
     },
-    "alsoAccept": [
-      "Vēstule ir nosūtīta.",
-      "Vēstule bija nosūtīta.",
-      "Vēstule būs nosūtīta."
-    ],
+    "alsoAccept": ["Vēstule ir nosūtīta.", "Vēstule bija nosūtīta.", "Vēstule būs nosūtīta."],
     "hint": "f.sg → -ta; future → tiks.",
     "explain": "Mail example."
   },
@@ -409,11 +357,7 @@
       "past": "Drēbes tika mazgātas.",
       "future": "Drēbes tiks mazgātas."
     },
-    "alsoAccept": [
-      "Drēbes ir mazgātas.",
-      "Drēbes bija mazgātas.",
-      "Drēbes būs mazgātas."
-    ],
+    "alsoAccept": ["Drēbes ir mazgātas.", "Drēbes bija mazgātas.", "Drēbes būs mazgātas."],
     "hint": "f.pl → -tas.",
     "explain": "Everyday chores."
   },
@@ -431,11 +375,7 @@
       "past": "Sienas tika krāsotas.",
       "future": "Sienas tiks krāsotas."
     },
-    "alsoAccept": [
-      "Sienas ir krāsotas.",
-      "Sienas bija krāsotas.",
-      "Sienas būs krāsotas."
-    ],
+    "alsoAccept": ["Sienas ir krāsotas.", "Sienas bija krāsotas.", "Sienas būs krāsotas."],
     "hint": "-tas f.pl.",
     "explain": "Renovation vocabulary."
   },
@@ -475,11 +415,7 @@
       "past": "Māja tika būvēta.",
       "future": "Māja tiks būvēta."
     },
-    "alsoAccept": [
-      "Māja ir būvēta.",
-      "Māja bija būvēta.",
-      "Māja būs būvēta."
-    ],
+    "alsoAccept": ["Māja ir būvēta.", "Māja bija būvēta.", "Māja būs būvēta."],
     "hint": "f.sg → -ta.",
     "explain": "Impersonal source → passive standard."
   },
@@ -497,11 +433,7 @@
       "past": "Serveris tika uzstādīts.",
       "future": "Serveris tiks uzstādīts."
     },
-    "alsoAccept": [
-      "Serveris ir uzstādīts.",
-      "Serveris bija uzstādīts.",
-      "Serveris būs uzstādīts."
-    ],
+    "alsoAccept": ["Serveris ir uzstādīts.", "Serveris bija uzstādīts.", "Serveris būs uzstādīts."],
     "hint": "m.sg → -ts.",
     "explain": "Tech installation."
   },

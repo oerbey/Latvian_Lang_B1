@@ -2,13 +2,13 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
   const drags = [...document.querySelectorAll(dragSelector)];
   const drops = [...document.querySelectorAll(dropSelector)];
 
-  drags.forEach(el => {
+  drags.forEach((el) => {
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');
     el.setAttribute('aria-grabbed', 'false');
     el.setAttribute('aria-pressed', 'false');
   });
-  drops.forEach(el => {
+  drops.forEach((el) => {
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');
     el.setAttribute('aria-live', 'polite');
@@ -22,7 +22,7 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
     dragged = { el, pointerId };
     el.setAttribute('aria-grabbed', 'true');
     el.style.opacity = '0.6';
-    const handleWindowPointerUp = e => {
+    const handleWindowPointerUp = (e) => {
       if (!dragged) return;
       if (pointerId == null || e.pointerId === pointerId) {
         end(el);
@@ -58,13 +58,13 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
     clearSelected();
   }
 
-  drags.forEach(el => {
-    el.addEventListener('pointerdown', e => {
+  drags.forEach((el) => {
+    el.addEventListener('pointerdown', (e) => {
       if (e.button !== 0 && e.pointerType !== 'touch') return;
       start(el, e.pointerId);
     });
 
-    el.addEventListener('pointerup', e => {
+    el.addEventListener('pointerup', (e) => {
       if (dragged?.el === el) {
         if (dragged.pointerId === e.pointerId || dragged.pointerId == null) {
           end(el);
@@ -78,7 +78,7 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
       }
     });
 
-    el.addEventListener('keydown', e => {
+    el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         if (dragged?.el === el) {
@@ -99,8 +99,8 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
     });
   });
 
-  drops.forEach(slot => {
-    slot.addEventListener('pointerup', e => {
+  drops.forEach((slot) => {
+    slot.addEventListener('pointerup', (e) => {
       if (dragged) {
         e.preventDefault();
         dropOnSlot(dragged.el, slot);
@@ -113,7 +113,7 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
       }
     });
 
-    slot.addEventListener('keydown', e => {
+    slot.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         clearSelected();
         return;
@@ -135,5 +135,4 @@ export function mountDnD({ dragSelector, dropSelector, onDrop }) {
       }
     });
   });
-
 }

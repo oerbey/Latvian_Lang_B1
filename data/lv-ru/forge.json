@@ -6,9 +6,7 @@
       "translations": {
         "ru": "изменить полностью (результат)"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "mainīt",
@@ -16,9 +14,7 @@
       "translations": {
         "ru": "преобразовать; переменить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "mainīt",
@@ -26,9 +22,7 @@
       "translations": {
         "ru": "заменить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "mainīt",
@@ -36,9 +30,7 @@
       "translations": {
         "ru": "обменять (вместе)"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "mainīt",
@@ -46,9 +38,7 @@
       "translations": {
         "ru": "поменять местами"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -56,9 +46,7 @@
       "translations": {
         "ru": "въехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -66,9 +54,7 @@
       "translations": {
         "ru": "выехать; уехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -76,9 +62,7 @@
       "translations": {
         "ru": "подъехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -86,9 +70,7 @@
       "translations": {
         "ru": "переехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -96,9 +78,7 @@
       "translations": {
         "ru": "объехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -106,9 +86,7 @@
       "translations": {
         "ru": "заехать (на)"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -116,9 +94,7 @@
       "translations": {
         "ru": "съехать; сбить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -126,9 +102,7 @@
       "translations": {
         "ru": "приехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -136,9 +110,7 @@
       "translations": {
         "ru": "уехать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "braukt",
@@ -146,9 +118,7 @@
       "translations": {
         "ru": "съехаться"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -156,9 +126,7 @@
       "translations": {
         "ru": "войти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -166,9 +134,7 @@
       "translations": {
         "ru": "выйти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -176,9 +142,7 @@
       "translations": {
         "ru": "уйти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -186,9 +150,7 @@
       "translations": {
         "ru": "отправиться"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -196,9 +158,7 @@
       "translations": {
         "ru": "подойти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -206,9 +166,7 @@
       "translations": {
         "ru": "перейти; переключиться"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -216,9 +174,7 @@
       "translations": {
         "ru": "обойти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -226,9 +182,7 @@
       "translations": {
         "ru": "спуститься; пройти расстояние"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -236,9 +190,7 @@
       "translations": {
         "ru": "собраться"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "iet",
@@ -246,9 +198,7 @@
       "translations": {
         "ru": "проходить (о времени)"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -256,9 +206,7 @@
       "translations": {
         "ru": "войти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -266,9 +214,7 @@
       "translations": {
         "ru": "выйти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -276,9 +222,7 @@
       "translations": {
         "ru": "прийти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -286,9 +230,7 @@
       "translations": {
         "ru": "прийти издалека"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -296,9 +238,7 @@
       "translations": {
         "ru": "подойти; наступить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -306,9 +246,7 @@
       "translations": {
         "ru": "собраться; получиться"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -316,9 +254,7 @@
       "translations": {
         "ru": "нахлынуть; наступить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nākt",
@@ -326,9 +262,7 @@
       "translations": {
         "ru": "оказаться; добраться до"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "kāpt",
@@ -336,9 +270,7 @@
       "translations": {
         "ru": "войти; сесть (в транспорт)"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "kāpt",
@@ -346,9 +278,7 @@
       "translations": {
         "ru": "выйти; сойти"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "kāpt",
@@ -356,9 +286,7 @@
       "translations": {
         "ru": "подняться"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "kāpt",
@@ -366,9 +294,7 @@
       "translations": {
         "ru": "спуститься"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "kāpt",
@@ -376,9 +302,7 @@
       "translations": {
         "ru": "перешагнуть; нарушить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "lidot",
@@ -386,9 +310,7 @@
       "translations": {
         "ru": "влететь"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "lidot",
@@ -396,9 +318,7 @@
       "translations": {
         "ru": "вылететь"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "lidot",
@@ -406,9 +326,7 @@
       "translations": {
         "ru": "прилететь обратно"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "lidot",
@@ -416,9 +334,7 @@
       "translations": {
         "ru": "улететь"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "lidot",
@@ -426,9 +342,7 @@
       "translations": {
         "ru": "перелететь"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "lidot",
@@ -436,9 +350,7 @@
       "translations": {
         "ru": "облететь"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -446,9 +358,7 @@
       "translations": {
         "ru": "внести"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -456,9 +366,7 @@
       "translations": {
         "ru": "вынести"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -466,9 +374,7 @@
       "translations": {
         "ru": "унести"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -476,9 +382,7 @@
       "translations": {
         "ru": "принести"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -486,9 +390,7 @@
       "translations": {
         "ru": "поднести; подать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -496,9 +398,7 @@
       "translations": {
         "ru": "перенести; переместить"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -506,9 +406,7 @@
       "translations": {
         "ru": "поднести наверх"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -516,9 +414,7 @@
       "translations": {
         "ru": "снести вниз"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     },
     {
       "base": "nest",
@@ -526,9 +422,7 @@
       "translations": {
         "ru": "снести вместе; собрать"
       },
-      "games": [
-        "forge"
-      ]
+      "games": ["forge"]
     }
   ],
   "notes": {

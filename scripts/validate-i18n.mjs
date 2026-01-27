@@ -57,15 +57,15 @@ async function main() {
       console.error(`i18n validation failed for ${lang}:`);
       if (report.missing.length) {
         console.error(`  missing keys (${report.missing.length}):`);
-        report.missing.forEach(key => console.error(`    - ${key}`));
+        report.missing.forEach((key) => console.error(`    - ${key}`));
       }
       if (report.extra.length) {
         console.error(`  extra keys (${report.extra.length}):`);
-        report.extra.forEach(key => console.error(`    - ${key}`));
+        report.extra.forEach((key) => console.error(`    - ${key}`));
       }
       if (report.typeMismatches.length) {
         console.error(`  type mismatches (${report.typeMismatches.length}):`);
-        report.typeMismatches.forEach(key => console.error(`    - ${key}`));
+        report.typeMismatches.forEach((key) => console.error(`    - ${key}`));
       }
     }
   }

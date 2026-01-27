@@ -8,18 +8,18 @@ This document catalogs code quality issues, code smells, and refactoring opportu
 
 **Priority**: High  
 **Category**: Code Quality, DRY Principle  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
 Multiple utility functions are duplicated across different modules:
 
-| Function | Locations |
-|----------|-----------|
-| `shuffle()` | `src/lib/state.js`, `src/games/duty-dispatcher/index.js` |
-| `assetUrl()` | `app.js`, `src/games/travel-tracker/index.js`, `src/lib/personality-data.js` |
+| Function               | Locations                                                                                       |
+| ---------------------- | ----------------------------------------------------------------------------------------------- |
+| `shuffle()`            | `src/lib/state.js`, `src/games/duty-dispatcher/index.js`                                        |
+| `assetUrl()`           | `app.js`, `src/games/travel-tracker/index.js`, `src/lib/personality-data.js`                    |
 | `clone()`/`deepCopy()` | `app.js`, `src/games/endings-builder/index.js`, `src/games/endings-builder/endings-resolver.js` |
-| Seeded RNG | `src/lib/state.js` (`mulberry32`), `src/games/travel-tracker/utils.js` (`createSeededRng`) |
+| Seeded RNG             | `src/lib/state.js` (`mulberry32`), `src/games/travel-tracker/utils.js` (`createSeededRng`)      |
 
 ### Problem
 
@@ -51,23 +51,25 @@ export const clone = (value) => JSON.parse(JSON.stringify(value));
 
 export function mulberry32(seed) {
   let a = seed >>> 0;
-  return function() {
+  return function () {
     a |= 0;
-    a = a + 0x6D2B79F5 | 0;
-    let t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
 ```
 
 ### Impact
+
 - Reduced code duplication by ~40%
 - Single source of truth for utility functions
 - Easier maintenance and testing
 - Smaller bundle size
 
 ### References
+
 - [DRY Principle](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
 
 ---
@@ -76,7 +78,7 @@ export function mulberry32(seed) {
 
 **Priority**: Medium  
 **Category**: Code Quality, Readability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -84,16 +86,18 @@ Magic numbers appear in multiple files without explanation:
 
 ```javascript
 // src/lib/match.js
-if (maxItems === 0) { /* ... */ }
+if (maxItems === 0) {
+  /* ... */
+}
 const boxH = isMobile ? 80 : 56;
 const gap = isMobile ? 16 : 14;
 
 // src/lib/state.js
-return ((t ^ t>>>14) >>> 0) / 4294967296;
+return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 
 // app.js
 const minSize = isMobile ? 14 : 12;
-const scaleFactor = isMobile ? Math.min(2, 0.9/scale) : Math.min(1.3, scale + 0.3);
+const scaleFactor = isMobile ? Math.min(2, 0.9 / scale) : Math.min(1.3, scale + 0.3);
 ```
 
 ### Problem
@@ -106,12 +110,14 @@ const scaleFactor = isMobile ? Math.min(2, 0.9/scale) : Math.min(1.3, scale + 0.
 ### Recommendation
 
 **Before:**
+
 ```javascript
 const boxH = isMobile ? 80 : 56;
 const gap = isMobile ? 16 : 14;
 ```
 
 **After:**
+
 ```javascript
 // src/lib/constants.js
 export const LAYOUT = {
@@ -135,6 +141,7 @@ const boxH = config.BOX_HEIGHT;
 ```
 
 ### Impact
+
 - Improved code readability
 - Easier configuration changes
 - Consistent values across modules
@@ -146,19 +153,19 @@ const boxH = config.BOX_HEIGHT;
 
 **Priority**: Medium  
 **Category**: Code Quality, Single Responsibility  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
 Several functions exceed recommended length:
 
-| Function | File | Lines |
-|----------|------|-------|
-| `drawMatch()` | `src/lib/match.js` | ~120 lines |
-| `travel-tracker/index.js` | Various | 784 lines total |
-| `matching-game.js` | Multiple functions | 768 lines total |
-| `duty-dispatcher/index.js` | Various | 519 lines total |
-| `endings-builder/index.js` | Various | 534 lines total |
+| Function                   | File               | Lines           |
+| -------------------------- | ------------------ | --------------- |
+| `drawMatch()`              | `src/lib/match.js` | ~120 lines      |
+| `travel-tracker/index.js`  | Various            | 784 lines total |
+| `matching-game.js`         | Multiple functions | 768 lines total |
+| `duty-dispatcher/index.js` | Various            | 519 lines total |
+| `endings-builder/index.js` | Various            | 534 lines total |
 
 ### Problem
 
@@ -172,22 +179,25 @@ Several functions exceed recommended length:
 Extract logical units into smaller functions:
 
 **Before (`drawMatch` excerpt):**
+
 ```javascript
 export function drawMatch() {
   const ms = state.matchState;
-  clear(); resetClicks();
+  clear();
+  resetClicks();
   // ... 120+ lines of drawing, event handling, and state management
 }
 ```
 
 **After:**
+
 ```javascript
 // src/lib/match/draw.js
 export function drawMatch() {
   const ms = state.matchState;
   clear();
   resetClicks();
-  
+
   const context = createDrawContext(ms);
   drawHeader(context);
   drawColumns(context);
@@ -208,6 +218,7 @@ function drawColumns({ ms, left, right, config }) {
 ```
 
 ### Impact
+
 - Each function has one clear purpose
 - Easier to test individual components
 - Improved code readability
@@ -219,7 +230,7 @@ function drawColumns({ ms, left, right, config }) {
 
 **Priority**: High  
 **Category**: Code Quality, Reliability  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -229,7 +240,7 @@ Error handling varies significantly across the codebase:
 // app.js - catches and logs
 try {
   await loadTranslations(lang);
-} catch(err) {
+} catch (err) {
   console.error('Failed to load translations', err);
   alert('Failed to load translations');
 }
@@ -247,7 +258,7 @@ try {
   if (!raw) return {};
   return JSON.parse(raw);
 } catch (_) {
-  return {};  // Silent failure
+  return {}; // Silent failure
 }
 ```
 
@@ -268,7 +279,7 @@ const ErrorSeverity = {
   INFO: 'info',
   WARNING: 'warning',
   ERROR: 'error',
-  FATAL: 'fatal'
+  FATAL: 'fatal',
 };
 
 class AppError extends Error {
@@ -283,19 +294,19 @@ class AppError extends Error {
 
 export function handleError(error, { showUser = true, fallback = null } = {}) {
   console.error('[App Error]', error);
-  
+
   // Log to analytics if available
   if (window.gtag) {
     gtag('event', 'exception', {
       description: error.message,
-      fatal: error.severity === ErrorSeverity.FATAL
+      fatal: error.severity === ErrorSeverity.FATAL,
     });
   }
-  
+
   if (showUser && error.severity !== ErrorSeverity.INFO) {
     showErrorToast(error.message);
   }
-  
+
   return fallback;
 }
 
@@ -303,16 +314,20 @@ export function safeJsonParse(str, fallback = null) {
   try {
     return JSON.parse(str);
   } catch (e) {
-    handleError(new AppError('Failed to parse JSON', { 
-      severity: ErrorSeverity.WARNING,
-      context: { input: str?.substring(0, 100) }
-    }), { showUser: false });
+    handleError(
+      new AppError('Failed to parse JSON', {
+        severity: ErrorSeverity.WARNING,
+        context: { input: str?.substring(0, 100) },
+      }),
+      { showUser: false },
+    );
     return fallback;
   }
 }
 ```
 
 ### Impact
+
 - Consistent error handling across the app
 - Better debugging experience
 - User-friendly error messages
@@ -324,7 +339,7 @@ export function safeJsonParse(str, fallback = null) {
 
 **Priority**: High  
 **Category**: Code Quality, Reliability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -353,11 +368,13 @@ const selectors = {
 ### Recommendation
 
 **Before:**
+
 ```javascript
 document.getElementById('title').textContent = 'Hello';
 ```
 
 **After:**
+
 ```javascript
 // Option 1: Null-safe access
 const titleEl = document.getElementById('title');
@@ -381,6 +398,7 @@ function requireElement(id) {
 ```
 
 ### Impact
+
 - Prevents runtime errors
 - Better error messages for debugging
 - Graceful degradation when elements missing
@@ -392,7 +410,7 @@ function requireElement(id) {
 
 **Priority**: High  
 **Category**: Code Quality, Predictability  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
@@ -410,13 +428,15 @@ export const state = {
   results: [],
   showHelp: false,
   DATA: null,
-  targetLang: 'en'
+  targetLang: 'en',
 };
 
 // Modified directly everywhere
 state.mode = MODES.FORGE;
 state.roundIndex++;
-state.matchState = { /* ... */ };
+state.matchState = {
+  /* ... */
+};
 ```
 
 ### Problem
@@ -447,13 +467,13 @@ export function getState() {
 export function setState(updates) {
   const prevState = { ...state };
   state = { ...state, ...updates };
-  
+
   const isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   if (isDev) {
     console.log('[State Update]', { prev: prevState, next: state, diff: updates });
   }
-  
-  listeners.forEach(fn => fn(state, prevState));
+
+  listeners.forEach((fn) => fn(state, prevState));
 }
 
 export function subscribe(listener) {
@@ -469,6 +489,7 @@ const unsubscribe = subscribe((state) => redraw());
 ```
 
 ### Impact
+
 - Predictable state changes
 - Easy debugging with state logs
 - Reactive updates via subscriptions
@@ -481,7 +502,7 @@ const unsubscribe = subscribe((state) => redraw());
 
 **Priority**: Low  
 **Category**: Code Quality, Consistency  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -489,16 +510,24 @@ Inconsistent formatting observed:
 
 ```javascript
 // Some files use no spaces in control structures
-if (maxItems === 0) { /* ... */ }
-for (let i = arr.length - 1; i > 0; i--) { /* ... */ }
+if (maxItems === 0) {
+  /* ... */
+}
+for (let i = arr.length - 1; i > 0; i--) {
+  /* ... */
+}
 
 // Others use proper spacing
-if (maxItems === 0) { /* ... */ }
-for (let i = arr.length - 1; i > 0; i--) { /* ... */ }
+if (maxItems === 0) {
+  /* ... */
+}
+for (let i = arr.length - 1; i > 0; i--) {
+  /* ... */
+}
 
 // Variable naming inconsistencies
-const ms = state.matchState;  // Abbreviated
-const shuffledLevels = seededShuffle(baseLevels, rng);  // Full name
+const ms = state.matchState; // Abbreviated
+const shuffledLevels = seededShuffle(baseLevels, rng); // Full name
 ```
 
 ### Problem
@@ -511,6 +540,7 @@ const shuffledLevels = seededShuffle(baseLevels, rng);  // Full name
 ### Recommendation
 
 1. Add `.prettierrc.json` (if not present in working copy):
+
 ```json
 {
   "semi": true,
@@ -523,6 +553,7 @@ const shuffledLevels = seededShuffle(baseLevels, rng);  // Full name
 ```
 
 2. Add ESLint configuration:
+
 ```json
 {
   "extends": ["eslint:recommended"],
@@ -539,6 +570,7 @@ const shuffledLevels = seededShuffle(baseLevels, rng);  // Full name
 3. Add pre-commit hook with husky + lint-staged
 
 ### Impact
+
 - Consistent code style
 - Automated formatting
 - Reduced review friction
@@ -548,12 +580,12 @@ const shuffledLevels = seededShuffle(baseLevels, rng);  // Full name
 
 ## Summary Table
 
-| Issue | Priority | Effort | Category |
-|-------|----------|--------|----------|
-| Duplicated Utilities | High | Medium | DRY |
-| Magic Numbers | Medium | Small | Readability |
-| Long Functions | Medium | Large | SRP |
-| Inconsistent Error Handling | High | Medium | Reliability |
-| Missing Null Checks | High | Small | Reliability |
-| Mutable State Object | High | Large | Predictability |
-| Inconsistent Code Style | Low | Small | Consistency |
+| Issue                       | Priority | Effort | Category       |
+| --------------------------- | -------- | ------ | -------------- |
+| Duplicated Utilities        | High     | Medium | DRY            |
+| Magic Numbers               | Medium   | Small  | Readability    |
+| Long Functions              | Medium   | Large  | SRP            |
+| Inconsistent Error Handling | High     | Medium | Reliability    |
+| Missing Null Checks         | High     | Small  | Reliability    |
+| Mutable State Object        | High     | Large  | Predictability |
+| Inconsistent Code Style     | Low      | Small  | Consistency    |

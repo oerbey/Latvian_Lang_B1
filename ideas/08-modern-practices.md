@@ -8,7 +8,7 @@ This document covers modern JavaScript patterns, web development best practices,
 
 **Priority**: Medium  
 **Category**: Modern Practices, Type Safety  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
@@ -37,6 +37,7 @@ export const state = {
 Adopt TypeScript gradually using JSDoc annotations (no build step required):
 
 {% raw %}
+
 ```javascript
 // src/lib/state.js
 
@@ -100,6 +101,7 @@ export const state = {
   // ... IDE now has type information
 };
 ```
+
 {% endraw %}
 
 Enable type checking with tsconfig:
@@ -123,6 +125,7 @@ Enable type checking with tsconfig:
 ```
 
 ### Impact
+
 - Type safety without TypeScript migration
 - Better IDE support
 - Catch errors early
@@ -134,7 +137,7 @@ Enable type checking with tsconfig:
 
 **Priority**: High  
 **Category**: Modern Practices, DevOps  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -152,6 +155,7 @@ No GitHub Actions or other CI/CD configuration found.
 Create comprehensive GitHub Actions workflow:
 
 {% raw %}
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI
@@ -167,19 +171,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run ESLint
         run: npm run lint
-      
+
       - name: Check formatting
         run: npm run format:check
 
@@ -187,19 +191,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run tests with coverage
         run: npm run test:coverage:ci
-      
+
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
@@ -209,15 +213,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Build offline bundles
         run: python scripts/build_week1_offline.py
-      
+
       - name: Verify build output
         run: |
           test -f i18n/offline.js
@@ -235,30 +239,32 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Build offline bundles
         run: python scripts/build_week1_offline.py
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 ```
+
 {% endraw %}
 
 ### Impact
+
 - Automated quality checks
 - Consistent deployments
 - Faster feedback on PRs
@@ -270,7 +276,7 @@ jobs:
 
 **Priority**: Medium  
 **Category**: Modern Practices, PWA  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -314,29 +320,30 @@ const STATIC_ASSETS = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(STATIC_ASSETS))
-      .then(() => self.skipWaiting())
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting()),
   );
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
-        keys
-          .filter(key => key.startsWith('llb1-') && key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      ))
-      .then(() => self.clients.claim())
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key.startsWith('llb1-') && key !== CACHE_NAME)
+            .map((key) => caches.delete(key)),
+        ),
+      )
+      .then(() => self.clients.claim()),
   );
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(cached => cached || fetch(event.request))
-  );
+  event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });
 
 // Send update message to clients
@@ -353,24 +360,23 @@ export function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
 
   // Use a relative path so registration works on GitHub Pages project sites.
-  navigator.serviceWorker.register('sw.js')
-    .then(registration => {
-      // Check for updates periodically
-      setInterval(() => registration.update(), 60 * 60 * 1000);
+  navigator.serviceWorker.register('sw.js').then((registration) => {
+    // Check for updates periodically
+    setInterval(() => registration.update(), 60 * 60 * 1000);
 
-      registration.addEventListener('updatefound', () => {
-        const newWorker = registration.installing;
-        
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            // New version available
-            showUpdateNotification(() => {
-              newWorker.postMessage({ type: 'SKIP_WAITING' });
-            });
-          }
-        });
+    registration.addEventListener('updatefound', () => {
+      const newWorker = registration.installing;
+
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // New version available
+          showUpdateNotification(() => {
+            newWorker.postMessage({ type: 'SKIP_WAITING' });
+          });
+        }
       });
     });
+  });
 
   // Reload when new service worker takes over
   navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -385,17 +391,18 @@ function showUpdateNotification(onUpdate) {
     <p>A new version is available!</p>
     <button class="btn btn-primary btn-sm">Update Now</button>
   `;
-  
+
   toast.querySelector('button').addEventListener('click', () => {
     onUpdate();
     toast.remove();
   });
-  
+
   document.body.appendChild(toast);
 }
 ```
 
 ### Impact
+
 - Smooth update experience
 - No stale content
 - Better offline support
@@ -407,7 +414,7 @@ function showUpdateNotification(onUpdate) {
 
 **Priority**: Medium  
 **Category**: Modern Practices, Reliability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -465,12 +472,15 @@ function handleError(errorInfo) {
 
   // Send to analytics (optional)
   if (navigator.sendBeacon && !location.hostname.includes('localhost')) {
-    navigator.sendBeacon(ERROR_REPORT_URL, JSON.stringify({
-      ...errorInfo,
-      url: location.href,
-      userAgent: navigator.userAgent,
-      timestamp: new Date().toISOString(),
-    }));
+    navigator.sendBeacon(
+      ERROR_REPORT_URL,
+      JSON.stringify({
+        ...errorInfo,
+        url: location.href,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString(),
+      }),
+    );
   }
 }
 
@@ -492,6 +502,7 @@ function showErrorUI() {
 ```
 
 ### Impact
+
 - Graceful error handling
 - Better user experience on errors
 - Error visibility for debugging
@@ -503,7 +514,7 @@ function showErrorUI() {
 
 **Priority**: Low  
 **Category**: Modern Practices, Feature Management  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -573,6 +584,7 @@ if (isEnabled('enableNewScoring')) {
 ```
 
 ### Impact
+
 - Safe feature rollouts
 - Easy feature testing
 - Quick kill switch for bugs
@@ -584,7 +596,7 @@ if (isEnabled('enableNewScoring')) {
 
 **Priority**: Low  
 **Category**: Modern Practices, Debugging  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -648,15 +660,19 @@ class Logger {
     const entry = {
       timestamp: new Date().toISOString(),
       namespace: this.namespace,
-      level: Object.keys(LogLevel).find(k => LogLevel[k] === level),
+      level: Object.keys(LogLevel).find((k) => LogLevel[k] === level),
       message,
       ...data,
     };
 
-    const method = level >= LogLevel.ERROR ? 'error' 
-                 : level >= LogLevel.WARN ? 'warn'
-                 : level >= LogLevel.INFO ? 'info'
-                 : 'debug';
+    const method =
+      level >= LogLevel.ERROR
+        ? 'error'
+        : level >= LogLevel.WARN
+          ? 'warn'
+          : level >= LogLevel.INFO
+            ? 'info'
+            : 'debug';
 
     console[method](`[${this.namespace}]`, message, data);
   }
@@ -675,6 +691,7 @@ log.warn('Failed to load', { error: err.message });
 ```
 
 ### Impact
+
 - Consistent logging
 - Filterable by namespace
 - Structured data
@@ -686,7 +703,7 @@ log.warn('Failed to load', { error: err.message });
 
 **Priority**: Medium  
 **Category**: Modern Practices, Accessibility  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -718,7 +735,7 @@ export function announce(message, priority = 'polite') {
   // Clear and set to trigger announcement
   region.textContent = '';
   region.setAttribute('aria-live', priority);
-  
+
   requestAnimationFrame(() => {
     region.textContent = message;
   });
@@ -726,13 +743,13 @@ export function announce(message, priority = 'polite') {
 
 export function manageFocus(element) {
   if (!element) return;
-  
+
   // Save previous focus
   const previousFocus = document.activeElement;
-  
+
   // Move focus
   element.focus();
-  
+
   // Return function to restore focus
   return () => previousFocus?.focus();
 }
@@ -743,6 +760,7 @@ announce('Your turn. Select a Latvian word.', 'polite');
 ```
 
 ### Impact
+
 - Better screen reader support
 - More accessible games
 - WCAG compliance
@@ -753,6 +771,7 @@ announce('Your turn. Select a Latvian word.', 'polite');
 ## Modern JavaScript Features to Adopt
 
 ### Already Used ✅
+
 - ES Modules (`import`/`export`)
 - Arrow functions
 - Template literals
@@ -763,13 +782,18 @@ announce('Your turn. Select a Latvian word.', 'polite');
 - Nullish coalescing (`??`)
 
 ### Consider Adopting
+
 ```javascript
 // 1. Private class fields
 class Game {
-  #score = 0;  // Private field
-  
-  get score() { return this.#score; }
-  incrementScore() { this.#score++; }
+  #score = 0; // Private field
+
+  get score() {
+    return this.#score;
+  }
+  incrementScore() {
+    this.#score++;
+  }
 }
 
 // 2. Top-level await (already used in some files)
@@ -779,7 +803,9 @@ const data = await loadData();
 const last = items.at(-1);
 
 // 4. Object.hasOwn() instead of hasOwnProperty
-if (Object.hasOwn(obj, 'key')) { /* ... */ }
+if (Object.hasOwn(obj, 'key')) {
+  /* ... */
+}
 
 // 5. structuredClone for deep cloning (Safari 15.4+)
 const copy = structuredClone(original);
@@ -795,12 +821,12 @@ controller.abort(); // Cancel if needed
 
 ## Summary Table
 
-| Issue | Priority | Effort | Impact |
-|-------|----------|--------|--------|
-| No TypeScript/JSDoc Types | Medium | Large | Type safety |
-| No CI/CD Pipeline | High | Medium | Automation |
-| No SW Update Strategy | Medium | Medium | UX |
-| No Error Boundary | Medium | Small | Reliability |
-| No Feature Flags | Low | Small | Flexibility |
-| No Structured Logging | Low | Small | Debugging |
-| ARIA Improvements | Medium | Small | Accessibility |
+| Issue                     | Priority | Effort | Impact        |
+| ------------------------- | -------- | ------ | ------------- |
+| No TypeScript/JSDoc Types | Medium   | Large  | Type safety   |
+| No CI/CD Pipeline         | High     | Medium | Automation    |
+| No SW Update Strategy     | Medium   | Medium | UX            |
+| No Error Boundary         | Medium   | Small  | Reliability   |
+| No Feature Flags          | Low      | Small  | Flexibility   |
+| No Structured Logging     | Low      | Small  | Debugging     |
+| ARIA Improvements         | Medium   | Small  | Accessibility |

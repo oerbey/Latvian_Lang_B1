@@ -1,16 +1,66 @@
 import { createIcon } from '../src/lib/icon.js';
 
 const games = [
-  { title: 'Darbības Vārds', href: 'darbibas-vards.html', icon: 'book', desc: 'Verb practice game' },
-  { title: 'Conjugation Sprint', href: 'conjugation-sprint.html', icon: 'gamepad', desc: 'Verb conjugation race' },
-  { title: 'Endings Builder', href: 'endings-builder.html', icon: 'pencil', desc: 'Build verbs from pieces' },
-  { title: 'Passive Voice Builder', href: 'passive-lab.html', icon: 'book', desc: 'Construct passive forms with tikt + participle' },
-  { title: 'Kas ir manā mājā?', href: 'decl6-detective.html', icon: 'home', desc: 'Detect 6th-declension forms with cards + room builder' },
-  { title: 'Travel Tracker', href: 'travel-tracker.html', icon: 'map', desc: 'Follow routes with prefixes' },
-  { title: 'Maini vai mainies?', href: 'maini-vai-mainies.html', icon: 'refresh', desc: 'Reflexive vs. non-reflexive verbs' },
-  { title: 'Kas jādara kam?', href: 'duty-dispatcher.html', icon: 'user', desc: 'Assign duties with the debitive' },
-  { title: 'Rakstura īpašības — pāri', href: 'rakstura-ipasibas-match.html', icon: 'star', desc: 'Savieno rakstura īpašības ar tulkojumiem slēgtā kopā vai pilnajā sarakstā.' },
-  { title: 'Rakstura īpašības', href: 'character-traits.html', icon: 'user', desc: 'Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.' },
+  {
+    title: 'Darbības Vārds',
+    href: 'darbibas-vards.html',
+    icon: 'book',
+    desc: 'Verb practice game',
+  },
+  {
+    title: 'Conjugation Sprint',
+    href: 'conjugation-sprint.html',
+    icon: 'gamepad',
+    desc: 'Verb conjugation race',
+  },
+  {
+    title: 'Endings Builder',
+    href: 'endings-builder.html',
+    icon: 'pencil',
+    desc: 'Build verbs from pieces',
+  },
+  {
+    title: 'Passive Voice Builder',
+    href: 'passive-lab.html',
+    icon: 'book',
+    desc: 'Construct passive forms with tikt + participle',
+  },
+  {
+    title: 'Kas ir manā mājā?',
+    href: 'decl6-detective.html',
+    icon: 'home',
+    desc: 'Detect 6th-declension forms with cards + room builder',
+  },
+  {
+    title: 'Travel Tracker',
+    href: 'travel-tracker.html',
+    icon: 'map',
+    desc: 'Follow routes with prefixes',
+  },
+  {
+    title: 'Maini vai mainies?',
+    href: 'maini-vai-mainies.html',
+    icon: 'refresh',
+    desc: 'Reflexive vs. non-reflexive verbs',
+  },
+  {
+    title: 'Kas jādara kam?',
+    href: 'duty-dispatcher.html',
+    icon: 'user',
+    desc: 'Assign duties with the debitive',
+  },
+  {
+    title: 'Rakstura īpašības — pāri',
+    href: 'rakstura-ipasibas-match.html',
+    icon: 'star',
+    desc: 'Savieno rakstura īpašības ar tulkojumiem slēgtā kopā vai pilnajā sarakstā.',
+  },
+  {
+    title: 'Rakstura īpašības',
+    href: 'character-traits.html',
+    icon: 'user',
+    desc: 'Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.',
+  },
   { title: 'Week 1', href: 'week1.html', icon: 'stats', desc: 'Weekly exercises' },
 ];
 

@@ -108,7 +108,10 @@
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .decl6-option:hover:not(:disabled) {
@@ -116,7 +119,7 @@
   border-color: var(--accent);
 }
 
-.decl6-option[aria-checked="true"] {
+.decl6-option[aria-checked='true'] {
   border-color: var(--accent);
   background: var(--accent-soft);
 }

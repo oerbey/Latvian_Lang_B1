@@ -61,7 +61,7 @@ export function clearSessionSeed() {
 }
 
 function cloneLevels(levels) {
-  return (levels ?? []).map(level => ({
+  return (levels ?? []).map((level) => ({
     ...level,
     routes: [...(level.routes ?? [])],
   }));
@@ -71,7 +71,7 @@ function prepareLevels(levels, seed) {
   const baseLevels = cloneLevels(levels);
   if (!baseLevels.length) return [];
   const rng = createSeededRng(seed);
-  const shuffledLevels = seededShuffle(baseLevels, rng).map(level => ({
+  const shuffledLevels = seededShuffle(baseLevels, rng).map((level) => ({
     ...level,
     routes: seededShuffle(level.routes ?? [], rng),
   }));
@@ -108,7 +108,8 @@ export function getProgressPosition(state) {
   for (let i = 0; i < state.levelIndex; i += 1) {
     passed += state.levels[i]?.routes?.length ?? 0;
   }
-  const current = passed + Math.min(state.routeIndex + 1, state.levels[state.levelIndex]?.routes?.length ?? 0);
+  const current =
+    passed + Math.min(state.routeIndex + 1, state.levels[state.levelIndex]?.routes?.length ?? 0);
   return { current, total };
 }
 

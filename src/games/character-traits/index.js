@@ -185,9 +185,12 @@ function handleOptionClick(value) {
   if (state.locked) return;
   state.locked = true;
   const question = state.questionPool[state.questionIndex];
-  const correctValue = state.mode === MODE_GROUPS ? question.group : formatOption(question.enVariants);
+  const correctValue =
+    state.mode === MODE_GROUPS ? question.group : formatOption(question.enVariants);
   const isCorrect =
-    state.mode === MODE_GROUPS ? value === question.group : value.toLowerCase() === correctValue.toLowerCase();
+    state.mode === MODE_GROUPS
+      ? value === question.group
+      : value.toLowerCase() === correctValue.toLowerCase();
   state.asked += 1;
   if (isCorrect) state.correct += 1;
   updateGroupStats(question, isCorrect);
@@ -259,7 +262,9 @@ function showFeedback(isCorrect, question, selectedValue, correctValue) {
   optionButtons.forEach((btn) => {
     const value = btn.dataset.value;
     const isCorrectOption =
-      state.mode === MODE_GROUPS ? value === question.group : value.toLowerCase() === correctValue.toLowerCase();
+      state.mode === MODE_GROUPS
+        ? value === question.group
+        : value.toLowerCase() === correctValue.toLowerCase();
     btn.disabled = true;
     btn.classList.remove('btn-outline-primary');
     if (isCorrectOption) {
@@ -288,7 +293,11 @@ function showSummary() {
   const percent = state.asked ? Math.round((state.correct / state.asked) * 100) : 0;
   els.summaryScore.textContent = `Pareizi: ${state.correct} no ${state.asked} (${percent}%)`;
   const verdict =
-    percent >= 90 ? 'Lieliski!' : percent >= 60 ? 'Labi, tu labi pārzini rakstura īpašības.' : 'Vajag vēl patrennēties.';
+    percent >= 90
+      ? 'Lieliski!'
+      : percent >= 60
+        ? 'Labi, tu labi pārzini rakstura īpašības.'
+        : 'Vajag vēl patrennēties.';
   els.summaryVerdict.textContent = verdict;
   els.mistakesList.replaceChildren();
   if (!state.mistakes.length) {
@@ -388,7 +397,10 @@ function startRound(mode) {
   state.correct = 0;
   state.mistakes = [];
   resetGroupStats();
-  state.questionPool = formatQuestionPool(mode === MODE_GROUPS ? state.groupWords : state.allWords, mode);
+  state.questionPool = formatQuestionPool(
+    mode === MODE_GROUPS ? state.groupWords : state.allWords,
+    mode,
+  );
   renderQuestion();
   announce('Jauns raunds sākts');
 }
@@ -428,7 +440,9 @@ async function loadData() {
   try {
     const parsed = await loadPersonalityWords();
     state.allWords = parsed;
-    state.groupWords = parsed.filter((item) => item.group === 'optimists' || item.group === 'pesimists');
+    state.groupWords = parsed.filter(
+      (item) => item.group === 'optimists' || item.group === 'pesimists',
+    );
     Object.values(els.modeButtons).forEach((btn) => btn.removeAttribute('disabled'));
     els.year.textContent = new Date().getFullYear();
     renderLastResult();
@@ -438,7 +452,8 @@ async function loadData() {
     console.error(err);
     els.questionText.textContent = 'Radās problēma ar datu ielādi.';
     els.feedbackText.textContent = 'Pārbaudi failu data/personality/words.csv un mēģini vēlreiz.';
-    const safeError = err instanceof Error ? err : new Error('Failed to load character traits data.');
+    const safeError =
+      err instanceof Error ? err : new Error('Failed to load character traits data.');
     showFatalError(safeError);
   } finally {
     hideLoading();

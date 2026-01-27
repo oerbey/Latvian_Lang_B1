@@ -8,7 +8,7 @@ This document identifies security vulnerabilities and provides remediation recom
 
 **Priority**: High  
 **Category**: Security, Input Validation  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -33,7 +33,7 @@ function loadProgress() {
   try {
     const raw = localStorage.getItem(PROGRESS_KEY);
     if (!raw) return {};
-    return JSON.parse(raw);  // No validation
+    return JSON.parse(raw); // No validation
   } catch (_) {
     return {};
   }
@@ -55,10 +55,10 @@ Implement safe JSON parsing with schema validation:
 // src/lib/storage/safe-parse.js
 export function safeJsonParse(str, defaultValue = null) {
   if (typeof str !== 'string') return defaultValue;
-  
+
   try {
     const parsed = JSON.parse(str);
-    
+
     // Protect against prototype pollution
     if (parsed !== null && typeof parsed === 'object') {
       if ('__proto__' in parsed || 'constructor' in parsed || 'prototype' in parsed) {
@@ -66,7 +66,7 @@ export function safeJsonParse(str, defaultValue = null) {
         return defaultValue;
       }
     }
-    
+
     return parsed;
   } catch (e) {
     console.warn('Failed to parse JSON:', e.message);
@@ -81,38 +81,38 @@ export function validateProgress(data) {
     streak: { type: 'number', min: 0, default: 0 },
     lastPlayedISO: { type: 'string', pattern: /^\d{4}-\d{2}-\d{2}/, optional: true },
   };
-  
+
   if (!data || typeof data !== 'object') {
     return getDefaults(schema);
   }
-  
+
   const result = {};
   for (const [key, rules] of Object.entries(schema)) {
     const value = data[key];
-    
+
     if (value === undefined) {
       result[key] = rules.default;
       continue;
     }
-    
+
     if (typeof value !== rules.type) {
       result[key] = rules.default;
       continue;
     }
-    
+
     if (rules.min !== undefined && value < rules.min) {
       result[key] = rules.min;
       continue;
     }
-    
+
     if (rules.pattern && !rules.pattern.test(value)) {
       result[key] = rules.default;
       continue;
     }
-    
+
     result[key] = value;
   }
-  
+
   return result;
 }
 
@@ -125,6 +125,7 @@ function loadProgress() {
 ```
 
 ### Impact
+
 - Protection against prototype pollution
 - Validated data structure
 - Graceful handling of corrupted data
@@ -136,7 +137,7 @@ function loadProgress() {
 
 **Priority**: Medium  
 **Category**: Security, XSS Prevention  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -164,7 +165,9 @@ Add CSP meta tag to HTML files:
 ```html
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="Content-Security-Policy" content="
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="
     default-src 'self';
     script-src 'self' https://cdn.jsdelivr.net;
     style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
@@ -174,7 +177,8 @@ Add CSP meta tag to HTML files:
     frame-ancestors 'none';
     form-action 'self';
     base-uri 'self';
-  ">
+  "
+  />
 </head>
 ```
 
@@ -185,6 +189,7 @@ Add CSP meta tag to HTML files:
 If you need **real security headers** (`X-Content-Type-Options`, `X-Frame-Options`, strict `Referrer-Policy`, etc.), deploy via a host/proxy that lets you configure them (e.g., Netlify, Cloudflare, a custom server), then add those headers at the platform level.
 
 ### Impact
+
 - Protection against XSS attacks
 - Limits damage from compromised CDN
 - Industry best practice compliance
@@ -196,7 +201,7 @@ If you need **real security headers** (`X-Content-Type-Options`, `X-Frame-Option
 
 **Priority**: High  
 **Category**: Security, Supply Chain  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -204,8 +209,14 @@ External scripts and stylesheets are loaded without Subresource Integrity (SRI):
 
 ```html
 <!-- week1.html -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
+  rel="stylesheet"
+/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 ```
 
@@ -220,25 +231,29 @@ External scripts and stylesheets are loaded without Subresource Integrity (SRI):
 Add SRI hashes to all external resources:
 
 ```html
-<link 
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
   rel="stylesheet"
-  integrity="sha384-..." 
-  crossorigin="anonymous">
+  integrity="sha384-..."
+  crossorigin="anonymous"
+/>
 
-<link 
-  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" 
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
   rel="stylesheet"
-  integrity="sha384-..." 
-  crossorigin="anonymous">
+  integrity="sha384-..."
+  crossorigin="anonymous"
+/>
 
-<script 
+<script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-..." 
-  crossorigin="anonymous"></script>
+  integrity="sha384-..."
+  crossorigin="anonymous"
+></script>
 ```
 
 Generate SRI hashes using:
+
 ```bash
 curl -s https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css | openssl dgst -sha384 -binary | openssl base64 -A
 ```
@@ -246,6 +261,7 @@ curl -s https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css 
 Or use https://www.srihash.org/
 
 ### Impact
+
 - Protection against CDN compromises
 - Guaranteed file integrity
 - Browser blocks modified files
@@ -257,7 +273,7 @@ Or use https://www.srihash.org/
 
 **Priority**: Medium  
 **Category**: Security, XSS  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -325,6 +341,7 @@ function setI18nHtml(element, key, value) {
 ```
 
 ### Impact
+
 - XSS protection for dynamic content
 - Safe by default approach
 - Explicit opt-in for HTML content
@@ -336,7 +353,7 @@ function setI18nHtml(element, key, value) {
 
 **Priority**: Low  
 **Category**: Security, Abuse Prevention  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -378,30 +395,30 @@ let countResetTime = Date.now();
 
 export function trackEvent(game, event, meta = {}) {
   const now = Date.now();
-  
+
   // Reset counter every minute
   if (now - countResetTime > 60000) {
     eventCount = 0;
     countResetTime = now;
   }
-  
+
   // Rate limit
   if (eventCount >= MAX_EVENTS_PER_MINUTE) {
     console.warn('Analytics rate limit exceeded');
     return false;
   }
-  
+
   // Throttle duplicate events
   const eventKey = `${game}:${event}`;
   const lastTime = eventTimestamps.get(eventKey) || 0;
-  
+
   if (now - lastTime < THROTTLE_MS) {
     return false;
   }
-  
+
   eventTimestamps.set(eventKey, now);
   eventCount++;
-  
+
   try {
     window.dispatchEvent(
       new CustomEvent('llb1:track', {
@@ -417,6 +434,7 @@ export function trackEvent(game, event, meta = {}) {
 ```
 
 ### Impact
+
 - Prevention of analytics abuse
 - Better performance
 - Reduced noise in analytics data
@@ -428,18 +446,21 @@ export function trackEvent(game, event, meta = {}) {
 
 **Priority**: Low  
 **Category**: Security, Data Protection  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
 Progress data is stored in plain text in localStorage:
 
 ```javascript
-localStorage.setItem(STORAGE_KEY, JSON.stringify({
-  xp: state.score,
-  streak: state.streak,
-  lastPlayedISO: new Date().toISOString(),
-}));
+localStorage.setItem(
+  STORAGE_KEY,
+  JSON.stringify({
+    xp: state.score,
+    streak: state.streak,
+    lastPlayedISO: new Date().toISOString(),
+  }),
+);
 ```
 
 ### Problem
@@ -451,6 +472,7 @@ localStorage.setItem(STORAGE_KEY, JSON.stringify({
 ### Context
 
 For a language learning app, this is **low priority** because:
+
 - No sensitive personal data is stored
 - Only game progress (scores, streaks)
 - Privacy impact is minimal
@@ -474,7 +496,7 @@ export async function setSecure(key, value) {
 export async function getSecure(key, defaultValue = null) {
   const encrypted = localStorage.getItem(STORAGE_PREFIX + key);
   if (!encrypted) return defaultValue;
-  
+
   try {
     const decrypted = await decrypt(encrypted);
     return JSON.parse(decrypted);
@@ -486,6 +508,7 @@ export async function getSecure(key, defaultValue = null) {
 ```
 
 ### Impact
+
 - Protection for sensitive data
 - Defense in depth
 - Only needed for future sensitive features
@@ -496,7 +519,7 @@ export async function getSecure(key, defaultValue = null) {
 
 **Priority**: Low  
 **Category**: Security, Documentation  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -513,16 +536,19 @@ When deploying Latvian_Lang_B1, configure these security headers:
 
 ## Recommended Headers
 
-### Netlify / Cloudflare (_headers file)
+### Netlify / Cloudflare (\_headers file)
+
 GitHub Pages does **not** support `_headers`. Use a CSP meta tag on GitHub Pages, or deploy behind Netlify/Cloudflare to set real headers.
 ```
-/*
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: blob:
-```
+
+/\*
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: blob:
+
+````
 
 ### Vercel (vercel.json)
 ```json
@@ -538,14 +564,16 @@ GitHub Pages does **not** support `_headers`. Use a CSP meta tag on GitHub Pages
     }
   ]
 }
-```
+````
 
 ### Apache (.htaccess)
+
 ```
 Header set X-Frame-Options "DENY"
 Header set X-Content-Type-Options "nosniff"
 Header set Referrer-Policy "strict-origin-when-cross-origin"
 ```
+
 ```
 
 ### Impact
@@ -583,3 +611,4 @@ Header set Referrer-Policy "strict-origin-when-cross-origin"
 | No Analytics Rate Limiting | Low | Small | - |
 | Unencrypted localStorage | Low | Medium | A02 |
 | Missing Security Docs | Low | Small | A05 |
+```

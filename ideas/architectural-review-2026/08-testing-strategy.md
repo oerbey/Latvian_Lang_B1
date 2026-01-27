@@ -7,23 +7,25 @@
 
 ## 🔍 Current Testing Landscape
 
-| Aspect | Status |
-|--------|--------|
-| Test Runner | Node.js native (`node --test`) |
-| Test Location | `test/` directory mirroring `src/` |
-| Coverage | Unknown (no coverage tooling) |
-| E2E Tests | None |
-| Visual Regression | None |
-| CI Integration | GitHub Actions on push/PR |
+| Aspect            | Status                             |
+| ----------------- | ---------------------------------- |
+| Test Runner       | Node.js native (`node --test`)     |
+| Test Location     | `test/` directory mirroring `src/` |
+| Coverage          | Unknown (no coverage tooling)      |
+| E2E Tests         | None                               |
+| Visual Regression | None                               |
+| CI Integration    | GitHub Actions on push/PR          |
 
 ---
 
 ## 🔴 Critical Issues
 
 ### 1. No DOM Testing Infrastructure
+
 **Problem:** DOM-dependent code (games, UI) is largely untested
 
 **Current tests:** Only pure utility functions
+
 ```
 test/lib/
 ├── dom.test.js      # Minimal
@@ -40,12 +42,14 @@ test/lib/
 ```
 
 **Missing coverage:**
+
 - All 10+ game modules
 - Theme toggle functionality
 - Service worker logic
 - Canvas rendering output
 
 **Recommendation:** Add JSDOM for unit tests:
+
 ```javascript
 // test/setup.js
 import { JSDOM } from 'jsdom';
@@ -75,9 +79,11 @@ globalThis.HTMLElement = dom.window.HTMLElement;
 ## 🟠 High Priority Issues
 
 ### 2. No Test Coverage Reporting
+
 **Problem:** Unknown code coverage percentage
 
 **Recommendation:** Enable Node.js experimental coverage:
+
 ```json
 {
   "scripts": {
@@ -87,6 +93,7 @@ globalThis.HTMLElement = dom.window.HTMLElement;
 ```
 
 Or use c8 for better reporting:
+
 ```json
 {
   "scripts": {
@@ -107,9 +114,11 @@ Or use c8 for better reporting:
 | Integration | 50%+ |
 
 ### 3. No E2E/Integration Tests
+
 **Problem:** No validation that games work end-to-end
 
 **Recommendation:** Add Playwright for E2E:
+
 ```javascript
 // tests/e2e/home.spec.js
 import { test, expect } from '@playwright/test';
@@ -146,14 +155,17 @@ test('can navigate to Travel Tracker', async ({ page }) => {
 ## 🟡 Medium Priority Issues
 
 ### 4. Game Module Testing Gaps
+
 **Problem:** No tests for game-specific logic
 
 **Priority games to test:**
+
 1. `travel-tracker` — Route logic, state transitions
 2. `endings-builder` — Ending resolution, scoring
 3. `matching-game` — Pair matching, statistics
 
 **Example test structure:**
+
 ```javascript
 // test/games/travel-tracker/state.test.js
 import test from 'node:test';
@@ -162,27 +174,26 @@ import assert from 'node:assert/strict';
 test('prepareLevels shuffles routes deterministically', () => {
   const levels = [{ routes: ['a', 'b', 'c'] }];
   const seed = 12345;
-  
+
   const result1 = prepareLevels(levels, seed);
   const result2 = prepareLevels(levels, seed);
-  
+
   assert.deepEqual(result1, result2, 'Same seed should produce same order');
 });
 
 test('computeTotalRoutes counts all routes', () => {
-  const levels = [
-    { routes: ['a', 'b'] },
-    { routes: ['c', 'd', 'e'] },
-  ];
-  
+  const levels = [{ routes: ['a', 'b'] }, { routes: ['c', 'd', 'e'] }];
+
   assert.equal(computeTotalRoutes(levels), 5);
 });
 ```
 
 ### 5. Missing Mock Utilities
+
 **Problem:** No standardized way to mock localStorage, fetch, etc.
 
 **Recommendation:** Create test helpers:
+
 ```javascript
 // test/helpers/mocks.js
 export function createMockStorage() {
@@ -192,13 +203,15 @@ export function createMockStorage() {
     setItem: (k, v) => store.set(k, String(v)),
     removeItem: (k) => store.delete(k),
     clear: () => store.clear(),
-    get length() { return store.size; },
+    get length() {
+      return store.size;
+    },
   };
 }
 
 export function createMockFetch(responses) {
   return async (url) => {
-    const match = responses.find(r => url.includes(r.pattern));
+    const match = responses.find((r) => url.includes(r.pattern));
     if (!match) throw new Error(`Unmocked fetch: ${url}`);
     return {
       ok: match.ok ?? true,
@@ -211,9 +224,11 @@ export function createMockFetch(responses) {
 ```
 
 ### 6. Snapshot Testing for Data
+
 **Problem:** Data transformations not validated
 
 **Recommendation:** Add snapshot tests for build outputs:
+
 ```javascript
 // test/scripts/build-data.test.js
 import test from 'node:test';
@@ -222,10 +237,10 @@ import { readFileSync } from 'node:fs';
 
 test('words.json structure matches schema', () => {
   const words = JSON.parse(readFileSync('data/words.json', 'utf8'));
-  
+
   assert.ok(Array.isArray(words));
   assert.ok(words.length > 100);
-  
+
   // Check first entry structure
   const word = words[0];
   assert.ok('lv' in word);
@@ -239,9 +254,11 @@ test('words.json structure matches schema', () => {
 ## 🟢 Low Priority Issues
 
 ### 7. No Visual Regression Tests
+
 **Problem:** UI changes may introduce unintended visual regressions
 
 **Recommendation:** Add Percy or Playwright visual testing:
+
 ```javascript
 // tests/visual/theme.spec.js
 import { test, expect } from '@playwright/test';
@@ -264,9 +281,11 @@ test('dark theme appearance', async ({ page }) => {
 ```
 
 ### 8. Performance Testing
+
 **Problem:** No automated performance regression detection
 
 **Recommendation:** Add Lighthouse CI:
+
 ```yaml
 # .github/workflows/lighthouse.yml
 name: Lighthouse CI
@@ -340,4 +359,3 @@ test/
 
 - [Architecture Improvements](./02-architecture-improvements.md)
 - [Platform & Tooling](./07-platform-and-tooling.md)
-

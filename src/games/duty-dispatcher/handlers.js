@@ -36,7 +36,10 @@ export function createHandlers({
     if (!word) return '';
     const [first, ...rest] = word.trim();
     if (first === undefined) return '';
-    const upper = typeof first.toLocaleUpperCase === 'function' ? first.toLocaleUpperCase('lv-LV') : first.toUpperCase();
+    const upper =
+      typeof first.toLocaleUpperCase === 'function'
+        ? first.toLocaleUpperCase('lv-LV')
+        : first.toUpperCase();
     return upper + rest.join('');
   }
 
@@ -49,7 +52,7 @@ export function createHandlers({
   function buildExplain(task) {
     if (task?.explain) return task.explain;
     const recipients = Array.isArray(task?.validRecipients) ? task.validRecipients : [];
-    const firstRole = state.roles.find(role => recipients.includes(role.id));
+    const firstRole = state.roles.find((role) => recipients.includes(role.id));
     const name = firstRole?.dative ? capitalizeDative(firstRole.dative) : firstRole?.label;
     const rawCard = (task?.card ?? '').trim();
     const lower = rawCard.toLowerCase();
@@ -161,7 +164,7 @@ export function createHandlers({
       elements.dutyCard.draggable = false;
     }
     const message = state.strings.complete ?? 'Level complete!';
-    const goal = state.score >= 80 ? state.strings.levelGoal ?? '' : '';
+    const goal = state.score >= 80 ? (state.strings.levelGoal ?? '') : '';
     const combined = goal ? `${message} ${goal}`.trim() : message;
     setFeedback(ensureTrailingPeriod(combined));
     setHint('');

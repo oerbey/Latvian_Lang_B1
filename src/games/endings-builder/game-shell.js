@@ -9,19 +9,14 @@ function button(label, opts = {}) {
 }
 
 function isTypingTarget(target) {
-  return target instanceof HTMLInputElement ||
+  return (
+    target instanceof HTMLInputElement ||
     target instanceof HTMLTextAreaElement ||
-    target.isContentEditable;
+    target.isContentEditable
+  );
 }
 
-export function mountGameShell({
-  root,
-  strings,
-  onCheck,
-  onNext,
-  onToggleRule,
-  onStrictChange
-}) {
+export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, onStrictChange }) {
   const shellHost = root.querySelector('[data-game-shell]') || root;
   shellHost.replaceChildren();
 
@@ -40,13 +35,13 @@ export function mountGameShell({
   controls.className = 'eb-shell__controls';
 
   const checkBtn = button(strings.buttons.check, {
-    className: 'btn btn-success'
+    className: 'btn btn-success',
   });
   const nextBtn = button(strings.buttons.next, {
-    className: 'btn btn-outline-primary'
+    className: 'btn btn-outline-primary',
   });
   const ruleBtn = button(strings.buttons.rule, {
-    className: 'btn btn-outline-secondary'
+    className: 'btn btn-outline-secondary',
   });
 
   const strictWrap = document.createElement('label');
@@ -61,7 +56,7 @@ export function mountGameShell({
   strictWrap.append(strictInput, strictLabel);
 
   const reportBtn = button(strings.buttons.report, {
-    className: 'btn btn-outline-danger'
+    className: 'btn btn-outline-danger',
   });
 
   controls.append(checkBtn, nextBtn, ruleBtn, strictWrap, reportBtn);
@@ -103,7 +98,7 @@ export function mountGameShell({
     window.open(url.toString(), '_blank', 'noopener');
   });
 
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', (e) => {
     if (isTypingTarget(e.target)) return;
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -135,6 +130,6 @@ export function mountGameShell({
     disableNext(disabled) {
       nextBtn.disabled = disabled;
     },
-    getStrict: () => strictInput.checked
+    getStrict: () => strictInput.checked,
   };
 }

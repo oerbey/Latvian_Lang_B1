@@ -18,7 +18,7 @@ export function bindEvents({
   });
   attachButtonBehavior(selectors.restart, handleRestart);
   if (selectors.input) {
-    selectors.input.addEventListener('keydown', event => {
+    selectors.input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         handleCheck();

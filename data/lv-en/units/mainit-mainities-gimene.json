@@ -6,84 +6,56 @@
         "lv": "mainīt",
         "en": "to change (something)"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "mainīties",
         "en": "to change (oneself)/change state"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "izmainīt",
         "en": "to alter; to change completely"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pārmainīt",
         "en": "to transform; change over"
       },
-      "tags": [
-        "prefix:pār"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pār"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "nomainīt",
         "en": "to replace; change out"
       },
-      "tags": [
-        "prefix:no"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:no"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "samainīt",
         "en": "to swap; to exchange"
       },
-      "tags": [
-        "prefix:sa"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:sa"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "apmainīt",
         "en": "to exchange; to switch"
       },
-      "tags": [
-        "prefix:ap"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ap"],
+      "games": ["match"]
     }
   ]
 }

@@ -20,7 +20,7 @@ export function persistProgress(payload, touchLastPlayed = false) {
   const next = {
     xp: payload.xp ?? 0,
     streak: payload.streak ?? 0,
-    lastPlayedISO: touchLastPlayed ? new Date().toISOString() : payload.lastPlayedISO ?? null,
+    lastPlayedISO: touchLastPlayed ? new Date().toISOString() : (payload.lastPlayedISO ?? null),
   };
   try {
     writeGameProgress(GAME_ID, next);

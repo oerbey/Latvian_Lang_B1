@@ -1,6 +1,7 @@
 # “Kāds es esmu? Rakstura īpašības” — Review
 
 ## Findings§
+
 - **UI/UX & mobile**: Layout matches the project’s card + navbar shell, and buttons are large enough for touch. However, the feedback block is always visible (even when summary is shown), and the summary view hides the question card but leaves the card footer counters visible, which could confuse users on small screens. Mode badge is text-only; a clearer selected state or tab-like styling would help on mobile.
 - **Accessibility & feedback**: Buttons become disabled after answering, but there is no focus move or aria-live update beyond the alert class. The “Ielādē datus…” state doesn’t announce completion, and screen readers won’t know when mode buttons become enabled. The mistakes list shows the selected answer but doesn’t explicitly mark the correct choice vs wrong choice, reducing clarity for review.
 - **Data handling**: CSV parsing uses a simple `split(',')`, so any future commas (e.g., in English glosses or notes) would break rows. No defensive filtering for blank rows beyond trimming; neutral items are excluded from Mode A correctly. Data is fetched via a relative path, but there’s no offline fallback or cache awareness like other games that rely on `assetUrl` helpers. No validation for the `group` domain (“optimists/pesimists/neutral”), so malformed rows would slip through.
@@ -10,6 +11,7 @@
 - **Data format choice**: Keeping CSV as the canonical source aligns with the repo’s workflow (spreadsheet-friendly, existing scripts). JSON would improve robustness and avoid fragile `split(',')` parsing, so the best path is to generate JSON as a build artifact (e.g., via `scripts/`), load JSON in the game, and keep CSV as the editable source.
 
 ## Action plan
+
 - **Strengthen UX flows (short term)**: Hide or restyle the feedback block when showing the summary; adjust footer counters to reflect summary state; give the active mode a filled style (`btn-primary`) and ensure the mode label is visible on small screens. Add a gentle auto-scroll to the feedback/summary anchor on mobile.
 - **Improve accessibility (short term)**: Announce data-load completion and mode-enabled state via `aria-live`; move focus to the question text after rendering; in mistakes and feedback, explicitly label correct vs chosen options; ensure the summary heading has `aria-live` or is focusable for SR users.
 - **Harden CSV parsing (short term)**: Replace manual `split(',')` with a minimal CSV parser that handles commas/quotes; validate the `group` field to allowed values; ignore empty/invalid rows gracefully; resolve data URL with the shared asset helper to stay subpath-safe.

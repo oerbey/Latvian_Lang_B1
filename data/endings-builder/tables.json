@@ -1,29 +1,29 @@
 {
   "nouns": {
     "decl1_masc": {
-      "NOM": {"SG": "-s", "PL": "-i"},
-      "GEN": {"SG": "-a", "PL": "-u"},
-      "DAT": {"SG": "-am", "PL": "-iem"},
-      "ACC": {"SG": "-u", "PL": "-us"},
-      "LOC": {"SG": "-ā", "PL": "-os"},
-      "VOC": {"SG": "-!", "PL": "-i"}
+      "NOM": { "SG": "-s", "PL": "-i" },
+      "GEN": { "SG": "-a", "PL": "-u" },
+      "DAT": { "SG": "-am", "PL": "-iem" },
+      "ACC": { "SG": "-u", "PL": "-us" },
+      "LOC": { "SG": "-ā", "PL": "-os" },
+      "VOC": { "SG": "-!", "PL": "-i" }
     },
     "decl4_fem": {
-      "NOM": {"SG": "-a", "PL": "-as"},
-      "GEN": {"SG": "-as", "PL": "-u"},
-      "DAT": {"SG": "-ai", "PL": "-ām"},
-      "ACC": {"SG": "-u", "PL": "-as"},
-      "LOC": {"SG": "-ā", "PL": "-ās"},
-      "VOC": {"SG": "-a", "PL": "-as"}
+      "NOM": { "SG": "-a", "PL": "-as" },
+      "GEN": { "SG": "-as", "PL": "-u" },
+      "DAT": { "SG": "-ai", "PL": "-ām" },
+      "ACC": { "SG": "-u", "PL": "-as" },
+      "LOC": { "SG": "-ā", "PL": "-ās" },
+      "VOC": { "SG": "-a", "PL": "-as" }
     }
   },
   "adjectives": {
     "hard": {
-      "NOM": {"SG_M": "-s", "SG_F": "-a", "PL_M": "-i", "PL_F": "-as"},
-      "GEN": {"SG_M": "-a", "SG_F": "-as", "PL_M": "-u", "PL_F": "-u"},
-      "DAT": {"SG_M": "-am", "SG_F": "-ai", "PL_M": "-iem", "PL_F": "-ām"},
-      "ACC": {"SG_M": "-u", "SG_F": "-u", "PL_M": "-us", "PL_F": "-as"},
-      "LOC": {"SG_M": "-ā", "SG_F": "-ā", "PL_M": "-os", "PL_F": "-ās"}
+      "NOM": { "SG_M": "-s", "SG_F": "-a", "PL_M": "-i", "PL_F": "-as" },
+      "GEN": { "SG_M": "-a", "SG_F": "-as", "PL_M": "-u", "PL_F": "-u" },
+      "DAT": { "SG_M": "-am", "SG_F": "-ai", "PL_M": "-iem", "PL_F": "-ām" },
+      "ACC": { "SG_M": "-u", "SG_F": "-u", "PL_M": "-us", "PL_F": "-as" },
+      "LOC": { "SG_M": "-ā", "SG_F": "-ā", "PL_M": "-os", "PL_F": "-ās" }
     }
   }
 }

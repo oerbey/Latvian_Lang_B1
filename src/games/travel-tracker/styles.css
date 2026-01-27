@@ -72,7 +72,11 @@
 
 .travel-map {
   position: relative;
-  background: linear-gradient(180deg, var(--tt-surface-soft) 0%, var(--tt-surface-soft-strong) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--tt-surface-soft) 0%,
+    var(--tt-surface-soft-strong) 100%
+  );
   min-height: clamp(260px, 50vh, 520px);
   display: flex;
   align-items: center;
@@ -90,7 +94,7 @@
   position: absolute;
   width: 52px;
   height: 26px;
-  background: url("../../../assets/img/travel-tracker/bus.svg") no-repeat center/contain;
+  background: url('../../../assets/img/travel-tracker/bus.svg') no-repeat center/contain;
   transform: translate(-50%, -100%);
   transition: transform 0.6s ease-out;
   pointer-events: none;
@@ -221,7 +225,10 @@
   font-size: 1rem;
   background: var(--tt-surface);
   color: var(--tt-text);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .travel-panel__input::placeholder {
@@ -311,7 +318,11 @@
   border-radius: 0.85rem;
   padding: 0.75rem 1.5rem;
   border: 0;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
 }
 
 .travel-tracker-app .tt-check,
@@ -389,7 +400,11 @@
   color: var(--tt-choice-fg);
   padding: 0.75rem 1rem;
   text-align: left;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
   width: 100%;
 }
 

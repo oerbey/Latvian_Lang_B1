@@ -11,7 +11,7 @@ export async function loadItems(path) {
 
 export function classifyAlternates(item) {
   const byTense = { present: [], past: [], future: [] };
-  (item.alsoAccept || []).forEach(text => {
+  (item.alsoAccept || []).forEach((text) => {
     const lower = text.trim().toLowerCase();
     if (lower.startsWith('ir ')) {
       byTense.present.push(text);
@@ -30,7 +30,7 @@ export function patientKey(patient) {
 
 export function buildPatientBank(items) {
   const seen = new Map();
-  items.forEach(item => {
+  items.forEach((item) => {
     if (!item?.patient) return;
     const key = patientKey(item.patient);
     if (seen.has(key)) return;

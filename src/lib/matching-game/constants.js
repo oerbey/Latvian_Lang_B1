@@ -8,7 +8,8 @@ export const DEFAULT_TEXTS = {
   lockedReady: (count) => `Locked set ready: ${count} items.`,
   lockedNote: {
     capped: (poolSize) => `Only ${poolSize} items available, so the set is capped.`,
-    smallSet: (setSize) => `Board shows all ${setSize} items because the set is smaller than the board size.`,
+    smallSet: (setSize) =>
+      `Board shows all ${setSize} items because the set is smaller than the board size.`,
   },
   dataUnavailable: 'Dati nav pieejami bezsaistē. Mēģini vēlreiz ar internetu.',
   fallbackUsed:

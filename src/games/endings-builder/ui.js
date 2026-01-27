@@ -16,7 +16,12 @@ export function setFeedback(feedbackEl, icon, text) {
   if (!feedbackEl) return;
   let iconEl = feedbackEl.querySelector('.eb-feedback__icon');
   if (!iconEl || iconEl.tagName.toLowerCase() !== 'img') {
-    const created = createIcon({ name: icon || 'info', size: 20, alt: '', className: 'eb-feedback__icon' });
+    const created = createIcon({
+      name: icon || 'info',
+      size: 20,
+      alt: '',
+      className: 'eb-feedback__icon',
+    });
     if (iconEl) {
       iconEl.replaceWith(created);
     } else {
@@ -53,7 +58,7 @@ export function insertChar(answerInput, ch) {
 
 export function setupKeypad({ keypadEl, letters, onInsert }) {
   keypadEl.replaceChildren();
-  letters.forEach(ch => {
+  letters.forEach((ch) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = ch;
@@ -85,7 +90,7 @@ export function renderRound({ round, elements, strings, buildOptions, onDrop }) 
   board.append(stemEl, slot);
 
   const options = buildOptions(round);
-  options.forEach(text => {
+  options.forEach((text) => {
     const ending = document.createElement('div');
     ending.className = 'eb-ending';
     ending.textContent = text;
@@ -97,7 +102,7 @@ export function renderRound({ round, elements, strings, buildOptions, onDrop }) 
     dropSelector: '.eb-slot',
     onDrop: (endingEl, slotEl) => {
       onDrop(endingEl.textContent.trim(), slotEl, endingEl);
-    }
+    },
   });
 }
 
@@ -130,7 +135,7 @@ function buildRuleTable(round, strings) {
   headerCell.textContent = strings.labels.case;
   header.append(headerCell);
   const columnKeys = collectColumnKeys(tableData);
-  columnKeys.forEach(key => {
+  columnKeys.forEach((key) => {
     const th = document.createElement('th');
     th.textContent = strings.labels.columns?.[key] || key;
     header.append(th);
@@ -146,7 +151,7 @@ function buildRuleTable(round, strings) {
     caseCell.scope = 'row';
     caseCell.textContent = strings.cases?.[caseKey] || caseKey;
     tr.append(caseCell);
-    columnKeys.forEach(key => {
+    columnKeys.forEach((key) => {
       const td = document.createElement('td');
       td.textContent = row[key] ?? '–';
       tr.append(td);
@@ -160,8 +165,8 @@ function buildRuleTable(round, strings) {
 
 function collectColumnKeys(tableData) {
   const keys = new Set();
-  Object.values(tableData).forEach(row => {
-    Object.keys(row).forEach(key => keys.add(key));
+  Object.values(tableData).forEach((row) => {
+    Object.keys(row).forEach((key) => keys.add(key));
   });
   return [...keys];
 }

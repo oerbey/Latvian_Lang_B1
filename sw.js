@@ -90,32 +90,32 @@ const CORE_ASSETS = [
   './i18n/ru.json',
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS)));
+self.addEventListener('install', (event) => {
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)));
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then(keys =>
+      .then((keys) =>
         Promise.all(
           keys
-            .filter(key => key.startsWith('llb1-cache-') && key !== CACHE_NAME)
-            .map(key => caches.delete(key)),
+            .filter((key) => key.startsWith('llb1-cache-') && key !== CACHE_NAME)
+            .map((key) => caches.delete(key)),
         ),
       ),
   );
   self.clients.claim();
 });
 
-self.addEventListener('message', event => {
+self.addEventListener('message', (event) => {
   if (event?.data?.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
@@ -126,15 +126,15 @@ self.addEventListener('fetch', event => {
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           }
           return response;
         })
         .catch(() =>
-          caches.match(request).then(cached => cached || caches.match('./index.html')),
+          caches.match(request).then((cached) => cached || caches.match('./index.html')),
         ),
     );
     return;
@@ -142,10 +142,10 @@ self.addEventListener('fetch', event => {
 
   if (url.origin === self.location.origin && url.pathname.endsWith('.json')) {
     event.respondWith(
-      caches.open(CACHE_NAME).then(cache =>
-        cache.match(request).then(cached => {
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(request).then((cached) => {
           const fetchPromise = fetch(request)
-            .then(response => {
+            .then((response) => {
               if (response.ok) {
                 cache.put(request, response.clone());
               }
@@ -163,13 +163,16 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  if (url.origin === self.location.origin && ['script', 'style', 'image', 'font'].includes(request.destination)) {
+  if (
+    url.origin === self.location.origin &&
+    ['script', 'style', 'image', 'font'].includes(request.destination)
+  ) {
     event.respondWith(
-      caches.match(request).then(cached => {
+      caches.match(request).then((cached) => {
         if (cached) return cached;
-        return fetch(request).then(response => {
+        return fetch(request).then((response) => {
           if (response.ok) {
-            caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, response.clone()));
           }
           return response;
         });

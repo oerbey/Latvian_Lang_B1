@@ -1,6 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
+
 - `src/` hosts interactive page logic (e.g., `games/conjugation-sprint/index.js`) written in modern ES modules, with shared helpers in `src/lib/`. Keep new gameplay code here.
 - `data/` stores verb data in JSON plus offline fallbacks; treat generated files like `words.offline.js` as build artifacts.
 - `scripts/` contains Node and Python utilities for regenerating datasets; favor these over editing JSON by hand.
@@ -8,6 +9,7 @@
 - `test/` mirrors `src/` structure for Node’s test runner.
 
 ## Build, Test, and Development Commands
+
 - `npm run build:data` converts the spreadsheet input to JSON via `scripts/xlsx_to_json.mjs`.
 - `npm run build:words:chunks` splits `data/words.json` into `data/words/index.json` + chunk files.
 - `npm run build:offline` refreshes offline bundles (`i18n/offline.js`, `data/week1.offline.js`, `data/endings-builder/offline.js`) via `scripts/build_week1_offline.mjs`.
@@ -18,21 +20,25 @@
 - `npm run format` applies Prettier formatting (use `npm run format:check` in CI).
 
 ## Coding Style & Naming Conventions
+
 - Use ES modules with top-level `const`/`let`; prefer pure helpers near their usage.
 - Favor descriptive camelCase for variables and functions (`tenseMode`, `buildChoiceButtons`).
 - Keep UI text in Latvian/English strings close to components or in `i18n/` when shared.
 - Format files with `npm run format`; match existing two-space indentation.
 
 ## Testing Guidelines
+
 - Add Node test files under `test/` mirroring the source tree (e.g., `games/conjugation-sprint/index.test.js`), keeping the `.test.js` suffix.
 - Stub DOM APIs with `node:test` + `jsdom` when needed; keep fixtures minimal.
 - Target parity with changed functionality and cover edge cases (empty data, random branches).
 
 ## Commit & Pull Request Guidelines
+
 - Follow the existing concise style: imperative subject line (`Add tense selector to Conjugation Sprint`) and optional body for context.
 - Push feature branches (`feature/<topic>`) and open PRs that summarize the change, include repro steps, and link related issues or cards.
 - Attach screenshots or screen recordings for UI adjustments when feasible; mention any manual testing performed.
 
 ## Agent Workflow Tips
+
 - After switching branches via the Codex CLI, rerun `git status` to confirm sandbox sync.
 - Avoid editing generated files without running their companion scripts; note regeneration commands in commit bodies when applicable.

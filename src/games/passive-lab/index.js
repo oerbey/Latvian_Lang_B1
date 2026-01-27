@@ -108,11 +108,11 @@ import {
 
   function createPatientChoices() {
     const targetKey = patientKey(currentItem.patient);
-    const targetRecord = patientBank.find(entry => entry.key === targetKey);
-    const others = patientBank.filter(entry => entry.key !== targetKey);
+    const targetRecord = patientBank.find((entry) => entry.key === targetKey);
+    const others = patientBank.filter((entry) => entry.key !== targetKey);
     const candidates = [targetRecord, ...shuffle(others).slice(0, 3)].filter(Boolean);
     const normalized = shuffle(candidates);
-    return normalized.map(entry => ({
+    return normalized.map((entry) => ({
       key: entry.key,
       form: entry.form,
       gender: entry.gender,
@@ -129,7 +129,7 @@ import {
 
   function renderPatientChoicesUi() {
     renderPatientChoices(nodes, builderChoices, selectPatient);
-    const preferred = builderChoices.find(choice => choice.isTarget)?.key;
+    const preferred = builderChoices.find((choice) => choice.isTarget)?.key;
     selectPatient(preferred || builderChoices[0]?.key);
   }
 
@@ -200,7 +200,7 @@ import {
       return true;
     }
     const alternates = currentItem.alsoAcceptByTense?.[currentTense] || [];
-    return alternates.some(text => normalizeSentence(text) === normalized);
+    return alternates.some((text) => normalizeSentence(text) === normalized);
   }
 
   function startRound() {
@@ -252,7 +252,7 @@ import {
       const shouldShow = panel.dataset.modePanel === target;
       panel.classList.toggle('is-visible', shouldShow);
     }
-    nodes.modeButtons.forEach(button => {
+    nodes.modeButtons.forEach((button) => {
       const isActive = button.dataset.mode === target;
       button.classList.toggle('active', isActive);
       button.setAttribute('aria-pressed', String(Boolean(isActive)));
@@ -263,7 +263,7 @@ import {
     if (solved || !currentItem) return;
     builderAttempts += 1;
     const selectedTense = nodes.tenseSelect?.value;
-    const selectedPatient = builderChoices.find(choice => choice.key === builderSelectedKey);
+    const selectedPatient = builderChoices.find((choice) => choice.key === builderSelectedKey);
     const selectedEnding = nodes.endingSelect?.value;
     const endsCorrect = selectedEnding === getEndingForPatient(currentItem.patient);
     const tenseCorrect = selectedTense === currentTense;
@@ -272,7 +272,13 @@ import {
       handleSuccess('builder');
       return;
     }
-    const reason = !endsCorrect ? 'ending' : !patientCorrect ? 'patient' : !tenseCorrect ? 'tense' : undefined;
+    const reason = !endsCorrect
+      ? 'ending'
+      : !patientCorrect
+        ? 'patient'
+        : !tenseCorrect
+          ? 'tense'
+          : undefined;
     handleFailure({ reason });
   }
 
@@ -305,7 +311,7 @@ import {
   }
 
   function setupListeners() {
-    nodes.modeButtons.forEach(button => {
+    nodes.modeButtons.forEach((button) => {
       button.addEventListener('click', () => toggleMode(button.dataset.mode));
     });
     if (nodes.builderCheck) {
@@ -315,7 +321,7 @@ import {
       nodes.typeCheck.addEventListener('click', handleTypeSubmit);
     }
     if (nodes.typeInput) {
-      nodes.typeInput.addEventListener('keydown', event => {
+      nodes.typeInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           event.preventDefault();
           handleTypeSubmit();

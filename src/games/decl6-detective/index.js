@@ -150,10 +150,16 @@ import {
     nodes.mcqExplain.classList.add('visually-hidden');
     nodes.mcqExplain.textContent = currentMcqItem.explain ?? '';
     nodes.mcqNext.disabled = true;
-    applySceneTheme(nodes.mcqCard, nodes.mcqSceneEmoji, nodes.mcqSceneName, null, currentMcqItem.scene);
+    applySceneTheme(
+      nodes.mcqCard,
+      nodes.mcqSceneEmoji,
+      nodes.mcqSceneName,
+      null,
+      currentMcqItem.scene,
+    );
     nodes.mcqOptions.replaceChildren();
     const options = shuffle(currentMcqItem.options ?? []);
-    options.forEach(optionText => {
+    options.forEach((optionText) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'decl6-option';
@@ -177,7 +183,7 @@ import {
       mcqSolved = true;
       button.classList.add('correct');
       button.setAttribute('aria-checked', 'true');
-      nodes.mcqOptions.querySelectorAll('button').forEach(choice => {
+      nodes.mcqOptions.querySelectorAll('button').forEach((choice) => {
         choice.disabled = true;
         if (choice !== button) choice.setAttribute('aria-checked', 'false');
       });
@@ -243,7 +249,13 @@ import {
     nodes.typeInput.classList.remove('is-valid', 'is-invalid');
     nodes.typeCheck.disabled = false;
     nodes.typeNext.disabled = true;
-    applySceneTheme(nodes.typeCard, nodes.typeSceneEmoji, nodes.typeSceneName, nodes.planImage, currentTypeItem.scene);
+    applySceneTheme(
+      nodes.typeCard,
+      nodes.typeSceneEmoji,
+      nodes.typeSceneName,
+      nodes.planImage,
+      currentTypeItem.scene,
+    );
     setTypeProgress(nodes, typeIndex, TYPE_TARGET);
   }
 
@@ -316,13 +328,13 @@ import {
       updateLiveRegion(nodes, '');
       startSession();
     });
-    on(nodes.typeInput, 'keydown', event => {
+    on(nodes.typeInput, 'keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         handleTypeCheck();
       }
     });
-    on(nodes.mcqOptions, 'keydown', event => {
+    on(nodes.mcqOptions, 'keydown', (event) => {
       const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
       if (!keys.includes(event.key)) return;
       const buttons = Array.from(nodes.mcqOptions.querySelectorAll('button'));
@@ -371,7 +383,8 @@ import {
     } catch (err) {
       console.error(err);
       updateLiveRegion(nodes, 'Unable to load the detective game right now.');
-      const safeError = err instanceof Error ? err : new Error('Failed to load the detective game.');
+      const safeError =
+        err instanceof Error ? err : new Error('Failed to load the detective game.');
       showFatalError(safeError);
       setI18nLoading(false);
     } finally {

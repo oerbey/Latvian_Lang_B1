@@ -2,12 +2,15 @@ import { assetUrl } from '../../lib/paths.js';
 
 export function getTranslation(i18n, key, fallback = '') {
   if (!key) return fallback;
-  return key
-    .split('.')
-    .reduce(
-      (obj, part) => (obj && Object.prototype.hasOwnProperty.call(obj, part) ? obj[part] : undefined),
-      i18n,
-    ) ?? fallback;
+  return (
+    key
+      .split('.')
+      .reduce(
+        (obj, part) =>
+          obj && Object.prototype.hasOwnProperty.call(obj, part) ? obj[part] : undefined,
+        i18n,
+      ) ?? fallback
+  );
 }
 
 export function formatString(template = '', replacements = {}) {
@@ -19,7 +22,7 @@ export function formatString(template = '', replacements = {}) {
 export function applyTranslations(i18n, lang) {
   document.title = i18n.title || document.title;
   document.documentElement.lang = lang;
-  document.querySelectorAll('[data-i18n-key]').forEach(node => {
+  document.querySelectorAll('[data-i18n-key]').forEach((node) => {
     const key = node.dataset.i18nKey;
     const attr = node.dataset.i18nAttr;
     const value = getTranslation(i18n, key);
@@ -35,7 +38,7 @@ export function applyTranslations(i18n, lang) {
 export function populateTenseOptions(nodes, i18n, tenses) {
   if (!nodes.tenseSelect) return;
   nodes.tenseSelect.replaceChildren();
-  tenses.forEach(tense => {
+  tenses.forEach((tense) => {
     const opt = document.createElement('option');
     opt.value = tense;
     opt.textContent = getTranslation(i18n, `tenseOptions.${tense}`) || tense;

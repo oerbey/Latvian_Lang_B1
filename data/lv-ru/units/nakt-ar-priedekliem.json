@@ -6,108 +6,72 @@
         "lv": "nākt",
         "ru": "приходить"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "ienākt",
         "ru": "войти"
       },
-      "tags": [
-        "prefix:ie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "iznākt",
         "ru": "выйти"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "atnākt",
         "ru": "прийти сюда"
       },
-      "tags": [
-        "prefix:at"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:at"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aiznākt",
         "ru": "прийти издалека"
       },
-      "tags": [
-        "prefix:aiz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:aiz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pienākt",
         "ru": "подойти; наступить"
       },
-      "tags": [
-        "prefix:pie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "sanākt",
         "ru": "собраться; получиться"
       },
-      "tags": [
-        "prefix:sa"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:sa"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "uznākt",
         "ru": "нахлынуть; начаться"
       },
-      "tags": [
-        "prefix:uz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:uz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "nonākt",
         "ru": "оказаться; добраться до"
       },
-      "tags": [
-        "prefix:no"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:no"],
+      "games": ["match"]
     }
   ]
 }

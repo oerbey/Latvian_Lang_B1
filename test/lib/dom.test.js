@@ -24,7 +24,13 @@ test('on attaches listeners when the target exists', async () => {
 
   const { on } = await import('../../src/lib/dom.js');
 
-  assert.equal(on(target, 'click', () => {}), true);
+  assert.equal(
+    on(target, 'click', () => {}),
+    true,
+  );
   assert.equal(attached, true);
-  assert.equal(on(null, 'click', () => {}), false);
+  assert.equal(
+    on(null, 'click', () => {}),
+    false,
+  );
 });

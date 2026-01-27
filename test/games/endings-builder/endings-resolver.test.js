@@ -7,7 +7,7 @@ test('Decl1 masc GEN.SG is -a', () => {
   const out = getEnding({
     pos: 'nouns',
     schema: 'decl1_masc',
-    gram: { case: 'GEN', number: 'SG' }
+    gram: { case: 'GEN', number: 'SG' },
   });
   assert.equal(out, '-a');
 });

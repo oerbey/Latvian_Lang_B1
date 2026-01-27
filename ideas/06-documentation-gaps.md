@@ -8,7 +8,7 @@ This document identifies missing documentation and provides recommendations for 
 
 **Priority**: High  
 **Category**: Documentation, Onboarding  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -24,6 +24,7 @@ The repository already contains a `README.md` in the root. It provides a good ov
 ### Recommendation
 
 Review the existing `README.md` and consider adding/adjusting sections like:
+
 - Local development instructions (static server + common URLs)
 - Testing/lint/format commands
 - Data/i18n file structure conventions
@@ -31,7 +32,7 @@ Review the existing `README.md` and consider adding/adjusting sections like:
 
 Example README structure:
 
-```markdown
+````markdown
 # 🇱🇻 Latvian B1 Language Games
 
 Interactive web-based games for learning Latvian at the B1 level.
@@ -41,21 +42,23 @@ Interactive web-based games for learning Latvian at the B1 level.
 
 ## 🎮 Games
 
-| Game | Description | Skills |
-|------|-------------|--------|
-| **Match Rush** | Match Latvian words with translations | Vocabulary |
-| **Prefix Forge** | Add correct prefixes to verb roots | Verb prefixes |
-| **Endings Builder** | Complete words with correct endings | Declensions |
-| **Travel Tracker** | Geography-based preposition practice | Prepositions |
-| **Duty Dispatcher** | Role-based dative case practice | Dative case |
-| **Conjugation Sprint** | Quick verb conjugation practice | Verb forms |
+| Game                   | Description                           | Skills        |
+| ---------------------- | ------------------------------------- | ------------- |
+| **Match Rush**         | Match Latvian words with translations | Vocabulary    |
+| **Prefix Forge**       | Add correct prefixes to verb roots    | Verb prefixes |
+| **Endings Builder**    | Complete words with correct endings   | Declensions   |
+| **Travel Tracker**     | Geography-based preposition practice  | Prepositions  |
+| **Duty Dispatcher**    | Role-based dative case practice       | Dative case   |
+| **Conjugation Sprint** | Quick verb conjugation practice       | Verb forms    |
 
 ## 🚀 Quick Start
 
 ### Play Online
+
 Visit: [https://oerbey.github.io/Latvian_Lang_B1/](https://oerbey.github.io/Latvian_Lang_B1/)
 
 ### Run Locally
+
 ```bash
 # Clone the repository
 git clone https://github.com/oerbey/Latvian_Lang_B1.git
@@ -67,14 +70,17 @@ npx http-server . -p 3000
 # Open in browser
 open http://localhost:3000/week1.html
 ```
+````
 
 ## 🛠️ Development
 
 ### Prerequisites
+
 - Node.js 18+ (for tests and build scripts)
 - Python 3.8+ (for data generation scripts)
 
 ### Setup
+
 ```bash
 # Install dependencies
 npm install
@@ -87,6 +93,7 @@ python scripts/build_week1_offline.py
 ```
 
 ### Project Structure
+
 ```
 ├── app.js                 # Main application entry
 ├── src/
@@ -125,7 +132,8 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
 - Latvian language resources and contributors
 - Bootstrap team for the UI framework
 - All learners providing feedback
-```
+
+````
 
 ### Impact
 - Clear project introduction
@@ -137,9 +145,9 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
 
 ## Issue: No JSDoc Comments on Functions
 
-**Priority**: High  
-**Category**: Documentation, Code Quality  
-**Effort**: Medium  
+**Priority**: High
+**Category**: Documentation, Code Quality
+**Effort**: Medium
 
 ### Current State
 
@@ -154,13 +162,13 @@ export function mulberry32(a){
   }
 }
 
-export function shuffle(arr){ 
-  for(let i=arr.length-1;i>0;i--){ 
+export function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
     // ... no parameters or return documented
-  } 
-  return arr; 
+  }
+  return arr;
 }
-```
+````
 
 ### Problem
 
@@ -180,7 +188,7 @@ Add comprehensive JSDoc comments:
 /**
  * Creates a seeded pseudo-random number generator using the Mulberry32 algorithm.
  * Produces deterministic sequences for the same seed, useful for reproducible shuffles.
- * 
+ *
  * @param {number} seed - Initial seed value (will be converted to 32-bit unsigned integer)
  * @returns {function(): number} A function that returns random numbers in [0, 1) range
  * @example
@@ -190,19 +198,19 @@ Add comprehensive JSDoc comments:
  */
 export function mulberry32(seed) {
   let a = seed >>> 0;
-  return function() {
+  return function () {
     a |= 0;
-    a = a + 0x6D2B79F5 | 0;
-    let t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
 
 /**
  * Shuffles an array in-place using the Fisher-Yates algorithm.
  * Uses the global state.rng for randomness to ensure deterministic behavior when seeded.
- * 
+ *
  * @template T
  * @param {T[]} arr - The array to shuffle (will be modified in-place)
  * @returns {T[]} The same array reference, now shuffled
@@ -221,7 +229,7 @@ export function shuffle(arr) {
 
 /**
  * Selects a random element from an array using the global RNG.
- * 
+ *
  * @template T
  * @param {T[]} arr - Array to select from
  * @returns {T} Randomly selected element
@@ -258,10 +266,13 @@ export const MODES = {
  * @property {VocabularyData|null} DATA - Loaded vocabulary data
  * @property {'en'|'ru'} targetLang - Target language for translations
  */
-export const state = { /* ... */ };
+export const state = {
+  /* ... */
+};
 ```
 
 ### Impact
+
 - Self-documenting code
 - Better IDE intellisense
 - Easier onboarding
@@ -273,7 +284,7 @@ export const state = { /* ... */ };
 
 **Priority**: Medium  
 **Category**: Documentation, Community  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -290,7 +301,7 @@ No contribution guidelines found.
 
 Create `CONTRIBUTING.md`:
 
-```markdown
+````markdown
 # Contributing to Latvian B1 Games
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
@@ -302,18 +313,22 @@ Please be respectful and constructive in all interactions. We welcome contributo
 ## 🔧 Development Setup
 
 ### Prerequisites
+
 - Node.js 18 or later
 - Python 3.8 or later
 - Git
 
 ### Local Setup
+
 ```bash
 git clone https://github.com/oerbey/Latvian_Lang_B1.git
 cd Latvian_Lang_B1
 npm install
 ```
+````
 
 ### Running Tests
+
 ```bash
 npm test                    # Run all tests
 npm run test:watch          # Watch mode
@@ -321,6 +336,7 @@ npm run test:coverage       # With coverage report
 ```
 
 ### Running Locally
+
 ```bash
 npx http-server . -p 3000
 # Open http://localhost:3000/week1.html
@@ -329,18 +345,21 @@ npx http-server . -p 3000
 ## 📝 Code Style
 
 ### JavaScript
+
 - Use ES Modules (`import`/`export`)
 - Use `const` by default, `let` when mutation needed
 - Use arrow functions for callbacks
 - Add JSDoc comments for public functions
 
 ### Naming Conventions
+
 - `camelCase` for variables and functions
 - `PascalCase` for classes
 - `UPPER_SNAKE_CASE` for constants
 - Descriptive names (no single letters except loop counters)
 
 ### File Organization
+
 - One main export per file when possible
 - Keep files under 300 lines
 - Group related functionality in folders
@@ -353,12 +372,14 @@ npx http-server . -p 3000
 - Tests must pass before merge
 
 ### Test File Location
+
 - Place tests in `test/` mirroring `src/` structure
 - Name test files `*.test.js`
 
 ## 📥 Pull Request Process
 
 ### Before Submitting
+
 1. Create an issue describing the change (for major changes)
 2. Fork the repository
 3. Create a feature branch from `main`
@@ -368,13 +389,16 @@ npx http-server . -p 3000
 7. Run tests and ensure they pass
 
 ### PR Guidelines
+
 - Keep PRs focused and small when possible
 - Write clear commit messages
 - Reference related issues
 - Update CHANGELOG.md for notable changes
 
 ### Commit Messages
+
 Follow conventional commits:
+
 ```
 feat: add new game mode
 fix: correct scoring calculation
@@ -386,12 +410,14 @@ refactor: extract utility functions
 ## 🌐 Translations
 
 ### Adding a New Language
+
 1. Copy `i18n/en.json` to `i18n/xx.json`
 2. Translate all strings
 3. Add language to the selector in HTML files
 4. Test thoroughly with the new language
 
 ### Translation Guidelines
+
 - Maintain consistent tone
 - Consider text length (UI constraints)
 - Preserve placeholders (`{variable}`)
@@ -400,6 +426,7 @@ refactor: extract utility functions
 ## 🐛 Reporting Bugs
 
 ### Include in Bug Reports
+
 - Browser and version
 - Device (desktop/mobile)
 - Steps to reproduce
@@ -409,6 +436,7 @@ refactor: extract utility functions
 ## 💡 Feature Requests
 
 We welcome feature ideas! Please:
+
 - Check existing issues first
 - Describe the use case
 - Explain the expected behavior
@@ -417,7 +445,8 @@ We welcome feature ideas! Please:
 ## 📜 License
 
 By contributing, you agree that your contributions will be licensed under the project's MIT License.
-```
+
+````
 
 ### Impact
 - Clear expectations for contributors
@@ -429,9 +458,9 @@ By contributing, you agree that your contributions will be licensed under the pr
 
 ## Issue: No API Documentation
 
-**Priority**: Medium  
-**Category**: Documentation, Developer Experience  
-**Effort**: Medium  
+**Priority**: Medium
+**Category**: Documentation, Developer Experience
+**Effort**: Medium
 
 ### Current State
 
@@ -459,7 +488,7 @@ No generated API documentation. Complex functions like the game state machine ar
     "clean-jsdoc-theme": "^4.0.0"
   }
 }
-```
+````
 
 ```javascript
 // jsdoc.config.json
@@ -491,13 +520,17 @@ No generated API documentation. Complex functions like the game state machine ar
 ## Core Modules
 
 ### State Management (`src/lib/state.js`)
+
 Centralized game state with seeded RNG for reproducibility.
 
 ### Rendering (`src/lib/render.js`)
+
 Canvas 2D rendering utilities with responsive scaling.
 
 ### Games (`src/games/`)
+
 Individual game implementations, each with:
+
 - `index.js` - Main game logic
 - `styles.css` - Game-specific styles
 - Optional utility modules
@@ -520,6 +553,7 @@ Individual game implementations, each with:
 ```
 
 ### Impact
+
 - Professional documentation
 - Easier onboarding
 - Reference for developers
@@ -531,7 +565,7 @@ Individual game implementations, each with:
 
 **Priority**: Low  
 **Category**: Documentation, Design  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -559,21 +593,24 @@ docs/
 
 Create specs for undocumented games:
 
-```markdown
+````markdown
 # docs/match-rush-spec.md
 
 # Match Rush — Game Specification
 
 ## Overview
+
 A timed vocabulary matching game where players connect Latvian words with their translations.
 
 ## Gameplay
 
 ### Modes
+
 - **Practice**: No time limit, unlimited attempts
 - **Challenge**: 3 lives, timer active
 
 ### Mechanics
+
 1. Left column shows Latvian words
 2. Right column shows translations (shuffled)
 3. Player clicks one word, then its matching translation
@@ -581,17 +618,20 @@ A timed vocabulary matching game where players connect Latvian words with their 
 5. Game ends when all pairs matched or lives depleted
 
 ### Scoring
+
 - +1 for each correct match
 - Streak bonus: +10 every 5 correct in a row
 - Challenge mode: penalty for mismatches
 
 ### Deck Sizes
+
 - **Auto**: Fits to screen without scrolling
 - **Full**: All available words, scrollable
 
 ## Data Requirements
 
 ### Entry Format
+
 ```json
 {
   "translations": {
@@ -603,28 +643,35 @@ A timed vocabulary matching game where players connect Latvian words with their 
   "tags": ["movement", "prefix:ie"]
 }
 ```
+````
 
 ### Filtering
+
 - Only entries with `games.includes('match')`
 - Only entries with translation in target language
 
 ## Hint System
+
 On incorrect match, shows contextual hint:
+
 - Reflexive verb hint if `-ties` mismatch
 - Prefix meaning if prefix mismatch
 - Generic "try again" otherwise
 
 ## Accessibility
+
 - Screen reader list mirrors visual cards
 - Buttons disabled when solved
 - ARIA live region announces results
 
 ## UI States
+
 1. **Ready**: Deck loaded, waiting for selection
 2. **Selected**: One item selected, awaiting pair
 3. **Feedback**: Showing correct/incorrect result
 4. **Complete**: All pairs matched, showing stats
-```
+
+````
 
 ### Impact
 - Complete game documentation
@@ -636,9 +683,9 @@ On incorrect match, shows contextual hint:
 
 ## Issue: No Changelog
 
-**Priority**: Low  
-**Category**: Documentation, Releases  
-**Effort**: Small  
+**Priority**: Low
+**Category**: Documentation, Releases
+**Effort**: Small
 
 ### Current State
 
@@ -693,9 +740,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Known Issues
 - Some vocabulary entries may have typos
 - Mobile Safari requires touch-action CSS tweaks
-```
+````
 
 ### Impact
+
 - Clear version history
 - Release communication
 - User-facing documentation
@@ -707,7 +755,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Priority**: Low  
 **Category**: Documentation, Readability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -719,10 +767,9 @@ const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 // Why not structuredClone?
 
 // src/lib/state.js
-a|=0; a = a + 0x6D2B79F5 | 0;
+a |= 0;
+a = (a + 0x6d2b79f5) | 0;
 // What does this magic number mean?
-
-
 ```
 
 ### Recommendation
@@ -737,11 +784,11 @@ const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 // Mulberry32 PRNG algorithm constant
 // 0x6D2B79F5 is a mixing constant used by the Mulberry32 PRNG (not golden ratio)
 a |= 0;
-a = a + 0x6D2B79F5 | 0;
-
+a = (a + 0x6d2b79f5) | 0;
 ```
 
 ### Impact
+
 - More understandable code
 - Preserved knowledge
 - Easier maintenance
@@ -751,12 +798,12 @@ a = a + 0x6D2B79F5 | 0;
 
 ## Summary Table
 
-| Issue | Priority | Effort | Impact |
-|-------|----------|--------|--------|
-| README improvements | High | Small | Onboarding |
-| No JSDoc Comments | High | Medium | Code understanding |
-| No CONTRIBUTING.md | Medium | Small | Community growth |
-| No API Documentation | Medium | Medium | Developer reference |
-| Missing Game Specs | Low | Medium | Design clarity |
-| No Changelog | Low | Small | Release tracking |
-| Inline Comments | Low | Small | Code readability |
+| Issue                | Priority | Effort | Impact              |
+| -------------------- | -------- | ------ | ------------------- |
+| README improvements  | High     | Small  | Onboarding          |
+| No JSDoc Comments    | High     | Medium | Code understanding  |
+| No CONTRIBUTING.md   | Medium   | Small  | Community growth    |
+| No API Documentation | Medium   | Medium | Developer reference |
+| Missing Game Specs   | Low      | Medium | Design clarity      |
+| No Changelog         | Low      | Small  | Release tracking    |
+| Inline Comments      | Low      | Small  | Code readability    |

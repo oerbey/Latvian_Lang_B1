@@ -2,29 +2,44 @@
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-<!-- CSP allows inline styles for existing inline snippets -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
+    <!-- CSP allows inline styles for existing inline snippets -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="description" content="Kāds es esmu? Rakstura īpašības — optimists vai pesimists un tulkojumi latviešu ➜ angļu." />
+    <meta
+      name="description"
+      content="Kāds es esmu? Rakstura īpašības — optimists vai pesimists un tulkojumi latviešu ➜ angļu."
+    />
     <title>Kāds es esmu? Rakstura īpašības</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="character-traits-page">
     <a class="skip-link" href="#main">Skip to main content</a>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom" role="banner" data-site-nav></nav>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
 
     <main id="main" class="container py-4 mt-5">
       <header class="mb-4 text-center text-md-start">
         <p class="text-secondary mb-1">Rakstura īpašības • vārdu krājums</p>
         <h1 class="h4 mb-2">Kāds es esmu? Rakstura īpašības</h1>
         <p class="text-secondary mb-0">
-          Trenē raksturot optimistu un pesimistu un atceries tulkojumu uz angļu valodu (EN helper). Vienā režīmā
-          izvēlies “optimists” vai “pesimists”, otrā atrodi pareizo tulkojumu.
+          Trenē raksturot optimistu un pesimistu un atceries tulkojumu uz angļu valodu (EN helper).
+          Vienā režīmā izvēlies “optimists” vai “pesimists”, otrā atrodi pareizo tulkojumu.
         </p>
       </header>
 
@@ -33,12 +48,15 @@
           <div>
             <h2 class="h5 mb-1">Rakstura īpašības — vingrinājumi</h2>
             <p class="mb-0 small text-secondary">
-              1) Vārdu krājuma pārbaude (šeit), 2) Pāru spēle ar LV ➜ EN, 3) Paplašināta pāru spēle ar slēgto kopu un “prioritize mistakes”.
+              1) Vārdu krājuma pārbaude (šeit), 2) Pāru spēle ar LV ➜ EN, 3) Paplašināta pāru spēle
+              ar slēgto kopu un “prioritize mistakes”.
             </p>
           </div>
           <div class="d-flex flex-wrap gap-2 ms-lg-auto">
             <a class="btn btn-outline-primary" href="rakstura-ipasibas-match.html">Pāru spēle</a>
-            <a class="btn btn-primary" href="rakstura-ipasibas-expansion.html">Paplašināta pāru spēle</a>
+            <a class="btn btn-primary" href="rakstura-ipasibas-expansion.html"
+              >Paplašināta pāru spēle</a
+            >
           </div>
         </div>
       </section>
@@ -47,11 +65,26 @@
         <div class="card-body">
           <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
             <div class="btn-group" role="group" aria-label="Režīma izvēle">
-              <button type="button" class="btn btn-outline-primary active" id="mode-groups" disabled>Optimists vai pesimists</button>
-              <button type="button" class="btn btn-outline-primary" id="mode-translate" disabled>Latviešu ➜ angļu</button>
+              <button
+                type="button"
+                class="btn btn-outline-primary active"
+                id="mode-groups"
+                disabled
+              >
+                Optimists vai pesimists
+              </button>
+              <button type="button" class="btn btn-outline-primary" id="mode-translate" disabled>
+                Latviešu ➜ angļu
+              </button>
             </div>
-            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mode-label">Ielādē datus…</span>
-            <span class="badge bg-light border text-dark" id="last-result" aria-live="polite"></span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mode-label"
+              >Ielādē datus…</span
+            >
+            <span
+              class="badge bg-light border text-dark"
+              id="last-result"
+              aria-live="polite"
+            ></span>
           </div>
 
           <div class="d-flex flex-wrap gap-2 mb-3 small" id="group-stats" aria-live="polite"></div>
@@ -75,17 +108,29 @@
           </div>
         </div>
         <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-3">
-          <span class="badge bg-secondary-subtle text-secondary-emphasis" id="score">Punkti: 0 / 0</span>
-          <span class="badge bg-secondary-subtle text-secondary-emphasis" id="counter">Jautājums 0 / 10</span>
-          <button class="btn btn-outline-secondary" id="next-btn" type="button" disabled>Nākamais jautājums</button>
-          <button class="btn btn-primary ms-auto" id="restart-btn" type="button">Spēlēt vēlreiz</button>
+          <span class="badge bg-secondary-subtle text-secondary-emphasis" id="score"
+            >Punkti: 0 / 0</span
+          >
+          <span class="badge bg-secondary-subtle text-secondary-emphasis" id="counter"
+            >Jautājums 0 / 10</span
+          >
+          <button class="btn btn-outline-secondary" id="next-btn" type="button" disabled>
+            Nākamais jautājums
+          </button>
+          <button class="btn btn-primary ms-auto" id="restart-btn" type="button">
+            Spēlēt vēlreiz
+          </button>
         </div>
       </section>
     </main>
 
     <footer class="border-top py-4 bg-body-tertiary mt-4" data-site-footer></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="theme.js"></script>
     <script type="module" src="scripts/nav.js"></script>
     <script type="module" src="scripts/page-init.js"></script>

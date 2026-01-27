@@ -5,17 +5,19 @@ const canvas = mustId('canvas');
 const ctx = canvas.getContext('2d');
 export { canvas, ctx };
 
-export let W = canvas.width, H = canvas.height;
+export let W = canvas.width,
+  H = canvas.height;
 export let scale = 1;
-let canvasOffsetX = 0, canvasOffsetY = 0;
+let canvasOffsetX = 0,
+  canvasOffsetY = 0;
 let baseH = 560;
 
-export function setCanvasHeight(h){
+export function setCanvasHeight(h) {
   baseH = h;
   updateCanvasScale();
 }
 
-export function updateCanvasScale(){
+export function updateCanvasScale() {
   const containerWidth = canvas.parentElement.offsetWidth;
   scale = Math.min(1, containerWidth / 980);
   const displayWidth = 980 * scale;
@@ -23,7 +25,7 @@ export function updateCanvasScale(){
   canvas.style.width = displayWidth + 'px';
   canvas.style.height = displayHeight + 'px';
   const dpr = window.devicePixelRatio || 1;
-  const scaledDpr = (dpr > 1 && scale < 1) ? Math.min(dpr, 2) : 1;
+  const scaledDpr = dpr > 1 && scale < 1 ? Math.min(dpr, 2) : 1;
   canvas.width = 980 * scaledDpr;
   canvas.height = baseH * scaledDpr;
   ctx.setTransform(scaledDpr, 0, 0, scaledDpr, 0, 0);
@@ -34,48 +36,60 @@ export function updateCanvasScale(){
   canvasOffsetY = newRect.top;
 }
 
-export function getCanvasCoordinates(clientX, clientY){
+export function getCanvasCoordinates(clientX, clientY) {
   return {
-    x:(clientX - canvasOffsetX)/scale,
-    y:(clientY - canvasOffsetY)/scale
+    x: (clientX - canvasOffsetX) / scale,
+    y: (clientY - canvasOffsetY) / scale,
   };
 }
 
-export function clear(){ ctx.clearRect(0,0,W,H); }
-
-export function roundedRect(x,y,w,h,r,fillStyle,border){
-  ctx.beginPath();
-  ctx.moveTo(x+r,y);
-  ctx.arcTo(x+w,y,x+w,y+h,r);
-  ctx.arcTo(x+w,y+h,x,y+h,r);
-  ctx.arcTo(x,y+h,x,y,r);
-  ctx.arcTo(x,y,x+w,y,r);
-  ctx.closePath();
-  if(fillStyle){ ctx.fillStyle=fillStyle; ctx.fill(); }
-  if(border){ ctx.strokeStyle=border; ctx.lineWidth=2; ctx.stroke(); }
+export function clear() {
+  ctx.clearRect(0, 0, W, H);
 }
 
-export function drawText(txt,x,y,opts={}){
-  ctx.textAlign = opts.align||'left';
-  ctx.textBaseline = opts.base||'alphabetic';
+export function roundedRect(x, y, w, h, r, fillStyle, border) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  if (fillStyle) {
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+  }
+  if (border) {
+    ctx.strokeStyle = border;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+export function drawText(txt, x, y, opts = {}) {
+  ctx.textAlign = opts.align || 'left';
+  ctx.textBaseline = opts.base || 'alphabetic';
   const baseFontSize = parseInt(opts.font) || 16;
   const isMobile = scale < 0.7;
   const minSize = isMobile ? 14 : 12;
-  const scaleFactor = isMobile ? Math.min(2, 0.9/scale) : Math.min(1.3, scale + 0.3);
+  const scaleFactor = isMobile ? Math.min(2, 0.9 / scale) : Math.min(1.3, scale + 0.3);
   const scaledSize = Math.max(minSize, baseFontSize * scaleFactor);
-  const fontFamily = opts.font ? opts.font.replace(/\d+px/, scaledSize + 'px') : `${scaledSize}px system-ui`;
+  const fontFamily = opts.font
+    ? opts.font.replace(/\d+px/, scaledSize + 'px')
+    : `${scaledSize}px system-ui`;
   ctx.font = fontFamily;
-  ctx.fillStyle = opts.color||'#e9eef5';
+  ctx.fillStyle = opts.color || '#e9eef5';
   // The Canvas 2D API doesn't expose text rendering hints; use CSS
   // (e.g., canvas.style.textRendering) if optimization is needed.
-  ctx.fillText(txt,x,y);
+  ctx.fillText(txt, x, y);
 }
 
-export function drawBadge(txt,x,y,color){
-  ctx.font='12px system-ui';
-  const pad=6; const w=ctx.measureText(txt).width+pad*2;
-  roundedRect(x,y-14,w,18,9,color);
-  drawText(txt,x+pad,y+2,{font:'12px system-ui',color:'#fff'});
+export function drawBadge(txt, x, y, color) {
+  ctx.font = '12px system-ui';
+  const pad = 6;
+  const w = ctx.measureText(txt).width + pad * 2;
+  roundedRect(x, y - 14, w, 18, 9, color);
+  drawText(txt, x + pad, y + 2, { font: '12px system-ui', color: '#fff' });
 }
 
 let bursts = [];
@@ -105,7 +119,7 @@ function stepConfetti() {
   }
 }
 
-export function confetti(y){
+export function confetti(y) {
   const state = getState();
   for (let i = 0; i < 14; i += 1) {
     bursts.push({
@@ -119,7 +133,7 @@ export function confetti(y){
   scheduleConfettiFrame();
 }
 
-export function renderConfetti(){
+export function renderConfetti() {
   if (!bursts.length) return false;
   let writeIndex = 0;
   for (let i = 0; i < bursts.length; i += 1) {

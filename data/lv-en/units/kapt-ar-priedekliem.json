@@ -6,72 +6,48 @@
         "lv": "kāpt",
         "en": "to climb, step"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "iekāpt",
         "en": "to get in (vehicle)"
       },
-      "tags": [
-        "prefix:ie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "izkāpt",
         "en": "to get out/off"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "uzkāpt",
         "en": "to climb up"
       },
-      "tags": [
-        "prefix:uz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:uz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "nokāpt",
         "en": "to climb down"
       },
-      "tags": [
-        "prefix:no"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:no"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pārkāpt",
         "en": "to step over; to violate"
       },
-      "tags": [
-        "prefix:pār"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pār"],
+      "games": ["match"]
     }
   ]
 }

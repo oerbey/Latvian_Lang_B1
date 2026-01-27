@@ -2,8 +2,11 @@
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-<!-- CSP allows inline styles for existing inline snippets -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
+    <!-- CSP allows inline styles for existing inline snippets -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#0e0f13" />
     <title>Maini vai mainies? — Latvian B1</title>
@@ -11,31 +14,61 @@
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/maini-vai-mainies/styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom" role="banner" data-site-nav></nav>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
 
     <main id="main" class="container py-4 mt-5">
       <header class="mb-4 text-center text-md-start">
         <h1 class="h4 mb-2" id="mvmTitle">Maini vai mainies?</h1>
-        <p class="text-secondary mb-0" id="mvmInstructions">Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss).</p>
+        <p class="text-secondary mb-0" id="mvmInstructions">
+          Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss).
+        </p>
       </header>
 
       <section class="mvm-wrapper card" id="mvmGame" aria-live="off">
         <div class="card-body">
           <div class="mvm-top d-flex flex-column flex-md-row align-items-center gap-3">
             <div class="mvm-avatar">
-              <img id="mvmAvatar" src="assets/img/maini-vai-mainies/avatars/avatar-neutral.svg" alt="Avatar" loading="lazy" />
+              <img
+                id="mvmAvatar"
+                src="assets/img/maini-vai-mainies/avatars/avatar-neutral.svg"
+                alt="Avatar"
+                loading="lazy"
+              />
             </div>
             <div class="mvm-content flex-grow-1 w-100">
               <p class="mvm-sentence h5 text-center text-md-start" id="mvmSentence">–</p>
               <div class="mvm-buttons d-grid gap-3 mt-3">
-                <button type="button" class="btn btn-lg btn-outline-primary mvm-choice" id="mvmChoiceA" data-choice="0">Option A</button>
-                <button type="button" class="btn btn-lg btn-outline-primary mvm-choice" id="mvmChoiceB" data-choice="1">Option B</button>
+                <button
+                  type="button"
+                  class="btn btn-lg btn-outline-primary mvm-choice"
+                  id="mvmChoiceA"
+                  data-choice="0"
+                >
+                  Option A
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-lg btn-outline-primary mvm-choice"
+                  id="mvmChoiceB"
+                  data-choice="1"
+                >
+                  Option B
+                </button>
               </div>
             </div>
           </div>
@@ -45,8 +78,12 @@
         </div>
         <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-3">
           <div class="mvm-metrics d-flex flex-wrap gap-3">
-            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmScore">score 0</span>
-            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmStreak">streak 0</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmScore"
+              >score 0</span
+            >
+            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmStreak"
+              >streak 0</span
+            >
           </div>
           <div class="ms-auto d-flex gap-2">
             <button class="btn btn-outline-secondary" id="mvmStart">Start</button>
@@ -58,7 +95,11 @@
 
     <footer class="border-top py-4 bg-body-tertiary mt-4" data-site-footer></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="theme.js"></script>
     <script type="module" src="scripts/nav.js"></script>
     <script type="module" src="scripts/page-init.js"></script>

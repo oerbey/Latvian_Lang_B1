@@ -19,7 +19,7 @@ export function buildRounds(items) {
         item,
         gram,
         ending,
-        fullForm: buildFullForm(item.stem, ending)
+        fullForm: buildFullForm(item.stem, ending),
       });
     }
   }
@@ -36,9 +36,9 @@ export function buildOptions(round, items) {
       }
     }
   }
-  const choices = [...values].filter(v => v != null);
+  const choices = [...values].filter((v) => v != null);
   const correct = round.ending;
-  const filtered = shuffle(choices.filter(v => v !== correct));
+  const filtered = shuffle(choices.filter((v) => v !== correct));
   const needed = Math.max(0, 3 - filtered.length);
   if (needed > 0) {
     const global = shuffle(collectGlobalEndings(items, correct));
@@ -50,7 +50,7 @@ export function buildOptions(round, items) {
 
 function collectGlobalEndings(items, skip) {
   const vals = new Set();
-  const tables = items.map(item => getTable(item.pos, item.schema)).filter(Boolean);
+  const tables = items.map((item) => getTable(item.pos, item.schema)).filter(Boolean);
   for (const table of tables) {
     for (const entry of Object.values(table)) {
       for (const val of Object.values(entry)) {

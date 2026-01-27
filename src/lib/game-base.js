@@ -24,7 +24,7 @@ export function createGameBase(options = {}) {
       }
 
       if (typeof mount === 'function') {
-        cleanupFn = await mount({ strings, data }) || cleanupFn;
+        cleanupFn = (await mount({ strings, data })) || cleanupFn;
       }
 
       started = true;

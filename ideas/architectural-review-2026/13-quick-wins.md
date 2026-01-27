@@ -8,6 +8,7 @@
 ## 🎯 Selection Criteria
 
 Quick wins are improvements that:
+
 - Can be implemented in < 4 hours
 - Require minimal testing
 - Have low risk of regressions
@@ -18,11 +19,13 @@ Quick wins are improvements that:
 ## 🏃 Ready to Implement
 
 ### 1. Fix Duplicate `loadJSON` Declaration
+
 **Effort:** 5 minutes  
 **Impact:** Prevents silent bugs  
 **Location:** `src/games/travel-tracker/index.js:172-177`
 
 **Change:** Rename local function to avoid shadowing import
+
 ```javascript
 // Before
 async function loadJSON(path) { ... }
@@ -34,11 +37,13 @@ async function fetchGameData(path) { ... }
 ---
 
 ### 2. Add PWA Icons to Manifest
+
 **Effort:** 30 minutes  
 **Impact:** Enables PWA installation  
 **Location:** `manifest.json`
 
 **Steps:**
+
 1. Create app icon (512x512 PNG)
 2. Use tool to generate all sizes: https://realfavicongenerator.net/
 3. Add icons array to `manifest.json`
@@ -47,15 +52,14 @@ async function fetchGameData(path) { ... }
 ---
 
 ### 3. Add Skip Link
+
 **Effort:** 15 minutes  
 **Impact:** Accessibility improvement  
 **Location:** All HTML files
 
 ```html
 <!-- Add after <body> -->
-<a href="#main" class="skip-link visually-hidden-focusable">
-  Skip to main content
-</a>
+<a href="#main" class="skip-link visually-hidden-focusable"> Skip to main content </a>
 ```
 
 ```css
@@ -76,6 +80,7 @@ async function fetchGameData(path) { ... }
 ---
 
 ### 4. Add Format Script to package.json
+
 **Effort:** 5 minutes  
 **Impact:** Consistent code formatting  
 **Location:** `package.json`
@@ -92,6 +97,7 @@ async function fetchGameData(path) { ... }
 ---
 
 ### 5. Add Offline Indicator
+
 **Effort:** 20 minutes  
 **Impact:** Better UX when offline  
 **Location:** `scripts/page-init.js`
@@ -127,11 +133,13 @@ body.offline::before {
 ---
 
 ### 6. Fix Footer Year Auto-Update
+
 **Effort:** 5 minutes  
 **Impact:** Removes hardcoded year  
 **Status:** Already implemented ✓
 
 Verify in `index.html:103`:
+
 ```javascript
 document.getElementById('year').textContent = new Date().getFullYear();
 ```
@@ -139,16 +147,14 @@ document.getElementById('year').textContent = new Date().getFullYear();
 ---
 
 ### 7. Add Basic Console Welcome Message
+
 **Effort:** 10 minutes  
 **Impact:** Developer experience  
 **Location:** `scripts/page-init.js`
 
 ```javascript
 if (typeof console !== 'undefined') {
-  console.log(
-    '%c🇱🇻 Latvian B1 Games',
-    'font-size: 20px; font-weight: bold; color: #9e1b34;'
-  );
+  console.log('%c🇱🇻 Latvian B1 Games', 'font-size: 20px; font-weight: bold; color: #9e1b34;');
   console.log('Learn more: https://github.com/oerbey/Latvian_Lang_B1');
 }
 ```
@@ -156,11 +162,13 @@ if (typeof console !== 'undefined') {
 ---
 
 ### 8. Add Service Worker Update Notification
+
 **Effort:** 30 minutes  
 **Impact:** Users get latest code  
 **Location:** `scripts/page-init.js` (partially exists)
 
 **Verify** the update prompt in `page-init.js:82-100` is working:
+
 ```javascript
 function showUpdatePrompt(registration) {
   if (!registration?.waiting) return;
@@ -171,6 +179,7 @@ function showUpdatePrompt(registration) {
 ---
 
 ### 9. Add Game Loading States
+
 **Effort:** 30 minutes  
 **Impact:** Better perceived performance  
 **Location:** Each game HTML
@@ -192,30 +201,34 @@ document.getElementById('game-loading')?.remove();
 ---
 
 ### 10. Add noopener to External Links
+
 **Effort:** 10 minutes  
 **Impact:** Security improvement  
 **Location:** All HTML files
 
 Search for `target="_blank"` and ensure `rel="noopener noreferrer"`:
+
 ```html
-<a href="https://github.com/..." target="_blank" rel="noopener noreferrer">
+<a href="https://github.com/..." target="_blank" rel="noopener noreferrer"></a>
 ```
 
 ---
 
 ### 11. Add Favicon for Each Theme
+
 **Effort:** 20 minutes  
 **Impact:** Better branding  
 **Location:** HTML head
 
 ```html
-<link rel="icon" href="favicon.ico" media="(prefers-color-scheme: light)">
-<link rel="icon" href="favicon-dark.ico" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.ico" media="(prefers-color-scheme: light)" />
+<link rel="icon" href="favicon-dark.ico" media="(prefers-color-scheme: dark)" />
 ```
 
 ---
 
 ### 12. Enable Test Coverage in CI
+
 **Effort:** 5 minutes  
 **Impact:** Visibility into test quality  
 **Location:** `.github/workflows/test.yml`
@@ -228,6 +241,7 @@ Search for `target="_blank"` and ensure `rel="noopener noreferrer"`:
 ---
 
 ### 13. Add .nvmrc Verification
+
 **Effort:** 5 minutes  
 **Impact:** Consistent Node version  
 **Status:** Already exists ✓
@@ -237,6 +251,7 @@ Verify `.nvmrc` contains appropriate version (e.g., `20`).
 ---
 
 ### 14. Document Storage Keys
+
 **Effort:** 15 minutes  
 **Impact:** Developer understanding  
 **Location:** `src/lib/storage.js` (partially done)
@@ -247,22 +262,22 @@ Expand the comment block at lines 6-17 to be comprehensive.
 
 ## 📋 Implementation Checklist
 
-| # | Quick Win | Effort | Done |
-|---|-----------|--------|------|
-| 1 | Fix duplicate loadJSON | 5 min | ☐ |
-| 2 | Add PWA icons | 30 min | ☐ |
-| 3 | Add skip link | 15 min | ☐ |
-| 4 | Add format script | 5 min | ☐ |
-| 5 | Add offline indicator | 20 min | ☐ |
-| 6 | Verify footer year | 5 min | ☐ |
-| 7 | Add console welcome | 10 min | ☐ |
-| 8 | Verify SW update prompt | 30 min | ☐ |
-| 9 | Add loading states | 30 min | ☐ |
-| 10 | Add noopener to links | 10 min | ☐ |
-| 11 | Add theme favicon | 20 min | ☐ |
-| 12 | Enable test coverage | 5 min | ☐ |
-| 13 | Verify .nvmrc | 5 min | ☐ |
-| 14 | Document storage keys | 15 min | ☐ |
+| #   | Quick Win               | Effort | Done |
+| --- | ----------------------- | ------ | ---- |
+| 1   | Fix duplicate loadJSON  | 5 min  | ☐    |
+| 2   | Add PWA icons           | 30 min | ☐    |
+| 3   | Add skip link           | 15 min | ☐    |
+| 4   | Add format script       | 5 min  | ☐    |
+| 5   | Add offline indicator   | 20 min | ☐    |
+| 6   | Verify footer year      | 5 min  | ☐    |
+| 7   | Add console welcome     | 10 min | ☐    |
+| 8   | Verify SW update prompt | 30 min | ☐    |
+| 9   | Add loading states      | 30 min | ☐    |
+| 10  | Add noopener to links   | 10 min | ☐    |
+| 11  | Add theme favicon       | 20 min | ☐    |
+| 12  | Enable test coverage    | 5 min  | ☐    |
+| 13  | Verify .nvmrc           | 5 min  | ☐    |
+| 14  | Document storage keys   | 15 min | ☐    |
 
 **Total estimated time:** ~3.5 hours
 
@@ -281,4 +296,3 @@ Expand the comment block at lines 6-17 to be comprehensive.
 
 - [Executive Summary](./01-executive-summary.md)
 - [Platform & Tooling](./07-platform-and-tooling.md)
-

@@ -8,11 +8,12 @@ This document covers architectural improvements, design patterns, and structural
 
 **Priority**: High  
 **Category**: Architecture, Code Reuse  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
 Each game implements its own:
+
 - State management
 - Rendering loop
 - Event handling
@@ -23,22 +24,33 @@ Each game implements its own:
 ```javascript
 // travel-tracker/index.js
 const state = {
-  levels: [], levelIndex: 0, routeIndex: 0,
-  score: 0, streak: 0, started: false,
+  levels: [],
+  levelIndex: 0,
+  routeIndex: 0,
+  score: 0,
+  streak: 0,
+  started: false,
   // ...
 };
 
 // duty-dispatcher/index.js
 const state = {
-  strings: {}, roles: [], tasks: [],
-  score: 0, streak: 0, started: false,
+  strings: {},
+  roles: [],
+  tasks: [],
+  score: 0,
+  streak: 0,
+  started: false,
   // ...
 };
 
 // endings-builder/index.js
 let state = {
-  current: null, solved: false, attempts: 0,
-  correct: 0, streak: 0,
+  current: null,
+  solved: false,
+  attempts: 0,
+  correct: 0,
+  streak: 0,
   // ...
 };
 ```
@@ -87,7 +99,9 @@ export class BaseGame {
           this.strings = await res.json();
           return;
         }
-      } catch (e) { /* try next */ }
+      } catch (e) {
+        /* try next */
+      }
     }
     this.strings = this.defaultStrings();
   }
@@ -107,11 +121,14 @@ export class BaseGame {
 
   saveProgress() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify({
-        score: this.state.score,
-        streak: this.state.streak,
-        lastPlayed: new Date().toISOString(),
-      }));
+      localStorage.setItem(
+        this.storageKey,
+        JSON.stringify({
+          score: this.state.score,
+          streak: this.state.streak,
+          lastPlayed: new Date().toISOString(),
+        }),
+      );
     } catch (e) {
       console.warn(`Failed to save progress for ${this.name}`, e);
     }
@@ -132,14 +149,23 @@ export class BaseGame {
   }
 
   // Abstract methods to be implemented by subclasses
-  defaultStrings() { throw new Error('Implement defaultStrings()'); }
-  bindEvents() { throw new Error('Implement bindEvents()'); }
-  render() { throw new Error('Implement render()'); }
-  updateScoreDisplay() { throw new Error('Implement updateScoreDisplay()'); }
+  defaultStrings() {
+    throw new Error('Implement defaultStrings()');
+  }
+  bindEvents() {
+    throw new Error('Implement bindEvents()');
+  }
+  render() {
+    throw new Error('Implement render()');
+  }
+  updateScoreDisplay() {
+    throw new Error('Implement updateScoreDisplay()');
+  }
 }
 ```
 
 **Usage:**
+
 ```javascript
 // src/games/duty-dispatcher/game.js
 import { BaseGame } from '../../lib/game-engine/base-game.js';
@@ -166,6 +192,7 @@ export class DutyDispatcherGame extends BaseGame {
 ```
 
 ### Impact
+
 - ~50% reduction in boilerplate code per game
 - Consistent behavior and UX across all games
 - Single place to fix common bugs
@@ -178,7 +205,7 @@ export class DutyDispatcherGame extends BaseGame {
 
 **Priority**: High  
 **Category**: Architecture, Separation of Concerns  
-**Effort**: Large  
+**Effort**: Large
 
 ### Current State
 
@@ -187,20 +214,23 @@ Game logic and rendering are intertwined:
 ```javascript
 // src/lib/match.js - drawMatch() mixes rendering with state management
 function drawColumn(items, x, side) {
-  for(let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     const it = items[i];
     // Rendering
     roundedRect(x, y, boxW, boxH, 12, color, border);
-    drawText(it.txt, x + 16, y + boxH / 2 + 7, { /* ... */ });
-    
+    drawText(it.txt, x + 16, y + boxH / 2 + 7, {
+      /* ... */
+    });
+
     // Event handling and state management
-    const handler = () => handleSelection(side, it, y + boxH/2);
-    clickables.push({x, y, w: boxW, h: boxH, onClick: handler});
-    
+    const handler = () => handleSelection(side, it, y + boxH / 2);
+    clickables.push({ x, y, w: boxW, h: boxH, onClick: handler });
+
     // Accessibility DOM manipulation
     const li = document.createElement('li');
     btn.addEventListener('click', () => handleSelection(side, it));
-    li.appendChild(btn); srList.appendChild(li);
+    li.appendChild(btn);
+    srList.appendChild(li);
   }
 }
 ```
@@ -232,7 +262,7 @@ export class MatchModel {
 
   select(side, key) {
     if (this.solved.has(key)) return { type: 'already_solved' };
-    
+
     if (!this.selected) {
       this.selected = { side, key };
       return { type: 'selected', side, key };
@@ -251,10 +281,10 @@ export class MatchModel {
       this.solved.add(expected);
       this.correct++;
       this.selected = null;
-      return { 
-        type: 'correct', 
+      return {
+        type: 'correct',
         key: expected,
-        isComplete: this.correct === this.total 
+        isComplete: this.correct === this.total,
       };
     }
 
@@ -302,7 +332,7 @@ export class MatchController {
     if (!hit) return;
 
     const result = this.model.select(hit.side, hit.key);
-    
+
     switch (result.type) {
       case 'correct':
         this.playCorrectFeedback();
@@ -312,13 +342,14 @@ export class MatchController {
         this.playIncorrectFeedback();
         break;
     }
-    
+
     this.view.render();
   }
 }
 ```
 
 ### Impact
+
 - Logic can be unit tested without DOM
 - View can be swapped (Canvas, DOM, SVG)
 - Clear separation of concerns
@@ -330,7 +361,7 @@ export class MatchController {
 
 **Priority**: Medium  
 **Category**: Architecture, Testability  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -362,7 +393,7 @@ Use dependency injection pattern:
 // src/lib/match.js - Accept dependencies as parameters
 export function createMatchGame(deps) {
   const { state, renderer, storage, rng } = deps;
-  
+
   function buildDeck() {
     return state.getData().units.flatMap((u) => u.entries || []);
   }
@@ -400,6 +431,7 @@ const testGame = createMatchGame({
 ```
 
 ### Impact
+
 - Highly testable code
 - Swappable implementations
 - Explicit dependencies
@@ -411,7 +443,7 @@ const testGame = createMatchGame({
 
 **Priority**: Medium  
 **Category**: Architecture, Maintainability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -423,7 +455,7 @@ const STORAGE_KEY = 'llb1:travel-tracker:progress';
 const MAP_PATH = 'assets/img/travel-tracker/latvia.svg';
 const BUS_ANIMATION_MS = 1100;
 
-// duty-dispatcher/index.js  
+// duty-dispatcher/index.js
 const ROLES_PATH = 'data/duty-dispatcher/roles.json';
 const TASKS_PATH = 'data/duty-dispatcher/tasks.json';
 const STORAGE_KEY = 'llb1:duty-dispatcher:progress';
@@ -503,6 +535,7 @@ export function getStorageKey(game) {
 ```
 
 ### Impact
+
 - Single source of truth for configuration
 - Easy to adjust settings
 - Environment-specific overrides
@@ -514,7 +547,7 @@ export function getStorageKey(game) {
 
 **Priority**: Medium  
 **Category**: Architecture, Performance  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -567,6 +600,7 @@ const isDev = location.hostname === 'localhost' || location.hostname === '127.0.
 ```
 
 **Package.json scripts:**
+
 ```json
 {
   "scripts": {
@@ -578,6 +612,7 @@ const isDev = location.hostname === 'localhost' || location.hostname === '127.0.
 ```
 
 ### Impact
+
 - ~60% reduction in bundle size
 - Faster page loads
 - Dead code elimination
@@ -589,7 +624,7 @@ const isDev = location.hostname === 'localhost' || location.hostname === '127.0.
 
 **Priority**: Low  
 **Category**: Architecture, Organization  
-**Effort**: Medium  
+**Effort**: Medium
 
 ### Current State
 
@@ -655,6 +690,7 @@ Reorganize for clarity:
 ```
 
 ### Impact
+
 - Clear separation between framework and games
 - Easier navigation for new developers
 - Scalable structure for growth
@@ -664,11 +700,11 @@ Reorganize for clarity:
 
 ## Summary Table
 
-| Issue | Priority | Effort | Category |
-|-------|----------|--------|----------|
-| No Shared Game Engine | High | Large | Code Reuse |
-| Tight Coupling (Render/Logic) | High | Large | Separation of Concerns |
-| No Dependency Injection | Medium | Medium | Testability |
-| No Configuration Management | Medium | Small | Maintainability |
-| No Module Bundling | Medium | Medium | Performance |
-| Folder Structure | Low | Medium | Organization |
+| Issue                         | Priority | Effort | Category               |
+| ----------------------------- | -------- | ------ | ---------------------- |
+| No Shared Game Engine         | High     | Large  | Code Reuse             |
+| Tight Coupling (Render/Logic) | High     | Large  | Separation of Concerns |
+| No Dependency Injection       | Medium   | Medium | Testability            |
+| No Configuration Management   | Medium   | Small  | Maintainability        |
+| No Module Bundling            | Medium   | Medium | Performance            |
+| Folder Structure              | Low      | Medium | Organization           |

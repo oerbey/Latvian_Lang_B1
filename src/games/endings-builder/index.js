@@ -5,7 +5,14 @@ import { hideLoading, showLoading } from '../../lib/loading.js';
 import { loadItems, loadStrings } from './data.js';
 import { loadProgress, loadStrict, saveProgress, saveStrict } from './progress.js';
 import { buildOptions, buildRounds } from './rounds.js';
-import { applyStrings, insertChar, renderRound, renderExplanation, setFeedback, setupKeypad } from './ui.js';
+import {
+  applyStrings,
+  insertChar,
+  renderRound,
+  renderExplanation,
+  setFeedback,
+  setupKeypad,
+} from './ui.js';
 import { createHandlers } from './handlers.js';
 
 const LETTERS = ['ā', 'ē', 'ī', 'ū', 'č', 'ģ', 'ķ', 'ļ', 'ņ', 'š', 'ž'];
@@ -63,7 +70,7 @@ async function init() {
       attempts: 0,
       correct: 0,
       streak: 0,
-      lastAttemptKey: null
+      lastAttemptKey: null,
     };
 
     shell = mountGameShell({
@@ -72,7 +79,7 @@ async function init() {
       onCheck: () => handlers?.checkTyped(),
       onNext: () => handlers?.nextRound(),
       onToggleRule: () => handlers?.toggleRule(),
-      onStrictChange: val => setStrict(val)
+      onStrictChange: (val) => setStrict(val),
     });
 
     strict = loadStrict();
@@ -89,8 +96,20 @@ async function init() {
       getStrict: () => strict,
       saveProgress: () => saveProgress(progress),
       buildOptions: (round) => buildOptions(round, items),
-      renderRound: ({ round, elements: roundElements, strings: roundStrings, buildOptions, onDrop }) =>
-        renderRound({ round, elements: roundElements, strings: roundStrings, buildOptions, onDrop }),
+      renderRound: ({
+        round,
+        elements: roundElements,
+        strings: roundStrings,
+        buildOptions,
+        onDrop,
+      }) =>
+        renderRound({
+          round,
+          elements: roundElements,
+          strings: roundStrings,
+          buildOptions,
+          onDrop,
+        }),
       renderExplanation: ({ round, strings: roundStrings, explainEl, shell: roundShell }) =>
         renderExplanation({ round, strings: roundStrings, explainEl, shell: roundShell }),
       setFeedback: (icon, text) => setFeedback(elements.feedbackEl, icon, text),

@@ -15,24 +15,25 @@ A comprehensive browser-based collection of interactive educational games and to
 ## 🎯 Games & Activities
 
 ### Main Canvas Games (`index.html`)
+
 - **Match Mode**: Pair Latvian vocabulary with translations, track accuracy/time/streak, keyboard-navigable
 - **Forge Mode**: Quiz on verb prefixes with dynamic distractors and hint system
 
 ### Specialized Game Modules
 
-| Game | Entry Point | Description |
-|------|-------------|-------------|
-| **Darbības Vārds** | `darbibas-vards.html` | Dual-column vocabulary card matcher with optional speech synthesis |
-| **Conjugation Sprint** | `conjugation-sprint.html` | Timed multiple-choice quiz for verb conjugation across tenses and persons |
-| **Endings Builder** | `endings-builder.html` | Drag-and-drop morphology trainer with strict diacritics mode and progress tracking |
-| **Passive Lab** | `passive-lab.html` | Grammar exercises focused on passive voice (ciešamā kārta) |
-| **Kas ir manā mājā?** | `decl6-detective.html` | Detective game for locative case (6th declension) usage |
-| **Travel Tracker** | `travel-tracker.html` | Interactive map-based game with route/location vocabulary |
-| **Maini vai mainies?** | `maini-vai-mainies.html` | Active vs. passive voice discrimination game |
-| **Kas jādara kam?** | `duty-dispatcher.html` | Dative case practice through role assignment scenarios |
-| **Rakstura īpašības — pāri** | `rakstura-ipasibas-match.html` | Character trait matching game |
-| **Rakstura īpašības** | `character-traits.html` | Character traits vocabulary builder |
-| **Week 1** | `week1.html` | Curated lesson for week 1 vocabulary and concepts |
+| Game                         | Entry Point                    | Description                                                                        |
+| ---------------------------- | ------------------------------ | ---------------------------------------------------------------------------------- |
+| **Darbības Vārds**           | `darbibas-vards.html`          | Dual-column vocabulary card matcher with optional speech synthesis                 |
+| **Conjugation Sprint**       | `conjugation-sprint.html`      | Timed multiple-choice quiz for verb conjugation across tenses and persons          |
+| **Endings Builder**          | `endings-builder.html`         | Drag-and-drop morphology trainer with strict diacritics mode and progress tracking |
+| **Passive Lab**              | `passive-lab.html`             | Grammar exercises focused on passive voice (ciešamā kārta)                         |
+| **Kas ir manā mājā?**        | `decl6-detective.html`         | Detective game for locative case (6th declension) usage                            |
+| **Travel Tracker**           | `travel-tracker.html`          | Interactive map-based game with route/location vocabulary                          |
+| **Maini vai mainies?**       | `maini-vai-mainies.html`       | Active vs. passive voice discrimination game                                       |
+| **Kas jādara kam?**          | `duty-dispatcher.html`         | Dative case practice through role assignment scenarios                             |
+| **Rakstura īpašības — pāri** | `rakstura-ipasibas-match.html` | Character trait matching game                                                      |
+| **Rakstura īpašības**        | `character-traits.html`        | Character traits vocabulary builder                                                |
+| **Week 1**                   | `week1.html`                   | Curated lesson for week 1 vocabulary and concepts                                  |
 
 ## 🏗️ Project Structure
 
@@ -141,6 +142,7 @@ A comprehensive browser-based collection of interactive educational games and to
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - **Node.js 18+** (for build tooling and tests)
 - **Python 3** (optional, for data regeneration)
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -159,24 +161,28 @@ npm install
 ### Running Locally
 
 **Option 1: Using npm start (recommended)**
+
 ```bash
 npm run start
 # Open http://localhost:5173
 ```
 
 **Option 2: Using Python's built-in server**
+
 ```bash
 python3 -m http.server 8000
 # Open http://localhost:8000/index.html
 ```
 
 **Option 3: Using Node's http-server**
+
 ```bash
 npx http-server .
 # Open http://localhost:8080
 ```
 
 **Option 4: Using serve package**
+
 ```bash
 npm install -g serve
 serve .
@@ -186,6 +192,7 @@ serve .
 ## 🛠️ Development
 
 ### Development Commands
+
 ```bash
 npm install
 npm run start
@@ -258,6 +265,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 ## 📊 Data Management
 
 ### Vocabulary Data (`data/words.json`)
+
 - **Source**: Excel spreadsheet converted via `npm run build:data`
 - **Structure**: Array of word objects with `lv`, `en`, `ru`, optional `tag`, and optional `conj` tables
 - **Generated from**: `scripts/xlsx_to_json.mjs`
@@ -265,22 +273,26 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 - **Offline fallback**: `data/words.offline.js`
 
 ### Personality Traits Data (`data/personality/words.csv`)
+
 - **Source**: CSV vocabulary list
 - **Build step**: Run `npm run build:personality` after editing `data/personality/words.csv`
 - **Output**: `data/personality/words.json` used at runtime
 
 ### Verb Inflections (`data/legacy/verbs_conjugated.json`)
+
 - **Optional enrichment** from Tezaurs API
 - **Generated by**: `scripts/legacy/Latvian_Verb_Filler.py`
 - **Requires**: Python 3 + `requests` package
 
 ### Game-Specific Data
+
 - **Endings Builder**: `data/endings-builder/tables.json` (morphology rules), `data/endings-builder/items.json` (exercises)
 - **Travel Tracker**: `data/travel-tracker/routes.json` (map locations)
 - **Duty Dispatcher**: `data/duty-dispatcher/roles.json`, `data/duty-dispatcher/tasks.json`
 - **Decl6 Detective**: `data/decl6-detective/items.json`
 
 ### Offline Data
+
 - Treat generated files like `words.offline.js` as build artifacts
 - Regenerate bundles with `npm run build:offline` after data changes (writes `i18n/offline.js`, `data/week1.offline.js`, `data/endings-builder/offline.js`)
 
@@ -289,6 +301,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 ### Adding a New Language
 
 1. **Create translation file**: `i18n/[language-code].json`
+
    ```json
    {
      "nav.match": "Match",
@@ -305,6 +318,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 4. **Update language selector**: Modify HTML language option lists
 
 ### Language Files Included
+
 - **Latvian** (`i18n/lv.json`)
 - **English** (`i18n/en.json`)
 - **Russian** (`i18n/ru.json`)
@@ -312,6 +326,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 ## 📱 Progressive Web App
 
 ### Features
+
 - **Offline Support**: Core pages and assets cached via service worker
 - **Installable**: Add to home screen on mobile/desktop
 - **Network Strategy**:
@@ -320,6 +335,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
   - HTML pages: Network-first
 
 ### Service Worker
+
 - **File**: `sw.js`
 - **Cache Version**: Update `CACHE_VERSION` when adding/changing assets
 - **Precached Assets**: Defined in `CORE_ASSETS` array
@@ -327,6 +343,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 - **Updates**: Users see an “Update available” prompt and can reload to activate a new worker
 
 ### Manifest
+
 - **File**: `manifest.json`
 - **PWA Metadata**: Name, icons, theme color, display mode
 - **To Ship**: Populate icons array with actual icon assets
@@ -334,6 +351,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 ## 🎨 Theming & Styling
 
 ### Global Design Tokens (`styles.css`)
+
 - `--bg`: Background color
 - `--surface`: Surface/card backgrounds
 - `--text`: Primary text color
@@ -344,18 +362,21 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 - `--hover`, `--disabled`: State modifiers
 
 ### Theme Toggle
+
 - **File**: `theme.js`
 - **Storage**: `localStorage` persistence
 - **System Preference**: Respects `prefers-color-scheme` media query
 - **Meta Tag Sync**: Updates `<meta name="theme-color">` for browser chrome
 
 ### Responsive Breakpoints
+
 - **Mobile**: 320px (iPhone SE), 360px (Android), 375px (iPhone 6/7/8)
 - **Tablet**: 390px, 412px (Android phones), 414px (iPhone Plus), 430px (modern phones)
 - **Tablet Portrait**: 768px (iPad)
 - **Desktop**: 1024px+
 
 **Travel Tracker Specific Breakpoints**:
+
 - Safe-area handling for notch/home indicator (iPhone X+)
 - Clamp-based responsive heights for maps
 - Touch target minimum: 44–48px
@@ -363,6 +384,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 ## ♿ Accessibility
 
 ### Screen Reader Support
+
 - Canvas game mirrors interactions into screen-reader-only `<ul>` with `<button>` elements
 - `aria-live` regions for game status updates
 
@@ -374,11 +396,13 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 - ARIA labels on all interactive controls
 
 ### Keyboard Navigation
+
 - Tab order managed; all controls reachable via keyboard
 - Canvas games support arrow keys and Enter for selection
 - Focus outlines visible in light and dark modes
 
 ### Mobile Accessibility
+
 - Minimum touch targets: 44–48px
 - Sufficient color contrast (WCAG AA)
 - No reliance on hover-only interactions
@@ -386,11 +410,13 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 ## 📋 Git Workflow
 
 ### Branch Strategy
+
 - **Feature branches**: `feature/<topic>` (e.g., `feature/character-traits-game`)
 - **Commit style**: Imperative subject line, optional body for context
   - Example: `Add tense selector to Conjugation Sprint`
 
 ### Pull Requests
+
 - Summarize the change
 - Include reproduction steps (for bug fixes)
 - Attach screenshots/videos for UI changes
@@ -398,6 +424,7 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 - Run `npm run lint` and `npm test` before pushing
 
 ### After Switching Branches
+
 ```bash
 git status  # Confirm sync with remote
 npm install # Update dependencies if needed
@@ -406,16 +433,19 @@ npm install # Update dependencies if needed
 ## 🚢 Deployment
 
 ### GitHub Pages
+
 1. Ensure `assetUrl()` in `app.js` resolves assets correctly relative to `document.baseURI`
 2. Push changes to `main` branch
 3. GitHub Pages will auto-deploy from the root directory
 
 ### Offline Verification
+
 1. Open DevTools → Application → Service Workers
 2. Disable network and verify cached pages load
 3. Test vocabulary loading with network throttled
 
 ### Pre-Release Checklist
+
 - [ ] Run `npm test` — all tests pass
 - [ ] Run `npm lint` — no warnings
 - [ ] Bump `CACHE_VERSION` in `sw.js` if assets changed
@@ -426,21 +456,25 @@ npm install # Update dependencies if needed
 ## 🐛 Troubleshooting
 
 ### Game Data Not Loading
+
 - **Check**: Network tab in DevTools; ensure `data/words.json` is fetched
 - **Fix**: Run `npm run build:data` if source Excel was updated
 - **Offline**: Verify `sw.js` has the file in `CORE_ASSETS`
 
 ### Translations Missing
+
 - **Check**: Console for missing i18n keys
 - **Fix**: Add missing keys to `i18n/[language].json` and game-specific files
 - **Rebuild**: Run `npm run build:offline` to update offline packs
 
 ### Service Worker Issues
+
 - **Clear Cache**: DevTools → Application → Clear storage
 - **Bump Version**: Update `CACHE_VERSION` in `sw.js`
 - **Unregister**: Open DevTools → Application → Service Workers → Unregister
 
 ### Responsive Layout Broken
+
 - **Check**: Use DevTools responsive mode at listed breakpoints (320px, 375px, 768px, etc.)
 - **Fix**: Ensure no horizontal scroll; buttons ≥44px; focus outlines visible in both themes
 - **Test**: Travel Tracker especially; check safe-area inset handling on iPhone X+

@@ -22,9 +22,9 @@ function renderNav() {
   const nav = document.querySelector('[data-site-nav]');
   if (!nav) return;
 
-  const navItems = NAV_ITEMS
-    .map(item => `<li class="nav-item"><a class="nav-link" href="${item.href}">${item.label}</a></li>`)
-    .join('');
+  const navItems = NAV_ITEMS.map(
+    (item) => `<li class="nav-item"><a class="nav-link" href="${item.href}">${item.label}</a></li>`,
+  ).join('');
 
   nav.innerHTML = `
     <div class="container">
@@ -74,7 +74,7 @@ function renderNav() {
   }
 
   const current = getCurrentPage();
-  nav.querySelectorAll('.nav-link').forEach(link => {
+  nav.querySelectorAll('.nav-link').forEach((link) => {
     const href = normalizeHref(link.getAttribute('href'));
     if (href === current) {
       link.classList.add('active');
@@ -90,13 +90,11 @@ function renderFooter() {
   const footer = document.querySelector('[data-site-footer]');
   if (!footer) return;
 
-  const links = NAV_ITEMS
-    .map((item, index) => {
-      const spacing = index < NAV_ITEMS.length - 1 ? 'me-3' : '';
-      const classes = ['link-secondary', spacing].filter(Boolean).join(' ');
-      return `<a class="${classes}" href="${item.href}">${item.label}</a>`;
-    })
-    .join('');
+  const links = NAV_ITEMS.map((item, index) => {
+    const spacing = index < NAV_ITEMS.length - 1 ? 'me-3' : '';
+    const classes = ['link-secondary', spacing].filter(Boolean).join(' ');
+    return `<a class="${classes}" href="${item.href}">${item.label}</a>`;
+  }).join('');
 
   footer.innerHTML = `
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">

@@ -33,9 +33,10 @@ export function formatPlural(locale, count, forms, fallback = '') {
   const number = Number(count);
   const safeCount = Number.isFinite(number) ? number : 0;
   const resolvedLocale = locale || getDefaultLocale();
-  const rule = typeof Intl !== 'undefined' && Intl.PluralRules
-    ? new Intl.PluralRules(resolvedLocale)
-    : { select: () => 'other' };
+  const rule =
+    typeof Intl !== 'undefined' && Intl.PluralRules
+      ? new Intl.PluralRules(resolvedLocale)
+      : { select: () => 'other' };
   const category = rule.select(safeCount);
   return forms[category] ?? forms.other ?? fallback;
 }

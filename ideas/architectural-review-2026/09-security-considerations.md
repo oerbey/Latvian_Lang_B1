@@ -7,43 +7,51 @@
 
 ## 🔍 Current Security Posture
 
-| Aspect | Status |
-|--------|--------|
-| CSP | Implemented (with `unsafe-inline`) |
-| XSS Prevention | Partial (safeHtml.js exists) |
-| Data Validation | Minimal |
-| Dependencies | Few, audited |
-| Secrets | None (client-side only) |
+| Aspect          | Status                             |
+| --------------- | ---------------------------------- |
+| CSP             | Implemented (with `unsafe-inline`) |
+| XSS Prevention  | Partial (safeHtml.js exists)       |
+| Data Validation | Minimal                            |
+| Dependencies    | Few, audited                       |
+| Secrets         | None (client-side only)            |
 
 ---
 
 ## 🔴 Critical Issues
 
 ### 1. CSP Allows `unsafe-inline`
+
 **Location:** `index.html:7`
 
 ```html
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; ...">
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; ..."
+/>
 ```
 
 **Problem:** `'unsafe-inline'` defeats much of CSP's XSS protection
 
 **Current necessity:** Inline scripts in HTML files
+
 - Footer year calculation
 - Game card generation
 - Inline event handlers
 
 **Recommendation:**
+
 1. Move inline scripts to external files
 2. Use nonce-based CSP:
+
 ```html
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-{{nonce}}'">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-{{nonce}}'" />
 <script nonce="{{nonce}}" src="scripts/inline-init.js"></script>
 ```
 
 3. Generate nonces during build or use strict-dynamic:
+
 ```html
-<meta http-equiv="Content-Security-Policy" content="script-src 'strict-dynamic' 'nonce-abc123'">
+<meta http-equiv="Content-Security-Policy" content="script-src 'strict-dynamic' 'nonce-abc123'" />
 ```
 
 ---
@@ -51,6 +59,7 @@
 ## 🟠 High Priority Issues
 
 ### 2. setTrustedHTML Usage
+
 **Location:** `src/lib/safeHtml.js`, used in `app.js:77`
 
 ```javascript
@@ -62,9 +71,11 @@ setTrustedHTML(mustId('legend'), i18n.labels.legend);
 **Current implementation:** Unknown (need to verify it sanitizes)
 
 **Recommendation:**
+
 - Verify `setTrustedHTML` uses DOMPurify or equivalent
 - Add JSDoc indicating trust boundary
 - Consider using template literals with text-only insertion:
+
 ```javascript
 // Safer: text-only insertion
 element.textContent = i18n.labels.legend;
@@ -74,6 +85,7 @@ element.innerHTML = DOMPurify.sanitize(i18n.labels.legend);
 ```
 
 ### 3. No Input Sanitization on User Answers
+
 **Locations:** Multiple game inputs
 
 ```javascript
@@ -86,17 +98,22 @@ const answer = normalizeAnswer(input.value);
 **Attack vector:** If user input is ever reflected in UI (e.g., "You typed: X"), XSS possible
 
 **Recommendation:**
+
 ```javascript
 function sanitizeUserInput(value) {
   if (typeof value !== 'string') return '';
   return value
-    .replace(/[<>'"&]/g, char => ({
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '"': '&quot;',
-      '&': '&amp;',
-    }[char]))
+    .replace(
+      /[<>'"&]/g,
+      (char) =>
+        ({
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;',
+          '&': '&amp;',
+        })[char],
+    )
     .slice(0, 1000); // Length limit
 }
 ```
@@ -106,6 +123,7 @@ function sanitizeUserInput(value) {
 ## 🟡 Medium Priority Issues
 
 ### 4. LocalStorage Data Trust
+
 **Problem:** Data from localStorage is trusted without validation
 
 **Location:** `src/lib/storage.js:65-77`
@@ -123,6 +141,7 @@ export function loadJSON(key, fallback, validate) {
 **Bad:** Not consistently used across games
 
 **Recommendation:** Enforce validation for all game progress:
+
 ```javascript
 // Centralized progress validation
 const progressSchema = {
@@ -133,8 +152,8 @@ const progressSchema = {
 
 function validateProgress(data) {
   if (!data || typeof data !== 'object') return false;
-  return Object.entries(progressSchema).every(([key, validator]) => 
-    !(key in data) || validator(data[key])
+  return Object.entries(progressSchema).every(
+    ([key, validator]) => !(key in data) || validator(data[key]),
   );
 }
 
@@ -143,16 +162,23 @@ const progress = loadJSON(STORAGE_KEY, defaultProgress, validateProgress);
 ```
 
 ### 5. External CDN Integrity
+
 **Location:** `index.html:15-17`
 
 ```html
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-..."
+  crossorigin="anonymous"
+/>
 ```
 
 **Good:** SRI (Subresource Integrity) is used
 **Verify:** Ensure all external resources have valid integrity hashes
 
 **Audit checklist:**
+
 - [ ] Bootstrap CSS: Has integrity ✓
 - [ ] Bootstrap Icons: Has integrity ✓
 - [ ] Bootstrap JS: Has integrity ✓
@@ -162,24 +188,27 @@ const progress = loadJSON(STORAGE_KEY, defaultProgress, validateProgress);
 ## 🟢 Low Priority Issues
 
 ### 6. Service Worker Scope
+
 **Location:** `sw.js`
 
 **Observation:** Service worker has broad scope, caching all assets
 
 **Recommendation:** Review cached content for sensitive data:
+
 ```javascript
 // sw.js - avoid caching dynamic/sensitive data
 const CACHE_EXCLUDE = [
-  '/api/',  // If any API calls exist
-  '/.env',  // Never cache env files
+  '/api/', // If any API calls exist
+  '/.env', // Never cache env files
 ];
 
-if (CACHE_EXCLUDE.some(path => url.pathname.startsWith(path))) {
+if (CACHE_EXCLUDE.some((path) => url.pathname.startsWith(path))) {
   return;
 }
 ```
 
 ### 7. Error Message Information Disclosure
+
 **Location:** `src/lib/errors.js`
 
 **Observation:** Error overlay shows stack traces
@@ -190,6 +219,7 @@ const details = doc.createElement('details');
 ```
 
 **Recommendation:** In production, limit error details:
+
 ```javascript
 const isProduction = location.hostname !== 'localhost';
 
@@ -204,16 +234,16 @@ if (!isProduction) {
 
 ## 🔒 Security Checklist
 
-| Check | Status | Notes |
-|-------|--------|-------|
-| CSP implemented | ⚠️ Partial | Has `unsafe-inline` |
-| XSS prevention | ⚠️ Partial | safeHtml exists, not always used |
-| SRI for CDN | ✅ Yes | Bootstrap resources verified |
-| Input validation | ⚠️ Partial | Normalization exists, sanitization missing |
-| Storage validation | ⚠️ Partial | Validate function available, not enforced |
-| HTTPS only | ✅ Yes | GitHub Pages enforces |
-| No secrets in code | ✅ Yes | Client-side only |
-| Dependency audit | ✅ Good | Minimal dependencies |
+| Check              | Status     | Notes                                      |
+| ------------------ | ---------- | ------------------------------------------ |
+| CSP implemented    | ⚠️ Partial | Has `unsafe-inline`                        |
+| XSS prevention     | ⚠️ Partial | safeHtml exists, not always used           |
+| SRI for CDN        | ✅ Yes     | Bootstrap resources verified               |
+| Input validation   | ⚠️ Partial | Normalization exists, sanitization missing |
+| Storage validation | ⚠️ Partial | Validate function available, not enforced  |
+| HTTPS only         | ✅ Yes     | GitHub Pages enforces                      |
+| No secrets in code | ✅ Yes     | Client-side only                           |
+| Dependency audit   | ✅ Good    | Minimal dependencies                       |
 
 ---
 
@@ -223,15 +253,18 @@ For server configuration or meta tags:
 
 ```html
 <!-- Additional security headers -->
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta http-equiv="X-Frame-Options" content="DENY" />
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
 ```
 
 Ideal CSP (after removing inline scripts):
+
 ```html
-<meta http-equiv="Content-Security-Policy" content="
+<meta
+  http-equiv="Content-Security-Policy"
+  content="
   default-src 'self';
   script-src 'self' https://cdn.jsdelivr.net;
   style-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
@@ -241,7 +274,8 @@ Ideal CSP (after removing inline scripts):
   frame-ancestors 'none';
   base-uri 'self';
   form-action 'self';
-">
+"
+/>
 ```
 
 ---
@@ -249,4 +283,3 @@ Ideal CSP (after removing inline scripts):
 ## 📎 Related Documents
 
 - [Quick Wins](./13-quick-wins.md) — Low-effort security improvements
-

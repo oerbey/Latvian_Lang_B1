@@ -3,7 +3,14 @@ import { sanitizeText } from './sanitize.js';
 import { showFatalError } from './errors.js';
 import { hideLoading, showLoading } from './loading.js';
 import { DEFAULT_TEXTS, MODE_ALL, MODE_LOCKED } from './matching-game/constants.js';
-import { announceStatus, clearSelections, disablePair, getTranslation, renderRound, speakLV } from './matching-game/render.js';
+import {
+  announceStatus,
+  clearSelections,
+  disablePair,
+  getTranslation,
+  renderRound,
+  speakLV,
+} from './matching-game/render.js';
 import { readState, writeState } from './matching-game/storage.js';
 
 export function initMatchingGame(options) {
@@ -29,7 +36,8 @@ export function initMatchingGame(options) {
   }
   if (!dataLoader) throw new Error('initMatchingGame: dataLoader is required.');
 
-  const isPlainObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+  const isPlainObject = (value) =>
+    Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 
   const mergedTexts = {
     ...DEFAULT_TEXTS,
@@ -46,7 +54,10 @@ export function initMatchingGame(options) {
     selections: { lv: null, tr: null },
     currentLang: defaultLanguage,
     itemById: new Map(),
-    lockedConfig: { ...defaultConfig, mode: defaultConfig.mode === MODE_LOCKED ? MODE_LOCKED : MODE_ALL },
+    lockedConfig: {
+      ...defaultConfig,
+      mode: defaultConfig.mode === MODE_LOCKED ? MODE_LOCKED : MODE_ALL,
+    },
     lockedOrder: [],
     lockedCursor: 0,
     lastSliceStart: null,
@@ -225,7 +236,9 @@ export function initMatchingGame(options) {
     if (!len) return { items: [], start: 0, ids: [] };
     const limit = Math.min(count, len);
     const startIndex =
-      typeof options.startIndex === 'number' ? ((options.startIndex % len) + len) % len : state.lockedCursor;
+      typeof options.startIndex === 'number'
+        ? ((options.startIndex % len) + len) % len
+        : state.lockedCursor;
     let idx = startIndex;
     const ids = [];
     for (let i = 0; i < limit; i++) {
@@ -253,7 +266,10 @@ export function initMatchingGame(options) {
     const nextId = state.lockedOrder[normalizedCursor % state.lockedOrder.length] || null;
     const [entry] = state.lockedOrder.splice(idx, 1);
     const boardSize = Math.max(1, getRequestedBoardSize());
-    const distance = Math.max(1, Math.min(state.lockedOrder.length, priorityTurnsAhead * boardSize));
+    const distance = Math.max(
+      1,
+      Math.min(state.lockedOrder.length, priorityTurnsAhead * boardSize),
+    );
     let insertIdx = normalizedCursor % (state.lockedOrder.length || 1);
     insertIdx = (insertIdx + distance) % (state.lockedOrder.length + 1);
     state.lockedOrder.splice(insertIdx, 0, entry);
@@ -305,7 +321,8 @@ export function initMatchingGame(options) {
     if (els.lockedProgress) {
       if (state.lockedOrder.length) {
         const nextIndex =
-          ((state.lockedCursor % state.lockedOrder.length) + state.lockedOrder.length) % state.lockedOrder.length;
+          ((state.lockedCursor % state.lockedOrder.length) + state.lockedOrder.length) %
+          state.lockedOrder.length;
         const showing = sliceInfo?.items?.length || 0;
         els.lockedProgress.textContent = showing
           ? `Showing ${showing} / ${state.lockedOrder.length} • Next item ${nextIndex + 1} / ${state.lockedOrder.length}`
@@ -347,7 +364,9 @@ export function initMatchingGame(options) {
       state.priorityChain.clear();
       return;
     }
-    state.lockedCursor = ((state.lockedCursor % state.lockedOrder.length) + state.lockedOrder.length) % state.lockedOrder.length;
+    state.lockedCursor =
+      ((state.lockedCursor % state.lockedOrder.length) + state.lockedOrder.length) %
+      state.lockedOrder.length;
     const idsInSet = new Set(state.lockedOrder);
     state.priorityChain.forEach((_, id) => {
       if (!idsInSet.has(id)) state.priorityChain.delete(id);
@@ -459,7 +478,11 @@ export function initMatchingGame(options) {
   }
 
   function handleResetLockedState() {
-    if (typeof window !== 'undefined' && window.confirm && !window.confirm('Reset locked set and stats?')) {
+    if (
+      typeof window !== 'undefined' &&
+      window.confirm &&
+      !window.confirm('Reset locked set and stats?')
+    ) {
       return;
     }
     state.lockedOrder = [];
@@ -503,7 +526,12 @@ export function initMatchingGame(options) {
       }
       state.lastSliceStart = slice.start;
       state.current = slice.items;
-      renderRound({ elements: els, items: state.current, currentLang: state.currentLang, onRoundRendered });
+      renderRound({
+        elements: els,
+        items: state.current,
+        currentLang: state.currentLang,
+        onRoundRendered,
+      });
       updateLockedUI(slice);
       return;
     }
@@ -524,7 +552,12 @@ export function initMatchingGame(options) {
       }
     }
     state.current = sample;
-    renderRound({ elements: els, items: state.current, currentLang: state.currentLang, onRoundRendered });
+    renderRound({
+      elements: els,
+      items: state.current,
+      currentLang: state.currentLang,
+      onRoundRendered,
+    });
     updateLockedUI();
   }
 
@@ -556,7 +589,9 @@ export function initMatchingGame(options) {
     }
     if (storageKeys?.activeSet) {
       const savedSet = readState(storageKeys.activeSet, [], Array.isArray);
-      state.lockedOrder = Array.isArray(savedSet) ? savedSet.filter((id) => state.itemById.has(id)) : [];
+      state.lockedOrder = Array.isArray(savedSet)
+        ? savedSet.filter((id) => state.itemById.has(id))
+        : [];
     }
     if (storageKeys?.cursor) {
       const savedCursor = readState(storageKeys.cursor, 0);
@@ -573,7 +608,8 @@ export function initMatchingGame(options) {
     }
     if (storageKeys?.stats) state.stats = readState(storageKeys.stats, {}, isPlainObject) || {};
     syncSetSizeControls();
-    if (els.prioritizeSwitch) els.prioritizeSwitch.checked = !!state.lockedConfig.prioritizeMistakes;
+    if (els.prioritizeSwitch)
+      els.prioritizeSwitch.checked = !!state.lockedConfig.prioritizeMistakes;
     if (els.modeAll) els.modeAll.checked = state.lockedConfig.mode === MODE_ALL;
     if (els.modeLocked) els.modeLocked.checked = state.lockedConfig.mode === MODE_LOCKED;
     updateLockedUI();
@@ -597,7 +633,12 @@ export function initMatchingGame(options) {
 
   els.languageSelect?.addEventListener('change', () => {
     state.currentLang = els.languageSelect.value;
-    renderRound({ elements: els, items: state.current, currentLang: state.currentLang, onRoundRendered });
+    renderRound({
+      elements: els,
+      items: state.current,
+      currentLang: state.currentLang,
+      onRoundRendered,
+    });
   });
 
   els.countSelect?.addEventListener('change', () => {

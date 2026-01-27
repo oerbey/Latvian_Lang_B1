@@ -2,27 +2,48 @@
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-<!-- CSP allows inline styles for existing inline snippets -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
+    <!-- CSP allows inline styles for existing inline snippets -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#f4f7fb" />
-    <meta name="description" content="Ceļošanas maršrutu mini-spēle ar Latvijas karti un darbības vārdu priedēkļiem." />
+    <meta
+      name="description"
+      content="Ceļošanas maršrutu mini-spēle ar Latvijas karti un darbības vārdu priedēkļiem."
+    />
     <title>Travel Tracker — Latvian B1</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/travel-tracker/styles.css" />
   </head>
   <body class="travel-tracker-page">
     <a class="skip-link" href="#main">Skip to main content</a>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom" role="banner" data-site-nav></nav>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
 
     <main id="main" class="container py-4 mt-5 travel-tracker-app" role="main">
       <header class="travel-tracker-hero mb-4 text-center text-md-start">
-        <h1 class="travel-tracker-hero__title h4 mb-2" id="travelTrackerTitle" data-i18n-key="title">Travel Tracker</h1>
+        <h1
+          class="travel-tracker-hero__title h4 mb-2"
+          id="travelTrackerTitle"
+          data-i18n-key="title"
+        >
+          Travel Tracker
+        </h1>
         <p class="travel-tracker-hero__subtitle mb-0 text-secondary" data-i18n-key="instructions">
           Aizpildi teikumus ar pareizo priedēkli, lai autobuss dotos pa maršrutu.
         </p>
@@ -37,26 +58,73 @@
           </div>
           <div class="travel-panel">
             <div class="travel-panel__scoreboard" aria-live="polite" aria-atomic="true">
-              <span class="travel-pill" id="tt-score"><span class="tt-label" data-i18n-key="score">Score</span>: <strong>0</strong></span>
-              <span class="travel-pill" id="tt-streak"><span class="tt-label" data-i18n-key="streak">Streak</span>: <strong>0</strong></span>
+              <span class="travel-pill" id="tt-score"
+                ><span class="tt-label" data-i18n-key="score">Score</span>: <strong>0</strong></span
+              >
+              <span class="travel-pill" id="tt-streak"
+                ><span class="tt-label" data-i18n-key="streak">Streak</span>:
+                <strong>0</strong></span
+              >
               <span class="travel-pill" id="tt-level">Level <strong>1</strong></span>
-              <span class="travel-panel__progress" id="tt-progress" data-i18n-key="progressLabel">Question <strong>1</strong></span>
-              <button class="btn tt-restart" id="tt-restart" type="button" data-i18n-key="restartShort">Restart</button>
+              <span class="travel-panel__progress" id="tt-progress" data-i18n-key="progressLabel"
+                >Question <strong>1</strong></span
+              >
+              <button
+                class="btn tt-restart"
+                id="tt-restart"
+                type="button"
+                data-i18n-key="restartShort"
+              >
+                Restart
+              </button>
             </div>
             <div class="travel-panel__content">
-              <div class="travel-panel__meta" id="tt-route-meta" aria-live="polite" aria-atomic="true">—</div>
-              <p class="travel-panel__prompt" id="tt-gap">...</p>
-              <label class="travel-panel__label" for="tt-input" data-i18n-key="prompt">Tava atbilde</label>
-              <div class="travel-panel__input-group">
-                <input type="text" class="travel-panel__input" id="tt-input" autocomplete="off" aria-describedby="tt-hint tt-feedback" />
-                <button class="btn tt-check" id="checkBtn" type="button" data-i18n-key="check">Pārbaudīt</button>
+              <div
+                class="travel-panel__meta"
+                id="tt-route-meta"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                —
               </div>
-              <div class="travel-panel__choices" id="tt-choices" role="group" aria-label="Answer choices" data-testid="travel-tracker-choices"></div>
-              <div class="travel-panel__feedback" id="tt-feedback" aria-live="polite" aria-atomic="true" role="status"></div>
+              <p class="travel-panel__prompt" id="tt-gap">...</p>
+              <label class="travel-panel__label" for="tt-input" data-i18n-key="prompt"
+                >Tava atbilde</label
+              >
+              <div class="travel-panel__input-group">
+                <input
+                  type="text"
+                  class="travel-panel__input"
+                  id="tt-input"
+                  autocomplete="off"
+                  aria-describedby="tt-hint tt-feedback"
+                />
+                <button class="btn tt-check" id="checkBtn" type="button" data-i18n-key="check">
+                  Pārbaudīt
+                </button>
+              </div>
+              <div
+                class="travel-panel__choices"
+                id="tt-choices"
+                role="group"
+                aria-label="Answer choices"
+                data-testid="travel-tracker-choices"
+              ></div>
+              <div
+                class="travel-panel__feedback"
+                id="tt-feedback"
+                aria-live="polite"
+                aria-atomic="true"
+                role="status"
+              ></div>
             </div>
             <div class="travel-panel__actions">
-              <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">Nākamais maršruts</button>
-              <button class="btn tt-start" id="tt-start" type="button" data-i18n-key="start">Sākt</button>
+              <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">
+                Nākamais maršruts
+              </button>
+              <button class="btn tt-start" id="tt-start" type="button" data-i18n-key="start">
+                Sākt
+              </button>
             </div>
           </div>
         </div>
@@ -70,9 +138,18 @@
       <div id="tt-live" class="visually-hidden" aria-live="polite"></div>
     </main>
 
-    <footer class="border-top py-4 bg-body-tertiary mt-4" role="contentinfo" data-site-footer></footer>
+    <footer
+      class="border-top py-4 bg-body-tertiary mt-4"
+      role="contentinfo"
+      data-site-footer
+    ></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      defer
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="theme.js" defer></script>
     <script type="module" src="scripts/nav.js"></script>
     <script type="module" src="scripts/page-init.js"></script>

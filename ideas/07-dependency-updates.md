@@ -12,8 +12,14 @@ The project loads dependencies from CDNs:
 
 ```html
 <!-- week1.html -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
+  rel="stylesheet"
+/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 ```
 
@@ -21,6 +27,7 @@ The project loads dependencies from CDNs:
 
 The repository includes a `package.json` in the root, so development tooling can be tracked via npm.
 Typical dev tools for this kind of project include:
+
 - Node.js native test runner (`node --test`)
 - ESLint / Prettier (already configured via repo dotfiles)
 - Python (for build scripts)
@@ -31,7 +38,7 @@ Typical dev tools for this kind of project include:
 
 **Priority**: High  
 **Category**: Dependencies, Project Management  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -69,13 +76,7 @@ Example `package.json` (scripts + devDependencies) shape:
     "docs": "jsdoc -c jsdoc.config.json",
     "prepare": "husky install"
   },
-  "keywords": [
-    "latvian",
-    "language-learning",
-    "educational",
-    "games",
-    "vocabulary"
-  ],
+  "keywords": ["latvian", "language-learning", "educational", "games", "vocabulary"],
   "author": "Latvian B1 Team",
   "license": "MIT",
   "repository": {
@@ -98,18 +99,14 @@ Example `package.json` (scripts + devDependencies) shape:
     "prettier": "^3.2.0"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
+    "*.js": ["eslint --fix", "prettier --write"],
+    "*.{json,css,md}": ["prettier --write"]
   }
 }
 ```
 
 ### Impact
+
 - Professional project setup
 - Easy script running
 - Dependency tracking
@@ -121,20 +118,22 @@ Example `package.json` (scripts + devDependencies) shape:
 
 **Priority**: Medium  
 **Category**: Dependencies, Stability  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
 Bootstrap is pinned to a specific version (5.3.8), which is good:
 
 ```html
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
 ```
 
 However, Bootstrap Icons uses a different CDN:
 
 ```html
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
+/>
 ```
 
 ### Problem
@@ -150,27 +149,35 @@ However, Bootstrap Icons uses a different CDN:
 
 ```html
 <!-- Use jsDelivr for both -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
-      rel="stylesheet" 
-      integrity="sha384-..." 
-      crossorigin="anonymous">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-..."
+  crossorigin="anonymous"
+/>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" 
-      rel="stylesheet"
-      integrity="sha384-..."
-      crossorigin="anonymous">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  rel="stylesheet"
+  integrity="sha384-..."
+  crossorigin="anonymous"
+/>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-..."
-        crossorigin="anonymous"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-..."
+  crossorigin="anonymous"
+></script>
 ```
 
 2. Add local fallback (optional):
 
 ```html
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
-      rel="stylesheet"
-      onerror="this.onerror=null;this.href='assets/vendor/bootstrap.min.css';">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  onerror="this.onerror=null;this.href='assets/vendor/bootstrap.min.css';"
+/>
 ```
 
 3. Create dependency tracking file:
@@ -182,10 +189,7 @@ However, Bootstrap Icons uses a different CDN:
     "bootstrap": {
       "version": "5.3.8",
       "cdn": "jsdelivr",
-      "files": [
-        "dist/css/bootstrap.min.css",
-        "dist/js/bootstrap.bundle.min.js"
-      ],
+      "files": ["dist/css/bootstrap.min.css", "dist/js/bootstrap.bundle.min.js"],
       "integrity": {
         "css": "sha384-...",
         "js": "sha384-..."
@@ -205,6 +209,7 @@ However, Bootstrap Icons uses a different CDN:
 ```
 
 ### Impact
+
 - Consistent CDN usage
 - Version tracking
 - Easier updates
@@ -216,7 +221,7 @@ However, Bootstrap Icons uses a different CDN:
 
 **Priority**: Medium  
 **Category**: Dependencies, Security  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -241,22 +246,22 @@ on:
     branches: [main]
   pull_request:
   schedule:
-    - cron: '0 0 * * 0'  # Weekly
+    - cron: '0 0 * * 0' # Weekly
 
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run security audit
         run: npm audit --audit-level=high
 ```
@@ -267,18 +272,18 @@ jobs:
 # .github/dependabot.yml
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 5
     groups:
       development:
         patterns:
-          - "*"
+          - '*'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
 ```
 
 3. Monitor CDN dependencies manually or with script:
@@ -286,7 +291,7 @@ updates:
 ```javascript
 // scripts/check-cdn-versions.js
 const DEPS = {
-  'bootstrap': {
+  bootstrap: {
     current: '5.3.8',
     npm: 'bootstrap',
   },
@@ -301,7 +306,7 @@ async function checkVersions() {
     const res = await fetch(`https://registry.npmjs.org/${info.npm}/latest`);
     const data = await res.json();
     const latest = data.version;
-    
+
     if (latest !== info.current) {
       console.log(`⚠️  ${name}: ${info.current} → ${latest}`);
     } else {
@@ -314,6 +319,7 @@ checkVersions();
 ```
 
 ### Impact
+
 - Proactive security
 - Automated vulnerability detection
 - Easier dependency updates
@@ -325,7 +331,7 @@ checkVersions();
 
 **Priority**: Low  
 **Category**: Dependencies, Updates  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -333,20 +339,22 @@ Using Bootstrap 5.3.8.
 
 ### Analysis
 
-| Version | Status | Notes |
-|---------|--------|-------|
-| 5.3.8 | ✅ Current | Latest v5.3 patch release (released Aug 2025); v5.4.0 expected next |
+| Version | Status     | Notes                                                               |
+| ------- | ---------- | ------------------------------------------------------------------- |
+| 5.3.8   | ✅ Current | Latest v5.3 patch release (released Aug 2025); v5.4.0 expected next |
 
 ### Recommendation
 
 Bootstrap 5.3.8 is a recent stable version. No immediate update needed.
 
 **Things to monitor:**
+
 - Bootstrap 5.4.x releases for new features
 - Security advisories for Bootstrap
 - Bootstrap 6.x roadmap
 
 **Update strategy:**
+
 ```javascript
 // Check for updates quarterly
 // Test in development before updating production
@@ -359,7 +367,7 @@ Bootstrap 5.3.8 is a recent stable version. No immediate update needed.
 
 **Priority**: Low  
 **Category**: Dependencies, Build Tools  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -396,6 +404,7 @@ openpyxl>=3.1.0  # For Excel file handling (if needed)
 ```
 
 ### Impact
+
 - Clear Python requirements
 - Easier onboarding
 - CI/CD compatibility
@@ -406,7 +415,7 @@ openpyxl>=3.1.0  # For Excel file handling (if needed)
 
 **Priority**: Low  
 **Category**: Dependencies, Reproducibility  
-**Effort**: Small  
+**Effort**: Small
 
 ### Current State
 
@@ -436,10 +445,11 @@ Add to CI:
 ```yaml
 # Use npm ci instead of npm install
 - name: Install dependencies
-  run: npm ci  # Uses lock file for exact versions
+  run: npm ci # Uses lock file for exact versions
 ```
 
 ### Impact
+
 - Reproducible builds
 - Consistent behavior across environments
 - Faster CI installs
@@ -454,12 +464,14 @@ Add to CI:
 ## Dependency Update Checklist - Q1 2025
 
 ### CDN Dependencies
+
 - [ ] Check Bootstrap version (current: 5.3.8)
 - [ ] Check Bootstrap Icons version (current: 1.13.1)
 - [ ] Update SRI hashes if versions changed
 - [ ] Test all pages after update
 
 ### npm Dependencies (when applicable)
+
 - [ ] Run `npm outdated`
 - [ ] Run `npm audit`
 - [ ] Update patch versions
@@ -467,10 +479,12 @@ Add to CI:
 - [ ] Run full test suite
 
 ### Python Dependencies
+
 - [ ] Check standard library compatibility
 - [ ] Verify Python version support
 
 ### Browser Compatibility
+
 - [ ] Verify target browser versions
 - [ ] Check for deprecated APIs
 - [ ] Test on mobile devices
@@ -506,11 +520,11 @@ Add to CI:
 
 ## Summary Table
 
-| Issue | Priority | Effort | Impact |
-|-------|----------|--------|--------|
-| package.json standardization | High | Small | Project management |
-| CDN Version Management | Medium | Small | Stability |
-| No Security Scanning | Medium | Small | Security |
-| Bootstrap Version | Low | Small | Maintenance |
-| Python Dependencies | Low | Small | Documentation |
-| No Lock File | Low | Small | Reproducibility |
+| Issue                        | Priority | Effort | Impact             |
+| ---------------------------- | -------- | ------ | ------------------ |
+| package.json standardization | High     | Small  | Project management |
+| CDN Version Management       | Medium   | Small  | Stability          |
+| No Security Scanning         | Medium   | Small  | Security           |
+| Bootstrap Version            | Low      | Small  | Maintenance        |
+| Python Dependencies          | Low      | Small  | Documentation      |
+| No Lock File                 | Low      | Small  | Reproducibility    |

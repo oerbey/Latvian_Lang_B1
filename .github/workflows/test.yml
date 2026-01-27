@@ -5,6 +5,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -21,10 +25,23 @@ jobs:
           else
             npm install
           fi
+      - name: Run lint
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
       - name: Run tests
         run: npm test
       - name: Validate data
         run: npm run validate:data
+      - name: Validate i18n
+        run: npm run validate:i18n
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
       - name: Run E2E tests

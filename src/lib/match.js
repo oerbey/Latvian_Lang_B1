@@ -124,12 +124,7 @@ export function drawMatch() {
     { align: 'right', font: '16px "Source Sans 3"', color: theme.muted },
   );
   if (ms.feedback) {
-    drawBadge(
-      ms.feedback,
-      28,
-      58,
-      ms.feedback.startsWith('Pareizi') ? theme.success : theme.error,
-    );
+    drawBadge(ms.feedback, 28, 58, ms.feedback.startsWith('Pareizi') ? theme.success : theme.error);
   }
   const isMobile = scale < 0.7;
   const sideMargin = isMobile ? 20 : 60;

@@ -3,7 +3,17 @@ import { clickables, resetClicks } from './clickables.js';
 import { setStatus } from './status.js';
 import { $id } from './dom.js';
 import { announceLive } from './aria.js';
-import { W, H, scale, roundedRect, drawText, clear, confetti, ctx, getCanvasTheme } from './render.js';
+import {
+  W,
+  H,
+  scale,
+  roundedRect,
+  drawText,
+  clear,
+  confetti,
+  ctx,
+  getCanvasTheme,
+} from './render.js';
 
 export const ALL_PREFIXES = ['iz', 'pār', 'no', 'sa', 'ap', 'ie', 'pie', 'uz', 'at', 'aiz', 'pa'];
 

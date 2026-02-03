@@ -77,8 +77,7 @@ export function drawText(txt, x, y, opts = {}) {
   const minSize = isMobile ? 14 : 12;
   const scaleFactor = isMobile ? Math.min(2, 0.9 / scale) : Math.min(1.3, scale + 0.3);
   const scaledSize = Math.max(minSize, baseFontSize * scaleFactor);
-  const defaultFontStack =
-    '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  const defaultFontStack = '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
   const fontFamily = opts.font
     ? opts.font.replace(/\d+px/, scaledSize + 'px')
     : `${scaledSize}px ${defaultFontStack}`;

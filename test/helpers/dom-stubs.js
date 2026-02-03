@@ -51,7 +51,14 @@ export function stubForgeDom() {
       return [];
     },
   };
+  const documentElement = {
+    getAttribute() {
+      return null;
+    },
+  };
+
   global.document = {
+    documentElement,
     createElement: (tag) => {
       if (tag === 'ul') return { appendChild() {} };
       if (tag === 'li') return { appendChild() {} };
@@ -66,6 +73,13 @@ export function stubForgeDom() {
       return canvasEl;
     },
   };
+  global.getComputedStyle =
+    global.getComputedStyle ||
+    (() => ({
+      getPropertyValue() {
+        return '';
+      },
+    }));
   return { canvasEl, statusEl, srEl };
 }
 
@@ -97,7 +111,14 @@ export function stubMatchDom() {
     },
   };
 
+  const documentElement = {
+    getAttribute() {
+      return null;
+    },
+  };
+
   global.document = {
+    documentElement,
     createElement: (tag) => {
       if (tag === 'ul') return { appendChild() {} };
       if (tag === 'li') return { appendChild() {} };
@@ -112,6 +133,13 @@ export function stubMatchDom() {
       return canvasEl;
     },
   };
+  global.getComputedStyle =
+    global.getComputedStyle ||
+    (() => ({
+      getPropertyValue() {
+        return '';
+      },
+    }));
 
   return { canvasEl, statusEl, srEl };
 }

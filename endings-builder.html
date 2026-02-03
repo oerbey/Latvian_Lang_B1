@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/endings-builder/styles.css" />
   </head>
-  <body>
+  <body class="eb-page">
     <a class="skip-link" href="#main">Skip to main content</a>
     <nav
       class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
@@ -33,11 +33,17 @@
 
     <main id="main" class="container py-4 mt-5">
       <section class="eb-wrapper" id="ebRoot">
-        <header>
-          <h1 class="h4 mb-1" data-eb-heading>Endings Builder</h1>
-          <p class="mb-0 text-secondary" data-eb-subtitle>
-            Drag the correct ending to build the word.
-          </p>
+        <header class="eb-hero">
+          <div class="eb-hero__copy">
+            <p class="eb-eyebrow">Morphology lab</p>
+            <h1 class="eb-title mb-2" data-eb-heading>Endings Builder</h1>
+            <p class="eb-lead mb-0" data-eb-subtitle>Drag the correct ending to build the word.</p>
+          </div>
+          <div class="eb-hero__meta">
+            <span class="eb-tag">Focus: endings</span>
+            <span class="eb-tag">Mode: build + type</span>
+            <span class="eb-tag">Level: B1</span>
+          </div>
         </header>
 
         <div data-game-shell></div>
@@ -51,7 +57,7 @@
         <div class="eb-board" id="ebBoard"></div>
         <div class="eb-board" id="ebOptions" aria-label="Endings"></div>
 
-        <label class="w-100">
+        <label class="w-100 eb-answer-wrap">
           <span class="visually-hidden" id="ebAnswerLabel">Type the full form</span>
           <input type="text" class="eb-answer" aria-labelledby="ebAnswerLabel" autocomplete="off" />
         </label>

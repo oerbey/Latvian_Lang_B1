@@ -43,18 +43,57 @@
 }
 
 .travel-tracker-hero {
-  max-width: 60ch;
+  max-width: 960px;
   margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 1.5rem;
+  align-items: end;
 }
 
 .travel-tracker-hero__title {
   color: var(--tt-text);
 }
 
+.travel-tracker-hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tt-muted);
+  margin-bottom: 0.5rem;
+}
+
 .travel-tracker-hero__subtitle {
   color: var(--tt-muted) !important;
   font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
   line-height: 1.5;
+}
+
+.travel-tracker-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+}
+
+.travel-tracker-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--tt-border);
+  background: var(--tt-surface);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tt-text);
+  box-shadow: 0 10px 20px var(--tt-shadow);
+}
+
+@media (max-width: 720px) {
+  .travel-tracker-hero__meta {
+    justify-content: flex-start;
+  }
 }
 
 .travel-tracker-layout {

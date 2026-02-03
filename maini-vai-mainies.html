@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/maini-vai-mainies/styles.css" />
   </head>
-  <body>
+  <body class="mvm-page">
     <a class="skip-link" href="#main">Skip to main content</a>
     <nav
       class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
@@ -31,12 +31,20 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="container py-4 mt-5">
-      <header class="mb-4 text-center text-md-start">
-        <h1 class="h4 mb-2" id="mvmTitle">Maini vai mainies?</h1>
-        <p class="text-secondary mb-0" id="mvmInstructions">
-          Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss).
-        </p>
+    <main id="main" class="container py-4 mt-5 mvm-shell">
+      <header class="mvm-hero mb-4">
+        <div class="mvm-hero__copy">
+          <p class="mvm-eyebrow">Reflexive contrast</p>
+          <h1 class="mvm-title mb-2" id="mvmTitle">Maini vai mainies?</h1>
+          <p class="mvm-lead mb-0" id="mvmInstructions">
+            Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss).
+          </p>
+        </div>
+        <div class="mvm-hero__meta">
+          <span class="mvm-tag">Focus: -ies</span>
+          <span class="mvm-tag">Mode: choose</span>
+          <span class="mvm-tag">Level: B1</span>
+        </div>
       </header>
 
       <section class="mvm-wrapper card" id="mvmGame" aria-live="off">

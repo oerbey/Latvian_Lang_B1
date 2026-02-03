@@ -5,6 +5,7 @@ import { sanitizeText } from '../../lib/sanitize.js';
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
+import { showReward } from '../../lib/reward.js';
 
 const DATA_PATH = 'data/maini-vai-mainies/items.json';
 const GAME_ID = 'maini-vai-mainies';
@@ -190,6 +191,13 @@ function awardScore() {
   if (state.streak > 0 && state.streak % 5 === 0) {
     state.score += 10;
     bonus = 10;
+    showReward({
+      title: `Streak ${state.streak}`,
+      detail: 'Bonus unlocked',
+      points: bonus,
+      pointsLabel: 'xp',
+      tone: 'success',
+    });
   }
   persistProgress();
   updateMetrics();
@@ -255,6 +263,12 @@ function handleComplete() {
   }
   state.started = false;
   dispatchAnalytics('complete', {});
+  showReward({
+    title: state.strings.complete ?? 'Level complete!',
+    detail: formatScore(state.score),
+    icon: '★',
+    tone: 'accent',
+  });
 }
 
 function handleChoice(event) {

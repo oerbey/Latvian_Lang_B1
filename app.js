@@ -9,6 +9,7 @@ import {
   H,
   scale,
   setConfettiRenderer,
+  getCanvasTheme,
 } from './src/lib/render.js';
 import {
   getState,
@@ -141,30 +142,38 @@ function setHelpVisibility(show) {
 }
 
 function drawHelp() {
+  const theme = getCanvasTheme();
   const isMobile = scale < 0.7;
   const pad = isMobile ? 12 : 16;
   const w = isMobile ? Math.min(W - 40, 400) : 520;
   const h = isMobile ? Math.min(H - 40, 250) : 220;
   const x = W / 2 - w / 2;
   const y = H / 2 - h / 2;
-  roundedRect(x, y, w, h, 14, '#151821', '#3a4252');
-  drawText(i18n.help.title, x + pad, y + 28, { font: 'bold 18px system-ui', color: '#9dd4ff' });
+  roundedRect(x, y, w, h, 14, theme.surface, theme.border);
+  drawText(i18n.help.title, x + pad, y + 28, {
+    font: 'bold 18px "Source Serif 4"',
+    color: theme.accent,
+  });
   const helpLines = HELP_TEXT.split('\n');
   const fontSize = isMobile ? 12 : 14;
   const lineHeight = isMobile ? 16 : 20;
   helpLines.forEach((line, i) => {
     const yPos = y + 52 + i * lineHeight;
     if (yPos < y + h - 40) {
-      drawText(line, x + pad, yPos, { font: `${fontSize}px system-ui`, color: '#d5dbe6' });
+      drawText(line, x + pad, yPos, {
+        font: `${fontSize}px "Source Sans 3"`,
+        color: theme.text,
+      });
     }
   });
   const bw = isMobile ? 60 : 74;
   const bh = isMobile ? 32 : 28;
   const bx = x + w - bw - 16;
   const by = y + h - bh - 14;
-  roundedRect(bx, by, bw, bh, 10, '#334', '#556');
+  roundedRect(bx, by, bw, bh, 10, theme.accent, theme.accent);
   drawText(i18n.help.close, bx + (isMobile ? 8 : 12), by + (isMobile ? 22 : 20), {
-    font: `${isMobile ? 12 : 14}px system-ui`,
+    font: `${isMobile ? 12 : 14}px "Source Sans 3"`,
+    color: theme.accentContrast,
   });
   clickables.push({
     x: bx,

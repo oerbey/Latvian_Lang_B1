@@ -1,12 +1,12 @@
 .passive-lab-page {
-  background: var(--surface-subtle);
+  background: var(--bg);
   min-height: 100vh;
   padding-top: 70px;
   color: var(--text);
 }
 
 .passive-lab-main {
-  padding: 3rem 0 4rem;
+  padding: 2.5rem 0 4rem;
 }
 
 .passive-lab-hero {
@@ -14,11 +14,51 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.passive-lab-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.passive-lab-title {
+  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.6rem);
 }
 
 .passive-lab-hero__subtitle {
-  font-size: 0.95rem;
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.passive-lab-hero__aside {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.passive-lab-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.passive-lab-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 10px 20px var(--shadow-soft, rgba(15, 23, 42, 0.08));
 }
 
 .passive-lab-hero__image {
@@ -30,8 +70,9 @@
 .passive-lab-card {
   padding: 1.5rem;
   border-radius: 24px;
-  border: 1px solid var(--border-soft);
-  background: var(--surface);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-subtle) 100%);
+  box-shadow: 0 24px 55px var(--shadow-soft, rgba(15, 23, 42, 0.12));
 }
 
 .passive-lab-card__scoreboard {
@@ -40,6 +81,7 @@
   gap: 1rem 2rem;
   margin-bottom: 1rem;
   font-weight: 600;
+  color: var(--text);
 }
 
 .passive-lab-card__scoreboard strong {
@@ -63,6 +105,10 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .passive-lab-mode__buttons {
@@ -76,6 +122,11 @@
   border-radius: 20px;
   font-weight: 600;
   min-height: 48px;
+  border-color: var(--border);
+}
+
+.passive-lab-mode__btn:hover {
+  border-color: var(--accent);
 }
 
 .passive-lab-mode__btn.active {
@@ -101,10 +152,29 @@
 
 .passive-lab-panel {
   display: none;
-  background: var(--surface-subtle);
-  border-radius: 16px;
-  padding: 1rem;
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
   border: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.passive-lab-panel .form-control,
+.passive-lab-panel .form-select {
+  border-radius: 12px;
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.passive-lab-panel .form-control:focus,
+.passive-lab-panel .form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.passive-lab-panel .btn {
+  border-radius: 999px;
 }
 
 .passive-lab-panel.is-visible {
@@ -131,6 +201,17 @@
   background: var(--surface);
   font-weight: 600;
   text-align: center;
+  box-shadow: 0 10px 20px var(--shadow-soft, rgba(15, 23, 42, 0.1));
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.passive-lab-patient-option:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 28px var(--shadow-soft, rgba(15, 23, 42, 0.16));
 }
 
 .passive-lab-patient-option.active,
@@ -145,6 +226,7 @@
   padding: 1rem;
   border-radius: 16px;
   border: 1px dashed var(--border);
+  background: var(--surface-subtle);
 }
 
 .passive-lab-result.is-visible {
@@ -161,6 +243,7 @@
   gap: 0.5rem;
   min-height: 2rem;
   margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .passive-lab-feedback img {
@@ -196,5 +279,19 @@
 
   .passive-lab-patient-option {
     flex: 1 1 calc(25% - 0.5rem);
+  }
+}
+
+@media (max-width: 720px) {
+  .passive-lab-hero__tags {
+    justify-content: flex-start;
+  }
+
+  .passive-lab-hero__aside {
+    justify-items: start;
+  }
+
+  .passive-lab-mode {
+    justify-content: flex-start;
   }
 }

@@ -58,10 +58,12 @@ test('formatError returns stable message text', () => {
 test('showFatalError only renders once', () => {
   const prevDocument = globalThis.document;
   const prevWindow = globalThis.window;
+  const prevConsoleError = console.error;
   const { doc } = createDocumentStub();
 
   globalThis.document = doc;
   globalThis.window = { location: { reload() {} } };
+  console.error = () => {};
   resetFatalErrorState();
 
   const first = showFatalError(new Error('Crash'));
@@ -72,11 +74,13 @@ test('showFatalError only renders once', () => {
 
   globalThis.document = prevDocument;
   globalThis.window = prevWindow;
+  console.error = prevConsoleError;
 });
 
 test('unhandledrejection triggers showFatalError', () => {
   const prevWindow = globalThis.window;
   const prevDocument = globalThis.document;
+  const prevConsoleError = console.error;
   const { doc } = createDocumentStub();
   const handlers = {};
 
@@ -87,6 +91,7 @@ test('unhandledrejection triggers showFatalError', () => {
     },
     location: { reload() {} },
   };
+  console.error = () => {};
 
   resetFatalErrorState();
   installGlobalErrorHandlers();
@@ -96,4 +101,5 @@ test('unhandledrejection triggers showFatalError', () => {
 
   globalThis.window = prevWindow;
   globalThis.document = prevDocument;
+  console.error = prevConsoleError;
 });

@@ -3,7 +3,17 @@ import { clickables, resetClicks } from './clickables.js';
 import { setStatus } from './status.js';
 import { $id } from './dom.js';
 import { announceLive } from './aria.js';
-import { W, H, scale, roundedRect, drawText, clear, confetti, ctx } from './render.js';
+import {
+  W,
+  H,
+  scale,
+  roundedRect,
+  drawText,
+  clear,
+  confetti,
+  ctx,
+  getCanvasTheme,
+} from './render.js';
 
 export const ALL_PREFIXES = ['iz', 'pār', 'no', 'sa', 'ap', 'ie', 'pie', 'uz', 'at', 'aiz', 'pa'];
 
@@ -49,6 +59,7 @@ export function drawForge() {
   const state = getState();
   const fs = state.forgeState;
   if (!fs) return;
+  const theme = getCanvasTheme();
   clear();
   resetClicks();
   const sr = $id('sr-game-state');
@@ -64,15 +75,21 @@ export function drawForge() {
       `Prefix forge. ${state.targetLang.toUpperCase()}: ${fs.clue}. Root ${fs.base}.`,
     );
   }
-  drawText('PREFIX FORGE — pievieno pareizo priedēkli', 28, 40, { font: 'bold 22px system-ui' });
-  drawText(`${state.targetLang.toUpperCase()}: ${fs.clue}`, 28, 78, {
-    font: '16px system-ui',
-    color: '#a8b3c7',
+  drawText('PREFIX FORGE — pievieno pareizo priedēkli', 28, 40, {
+    font: 'bold 22px "Source Serif 4"',
+    color: theme.text,
   });
-  drawText(`_____${fs.base}`, 28, 120, { font: 'bold 30px system-ui' });
+  drawText(`${state.targetLang.toUpperCase()}: ${fs.clue}`, 28, 78, {
+    font: '16px "Source Sans 3"',
+    color: theme.muted,
+  });
+  drawText(`_____${fs.base}`, 28, 120, {
+    font: 'bold 30px "Source Serif 4"',
+    color: theme.text,
+  });
   drawText('Priedēkļu īsās nozīmes (tap for hint):', 28, 160, {
-    font: '14px system-ui',
-    color: '#9fb3ff',
+    font: '14px "Source Sans 3"',
+    color: theme.accent,
   });
   let nx = 28,
     ny = 182;
@@ -80,8 +97,8 @@ export function drawForge() {
   ALL_PREFIXES.forEach((p) => {
     const label = p + '-';
     const w = ctx.measureText(label).width + 20;
-    roundedRect(nx, ny, w, 32, 10, '#22314a', '#3f5675');
-    drawText(label, nx + 10, ny + 22, { font: '16px system-ui' });
+    roundedRect(nx, ny, w, 32, 10, theme.surfaceSubtle, theme.borderSoft);
+    drawText(label, nx + 10, ny + 22, { font: '16px "Source Sans 3"', color: theme.text });
     const hint = state.DATA.notes['prefix:' + p] || '—';
     clickables.push({
       x: nx,
@@ -128,10 +145,11 @@ export function drawForge() {
     startForgeRound();
   }
   fs.options.forEach((p) => {
-    roundedRect(ox, oy, bw, bh, 12, '#2a2f3a', '#445066');
+    roundedRect(ox, oy, bw, bh, 12, theme.surface, theme.border);
     drawText(p + '-', ox + bw / 2, oy + bh / 2 + 8, {
-      font: 'bold 24px system-ui',
+      font: 'bold 24px "Source Sans 3"',
       align: 'center',
+      color: theme.text,
     });
     const handler = () => handleChoice(p, oy + bh / 2);
     clickables.push({ x: ox, y: oy, w: bw, h: bh, onClick: handler });

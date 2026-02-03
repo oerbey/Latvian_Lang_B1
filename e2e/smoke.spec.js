@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test('homepage loads and lists games', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Latvian Language B1 Games' })).toBeVisible();
-  const cards = page.locator('#gamesGrid .card');
+  await expect(page.locator('#homeTitle')).toBeVisible();
+  const cards = page.locator('#gamesGrid .game-card');
   await expect(cards.first()).toBeVisible();
 });
 

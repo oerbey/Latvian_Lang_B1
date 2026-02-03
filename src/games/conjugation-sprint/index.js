@@ -2,6 +2,7 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { loadWords } from '../../lib/words-data.js';
+import { showReward } from '../../lib/reward.js';
 
 (() => {
   const PRONS = ['es', 'tu', 'viņš/viņa', 'mēs', 'jūs', 'viņi/viņas'];
@@ -148,6 +149,15 @@ import { loadWords } from '../../lib/words-data.js';
     if (ans === current.correct) {
       score += 2;
       streak++;
+      if (streak > 0 && streak % 5 === 0) {
+        showReward({
+          title: `Streak ${streak}`,
+          detail: 'Keep the momentum.',
+          points: 10,
+          pointsLabel: 'xp',
+          tone: 'success',
+        });
+      }
       if (btn) {
         btn.classList.remove('btn-outline-secondary');
         btn.classList.add('btn-success');
@@ -206,5 +216,10 @@ import { loadWords } from '../../lib/words-data.js';
     if (cEl) {
       cEl.replaceChildren();
     }
+    showReward({
+      title: 'Sprint complete',
+      detail: `Score ${score}`,
+      tone: 'accent',
+    });
   }
 })();

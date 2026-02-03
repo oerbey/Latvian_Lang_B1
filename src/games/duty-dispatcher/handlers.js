@@ -1,4 +1,5 @@
 import { shuffle } from '../../lib/utils.js';
+import { showReward } from '../../lib/reward.js';
 
 export function createHandlers({
   state,
@@ -26,6 +27,13 @@ export function createHandlers({
     if (state.streak > 0 && state.streak % 5 === 0) {
       state.score += 10;
       bonus = 10;
+      showReward({
+        title: `Streak ${state.streak}`,
+        detail: 'Bonus unlocked',
+        points: bonus,
+        pointsLabel: 'xp',
+        tone: 'success',
+      });
     }
     persistProgress(state.score, state.streak);
     updateMetrics();
@@ -176,6 +184,12 @@ export function createHandlers({
       elements.start.focus({ preventScroll: true });
     }
     dispatchAnalytics('complete', {});
+    showReward({
+      title: state.strings.complete ?? 'Level complete!',
+      detail: `Score ${state.score}`,
+      icon: '★',
+      tone: 'accent',
+    });
   }
 
   function advance() {

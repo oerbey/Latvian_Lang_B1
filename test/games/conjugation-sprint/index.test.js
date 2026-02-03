@@ -9,7 +9,7 @@ const html = readFileSync(resolve(__dirname, '../../../conjugation-sprint.html')
 
 test('should load the game environment', () => {
   assert.ok(html.includes('<title>Conjugation Sprint — Latvian B1</title>'));
-  assert.ok(html.includes('<h1 class="h4 mb-1">Conjugation Sprint</h1>'));
+  assert.ok(/<h1[^>]*>\s*Conjugation Sprint\s*<\/h1>/.test(html));
 });
 
 test('should have all necessary elements present', () => {

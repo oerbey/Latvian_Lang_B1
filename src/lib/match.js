@@ -11,6 +11,7 @@ import {
   clear,
   confetti,
   setCanvasHeight,
+  getCanvasTheme,
 } from './render.js';
 import { $id } from './dom.js';
 import { announceLive } from './aria.js';
@@ -93,6 +94,7 @@ export function drawMatch() {
   const state = getState();
   const ms = state.matchState;
   if (!ms) return;
+  const theme = getCanvasTheme();
   clear();
   resetClicks();
   const sr = $id('sr-game-state');
@@ -110,16 +112,19 @@ export function drawMatch() {
     );
   }
   const targetLabel = state.targetLang.toUpperCase();
-  drawText(`MATCH RUSH — LV → ${targetLabel}`, 28, 40, { font: 'bold 22px system-ui' });
+  drawText(`MATCH RUSH — LV → ${targetLabel}`, 28, 40, {
+    font: 'bold 22px "Source Serif 4"',
+    color: theme.text,
+  });
   const elapsed = ((now() - ms.start) / 1000) | 0;
   drawText(
     `Correct: ${ms.correct}/${ms.total}  |  Time: ${elapsed}s  |  ${ms.lives === Infinity ? '∞' : '♥'.repeat(ms.lives)}`,
     W - 20,
     40,
-    { align: 'right', font: '16px system-ui', color: '#a8b3c7' },
+    { align: 'right', font: '16px "Source Sans 3"', color: theme.muted },
   );
   if (ms.feedback) {
-    drawBadge(ms.feedback, 28, 58, ms.feedback.startsWith('Pareizi') ? '#2f9e44' : '#8a2b2b');
+    drawBadge(ms.feedback, 28, 58, ms.feedback.startsWith('Pareizi') ? theme.success : theme.error);
   }
   const isMobile = scale < 0.7;
   const sideMargin = isMobile ? 20 : 60;
@@ -131,8 +136,11 @@ export function drawMatch() {
   const Rx = Lx + boxW + columnGap;
   const top = ms.viewTop;
   const viewH = ms.viewBottom - ms.viewTop;
-  drawText('LV', Lx, top - 22, { font: 'bold 18px system-ui', color: '#9fb3ff' });
-  drawText(targetLabel, Rx, top - 22, { font: 'bold 18px system-ui', color: '#9fb3ff' });
+  drawText('LV', Lx, top - 22, { font: 'bold 18px "Source Sans 3"', color: theme.accent });
+  drawText(targetLabel, Rx, top - 22, {
+    font: 'bold 18px "Source Sans 3"',
+    color: theme.accent,
+  });
   const totalItems = ms.left.length;
   const contentH = totalItems * (boxH + gap) - gap;
   const maxScroll = Math.max(0, contentH - viewH);
@@ -205,12 +213,12 @@ export function drawMatch() {
       const it = items[i];
       const solved = ms.solved.has(it.key);
       const sel = ms.selected && ms.selected.side === side && ms.selected.key === it.key;
-      const color = solved ? '#1e2530' : sel ? '#1c7ed6' : '#2a2f3a';
-      const border = solved ? '#3a4657' : sel ? '#1c7ed6' : '#445066';
+      const color = solved ? theme.surfaceSubtle : sel ? theme.accent : theme.surface;
+      const border = solved ? theme.borderSoft : sel ? theme.accent : theme.border;
       roundedRect(x, y, boxW, boxH, 12, color, border);
       drawText(it.txt, x + 16, y + boxH / 2 + 7, {
-        font: '20px system-ui',
-        color: solved ? '#7d8aa0' : '#e9eef5',
+        font: '20px "Source Sans 3"',
+        color: solved ? theme.muted : sel ? theme.accentContrast : theme.text,
       });
       const handler = () => handleSelection(side, it, y + boxH / 2);
       clickables.push({ x, y, w: boxW, h: boxH, tag: `${side}:${i}`, data: it, onClick: handler });

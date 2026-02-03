@@ -25,8 +25,9 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/conjugation-sprint/styles.css" />
   </head>
-  <body>
+  <body class="cs-page">
     <a class="skip-link" href="#main">Skip to main content</a>
     <nav
       class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
@@ -34,16 +35,19 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="container py-4 mt-5">
-      <header class="mb-4">
-        <h1 class="h4 mb-1">Conjugation Sprint</h1>
-        <p class="mb-0">
-          Focus: verbs with full paradigms (present • past • future). Data from your
-          <code>words.json</code>.
-        </p>
+    <main id="main" class="container py-4 mt-5 cs-shell">
+      <header class="cs-hero mb-4">
+        <div>
+          <p class="cs-eyebrow">Verb sprint</p>
+          <h1 class="cs-title mb-1">Conjugation Sprint</h1>
+          <p class="cs-lead mb-0">
+            Focus: verbs with full paradigms (present • past • future). Data from your
+            <code>words.json</code>.
+          </p>
+        </div>
       </header>
 
-      <div class="card mb-3" id="game">
+      <div class="card mb-3 cs-card" id="game">
         <div class="card-body">
           <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
             <label class="form-label mb-0 me-1" for="tenseFilter">Tense</label>
@@ -58,18 +62,24 @@
               <option value="future">Future</option>
             </select>
           </div>
-          <h2 class="h5" id="qtext">Loading…</h2>
-          <p class="text-muted" id="meta"></p>
-          <div class="d-grid gap-2" id="choices"></div>
+          <h2 class="h5 cs-question" id="qtext">Loading…</h2>
+          <p class="text-muted cs-meta" id="meta"></p>
+          <div class="d-grid gap-2 cs-choices" id="choices"></div>
         </div>
-        <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-2">
-          <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill" id="score"
+        <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-2 cs-footer">
+          <span
+            class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill cs-badge"
+            id="score"
             >score 0</span
           >
-          <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill" id="streak"
+          <span
+            class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill cs-badge"
+            id="streak"
             >streak 0</span
           >
-          <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill" id="round"
+          <span
+            class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill cs-badge"
+            id="round"
             >round 0/20</span
           >
           <button class="btn btn-sm btn-outline-secondary ms-auto" id="skip">Skip</button>
@@ -87,7 +97,7 @@
             <span class="badge bg-light text-dark border">jūs</span>
             <span class="badge bg-light text-dark border">viņi/viņas</span>
           </div>
-          <div class="row row-cols-6 g-2 mt-2 text-center" id="perstats">
+          <div class="row row-cols-6 g-2 mt-2 text-center cs-perstats" id="perstats">
             <div class="col"><div>0%</div></div>
             <div class="col"><div>0%</div></div>
             <div class="col"><div>0%</div></div>

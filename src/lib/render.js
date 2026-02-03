@@ -37,6 +37,9 @@ export function updateCanvasScale() {
 }
 
 export function getCanvasCoordinates(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  canvasOffsetX = rect.left;
+  canvasOffsetY = rect.top;
   return {
     x: (clientX - canvasOffsetX) / scale,
     y: (clientY - canvasOffsetY) / scale,
@@ -74,14 +77,41 @@ export function drawText(txt, x, y, opts = {}) {
   const minSize = isMobile ? 14 : 12;
   const scaleFactor = isMobile ? Math.min(2, 0.9 / scale) : Math.min(1.3, scale + 0.3);
   const scaledSize = Math.max(minSize, baseFontSize * scaleFactor);
+  const defaultFontStack =
+    '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
   const fontFamily = opts.font
     ? opts.font.replace(/\d+px/, scaledSize + 'px')
-    : `${scaledSize}px system-ui`;
+    : `${scaledSize}px ${defaultFontStack}`;
   ctx.font = fontFamily;
   ctx.fillStyle = opts.color || '#e9eef5';
   // The Canvas 2D API doesn't expose text rendering hints; use CSS
   // (e.g., canvas.style.textRendering) if optimization is needed.
   ctx.fillText(txt, x, y);
+}
+
+let themeCache = { key: null, values: null };
+
+export function getCanvasTheme() {
+  const root = document.documentElement;
+  const key = root.getAttribute('data-bs-theme') || 'light';
+  if (themeCache.key === key && themeCache.values) return themeCache.values;
+  const styles = getComputedStyle(root);
+  const read = (name, fallback) => styles.getPropertyValue(name).trim() || fallback;
+  const values = {
+    text: read('--text', '#1d1a16'),
+    muted: read('--muted', '#5d5a54'),
+    surface: read('--surface', '#ffffff'),
+    surfaceSubtle: read('--surface-subtle', '#f1ece3'),
+    surfaceStrong: read('--surface-subtle-strong', '#e6dfd3'),
+    border: read('--border', '#d8d0c4'),
+    borderSoft: read('--border-soft', '#e2dbcf'),
+    accent: read('--accent', '#2d4b73'),
+    accentContrast: read('--accent-contrast', '#fdfbf7'),
+    success: read('--feedback-success', '#1b6b5c'),
+    error: read('--feedback-error', '#a23a32'),
+  };
+  themeCache = { key, values };
+  return values;
 }
 
 export function drawBadge(txt, x, y, color) {

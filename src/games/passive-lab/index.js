@@ -3,6 +3,7 @@ import { pickRandom, shuffle } from '../../lib/utils.js';
 import { createGameBase } from '../../lib/game-base.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
+import { showReward } from '../../lib/reward.js';
 import {
   applyTranslations,
   formatString,
@@ -147,6 +148,13 @@ import {
     const streakBonusTriggered = streak > 0 && streak % STREAK_INTERVAL === 0;
     if (streakBonusTriggered) {
       xp += STREAK_BONUS;
+      showReward({
+        title: `Streak ${streak}`,
+        detail: `Bonus unlocked`,
+        points: STREAK_BONUS,
+        pointsLabel: 'xp',
+        tone: 'success',
+      });
     }
     progress.lastPlayedISO = new Date().toISOString();
     progress = { xp, streak, lastPlayedISO: progress.lastPlayedISO };

@@ -14,6 +14,7 @@ import {
 import { fetchJSON, loadMap, loadStrings } from './loaders.js';
 import { bindEvents } from './events.js';
 import { createUI, normalizeAnswer } from './ui.js';
+import { showReward } from '../../lib/reward.js';
 
 const GAME_ID = 'travel-tracker';
 const MAP_PATH = 'assets/img/travel-tracker/latvia.svg';
@@ -184,6 +185,15 @@ function showWrong(route) {
 function onCorrect(route) {
   state.score += 10;
   state.streak += 1;
+  if (state.streak > 0 && state.streak % 5 === 0) {
+    showReward({
+      title: `Streak ${state.streak}`,
+      detail: 'Prefixes on point.',
+      points: 10,
+      pointsLabel: 'xp',
+      tone: 'success',
+    });
+  }
   state.routeCompleted = true;
   state.inputLocked = true;
   ui.updateScoreboard();
@@ -272,6 +282,11 @@ function advanceRoute() {
     selectors.feedback.textContent = strings.level_complete;
     selectors.feedback.classList.remove('is-correct', 'is-wrong');
     ui.updateLive(strings.level_complete);
+    showReward({
+      title: strings.level_complete,
+      detail: level?.title || '',
+      tone: 'accent',
+    });
   }
   ui.updateControls();
 }

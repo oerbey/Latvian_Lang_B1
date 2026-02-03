@@ -1,3 +1,5 @@
+import { showReward } from '../../lib/reward.js';
+
 export function createHandlers({
   state,
   elements,
@@ -34,6 +36,15 @@ export function createHandlers({
     if (correct) {
       state.correct += 1;
       state.streak += 1;
+      if (state.streak > 0 && state.streak % 5 === 0) {
+        showReward({
+          title: `Streak ${state.streak}`,
+          detail: 'Clean endings streak.',
+          points: 10,
+          pointsLabel: 'xp',
+          tone: 'success',
+        });
+      }
       const icon = fallback ? feedbackIcons.info : feedbackIcons.correct;
       setFeedback(icon, fallback ? strings.feedback.fallback : strings.feedback.correct);
     } else {

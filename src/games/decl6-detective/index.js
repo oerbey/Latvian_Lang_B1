@@ -3,6 +3,7 @@ import { shuffle } from '../../lib/utils.js';
 import { sanitizeText } from '../../lib/sanitize.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
+import { showReward } from '../../lib/reward.js';
 import { loadItems, loadTranslations } from './data.js';
 import { readProgress, persistProgress } from './progress.js';
 import {
@@ -89,6 +90,7 @@ import {
   let xp = 0;
   let streak = 0;
   let progress = { xp: 0, streak: 0, lastPlayedISO: null };
+  let levelRewarded = false;
 
   function normalizeAnswer(value = '') {
     return sanitizeText(value)
@@ -194,6 +196,13 @@ import {
       if (streak > 0 && streak % 5 === 0) {
         bonus = 10;
         xp += bonus;
+        showReward({
+          title: `Streak ${streak}`,
+          detail: 'Bonus unlocked',
+          points: bonus,
+          pointsLabel: 'xp',
+          tone: 'success',
+        });
       }
       const explanation = currentMcqItem.explain ?? '';
       nodes.mcqExplain.textContent = explanation;
@@ -281,6 +290,13 @@ import {
       if (streak > 0 && streak % 5 === 0) {
         bonus = 10;
         xp += bonus;
+        showReward({
+          title: `Streak ${streak}`,
+          detail: 'Bonus unlocked',
+          points: bonus,
+          pointsLabel: 'xp',
+          tone: 'success',
+        });
       }
       saveProgress(true);
       let message = `${strings.correct} ${(currentTypeItem.explain ?? '').trim()}`.trim();
@@ -304,6 +320,7 @@ import {
       finalizeTypeSection();
       updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
       updateLiveRegion(nodes, strings.level_complete);
+      maybeRewardLevel();
       return;
     }
     loadTypeItem();
@@ -315,6 +332,7 @@ import {
     if (mcqIndex >= MCQ_TARGET) {
       finalizeMcqSection();
       updateLiveRegion(nodes, strings.level_complete);
+      maybeRewardLevel();
       return;
     }
     loadMcqItem();
@@ -358,9 +376,23 @@ import {
     typeIndex = 0;
     mcqSolved = false;
     typeSolved = false;
+    levelRewarded = false;
     loadMcqItem();
     loadTypeItem();
     updateLevelStatus(nodes, mcqIndex, typeIndex, MCQ_TARGET, TYPE_TARGET);
+  }
+
+  function maybeRewardLevel() {
+    if (levelRewarded) return;
+    if (mcqIndex >= MCQ_TARGET && typeIndex >= TYPE_TARGET) {
+      levelRewarded = true;
+      showReward({
+        title: strings.level_complete,
+        detail: `Score ${xp}`,
+        icon: '★',
+        tone: 'accent',
+      });
+    }
   }
 
   async function init() {

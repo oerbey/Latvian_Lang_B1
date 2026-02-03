@@ -12,6 +12,7 @@ import {
   speakLV,
 } from './matching-game/render.js';
 import { readState, writeState } from './matching-game/storage.js';
+import { showReward } from './reward.js';
 
 export function initMatchingGame(options) {
   const {
@@ -64,6 +65,7 @@ export function initMatchingGame(options) {
     recentSets: [],
     stats: {},
     priorityChain: new Map(),
+    roundRewarded: false,
   };
 
   const els = elements;
@@ -167,6 +169,26 @@ export function initMatchingGame(options) {
         announceStatus(els, state.score);
         els.help.textContent = mergedTexts.correct;
         disablePair(state.selections.lv);
+        if (!state.roundRewarded) {
+          const disabledLeft = els.lvList.querySelectorAll(
+            '.word-card[aria-disabled="true"]',
+          ).length;
+          const disabledRight = els.trList.querySelectorAll(
+            '.word-card[aria-disabled="true"]',
+          ).length;
+          if (
+            disabledLeft === state.current.length &&
+            disabledRight === state.current.length &&
+            state.current.length
+          ) {
+            state.roundRewarded = true;
+            showReward({
+              title: 'Board cleared',
+              detail: 'Nice match run.',
+              tone: 'success',
+            });
+          }
+        }
         recordResult(state.current[state.selections.lv], true);
       } else {
         state.score.wrong += 1;
@@ -506,6 +528,7 @@ export function initMatchingGame(options) {
     state.score = { right: 0, wrong: 0 };
     announceStatus(els, state.score);
     state.selections = { lv: null, tr: null };
+    state.roundRewarded = false;
 
     if (state.lockedConfig.mode === MODE_LOCKED) {
       if (!state.lockedOrder.length) {

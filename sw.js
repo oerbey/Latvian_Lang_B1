@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v11';
+const CACHE_VERSION = 'v13';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [
@@ -21,6 +21,7 @@ const CORE_ASSETS = [
   './src/lib/storage.js',
   './src/lib/utils.js',
   './src/lib/render.js',
+  './src/lib/reward.js',
   './src/lib/match.js',
   './src/lib/forge.js',
   './character-traits.html',

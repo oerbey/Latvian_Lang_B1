@@ -37,15 +37,55 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="py-5 mt-5">
+    <main id="main" class="py-5 mt-5 home-main">
       <div class="container">
-        <header class="text-center mb-4">
-          <h1 class="display-6 fw-semibold">Latvian Language B1 Games</h1>
-          <p class="text-secondary mb-0">Practice Latvian with interactive mini-games.</p>
-        </header>
+        <section class="home-hero mb-5" aria-labelledby="homeTitle">
+          <div class="home-hero__copy">
+            <p class="home-hero__eyebrow">Latvian Language B1</p>
+            <h1 class="home-hero__title" id="homeTitle">
+              Clean, focused practice for verbs, endings, and sentence flow.
+            </h1>
+            <p class="home-hero__lead">
+              Build accuracy and speed with short, focused games designed for classroom study and
+              solo review.
+            </p>
+            <div class="home-hero__actions">
+              <a class="btn btn-primary btn-lg" href="darbibas-vards.html"
+                >Start with Darbības Vārdi</a
+              >
+              <a class="btn btn-outline-secondary btn-lg" href="#games">Browse all games</a>
+            </div>
+            <div class="home-hero__tags">
+              <span class="home-tag">Verb focus</span>
+              <span class="home-tag">B1 grammar</span>
+              <span class="home-tag">Short sessions</span>
+            </div>
+          </div>
+          <div class="home-hero__panel">
+            <div class="home-feature">
+              <span class="home-feature__label">Featured</span>
+              <h2 class="home-feature__title">Darbības Vārdi</h2>
+              <p class="home-feature__desc">
+                Pair Latvian verbs with meanings and build recall speed.
+              </p>
+              <div class="home-feature__meta">
+                <span>Focus: verbs</span>
+                <span>Session: 5–8 min</span>
+                <span>Level: B1 core</span>
+              </div>
+              <a class="btn btn-primary home-feature__cta" href="darbibas-vards.html">Play now</a>
+            </div>
+          </div>
+        </section>
 
-        <!-- Auto-generated game cards -->
-        <div id="gamesGrid" class="row g-4"></div>
+        <section class="home-section" id="games" aria-labelledby="gamesTitle">
+          <div class="home-section__header">
+            <h2 id="gamesTitle">Game Library</h2>
+            <p>Pick a focus, pick a pace, and keep the momentum going.</p>
+          </div>
+          <!-- Auto-generated game cards -->
+          <div id="gamesGrid" class="row g-4"></div>
+        </section>
       </div>
     </main>
 

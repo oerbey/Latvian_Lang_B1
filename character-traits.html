@@ -24,6 +24,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/character-traits/styles.css" />
   </head>
   <body class="character-traits-page">
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -33,18 +34,28 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="container py-4 mt-5">
-      <header class="mb-4 text-center text-md-start">
-        <p class="text-secondary mb-1">Rakstura īpašības • vārdu krājums</p>
-        <h1 class="h4 mb-2">Kāds es esmu? Rakstura īpašības</h1>
-        <p class="text-secondary mb-0">
-          Trenē raksturot optimistu un pesimistu un atceries tulkojumu uz angļu valodu (EN helper).
-          Vienā režīmā izvēlies “optimists” vai “pesimists”, otrā atrodi pareizo tulkojumu.
-        </p>
+    <main id="main" class="container py-4 mt-5 ct-shell">
+      <header class="ct-hero mb-4">
+        <div class="ct-hero__copy">
+          <p class="ct-eyebrow">Vocabulary lab</p>
+          <h1 class="ct-title mb-2">Kāds es esmu? Rakstura īpašības</h1>
+          <p class="ct-lead mb-0">
+            Trenē raksturot optimistu un pesimistu un atceries tulkojumu uz angļu valodu (EN
+            helper). Vienā režīmā izvēlies “optimists” vai “pesimists”, otrā atrodi pareizo
+            tulkojumu.
+          </p>
+        </div>
+        <div class="ct-hero__meta">
+          <span class="ct-tag">Focus: traits</span>
+          <span class="ct-tag">Mode: choose + translate</span>
+          <span class="ct-tag">Level: B1</span>
+        </div>
       </header>
 
       <section class="mb-4">
-        <div class="alert alert-primary d-flex flex-column flex-lg-row align-items-lg-center gap-3">
+        <div
+          class="alert alert-primary d-flex flex-column flex-lg-row align-items-lg-center gap-3 ct-alert"
+        >
           <div>
             <h2 class="h5 mb-1">Rakstura īpašības — vingrinājumi</h2>
             <p class="mb-0 small text-secondary">
@@ -61,7 +72,7 @@
         </div>
       </section>
 
-      <section class="card shadow-sm">
+      <section class="card shadow-sm ct-card">
         <div class="card-body">
           <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
             <div class="btn-group" role="group" aria-label="Režīma izvēle">

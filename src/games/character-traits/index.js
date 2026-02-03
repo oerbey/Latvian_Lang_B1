@@ -4,6 +4,7 @@ import { shuffle } from '../../lib/utils.js';
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
+import { showReward } from '../../lib/reward.js';
 
 const QUESTIONS_PER_ROUND = 10;
 const AUTO_ADVANCE_MS = 1400;
@@ -299,6 +300,12 @@ function showSummary() {
         ? 'Labi, tu labi pārzini rakstura īpašības.'
         : 'Vajag vēl patrennēties.';
   els.summaryVerdict.textContent = verdict;
+  showReward({
+    title: verdict,
+    detail: `Pareizi ${percent}%`,
+    icon: percent >= 90 ? '★' : '✓',
+    tone: percent >= 90 ? 'success' : 'accent',
+  });
   els.mistakesList.replaceChildren();
   if (!state.mistakes.length) {
     const ok = document.createElement('div');

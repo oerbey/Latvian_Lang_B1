@@ -1,10 +1,35 @@
 import { test, expect } from '@playwright/test';
 
+const homepagePreviewCards = [
+  { preview: 'verbs_preview.png', icon: 'book' },
+  { preview: 'sprint_preview.png', icon: 'gamepad' },
+  { preview: 'endings_preview.png', icon: 'pencil' },
+  { preview: 'passive_preview.png', icon: 'book' },
+  { preview: 'room_preview.png', icon: 'home' },
+  { preview: 'travel_preview.png', icon: 'map' },
+];
+
 test('homepage loads and lists games', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#homeTitle')).toBeVisible();
   const cards = page.locator('#gamesGrid .game-card');
   await expect(cards.first()).toBeVisible();
+
+  expect(await cards.count()).toBeGreaterThanOrEqual(homepagePreviewCards.length);
+  for (const [index, expected] of homepagePreviewCards.entries()) {
+    const card = cards.nth(index);
+    const art = card.locator('.game-card__art');
+    const icon = card.locator('.game-card__art-icon img');
+
+    await expect(art).toBeVisible();
+    const backgroundImage = await art.evaluate((el) => getComputedStyle(el).backgroundImage);
+    expect(backgroundImage).toContain(expected.preview);
+
+    await expect(icon).toBeVisible();
+    const iconSrc = await icon.getAttribute('src');
+    expect(iconSrc).toContain(`/assets/icons/${expected.icon}.svg`);
+    expect(iconSrc).not.toContain('/info.svg');
+  }
 });
 
 test('conjugation sprint loads and shows choices', async ({ page }) => {

@@ -1214,7 +1214,10 @@ body.game-theme::after {
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.12));
 }
 
-body.game-theme > * {
+/* Keep decorative motifs behind core page layout without overriding overlay layers. */
+body.game-theme > nav,
+body.game-theme > main,
+body.game-theme > footer {
   position: relative;
   z-index: 1;
 }

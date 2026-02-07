@@ -12,6 +12,15 @@ A comprehensive browser-based collection of interactive educational games and to
 - **Accessibility**: Screen reader support, keyboard navigation, ARIA labels
 - **No Build Required**: Pure ES modules, runs directly in the browser
 
+## 🧭 Visual & UX Rollout (Phase 1-6)
+
+- **Phase 1 — Design Foundation**: Introduced shared typography, color tokens, spacing, and panel/card primitives in `styles.css` to establish a consistent clean-academia direction across pages.
+- **Phase 2 — Home Refresh**: Reworked landing experience (`index.html`, `scripts/homepage.js`) with stronger hero composition and richer game cards using intentional art/metadata treatment.
+- **Phase 3 — Game Surface Refresh**: Updated game pages and per-game styles to align with the new visual system while preserving existing game logic and accessibility patterns.
+- **Phase 4 — Reward Layer**: Added shared reward toast infrastructure (`src/lib/reward.js`) and integrated positive-feedback events into multiple games; updated service-worker cache assets accordingly.
+- **Phase 5 — Game-Specific Skins**: Added per-game theme classes and motif-based skins so each game has a distinct identity while keeping shared layout behavior.
+- **Phase 6 — Interaction Polish**: Added focus glow, error pulse, CTA emphasis, and subtle micro-animations with `prefers-reduced-motion` safeguards for accessibility and comfort.
+
 ## 🎯 Games & Activities
 
 ### Main Canvas Games (`index.html`)

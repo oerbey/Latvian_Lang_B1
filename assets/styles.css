@@ -266,3 +266,41 @@ main {
   font-weight: 600;
   color: var(--muted);
 }
+
+/* Phase 6: motion and emphasis for match shells */
+.game-theme .word-card {
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    border-color 140ms ease,
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.game-theme .word-card:focus-visible {
+  outline: 3px solid var(--accent-focus);
+  outline-offset: 3px;
+  animation: llb1-focus-glow 0.9s ease-out 1;
+}
+
+.game-theme .dv-board__actions .btn-primary,
+.game-theme .match-board__actions .btn-primary {
+  box-shadow: 0 14px 28px var(--accent-shadow);
+  animation: llb1-cta-breathe 2.8s ease-in-out infinite;
+}
+
+.game-theme .dv-board__actions .btn-outline-secondary,
+.game-theme .match-board__actions .btn-outline-secondary {
+  opacity: 0.86;
+  background: color-mix(in srgb, var(--surface-subtle) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-theme .word-card,
+  .game-theme .dv-board__actions .btn-primary,
+  .game-theme .match-board__actions .btn-primary {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

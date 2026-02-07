@@ -126,6 +126,19 @@
 - `theme.js` reads the saved theme from `localStorage`, honours OS `prefers-color-scheme`, and updates the meta theme color so browsers tint the UI chrome correctly. Users can toggle modes via the navbar button; the preference persists until cleared.
 - To sanity-check responsive layouts, run a static server (`npm install -g serve && serve .` or `python -m http.server 8000`) and open Chrome/Firefox dev tools. Test breakpoints used in QA: 320×568, 360×640, 390×844, 412×915, and 768×1024 (portrait + landscape). Ensure no horizontal scroll, buttons ≥44px, and focus outlines remain visible in both color modes.
 
+### Phase 1-6 Implementation Status
+
+- **Phase 1 — Visual Foundation (completed)**: `styles.css` was upgraded with a shared token system, typography direction, base shadows/radii, and consistent panel/button primitives used by all pages.
+- **Phase 2 — Homepage Upgrade (completed)**: `index.html` and `scripts/homepage.js` were refreshed with a stronger hero, clearer hierarchy, and card presentation that better reflects each game type.
+- **Phase 3 — Game UI Pass (completed)**: Individual game entry points and game-specific stylesheets were updated to match the shared visual language while retaining existing gameplay behavior.
+- **Phase 4 — Reward Feedback System (completed)**: Shared reward toasts were added in `src/lib/reward.js` and wired into key game actions; `sw.js` cache assets/version were updated to ship the new module safely.
+- **Phase 5 — Game-Specific Art Skins (completed)**: Game pages now use `game-theme` + per-game theme classes to apply distinct motifs/accents from shared CSS while keeping layout and components consistent.
+- **Phase 6 — UX Motion & Control Hierarchy (completed)**:
+  - Focus states now use visible glow/pulse behavior on keyboard navigation.
+  - Error feedback uses subtle pulse emphasis for faster recognition.
+  - Primary CTAs (`.btn-primary`) are visually dominant; secondary actions are intentionally muted.
+  - Micro-animations were added for responsive feel with `prefers-reduced-motion` fallbacks.
+
 ### Travel Tracker Mobile Compatibility
 
 - Travel Tracker (`travel-tracker.html`) now applies iPhone-specific breakpoints (430px, 414px, 390px, 375px) to manage safe-area padding, stack the score badges vertically, and prevent the bus map from overflowing short viewports.

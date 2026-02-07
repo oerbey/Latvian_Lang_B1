@@ -9,7 +9,7 @@ const games = [
     tag: 'Verbs',
     meta: ['Focus: verbs', '5–8 min', 'B1 core'],
     accent: '#2d4b73',
-    art: 'linear-gradient(135deg, rgba(45, 75, 115, 0.35), rgba(247, 243, 234, 0.95)), radial-gradient(circle at 20% 25%, rgba(45, 75, 115, 0.55), transparent 55%), radial-gradient(circle at 80% 75%, rgba(163, 136, 94, 0.45), transparent 60%)',
+    art: 'url("assets/previews/verbs_preview.png")',
   },
   {
     title: 'Conjugation Sprint',
@@ -19,7 +19,7 @@ const games = [
     tag: 'Sprint',
     meta: ['Focus: tenses', '6–9 min', 'Speed'],
     accent: '#2b5f6f',
-    art: 'linear-gradient(135deg, rgba(43, 95, 111, 0.3), rgba(245, 240, 231, 0.95)), radial-gradient(circle at 30% 20%, rgba(43, 95, 111, 0.5), transparent 55%), radial-gradient(circle at 80% 70%, rgba(114, 173, 185, 0.45), transparent 60%)',
+    art: 'url("assets/previews/sprint_preview.png")',
   },
   {
     title: 'Endings Builder',
@@ -29,7 +29,7 @@ const games = [
     tag: 'Builder',
     meta: ['Focus: endings', '6–10 min', 'Accuracy'],
     accent: '#6a4b2e',
-    art: 'linear-gradient(135deg, rgba(106, 75, 46, 0.3), rgba(248, 244, 237, 0.95)), radial-gradient(circle at 20% 25%, rgba(106, 75, 46, 0.55), transparent 55%), radial-gradient(circle at 78% 78%, rgba(176, 142, 92, 0.45), transparent 60%)',
+    art: 'url("assets/previews/endings_preview.png")',
   },
   {
     title: 'Passive Voice Builder',
@@ -39,7 +39,7 @@ const games = [
     tag: 'Lab',
     meta: ['Focus: passive', '7–10 min', 'Form'],
     accent: '#3a516b',
-    art: 'linear-gradient(135deg, rgba(58, 81, 107, 0.28), rgba(246, 242, 234, 0.95)), radial-gradient(circle at 25% 25%, rgba(58, 81, 107, 0.5), transparent 55%), radial-gradient(circle at 75% 75%, rgba(127, 154, 182, 0.45), transparent 60%)',
+    art: 'url("assets/previews/passive_preview.png")',
   },
   {
     title: 'Kas ir manā mājā?',
@@ -49,7 +49,7 @@ const games = [
     tag: 'Cases',
     meta: ['Focus: 6th decl.', '6–10 min', 'Detective'],
     accent: '#5d3f2e',
-    art: 'linear-gradient(135deg, rgba(93, 63, 46, 0.3), rgba(245, 239, 230, 0.95)), radial-gradient(circle at 25% 20%, rgba(93, 63, 46, 0.55), transparent 55%), radial-gradient(circle at 80% 78%, rgba(166, 129, 90, 0.45), transparent 60%)',
+    art: 'url("assets/previews/room_preview.png")',
   },
   {
     title: 'Travel Tracker',
@@ -59,7 +59,7 @@ const games = [
     tag: 'Routes',
     meta: ['Focus: prefixes', '6–9 min', 'Flow'],
     accent: '#2f6b5b',
-    art: 'linear-gradient(135deg, rgba(47, 107, 91, 0.3), rgba(244, 240, 232, 0.95)), radial-gradient(circle at 25% 25%, rgba(47, 107, 91, 0.5), transparent 55%), radial-gradient(circle at 80% 70%, rgba(120, 182, 162, 0.45), transparent 60%)',
+    art: 'url("assets/previews/travel_preview.png")',
   },
   {
     title: 'Maini vai mainies?',

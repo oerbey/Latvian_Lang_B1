@@ -25,9 +25,27 @@ const getTheme = () => {
   return theme === 'dark' ? 'dark' : 'light';
 };
 
+const ICON_MAP = {
+  book: `${ICON_ROOT}/book.svg`,
+  gamepad: `${ICON_ROOT}/gamepad.svg`,
+  pencil: `${ICON_ROOT}/pencil.svg`,
+  home: `${ICON_ROOT}/home.svg`,
+  map: `${ICON_ROOT}/map.svg`,
+  refresh: `${ICON_ROOT}/refresh.svg`,
+  user: `${ICON_ROOT}/user.svg`,
+  star: `${ICON_ROOT}/star.svg`,
+  stats: `${ICON_ROOT}/stats.svg`,
+  check: `${ICON_ROOT}/check.svg`,
+};
+
 const resolveIconPath = (name) => {
   const normalized = normalizeName(name);
   if (!normalized) return assetUrl(FALLBACK_ICON);
+
+  if (ICON_MAP[normalized]) {
+    return assetUrl(ICON_MAP[normalized]);
+  }
+
   const folder = getTheme() === 'dark' ? 'duotone-dark' : 'duotone-light';
   return assetUrl(`${ICON_ROOT}/${folder}/${normalized}.svg`);
 };

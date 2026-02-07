@@ -1,0 +1,25 @@
+name: Local LM Studio
+version: 0.0.1
+schema: v1
+
+models:
+  - name: gpt-oss chat
+    provider: openai
+    model: openai/gpt-oss-20b
+    apiBase: http://localhost:1234/v1
+    apiKey: lm-studio
+    roles: [chat, edit, apply]
+
+  - name: gemma autocomplete
+    provider: openai
+    model: google/gemma-3-12b
+    apiBase: http://localhost:1234/v1
+    apiKey: lm-studio
+    roles: [autocomplete]
+
+  - name: local embeddings
+    provider: openai
+    model: text-embedding-nomic-embed-text-v1.5
+    apiBase: http://localhost:1234/v1
+    apiKey: lm-studio
+    roles: [embeddings]

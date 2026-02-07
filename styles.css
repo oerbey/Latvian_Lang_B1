@@ -269,23 +269,30 @@ a {
 }
 
 .skip-link {
-  position: absolute;
-  left: 12px;
-  top: 8px;
-  padding: 10px 14px;
+  position: fixed;
+  left: 50%;
+  top: 0;
+  padding: 0.65rem 1rem;
   border-radius: 999px;
   background: #0f172a;
   color: #ffffff;
   font-weight: 700;
   text-decoration: none;
-  transform: translateY(-120%);
-  transition: transform 0.2s ease;
-  z-index: 1100;
+  transform: translate(-50%, -180%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.22);
+  z-index: 1200;
 }
 
 .skip-link:focus,
 .skip-link:focus-visible {
-  transform: translateY(0);
+  transform: translate(-50%, 10px);
+  opacity: 1;
+  pointer-events: auto;
   outline: 3px solid var(--accent-focus);
   outline-offset: 2px;
 }

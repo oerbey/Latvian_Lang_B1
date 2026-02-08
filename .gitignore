@@ -7,6 +7,7 @@ node_modules/
 playwright-report/
 playwright-results/
 test-results/
+output/
 
 # Local tool/editor config
 .codex/

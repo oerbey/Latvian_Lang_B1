@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v14';
+const CACHE_VERSION = 'v15';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [
@@ -96,7 +96,6 @@ const CORE_ASSETS = [
   './i18n/lv.json',
   './i18n/en.json',
   './i18n/ru.json',
-  './assets/previews/sentence_surgery_preview.svg',
 ];
 
 self.addEventListener('install', (event) => {

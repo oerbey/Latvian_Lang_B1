@@ -33,3 +33,26 @@ Validation:
 
 - Ran `npm run format`.
 - Ran `npm test` (46 passed, 0 failed).
+
+---
+
+Sentence Surgery v2 improvements (current task)
+
+- Created branch `codex/sentence-surgery-v2-improvements`.
+- Fixed potential top-gap issue by updating `scripts/page-init.js` to apply nav offset only when navbar is fixed/sticky.
+- Added bilingual in-page help modal (LV + EN) and info button on Sentence Surgery page.
+- Improved bank handling:
+  - Word bank now always unions provided `word_bank` with sentence tokens from `broken_lv`/`target_lv`.
+  - Added bank hint text and clearer feedback for non-editable tokens.
+- Added drag-and-drop interaction from bank tokens onto editable sentence tokens while keeping tap-to-replace.
+- Added keyboard shortcuts in Sentence Surgery: `Enter` check, `N` next, `R` reset, `H` hint, `I` open info.
+- Removed Sentence Surgery preview art from homepage card (now blank art area with icon only).
+- Updated tests to cover modal open/close and drag/drop path.
+- Bumped service worker cache version to `v15`.
+
+TODO / verify before handoff:
+
+- Run format/lint/unit tests/e2e and verify no regressions.
+- Push branch to `origin` and share branch name + summary.
+- Ran required develop-web-game Playwright client against `http://127.0.0.1:5180/sentence-surgery-passive.html` and inspected screenshot `output/web-game/sspv-v2/shot-0.png`.
+- Observed expected UI state with bank hints + improved controls; console error output only contained expected CSP-meta warning.

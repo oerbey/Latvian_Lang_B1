@@ -49,7 +49,6 @@ const games = [
     tag: 'Surgery',
     meta: ['Focus: passive', '6–9 min', 'Token repair'],
     accent: '#355a77',
-    art: 'url("assets/previews/sentence_surgery_preview.svg")',
   },
   {
     title: 'Kas ir manā mājā?',

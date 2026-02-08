@@ -4,14 +4,26 @@
   min-height: 100vh;
 }
 
+.sspv-page .navbar.fixed-top {
+  top: 0;
+}
+
 .sspv-main {
-  padding: 2.5rem 0 4rem;
+  padding: 1.75rem 0 4rem;
 }
 
 .sspv-hero {
   display: grid;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+}
+
+.sspv-hero__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .sspv-eyebrow {
@@ -26,6 +38,12 @@
 .sspv-title {
   margin: 0;
   font-size: clamp(1.8rem, 1.3rem + 1.9vw, 2.5rem);
+}
+
+.sspv-info-btn {
+  border-radius: 999px;
+  font-weight: 600;
+  min-height: 44px;
 }
 
 .sspv-lead {
@@ -172,9 +190,19 @@
   cursor: pointer;
 }
 
+.sspv-token--sentence.is-editable {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
 .sspv-token--sentence.is-selected {
   border-color: var(--accent);
   background: var(--accent-soft);
+}
+
+.sspv-token--sentence.is-locked {
+  opacity: 0.74;
+  border-style: dashed;
+  box-shadow: none;
 }
 
 .sspv-token--sentence.is-mismatch {
@@ -182,8 +210,21 @@
   background: color-mix(in srgb, var(--feedback-error) 16%, var(--surface));
 }
 
+.sspv-token--sentence.is-drop-target {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+}
+
 .sspv-token--bank {
   cursor: pointer;
+}
+
+.sspv-token--bank[draggable='true'] {
+  cursor: grab;
+}
+
+.sspv-token--bank.is-dragging {
+  opacity: 0.6;
 }
 
 .sspv-token--bank.is-current {
@@ -241,6 +282,11 @@
   font-weight: 600;
 }
 
+.sspv-message--bank {
+  min-height: 1.1rem;
+  font-size: 0.92rem;
+}
+
 .sspv-translation {
   border: 1px dashed var(--border);
   border-radius: 14px;
@@ -252,6 +298,24 @@
   margin: 0;
 }
 
+.sspv-info-modal h3 {
+  margin-top: 0.6rem;
+  font-size: 1.05rem;
+}
+
+.sspv-info-modal h3:first-child {
+  margin-top: 0;
+}
+
+.sspv-info-modal ol {
+  margin-bottom: 1rem;
+  padding-left: 1.1rem;
+}
+
+.sspv-info-modal li {
+  margin-bottom: 0.35rem;
+}
+
 @media (max-width: 720px) {
   .sspv-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -260,5 +324,9 @@
   .sspv-token {
     min-height: 48px;
     padding-inline: 0.8rem;
+  }
+
+  .sspv-hero__head {
+    align-items: flex-start;
   }
 }

@@ -18,11 +18,13 @@ test('sentence surgery page includes required controls', () => {
     'sspv-topic',
     'sspv-sentenceTokens',
     'sspv-wordBank',
+    'sspv-bankHint',
     'sspv-check',
     'sspv-reset',
     'sspv-next',
     'sspv-hint',
     'sspv-progressText',
+    'sspvInfoModal',
   ];
 
   ids.forEach((id) => {

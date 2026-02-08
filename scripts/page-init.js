@@ -50,6 +50,12 @@ const baseBodyPaddingTop = (() => {
 
 function updateNavOffset() {
   if (!nav) return;
+  const navStyle = getComputedStyle(nav);
+  const navIsFixed = navStyle.position === 'fixed' || navStyle.position === 'sticky';
+  if (!navIsFixed) {
+    document.body.style.paddingTop = `${baseBodyPaddingTop}px`;
+    return;
+  }
   const navHeight = nav.getBoundingClientRect().height;
   let mainMarginTop = 0;
   if (main) {

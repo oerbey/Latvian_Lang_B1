@@ -35,6 +35,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     currentItem: null,
     currentTokens: [],
     selectedSentenceIndex: null,
+    draggedBankToken: '',
     mismatchIndices: [],
     checked: false,
     hintUsed: false,
@@ -56,6 +57,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     sentencePreview: mustId('sspv-sentencePreview'),
     sentenceTokens: mustId('sspv-sentenceTokens'),
     wordBank: mustId('sspv-wordBank'),
+    bankHint: mustId('sspv-bankHint'),
     checkButton: mustId('sspv-check'),
     resetButton: mustId('sspv-reset'),
     nextButton: mustId('sspv-next'),
@@ -70,6 +72,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     translationPanel: mustId('sspv-translationPanel'),
     translationText: mustId('sspv-translationText'),
     resetProgressButton: mustId('sspv-resetProgress'),
+    infoModal: document.getElementById('sspvInfoModal'),
   };
 
   function updateFeedback(message, tone = 'info') {
@@ -156,11 +159,70 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     return state.currentTokens.length ? 0 : null;
   }
 
+  function getAlternativesForIndex(index) {
+    if (!state.currentItem || !Number.isInteger(index) || !state.currentTokens.length) {
+      return [];
+    }
+    const currentToken = state.currentTokens[index];
+    return state.currentItem.wordBank.filter((token) => token !== currentToken);
+  }
+
+  function canEditSentenceIndex(index) {
+    return getAlternativesForIndex(index).length > 0;
+  }
+
+  function updateBankHint() {
+    if (!state.currentItem) {
+      nodes.bankHint.textContent = '';
+      return;
+    }
+    if (!Number.isInteger(state.selectedSentenceIndex)) {
+      nodes.bankHint.textContent =
+        'Izvēlies teikuma tokenu, pēc tam izvēlies aizvietotāju no bankas.';
+      return;
+    }
+    const alternativesCount = getAlternativesForIndex(state.selectedSentenceIndex).length;
+    if (!alternativesCount) {
+      nodes.bankHint.textContent = 'Šim tokenam nav alternatīvu bankā. Izvēlies citu tokenu.';
+      return;
+    }
+    nodes.bankHint.textContent = `Alternatīvas šim tokenam: ${alternativesCount}.`;
+  }
+
+  function applyTokenReplacement(index, token, source = 'tap') {
+    if (!state.currentItem || !Number.isInteger(index)) {
+      return false;
+    }
+    if (!canEditSentenceIndex(index)) {
+      updateFeedback('Šo tokenu nevar mainīt, jo bankā nav alternatīvu.', 'info');
+      return false;
+    }
+    if (typeof token !== 'string' || !token) {
+      return false;
+    }
+
+    state.currentTokens[index] = token;
+    state.selectedSentenceIndex = index;
+    state.checked = false;
+    state.mismatchIndices = [];
+    nodes.explanationText.textContent = '';
+    updateFeedback(
+      source === 'drag'
+        ? 'Tokens aizvietots ar drag & drop. Nospied “Pārbaudīt”.'
+        : 'Tokens nomainīts. Nospied “Pārbaudīt”.',
+      'info',
+    );
+    renderSentenceTokens();
+    renderWordBank();
+    return true;
+  }
+
   function renderSentenceTokens() {
     nodes.sentenceTokens.replaceChildren();
 
     if (!state.currentItem) {
       nodes.sentencePreview.textContent = '—';
+      updateBankHint();
       return;
     }
 
@@ -171,6 +233,9 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       button.textContent = token;
       button.setAttribute('aria-pressed', String(state.selectedSentenceIndex === index));
       button.setAttribute('aria-label', `Teikuma tokens ${index + 1}: ${token}`);
+      const editable = canEditSentenceIndex(index);
+      button.disabled = !editable;
+      button.classList.add(editable ? 'is-editable' : 'is-locked');
 
       if (state.selectedSentenceIndex === index) {
         button.classList.add('is-selected');
@@ -180,25 +245,54 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       }
 
       button.addEventListener('click', () => {
+        if (!editable) {
+          updateFeedback('Šo tokenu nav jēgas mainīt: bankā nav alternatīvu.', 'info');
+          return;
+        }
         state.selectedSentenceIndex = index;
         renderSentenceTokens();
         renderWordBank();
+      });
+
+      button.addEventListener('dragover', (event) => {
+        if (!editable || !state.draggedBankToken) return;
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
+        button.classList.add('is-drop-target');
+      });
+
+      button.addEventListener('dragleave', () => {
+        button.classList.remove('is-drop-target');
+      });
+
+      button.addEventListener('drop', (event) => {
+        if (!editable) return;
+        event.preventDefault();
+        button.classList.remove('is-drop-target');
+        const tokenFromTransfer =
+          event.dataTransfer?.getData('text/plain') || state.draggedBankToken;
+        if (!tokenFromTransfer) return;
+        applyTokenReplacement(index, tokenFromTransfer, 'drag');
       });
 
       nodes.sentenceTokens.appendChild(button);
     });
 
     nodes.sentencePreview.textContent = joinTokens(state.currentTokens);
+    updateBankHint();
   }
 
   function renderWordBank() {
     nodes.wordBank.replaceChildren();
 
     if (!state.currentItem) {
+      updateBankHint();
       return;
     }
 
-    const hasSelection = Number.isInteger(state.selectedSentenceIndex);
+    const hasSelection =
+      Number.isInteger(state.selectedSentenceIndex) &&
+      canEditSentenceIndex(state.selectedSentenceIndex);
 
     state.currentItem.wordBank.forEach((token, index) => {
       const button = document.createElement('button');
@@ -206,28 +300,42 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       button.className = 'sspv-token sspv-token--bank';
       button.textContent = token;
       button.disabled = !hasSelection;
+      button.draggable = true;
       button.setAttribute('aria-label', `Bankas tokens ${index + 1}: ${token}`);
 
       if (hasSelection && state.currentTokens[state.selectedSentenceIndex] === token) {
         button.classList.add('is-current');
       }
 
+      button.addEventListener('dragstart', (event) => {
+        state.draggedBankToken = token;
+        button.classList.add('is-dragging');
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = 'copy';
+          event.dataTransfer.setData('text/plain', token);
+        }
+      });
+
+      button.addEventListener('dragend', () => {
+        state.draggedBankToken = '';
+        button.classList.remove('is-dragging');
+        nodes.sentenceTokens
+          .querySelectorAll('.is-drop-target')
+          .forEach((element) => element.classList.remove('is-drop-target'));
+      });
+
       button.addEventListener('click', () => {
-        if (!Number.isInteger(state.selectedSentenceIndex)) {
-          updateFeedback('Vispirms izvēlies tokenu teikumā.', 'info');
+        if (!hasSelection) {
+          updateFeedback('Vispirms izvēlies maināmu tokenu teikumā.', 'info');
           return;
         }
-        state.currentTokens[state.selectedSentenceIndex] = token;
-        state.checked = false;
-        state.mismatchIndices = [];
-        nodes.explanationText.textContent = '';
-        updateFeedback('Tokens nomainīts. Nospied “Pārbaudīt”.', 'info');
-        renderSentenceTokens();
-        renderWordBank();
+        applyTokenReplacement(state.selectedSentenceIndex, token, 'tap');
       });
 
       nodes.wordBank.appendChild(button);
     });
+
+    updateBankHint();
   }
 
   function updateRoundMeta() {
@@ -253,6 +361,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     nodes.translationToggle.textContent = 'Rādīt tulkojumu';
     nodes.translationToggle.hidden = !state.currentItem?.targetEn;
     nodes.hintText.textContent = '';
+    nodes.bankHint.textContent = '';
     nodes.explanationText.textContent = '';
   }
 
@@ -287,12 +396,14 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       state.currentItem = null;
       state.currentTokens = [];
       state.selectedSentenceIndex = null;
+      state.draggedBankToken = '';
       state.checked = false;
       state.mismatchIndices = [];
       setControlsDisabled(true);
       nodes.nextButton.hidden = true;
       nodes.nextButton.disabled = true;
       nodes.hintText.textContent = '';
+      nodes.bankHint.textContent = '';
       nodes.explanationText.textContent = '';
       nodes.translationPanel.hidden = true;
       nodes.translationToggle.hidden = true;
@@ -311,7 +422,10 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     setControlsDisabled(false);
     resetCurrentToBroken();
     updateRoundMeta();
-    updateFeedback('Izvēlies teikuma tokenu un aizvieto to ar bankas tokenu.', 'info');
+    updateFeedback(
+      'Izvēlies teikuma tokenu un aizvieto to ar bankas tokenu (vai izmanto drag & drop).',
+      'info',
+    );
   }
 
   function evaluateRound() {
@@ -410,6 +524,42 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     nodes.hintButton.addEventListener('click', showHint);
     nodes.translationToggle.addEventListener('click', toggleTranslation);
 
+    document.addEventListener('keydown', (event) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)
+      ) {
+        return;
+      }
+      if (document.querySelector('.modal.show')) {
+        return;
+      }
+
+      const key = event.key.toLowerCase();
+      if (key === 'enter' && !nodes.checkButton.disabled) {
+        evaluateRound();
+        return;
+      }
+      if (key === 'n' && !nodes.nextButton.hidden && !nodes.nextButton.disabled) {
+        loadNextRound();
+        updateProgressUi();
+        return;
+      }
+      if (key === 'r' && !nodes.resetButton.disabled) {
+        resetCurrentToBroken();
+        return;
+      }
+      if (key === 'h' && !nodes.hintButton.disabled) {
+        showHint();
+        return;
+      }
+      if (key === 'i' && nodes.infoModal && window.bootstrap?.Modal) {
+        const modal = window.bootstrap.Modal.getOrCreateInstance(nodes.infoModal);
+        modal.show();
+      }
+    });
+
     nodes.resetProgressButton.addEventListener('click', () => {
       if (!window.confirm('Vai notīrīt visu Sentence Surgery progresu?')) {
         return;
@@ -441,7 +591,10 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       setupEvents();
       updateProgressUi();
       loadNextRound();
-      updateFeedback('Izvēlies kļūdaino tokenu un aizvieto to ar bankas tokenu.', 'info');
+      updateFeedback(
+        'Izvēlies kļūdaino tokenu un aizvieto to ar bankas tokenu (vai izmanto drag & drop).',
+        'info',
+      );
     } catch (error) {
       const safeError = error instanceof Error ? error : new Error('Failed to initialize game');
       showFatalError(safeError);

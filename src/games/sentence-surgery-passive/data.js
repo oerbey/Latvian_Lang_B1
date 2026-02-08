@@ -58,7 +58,8 @@ function normalizeItem(item, index) {
   const brokenTokens = tokenizeSentence(brokenLv, preserveTokens);
 
   const fallbackWordBank = uniqueTokens(targetTokens.concat(brokenTokens));
-  const wordBank = uniqueTokens(rawWordBank.length ? rawWordBank : fallbackWordBank);
+  // Always include sentence tokens so every visible token can be restored from the bank.
+  const wordBank = uniqueTokens(rawWordBank.concat(fallbackWordBank));
 
   return {
     id,

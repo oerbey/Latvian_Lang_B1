@@ -37,7 +37,17 @@
       <div class="container">
         <header class="sspv-hero">
           <p class="sspv-eyebrow">B1 grammar practice</p>
-          <h1 class="sspv-title">Sentence Surgery — Ciešamā kārta</h1>
+          <div class="sspv-hero__head">
+            <h1 class="sspv-title">Sentence Surgery — Ciešamā kārta</h1>
+            <button
+              type="button"
+              class="btn btn-outline-secondary sspv-info-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#sspvInfoModal"
+            >
+              Kā spēlēt / How to play
+            </button>
+          </div>
           <p class="sspv-lead">
             Izlabo teikumu, aizstājot kļūdaino tokenu ar pareizo formu no bankas. Mērķis: tieši
             sakrist ar mērķa teikumu (tiek/tika/tiks, noliegums, -ts/-ta/-ti/-tas).
@@ -106,6 +116,7 @@
           <section class="sspv-section" aria-label="Vārdu banka">
             <h2>Vārdu banka</h2>
             <div id="sspv-wordBank" class="sspv-token-grid"></div>
+            <p id="sspv-bankHint" class="sspv-message sspv-message--bank"></p>
           </section>
 
           <div class="sspv-actions">
@@ -147,6 +158,48 @@
         </section>
       </div>
     </main>
+
+    <div
+      class="modal fade"
+      id="sspvInfoModal"
+      tabindex="-1"
+      aria-labelledby="sspvInfoModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="sspvInfoModalTitle">Kā spēlēt / How to play</h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body sspv-info-modal">
+            <h3>Latviski</h3>
+            <ol>
+              <li>Izvēlies tokenu sadaļā “Kļūdainais teikums”.</li>
+              <li>Spied vārdu no “Vārdu banka”, lai aizvietotu izvēlēto tokenu.</li>
+              <li>Vari arī vilkt bankas tokenu virsū teikuma tokenam (drag & drop).</li>
+              <li>Spied “Pārbaudīt”. Ja ir kļūda, tiks iezīmētas nepareizās vietas.</li>
+              <li>“Padoms” strādā vienu reizi katrā uzdevumā.</li>
+              <li>Pēc pareizas atbildes spied “Nākamais”.</li>
+            </ol>
+            <h3>English</h3>
+            <ol>
+              <li>Select a token in the broken sentence.</li>
+              <li>Tap a token in the word bank to replace the selected token.</li>
+              <li>You can also drag a bank token onto a sentence token.</li>
+              <li>Press “Pārbaudīt” (Check). Wrong positions will be highlighted.</li>
+              <li>“Padoms” (Hint) can be used once per round.</li>
+              <li>After a correct answer, press “Nākamais” (Next).</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>
 

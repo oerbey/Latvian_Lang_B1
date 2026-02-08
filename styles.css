@@ -542,6 +542,42 @@ body {
   opacity: 0.52;
 }
 
+@media (max-width: 991.98px) {
+  .navbar .offcanvas {
+    --bs-offcanvas-width: min(90vw, 360px);
+    z-index: 2000;
+  }
+
+  .offcanvas-backdrop {
+    z-index: 1990;
+  }
+
+  .navbar .offcanvas .offcanvas-body {
+    overflow-y: auto;
+    padding-top: 0.5rem;
+  }
+
+  .navbar .offcanvas .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .navbar .offcanvas .nav-item {
+    width: 100%;
+  }
+
+  .navbar .offcanvas .nav-link {
+    display: block;
+    width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.35;
+    font-size: 1rem;
+    padding: 0.5rem 0.1rem;
+  }
+}
+
 .hover-lift {
   transition:
     transform 0.2s ease,

@@ -213,6 +213,16 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     return '';
   }
 
+  function inferSentenceTense(item) {
+    if (!item) return '';
+    const tokens = Array.isArray(item.brokenTokens) ? item.brokenTokens : [];
+    for (const token of tokens) {
+      const tense = describeExpectedAuxiliary(token);
+      if (tense) return tense;
+    }
+    return '';
+  }
+
   function getFocusTypeLabel(type = '') {
     if (type === 'aux_tense') return 'laiks';
     if (type === 'negation') return 'noliegums';
@@ -225,15 +235,20 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     const error = item.errors?.[0];
     if (!error) return 'Labojamais fokuss: teikuma forma';
     const base = `Labojamais fokuss: ${getFocusTypeLabel(error.type)}`;
+    const sentenceTense = inferSentenceTense(item);
     if (error.type === 'aux_tense' && error.correct) {
       const tense = describeExpectedAuxiliary(error.correct);
       return tense ? `${base} · vajadzīgais laiks: ${tense}` : `${base} · izvēlies pareizo laiku`;
     }
     if (error.type === 'negation') {
-      return `${base} · izvēlies pareizo nolieguma formu`;
+      return sentenceTense
+        ? `${base} · teikuma laiks: ${sentenceTense}`
+        : `${base} · izvēlies pareizo nolieguma formu`;
     }
     if (error.type === 'participle_agreement') {
-      return `${base} · saskaņo formu ar teikuma subjektu`;
+      return sentenceTense
+        ? `${base} · teikuma laiks: ${sentenceTense}`
+        : `${base} · saskaņo formu ar teikuma subjektu`;
     }
     return base;
   }
@@ -280,7 +295,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       nodes.translationToggle.hidden = true;
       return;
     }
-    const translation = state.currentItem.targetEn || 'Translation unavailable.';
+    const translation = state.currentItem.targetEn || '—';
     nodes.translationText.textContent = translation;
     nodes.translationToggle.hidden = false;
     nodes.translationPanel.hidden = !state.translationVisible;

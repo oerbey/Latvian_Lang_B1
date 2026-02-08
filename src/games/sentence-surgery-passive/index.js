@@ -213,11 +213,18 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     return '';
   }
 
+  function getFocusTypeLabel(type = '') {
+    if (type === 'aux_tense') return 'laiks';
+    if (type === 'negation') return 'noliegums';
+    if (type === 'participle_agreement') return 'saskaņa';
+    return getErrorTypeLabel(type);
+  }
+
   function buildFocusLabel(item) {
     if (!item) return 'Labojamais fokuss: —';
     const error = item.errors?.[0];
     if (!error) return 'Labojamais fokuss: teikuma forma';
-    const base = `Labojamais fokuss: ${getErrorTypeLabel(error.type)}`;
+    const base = `Labojamais fokuss: ${getFocusTypeLabel(error.type)}`;
     if (error.type === 'aux_tense' && error.correct) {
       const tense = describeExpectedAuxiliary(error.correct);
       return tense ? `${base} · vajadzīgais laiks: ${tense}` : `${base} · izvēlies pareizo laiku`;
@@ -269,12 +276,12 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
   function syncTranslationUi() {
     if (!state.currentItem) {
       nodes.translationPanel.hidden = false;
-      nodes.translationText.textContent = 'English translation: —';
+      nodes.translationText.textContent = '—';
       nodes.translationToggle.hidden = true;
       return;
     }
     const translation = state.currentItem.targetEn || 'Translation unavailable.';
-    nodes.translationText.textContent = `English: ${translation}`;
+    nodes.translationText.textContent = translation;
     nodes.translationToggle.hidden = false;
     nodes.translationPanel.hidden = !state.translationVisible;
     nodes.translationToggle.textContent = state.translationVisible

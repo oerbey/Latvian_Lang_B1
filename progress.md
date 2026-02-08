@@ -110,3 +110,49 @@ Suggested next work:
 
 - Add optional difficulty selector (drop speed/lives).
 - Add compact on-canvas feedback marker (check/x) on catch for clearer learning signal.
+
+---
+
+English -> Latvian Word Catcher follow-up fixes (post-merge QA)
+
+User-reported issues addressed:
+
+- Mobile playability (catcher movement) was unreliable.
+- Falling cards overlapped prompt/HUD area.
+- Scaling needed better behavior on small screens.
+- Drop patterns felt too deterministic.
+
+Changes made:
+
+- Added mobile controls in page UI:
+  - `#arcade-left` and `#arcade-right` buttons under the canvas.
+- Added robust touch input support in game runtime:
+  - Pointer-based drag on canvas to move catcher.
+  - Touch-button hold controls for left/right movement.
+  - Fallback `touchstart/touchmove/touchend` path for browsers without PointerEvent.
+  - Safe pointer-capture guards to avoid runtime crashes on unsupported pointer ids.
+- Added HUD-safe playfield boundary:
+  - Defined `PLAYFIELD_TOP` and clipped card rendering to active area below HUD.
+  - Updated background guide lines/circles to start below HUD.
+  - Cards now spawn from above playfield but never render over HUD/prompt.
+- Improved scaling:
+  - Updated display sizing in `resizeCanvasDisplay()` to better respect viewport height and wrap padding.
+  - Added wrap overflow clipping and canvas max-width constraints.
+- Increased round variety:
+  - Randomized lane assignment each round (not fixed left/middle/right mapping).
+  - Randomized per-card vertical speed and horizontal drift.
+  - Added bounce behavior when drifting cards hit side bounds.
+
+Validation:
+
+- `npm test` passed (54/54).
+- `npm run lint` passed.
+- `npm run test:e2e` passed (3/3).
+- develop-web-game Playwright loops:
+  - `output/web-game/lv-en-arcade-fix-iter1` (state/screens show cards below HUD with varied patterns).
+  - Mobile checks:
+    - `output/web-game/lv-en-arcade-mobile-control-verify` shows player X changed from 405 -> 265.47 (touch button) -> 117 (drag), no fatal overlay (`overlay.txt` = 0).
+
+Notes:
+
+- The pre-existing global `page-init.js` anti-scroll-trap touch handlers can still interfere in some mobile contexts; this game now includes direct touch/button controls as a resilient path.

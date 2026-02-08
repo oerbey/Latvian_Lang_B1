@@ -18,6 +18,12 @@ const ROUND_DELAY_SECONDS = 0.52;
 const INITIAL_LIVES = 3;
 const OPTION_COUNT = 3;
 const STEP_MS = 1000 / 60;
+const HUD_Y = 20;
+const HUD_HEIGHT = 70;
+const PLAYFIELD_TOP = HUD_Y + HUD_HEIGHT + 18;
+const FLOOR_HEIGHT = 112;
+const CARD_MIN_X = 12;
+const CARD_MAX_SCALE = 1.04;
 
 const elements = {
   canvas: /** @type {HTMLCanvasElement} */ (mustId('lv-en-arcade-canvas')),
@@ -29,6 +35,8 @@ const elements = {
   message: mustId('arcade-message'),
   startButton: /** @type {HTMLButtonElement} */ (mustId('start-btn')),
   restartButton: /** @type {HTMLButtonElement} */ (mustId('restart-btn')),
+  leftTouchButton: /** @type {HTMLButtonElement} */ (mustId('arcade-left')),
+  rightTouchButton: /** @type {HTMLButtonElement} */ (mustId('arcade-right')),
   liveRegion: mustId('arcade-live'),
   canvasWrap: mustId('arcade-canvas-wrap'),
 };
@@ -48,10 +56,15 @@ const state = {
     null
   ),
   cards:
-    /** @type {Array<{id: string, entryId: string, lv: string, isCorrect: boolean, x: number, y: number, width: number, height: number, speedY: number}>} */ ([]),
+    /** @type {Array<{id: string, entryId: string, lv: string, isCorrect: boolean, x: number, y: number, width: number, height: number, speedY: number, driftX: number}>} */ ([]),
   input: {
     left: false,
     right: false,
+  },
+  touchControl: {
+    active: false,
+    pointerId: null,
+    targetX: null,
   },
   player: {
     x: (CANVAS_WIDTH - PLAYER_WIDTH) / 2,
@@ -180,22 +193,35 @@ function nextPrompt() {
 }
 
 function makeCards(options) {
-  const laneWidth = CANVAS_WIDTH / Math.max(options.length, 1);
+  const laneCount = Math.max(options.length, 1);
+  const laneSpacing = CANVAS_WIDTH / (laneCount + 1);
+  const laneCenters = shuffle(
+    Array.from({ length: laneCount }, (_, idx) => laneSpacing * (idx + 1)),
+  );
+  const spawnTop = PLAYFIELD_TOP - CARD_HEIGHT - 16;
+
   return options.map((option, idx) => {
-    const laneCenter = laneWidth * idx + laneWidth / 2;
-    const jitter = (Math.random() * 40 - 20) * (idx % 2 === 0 ? 1 : -1);
-    const baseY = -60 - idx * 92;
+    const laneCenter = laneCenters[idx] ?? laneSpacing * (idx + 1);
+    const jitter = Math.random() * 96 - 48;
+    const staggerY = Math.random() * 96 + idx * 24;
+    const speedVariance = Math.random() * 26 - 8;
+    const driftX = Math.random() * 48 - 24;
 
     return {
       id: `card-${state.cardIdCounter++}`,
       entryId: option.entryId,
       lv: option.lv,
       isCorrect: Boolean(option.isCorrect),
-      x: clamp(laneCenter - CARD_WIDTH / 2 + jitter, 20, CANVAS_WIDTH - CARD_WIDTH - 20),
-      y: baseY,
+      x: clamp(
+        laneCenter - CARD_WIDTH / 2 + jitter,
+        CARD_MIN_X,
+        CANVAS_WIDTH - CARD_WIDTH - CARD_MIN_X,
+      ),
+      y: spawnTop - staggerY,
       width: CARD_WIDTH,
       height: CARD_HEIGHT,
-      speedY: CARD_BASE_SPEED + state.round * 2.4 + idx * 8,
+      speedY: Math.max(84, CARD_BASE_SPEED + state.round * 2.4 + speedVariance),
+      driftX,
     };
   });
 }
@@ -271,6 +297,9 @@ function startGame() {
   state.transitionSeconds = 0.2;
   state.player.x = (CANVAS_WIDTH - PLAYER_WIDTH) / 2;
   state.player.velocityX = 0;
+  state.touchControl.active = false;
+  state.touchControl.pointerId = null;
+  state.touchControl.targetX = null;
   state.deck = shuffle(state.entries);
   state.deckCursor = 0;
   setMessage('Catch the matching Latvian translation.', 'info');
@@ -287,13 +316,24 @@ function intersects(a, b) {
 }
 
 function updatePlay(deltaSeconds) {
-  const direction = (state.input.right ? 1 : 0) - (state.input.left ? 1 : 0);
-  state.player.velocityX = direction * PLAYER_SPEED;
-  state.player.x = clamp(
-    state.player.x + state.player.velocityX * deltaSeconds,
-    0,
-    CANVAS_WIDTH - state.player.width,
-  );
+  if (state.touchControl.active && typeof state.touchControl.targetX === 'number') {
+    const desired = clamp(state.touchControl.targetX, 0, CANVAS_WIDTH - state.player.width);
+    const delta = desired - state.player.x;
+    state.player.velocityX = clamp(delta * 10, -PLAYER_SPEED * 1.25, PLAYER_SPEED * 1.25);
+    state.player.x = clamp(
+      state.player.x + state.player.velocityX * deltaSeconds,
+      0,
+      CANVAS_WIDTH - state.player.width,
+    );
+  } else {
+    const direction = (state.input.right ? 1 : 0) - (state.input.left ? 1 : 0);
+    state.player.velocityX = direction * PLAYER_SPEED;
+    state.player.x = clamp(
+      state.player.x + state.player.velocityX * deltaSeconds,
+      0,
+      CANVAS_WIDTH - state.player.width,
+    );
+  }
 
   const playerBox = {
     x: state.player.x,
@@ -304,6 +344,11 @@ function updatePlay(deltaSeconds) {
 
   for (const card of state.cards) {
     card.y += card.speedY * deltaSeconds;
+    const rightEdge = CANVAS_WIDTH - card.width - CARD_MIN_X;
+    card.x = clamp(card.x + card.driftX * deltaSeconds, CARD_MIN_X, rightEdge);
+    if (card.x <= CARD_MIN_X + 0.5 || card.x >= rightEdge - 0.5) {
+      card.driftX *= -1;
+    }
   }
 
   for (const card of state.cards) {
@@ -403,28 +448,28 @@ function drawBackground() {
   context.fillStyle = 'rgba(180, 222, 255, 0.2)';
   for (let i = 0; i < 7; i += 1) {
     const x = 80 + i * 130;
-    const y = 72 + (i % 2) * 24;
+    const y = PLAYFIELD_TOP - 34 + (i % 2) * 24;
     context.beginPath();
     context.arc(x, y, 20 + (i % 3) * 6, 0, Math.PI * 2);
     context.fill();
   }
 
   context.fillStyle = '#205071';
-  context.fillRect(0, CANVAS_HEIGHT - 112, CANVAS_WIDTH, 112);
+  context.fillRect(0, CANVAS_HEIGHT - FLOOR_HEIGHT, CANVAS_WIDTH, FLOOR_HEIGHT);
 
   context.strokeStyle = 'rgba(137, 191, 229, 0.22)';
   context.lineWidth = 2;
   for (let i = 1; i <= 3; i += 1) {
     const x = (CANVAS_WIDTH / 4) * i;
     context.beginPath();
-    context.moveTo(x, 98);
-    context.lineTo(x, CANVAS_HEIGHT - 112);
+    context.moveTo(x, PLAYFIELD_TOP - 8);
+    context.lineTo(x, CANVAS_HEIGHT - FLOOR_HEIGHT);
     context.stroke();
   }
 }
 
 function drawHudOverlay() {
-  drawRoundedRect(context, 24, 20, CANVAS_WIDTH - 48, 70, 20);
+  drawRoundedRect(context, 24, HUD_Y, CANVAS_WIDTH - 48, HUD_HEIGHT, 20);
   context.fillStyle = 'rgba(6, 18, 30, 0.68)';
   context.fill();
   context.strokeStyle = 'rgba(142, 206, 255, 0.45)';
@@ -446,11 +491,11 @@ function drawHudOverlay() {
 }
 
 function drawCards() {
-  context.font = '700 20px "Source Sans 3", sans-serif';
   context.textAlign = 'center';
   context.textBaseline = 'middle';
 
   for (const card of state.cards) {
+    const fontSize = card.lv.length > 22 ? 18 : 20;
     drawRoundedRect(context, card.x, card.y, card.width, card.height, 16);
     context.fillStyle = 'rgba(240, 250, 255, 0.95)';
     context.fill();
@@ -459,13 +504,14 @@ function drawCards() {
     context.stroke();
 
     context.fillStyle = '#11314a';
+    context.font = `700 ${fontSize}px "Source Sans 3", sans-serif`;
     drawTextCenter(
       context,
       card.lv,
       card.x + card.width / 2,
       card.y + card.height / 2,
       card.width - 20,
-      22,
+      fontSize + 2,
       3,
     );
   }
@@ -521,9 +567,9 @@ function drawCenterMessage(title, subtitle) {
   drawTextCenter(context, subtitle, CANVAS_WIDTH / 2, 286, CANVAS_WIDTH - 430, 30, 3);
 
   context.fillStyle = '#8bc8ef';
-  context.font = '600 17px "Source Sans 3", sans-serif';
+  context.font = '600 16px "Source Sans 3", sans-serif';
   context.fillText(
-    'Controls: Left/Right or A/D, F fullscreen, Space to start/restart.',
+    'Controls: Left/Right or A/D, drag on touch, F fullscreen, Space to start/restart.',
     CANVAS_WIDTH / 2,
     344,
   );
@@ -534,6 +580,30 @@ function drawCenterMessage(title, subtitle) {
 function render() {
   context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   drawBackground();
+
+  if (state.mode === 'play' || state.mode === 'transition') {
+    context.save();
+    context.beginPath();
+    context.rect(0, PLAYFIELD_TOP, CANVAS_WIDTH, CANVAS_HEIGHT - PLAYFIELD_TOP);
+    context.clip();
+
+    drawCards();
+    drawPlayer();
+
+    if (state.mode === 'transition') {
+      context.fillStyle = 'rgba(5, 16, 30, 0.4)';
+      context.fillRect(0, PLAYFIELD_TOP, CANVAS_WIDTH, CANVAS_HEIGHT - PLAYFIELD_TOP);
+
+      context.fillStyle = '#ffffff';
+      context.textAlign = 'center';
+      context.font = '700 34px "Source Serif 4", serif';
+      context.fillText('Next prompt...', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+      context.textAlign = 'left';
+    }
+
+    context.restore();
+  }
+
   drawHudOverlay();
 
   if (state.mode === 'menu' || state.mode === 'loading') {
@@ -557,30 +627,29 @@ function render() {
       'Data Error',
       'Could not load vocabulary data. Reload the page to try again.',
     );
-    return;
-  }
-
-  drawCards();
-  drawPlayer();
-
-  if (state.mode === 'transition') {
-    context.fillStyle = 'rgba(5, 16, 30, 0.4)';
-    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-    context.fillStyle = '#ffffff';
-    context.textAlign = 'center';
-    context.font = '700 34px "Source Serif 4", serif';
-    context.fillText('Next prompt...', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-    context.textAlign = 'left';
   }
 }
 
 function resizeCanvasDisplay() {
-  const frameWidth = state.isFullscreen ? window.innerWidth - 24 : elements.canvasWrap.clientWidth;
-  const frameHeight = state.isFullscreen ? window.innerHeight - 24 : Math.round(frameWidth * 0.72);
-  const safeWidth = Math.max(320, frameWidth);
-  const safeHeight = Math.max(220, frameHeight);
-  const scale = Math.min(safeWidth / CANVAS_WIDTH, safeHeight / CANVAS_HEIGHT);
+  const wrapStyles = getComputedStyle(elements.canvasWrap);
+  const paddingX =
+    Number.parseFloat(wrapStyles.paddingLeft || '0') +
+    Number.parseFloat(wrapStyles.paddingRight || '0');
+
+  const wrapWidth = Math.max(
+    320,
+    Math.floor(
+      (state.isFullscreen ? window.innerWidth : elements.canvasWrap.clientWidth) - paddingX,
+    ),
+  );
+
+  const viewportHeightCap = state.isFullscreen
+    ? window.innerHeight - 24
+    : Math.max(240, Math.floor(window.innerHeight * 0.58));
+  const naturalHeight = Math.floor((wrapWidth * CANVAS_HEIGHT) / CANVAS_WIDTH);
+  const wrapHeight = Math.min(naturalHeight, viewportHeightCap);
+  const safeHeight = Math.max(220, wrapHeight);
+  const scale = Math.min(wrapWidth / CANVAS_WIDTH, safeHeight / CANVAS_HEIGHT, CARD_MAX_SCALE);
 
   const displayWidth = Math.floor(CANVAS_WIDTH * scale);
   const displayHeight = Math.floor(CANVAS_HEIGHT * scale);
@@ -599,6 +668,40 @@ async function toggleFullscreen() {
   } catch (error) {
     console.warn('Fullscreen toggle failed', error);
   }
+}
+
+function clientXToWorldX(clientX) {
+  const rect = elements.canvas.getBoundingClientRect();
+  if (!rect.width) return CANVAS_WIDTH / 2;
+  const ratioX = (clientX - rect.left) / rect.width;
+  return clamp(ratioX * CANVAS_WIDTH, 0, CANVAS_WIDTH);
+}
+
+function updateTouchTarget(clientX) {
+  const worldX = clientXToWorldX(clientX);
+  state.touchControl.targetX = clamp(
+    worldX - state.player.width / 2,
+    0,
+    CANVAS_WIDTH - state.player.width,
+  );
+  state.player.x = state.touchControl.targetX;
+  state.player.velocityX = 0;
+}
+
+function beginTouchControl(pointerId, clientX) {
+  state.touchControl.active = true;
+  state.touchControl.pointerId = pointerId;
+  updateTouchTarget(clientX);
+}
+
+function endTouchControl(pointerId = null) {
+  if (pointerId !== null && state.touchControl.pointerId !== pointerId) {
+    return;
+  }
+  state.touchControl.active = false;
+  state.touchControl.pointerId = null;
+  state.touchControl.targetX = null;
+  state.player.velocityX = 0;
 }
 
 function stepWithExternalClock(ms) {
@@ -654,6 +757,11 @@ function renderGameToText() {
     controls: {
       leftPressed: state.input.left,
       rightPressed: state.input.right,
+      touchActive: state.touchControl.active,
+      touchTargetX:
+        typeof state.touchControl.targetX === 'number'
+          ? Number(state.touchControl.targetX.toFixed(2))
+          : null,
       fullscreen: state.isFullscreen,
     },
     message: state.message,
@@ -742,6 +850,142 @@ function bindEvents() {
       startGame();
     }
   });
+
+  elements.canvas.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse') return;
+    if (state.mode === 'menu' || state.mode === 'gameover') {
+      startGame();
+    }
+    beginTouchControl(event.pointerId, event.clientX);
+    if (elements.canvas.setPointerCapture) {
+      try {
+        elements.canvas.setPointerCapture(event.pointerId);
+      } catch {
+        // Some engines reject capture for synthetic or unsupported pointer ids.
+      }
+    }
+    event.preventDefault();
+  });
+
+  elements.canvas.addEventListener('pointermove', (event) => {
+    if (!state.touchControl.active || state.touchControl.pointerId !== event.pointerId) return;
+    updateTouchTarget(event.clientX);
+    event.preventDefault();
+  });
+
+  elements.canvas.addEventListener('pointerup', (event) => {
+    endTouchControl(event.pointerId);
+  });
+  elements.canvas.addEventListener('pointercancel', (event) => {
+    endTouchControl(event.pointerId);
+  });
+  elements.canvas.addEventListener('lostpointercapture', (event) => {
+    endTouchControl(event.pointerId);
+  });
+
+  const bindTouchButton = (button, side) => {
+    const setDirection = (isPressed) => {
+      if (side === 'left') {
+        state.input.left = isPressed;
+      } else {
+        state.input.right = isPressed;
+      }
+      if (isPressed) {
+        endTouchControl();
+      }
+    };
+
+    button.addEventListener('pointerdown', (event) => {
+      setDirection(true);
+      if (button.setPointerCapture) {
+        try {
+          button.setPointerCapture(event.pointerId);
+        } catch {
+          // Ignore capture failures on browsers with partial pointer support.
+        }
+      }
+      event.preventDefault();
+    });
+
+    const release = () => {
+      setDirection(false);
+    };
+
+    button.addEventListener('pointerup', release);
+    button.addEventListener('pointercancel', release);
+    button.addEventListener('pointerleave', release);
+    button.addEventListener('lostpointercapture', release);
+  };
+
+  bindTouchButton(elements.leftTouchButton, 'left');
+  bindTouchButton(elements.rightTouchButton, 'right');
+
+  if (!('PointerEvent' in window)) {
+    const firstTouch = (event) => event.touches?.[0] || event.changedTouches?.[0] || null;
+
+    elements.canvas.addEventListener(
+      'touchstart',
+      (event) => {
+        const touch = firstTouch(event);
+        if (!touch) return;
+        if (state.mode === 'menu' || state.mode === 'gameover') {
+          startGame();
+        }
+        beginTouchControl(1, touch.clientX);
+        event.preventDefault();
+      },
+      { passive: false },
+    );
+
+    elements.canvas.addEventListener(
+      'touchmove',
+      (event) => {
+        if (!state.touchControl.active) return;
+        const touch = firstTouch(event);
+        if (!touch) return;
+        updateTouchTarget(touch.clientX);
+        event.preventDefault();
+      },
+      { passive: false },
+    );
+
+    const stopTouch = (event) => {
+      endTouchControl();
+      event.preventDefault();
+    };
+    elements.canvas.addEventListener('touchend', stopTouch, { passive: false });
+    elements.canvas.addEventListener('touchcancel', stopTouch, { passive: false });
+
+    const bindFallbackTouchButton = (button, side) => {
+      const setDirection = (isPressed) => {
+        if (side === 'left') {
+          state.input.left = isPressed;
+        } else {
+          state.input.right = isPressed;
+        }
+      };
+
+      button.addEventListener(
+        'touchstart',
+        (event) => {
+          setDirection(true);
+          endTouchControl();
+          event.preventDefault();
+        },
+        { passive: false },
+      );
+
+      const release = (event) => {
+        setDirection(false);
+        event.preventDefault();
+      };
+      button.addEventListener('touchend', release, { passive: false });
+      button.addEventListener('touchcancel', release, { passive: false });
+    };
+
+    bindFallbackTouchButton(elements.leftTouchButton, 'left');
+    bindFallbackTouchButton(elements.rightTouchButton, 'right');
+  }
 
   window.addEventListener('resize', resizeCanvasDisplay);
 

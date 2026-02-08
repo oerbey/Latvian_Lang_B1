@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta
+      name="description"
+      content="English to Latvian Word Catcher. Move left or right to catch the Latvian phrase matching the English prompt."
+    />
+    <meta name="theme-color" content="#16344f" />
+    <title>English -> Latvian Word Catcher | Latvian B1</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/english-latvian-arcade/styles.css" />
+  </head>
+  <body class="lv-en-arcade-page game-theme theme-lv-en-arcade">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
+
+    <main id="main" class="container py-4 mt-5 lv-en-arcade-main" role="main">
+      <header class="lv-en-arcade-hero">
+        <div>
+          <p class="lv-en-arcade-hero__eyebrow">Vocabulary arcade</p>
+          <h1 class="lv-en-arcade-hero__title">English -> Latvian Word Catcher</h1>
+          <p class="lv-en-arcade-hero__lead">
+            Catch the Latvian phrase that matches the English prompt before it drops below the
+            basket.
+          </p>
+        </div>
+        <div class="lv-en-arcade-tags" aria-label="game metadata">
+          <span class="lv-en-arcade-tag">Focus: translation</span>
+          <span class="lv-en-arcade-tag">Data: lv-en units</span>
+          <span class="lv-en-arcade-tag">Session: 4-6 min</span>
+        </div>
+      </header>
+
+      <section class="lv-en-arcade-shell" aria-labelledby="arcade-mode">
+        <div class="lv-en-arcade-toolbar" aria-live="polite">
+          <div class="lv-en-arcade-stat">
+            <span>Mode</span><strong id="arcade-mode">Loading</strong>
+          </div>
+          <div class="lv-en-arcade-stat">
+            <span>Score</span><strong id="arcade-score">0</strong>
+          </div>
+          <div class="lv-en-arcade-stat">
+            <span>Streak</span><strong id="arcade-streak">0</strong>
+          </div>
+          <div class="lv-en-arcade-stat">
+            <span>Lives</span><strong id="arcade-lives">3</strong>
+          </div>
+          <div class="lv-en-arcade-stat">
+            <span>Round</span><strong id="arcade-round">0</strong>
+          </div>
+        </div>
+
+        <div class="lv-en-arcade-actions" role="toolbar" aria-label="Game actions">
+          <button id="start-btn" class="btn btn-primary lv-en-arcade-start" type="button">
+            Start round
+          </button>
+          <button id="restart-btn" class="btn btn-outline-secondary" type="button">Restart</button>
+        </div>
+
+        <div id="arcade-canvas-wrap" class="lv-en-arcade-canvas-wrap">
+          <canvas
+            id="lv-en-arcade-canvas"
+            width="960"
+            height="540"
+            aria-label="Word catcher game canvas"
+          ></canvas>
+        </div>
+
+        <p id="arcade-message" class="lv-en-arcade-message" role="status" aria-live="polite">
+          Loading vocabulary...
+        </p>
+      </section>
+
+      <p class="lv-en-arcade-hint">
+        Controls: <kbd>Left</kbd>/<kbd>Right</kbd> or <kbd>A</kbd>/<kbd>D</kbd>, <kbd>Space</kbd> to
+        start/restart, <kbd>F</kbd> fullscreen.
+      </p>
+
+      <div id="arcade-live" class="visually-hidden" aria-live="polite"></div>
+    </main>
+
+    <footer class="border-top py-4 bg-body-tertiary mt-4" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      defer
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="theme.js" defer></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="src/games/english-latvian-arcade/index.js"></script>
+  </body>
+</html>

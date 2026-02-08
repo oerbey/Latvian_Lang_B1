@@ -51,6 +51,16 @@ const games = [
     accent: '#355a77',
   },
   {
+    title: 'English -> Latvian Word Catcher',
+    href: 'english-latvian-arcade.html',
+    icon: 'stats',
+    desc: 'Catch the Latvian phrase matching each English prompt in a fast canvas arcade round.',
+    tag: 'Arcade',
+    meta: ['Focus: translation', '4–6 min', 'EN->LV'],
+    accent: '#1f567a',
+    art: 'linear-gradient(135deg, rgba(31, 86, 122, 0.34), rgba(239, 247, 252, 0.95)), radial-gradient(circle at 22% 18%, rgba(31, 86, 122, 0.56), transparent 55%), radial-gradient(circle at 78% 74%, rgba(111, 182, 219, 0.4), transparent 60%)',
+  },
+  {
     title: 'Kas ir manā mājā?',
     href: 'decl6-detective.html',
     icon: 'home',

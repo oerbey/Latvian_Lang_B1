@@ -56,3 +56,56 @@ TODO / verify before handoff:
 - Push branch to `origin` and share branch name + summary.
 - Ran required develop-web-game Playwright client against `http://127.0.0.1:5180/sentence-surgery-passive.html` and inspected screenshot `output/web-game/sspv-v2/shot-0.png`.
 - Observed expected UI state with bank hints + improved controls; console error output only contained expected CSP-meta warning.
+
+---
+
+English -> Latvian web-game iteration (current task)
+
+- Request: build and iterate a playable web game using existing data to teach English <-> Latvian vocabulary, validated via develop-web-game Playwright loop.
+- Added new page + game module:
+  - `english-latvian-arcade.html`
+  - `src/games/english-latvian-arcade/index.js`
+  - `src/games/english-latvian-arcade/logic.js`
+  - `src/games/english-latvian-arcade/styles.css`
+- Game behavior implemented:
+  - Loads existing vocabulary from `data/lv-en/units.json` + `data/lv-en/units/*.json`
+  - Canvas gameplay: move catcher left/right to catch correct LV translation for an EN prompt
+  - Score/streak/lives/round flow with start/restart and game-over states
+  - Hooks added: `window.render_game_to_text`, deterministic `window.advanceTime(ms)`, fullscreen toggle (`f`)
+- Integrated discoverability:
+  - Added nav entry in `scripts/nav-config.js`
+  - Added homepage card in `scripts/homepage.js`
+  - Added theme skin tokens in `styles.css`
+  - Added SW precache entries + version bump (`sw.js` -> `v16`)
+- Added unit tests for pure game logic:
+  - `test/games/english-latvian-arcade/logic.test.js`
+
+Next:
+
+- Run formatter + unit tests
+- Run develop-web-game Playwright client loop and inspect screenshots/state/errors
+- Fix issues found and iterate
+
+Validation and iteration notes (develop-web-game loop)
+
+- Ran local server on `http://127.0.0.1:5180` and executed repeated Playwright client loops via:
+  - `/Users/onurerbey/.codex/skills/develop-web-game/scripts/web_game_playwright_client.js`
+- First loop issue:
+  - Auto-click on `#start-btn` was flaky (`element is not stable`), and loop stopped early due to a CSP console error (`frame-ancestors` in meta CSP).
+- Fixes applied:
+  - Removed `frame-ancestors` from `english-latvian-arcade.html` meta CSP to avoid console error stopping the loop.
+  - Added deterministic start button class (`.lv-en-arcade-start`) with animation disabled to stabilize click timing.
+- Multi-iteration Playwright loops now produce full `shot-*.png` + `state-*.json` artifacts with no `errors-*.json`:
+  - `output/web-game/lv-en-arcade-iter3`
+  - `output/web-game/lv-en-arcade-iter5`
+  - `output/web-game/lv-en-arcade-iter6`
+- Additional gameplay fixes after artifact review:
+  - Added `bestStreak` tracking and render in game-over message.
+  - Ensured `player.velocityX` is reset when not in active play mode.
+  - Increased card text wrapping tolerance for long Latvian phrases (smaller font + up to 3 lines).
+- Explicit restart verification:
+  - `output/web-game/lv-en-arcade-iter7` confirms `gameover -> Space restart` returns to `mode: play` with reset score/lives/round (`points:0`, `lives:3`, `round:0`).
+
+Suggested next work:
+- Add optional difficulty selector (drop speed/lives).
+- Add compact on-canvas feedback marker (check/x) on catch for clearer learning signal.

@@ -30,19 +30,20 @@ A comprehensive browser-based collection of interactive educational games and to
 
 ### Specialized Game Modules
 
-| Game                         | Entry Point                    | Description                                                                        |
-| ---------------------------- | ------------------------------ | ---------------------------------------------------------------------------------- |
-| **Darbības Vārds**           | `darbibas-vards.html`          | Dual-column vocabulary card matcher with optional speech synthesis                 |
-| **Conjugation Sprint**       | `conjugation-sprint.html`      | Timed multiple-choice quiz for verb conjugation across tenses and persons          |
-| **Endings Builder**          | `endings-builder.html`         | Drag-and-drop morphology trainer with strict diacritics mode and progress tracking |
-| **Passive Lab**              | `passive-lab.html`             | Grammar exercises focused on passive voice (ciešamā kārta)                         |
-| **Kas ir manā mājā?**        | `decl6-detective.html`         | Detective game for locative case (6th declension) usage                            |
-| **Travel Tracker**           | `travel-tracker.html`          | Interactive map-based game with route/location vocabulary                          |
-| **Maini vai mainies?**       | `maini-vai-mainies.html`       | Active vs. passive voice discrimination game                                       |
-| **Kas jādara kam?**          | `duty-dispatcher.html`         | Dative case practice through role assignment scenarios                             |
-| **Rakstura īpašības — pāri** | `rakstura-ipasibas-match.html` | Character trait matching game                                                      |
-| **Rakstura īpašības**        | `character-traits.html`        | Character traits vocabulary builder                                                |
-| **Week 1**                   | `week1.html`                   | Curated lesson for week 1 vocabulary and concepts                                  |
+| Game                           | Entry Point                     | Description                                                                        |
+| ------------------------------ | ------------------------------- | ---------------------------------------------------------------------------------- |
+| **Darbības Vārds**             | `darbibas-vards.html`           | Dual-column vocabulary card matcher with optional speech synthesis                 |
+| **Conjugation Sprint**         | `conjugation-sprint.html`       | Timed multiple-choice quiz for verb conjugation across tenses and persons          |
+| **Endings Builder**            | `endings-builder.html`          | Drag-and-drop morphology trainer with strict diacritics mode and progress tracking |
+| **Passive Lab**                | `passive-lab.html`              | Grammar exercises focused on passive voice (ciešamā kārta)                         |
+| **Sentence Surgery — Passive** | `sentence-surgery-passive.html` | Repair-one-token passive voice exercise using a local dataset                      |
+| **Kas ir manā mājā?**          | `decl6-detective.html`          | Detective game for locative case (6th declension) usage                            |
+| **Travel Tracker**             | `travel-tracker.html`           | Interactive map-based game with route/location vocabulary                          |
+| **Maini vai mainies?**         | `maini-vai-mainies.html`        | Active vs. passive voice discrimination game                                       |
+| **Kas jādara kam?**            | `duty-dispatcher.html`          | Dative case practice through role assignment scenarios                             |
+| **Rakstura īpašības — pāri**   | `rakstura-ipasibas-match.html`  | Character trait matching game                                                      |
+| **Rakstura īpašības**          | `character-traits.html`         | Character traits vocabulary builder                                                |
+| **Week 1**                     | `week1.html`                    | Curated lesson for week 1 vocabulary and concepts                                  |
 
 ## 🏗️ Project Structure
 
@@ -65,6 +66,7 @@ A comprehensive browser-based collection of interactive educational games and to
 │   │   ├── endings-builder/           # Drag-and-drop morphology trainer
 │   │   ├── travel-tracker/
 │   │   ├── passive-lab/
+│   │   ├── sentence-surgery-passive/
 │   │   ├── decl6-detective/
 │   │   ├── duty-dispatcher/
 │   │   ├── maini-vai-mainies/
@@ -299,6 +301,13 @@ CI runs `npm test`, `npm run validate:data`, and `npm run test:e2e` on every PR 
 - **Travel Tracker**: `data/travel-tracker/routes.json` (map locations)
 - **Duty Dispatcher**: `data/duty-dispatcher/roles.json`, `data/duty-dispatcher/tasks.json`
 - **Decl6 Detective**: `data/decl6-detective/items.json`
+- **Sentence Surgery (Passive)**: `sentence_surgery_pack/sentence_surgery_passive_dataset.json`
+
+### Sentence Surgery Dataset Notes
+
+- **Dataset location**: `sentence_surgery_pack/sentence_surgery_passive_dataset.json`
+- **How to add more datasets**: keep the same shape (`meta`, `items`, and per-item fields `target_lv`, `broken_lv`, `errors`, `word_bank`), then point the game loader to the new JSON path.
+- **Tokenization behavior**: sentence text is split into Unicode-safe tokens; punctuation tokens are compared explicitly, and rendering enforces no extra spaces before `. , ? : ;`.
 
 ### Offline Data
 

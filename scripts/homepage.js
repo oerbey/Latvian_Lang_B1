@@ -42,6 +42,16 @@ const games = [
     art: 'url("assets/previews/passive_preview.png")',
   },
   {
+    title: 'Sentence Surgery — Ciešamā kārta',
+    href: 'sentence-surgery-passive.html',
+    icon: 'pencil',
+    desc: 'Repair one-token passive voice errors with an editable word bank.',
+    tag: 'Surgery',
+    meta: ['Focus: passive', '6–9 min', 'Token repair'],
+    accent: '#355a77',
+    art: 'url("assets/previews/sentence_surgery_preview.svg")',
+  },
+  {
     title: 'Kas ir manā mājā?',
     href: 'decl6-detective.html',
     icon: 'home',

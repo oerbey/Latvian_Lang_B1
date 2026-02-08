@@ -1,0 +1,826 @@
+{
+  "meta": {
+    "name": "Sentence Surgery — Passive Voice (Ciešamā kārta) — B1 dataset",
+    "version": "0.2",
+    "created": "2026-02-07",
+    "sources_used": [
+      "Ciešamā kārta (Week 5 slides)",
+      "Salīmēt / uzlīmēt (Week 5 slides)",
+      "Valoda — 10. nodaļa (Week 13 slides)"
+    ],
+    "notes": [
+      "Each item is a repair task: target_lv (correct) + broken_lv (one intentional error).",
+      "Main focus: tikt + passive participle agreement (-ts/-ta/-ti/-tas), tense, negation, and typical word order.",
+      "Word banks include plausible distractors (wrong aux tense/negation or wrong participle ending)."
+    ],
+    "missing_data_to_start_building_sentence_surgery": [
+      {
+        "priority": "P0",
+        "dataset": "Verb lexicon (passive-participle generator)",
+        "why": "To scale beyond hand-written items and generate distractors reliably.",
+        "must_include": [
+          "infinitive",
+          "past passive participle stem / forms (-ts/-ta/-ti/-tas)",
+          "valency notes (what cases/objects the verb usually takes)",
+          "common prefixes (ie-, uz-, iz-, sa-, at-...) where relevant"
+        ]
+      },
+      {
+        "priority": "P0",
+        "dataset": "Noun & noun-phrase lexicon",
+        "why": "To guarantee correct gender/number agreement + cases for active↔passive pairs.",
+        "must_include": [
+          "lemma",
+          "gender",
+          "number patterns",
+          "core forms (Nom/Gen/Acc/Dat sg+pl at minimum)",
+          "multiword NP templates (e.g., 'Pirmās grāmatas', 'Eksāmena jautājumi')"
+        ]
+      },
+      {
+        "priority": "P0",
+        "dataset": "Active↔passive aligned pairs",
+        "why": "Sentence Surgery becomes more ‘teaching’ when it shows what changed and why.",
+        "must_include": [
+          "active_lv (SVO)",
+          "passive_lv (ciešamā kārta)",
+          "mapping (active object → passive subject, verb → participle, tense → aux form)",
+          "optional agent phrase patterns (by-context)"
+        ]
+      },
+      {
+        "priority": "P1",
+        "dataset": "Error-template library",
+        "why": "So the game can generate consistent, pedagogically meaningful ‘broken’ sentences.",
+        "must_include": [
+          "aux tense swap (tiek↔tika↔tiks)",
+          "negation swap (tiek↔netiek etc.)",
+          "agreement swap (-ts/-ta/-ti/-tas)",
+          "missing-token patterns (blank aux/blank participle)",
+          "word-order traps (controlled, B1-safe)"
+        ]
+      },
+      {
+        "priority": "P1",
+        "dataset": "Difficulty & pedagogy tags",
+        "why": "Adaptive practice needs labels to choose the right next task.",
+        "must_include": [
+          "CEFR sub-skill tags (tense, negation, agreement, dative recipient, time phrase)",
+          "difficulty score",
+          "topic/context tag"
+        ]
+      },
+      {
+        "priority": "P2",
+        "dataset": "Audio / pronunciation support",
+        "why": "Optional, but huge for retention and confidence.",
+        "must_include": [
+          "TTS-ready text",
+          "stress hints (optional)",
+          "minimal pairs for endings (-ts/-ta/-ti/-tas)"
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "PV_0001",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Grāmata tiek lasīta.",
+      "target_en": "The book is being read.",
+      "broken_lv": "Grāmata tika lasīta.",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": ["Grāmata", "tiek", "tika", "tiks", "lasīta", "lasīts", "."]
+    },
+    {
+      "id": "PV_0002",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Grāmata tika lasīta.",
+      "target_en": "The book was read.",
+      "broken_lv": "Grāmata tiek lasīta.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tika" }],
+      "word_bank": ["Grāmata", "tiek", "tika", "tiks", "lasīta", "lasīts", "."]
+    },
+    {
+      "id": "PV_0003",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Grāmata tiks lasīta.",
+      "target_en": "The book will be read.",
+      "broken_lv": "Grāmata tiek lasīta.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tiks" }],
+      "word_bank": ["Grāmata", "tiek", "tika", "tiks", "lasīta", "lasīts", "."]
+    },
+
+    {
+      "id": "PV_0004",
+      "topic": "tech",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Internets tiek izmantots.",
+      "target_en": "The internet is being used.",
+      "broken_lv": "Internets tiek izmantota.",
+      "errors": [{ "type": "participle_agreement", "wrong": "izmantota", "correct": "izmantots" }],
+      "word_bank": ["Internets", "tiek", "tika", "tiks", "izmantots", "izmantota", "."]
+    },
+    {
+      "id": "PV_0005",
+      "topic": "tech",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Dators tiek izslēgts.",
+      "target_en": "The computer is being turned off.",
+      "broken_lv": "Dators tika izslēgts.",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": ["Dators", "tiek", "tika", "tiks", "izslēgts", "izslēgta", "."]
+    },
+
+    {
+      "id": "PV_0006",
+      "topic": "work",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Veikals tiek atvērts plkst. 8.00.",
+      "target_en": "The store is opened at 8:00.",
+      "broken_lv": "Veikals tiek atvērta plkst. 8.00.",
+      "errors": [{ "type": "participle_agreement", "wrong": "atvērta", "correct": "atvērts" }],
+      "word_bank": ["Veikals", "tiek", "tika", "tiks", "atvērts", "atvērta", "plkst.", "8.00", "."]
+    },
+
+    {
+      "id": "PV_0007",
+      "topic": "study",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Eksāmens tiek kārtots.",
+      "target_en": "The exam is being taken.",
+      "broken_lv": "Eksāmens tiek kārtota.",
+      "errors": [{ "type": "participle_agreement", "wrong": "kārtota", "correct": "kārtots" }],
+      "word_bank": ["Eksāmens", "tiek", "tika", "tiks", "kārtots", "kārtota", "."]
+    },
+    {
+      "id": "PV_0008",
+      "topic": "study",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Latviešu valoda tiek mācīta.",
+      "target_en": "Latvian is being taught/learned.",
+      "broken_lv": "Latviešu valoda tiek mācīts.",
+      "errors": [{ "type": "participle_agreement", "wrong": "mācīts", "correct": "mācīta" }],
+      "word_bank": ["Latviešu", "valoda", "tiek", "tika", "tiks", "mācīta", "mācīts", "."]
+    },
+
+    {
+      "id": "PV_0009",
+      "topic": "work",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Līgums tiek parakstīts.",
+      "target_en": "The contract is being signed.",
+      "broken_lv": "Līgums tika parakstīts.",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": ["Līgums", "tiek", "tika", "tiks", "parakstīts", "parakstīta", "."]
+    },
+
+    {
+      "id": "PV_0010",
+      "topic": "study",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Eksāmena jautājumi tiek sagatavoti.",
+      "target_en": "The exam questions are being prepared.",
+      "broken_lv": "Eksāmena jautājumi tiek sagatavotas.",
+      "errors": [
+        { "type": "participle_agreement", "wrong": "sagatavotas", "correct": "sagatavoti" }
+      ],
+      "word_bank": [
+        "Eksāmena",
+        "jautājumi",
+        "tiek",
+        "tika",
+        "tiks",
+        "sagatavoti",
+        "sagatavotas",
+        "."
+      ]
+    },
+
+    {
+      "id": "PV_0011",
+      "topic": "garden",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Rozes tiek pārstādītas.",
+      "target_en": "The roses are being replanted.",
+      "broken_lv": "Rozes tika pārstādītas.",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": ["Rozes", "tiek", "tika", "tiks", "pārstādītas", "pārstādīti", "."]
+    },
+    {
+      "id": "PV_0012",
+      "topic": "city",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Pagalmi tiks tīrīti.",
+      "target_en": "The courtyards will be cleaned.",
+      "broken_lv": "Pagalmi tiks tīrītas.",
+      "errors": [{ "type": "participle_agreement", "wrong": "tīrītas", "correct": "tīrīti" }],
+      "word_bank": ["Pagalmi", "tiek", "tika", "tiks", "tīrīti", "tīrītas", "."]
+    },
+
+    {
+      "id": "PV_0013",
+      "topic": "construction",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Māja tiek celta.",
+      "target_en": "The house is being built.",
+      "broken_lv": "Māja tika celta.",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": ["Māja", "tiek", "tika", "tiks", "celta", "celts", "."]
+    },
+    {
+      "id": "PV_0014",
+      "topic": "construction",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Māja netiek celta.",
+      "target_en": "The house is not being built.",
+      "broken_lv": "Māja tiek celta.",
+      "errors": [{ "type": "negation", "wrong": "tiek", "correct": "netiek" }],
+      "word_bank": ["Māja", "tiek", "netiek", "tika", "netika", "celta", "celts", "."]
+    },
+    {
+      "id": "PV_0015",
+      "topic": "construction",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Māja tika uzcelta 1930. gadā.",
+      "target_en": "The house was built in 1930.",
+      "broken_lv": "Māja tika uzcelts 1930. gadā.",
+      "errors": [{ "type": "participle_agreement", "wrong": "uzcelts", "correct": "uzcelta" }],
+      "word_bank": ["Māja", "tika", "tiek", "tiks", "uzcelta", "uzcelts", "1930.", "gadā", "."]
+    },
+
+    {
+      "id": "PV_0016",
+      "topic": "real_estate",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Dzīvoklis tiek pārdots.",
+      "target_en": "The apartment is being sold.",
+      "broken_lv": "Dzīvoklis tiks pārdots.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiks", "correct": "tiek" }],
+      "word_bank": ["Dzīvoklis", "tiek", "tika", "tiks", "pārdots", "pārdota", "."]
+    },
+    {
+      "id": "PV_0017",
+      "topic": "real_estate",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Zeme tiek pārdota.",
+      "target_en": "The land is being sold.",
+      "broken_lv": "Zeme tiek pārdots.",
+      "errors": [{ "type": "participle_agreement", "wrong": "pārdots", "correct": "pārdota" }],
+      "word_bank": ["Zeme", "tiek", "tika", "tiks", "pārdota", "pārdots", "."]
+    },
+    {
+      "id": "PV_0018",
+      "topic": "real_estate",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Dzīvoklis tiek remontēts.",
+      "target_en": "The apartment is being renovated.",
+      "broken_lv": "Dzīvoklis tiek remontēta.",
+      "errors": [{ "type": "participle_agreement", "wrong": "remontēta", "correct": "remontēts" }],
+      "word_bank": ["Dzīvoklis", "tiek", "tika", "tiks", "remontēts", "remontēta", "."]
+    },
+    {
+      "id": "PV_0019",
+      "topic": "real_estate",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Vai īpašums tiek pārdots?",
+      "target_en": "Is the property being sold?",
+      "broken_lv": "Vai īpašums tika pārdots?",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": ["Vai", "īpašums", "tiek", "tika", "tiks", "pārdots", "pārdota", "?"]
+    },
+
+    {
+      "id": "PV_0020",
+      "topic": "construction",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Mājai tika uzlikts jumts.",
+      "target_en": "A roof was put on the house.",
+      "broken_lv": "Mājai tiek uzlikts jumts.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tika" }],
+      "word_bank": ["Mājai", "tika", "tiek", "tiks", "uzlikts", "uzlikta", "jumts", "."]
+    },
+    {
+      "id": "PV_0021",
+      "topic": "construction",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Elektrības vadi tiks ievilkti.",
+      "target_en": "Electrical wires will be installed.",
+      "broken_lv": "Elektrības vadi tiks ievilktas.",
+      "errors": [{ "type": "participle_agreement", "wrong": "ievilktas", "correct": "ievilkti" }],
+      "word_bank": ["Elektrības", "vadi", "tiek", "tika", "tiks", "ievilkti", "ievilktas", "."]
+    },
+    {
+      "id": "PV_0022",
+      "topic": "construction",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Sienas tiks flīzētas.",
+      "target_en": "The walls will be tiled.",
+      "broken_lv": "Sienas tiek flīzētas.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tiks" }],
+      "word_bank": ["Sienas", "tiek", "tika", "tiks", "flīzētas", "flīzēti", "."]
+    },
+    {
+      "id": "PV_0023",
+      "topic": "construction",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Sienas tiks krāsotas.",
+      "target_en": "The walls will be painted.",
+      "broken_lv": "Sienas tiks krāsoti.",
+      "errors": [{ "type": "participle_agreement", "wrong": "krāsoti", "correct": "krāsotas" }],
+      "word_bank": ["Sienas", "tiek", "tika", "tiks", "krāsotas", "krāsoti", "."]
+    },
+
+    {
+      "id": "PV_0024",
+      "topic": "culture",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Latvijas pilīs tiek organizēta Leģendu nakts.",
+      "target_en": "In Latvian castles, Legend Night is organized.",
+      "broken_lv": "Latvijas pilīs tiks organizēta Leģendu nakts.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiks", "correct": "tiek" }],
+      "word_bank": [
+        "Latvijas",
+        "pilīs",
+        "tiek",
+        "tika",
+        "tiks",
+        "organizēta",
+        "organizēts",
+        "Leģendu",
+        "nakts",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0025",
+      "topic": "culture",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Sveču gaismā tiks organizēta orientēšanās spēle.",
+      "target_en": "An orienteering game will be organized by candlelight.",
+      "broken_lv": "Sveču gaismā tiek organizēta orientēšanās spēle.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tiks" }],
+      "word_bank": [
+        "Sveču",
+        "gaismā",
+        "tiek",
+        "tika",
+        "tiks",
+        "organizēta",
+        "organizēts",
+        "orientēšanās",
+        "spēle",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0026",
+      "topic": "culture",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Tiks demonstrēta tērpu kolekcija.",
+      "target_en": "A costume collection will be presented.",
+      "broken_lv": "Tiks demonstrēts tērpu kolekcija.",
+      "errors": [
+        { "type": "participle_agreement", "wrong": "demonstrēts", "correct": "demonstrēta" }
+      ],
+      "word_bank": ["Tiks", "tiek", "tika", "demonstrēta", "demonstrēts", "tērpu", "kolekcija", "."]
+    },
+    {
+      "id": "PV_0027",
+      "topic": "culture",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Bērniem tiks stāstīti spoku stāsti.",
+      "target_en": "Ghost stories will be told to children.",
+      "broken_lv": "Bērniem tiks stāstītas spoku stāsti.",
+      "errors": [{ "type": "participle_agreement", "wrong": "stāstītas", "correct": "stāstīti" }],
+      "word_bank": [
+        "Bērniem",
+        "tiek",
+        "tika",
+        "tiks",
+        "stāstīti",
+        "stāstītas",
+        "spoku",
+        "stāsti",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0028",
+      "topic": "culture",
+      "source": "Week13_Valoda10",
+      "target_lv": "Viesiem tiek piedāvāti koncerti.",
+      "target_en": "Concerts are offered to guests.",
+      "broken_lv": "Viesiem tiek piedāvātas koncerti.",
+      "errors": [{ "type": "participle_agreement", "wrong": "piedāvātas", "correct": "piedāvāti" }],
+      "word_bank": ["Viesiem", "tiek", "tika", "tiks", "piedāvāti", "piedāvātas", "koncerti", "."]
+    },
+
+    {
+      "id": "PV_0029",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Lasītāji tiek aicināti uz Nacionālo bibliotēku.",
+      "target_en": "Readers are invited to the National Library.",
+      "broken_lv": "Lasītāji tiks aicināti uz Nacionālo bibliotēku.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiks", "correct": "tiek" }],
+      "word_bank": [
+        "Lasītāji",
+        "tiek",
+        "tika",
+        "tiks",
+        "aicināti",
+        "aicinātas",
+        "uz",
+        "Nacionālo",
+        "bibliotēku",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0030",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Lasītāji tiks iepazīstināti ar jaunāko literatūru.",
+      "target_en": "Readers will be introduced to the newest literature.",
+      "broken_lv": "Lasītāji tiks iepazīstinātas ar jaunāko literatūru.",
+      "errors": [
+        { "type": "participle_agreement", "wrong": "iepazīstinātas", "correct": "iepazīstināti" }
+      ],
+      "word_bank": [
+        "Lasītāji",
+        "tiek",
+        "tika",
+        "tiks",
+        "iepazīstināti",
+        "iepazīstinātas",
+        "ar",
+        "jaunāko",
+        "literatūru",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0031",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Nacionālajā bibliotēkā tiek organizētas izstādes.",
+      "target_en": "Exhibitions are organized at the National Library.",
+      "broken_lv": "Nacionālajā bibliotēkā tiek organizēti izstādes.",
+      "errors": [
+        { "type": "participle_agreement", "wrong": "organizēti", "correct": "organizētas" }
+      ],
+      "word_bank": [
+        "Nacionālajā",
+        "bibliotēkā",
+        "tiek",
+        "tika",
+        "tiks",
+        "organizētas",
+        "organizēti",
+        "izstādes",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0032",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Nacionālajā bibliotēkā tiek organizēti pasākumi.",
+      "target_en": "Events are organized at the National Library.",
+      "broken_lv": "Nacionālajā bibliotēkā tiek organizētas pasākumi.",
+      "errors": [
+        { "type": "participle_agreement", "wrong": "organizētas", "correct": "organizēti" }
+      ],
+      "word_bank": [
+        "Nacionālajā",
+        "bibliotēkā",
+        "tiek",
+        "tika",
+        "tiks",
+        "organizēti",
+        "organizētas",
+        "pasākumi",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0033",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Pirms nedēļas bērnu literatūras nodaļā tika rādīts leļļu teātris.",
+      "target_en": "A puppet theatre was shown in the children's literature department a week ago.",
+      "broken_lv": "Pirms nedēļas bērnu literatūras nodaļā tiek rādīts leļļu teātris.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tika" }],
+      "word_bank": [
+        "Pirms",
+        "nedēļas",
+        "bērnu",
+        "literatūras",
+        "nodaļā",
+        "tika",
+        "tiek",
+        "tiks",
+        "rādīts",
+        "rādīta",
+        "leļļu",
+        "teātris",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0034",
+      "topic": "library",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Nākamajā nedēļā tiks aicināts dzejnieks Māris Rungulis.",
+      "target_en": "Next week poet Māris Rungulis will be invited.",
+      "broken_lv": "Nākamajā nedēļā tiks aicināta dzejnieks Māris Rungulis.",
+      "errors": [{ "type": "participle_agreement", "wrong": "aicināta", "correct": "aicināts" }],
+      "word_bank": [
+        "Nākamajā",
+        "nedēļā",
+        "tiek",
+        "tika",
+        "tiks",
+        "aicināts",
+        "aicināta",
+        "dzejnieks",
+        "Māris",
+        "Rungulis",
+        "."
+      ]
+    },
+
+    {
+      "id": "PV_0035",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Rīga tika dibināta 1201. gadā.",
+      "target_en": "Riga was founded in 1201.",
+      "broken_lv": "Rīga tika dibināts 1201. gadā.",
+      "errors": [{ "type": "participle_agreement", "wrong": "dibināts", "correct": "dibināta" }],
+      "word_bank": ["Rīga", "tika", "tiek", "tiks", "dibināta", "dibināts", "1201.", "gadā", "."]
+    },
+    {
+      "id": "PV_0036",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Brīvības piemineklis tika atklāts 1935. gadā.",
+      "target_en": "The Freedom Monument was unveiled in 1935.",
+      "broken_lv": "Brīvības piemineklis tika atklāta 1935. gadā.",
+      "errors": [{ "type": "participle_agreement", "wrong": "atklāta", "correct": "atklāts" }],
+      "word_bank": [
+        "Brīvības",
+        "piemineklis",
+        "tika",
+        "tiek",
+        "tiks",
+        "atklāts",
+        "atklāta",
+        "1935.",
+        "gadā",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0037",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Likteņdārzs tiek veidots uz salas Daugavā pie Kokneses.",
+      "target_en": "Likteņdārzs is being created on an island in the Daugava near Koknese.",
+      "broken_lv": "Likteņdārzs tika veidots uz salas Daugavā pie Kokneses.",
+      "errors": [{ "type": "aux_tense", "wrong": "tika", "correct": "tiek" }],
+      "word_bank": [
+        "Likteņdārzs",
+        "tiek",
+        "tika",
+        "tiks",
+        "veidots",
+        "veidota",
+        "uz",
+        "salas",
+        "Daugavā",
+        "pie",
+        "Kokneses",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0038",
+      "topic": "nature",
+      "source": "Week13_Valoda10",
+      "target_lv": "Parkā ir iestādīti daudzi jauni koki.",
+      "target_en": "Many new trees have been planted in the park.",
+      "broken_lv": "Parkā ir iestādīts daudzi jauni koki.",
+      "errors": [{ "type": "participle_agreement", "wrong": "iestādīts", "correct": "iestādīti" }],
+      "word_bank": [
+        "Parkā",
+        "ir",
+        "tiek",
+        "tika",
+        "iestādīti",
+        "iestādīts",
+        "daudzi",
+        "jauni",
+        "koki",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0039",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pirmās grāmatas tika publicētas 16. gadsimtā.",
+      "target_en": "The first books were published in the 16th century.",
+      "broken_lv": "Pirmās grāmatas tika publicēti 16. gadsimtā.",
+      "errors": [{ "type": "participle_agreement", "wrong": "publicēti", "correct": "publicētas" }],
+      "word_bank": [
+        "Pirmās",
+        "grāmatas",
+        "tika",
+        "tiek",
+        "tiks",
+        "publicētas",
+        "publicēti",
+        "16.",
+        "gadsimtā",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0040",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pirmā kristīgā baznīca tika uzcelta Kurzemē 1070. gadā.",
+      "target_en": "The first Christian church was built in Kurzeme in 1070.",
+      "broken_lv": "Pirmā kristīgā baznīca tiek uzcelta Kurzemē 1070. gadā.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tika" }],
+      "word_bank": [
+        "Pirmā",
+        "kristīgā",
+        "baznīca",
+        "tika",
+        "tiek",
+        "tiks",
+        "uzcelta",
+        "uzcelts",
+        "Kurzemē",
+        "1070.",
+        "gadā",
+        "."
+      ]
+    },
+
+    {
+      "id": "PV_0041",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pils tika uzbūvēta.",
+      "target_en": "The castle was built.",
+      "broken_lv": "Pils tika uzbūvēts.",
+      "errors": [{ "type": "participle_agreement", "wrong": "uzbūvēts", "correct": "uzbūvēta" }],
+      "word_bank": ["Pils", "tika", "tiek", "tiks", "uzbūvēta", "uzbūvēts", "."]
+    },
+    {
+      "id": "PV_0042",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Iekārtas tika aizvestas.",
+      "target_en": "The equipment was taken away.",
+      "broken_lv": "Iekārtas tika aizvesti.",
+      "errors": [{ "type": "participle_agreement", "wrong": "aizvesti", "correct": "aizvestas" }],
+      "word_bank": ["Iekārtas", "tika", "tiek", "tiks", "aizvestas", "aizvesti", "."]
+    },
+    {
+      "id": "PV_0043",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pilī tika ierīkota komandantūra.",
+      "target_en": "A commandant office was set up in the castle.",
+      "broken_lv": "Pilī tika ierīkots komandantūra.",
+      "errors": [{ "type": "participle_agreement", "wrong": "ierīkots", "correct": "ierīkota" }],
+      "word_bank": ["Pilī", "tika", "tiek", "tiks", "ierīkota", "ierīkots", "komandantūra", "."]
+    },
+    {
+      "id": "PV_0044",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pilī tika ierīkots hospitālis.",
+      "target_en": "A hospital was set up in the castle.",
+      "broken_lv": "Pilī tika ierīkota hospitālis.",
+      "errors": [{ "type": "participle_agreement", "wrong": "ierīkota", "correct": "ierīkots" }],
+      "word_bank": ["Pilī", "tika", "tiek", "tiks", "ierīkots", "ierīkota", "hospitālis", "."]
+    },
+    {
+      "id": "PV_0045",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pils tika restaurēta.",
+      "target_en": "The castle was restored.",
+      "broken_lv": "Pils tiek restaurēta.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tika" }],
+      "word_bank": ["Pils", "tika", "tiek", "tiks", "restaurēta", "restaurēts", "."]
+    },
+    {
+      "id": "PV_0046",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pilī tika izveidots muzejs.",
+      "target_en": "A museum was created in the castle.",
+      "broken_lv": "Pilī tika izveidota muzejs.",
+      "errors": [{ "type": "participle_agreement", "wrong": "izveidota", "correct": "izveidots" }],
+      "word_bank": ["Pilī", "tika", "tiek", "tiks", "izveidots", "izveidota", "muzejs", "."]
+    },
+    {
+      "id": "PV_0047",
+      "topic": "history",
+      "source": "Week13_Valoda10",
+      "target_lv": "Pils restaurācija tika pabeigta.",
+      "target_en": "The castle restoration was completed.",
+      "broken_lv": "Pils restaurācija tiks pabeigta.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiks", "correct": "tika" }],
+      "word_bank": ["Pils", "restaurācija", "tika", "tiek", "tiks", "pabeigta", "pabeigts", "."]
+    },
+
+    {
+      "id": "PV_0048",
+      "topic": "science",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Šīs vakcīnas efektivitāte tika pierādīta pētījumā.",
+      "target_en": "The effectiveness of this vaccine was proven in the study.",
+      "broken_lv": "Šīs vakcīnas efektivitāte tika pierādīts pētījumā.",
+      "errors": [{ "type": "participle_agreement", "wrong": "pierādīts", "correct": "pierādīta" }],
+      "word_bank": [
+        "Šīs",
+        "vakcīnas",
+        "efektivitāte",
+        "tika",
+        "tiek",
+        "tiks",
+        "pierādīta",
+        "pierādīts",
+        "pētījumā",
+        "."
+      ]
+    },
+    {
+      "id": "PV_0049",
+      "topic": "science",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Pamatpētījumā tika iesaistīti dažādu tautību un dzimumu cilvēki.",
+      "target_en": "People of different nationalities and genders were involved in the main study.",
+      "broken_lv": "Pamatpētījumā tika iesaistītas dažādu tautību un dzimumu cilvēki.",
+      "errors": [
+        { "type": "participle_agreement", "wrong": "iesaistītas", "correct": "iesaistīti" }
+      ],
+      "word_bank": [
+        "Pamatpētījumā",
+        "tika",
+        "tiek",
+        "tiks",
+        "iesaistīti",
+        "iesaistītas",
+        "dažādu",
+        "tautību",
+        "un",
+        "dzimumu",
+        "cilvēki",
+        "."
+      ]
+    },
+
+    {
+      "id": "PV_0050",
+      "topic": "study",
+      "source": "Week5_CiesamaKarta",
+      "target_lv": "Sacerējums tiek rakstīts.",
+      "target_en": "An essay is being written.",
+      "broken_lv": "Sacerējums tiek rakstīta.",
+      "errors": [{ "type": "participle_agreement", "wrong": "rakstīta", "correct": "rakstīts" }],
+      "word_bank": ["Sacerējums", "tiek", "tika", "tiks", "rakstīts", "rakstīta", "."]
+    },
+    {
+      "id": "PV_0051",
+      "topic": "work",
+      "source": "Week13_Valoda10",
+      "target_lv": "Darbs rīt tiks pabeigts.",
+      "target_en": "The work will be finished tomorrow.",
+      "broken_lv": "Darbs rīt tiek pabeigts.",
+      "errors": [{ "type": "aux_tense", "wrong": "tiek", "correct": "tiks" }],
+      "word_bank": ["Darbs", "rīt", "tiek", "tika", "tiks", "pabeigts", "pabeigta", "."]
+    },
+    {
+      "id": "PV_0052",
+      "topic": "construction",
+      "source": "Week5_SalimetUzlimet",
+      "target_lv": "Sienas tiks mūrētas.",
+      "target_en": "The walls will be bricked/built.",
+      "broken_lv": "Sienas tiks mūrēti.",
+      "errors": [{ "type": "participle_agreement", "wrong": "mūrēti", "correct": "mūrētas" }],
+      "word_bank": ["Sienas", "tiek", "tika", "tiks", "mūrētas", "mūrēti", "."]
+    }
+  ]
+}

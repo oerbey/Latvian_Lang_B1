@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v13';
+const CACHE_VERSION = 'v14';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [
@@ -32,6 +32,7 @@ const CORE_ASSETS = [
   './endings-builder.html',
   './maini-vai-mainies.html',
   './passive-lab.html',
+  './sentence-surgery-passive.html',
   './rakstura-ipasibas-expansion.html',
   './rakstura-ipasibas-match.html',
   './travel-tracker.html',
@@ -45,6 +46,11 @@ const CORE_ASSETS = [
   './src/games/endings-builder/index.js',
   './src/games/maini-vai-mainies/index.js',
   './src/games/passive-lab/index.js',
+  './src/games/sentence-surgery-passive/index.js',
+  './src/games/sentence-surgery-passive/data.js',
+  './src/games/sentence-surgery-passive/progress.js',
+  './src/games/sentence-surgery-passive/tokenize.js',
+  './src/games/sentence-surgery-passive/styles.css',
   './src/games/travel-tracker/index.js',
   './data/words.json',
   './data/words/index.json',
@@ -60,6 +66,7 @@ const CORE_ASSETS = [
   './data/endings-builder/tables.json',
   './data/maini-vai-mainies/items.json',
   './data/passive-lab/items.json',
+  './sentence_surgery_pack/sentence_surgery_passive_dataset.json',
   './data/travel-tracker/routes.json',
   './data/personality/words.json',
   './data/lv-en/units.json',
@@ -89,6 +96,7 @@ const CORE_ASSETS = [
   './i18n/lv.json',
   './i18n/en.json',
   './i18n/ru.json',
+  './assets/previews/sentence_surgery_preview.svg',
 ];
 
 self.addEventListener('install', (event) => {

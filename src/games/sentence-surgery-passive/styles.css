@@ -1,0 +1,264 @@
+.sspv-page {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.sspv-main {
+  padding: 2.5rem 0 4rem;
+}
+
+.sspv-hero {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.sspv-eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.sspv-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 1.3rem + 1.9vw, 2.5rem);
+}
+
+.sspv-lead {
+  margin: 0;
+  color: var(--muted);
+  max-width: 68ch;
+  line-height: 1.6;
+}
+
+.sspv-card {
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-subtle) 100%);
+  box-shadow: 0 24px 55px var(--shadow-soft, rgba(15, 23, 42, 0.12));
+  padding: clamp(1rem, 2vw, 1.6rem);
+  display: grid;
+  gap: 1rem;
+}
+
+.sspv-controls {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.sspv-controls__group {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.75rem;
+  background: var(--surface);
+}
+
+.sspv-controls__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.sspv-controls .form-label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.sspv-controls .form-select {
+  border-radius: 12px;
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.sspv-progress {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sspv-progress strong {
+  font-size: 1.05rem;
+}
+
+.sspv-progress small {
+  color: var(--muted);
+}
+
+.sspv-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.sspv-stat {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.55rem 0.5rem;
+  text-align: center;
+  background: var(--surface);
+}
+
+.sspv-stat span {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.sspv-stat strong {
+  font-size: 1.05rem;
+}
+
+.sspv-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.sspv-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.34rem 0.72rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+.sspv-section {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 0.85rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.sspv-section h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.sspv-sentence-preview {
+  margin: 0;
+  font-size: 1.04rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.sspv-token-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sspv-token {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  min-height: 46px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 8px 18px var(--shadow-soft, rgba(15, 23, 42, 0.1));
+}
+
+.sspv-token--sentence {
+  cursor: pointer;
+}
+
+.sspv-token--sentence.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.sspv-token--sentence.is-mismatch {
+  border-color: var(--feedback-error);
+  background: color-mix(in srgb, var(--feedback-error) 16%, var(--surface));
+}
+
+.sspv-token--bank {
+  cursor: pointer;
+}
+
+.sspv-token--bank.is-current {
+  border-color: var(--accent);
+}
+
+.sspv-token:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sspv-actions {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.sspv-actions .btn {
+  min-height: 48px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.sspv-actions .btn-primary {
+  animation: none !important;
+}
+
+.sspv-feedback {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.7rem 0.85rem;
+  font-weight: 600;
+}
+
+.sspv-feedback[data-tone='success'] {
+  border-color: color-mix(in srgb, var(--feedback-success) 55%, var(--border));
+  background: color-mix(in srgb, var(--feedback-success) 12%, var(--surface));
+}
+
+.sspv-feedback[data-tone='error'] {
+  border-color: color-mix(in srgb, var(--feedback-error) 55%, var(--border));
+  background: color-mix(in srgb, var(--feedback-error) 12%, var(--surface));
+}
+
+.sspv-message {
+  margin: 0;
+  min-height: 1.5rem;
+  color: var(--muted);
+}
+
+.sspv-message--error {
+  color: var(--feedback-error);
+  font-weight: 600;
+}
+
+.sspv-translation {
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: var(--surface-subtle);
+}
+
+.sspv-translation p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .sspv-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sspv-token {
+    min-height: 48px;
+    padding-inline: 0.8rem;
+  }
+}

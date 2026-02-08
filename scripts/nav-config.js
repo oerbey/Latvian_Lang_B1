@@ -4,6 +4,7 @@ export const NAV_ITEMS = [
   { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },
   { href: 'endings-builder.html', label: 'Endings Builder' },
   { href: 'passive-lab.html', label: 'Ciešamās Kārtas Laboratorija' },
+  { href: 'sentence-surgery-passive.html', label: 'Sentence Surgery — Ciešamā kārta' },
   { href: 'decl6-detective.html', label: 'Kas ir manā mājā?' },
   { href: 'travel-tracker.html', label: 'Travel Tracker' },
   { href: 'maini-vai-mainies.html', label: 'Maini vai mainies?' },

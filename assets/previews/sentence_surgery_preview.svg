@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2E4D6F" />
+      <stop offset="1" stop-color="#8AA6C7" />
+    </linearGradient>
+    <linearGradient id="panel" x1="120" y1="120" x2="1080" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F9FBFF" />
+      <stop offset="1" stop-color="#E5EDF8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)" />
+  <g opacity="0.25">
+    <circle cx="180" cy="120" r="90" fill="#D8E4F4" />
+    <circle cx="1020" cy="620" r="130" fill="#D8E4F4" />
+  </g>
+  <rect x="120" y="90" width="960" height="540" rx="42" fill="url(#panel)" />
+  <rect x="185" y="182" width="830" height="74" rx="26" fill="#EDF3FC" stroke="#B9CBE2" stroke-width="3" />
+  <text x="220" y="228" fill="#214161" font-family="'Source Sans 3', Arial, sans-serif" font-size="40" font-weight="700">
+    Gramata tika lasita .
+  </text>
+  <g>
+    <rect x="185" y="292" width="156" height="58" rx="29" fill="#2E4D6F" />
+    <text x="244" y="328" fill="#FFFFFF" font-family="'Source Sans 3', Arial, sans-serif" font-size="34" font-weight="700">tiek</text>
+    <rect x="360" y="292" width="156" height="58" rx="29" fill="#F4F7FC" stroke="#8FA6C3" stroke-width="3" />
+    <text x="417" y="328" fill="#365674" font-family="'Source Sans 3', Arial, sans-serif" font-size="34" font-weight="700">tika</text>
+    <rect x="535" y="292" width="156" height="58" rx="29" fill="#F4F7FC" stroke="#8FA6C3" stroke-width="3" />
+    <text x="594" y="328" fill="#365674" font-family="'Source Sans 3', Arial, sans-serif" font-size="34" font-weight="700">tiks</text>
+  </g>
+  <rect x="185" y="398" width="830" height="124" rx="26" fill="#F7FAFF" stroke="#B9CBE2" stroke-width="3" />
+  <text x="220" y="450" fill="#2A4A69" font-family="'Source Sans 3', Arial, sans-serif" font-size="38" font-weight="700">
+    Sentence Surgery
+  </text>
+  <text x="220" y="498" fill="#4C6987" font-family="'Source Sans 3', Arial, sans-serif" font-size="30" font-weight="600">
+    Passive Voice Repair Trainer
+  </text>
+</svg>

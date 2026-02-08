@@ -5,6 +5,7 @@ const homepagePreviewCards = [
   { preview: 'sprint_preview.png', icon: 'gamepad' },
   { preview: 'endings_preview.png', icon: 'pencil' },
   { preview: 'passive_preview.png', icon: 'book' },
+  { preview: 'sentence_surgery_preview.svg', icon: 'pencil' },
   { preview: 'room_preview.png', icon: 'home' },
   { preview: 'travel_preview.png', icon: 'map' },
 ];
@@ -40,4 +41,19 @@ test('conjugation sprint loads and shows choices', async ({ page }) => {
   await expect(choices.first()).toBeVisible();
   await choices.first().click();
   await expect(page.locator('#score')).toBeVisible();
+});
+
+test('sentence surgery page loads and can check a round', async ({ page }) => {
+  await page.goto('/sentence-surgery-passive.html');
+  await expect(page.locator('#sspv-sentenceTokens .sspv-token').first()).toBeVisible();
+
+  const sentenceTokens = page.locator('#sspv-sentenceTokens .sspv-token');
+  const bankTokens = page.locator('#sspv-wordBank .sspv-token');
+
+  await sentenceTokens.first().click();
+  await bankTokens.first().click();
+  await page.locator('#sspv-check').click();
+
+  await expect(page.locator('#sspv-feedback')).toContainText(/Pareizi|Vēl nav pareizi/);
+  await expect(page.locator('#sspv-progressText')).toBeVisible();
 });

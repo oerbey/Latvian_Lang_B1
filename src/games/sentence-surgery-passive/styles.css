@@ -162,11 +162,31 @@
   margin: 0;
 }
 
+.sspv-section--broken {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+
+.sspv-focus-badge {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.35rem 0.7rem;
+}
+
 .sspv-sentence-preview {
   margin: 0;
-  font-size: 1.04rem;
+  font-size: clamp(1.15rem, 1rem + 0.75vw, 1.45rem);
   line-height: 1.45;
   color: var(--text);
+  font-weight: 700;
 }
 
 .sspv-token-grid {
@@ -184,6 +204,8 @@
   color: var(--text);
   font-weight: 600;
   box-shadow: 0 8px 18px var(--shadow-soft, rgba(15, 23, 42, 0.1));
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .sspv-token--sentence {
@@ -197,6 +219,7 @@
 .sspv-token--sentence.is-selected {
   border-color: var(--accent);
   background: var(--accent-soft);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .sspv-token--sentence.is-locked {
@@ -249,8 +272,40 @@
   font-weight: 600;
 }
 
-.sspv-actions .btn-primary {
+.sspv-actions #sspv-check {
+  background: #1f6fe5;
+  border-color: #1f6fe5;
+  color: #ffffff;
   animation: none !important;
+}
+
+.sspv-actions #sspv-reset {
+  border-color: #a66f2d;
+  color: #5f3b14;
+  background: color-mix(in srgb, #a66f2d 12%, var(--surface));
+}
+
+.sspv-actions #sspv-hint {
+  border-color: #7453b8;
+  color: #4c3380;
+  background: color-mix(in srgb, #7453b8 11%, var(--surface));
+}
+
+.sspv-actions #sspv-translationToggle {
+  border-color: #2a7b8b;
+  color: #1d5661;
+  background: color-mix(in srgb, #2a7b8b 10%, var(--surface));
+}
+
+.sspv-actions #sspv-next {
+  border-color: #2a8f46;
+  color: #ffffff;
+  background: #2a8f46;
+  font-weight: 700;
+}
+
+.sspv-actions #sspv-next.sspv-next-ready {
+  box-shadow: 0 12px 24px rgba(42, 143, 70, 0.35);
 }
 
 .sspv-feedback {

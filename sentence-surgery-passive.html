@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta
       name="description"
-      content="Sentence Surgery — Ciešamā kārta. Labo kļūdainus teikumus, aizstājot tokenus no vārdu bankas."
+      content="Sentence Surgery — Ciešamā kārta. Izlabo teikumu, aizstājot kļūdaino vārdu ar pareizo formu no vārdu saraksta."
     />
     <title>Sentence Surgery — Ciešamā kārta | Latvian B1</title>
     <link rel="manifest" href="manifest.json" />
@@ -49,8 +49,7 @@
             </button>
           </div>
           <p class="sspv-lead">
-            Izlabo teikumu, aizstājot kļūdaino tokenu ar pareizo formu no bankas. Mērķis: tieši
-            sakrist ar mērķa teikumu (tiek/tika/tiks, noliegums, -ts/-ta/-ti/-tas).
+            Izlabo teikumu, aizstājot kļūdaino vārdu ar pareizo formu no vārdu saraksta.
           </p>
         </header>
 
@@ -107,8 +106,9 @@
             <span class="sspv-badge">ID: <span id="sspv-itemBadge" class="ms-1">—</span></span>
           </div>
 
-          <section class="sspv-section" aria-label="Rediģējamais teikums">
+          <section class="sspv-section sspv-section--broken" aria-label="Rediģējamais teikums">
             <h2>Kļūdainais teikums</h2>
+            <p id="sspv-focusBadge" class="sspv-focus-badge">Labojamais fokuss: —</p>
             <p id="sspv-sentencePreview" class="sspv-sentence-preview">—</p>
             <div id="sspv-sentenceTokens" class="sspv-token-grid" aria-live="polite"></div>
           </section>
@@ -125,13 +125,8 @@
               Atiestatīt
             </button>
             <button id="sspv-hint" type="button" class="btn btn-outline-secondary">Padoms</button>
-            <button
-              id="sspv-translationToggle"
-              type="button"
-              class="btn btn-outline-secondary"
-              hidden
-            >
-              Rādīt tulkojumu
+            <button id="sspv-translationToggle" type="button" class="btn btn-outline-secondary">
+              Paslēpt tulkojumu
             </button>
             <button id="sspv-next" type="button" class="btn btn-secondary" hidden>Nākamais</button>
           </div>
@@ -152,8 +147,8 @@
             aria-live="polite"
           ></p>
 
-          <div id="sspv-translationPanel" class="sspv-translation" hidden>
-            <p id="sspv-translationText"></p>
+          <div id="sspv-translationPanel" class="sspv-translation">
+            <p id="sspv-translationText">English: —</p>
           </div>
         </section>
       </div>
@@ -180,9 +175,9 @@
           <div class="modal-body sspv-info-modal">
             <h3>Latviski</h3>
             <ol>
-              <li>Izvēlies tokenu sadaļā “Kļūdainais teikums”.</li>
-              <li>Spied vārdu no “Vārdu banka”, lai aizvietotu izvēlēto tokenu.</li>
-              <li>Vari arī vilkt bankas tokenu virsū teikuma tokenam (drag & drop).</li>
+              <li>Izvēlies labojamo vārdu sadaļā “Kļūdainais teikums”.</li>
+              <li>Spied vārdu no “Vārdu banka”, lai aizvietotu izvēlēto vārdu.</li>
+              <li>Vari arī vilkt bankas vārdu virsū labojamajam vārdam (drag & drop).</li>
               <li>Spied “Pārbaudīt”. Ja ir kļūda, tiks iezīmētas nepareizās vietas.</li>
               <li>“Padoms” strādā vienu reizi katrā uzdevumā.</li>
               <li>Pēc pareizas atbildes spied “Nākamais”.</li>

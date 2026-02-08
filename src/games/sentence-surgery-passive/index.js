@@ -6,6 +6,7 @@ import {
   buildErrorExplanation,
   buildHintText,
   extractTopics,
+  getErrorTypeLabel,
   loadSentenceSurgeryDataset,
   toTopicLabel,
 } from './data.js';
@@ -34,8 +35,17 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     queue: [],
     currentItem: null,
     currentTokens: [],
+    editableIndices: new Set(),
     selectedSentenceIndex: null,
     draggedBankToken: '',
+    touchDrag: {
+      token: '',
+      pointerId: null,
+      startX: 0,
+      startY: 0,
+      active: false,
+      originButton: null,
+    },
     mismatchIndices: [],
     checked: false,
     hintUsed: false,
@@ -68,6 +78,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     topicBadge: mustId('sspv-topicBadge'),
     sourceBadge: mustId('sspv-sourceBadge'),
     itemBadge: mustId('sspv-itemBadge'),
+    focusBadge: mustId('sspv-focusBadge'),
     translationToggle: mustId('sspv-translationToggle'),
     translationPanel: mustId('sspv-translationPanel'),
     translationText: mustId('sspv-translationText'),
@@ -151,16 +162,19 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
   }
 
   function getDefaultSelectionIndex() {
-    const wrongToken = state.currentItem?.errors?.[0]?.wrong;
-    if (wrongToken) {
-      const idx = state.currentTokens.findIndex((token) => token === wrongToken);
-      if (idx >= 0) return idx;
+    if (state.currentItem?.editableIndices?.length) {
+      return state.currentItem.editableIndices[0];
     }
     return state.currentTokens.length ? 0 : null;
   }
 
   function getAlternativesForIndex(index) {
-    if (!state.currentItem || !Number.isInteger(index) || !state.currentTokens.length) {
+    if (
+      !state.currentItem ||
+      !Number.isInteger(index) ||
+      !state.currentTokens.length ||
+      !state.editableIndices.has(index)
+    ) {
       return [];
     }
     const currentToken = state.currentTokens[index];
@@ -168,7 +182,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
   }
 
   function canEditSentenceIndex(index) {
-    return getAlternativesForIndex(index).length > 0;
+    return state.editableIndices.has(index) && getAlternativesForIndex(index).length > 0;
   }
 
   function updateBankHint() {
@@ -178,15 +192,87 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     }
     if (!Number.isInteger(state.selectedSentenceIndex)) {
       nodes.bankHint.textContent =
-        'Izvēlies teikuma tokenu, pēc tam izvēlies aizvietotāju no bankas.';
+        'Izvēlies labojamo vārdu teikumā, pēc tam izvēlies aizvietotāju no saraksta.';
       return;
     }
     const alternativesCount = getAlternativesForIndex(state.selectedSentenceIndex).length;
     if (!alternativesCount) {
-      nodes.bankHint.textContent = 'Šim tokenam nav alternatīvu bankā. Izvēlies citu tokenu.';
+      nodes.bankHint.textContent = 'Šim vārdam nav alternatīvu sarakstā. Izvēlies citu vārdu.';
       return;
     }
-    nodes.bankHint.textContent = `Alternatīvas šim tokenam: ${alternativesCount}.`;
+    nodes.bankHint.textContent = `Alternatīvas šim vārdam: ${alternativesCount}.`;
+  }
+
+  function describeExpectedAuxiliary(token = '') {
+    const lower = token.toLowerCase();
+    if (lower === 'tiek' || lower === 'netiek') return 'tagadne';
+    if (lower === 'tika' || lower === 'netika') return 'pagātne';
+    if (lower === 'tiks' || lower === 'netiks') return 'nākotne';
+    return '';
+  }
+
+  function buildFocusLabel(item) {
+    if (!item) return 'Labojamais fokuss: —';
+    const error = item.errors?.[0];
+    if (!error) return 'Labojamais fokuss: teikuma forma';
+    const base = `Labojamais fokuss: ${getErrorTypeLabel(error.type)}`;
+    if (error.type === 'aux_tense' && error.correct) {
+      const tense = describeExpectedAuxiliary(error.correct);
+      return tense
+        ? `${base} · vajadzīgs ${tense} (${error.correct})`
+        : `${base} · ${error.correct}`;
+    }
+    if (error.correct) {
+      return `${base} · pareizā forma: ${error.correct}`;
+    }
+    return base;
+  }
+
+  function syncTranslationUi() {
+    if (!state.currentItem) {
+      nodes.translationPanel.hidden = false;
+      nodes.translationText.textContent = 'English translation: —';
+      nodes.translationToggle.hidden = true;
+      return;
+    }
+    const translation = state.currentItem.targetEn || 'Translation unavailable.';
+    nodes.translationText.textContent = `English: ${translation}`;
+    nodes.translationToggle.hidden = false;
+    nodes.translationPanel.hidden = !state.translationVisible;
+    nodes.translationToggle.textContent = state.translationVisible
+      ? 'Paslēpt tulkojumu'
+      : 'Rādīt tulkojumu';
+  }
+
+  function clearSentenceDropTargets() {
+    nodes.sentenceTokens
+      .querySelectorAll('.is-drop-target')
+      .forEach((element) => element.classList.remove('is-drop-target'));
+  }
+
+  function getEditableSentenceIndexFromPoint(clientX, clientY) {
+    const target = document.elementFromPoint(clientX, clientY);
+    if (!(target instanceof HTMLElement)) return null;
+    const tokenButton = target.closest('.sspv-token--sentence');
+    if (!(tokenButton instanceof HTMLElement)) return null;
+    const index = Number.parseInt(tokenButton.dataset.sentenceIndex || '', 10);
+    if (!Number.isInteger(index) || !canEditSentenceIndex(index)) return null;
+    return index;
+  }
+
+  function resetTouchDragState() {
+    if (state.touchDrag.originButton?.classList) {
+      state.touchDrag.originButton.classList.remove('is-dragging');
+    }
+    clearSentenceDropTargets();
+    state.touchDrag = {
+      token: '',
+      pointerId: null,
+      startX: 0,
+      startY: 0,
+      active: false,
+      originButton: null,
+    };
   }
 
   function applyTokenReplacement(index, token, source = 'tap') {
@@ -194,7 +280,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       return false;
     }
     if (!canEditSentenceIndex(index)) {
-      updateFeedback('Šo tokenu nevar mainīt, jo bankā nav alternatīvu.', 'info');
+      updateFeedback('Šo vārdu nevar mainīt, jo sarakstā nav alternatīvu.', 'info');
       return false;
     }
     if (typeof token !== 'string' || !token) {
@@ -208,8 +294,8 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     nodes.explanationText.textContent = '';
     updateFeedback(
       source === 'drag'
-        ? 'Tokens aizvietots ar drag & drop. Nospied “Pārbaudīt”.'
-        : 'Tokens nomainīts. Nospied “Pārbaudīt”.',
+        ? 'Vārds aizvietots ar drag & drop. Nospied “Pārbaudīt”.'
+        : 'Vārds nomainīts. Nospied “Pārbaudīt”.',
       'info',
     );
     renderSentenceTokens();
@@ -230,6 +316,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'sspv-token sspv-token--sentence';
+      button.dataset.sentenceIndex = String(index);
       button.textContent = token;
       button.setAttribute('aria-pressed', String(state.selectedSentenceIndex === index));
       button.setAttribute('aria-label', `Teikuma tokens ${index + 1}: ${token}`);
@@ -246,7 +333,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
 
       button.addEventListener('click', () => {
         if (!editable) {
-          updateFeedback('Šo tokenu nav jēgas mainīt: bankā nav alternatīvu.', 'info');
+          updateFeedback('Šo vārdu nav jēgas mainīt: sarakstā nav alternatīvu.', 'info');
           return;
         }
         state.selectedSentenceIndex = index;
@@ -319,14 +406,25 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       button.addEventListener('dragend', () => {
         state.draggedBankToken = '';
         button.classList.remove('is-dragging');
-        nodes.sentenceTokens
-          .querySelectorAll('.is-drop-target')
-          .forEach((element) => element.classList.remove('is-drop-target'));
+        clearSentenceDropTargets();
+      });
+
+      button.addEventListener('pointerdown', (event) => {
+        if (event.pointerType !== 'touch' || button.disabled) return;
+        state.touchDrag = {
+          token,
+          pointerId: event.pointerId,
+          startX: event.clientX,
+          startY: event.clientY,
+          active: false,
+          originButton: button,
+        };
+        state.draggedBankToken = token;
       });
 
       button.addEventListener('click', () => {
         if (!hasSelection) {
-          updateFeedback('Vispirms izvēlies maināmu tokenu teikumā.', 'info');
+          updateFeedback('Vispirms izvēlies maināmu vārdu teikumā.', 'info');
           return;
         }
         applyTokenReplacement(state.selectedSentenceIndex, token, 'tap');
@@ -343,23 +441,24 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       nodes.topicBadge.textContent = '—';
       nodes.sourceBadge.textContent = '—';
       nodes.itemBadge.textContent = '—';
+      nodes.focusBadge.textContent = 'Labojamais fokuss: —';
       return;
     }
 
     nodes.topicBadge.textContent = toTopicLabel(state.currentItem.topic);
     nodes.sourceBadge.textContent = state.currentItem.source || '—';
     nodes.itemBadge.textContent = state.currentItem.id;
+    nodes.focusBadge.textContent = buildFocusLabel(state.currentItem);
   }
 
   function resetRoundUi() {
     nodes.nextButton.hidden = true;
     nodes.nextButton.disabled = false;
+    nodes.nextButton.classList.remove('sspv-next-ready');
     nodes.checkButton.disabled = false;
     nodes.hintButton.disabled = false;
-    nodes.translationPanel.hidden = true;
-    nodes.translationText.textContent = '';
-    nodes.translationToggle.textContent = 'Rādīt tulkojumu';
-    nodes.translationToggle.hidden = !state.currentItem?.targetEn;
+    state.translationVisible = true;
+    syncTranslationUi();
     nodes.hintText.textContent = '';
     nodes.bankHint.textContent = '';
     nodes.explanationText.textContent = '';
@@ -372,7 +471,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     state.mismatchIndices = [];
     state.checked = false;
     state.hintUsed = false;
-    state.translationVisible = false;
+    state.translationVisible = true;
     resetRoundUi();
     updateFeedback('Teikums atjaunots uz sākotnējo kļūdaino versiju.', 'info');
     renderSentenceTokens();
@@ -395,18 +494,21 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     if (!nextItem) {
       state.currentItem = null;
       state.currentTokens = [];
+      state.editableIndices = new Set();
       state.selectedSentenceIndex = null;
       state.draggedBankToken = '';
+      resetTouchDragState();
       state.checked = false;
       state.mismatchIndices = [];
       setControlsDisabled(true);
       nodes.nextButton.hidden = true;
       nodes.nextButton.disabled = true;
+      nodes.nextButton.classList.remove('sspv-next-ready');
       nodes.hintText.textContent = '';
       nodes.bankHint.textContent = '';
       nodes.explanationText.textContent = '';
-      nodes.translationPanel.hidden = true;
-      nodes.translationToggle.hidden = true;
+      state.translationVisible = true;
+      syncTranslationUi();
       updateRoundMeta();
       renderSentenceTokens();
       renderWordBank();
@@ -418,12 +520,13 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     }
 
     state.currentItem = nextItem;
+    state.editableIndices = new Set(nextItem.editableIndices || []);
     state.lastItemId = nextItem.id;
     setControlsDisabled(false);
     resetCurrentToBroken();
     updateRoundMeta();
     updateFeedback(
-      'Izvēlies teikuma tokenu un aizvieto to ar bankas tokenu (vai izmanto drag & drop).',
+      'Izvēlies teikuma vārdu un aizvieto to ar vārdu no saraksta (vai izmanto drag & drop).',
       'info',
     );
   }
@@ -446,15 +549,19 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       nodes.explanationText.textContent = '';
       updateFeedback('Pareizi! 🎉', 'success');
       nodes.checkButton.disabled = true;
+      nodes.nextButton.hidden = false;
+      nodes.nextButton.disabled = false;
+      nodes.nextButton.classList.add('sspv-next-ready');
     } else {
       state.progress.streak = 0;
       persistStateProgress();
       const explanation = buildErrorExplanation(state.currentItem.errors[0]);
       nodes.explanationText.textContent = explanation;
       updateFeedback('Vēl nav pareizi. Apskati iezīmētos tokenus.', 'error');
+      nodes.nextButton.hidden = true;
+      nodes.nextButton.classList.remove('sspv-next-ready');
     }
 
-    nodes.nextButton.hidden = false;
     renderSentenceTokens();
     renderWordBank();
     updateProgressUi();
@@ -469,14 +576,8 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
   }
 
   function toggleTranslation() {
-    if (!state.currentItem?.targetEn) return;
-
     state.translationVisible = !state.translationVisible;
-    nodes.translationPanel.hidden = !state.translationVisible;
-    nodes.translationText.textContent = state.currentItem.targetEn;
-    nodes.translationToggle.textContent = state.translationVisible
-      ? 'Paslēpt tulkojumu'
-      : 'Rādīt tulkojumu';
+    syncTranslationUi();
   }
 
   function populateTopicFilter() {
@@ -523,6 +624,53 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
 
     nodes.hintButton.addEventListener('click', showHint);
     nodes.translationToggle.addEventListener('click', toggleTranslation);
+
+    document.addEventListener(
+      'pointermove',
+      (event) => {
+        const drag = state.touchDrag;
+        if (!drag.token || event.pointerId !== drag.pointerId) return;
+
+        const movedDistance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
+        if (!drag.active && movedDistance > 8) {
+          drag.active = true;
+          drag.originButton?.classList?.add('is-dragging');
+          updateFeedback('Velc tokenu uz labojamo vārdu.', 'info');
+        }
+        if (!drag.active) return;
+
+        if (event.pointerType === 'touch') {
+          event.preventDefault();
+        }
+        clearSentenceDropTargets();
+        const dropIndex = getEditableSentenceIndexFromPoint(event.clientX, event.clientY);
+        if (!Number.isInteger(dropIndex)) return;
+        const targetButton = nodes.sentenceTokens.querySelector(
+          `.sspv-token--sentence[data-sentence-index="${dropIndex}"]`,
+        );
+        targetButton?.classList?.add('is-drop-target');
+      },
+      { passive: false },
+    );
+
+    const handlePointerEnd = (event) => {
+      const drag = state.touchDrag;
+      if (!drag.token || event.pointerId !== drag.pointerId) return;
+      if (drag.active) {
+        if (event.pointerType === 'touch') {
+          event.preventDefault();
+        }
+        const dropIndex = getEditableSentenceIndexFromPoint(event.clientX, event.clientY);
+        if (Number.isInteger(dropIndex)) {
+          applyTokenReplacement(dropIndex, drag.token, 'drag');
+        }
+      }
+      resetTouchDragState();
+      state.draggedBankToken = '';
+    };
+
+    document.addEventListener('pointerup', handlePointerEnd);
+    document.addEventListener('pointercancel', handlePointerEnd);
 
     document.addEventListener('keydown', (event) => {
       const target = event.target;
@@ -592,7 +740,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
       updateProgressUi();
       loadNextRound();
       updateFeedback(
-        'Izvēlies kļūdaino tokenu un aizvieto to ar bankas tokenu (vai izmanto drag & drop).',
+        'Izvēlies kļūdaino vārdu un aizvieto to ar vārdu no saraksta (vai izmanto drag & drop).',
         'info',
       );
     } catch (error) {

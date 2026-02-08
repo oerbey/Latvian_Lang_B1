@@ -112,17 +112,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: clamp(220px, 46vh, 620px);
+  min-height: clamp(220px, 42vh, 560px);
+  overflow: hidden;
 }
 
 #lv-en-arcade-canvas {
   width: min(100%, 960px);
+  max-width: 100%;
   height: auto;
   display: block;
   border-radius: 16px;
   border: 1px solid rgba(197, 228, 250, 0.3);
   box-shadow: 0 20px 36px rgba(2, 16, 30, 0.35);
   touch-action: none;
+}
+
+.lv-en-arcade-touch-controls {
+  margin-top: 0.75rem;
+  display: none;
+  gap: 0.6rem;
+}
+
+.lv-en-arcade-touch-controls .btn {
+  flex: 1 1 0;
+  min-height: 52px;
+  font-weight: 700;
 }
 
 .lv-en-arcade-message {
@@ -180,5 +194,11 @@
 
   .lv-en-arcade-actions .btn {
     flex: 1 1 auto;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .lv-en-arcade-touch-controls {
+    display: flex;
   }
 }

@@ -17,6 +17,8 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
   const MODE_SHUFFLE = 'shuffle';
   const MODE_SEQUENTIAL = 'sequential';
   const ALL_TOPICS = 'all';
+  const AUXILIARY_FORMS_POSITIVE = ['tiek', 'tika', 'tiks'];
+  const AUXILIARY_FORMS_NEGATIVE = ['netiek', 'netika', 'netiks'];
 
   const DEFAULT_PROGRESS = {
     completedItemIds: [],
@@ -218,14 +220,50 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     const base = `Labojamais fokuss: ${getErrorTypeLabel(error.type)}`;
     if (error.type === 'aux_tense' && error.correct) {
       const tense = describeExpectedAuxiliary(error.correct);
-      return tense
-        ? `${base} · vajadzīgs ${tense} (${error.correct})`
-        : `${base} · ${error.correct}`;
+      return tense ? `${base} · vajadzīgais laiks: ${tense}` : `${base} · izvēlies pareizo laiku`;
     }
-    if (error.correct) {
-      return `${base} · pareizā forma: ${error.correct}`;
+    if (error.type === 'negation') {
+      return `${base} · izvēlies pareizo nolieguma formu`;
+    }
+    if (error.type === 'participle_agreement') {
+      return `${base} · saskaņo formu ar teikuma subjektu`;
     }
     return base;
+  }
+
+  function isAcceptableAuxiliaryVariant(mismatches) {
+    if (!state.currentItem) return false;
+    const error = state.currentItem.errors?.[0];
+    if (error?.type !== 'aux_tense') return false;
+
+    const index = Number.isInteger(state.currentItem.primaryEditableIndex)
+      ? state.currentItem.primaryEditableIndex
+      : state.currentItem.editableIndices?.[0];
+    if (!Number.isInteger(index)) return false;
+
+    if (!mismatches.length || mismatches.some((mismatch) => mismatch !== index)) {
+      return false;
+    }
+
+    if (state.currentTokens.length !== state.currentItem.targetTokens.length) {
+      return false;
+    }
+
+    for (let tokenIndex = 0; tokenIndex < state.currentItem.targetTokens.length; tokenIndex += 1) {
+      if (tokenIndex === index) continue;
+      if (state.currentTokens[tokenIndex] !== state.currentItem.targetTokens[tokenIndex]) {
+        return false;
+      }
+    }
+
+    const selectedToken = String(state.currentTokens[index] || '').toLowerCase();
+    const targetToken = String(state.currentItem.targetTokens[index] || '').toLowerCase();
+    const brokenToken = String(state.currentItem.brokenTokens[index] || '').toLowerCase();
+    const allowedForms = targetToken.startsWith('ne')
+      ? AUXILIARY_FORMS_NEGATIVE
+      : AUXILIARY_FORMS_POSITIVE;
+
+    return selectedToken !== brokenToken && allowedForms.includes(selectedToken);
   }
 
   function syncTranslationUi() {
@@ -537,17 +575,22 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
     state.progress.totalAttempts += 1;
 
     const mismatches = findMismatchIndices(state.currentTokens, state.currentItem.targetTokens);
-    state.mismatchIndices = mismatches;
+    const acceptedAuxiliaryVariant = isAcceptableAuxiliaryVariant(mismatches);
+    const solved = mismatches.length === 0 || acceptedAuxiliaryVariant;
+    state.mismatchIndices = solved ? [] : mismatches;
     state.checked = true;
 
-    if (mismatches.length === 0) {
+    if (solved) {
       state.progress.correctCount += 1;
       state.progress.streak += 1;
       state.completedIds.add(state.currentItem.id);
       state.queue = state.queue.filter((item) => item.id !== state.currentItem.id);
       persistStateProgress();
       nodes.explanationText.textContent = '';
-      updateFeedback('Pareizi! 🎉', 'success');
+      updateFeedback(
+        acceptedAuxiliaryVariant ? 'Pareizi! 🎉 Pieņemta korekta laika forma.' : 'Pareizi! 🎉',
+        'success',
+      );
       nodes.checkButton.disabled = true;
       nodes.nextButton.hidden = false;
       nodes.nextButton.disabled = false;
@@ -635,7 +678,7 @@ import { findMismatchIndices, joinTokens } from './tokenize.js';
         if (!drag.active && movedDistance > 8) {
           drag.active = true;
           drag.originButton?.classList?.add('is-dragging');
-          updateFeedback('Velc tokenu uz labojamo vārdu.', 'info');
+          updateFeedback('Velc vārdu uz labojamo vārdu.', 'info');
         }
         if (!drag.active) return;
 

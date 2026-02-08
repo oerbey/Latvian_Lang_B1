@@ -109,6 +109,9 @@
           <section class="sspv-section sspv-section--broken" aria-label="Rediģējamais teikums">
             <h2>Kļūdainais teikums</h2>
             <p id="sspv-focusBadge" class="sspv-focus-badge">Labojamais fokuss: —</p>
+            <div id="sspv-translationPanel" class="sspv-translation sspv-translation--inline">
+              <p id="sspv-translationText">English: —</p>
+            </div>
             <p id="sspv-sentencePreview" class="sspv-sentence-preview">—</p>
             <div id="sspv-sentenceTokens" class="sspv-token-grid" aria-live="polite"></div>
           </section>
@@ -121,6 +124,7 @@
 
           <div class="sspv-actions">
             <button id="sspv-check" type="button" class="btn btn-primary">Pārbaudīt</button>
+            <button id="sspv-next" type="button" class="btn btn-secondary" hidden>Nākamais</button>
             <button id="sspv-reset" type="button" class="btn btn-outline-secondary">
               Atiestatīt
             </button>
@@ -128,7 +132,6 @@
             <button id="sspv-translationToggle" type="button" class="btn btn-outline-secondary">
               Paslēpt tulkojumu
             </button>
-            <button id="sspv-next" type="button" class="btn btn-secondary" hidden>Nākamais</button>
           </div>
 
           <p
@@ -146,10 +149,6 @@
             class="sspv-message sspv-message--error"
             aria-live="polite"
           ></p>
-
-          <div id="sspv-translationPanel" class="sspv-translation">
-            <p id="sspv-translationText">English: —</p>
-          </div>
         </section>
       </div>
     </main>

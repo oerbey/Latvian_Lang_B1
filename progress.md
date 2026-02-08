@@ -107,5 +107,6 @@ Validation and iteration notes (develop-web-game loop)
   - `output/web-game/lv-en-arcade-iter7` confirms `gameover -> Space restart` returns to `mode: play` with reset score/lives/round (`points:0`, `lives:3`, `round:0`).
 
 Suggested next work:
+
 - Add optional difficulty selector (drop speed/lives).
 - Add compact on-canvas feedback marker (check/x) on catch for clearer learning signal.

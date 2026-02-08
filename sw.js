@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v15';
+const CACHE_VERSION = 'v16';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 const CORE_ASSETS = [
@@ -29,6 +29,7 @@ const CORE_ASSETS = [
   './darbibas-vards.html',
   './decl6-detective.html',
   './duty-dispatcher.html',
+  './english-latvian-arcade.html',
   './endings-builder.html',
   './maini-vai-mainies.html',
   './passive-lab.html',
@@ -43,6 +44,9 @@ const CORE_ASSETS = [
   './src/games/character-traits-match/index.js',
   './src/games/decl6-detective/index.js',
   './src/games/duty-dispatcher/index.js',
+  './src/games/english-latvian-arcade/index.js',
+  './src/games/english-latvian-arcade/logic.js',
+  './src/games/english-latvian-arcade/styles.css',
   './src/games/endings-builder/index.js',
   './src/games/maini-vai-mainies/index.js',
   './src/games/passive-lab/index.js',

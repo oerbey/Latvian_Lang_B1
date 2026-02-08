@@ -6,6 +6,7 @@ const homepagePreviewCards = [
   { preview: 'endings_preview.png', icon: 'pencil' },
   { preview: 'passive_preview.png', icon: 'book' },
   { preview: null, icon: 'pencil' },
+  { preview: null, icon: 'stats' },
   { preview: 'room_preview.png', icon: 'home' },
   { preview: 'travel_preview.png', icon: 'map' },
 ];

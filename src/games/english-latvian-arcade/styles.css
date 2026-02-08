@@ -1,0 +1,184 @@
+.lv-en-arcade-page {
+  --lv-en-shell-border: color-mix(in srgb, var(--game-accent, var(--accent)) 38%, var(--border));
+}
+
+.lv-en-arcade-main {
+  max-width: 1100px;
+}
+
+.lv-en-arcade-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.lv-en-arcade-hero__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.lv-en-arcade-hero__title {
+  margin: 0.2rem 0 0.45rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.lv-en-arcade-hero__lead {
+  margin: 0;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.lv-en-arcade-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lv-en-arcade-tag {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.34rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.lv-en-arcade-shell {
+  border-radius: 24px;
+  border: 1px solid var(--lv-en-shell-border);
+  background: color-mix(in srgb, var(--surface) 93%, var(--game-accent, var(--accent)) 7%);
+  box-shadow: 0 22px 44px color-mix(in srgb, var(--game-accent, var(--accent)) 12%, transparent);
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+}
+
+.lv-en-arcade-toolbar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(90px, 1fr));
+  gap: 0.6rem;
+}
+
+.lv-en-arcade-stat {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 90%, var(--game-accent, var(--accent)) 10%);
+  padding: 0.52rem 0.65rem;
+  display: grid;
+  gap: 0.1rem;
+}
+
+.lv-en-arcade-stat > span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lv-en-arcade-stat > strong {
+  font-size: 1.05rem;
+}
+
+.lv-en-arcade-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: flex-end;
+  margin-top: 0.85rem;
+}
+
+.lv-en-arcade-start {
+  animation: none !important;
+}
+
+.lv-en-arcade-canvas-wrap {
+  margin-top: 0.95rem;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 42%, var(--border));
+  background:
+    radial-gradient(
+      circle at 18% 16%,
+      color-mix(in srgb, var(--game-accent, var(--accent)) 26%, transparent),
+      transparent 54%
+    ),
+    linear-gradient(180deg, #18324a 0%, #102537 100%);
+  padding: clamp(0.55rem, 1.4vw, 0.9rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(220px, 46vh, 620px);
+}
+
+#lv-en-arcade-canvas {
+  width: min(100%, 960px);
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(197, 228, 250, 0.3);
+  box-shadow: 0 20px 36px rgba(2, 16, 30, 0.35);
+  touch-action: none;
+}
+
+.lv-en-arcade-message {
+  margin: 0.95rem 0 0;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.62rem 0.78rem;
+  color: var(--text);
+}
+
+.lv-en-arcade-message[data-tone='success'] {
+  border-color: color-mix(in srgb, var(--feedback-success) 45%, var(--border));
+  background: color-mix(in srgb, var(--feedback-success) 14%, var(--surface));
+}
+
+.lv-en-arcade-message[data-tone='warning'] {
+  border-color: color-mix(in srgb, #c89215 54%, var(--border));
+  background: color-mix(in srgb, #f0c86a 18%, var(--surface));
+}
+
+.lv-en-arcade-message[data-tone='error'] {
+  border-color: color-mix(in srgb, var(--feedback-error) 45%, var(--border));
+  background: color-mix(in srgb, var(--feedback-error) 14%, var(--surface));
+}
+
+.lv-en-arcade-hint {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.lv-en-arcade-hint kbd {
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  padding: 0.1rem 0.32rem;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 920px) {
+  .lv-en-arcade-toolbar {
+    grid-template-columns: repeat(3, minmax(90px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .lv-en-arcade-toolbar {
+    grid-template-columns: repeat(2, minmax(80px, 1fr));
+  }
+
+  .lv-en-arcade-actions {
+    justify-content: stretch;
+  }
+
+  .lv-en-arcade-actions .btn {
+    flex: 1 1 auto;
+  }
+}

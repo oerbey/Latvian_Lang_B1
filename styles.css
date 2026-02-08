@@ -1526,6 +1526,25 @@ body.theme-week1 {
   --game-icon-opacity: 0.12;
 }
 
+body.theme-lv-en-arcade {
+  --game-accent: #1f567a;
+  --game-accent-hover: #1a4968;
+  --game-accent-active: #163d57;
+  --game-accent-focus: rgba(31, 86, 122, 0.35);
+  --game-accent-soft: rgba(31, 86, 122, 0.12);
+  --game-accent-shadow: rgba(31, 86, 122, 0.2);
+  --game-accent-rgb: 31, 86, 122;
+  --game-bg-texture:
+    radial-gradient(circle at 16% 16%, rgba(31, 86, 122, 0.16), transparent 46%),
+    radial-gradient(circle at 82% 14%, rgba(111, 182, 219, 0.16), transparent 55%),
+    radial-gradient(circle at 24% 82%, rgba(31, 86, 122, 0.1), transparent 50%);
+  --game-motif:
+    radial-gradient(circle at 30% 30%, rgba(31, 86, 122, 0.3), transparent 60%),
+    radial-gradient(circle at 78% 74%, rgba(111, 182, 219, 0.24), transparent 70%);
+  --game-icon-mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Crect%20x%3D%2216%22%20y%3D%2252%22%20width%3D%2288%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22white%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2220%22%20width%3D%2240%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22white%22%2F%3E%3Crect%20x%3D%2254%22%20y%3D%2236%22%20width%3D%2212%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2288%22%20r%3D%2210%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2278%22%20cy%3D%2288%22%20r%3D%2210%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E');
+  --game-icon-opacity: 0.12;
+}
+
 body[data-bs-theme='dark'].theme-darbibas {
   --game-accent: #7da6d9;
   --game-accent-hover: #6b95c7;
@@ -1644,6 +1663,16 @@ body[data-bs-theme='dark'].theme-week1 {
   --game-accent-soft: rgba(143, 181, 224, 0.2);
   --game-accent-shadow: rgba(143, 181, 224, 0.3);
   --game-accent-rgb: 143, 181, 224;
+}
+
+body[data-bs-theme='dark'].theme-lv-en-arcade {
+  --game-accent: #7dc9f5;
+  --game-accent-hover: #6fb9e6;
+  --game-accent-active: #61aad8;
+  --game-accent-focus: rgba(125, 201, 245, 0.5);
+  --game-accent-soft: rgba(125, 201, 245, 0.2);
+  --game-accent-shadow: rgba(125, 201, 245, 0.3);
+  --game-accent-rgb: 125, 201, 245;
 }
 
 /* ===========================

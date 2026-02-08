@@ -12,6 +12,8 @@ const ERROR_TYPE_LABELS = {
   participle_agreement: 'saskaņa (-ts/-ta/-ti/-tas)',
 };
 
+const AUXILIARY_FORMS = new Set(['tiek', 'tika', 'tiks', 'netiek', 'netika', 'netiks']);
+
 function uniqueTokens(tokens = []) {
   const seen = new Set();
   const unique = [];
@@ -36,6 +38,61 @@ function normalizeError(error = {}) {
   };
 }
 
+function findMismatchIndices(leftTokens = [], rightTokens = []) {
+  const mismatches = [];
+  const maxLength = Math.max(leftTokens.length, rightTokens.length);
+  for (let index = 0; index < maxLength; index += 1) {
+    if ((leftTokens[index] || '') !== (rightTokens[index] || '')) {
+      mismatches.push(index);
+    }
+  }
+  return mismatches;
+}
+
+function participleStem(token = '') {
+  const normalized = String(token || '')
+    .trim()
+    .toLowerCase();
+  return normalized.replace(/(tas|ti|ta|ts)$/u, '');
+}
+
+function buildReplacementOptions(baseWordBank, brokenToken, targetToken, error) {
+  const orderedBank = uniqueTokens(baseWordBank);
+  const candidates = new Set();
+
+  [brokenToken, targetToken, error?.wrong, error?.correct].forEach((token) => {
+    if (typeof token === 'string' && token.trim()) {
+      candidates.add(token.trim());
+    }
+  });
+
+  if (error?.type === 'aux_tense' || error?.type === 'negation') {
+    orderedBank.forEach((token) => {
+      if (AUXILIARY_FORMS.has(token.trim().toLowerCase())) {
+        candidates.add(token);
+      }
+    });
+  }
+
+  if (error?.type === 'participle_agreement') {
+    const stems = new Set(
+      [participleStem(brokenToken), participleStem(targetToken)].filter(Boolean),
+    );
+    orderedBank.forEach((token) => {
+      if (stems.has(participleStem(token))) {
+        candidates.add(token);
+      }
+    });
+  }
+
+  let focused = orderedBank.filter((token) => candidates.has(token));
+  if (focused.length < 2) {
+    focused = orderedBank.filter((token) => token !== brokenToken).slice(0, 4);
+  }
+
+  return uniqueTokens([brokenToken, ...focused, targetToken]);
+}
+
 function normalizeItem(item, index) {
   if (!item || typeof item !== 'object') {
     throw new Error(`Invalid item at index ${index}`);
@@ -54,12 +111,30 @@ function normalizeItem(item, index) {
 
   const rawWordBank = Array.isArray(item.word_bank) ? item.word_bank : [];
   const preserveTokens = createPreserveTokenSet(rawWordBank);
+  const normalizedErrors = Array.isArray(item.errors)
+    ? item.errors.map((entry) => normalizeError(entry))
+    : [];
   const targetTokens = tokenizeSentence(targetLv, preserveTokens);
   const brokenTokens = tokenizeSentence(brokenLv, preserveTokens);
-
-  const fallbackWordBank = uniqueTokens(targetTokens.concat(brokenTokens));
-  // Always include sentence tokens so every visible token can be restored from the bank.
-  const wordBank = uniqueTokens(rawWordBank.concat(fallbackWordBank));
+  const mismatchIndices = findMismatchIndices(brokenTokens, targetTokens);
+  const fallbackWrongIndex = normalizedErrors[0]?.wrong
+    ? brokenTokens.findIndex((token) => token === normalizedErrors[0].wrong)
+    : -1;
+  const editableIndices = mismatchIndices.length
+    ? mismatchIndices
+    : fallbackWrongIndex >= 0
+      ? [fallbackWrongIndex]
+      : [];
+  const primaryEditableIndex = editableIndices[0] ?? 0;
+  const baseWordBank = uniqueTokens(
+    rawWordBank.length ? rawWordBank : targetTokens.concat(brokenTokens),
+  );
+  const wordBank = buildReplacementOptions(
+    baseWordBank,
+    brokenTokens[primaryEditableIndex] || '',
+    targetTokens[primaryEditableIndex] || '',
+    normalizedErrors[0],
+  );
 
   return {
     id,
@@ -68,7 +143,9 @@ function normalizeItem(item, index) {
     targetLv,
     targetEn,
     brokenLv,
-    errors: Array.isArray(item.errors) ? item.errors.map((entry) => normalizeError(entry)) : [],
+    errors: normalizedErrors,
+    editableIndices,
+    primaryEditableIndex,
     wordBank,
     preserveTokens,
     targetTokens,

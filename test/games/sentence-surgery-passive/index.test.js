@@ -16,6 +16,7 @@ test('sentence surgery page includes required controls', () => {
   const ids = [
     'sspv-mode',
     'sspv-topic',
+    'sspv-focusBadge',
     'sspv-sentenceTokens',
     'sspv-wordBank',
     'sspv-bankHint',

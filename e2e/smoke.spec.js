@@ -50,12 +50,17 @@ test('conjugation sprint loads and shows choices', async ({ page }) => {
 test('sentence surgery page loads and can check a round', async ({ page }) => {
   await page.goto('/sentence-surgery-passive.html');
   await expect(page.locator('#sspv-sentenceTokens .sspv-token').first()).toBeVisible();
+  await expect(page.locator('#sspv-translationPanel')).toBeVisible();
+  await expect(page.locator('#sspv-next')).toBeHidden();
 
   await page.getByRole('button', { name: 'Kā spēlēt / How to play' }).click();
   await expect(page.getByRole('heading', { name: 'Kā spēlēt / How to play' })).toBeVisible();
   await page.getByRole('button', { name: 'Close' }).click();
 
   const sentenceTokens = page.locator('#sspv-sentenceTokens .sspv-token--sentence.is-editable');
+  await expect(
+    page.locator('#sspv-sentenceTokens .sspv-token--sentence.is-locked').first(),
+  ).toBeVisible();
   const bankTokens = page.locator('#sspv-wordBank .sspv-token');
 
   await sentenceTokens.first().click();

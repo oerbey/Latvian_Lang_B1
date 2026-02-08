@@ -522,6 +522,26 @@ body {
   opacity: 0.85;
 }
 
+.navbar .offcanvas {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.navbar .offcanvas .nav-link {
+  color: var(--text);
+  opacity: 1;
+}
+
+.navbar .offcanvas .nav-link.active,
+.navbar .offcanvas .nav-link[aria-current='page'] {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.offcanvas-backdrop.show {
+  opacity: 0.52;
+}
+
 .hover-lift {
   transition:
     transform 0.2s ease,

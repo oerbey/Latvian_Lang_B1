@@ -36,7 +36,7 @@ function defaultState() {
     level: 1,
     streak: 0,
     bestStreak: 0,
-    worlds: {},          // { worldId: { completed: [nodeIndex, ...], current: nodeIndex } }
+    worlds: {},
     totalCorrect: 0,
     totalWrong: 0,
   };
@@ -163,7 +163,7 @@ function pick(arr, n) {
   return shuffle(arr).slice(0, n);
 }
 
-//function $(sel) { return document.querySelector(sel); } failed test case. Not used. Commented now to test the code.
+function $(sel) { return document.querySelector(sel); }
 function $$(sel) { return document.querySelectorAll(sel); }
 function $id(id) { return document.getElementById(id); }
 
@@ -188,19 +188,25 @@ function showScreen(screenId) {
 
 /** Verb challenges: "What does X mean?" with 4 MC options */
 function buildVerbChallenges(data, count) {
-  const verbs = Array.isArray(data) ? data.filter(w => w.en && w.lv) : [];
+  const verbs = Array.isArray(data)
+    ? data.filter((w) => w.en && w.lv)
+    : [];
   if (verbs.length < 4) return [];
   const selected = pick(verbs, count);
-  return selected.map(verb => {
-    const wrongPool = verbs.filter(v => v.lv !== verb.lv);
-    const wrongs = pick(wrongPool, 3).map(w => w.en.split(',')[0].trim());
+  return selected.map((verb) => {
+    const wrongPool = verbs.filter((v) => v.lv !== verb.lv);
+    const wrongs = pick(wrongPool, 3).map((w) =>
+      w.en.split(',')[0].trim(),
+    );
     const correctAnswer = verb.en.split(',')[0].trim();
     const options = shuffle([correctAnswer, ...wrongs]);
     return {
       type: 'verb',
       word: verb.lv,
       prompt: `What does <strong>${verb.lv}</strong> mean?`,
-      hint: verb.conj ? `Present 1s: ${verb.conj.present?.['1s'] || '—'}` : '',
+      hint: verb.conj
+        ? `Present 1s: ${verb.conj.present?.['1s'] || '—'}`
+        : '',
       options,
       correct: correctAnswer,
       explain: verb.en,
@@ -212,19 +218,25 @@ function buildVerbChallenges(data, count) {
 function buildPrefixChallenges(data, count) {
   const entries = data?.entries || [];
   if (entries.length < 4) return [];
-  const allPrefixes = [...new Set(entries.map(e => e.correct))];
+  const allPrefixes = [...new Set(entries.map((e) => e.correct))];
   const selected = pick(entries, count);
-  return selected.map(entry => {
-    const wrongs = pick(allPrefixes.filter(p => p !== entry.correct), 3);
+  return selected.map((entry) => {
+    const wrongs = pick(
+      allPrefixes.filter((p) => p !== entry.correct),
+      3,
+    );
     const options = shuffle([entry.correct, ...wrongs]);
     return {
       type: 'prefix',
       word: entry.base,
-      prompt: `Add the prefix to <strong>${entry.base}</strong>:<br/><span class="wq-prompt-hint">${entry.translations.en}</span>`,
+      prompt: `Add the prefix to <strong>${entry.base}</strong>:<br/><span
+        class="wq-prompt-hint">${entry.translations.en}</span>`,
       hint: `__ + ${entry.base}`,
       options,
       correct: entry.correct,
-      explain: `${entry.correct}${entry.base} = ${entry.translations.en}`,
+      explain: `${entry.correct}${entry.base} = ${
+        entry.translations.en
+      }`,
     };
   });
 }
@@ -234,7 +246,7 @@ function buildReflexiveChallenges(data, count) {
   const items = Array.isArray(data) ? data : [];
   if (items.length < 2) return [];
   const selected = pick(items, count);
-  return selected.map(item => {
+  return selected.map((item) => {
     const options = shuffle([...item.choices]);
     return {
       type: 'reflexive',
@@ -250,18 +262,22 @@ function buildReflexiveChallenges(data, count) {
 
 /** Personality challenges: "Optimist or Pessimist?" */
 function buildPersonalityChallenges(data, count) {
-  const words = Array.isArray(data) ? data.filter(w => w.group) : [];
+  const words = Array.isArray(data) ? data.filter((w) => w.group) : [];
   if (words.length < 4) return [];
   const selected = pick(words, count);
-  return selected.map(word => {
+  return selected.map((word) => {
     // Build a "match meaning" challenge
-    const wrongPool = words.filter(w => w.id !== word.id);
-    const wrongs = pick(wrongPool, 3).map(w => w.en);
+    const wrongPool = words.filter((w) => w.id !== word.id);
+    const wrongs = pick(wrongPool, 3).map((w) => w.en);
     const options = shuffle([word.en, ...wrongs]);
+    const traitEmoji = word.group === 'optimists' ? '😊' : '😔';
+    const traitLabel =
+      word.group === 'optimists' ? 'optimist trait' : 'pessimist trait';
     return {
       type: 'personality',
       word: word.lv,
-      prompt: `What does <strong>${word.lv}</strong> mean?<br/><span class="wq-prompt-hint">${word.group === 'optimists' ? '😊 optimist trait' : '😔 pessimist trait'}</span>`,
+      prompt: `What does <strong>${word.lv}</strong> mean?<br/><span
+        class="wq-prompt-hint">${traitEmoji} ${traitLabel}</span>`,
       hint: word.notes || '',
       options,
       correct: word.en,
@@ -276,20 +292,23 @@ function buildPassiveChallenges(data, count) {
   if (items.length < 4) return [];
   const selected = pick(items, count);
   const tenses = ['present', 'past', 'future'];
-  return selected.map(item => {
+  return selected.map((item) => {
     const tense = tenses[Math.floor(Math.random() * tenses.length)];
     const correctForm = item.expected[tense];
     // Generate plausible wrong answers by mixing tenses and other items
-    const wrongFromOther = pick(items.filter(i => i.id !== item.id), 2)
-      .map(i => i.expected[tense]);
-    const wrongTense = tenses.find(t => t !== tense);
+    const wrongFromOther = pick(
+      items.filter((i) => i.id !== item.id),
+      2,
+    ).map((i) => i.expected[tense]);
+    const wrongTense = tenses.find((t) => t !== tense);
     const wrongFromSame = item.expected[wrongTense];
     const wrongs = shuffle([...wrongFromOther, wrongFromSame]).slice(0, 3);
     const options = shuffle([correctForm, ...wrongs]);
     return {
       type: 'passive',
       word: item.verb,
-      prompt: `Active: <strong>${item.active}</strong><br/><span class="wq-prompt-hint">Form the <em>${tense}</em> passive:</span>`,
+      prompt: `Active: <strong>${item.active}</strong><br/><span
+        class="wq-prompt-hint">Form the <em>${tense}</em> passive:</span>`,
       hint: item.hint || '',
       options,
       correct: correctForm,
@@ -336,24 +355,37 @@ function renderWorldMap() {
     card.setAttribute('tabindex', '0');
     card.setAttribute('aria-label', `Enter ${world.name}`);
 
+    const completionText =
+      completedCount === world.nodeCount
+        ? '✓ Completed'
+        : completedCount > 0
+          ? 'Continue'
+          : 'Enter';
+
     card.innerHTML = `
       <div class="wq-world-emoji">${world.emoji}</div>
       <h3 class="wq-world-name">${world.name}</h3>
       <p class="wq-world-desc">${world.desc}</p>
       <div class="wq-world-meta">
-        ${world.tags.map(t => `<span class="wq-world-tag">${t}</span>`).join('')}
+        ${world.tags.map((t) => `<span class="wq-world-tag">${t}</span>`).join('')}
       </div>
       <div class="wq-world-card-bar-wrap">
         <div class="wq-world-card-bar" style="width:${progress}%"></div>
       </div>
-      <button class="wq-btn wq-btn--primary wq-btn--sm wq-world-card-play">
-        ${completedCount === world.nodeCount ? '✓ Completed' : completedCount > 0 ? 'Continue' : 'Enter'}
+      <button class="wq-btn wq-btn--primary wq-btn--sm
+        wq-world-card-play">
+        ${completionText}
       </button>
     `;
 
     const handler = () => renderWorldNodes(world);
     card.addEventListener('click', handler);
-    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }});
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handler();
+      }
+    });
     grid.appendChild(card);
   });
 }
@@ -370,8 +402,10 @@ function renderWorldNodes(world) {
 
   $id('wq-world-title').textContent = `${world.emoji} ${world.name}`;
   const completedCount = ws.completed?.length || 0;
-  $id('wq-world-progress-text').textContent = `${completedCount} / ${world.nodeCount}`;
-  $id('wq-world-progress-bar').style.width = `${Math.round((completedCount / world.nodeCount) * 100)}%`;
+  $id('wq-world-progress-text').textContent =
+    `${completedCount} / ${world.nodeCount}`;
+  $id('wq-world-progress-bar').style.width =
+    `${Math.round((completedCount / world.nodeCount) * 100)}%`;
 
   const path = $id('wq-node-path');
   path.innerHTML = '';
@@ -384,17 +418,34 @@ function renderWorldNodes(world) {
     // connector (not before first)
     if (i > 0) {
       const conn = document.createElement('div');
-      conn.className = `wq-node-connector ${ws.completed?.includes(i - 1) ? 'completed' : ''}`;
+      const isConnCompleted = ws.completed?.includes(i - 1);
+      conn.className = `wq-node-connector ${
+        isConnCompleted ? 'completed' : ''
+      }`;
       path.appendChild(conn);
     }
 
     const node = document.createElement('div');
-    node.className = `wq-node ${isCompleted ? 'wq-node--completed' : ''} ${isCurrent ? 'wq-node--current' : ''} ${isLocked ? 'wq-node--locked' : ''}`;
+    const classNames = [
+      'wq-node',
+      isCompleted ? 'wq-node--completed' : '',
+      isCurrent ? 'wq-node--current' : '',
+      isLocked ? 'wq-node--locked' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+    node.className = classNames;
     node.setAttribute('role', 'button');
     node.setAttribute('tabindex', isLocked ? '-1' : '0');
-    node.setAttribute('aria-label', `Node ${i + 1}${isCompleted ? ' (completed)' : isCurrent ? ' (current)' : ' (locked)'}`);
+    const ariaText =
+      isCompleted
+        ? ' (completed)'
+        : isCurrent
+          ? ' (current)'
+          : ' (locked)';
+    node.setAttribute('aria-label', `Node ${i + 1}${ariaText}`);
 
-    const orbText = isCompleted ? '✓' : (i + 1);
+    const orbText = isCompleted ? '✓' : i + 1;
     node.innerHTML = `
       <div class="wq-node-orb">${orbText}</div>
       <div class="wq-node-label">Stage ${i + 1}</div>
@@ -403,7 +454,12 @@ function renderWorldNodes(world) {
     if (!isLocked) {
       const handler = () => startBattle(world, i);
       node.addEventListener('click', handler);
-      node.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }});
+      node.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handler();
+        }
+      });
     }
 
     path.appendChild(node);
@@ -463,13 +519,20 @@ function renderBattleChallenge() {
   // Update header
   updateBattleLives();
   $id('wq-battle-streak').textContent = `🔥 ${battleState.streak}`;
-  const mult = battleState.streak >= 5 ? '×3' : battleState.streak >= 3 ? '×2' : '';
+  const mult =
+    battleState.streak >= 5 ? '×3' : battleState.streak >= 3 ? '×2' : '';
   $id('wq-battle-mult').textContent = mult;
 
   // Enemy
   $id('wq-enemy-word').textContent = ch.word;
-  $id('wq-enemy-label').textContent = ch.type.charAt(0).toUpperCase() + ch.type.slice(1) + ' challenge';
-  const hpPct = ((battleState.challenges.length - battleState.currentIndex) / battleState.challenges.length) * 100;
+  const typeLabel =
+    ch.type.charAt(0).toUpperCase() + ch.type.slice(1) + ' challenge';
+  $id('wq-enemy-label').textContent = typeLabel;
+  const hpPct =
+    (
+      (battleState.challenges.length - battleState.currentIndex) /
+      battleState.challenges.length
+    ) * 100;
   $id('wq-enemy-hp-bar').style.width = `${hpPct}%`;
 
   const orb = $id('wq-enemy-orb');
@@ -481,7 +544,7 @@ function renderBattleChallenge() {
   // Choices
   const choicesEl = $id('wq-battle-choices');
   choicesEl.innerHTML = '';
-  ch.options.forEach(opt => {
+  ch.options.forEach((opt) => {
     const btn = document.createElement('button');
     btn.className = 'wq-choice-btn';
     btn.textContent = opt;
@@ -502,10 +565,12 @@ function handleAnswer(chosen, btnEl) {
   const isCorrect = chosen === ch.correct;
 
   // Disable all buttons
-  $$('.wq-choice-btn').forEach(btn => { btn.disabled = true; });
+  $$('.wq-choice-btn').forEach((btn) => {
+    btn.disabled = true;
+  });
 
   // Mark correct/wrong
-  $$('.wq-choice-btn').forEach(btn => {
+  $$('.wq-choice-btn').forEach((btn) => {
     if (btn.textContent === ch.correct) btn.classList.add('correct');
     if (btn === btnEl && !isCorrect) btn.classList.add('wrong');
   });
@@ -661,7 +726,8 @@ function spawnConfetti() {
 // ─── Player Bar ───
 function updatePlayerBar() {
   $id('wq-player-level').textContent = `Lv. ${state.level}`;
-  $id('wq-player-xp').textContent = `${state.xp} / ${state.level * XP_PER_LEVEL} XP`;
+  const xpLabel = `${state.xp} / ${state.level * XP_PER_LEVEL} XP`;
+  $id('wq-player-xp').textContent = xpLabel;
   $id('wq-xp-bar').style.width = `${xpProgress()}%`;
 }
 
@@ -675,10 +741,19 @@ function init() {
   $id('wq-btn-play').addEventListener('click', () => renderWorldMap());
 
   // How to play
-  $id('wq-btn-how').addEventListener('click', () => show($id('wq-how-modal')));
-  $id('wq-how-modal').querySelector('.wq-modal-close').addEventListener('click', () => hide($id('wq-how-modal')));
-  $id('wq-how-modal').querySelector('.wq-how-close-btn').addEventListener('click', () => hide($id('wq-how-modal')));
-  $id('wq-how-modal').querySelector('.wq-modal-backdrop').addEventListener('click', () => hide($id('wq-how-modal')));
+  $id('wq-btn-how').addEventListener('click', () =>
+    show($id('wq-how-modal')),
+  );
+  const howModal = $id('wq-how-modal');
+  howModal
+    .querySelector('.wq-modal-close')
+    .addEventListener('click', () => hide(howModal));
+  howModal
+    .querySelector('.wq-how-close-btn')
+    .addEventListener('click', () => hide(howModal));
+  howModal
+    .querySelector('.wq-modal-backdrop')
+    .addEventListener('click', () => hide(howModal));
 
   // Map ← Back
   $id('wq-btn-back-title').addEventListener('click', () => {
@@ -690,7 +765,9 @@ function init() {
   $id('wq-btn-back-map').addEventListener('click', () => renderWorldMap());
 
   // Battle: next
-  $id('wq-btn-next-battle').addEventListener('click', () => nextChallenge());
+  $id('wq-btn-next-battle').addEventListener('click', () =>
+    nextChallenge(),
+  );
 
   // Battle: retreat
   $id('wq-btn-exit-battle').addEventListener('click', () => {
@@ -736,4 +813,3 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
-

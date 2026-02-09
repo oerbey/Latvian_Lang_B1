@@ -2,14 +2,14 @@
 <html lang="en" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
       script-src 'self' https:; style-src 'self' https: 'unsafe-inline';
       img-src 'self' data: https:; connect-src 'self' https:; font-src 'self'
-      https: data:; object-src 'none'; base-uri 'self';" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover"
+      https: data:; object-src 'none'; base-uri 'self';"
     />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#0a1628" />
     <meta
       name="description"
@@ -40,7 +40,11 @@
 
     <main id="main" class="wq-main" role="main">
       <!-- ═══════════ TITLE SCREEN ═══════════ -->
-      <section id="wq-title-screen" class="wq-screen wq-title-screen" aria-labelledby="wq-game-title">
+      <section
+        id="wq-title-screen"
+        class="wq-screen wq-title-screen"
+        aria-labelledby="wq-game-title"
+      >
         <div class="wq-title-bg"></div>
         <div class="wq-title-content">
           <div class="wq-title-badge">B1 Adventure</div>
@@ -49,13 +53,19 @@
             <span class="wq-title-word wq-title-word--accent">Quest</span>
           </h1>
           <p class="wq-title-sub">
-            Explore five worlds of Latvian grammar.<br/>
+            Explore five worlds of Latvian grammar.<br />
             Battle words. Earn XP. Master the language.
           </p>
           <div class="wq-title-stats" id="wq-title-stats" hidden>
-            <div class="wq-stat-pill"><span class="wq-stat-icon">⚡</span> Level <strong id="wq-title-level">1</strong></div>
-            <div class="wq-stat-pill"><span class="wq-stat-icon">✦</span> <strong id="wq-title-xp">0</strong> XP</div>
-            <div class="wq-stat-pill"><span class="wq-stat-icon">🔥</span> <strong id="wq-title-streak">0</strong> streak</div>
+            <div class="wq-stat-pill">
+              <span class="wq-stat-icon">⚡</span> Level <strong id="wq-title-level">1</strong>
+            </div>
+            <div class="wq-stat-pill">
+              <span class="wq-stat-icon">✦</span> <strong id="wq-title-xp">0</strong> XP
+            </div>
+            <div class="wq-stat-pill">
+              <span class="wq-stat-icon">🔥</span> <strong id="wq-title-streak">0</strong> streak
+            </div>
           </div>
           <div class="wq-title-actions">
             <button id="wq-btn-play" class="wq-btn wq-btn--primary wq-btn--xl">
@@ -68,7 +78,14 @@
       </section>
 
       <!-- ═══════════ HOW TO PLAY MODAL ═══════════ -->
-      <div id="wq-how-modal" class="wq-modal" hidden aria-modal="true" role="dialog" aria-labelledby="wq-how-title">
+      <div
+        id="wq-how-modal"
+        class="wq-modal"
+        hidden
+        aria-modal="true"
+        role="dialog"
+        aria-labelledby="wq-how-title"
+      >
         <div class="wq-modal-backdrop"></div>
         <div class="wq-modal-card">
           <button class="wq-modal-close" aria-label="Close">&times;</button>
@@ -77,12 +94,18 @@
             <div class="wq-how-step">
               <div class="wq-how-num">1</div>
               <h3>Choose a World</h3>
-              <p>Pick from 5 themed worlds — verbs, prefixes, reflexives, personality, and passive voice.</p>
+              <p>
+                Pick from 5 themed worlds — verbs, prefixes, reflexives, personality, and passive
+                voice.
+              </p>
             </div>
             <div class="wq-how-step">
               <div class="wq-how-num">2</div>
               <h3>Battle Words</h3>
-              <p>Each node is a challenge. Answer correctly to defeat it and earn XP. Get 3 wrong and the battle is lost!</p>
+              <p>
+                Each node is a challenge. Answer correctly to defeat it and earn XP. Get 3 wrong and
+                the battle is lost!
+              </p>
             </div>
             <div class="wq-how-step">
               <div class="wq-how-num">3</div>
@@ -100,15 +123,24 @@
       </div>
 
       <!-- ═══════════ WORLD MAP ═══════════ -->
-      <section id="wq-map-screen" class="wq-screen wq-map-screen" hidden aria-labelledby="wq-map-title">
+      <section
+        id="wq-map-screen"
+        class="wq-screen wq-map-screen"
+        hidden
+        aria-labelledby="wq-map-title"
+      >
         <div class="wq-map-header">
-          <button id="wq-btn-back-title" class="wq-btn wq-btn--ghost wq-btn--sm" aria-label="Back to title">
+          <button
+            id="wq-btn-back-title"
+            class="wq-btn wq-btn--ghost wq-btn--sm"
+            aria-label="Back to title"
+          >
             ← Back
           </button>
           <h2 id="wq-map-title" class="wq-map-heading">World Map</h2>
           <div class="wq-player-bar">
             <div class="wq-xp-bar-wrap">
-              <div class="wq-xp-bar" id="wq-xp-bar" style="width:0%"></div>
+              <div class="wq-xp-bar" id="wq-xp-bar" style="width: 0%"></div>
             </div>
             <span class="wq-player-level" id="wq-player-level">Lv. 1</span>
             <span class="wq-player-xp" id="wq-player-xp">0 XP</span>
@@ -120,14 +152,19 @@
       </section>
 
       <!-- ═══════════ WORLD DETAIL / NODE MAP ═══════════ -->
-      <section id="wq-world-screen" class="wq-screen wq-world-screen" hidden aria-labelledby="wq-world-title">
+      <section
+        id="wq-world-screen"
+        class="wq-screen wq-world-screen"
+        hidden
+        aria-labelledby="wq-world-title"
+      >
         <div class="wq-world-header">
           <button id="wq-btn-back-map" class="wq-btn wq-btn--ghost wq-btn--sm">← Map</button>
           <h2 id="wq-world-title" class="wq-world-heading">World</h2>
           <div class="wq-world-progress">
             <span id="wq-world-progress-text">0 / 10</span>
             <div class="wq-world-progress-bar-wrap">
-              <div class="wq-world-progress-bar" id="wq-world-progress-bar" style="width:0%"></div>
+              <div class="wq-world-progress-bar" id="wq-world-progress-bar" style="width: 0%"></div>
             </div>
           </div>
         </div>
@@ -137,7 +174,12 @@
       </section>
 
       <!-- ═══════════ BATTLE SCREEN ═══════════ -->
-      <section id="wq-battle-screen" class="wq-screen wq-battle-screen" hidden aria-labelledby="wq-battle-title">
+      <section
+        id="wq-battle-screen"
+        class="wq-screen wq-battle-screen"
+        hidden
+        aria-labelledby="wq-battle-title"
+      >
         <div class="wq-battle-header">
           <div class="wq-battle-lives" id="wq-battle-lives" aria-label="Lives remaining">
             <span class="wq-heart active">♥</span>
@@ -157,7 +199,7 @@
               <span class="wq-enemy-word" id="wq-enemy-word"></span>
             </div>
             <div class="wq-enemy-hp-bar-wrap">
-              <div class="wq-enemy-hp-bar" id="wq-enemy-hp-bar" style="width:100%"></div>
+              <div class="wq-enemy-hp-bar" id="wq-enemy-hp-bar" style="width: 100%"></div>
             </div>
             <div class="wq-enemy-label" id="wq-enemy-label"></div>
           </div>
@@ -178,13 +220,20 @@
         </div>
 
         <div class="wq-battle-footer">
-          <button id="wq-btn-next-battle" class="wq-btn wq-btn--primary" hidden>Next Challenge →</button>
+          <button id="wq-btn-next-battle" class="wq-btn wq-btn--primary" hidden>
+            Next Challenge →
+          </button>
           <button id="wq-btn-exit-battle" class="wq-btn wq-btn--ghost wq-btn--sm">Retreat</button>
         </div>
       </section>
 
       <!-- ═══════════ VICTORY / DEFEAT ═══════════ -->
-      <section id="wq-result-screen" class="wq-screen wq-result-screen" hidden aria-labelledby="wq-result-title">
+      <section
+        id="wq-result-screen"
+        class="wq-screen wq-result-screen"
+        hidden
+        aria-labelledby="wq-result-title"
+      >
         <div class="wq-result-card">
           <div class="wq-result-icon" id="wq-result-icon"></div>
           <h2 id="wq-result-title" class="wq-result-heading"></h2>

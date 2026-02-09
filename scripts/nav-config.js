@@ -13,5 +13,6 @@ export const NAV_ITEMS = [
   { href: 'rakstura-ipasibas-match.html', label: 'Rakstura īpašības — pāri' },
   { href: 'character-traits.html', label: 'Rakstura īpašības' },
   { href: 'english-latvian-arcade.html', label: 'English -> Latvian Word Catcher' },
+  { href: 'word-quest.html', label: '⚔️ Word Quest' },
   { href: 'week1.html', label: 'Week 1' },
 ];

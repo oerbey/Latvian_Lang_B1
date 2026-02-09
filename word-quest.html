@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0a1628" />
+    <meta
+      name="description"
+      content="Word Quest — an RPG adventure through Latvian vocabulary worlds. Explore, battle words, level up!"
+    />
+    <title>Word Quest — Latvian B1 Adventure</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/word-quest/styles.css" />
+  </head>
+  <body class="wq-page game-theme theme-word-quest">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
+
+    <main id="main" class="wq-main" role="main">
+      <!-- ═══════════ TITLE SCREEN ═══════════ -->
+      <section id="wq-title-screen" class="wq-screen wq-title-screen" aria-labelledby="wq-game-title">
+        <div class="wq-title-bg"></div>
+        <div class="wq-title-content">
+          <div class="wq-title-badge">B1 Adventure</div>
+          <h1 id="wq-game-title" class="wq-title-heading">
+            <span class="wq-title-word">Word</span>
+            <span class="wq-title-word wq-title-word--accent">Quest</span>
+          </h1>
+          <p class="wq-title-sub">
+            Explore five worlds of Latvian grammar.<br/>
+            Battle words. Earn XP. Master the language.
+          </p>
+          <div class="wq-title-stats" id="wq-title-stats" hidden>
+            <div class="wq-stat-pill"><span class="wq-stat-icon">⚡</span> Level <strong id="wq-title-level">1</strong></div>
+            <div class="wq-stat-pill"><span class="wq-stat-icon">✦</span> <strong id="wq-title-xp">0</strong> XP</div>
+            <div class="wq-stat-pill"><span class="wq-stat-icon">🔥</span> <strong id="wq-title-streak">0</strong> streak</div>
+          </div>
+          <div class="wq-title-actions">
+            <button id="wq-btn-play" class="wq-btn wq-btn--primary wq-btn--xl">
+              <span class="wq-btn-icon">▶</span> Enter the Map
+            </button>
+            <button id="wq-btn-how" class="wq-btn wq-btn--ghost">How to play</button>
+          </div>
+        </div>
+        <div class="wq-title-particles" aria-hidden="true"></div>
+      </section>
+
+      <!-- ═══════════ HOW TO PLAY MODAL ═══════════ -->
+      <div id="wq-how-modal" class="wq-modal" hidden aria-modal="true" role="dialog" aria-labelledby="wq-how-title">
+        <div class="wq-modal-backdrop"></div>
+        <div class="wq-modal-card">
+          <button class="wq-modal-close" aria-label="Close">&times;</button>
+          <h2 id="wq-how-title">How to Play</h2>
+          <div class="wq-how-grid">
+            <div class="wq-how-step">
+              <div class="wq-how-num">1</div>
+              <h3>Choose a World</h3>
+              <p>Pick from 5 themed worlds — verbs, prefixes, reflexives, personality, and passive voice.</p>
+            </div>
+            <div class="wq-how-step">
+              <div class="wq-how-num">2</div>
+              <h3>Battle Words</h3>
+              <p>Each node is a challenge. Answer correctly to defeat it and earn XP. Get 3 wrong and the battle is lost!</p>
+            </div>
+            <div class="wq-how-step">
+              <div class="wq-how-num">3</div>
+              <h3>Level Up</h3>
+              <p>Gain XP to level up. Higher levels unlock harder challenges and bonus rounds.</p>
+            </div>
+            <div class="wq-how-step">
+              <div class="wq-how-num">4</div>
+              <h3>Keep Your Streak</h3>
+              <p>Consecutive correct answers build a streak multiplier for bonus XP!</p>
+            </div>
+          </div>
+          <button class="wq-btn wq-btn--primary wq-how-close-btn">Got it!</button>
+        </div>
+      </div>
+
+      <!-- ═══════════ WORLD MAP ═══════════ -->
+      <section id="wq-map-screen" class="wq-screen wq-map-screen" hidden aria-labelledby="wq-map-title">
+        <div class="wq-map-header">
+          <button id="wq-btn-back-title" class="wq-btn wq-btn--ghost wq-btn--sm" aria-label="Back to title">
+            ← Back
+          </button>
+          <h2 id="wq-map-title" class="wq-map-heading">World Map</h2>
+          <div class="wq-player-bar">
+            <div class="wq-xp-bar-wrap">
+              <div class="wq-xp-bar" id="wq-xp-bar" style="width:0%"></div>
+            </div>
+            <span class="wq-player-level" id="wq-player-level">Lv. 1</span>
+            <span class="wq-player-xp" id="wq-player-xp">0 XP</span>
+          </div>
+        </div>
+        <div class="wq-map-grid" id="wq-map-grid">
+          <!-- World cards generated by JS -->
+        </div>
+      </section>
+
+      <!-- ═══════════ WORLD DETAIL / NODE MAP ═══════════ -->
+      <section id="wq-world-screen" class="wq-screen wq-world-screen" hidden aria-labelledby="wq-world-title">
+        <div class="wq-world-header">
+          <button id="wq-btn-back-map" class="wq-btn wq-btn--ghost wq-btn--sm">← Map</button>
+          <h2 id="wq-world-title" class="wq-world-heading">World</h2>
+          <div class="wq-world-progress">
+            <span id="wq-world-progress-text">0 / 10</span>
+            <div class="wq-world-progress-bar-wrap">
+              <div class="wq-world-progress-bar" id="wq-world-progress-bar" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="wq-node-path" id="wq-node-path">
+          <!-- Nodes generated by JS -->
+        </div>
+      </section>
+
+      <!-- ═══════════ BATTLE SCREEN ═══════════ -->
+      <section id="wq-battle-screen" class="wq-screen wq-battle-screen" hidden aria-labelledby="wq-battle-title">
+        <div class="wq-battle-header">
+          <div class="wq-battle-lives" id="wq-battle-lives" aria-label="Lives remaining">
+            <span class="wq-heart active">♥</span>
+            <span class="wq-heart active">♥</span>
+            <span class="wq-heart active">♥</span>
+          </div>
+          <h2 id="wq-battle-title" class="wq-battle-heading">Battle!</h2>
+          <div class="wq-battle-streak-wrap">
+            <span class="wq-battle-streak" id="wq-battle-streak">🔥 0</span>
+            <span class="wq-battle-mult" id="wq-battle-mult"></span>
+          </div>
+        </div>
+
+        <div class="wq-battle-arena" id="wq-battle-arena">
+          <div class="wq-battle-enemy" id="wq-battle-enemy">
+            <div class="wq-enemy-orb" id="wq-enemy-orb">
+              <span class="wq-enemy-word" id="wq-enemy-word"></span>
+            </div>
+            <div class="wq-enemy-hp-bar-wrap">
+              <div class="wq-enemy-hp-bar" id="wq-enemy-hp-bar" style="width:100%"></div>
+            </div>
+            <div class="wq-enemy-label" id="wq-enemy-label"></div>
+          </div>
+
+          <div class="wq-battle-prompt" id="wq-battle-prompt">
+            <!-- Challenge prompt -->
+          </div>
+
+          <div class="wq-battle-choices" id="wq-battle-choices">
+            <!-- Answer buttons -->
+          </div>
+
+          <div class="wq-battle-feedback" id="wq-battle-feedback" hidden>
+            <div class="wq-feedback-icon" id="wq-feedback-icon"></div>
+            <div class="wq-feedback-text" id="wq-feedback-text"></div>
+            <div class="wq-feedback-detail" id="wq-feedback-detail"></div>
+          </div>
+        </div>
+
+        <div class="wq-battle-footer">
+          <button id="wq-btn-next-battle" class="wq-btn wq-btn--primary" hidden>Next Challenge →</button>
+          <button id="wq-btn-exit-battle" class="wq-btn wq-btn--ghost wq-btn--sm">Retreat</button>
+        </div>
+      </section>
+
+      <!-- ═══════════ VICTORY / DEFEAT ═══════════ -->
+      <section id="wq-result-screen" class="wq-screen wq-result-screen" hidden aria-labelledby="wq-result-title">
+        <div class="wq-result-card">
+          <div class="wq-result-icon" id="wq-result-icon"></div>
+          <h2 id="wq-result-title" class="wq-result-heading"></h2>
+          <p class="wq-result-sub" id="wq-result-sub"></p>
+          <div class="wq-result-stats" id="wq-result-stats"></div>
+          <div class="wq-result-actions">
+            <button id="wq-btn-retry" class="wq-btn wq-btn--primary">Try Again</button>
+            <button id="wq-btn-to-world" class="wq-btn wq-btn--ghost">Back to World</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2spQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="src/games/word-quest/main.js"></script>
+  </body>
+</html>

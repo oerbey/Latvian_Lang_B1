@@ -51,6 +51,16 @@ const games = [
     accent: '#355a77',
   },
   {
+    title: '⚔️ Word Quest — RPG Adventure',
+    href: 'word-quest.html',
+    icon: 'star',
+    desc: 'Explore 5 worlds of Latvian grammar in an RPG adventure. Battle words, earn XP, level up!',
+    tag: 'Adventure',
+    meta: ['Focus: all skills', '10–20 min', 'RPG'],
+    accent: '#0d9488',
+    art: 'linear-gradient(135deg, rgba(94, 234, 212, 0.30), rgba(10, 22, 40, 0.95)), radial-gradient(circle at 25% 20%, rgba(94, 234, 212, 0.50), transparent 55%), radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.35), transparent 60%)',
+  },
+  {
     title: 'English -> Latvian Word Catcher',
     href: 'english-latvian-arcade.html',
     icon: 'stats',

@@ -163,7 +163,7 @@ function pick(arr, n) {
   return shuffle(arr).slice(0, n);
 }
 
-function $(sel) { return document.querySelector(sel); }
+//function $(sel) { return document.querySelector(sel); } Not used function. Commented for testing
 function $$(sel) { return document.querySelectorAll(sel); }
 function $id(id) { return document.getElementById(id); }
 
@@ -813,3 +813,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+

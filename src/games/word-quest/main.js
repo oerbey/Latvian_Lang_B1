@@ -163,7 +163,7 @@ function pick(arr, n) {
   return shuffle(arr).slice(0, n);
 }
 
-function $(sel) { return document.querySelector(sel); }
+//function $(sel) { return document.querySelector(sel); } failed test case. Not used. Commented now to test the code.
 function $$(sel) { return document.querySelectorAll(sel); }
 function $id(id) { return document.getElementById(id); }
 
@@ -736,3 +736,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+

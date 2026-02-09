@@ -2,15 +2,19 @@
 <html lang="en" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+      script-src 'self' https:; style-src 'self' https: 'unsafe-inline';
+      img-src 'self' data: https:; connect-src 'self' https:; font-src 'self'
+      https: data:; object-src 'none'; base-uri 'self';" />
     <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
-    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#0a1628" />
     <meta
       name="description"
-      content="Word Quest — an RPG adventure through Latvian vocabulary worlds. Explore, battle words, level up!"
+      content="Word Quest — an RPG adventure through Latvian vocabulary
+      worlds. Explore, battle words, level up!"
     />
     <title>Word Quest — Latvian B1 Adventure</title>
     <link rel="manifest" href="manifest.json" />

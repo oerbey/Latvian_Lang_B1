@@ -46,7 +46,9 @@ function loadState() {
   try {
     const raw = loadString(STORAGE_KEY, null);
     if (raw) return { ...defaultState(), ...JSON.parse(raw) };
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   return defaultState();
 }
 
@@ -164,20 +166,28 @@ function pick(arr, n) {
 }
 
 //function $(sel) { return document.querySelector(sel); } Not used function. Commented for testing
-function $$(sel) { return document.querySelectorAll(sel); }
-function $id(id) { return document.getElementById(id); }
+function $$(sel) {
+  return document.querySelectorAll(sel);
+}
+function $id(id) {
+  return document.getElementById(id);
+}
 
-function show(el) { el.hidden = false; }
-function hide(el) { el.hidden = true; }
+function show(el) {
+  el.hidden = false;
+}
+function hide(el) {
+  el.hidden = true;
+}
 
 function showScreen(screenId) {
-  $$('.wq-screen').forEach(s => s.hidden = true);
+  $$('.wq-screen').forEach((s) => (s.hidden = true));
   const screen = $id(screenId);
   if (screen) {
     screen.hidden = false;
     // re-trigger animation
     screen.style.animation = 'none';
-    screen.offsetHeight;  // reflow
+    screen.offsetHeight; // reflow
     screen.style.animation = '';
   }
 }
@@ -188,25 +198,19 @@ function showScreen(screenId) {
 
 /** Verb challenges: "What does X mean?" with 4 MC options */
 function buildVerbChallenges(data, count) {
-  const verbs = Array.isArray(data)
-    ? data.filter((w) => w.en && w.lv)
-    : [];
+  const verbs = Array.isArray(data) ? data.filter((w) => w.en && w.lv) : [];
   if (verbs.length < 4) return [];
   const selected = pick(verbs, count);
   return selected.map((verb) => {
     const wrongPool = verbs.filter((v) => v.lv !== verb.lv);
-    const wrongs = pick(wrongPool, 3).map((w) =>
-      w.en.split(',')[0].trim(),
-    );
+    const wrongs = pick(wrongPool, 3).map((w) => w.en.split(',')[0].trim());
     const correctAnswer = verb.en.split(',')[0].trim();
     const options = shuffle([correctAnswer, ...wrongs]);
     return {
       type: 'verb',
       word: verb.lv,
       prompt: `What does <strong>${verb.lv}</strong> mean?`,
-      hint: verb.conj
-        ? `Present 1s: ${verb.conj.present?.['1s'] || '—'}`
-        : '',
+      hint: verb.conj ? `Present 1s: ${verb.conj.present?.['1s'] || '—'}` : '',
       options,
       correct: correctAnswer,
       explain: verb.en,
@@ -234,9 +238,7 @@ function buildPrefixChallenges(data, count) {
       hint: `__ + ${entry.base}`,
       options,
       correct: entry.correct,
-      explain: `${entry.correct}${entry.base} = ${
-        entry.translations.en
-      }`,
+      explain: `${entry.correct}${entry.base} = ${entry.translations.en}`,
     };
   });
 }
@@ -271,8 +273,7 @@ function buildPersonalityChallenges(data, count) {
     const wrongs = pick(wrongPool, 3).map((w) => w.en);
     const options = shuffle([word.en, ...wrongs]);
     const traitEmoji = word.group === 'optimists' ? '😊' : '😔';
-    const traitLabel =
-      word.group === 'optimists' ? 'optimist trait' : 'pessimist trait';
+    const traitLabel = word.group === 'optimists' ? 'optimist trait' : 'pessimist trait';
     return {
       type: 'personality',
       word: word.lv,
@@ -402,8 +403,7 @@ function renderWorldNodes(world) {
 
   $id('wq-world-title').textContent = `${world.emoji} ${world.name}`;
   const completedCount = ws.completed?.length || 0;
-  $id('wq-world-progress-text').textContent =
-    `${completedCount} / ${world.nodeCount}`;
+  $id('wq-world-progress-text').textContent = `${completedCount} / ${world.nodeCount}`;
   $id('wq-world-progress-bar').style.width =
     `${Math.round((completedCount / world.nodeCount) * 100)}%`;
 
@@ -419,9 +419,7 @@ function renderWorldNodes(world) {
     if (i > 0) {
       const conn = document.createElement('div');
       const isConnCompleted = ws.completed?.includes(i - 1);
-      conn.className = `wq-node-connector ${
-        isConnCompleted ? 'completed' : ''
-      }`;
+      conn.className = `wq-node-connector ${isConnCompleted ? 'completed' : ''}`;
       path.appendChild(conn);
     }
 
@@ -437,12 +435,7 @@ function renderWorldNodes(world) {
     node.className = classNames;
     node.setAttribute('role', 'button');
     node.setAttribute('tabindex', isLocked ? '-1' : '0');
-    const ariaText =
-      isCompleted
-        ? ' (completed)'
-        : isCurrent
-          ? ' (current)'
-          : ' (locked)';
+    const ariaText = isCompleted ? ' (completed)' : isCurrent ? ' (current)' : ' (locked)';
     node.setAttribute('aria-label', `Node ${i + 1}${ariaText}`);
 
     const orbText = isCompleted ? '✓' : i + 1;
@@ -519,20 +512,16 @@ function renderBattleChallenge() {
   // Update header
   updateBattleLives();
   $id('wq-battle-streak').textContent = `🔥 ${battleState.streak}`;
-  const mult =
-    battleState.streak >= 5 ? '×3' : battleState.streak >= 3 ? '×2' : '';
+  const mult = battleState.streak >= 5 ? '×3' : battleState.streak >= 3 ? '×2' : '';
   $id('wq-battle-mult').textContent = mult;
 
   // Enemy
   $id('wq-enemy-word').textContent = ch.word;
-  const typeLabel =
-    ch.type.charAt(0).toUpperCase() + ch.type.slice(1) + ' challenge';
+  const typeLabel = ch.type.charAt(0).toUpperCase() + ch.type.slice(1) + ' challenge';
   $id('wq-enemy-label').textContent = typeLabel;
   const hpPct =
-    (
-      (battleState.challenges.length - battleState.currentIndex) /
-      battleState.challenges.length
-    ) * 100;
+    ((battleState.challenges.length - battleState.currentIndex) / battleState.challenges.length) *
+    100;
   $id('wq-enemy-hp-bar').style.width = `${hpPct}%`;
 
   const orb = $id('wq-enemy-orb');
@@ -741,19 +730,11 @@ function init() {
   $id('wq-btn-play').addEventListener('click', () => renderWorldMap());
 
   // How to play
-  $id('wq-btn-how').addEventListener('click', () =>
-    show($id('wq-how-modal')),
-  );
+  $id('wq-btn-how').addEventListener('click', () => show($id('wq-how-modal')));
   const howModal = $id('wq-how-modal');
-  howModal
-    .querySelector('.wq-modal-close')
-    .addEventListener('click', () => hide(howModal));
-  howModal
-    .querySelector('.wq-how-close-btn')
-    .addEventListener('click', () => hide(howModal));
-  howModal
-    .querySelector('.wq-modal-backdrop')
-    .addEventListener('click', () => hide(howModal));
+  howModal.querySelector('.wq-modal-close').addEventListener('click', () => hide(howModal));
+  howModal.querySelector('.wq-how-close-btn').addEventListener('click', () => hide(howModal));
+  howModal.querySelector('.wq-modal-backdrop').addEventListener('click', () => hide(howModal));
 
   // Map ← Back
   $id('wq-btn-back-title').addEventListener('click', () => {
@@ -765,9 +746,7 @@ function init() {
   $id('wq-btn-back-map').addEventListener('click', () => renderWorldMap());
 
   // Battle: next
-  $id('wq-btn-next-battle').addEventListener('click', () =>
-    nextChallenge(),
-  );
+  $id('wq-btn-next-battle').addEventListener('click', () => nextChallenge());
 
   // Battle: retreat
   $id('wq-btn-exit-battle').addEventListener('click', () => {
@@ -790,7 +769,10 @@ function init() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const howModal = $id('wq-how-modal');
-      if (!howModal.hidden) { hide(howModal); return; }
+      if (!howModal.hidden) {
+        hide(howModal);
+        return;
+      }
     }
     // Number keys for quick answer in battle
     if (battleState && !battleState.isAnswered && !$id('wq-battle-screen').hidden) {
@@ -813,4 +795,3 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
-

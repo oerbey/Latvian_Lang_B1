@@ -28,7 +28,7 @@ test('word quest map flow renders worlds and nodes', async ({ page }) => {
 
   await page.locator('#wq-btn-how').click();
   await expect(page.locator('#wq-how-modal')).toBeVisible();
-  await page.locator('.wq-how-close-btn').click();
+  await page.keyboard.press('Escape');
   await expect(page.locator('#wq-how-modal')).toBeHidden();
 
   await page.locator('#wq-btn-play').click();

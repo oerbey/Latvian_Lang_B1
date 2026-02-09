@@ -1,14 +1,15 @@
 import { test, expect } from '@playwright/test';
 
 const homepagePreviewCards = [
-  { preview: 'verbs_preview.png', icon: 'book' },
-  { preview: 'sprint_preview.png', icon: 'gamepad' },
-  { preview: 'endings_preview.png', icon: 'pencil' },
-  { preview: 'passive_preview.png', icon: 'book' },
-  { preview: null, icon: 'pencil' },
-  { preview: null, icon: 'stats' },
-  { preview: 'room_preview.png', icon: 'home' },
-  { preview: 'travel_preview.png', icon: 'map' },
+  { title: 'Darbības Vārdi', preview: 'verbs_preview.png', icon: 'book' },
+  { title: 'Conjugation Sprint', preview: 'sprint_preview.png', icon: 'gamepad' },
+  { title: 'Endings Builder', preview: 'endings_preview.png', icon: 'pencil' },
+  { title: 'Passive Voice Builder', preview: 'passive_preview.png', icon: 'book' },
+  { title: 'Sentence Surgery — Ciešamā kārta', preview: null, icon: 'pencil' },
+  { title: '⚔️ Word Quest — RPG Adventure', preview: null, icon: 'star' },
+  { title: 'English -> Latvian Word Catcher', preview: null, icon: 'stats' },
+  { title: 'Kas ir manā mājā?', preview: 'room_preview.png', icon: 'home' },
+  { title: 'Travel Tracker', preview: 'travel_preview.png', icon: 'map' },
 ];
 
 test('homepage loads and lists games', async ({ page }) => {
@@ -18,8 +19,9 @@ test('homepage loads and lists games', async ({ page }) => {
   await expect(cards.first()).toBeVisible();
 
   expect(await cards.count()).toBeGreaterThanOrEqual(homepagePreviewCards.length);
-  for (const [index, expected] of homepagePreviewCards.entries()) {
-    const card = cards.nth(index);
+  for (const expected of homepagePreviewCards) {
+    const card = cards.filter({ hasText: expected.title }).first();
+    await expect(card).toBeVisible();
     const art = card.locator('.game-card__art');
     const icon = card.locator('.game-card__art-icon img');
 

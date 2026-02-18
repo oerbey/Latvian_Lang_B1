@@ -14,16 +14,16 @@ const homepagePreviewCards = [
 
 test('homepage loads and lists games', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('#homeTitle')).toBeVisible();
-  const cards = page.locator('#gamesGrid .game-card');
+  await expect(page.locator('#lp-hero-title')).toBeVisible();
+  const cards = page.locator('#gamesGrid .lp-game-card');
   await expect(cards.first()).toBeVisible();
 
   expect(await cards.count()).toBeGreaterThanOrEqual(homepagePreviewCards.length);
   for (const expected of homepagePreviewCards) {
     const card = cards.filter({ hasText: expected.title }).first();
     await expect(card).toBeVisible();
-    const art = card.locator('.game-card__art');
-    const icon = card.locator('.game-card__art-icon img');
+    const art = card.locator('.lp-game-card__art');
+    const icon = card.locator('.lp-game-card__art-icon img');
 
     await expect(art).toBeVisible();
     const backgroundImage = await art.evaluate((el) => getComputedStyle(el).backgroundImage);

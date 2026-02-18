@@ -21,13 +21,15 @@ function normalizeHref(href) {
 function renderNav() {
   const nav = document.querySelector('[data-site-nav]');
   if (!nav) return;
+  const current = getCurrentPage();
+  nav.classList.toggle('site-nav--home', current === 'index.html');
 
   const navItems = NAV_ITEMS.map(
     (item) => `<li class="nav-item"><a class="nav-link" href="${item.href}">${item.label}</a></li>`,
   ).join('');
 
   nav.innerHTML = `
-    <div class="container">
+    <div class="container site-nav__container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
         <span class="me-1" data-icon="globe" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
         Latvian B1
@@ -43,19 +45,31 @@ function renderNav() {
           <h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body align-items-lg-center">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="offcanvas-body align-items-lg-center site-nav__body">
+          <ul class="navbar-nav mb-2 mb-lg-0 site-nav__list">
             ${navItems}
           </ul>
 
-          <div class="d-flex gap-2">
+          <div class="d-flex gap-2 site-nav__actions">
             <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
               <span class="d-none" id="iconDark" data-icon="moon" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
               <span id="iconLight" data-icon="sun" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
             </button>
-            <a class="btn btn-primary" href="https://github.com/oerbey/Latvian_Lang_B1" target="_blank" rel="noopener">
-              <span class="me-1" data-icon="info" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
-              <span class="ms-1 d-none d-sm-inline">GitHub</span>
+            <a
+              class="btn btn-primary site-nav__github-btn"
+              href="https://github.com/oerbey/Latvian_Lang_B1"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open Latvian B1 GitHub repository"
+            >
+              <span
+                class="site-nav__github-icon"
+                data-icon="info"
+                data-icon-size="20"
+                data-icon-alt=""
+                aria-hidden="true"
+              ></span>
+              <span class="site-nav__github-label">GitHub</span>
             </a>
           </div>
         </div>
@@ -73,7 +87,6 @@ function renderNav() {
     iconLight.classList.toggle('d-none', isDark);
   }
 
-  const current = getCurrentPage();
   nav.querySelectorAll('.nav-link').forEach((link) => {
     const href = normalizeHref(link.getAttribute('href'));
     if (href === current) {

@@ -37,54 +37,173 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="py-5 mt-5 home-main">
+    <main id="main" class="py-5 mt-5 lp-main">
       <div class="container">
-        <section class="home-hero mb-5" aria-labelledby="homeTitle">
-          <div class="home-hero__copy">
-            <p class="home-hero__eyebrow">Latvian Language B1</p>
-            <h1 class="home-hero__title" id="homeTitle">
-              Clean, focused practice for verbs, endings, and sentence flow.
+        <!-- Hero -->
+        <section class="lp-hero lp-reveal" aria-labelledby="lp-hero-title">
+          <div class="lp-hero__copy">
+            <p class="lp-hero__eyebrow">Latvian Language B1</p>
+            <h1 class="lp-hero__title" id="lp-hero-title">
+              Master Latvian grammar through focused, interactive games.
             </h1>
-            <p class="home-hero__lead">
-              Build accuracy and speed with short, focused games designed for classroom study and
-              solo review.
+            <p class="lp-hero__lead">
+              14 purpose-built exercises covering verbs, conjugation, passive voice, cases, and
+              vocabulary — each designed for 4-20 minute practice sessions.
             </p>
-            <div class="home-hero__actions">
-              <a class="btn btn-primary btn-lg" href="darbibas-vards.html"
-                >Start with Darbības Vārdi</a
-              >
+            <div class="lp-hero__actions">
+              <a class="btn btn-primary btn-lg" href="word-quest.html">Start Word Quest</a>
               <a class="btn btn-outline-secondary btn-lg" href="#games">Browse all games</a>
             </div>
-            <div class="home-hero__tags">
-              <span class="home-tag">Verb focus</span>
-              <span class="home-tag">B1 grammar</span>
-              <span class="home-tag">Short sessions</span>
+            <div class="lp-hero__badges">
+              <span class="lp-badge">B1 level</span>
+              <span class="lp-badge">6 skill tracks</span>
+              <span class="lp-badge">Short sessions</span>
             </div>
           </div>
-          <div class="home-hero__panel">
-            <div class="home-feature">
-              <span class="home-feature__label">Featured</span>
-              <h2 class="home-feature__title">Darbības Vārdi</h2>
-              <p class="home-feature__desc">
-                Pair Latvian verbs with meanings and build recall speed.
-              </p>
-              <div class="home-feature__meta">
-                <span>Focus: verbs</span>
-                <span>Session: 5–8 min</span>
-                <span>Level: B1 core</span>
-              </div>
-              <a class="btn btn-primary home-feature__cta" href="darbibas-vards.html">Play now</a>
+          <div class="lp-hero__visual" aria-hidden="true">
+            <div class="lp-orb">
+              <div class="lp-orb__ring"></div>
+              <div class="lp-orb__ring"></div>
+              <div class="lp-orb__ring"></div>
+              <div class="lp-orb__core"></div>
             </div>
           </div>
         </section>
 
-        <section class="home-section" id="games" aria-labelledby="gamesTitle">
-          <div class="home-section__header">
-            <h2 id="gamesTitle">Game Library</h2>
+        <!-- Skill Tracks -->
+        <section class="lp-tracks lp-reveal" aria-labelledby="lp-tracks-title">
+          <div class="lp-section-header">
+            <h2 id="lp-tracks-title">Skill Tracks</h2>
+            <p>Choose a focus area to filter games by skill.</p>
+          </div>
+          <div class="lp-tracks__grid" role="list">
+            <button
+              class="lp-track-card"
+              data-track="verbs"
+              role="listitem"
+              aria-label="Verbs — 2 games"
+            >
+              <span class="lp-track-card__icon" aria-hidden="true">📖</span>
+              <span class="lp-track-card__title">Verbs</span>
+              <span class="lp-track-card__count">2 games</span>
+            </button>
+            <button
+              class="lp-track-card"
+              data-track="conjugation"
+              role="listitem"
+              aria-label="Conjugation — 2 games"
+            >
+              <span class="lp-track-card__icon" aria-hidden="true">⚡</span>
+              <span class="lp-track-card__title">Conjugation</span>
+              <span class="lp-track-card__count">2 games</span>
+            </button>
+            <button
+              class="lp-track-card"
+              data-track="passive"
+              role="listitem"
+              aria-label="Passive Voice — 2 games"
+            >
+              <span class="lp-track-card__icon" aria-hidden="true">🔬</span>
+              <span class="lp-track-card__title">Passive Voice</span>
+              <span class="lp-track-card__count">2 games</span>
+            </button>
+            <button
+              class="lp-track-card"
+              data-track="cases"
+              role="listitem"
+              aria-label="Cases — 3 games"
+            >
+              <span class="lp-track-card__icon" aria-hidden="true">🏠</span>
+              <span class="lp-track-card__title">Cases</span>
+              <span class="lp-track-card__count">3 games</span>
+            </button>
+            <button
+              class="lp-track-card"
+              data-track="vocabulary"
+              role="listitem"
+              aria-label="Vocabulary — 3 games"
+            >
+              <span class="lp-track-card__icon" aria-hidden="true">🎯</span>
+              <span class="lp-track-card__title">Vocabulary</span>
+              <span class="lp-track-card__count">3 games</span>
+            </button>
+            <button
+              class="lp-track-card"
+              data-track="adventure"
+              role="listitem"
+              aria-label="Adventure — 2 games"
+            >
+              <span class="lp-track-card__icon" aria-hidden="true">⚔️</span>
+              <span class="lp-track-card__title">Adventure</span>
+              <span class="lp-track-card__count">2 games</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Game Library -->
+        <section class="lp-games lp-reveal" id="games" aria-labelledby="lp-games-title">
+          <div class="lp-section-header">
+            <h2 id="lp-games-title">Game Library</h2>
             <p>Pick a focus, pick a pace, and keep the momentum going.</p>
           </div>
-          <!-- Auto-generated game cards -->
+          <div class="lp-filter-bar" role="toolbar" aria-label="Filter games by category">
+            <button class="lp-filter-btn" data-filter="all" aria-pressed="true">All</button>
+            <button class="lp-filter-btn" data-filter="verbs" aria-pressed="false">Verbs</button>
+            <button class="lp-filter-btn" data-filter="conjugation" aria-pressed="false">
+              Conjugation
+            </button>
+            <button class="lp-filter-btn" data-filter="passive" aria-pressed="false">
+              Passive
+            </button>
+            <button class="lp-filter-btn" data-filter="cases" aria-pressed="false">Cases</button>
+            <button class="lp-filter-btn" data-filter="vocabulary" aria-pressed="false">
+              Vocabulary
+            </button>
+            <button class="lp-filter-btn" data-filter="adventure" aria-pressed="false">
+              Adventure
+            </button>
+          </div>
           <div id="gamesGrid" class="row g-4"></div>
+          <div class="lp-sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
+        </section>
+
+        <!-- Stats -->
+        <section class="lp-stats lp-reveal" aria-labelledby="lp-stats-title">
+          <div class="lp-section-header">
+            <h2 id="lp-stats-title">By the Numbers</h2>
+            <p>Designed for focused, effective practice.</p>
+          </div>
+          <div class="lp-stats__grid">
+            <div class="lp-stat-card">
+              <span class="lp-stat-card__number">14</span>
+              <span class="lp-stat-card__label">Interactive Games</span>
+            </div>
+            <div class="lp-stat-card">
+              <span class="lp-stat-card__number">6</span>
+              <span class="lp-stat-card__label">Skill Tracks</span>
+            </div>
+            <div class="lp-stat-card">
+              <span class="lp-stat-card__number">4–20</span>
+              <span class="lp-stat-card__label">Min per Session</span>
+            </div>
+            <div class="lp-stat-card">
+              <span class="lp-stat-card__number">B1</span>
+              <span class="lp-stat-card__label">CEFR Level</span>
+            </div>
+          </div>
+          <ul class="lp-benefits">
+            <li>Verb conjugation across three tenses with instant feedback</li>
+            <li>Passive voice construction with tikt + participle patterns</li>
+            <li>Case endings for 6th declension and debitive mood</li>
+            <li>Vocabulary building with character traits and translation drills</li>
+          </ul>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="lp-final-cta lp-reveal">
+          <h2>Ready to level up your Latvian?</h2>
+          <p>Jump into any game and start building fluency today.</p>
+          <a class="btn btn-primary btn-lg" href="word-quest.html">Start Playing</a>
         </section>
       </div>
     </main>

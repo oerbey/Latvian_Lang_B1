@@ -32,133 +32,171 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="container py-4 mt-5 dv-shell">
-      <header class="dv-hero mb-4">
-        <div class="dv-hero__copy">
-          <p class="dv-eyebrow">B1 verb lab</p>
-          <h1 class="dv-title mb-2">Latviešu valoda — Darbības Vārdi</h1>
-          <p class="dv-lead mb-0">
-            Sašauj latviešu vārdu ar tulkojumu. Strādā ar peli vai tastatūru.
-          </p>
-        </div>
-        <div class="dv-hero__controls">
-          <div class="dv-control">
-            <label class="dv-control__label" for="language-select">Valoda</label>
-            <select id="language-select" class="form-select w-auto" aria-label="Language selection">
-              <option value="en">English</option>
-              <option value="ru">Русский</option>
-            </select>
-          </div>
-          <div class="dv-control">
-            <label class="dv-control__label" for="count-select">Komplekts</label>
-            <select id="count-select" class="form-select w-auto" aria-label="Word count">
-              <option value="6">6</option>
-              <option value="8">8</option>
-              <option value="10" selected>10</option>
-              <option value="12">12</option>
-            </select>
-          </div>
-          <div class="dv-hero__tag">Focus: verbs</div>
-        </div>
-      </header>
-
-      <section class="dv-panel dv-panel--study mb-4" aria-labelledby="locked-mode-heading">
-        <div class="dv-panel__body d-flex flex-column gap-3">
-          <div class="d-flex flex-wrap align-items-center gap-3">
-            <span id="locked-mode-heading" class="fw-semibold">Study mode</span>
-            <div class="btn-group" role="group" aria-label="Study mode toggle">
-              <input
-                type="radio"
-                class="btn-check"
-                name="study-mode"
-                id="mode-use-all"
-                value="all"
-                checked
-              />
-              <label class="btn btn-outline-secondary" for="mode-use-all">Use all</label>
-              <input
-                type="radio"
-                class="btn-check"
-                name="study-mode"
-                id="mode-locked-set"
-                value="locked"
-              />
-              <label class="btn btn-outline-secondary" for="mode-locked-set">Locked set</label>
+    <main id="main" class="py-4 mt-5 dv-shell">
+      <div class="container dv-shell__inner">
+        <header class="dv-hero mb-4">
+          <div class="dv-hero__copy">
+            <p class="dv-eyebrow">B1 verb lab</p>
+            <h1 class="dv-title mb-2">Latviešu valoda — Darbības Vārdi</h1>
+            <p class="dv-lead mb-0">
+              Sašauj latviešu vārdu ar tulkojumu un trenē atcerēšanos īsās, fokusētās sesijās.
+            </p>
+            <div class="dv-hero__badges" aria-label="Exercise highlights">
+              <span class="dv-hero__tag">Focus: verbs</span>
+              <span class="dv-badge">B1 core</span>
+              <span class="dv-badge">4-8 min</span>
             </div>
           </div>
-          <div id="locked-controls" class="row gy-3 gx-3 d-none">
-            <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
-              <label for="locked-set-size" class="form-label mb-0">Set size</label>
-              <select
-                id="locked-set-size"
-                class="form-select form-select-sm w-auto"
-                aria-label="Locked set size"
-              >
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="custom">Custom</option>
-              </select>
-              <input
-                type="number"
-                id="locked-set-custom"
-                class="form-control form-control-sm w-auto d-none"
-                min="5"
-                step="1"
-                value="15"
-                aria-label="Custom set size"
-              />
-            </div>
-            <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
-              <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">
-                New mix
-              </button>
-              <button id="btn-reset-locked" class="btn btn-outline-secondary btn-sm" type="button">
-                Reset locked set
-              </button>
-            </div>
-            <div class="col-12 col-md-auto">
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="prioritize-mistakes"
-                />
-                <label class="form-check-label" for="prioritize-mistakes"
-                  >Prioritize mistakes</label
+          <div class="dv-hero__side">
+            <div class="dv-hero__controls">
+              <div class="dv-control">
+                <label class="dv-control__label" for="language-select">Valoda</label>
+                <select
+                  id="language-select"
+                  class="form-select w-auto"
+                  aria-label="Language selection"
                 >
+                  <option value="en">English</option>
+                  <option value="ru">Русский</option>
+                </select>
+              </div>
+              <div class="dv-control">
+                <label class="dv-control__label" for="count-select">Komplekts</label>
+                <select id="count-select" class="form-select w-auto" aria-label="Word count">
+                  <option value="6">6</option>
+                  <option value="8">8</option>
+                  <option value="10" selected>10</option>
+                  <option value="12">12</option>
+                </select>
               </div>
             </div>
-            <div class="col-12">
-              <div id="locked-indicator" class="text-secondary small"></div>
-              <div id="locked-progress" class="text-secondary small"></div>
-              <div id="locked-feedback" class="text-warning small"></div>
+            <div class="dv-hero__visual" aria-hidden="true">
+              <div class="lp-orb dv-orb">
+                <div class="lp-orb__ring"></div>
+                <div class="lp-orb__ring"></div>
+                <div class="lp-orb__ring"></div>
+                <div class="lp-orb__core"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </header>
 
-      <section class="dv-board" aria-labelledby="status-heading">
-        <div class="dv-board__header">
-          <div>
-            <h2 id="status-heading" class="dv-board__title">Statuss</h2>
-            <div id="score" class="status dv-score" aria-live="polite">
-              Pareizi: 0 | Nepareizi: 0
+        <section class="dv-panel dv-panel--study mb-4" aria-labelledby="locked-mode-heading">
+          <div class="dv-panel__body d-flex flex-column gap-3">
+            <div class="dv-panel__header">
+              <div>
+                <h2 id="locked-mode-heading" class="dv-panel__title mb-1">Study mode</h2>
+                <p class="dv-panel__lead mb-0">
+                  Strādā ar visu sarakstu vai ieslēdz slēgto kopu mērķtiecīgai atkārtošanai.
+                </p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <div class="btn-group" role="group" aria-label="Study mode toggle">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="study-mode"
+                    id="mode-use-all"
+                    value="all"
+                    checked
+                  />
+                  <label class="btn btn-outline-secondary" for="mode-use-all">Use all</label>
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="study-mode"
+                    id="mode-locked-set"
+                    value="locked"
+                  />
+                  <label class="btn btn-outline-secondary" for="mode-locked-set">Locked set</label>
+                </div>
+                <span class="dv-indicator" id="locked-indicator"></span>
+              </div>
+            </div>
+            <div id="locked-controls" class="row gy-3 gx-3 d-none">
+              <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
+                <label for="locked-set-size" class="form-label mb-0">Set size</label>
+                <select
+                  id="locked-set-size"
+                  class="form-select form-select-sm w-auto"
+                  aria-label="Locked set size"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="custom">Custom</option>
+                </select>
+                <input
+                  type="number"
+                  id="locked-set-custom"
+                  class="form-control form-control-sm w-auto d-none"
+                  min="5"
+                  step="1"
+                  value="15"
+                  aria-label="Custom set size"
+                />
+              </div>
+              <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
+                <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">
+                  New mix
+                </button>
+                <button
+                  id="btn-reset-locked"
+                  class="btn btn-outline-secondary btn-sm"
+                  type="button"
+                >
+                  Reset locked set
+                </button>
+              </div>
+              <div class="col-12 col-md-auto">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="prioritize-mistakes"
+                  />
+                  <label class="form-check-label" for="prioritize-mistakes"
+                    >Prioritize mistakes</label
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <div id="locked-progress" class="text-secondary small"></div>
+                <div id="locked-feedback" class="text-warning small"></div>
+              </div>
             </div>
           </div>
-          <div class="dv-board__actions">
-            <button id="btn-new" class="btn btn-primary">Jauna spēle</button>
-            <button id="btn-speak" class="btn btn-outline-secondary" aria-pressed="false">
-              Ieslēgt izrunu
-            </button>
+        </section>
+
+        <section class="dv-board" aria-labelledby="status-heading">
+          <div class="dv-board__header">
+            <div>
+              <h2 id="status-heading" class="dv-board__title">Statuss</h2>
+              <div id="score" class="status dv-score" aria-live="polite">
+                Pareizi: 0 | Nepareizi: 0
+              </div>
+              <p class="dv-board__hint mb-0">Izvēlies pa vienam vārdam no katras kolonnas.</p>
+            </div>
+            <div class="dv-board__actions">
+              <button id="btn-new" class="btn btn-primary">Jauna spēle</button>
+              <button id="btn-speak" class="btn btn-outline-secondary" aria-pressed="false">
+                Ieslēgt izrunu
+              </button>
+            </div>
           </div>
-        </div>
-        <div id="help" class="dv-help" aria-live="polite"></div>
-        <div class="grid-words dv-grid" aria-label="Vārdu saraksti">
-          <div id="list-lv" class="dv-list" role="listbox" aria-label="Latviešu vārdi"></div>
-          <div id="list-tr" class="dv-list" role="listbox" aria-label="Tulkojumi"></div>
-        </div>
-      </section>
+          <div id="help" class="dv-help" aria-live="polite"></div>
+          <div class="grid-words dv-grid" aria-label="Vārdu saraksti">
+            <section class="dv-column" aria-labelledby="dv-lv-heading">
+              <h3 id="dv-lv-heading" class="dv-column__title">Latviešu vārdi</h3>
+              <div id="list-lv" class="dv-list" role="listbox" aria-label="Latviešu vārdi"></div>
+            </section>
+            <section class="dv-column" aria-labelledby="dv-tr-heading">
+              <h3 id="dv-tr-heading" class="dv-column__title">Tulkojumi</h3>
+              <div id="list-tr" class="dv-list" role="listbox" aria-label="Tulkojumi"></div>
+            </section>
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>

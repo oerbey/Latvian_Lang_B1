@@ -1,5 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+test('darbibas vardi page loads and toggles study mode controls', async ({ page }) => {
+  await page.goto('/darbibas-vards.html');
+
+  await expect(
+    page.getByRole('heading', { name: 'Latviešu valoda — Darbības Vārdi' }),
+  ).toBeVisible();
+  await expect(page.locator('#btn-new')).toBeEnabled();
+  await expect(page.locator('#mode-use-all')).toBeChecked();
+  await expect(page.locator('#list-lv .word-card').first()).toBeVisible();
+  await expect(page.locator('#list-tr .word-card').first()).toBeVisible();
+
+  await page.locator('label[for="mode-locked-set"]').click();
+  await expect(page.locator('#locked-controls')).toBeVisible();
+});
+
 test('english-latvian arcade page loads and starts a round', async ({ page }) => {
   await page.goto('/english-latvian-arcade.html');
 

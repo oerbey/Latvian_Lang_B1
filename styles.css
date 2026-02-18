@@ -522,6 +522,46 @@ body {
   opacity: 0.85;
 }
 
+.navbar[data-site-nav] {
+  background: var(--surface-alt);
+  backdrop-filter: blur(12px);
+}
+
+.navbar[data-site-nav] .site-nav__container {
+  gap: 0.9rem;
+}
+
+.navbar[data-site-nav] .navbar-brand {
+  flex-shrink: 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.navbar[data-site-nav] .site-nav__body {
+  gap: 0.75rem;
+}
+
+.navbar[data-site-nav] .site-nav__actions {
+  flex-shrink: 0;
+  align-items: center;
+  justify-self: end;
+}
+
+.navbar[data-site-nav] .site-nav__github-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  min-height: 44px;
+  padding-inline: 0.85rem;
+  white-space: nowrap;
+}
+
+.site-nav--home {
+  position: relative;
+  top: auto;
+}
+
 .navbar .offcanvas {
   background: var(--surface);
   color: var(--text);
@@ -540,6 +580,62 @@ body {
 
 .offcanvas-backdrop.show {
   opacity: 0.52;
+}
+
+@media (min-width: 992px) {
+  .navbar[data-site-nav] .offcanvas {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .navbar[data-site-nav] .site-nav__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .navbar[data-site-nav] .site-nav__list {
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    gap: 0.1rem;
+    min-width: 0;
+    padding-bottom: 0.1rem;
+    margin-bottom: 0 !important;
+    scrollbar-width: thin;
+  }
+
+  .navbar[data-site-nav] .site-nav__list::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .navbar[data-site-nav] .site-nav__list::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--muted) 26%, transparent);
+  }
+
+  .navbar[data-site-nav] .nav-link {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    line-height: 1.2;
+    font-size: 0.95rem;
+    padding: 0.45rem 0.6rem;
+  }
+}
+
+@media (max-width: 1399.98px) and (min-width: 992px) {
+  .navbar[data-site-nav] .site-nav__github-label {
+    display: none;
+  }
+
+  .navbar[data-site-nav] .site-nav__github-btn {
+    padding-inline: 0.7rem;
+  }
 }
 
 @media (max-width: 991.98px) {

@@ -7,6 +7,7 @@ const els = {
   score: document.getElementById('score'),
   btnNew: document.getElementById('btn-new'),
   btnSpeak: document.getElementById('btn-speak'),
+  speakToggle: document.getElementById('speak-toggle'),
   help: document.getElementById('help'),
   languageSelect: document.getElementById('language-select'),
   countSelect: document.getElementById('count-select'),
@@ -41,6 +42,7 @@ initMatchingGame({
     cursor: 'dv_cursor',
     recent: 'dv_recentSets',
     stats: 'dv_stats',
+    speak: 'dv_speak',
   },
   defaultConfig: {
     mode: MATCHING_CONSTANTS.MODE_ALL,

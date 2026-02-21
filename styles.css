@@ -1990,6 +1990,20 @@ body.theme-lv-en-arcade {
 }
 
 body[data-bs-theme='dark'].theme-darbibas {
+  --bg: #141922;
+  --surface: #1f2833;
+  --surface-alt: rgba(33, 43, 55, 0.95);
+  --surface-subtle: #273241;
+  --surface-subtle-strong: #313d4e;
+  --border: #4a586c;
+  --border-soft: rgba(177, 194, 217, 0.42);
+  --text: #f5f8fd;
+  --muted: #d5e0f0;
+  --bg-gradient: linear-gradient(180deg, #141922 0%, #1a222d 100%);
+  --bg-texture:
+    radial-gradient(circle at 10% 9%, rgba(125, 166, 217, 0.16), transparent 46%),
+    radial-gradient(circle at 84% 12%, rgba(176, 151, 114, 0.15), transparent 52%),
+    radial-gradient(circle at 22% 86%, rgba(125, 166, 217, 0.1), transparent 52%);
   --game-accent: #7da6d9;
   --game-accent-hover: #6b95c7;
   --game-accent-active: #5a84b5;

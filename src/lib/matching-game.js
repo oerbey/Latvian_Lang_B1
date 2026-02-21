@@ -45,6 +45,10 @@ export function initMatchingGame(options) {
     ...texts,
     lockedNote: { ...DEFAULT_TEXTS.lockedNote, ...(texts.lockedNote || {}) },
   };
+  const speakTexts = {
+    on: texts.speakOn || 'Izruna: ieslēgta',
+    off: texts.speakOff || 'Ieslēgt izrunu',
+  };
 
   const state = {
     data: [],
@@ -101,6 +105,37 @@ export function initMatchingGame(options) {
   function persistStats() {
     if (!storageKeys?.stats) return;
     writeState(storageKeys.stats, state.stats);
+  }
+
+  function persistSpeakPreference() {
+    if (!storageKeys?.speak) return;
+    writeState(storageKeys.speak, state.speakOn);
+  }
+
+  function syncSpeakControls() {
+    if (els.btnSpeak) {
+      els.btnSpeak.setAttribute('aria-pressed', String(state.speakOn));
+      els.btnSpeak.textContent = state.speakOn ? speakTexts.on : speakTexts.off;
+    }
+    if (els.speakToggle && typeof els.speakToggle === 'object' && 'checked' in els.speakToggle) {
+      els.speakToggle.checked = state.speakOn;
+      els.speakToggle.setAttribute('aria-checked', String(state.speakOn));
+    }
+  }
+
+  function setSpeakOn(nextValue) {
+    const shouldSpeak = Boolean(nextValue);
+    state.speakOn = shouldSpeak;
+    if (
+      !shouldSpeak &&
+      typeof window !== 'undefined' &&
+      'speechSynthesis' in window &&
+      typeof window.speechSynthesis.cancel === 'function'
+    ) {
+      window.speechSynthesis.cancel();
+    }
+    persistSpeakPreference();
+    syncSpeakControls();
   }
 
   function persistSetState() {
@@ -630,11 +665,16 @@ export function initMatchingGame(options) {
         : [];
     }
     if (storageKeys?.stats) state.stats = readState(storageKeys.stats, {}, isPlainObject) || {};
+    if (storageKeys?.speak) {
+      const savedSpeak = readState(storageKeys.speak, false, (value) => typeof value === 'boolean');
+      state.speakOn = !!savedSpeak;
+    }
     syncSetSizeControls();
     if (els.prioritizeSwitch)
       els.prioritizeSwitch.checked = !!state.lockedConfig.prioritizeMistakes;
     if (els.modeAll) els.modeAll.checked = state.lockedConfig.mode === MODE_ALL;
     if (els.modeLocked) els.modeLocked.checked = state.lockedConfig.mode === MODE_LOCKED;
+    syncSpeakControls();
     updateLockedUI();
   }
 
@@ -649,9 +689,11 @@ export function initMatchingGame(options) {
   });
 
   els.btnSpeak?.addEventListener('click', () => {
-    state.speakOn = !state.speakOn;
-    els.btnSpeak.setAttribute('aria-pressed', String(state.speakOn));
-    els.btnSpeak.textContent = state.speakOn ? 'Izruna: ieslēgta' : 'Ieslēgt izrunu';
+    setSpeakOn(!state.speakOn);
+  });
+
+  els.speakToggle?.addEventListener('change', (e) => {
+    setSpeakOn(!!e.target.checked);
   });
 
   els.languageSelect?.addEventListener('change', () => {

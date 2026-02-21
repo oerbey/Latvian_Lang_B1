@@ -23,6 +23,22 @@ test('darbibas vardi page loads and toggles study mode controls', async ({ page 
   await expect(page.locator('#locked-controls')).toBeVisible();
 });
 
+test('darbibas vardi keeps columns parallel on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/darbibas-vards.html');
+
+  const lvColumn = page.locator('#list-lv');
+  const trColumn = page.locator('#list-tr');
+  await expect(lvColumn).toBeVisible();
+  await expect(trColumn).toBeVisible();
+
+  const lvBox = await lvColumn.boundingBox();
+  const trBox = await trColumn.boundingBox();
+  expect(lvBox).not.toBeNull();
+  expect(trBox).not.toBeNull();
+  expect(Math.abs((trBox?.x || 0) - (lvBox?.x || 0))).toBeGreaterThan(20);
+});
+
 test('english-latvian arcade page loads and starts a round', async ({ page }) => {
   await page.goto('/english-latvian-arcade.html');
 

@@ -129,12 +129,12 @@
     "ru": "махать, кивать",
     "conj": {
       "present": {
-        "1s": "maju",
-        "2s": "maji",
-        "3s": "maja",
+        "1s": "māju",
+        "2s": "māj",
+        "3s": "māj",
         "1p": "mājam",
         "2p": "mājat",
-        "3p": "maja"
+        "3p": "māj"
       },
       "past": {
         "1s": "māju",
@@ -403,347 +403,6 @@
     }
   },
   {
-    "lv": "maldīties",
-    "en": "to be mistaken, to go astray",
-    "ru": "заблуждаться, сбиваться с пути",
-    "conj": {
-      "present": {
-        "1s": "maldos",
-        "2s": "maldies",
-        "3s": "maldās",
-        "1p": "maldāmies",
-        "2p": "maldāties",
-        "3p": "maldās"
-      },
-      "past": {
-        "1s": "maldījos",
-        "2s": "maldījies",
-        "3s": "maldījās",
-        "1p": "maldījāmies",
-        "2p": "maldījāties",
-        "3p": "maldījās"
-      },
-      "future": {
-        "1s": "maldīšos",
-        "2s": "maldīsies",
-        "3s": "maldīsies",
-        "1p": "maldīsimies",
-        "2p": "maldīsieties",
-        "3p": "maldīsies"
-      }
-    }
-  },
-  {
-    "lv": "manīt",
-    "en": "to notice, to perceive",
-    "ru": "замечать, видеть",
-    "conj": {
-      "present": {
-        "1s": "manu",
-        "2s": "mani",
-        "3s": "mana",
-        "1p": "manām",
-        "2p": "manāt",
-        "3p": "mana"
-      },
-      "past": {
-        "1s": "manīju",
-        "2s": "manīji",
-        "3s": "manīja",
-        "1p": "manījām",
-        "2p": "manījāt",
-        "3p": "manīja"
-      },
-      "future": {
-        "1s": "manīšu",
-        "2s": "manīsi",
-        "3s": "manīs",
-        "1p": "manīsim",
-        "2p": "manīsiet",
-        "3p": "manīs"
-      }
-    }
-  },
-  {
-    "lv": "mānīt",
-    "en": "to deceive, to cheat",
-    "ru": "обманывать",
-    "conj": {
-      "present": {
-        "1s": "mānu",
-        "2s": "māni",
-        "3s": "māna",
-        "1p": "mānām",
-        "2p": "mānāt",
-        "3p": "māna"
-      },
-      "past": {
-        "1s": "mānīju",
-        "2s": "mānīji",
-        "3s": "mānīja",
-        "1p": "mānījām",
-        "2p": "mānījāt",
-        "3p": "mānīja"
-      },
-      "future": {
-        "1s": "mānīšu",
-        "2s": "mānīsi",
-        "3s": "mānīs",
-        "1p": "mānīsim",
-        "2p": "mānīsiet",
-        "3p": "mānīs"
-      }
-    }
-  },
-  {
-    "lv": "marinēt",
-    "en": "to marinate, to pickle",
-    "ru": "мариновать",
-    "conj": {
-      "present": {
-        "1s": "marinēju",
-        "2s": "marinē",
-        "3s": "marinē",
-        "1p": "marinējam",
-        "2p": "marinējat",
-        "3p": "marinē"
-      },
-      "past": {
-        "1s": "marinēju",
-        "2s": "marinēji",
-        "3s": "marinēja",
-        "1p": "marinējām",
-        "2p": "marinējāt",
-        "3p": "marinēja"
-      },
-      "future": {
-        "1s": "marinēšu",
-        "2s": "marinēsi",
-        "3s": "marinēs",
-        "1p": "marinēsim",
-        "2p": "marinēsiet",
-        "3p": "marinēs"
-      }
-    }
-  },
-  {
-    "lv": "māt",
-    "en": "to wave (hand), to nod",
-    "ru": "махать, кивать",
-    "conj": {
-      "present": {
-        "1s": "maju",
-        "2s": "maji",
-        "3s": "maja",
-        "1p": "mājam",
-        "2p": "mājat",
-        "3p": "maja"
-      },
-      "past": {
-        "1s": "māju",
-        "2s": "māji",
-        "3s": "māja",
-        "1p": "mājām",
-        "2p": "mājāt",
-        "3p": "māja"
-      },
-      "future": {
-        "1s": "māšu",
-        "2s": "māsi",
-        "3s": "mās",
-        "1p": "māsim",
-        "2p": "māsiet",
-        "3p": "mās"
-      }
-    }
-  },
-  {
-    "lv": "mātēt",
-    "en": "to shimmer, to gleam",
-    "ru": "мерцать, поблёскивать",
-    "conj": {
-      "present": {
-        "1s": "mātēju",
-        "2s": "mātē",
-        "3s": "mātē",
-        "1p": "mātējam",
-        "2p": "mātējat",
-        "3p": "mātē"
-      },
-      "past": {
-        "1s": "mātēju",
-        "2s": "mātēji",
-        "3s": "mātēja",
-        "1p": "mātējām",
-        "2p": "mātējāt",
-        "3p": "mātēja"
-      },
-      "future": {
-        "1s": "mātēšu",
-        "2s": "mātēsi",
-        "3s": "mātēs",
-        "1p": "mātēsim",
-        "2p": "mātēsiet",
-        "3p": "mātēs"
-      }
-    }
-  },
-  {
-    "lv": "maut",
-    "en": "to pull on (clothes), to dash",
-    "ru": "натягивать, нестись",
-    "conj": {
-      "present": {
-        "1s": "mauju",
-        "2s": "mauj",
-        "3s": "mauj",
-        "1p": "maujam",
-        "2p": "maujat",
-        "3p": "mauj"
-      },
-      "past": {
-        "1s": "mavu",
-        "2s": "mavi",
-        "3s": "mava",
-        "1p": "mavām",
-        "2p": "mavāt",
-        "3p": "mava"
-      },
-      "future": {
-        "1s": "maušu",
-        "2s": "mausi",
-        "3s": "maus",
-        "1p": "mausim",
-        "2p": "mausiet",
-        "3p": "maus"
-      }
-    }
-  },
-  {
-    "lv": "mēģināt",
-    "en": "to try, to attempt",
-    "ru": "пытаться, пробовать",
-    "conj": {
-      "present": {
-        "1s": "mēģinu",
-        "2s": "mēģini",
-        "3s": "mēģina",
-        "1p": "mēģinām",
-        "2p": "mēģināt",
-        "3p": "mēģina"
-      },
-      "past": {
-        "1s": "mēģināju",
-        "2s": "mēģināji",
-        "3s": "mēģināja",
-        "1p": "mēģinājām",
-        "2p": "mēģinājāt",
-        "3p": "mēģināja"
-      },
-      "future": {
-        "1s": "mēģināšu",
-        "2s": "mēģināsi",
-        "3s": "mēģinās",
-        "1p": "mēģināsim",
-        "2p": "mēģināsiet",
-        "3p": "mēģinās"
-      }
-    }
-  },
-  {
-    "lv": "mērcēt",
-    "en": "to soak, to dip",
-    "ru": "мочить, замачивать",
-    "conj": {
-      "present": {
-        "1s": "mērcēju",
-        "2s": "mērcē",
-        "3s": "mērcē",
-        "1p": "mērcējam",
-        "2p": "mērcējat",
-        "3p": "mērcē"
-      },
-      "past": {
-        "1s": "mērcēju",
-        "2s": "mērcēji",
-        "3s": "mērcēja",
-        "1p": "mērcējām",
-        "2p": "mērcējāt",
-        "3p": "mērcēja"
-      },
-      "future": {
-        "1s": "mērcēšu",
-        "2s": "mērcēsi",
-        "3s": "mērcēs",
-        "1p": "mērcēsim",
-        "2p": "mērcēsiet",
-        "3p": "mērcēs"
-      }
-    }
-  },
-  {
-    "lv": "mērot",
-    "en": "to measure",
-    "ru": "мерить, измерять",
-    "conj": {
-      "present": {
-        "1s": "mēru",
-        "2s": "mēri",
-        "3s": "mēra",
-        "1p": "mērām",
-        "2p": "mērāt",
-        "3p": "mēra"
-      },
-      "past": {
-        "1s": "mērīju",
-        "2s": "mērīji",
-        "3s": "mērīja",
-        "1p": "mērījām",
-        "2p": "mērījāt",
-        "3p": "mērīja"
-      },
-      "future": {
-        "1s": "mērīšu",
-        "2s": "mērīsi",
-        "3s": "mērīs",
-        "1p": "mērīsim",
-        "2p": "mērīsiet",
-        "3p": "mērīs"
-      }
-    }
-  },
-  {
-    "lv": "mesties",
-    "en": "to rush, to throw oneself",
-    "ru": "бросаться, кидаться",
-    "conj": {
-      "present": {
-        "1s": "metos",
-        "2s": "meties",
-        "3s": "metas",
-        "1p": "metamies",
-        "2p": "metaties",
-        "3p": "metas"
-      },
-      "past": {
-        "1s": "metos",
-        "2s": "meties",
-        "3s": "metās",
-        "1p": "metāmies",
-        "2p": "metāties",
-        "3p": "metās"
-      },
-      "future": {
-        "1s": "metīšos",
-        "2s": "metīsies",
-        "3s": "metīsies",
-        "1p": "metīsimies",
-        "2p": "metīsieties",
-        "3p": "metīsies"
-      }
-    }
-  },
-  {
     "lv": "mētāt",
     "en": "to toss, to throw repeatedly",
     "ru": "бросать, швырять",
@@ -807,7 +466,7 @@
   },
   {
     "lv": "miegot",
-    "en": "to doze, to nap",
+    "en": "to sleep; to doze",
     "ru": "дремать, вздремнуть",
     "conj": {
       "present": {
@@ -837,64 +496,64 @@
     }
   },
   {
-    "lv": "miglēt",
+    "lv": "miglot",
     "en": "to mist, to spray",
     "ru": "опрыскивать, распылять",
     "conj": {
       "present": {
-        "1s": "miglēju",
-        "2s": "miglē",
-        "3s": "miglē",
-        "1p": "miglējam",
-        "2p": "miglējat",
-        "3p": "miglē"
+        "1s": "migloju",
+        "2s": "miglo",
+        "3s": "miglo",
+        "1p": "miglojam",
+        "2p": "miglojat",
+        "3p": "miglo"
       },
       "past": {
-        "1s": "miglēju",
-        "2s": "miglēji",
-        "3s": "miglēja",
-        "1p": "miglējām",
-        "2p": "miglējāt",
-        "3p": "miglēja"
+        "1s": "migloju",
+        "2s": "migloji",
+        "3s": "migloja",
+        "1p": "miglojām",
+        "2p": "miglojāt",
+        "3p": "migloja"
       },
       "future": {
-        "1s": "miglēšu",
-        "2s": "miglēsi",
-        "3s": "miglēs",
-        "1p": "miglēsim",
-        "2p": "miglēsiet",
-        "3p": "miglēs"
+        "1s": "miglošu",
+        "2s": "miglosi",
+        "3s": "miglos",
+        "1p": "miglosim",
+        "2p": "miglosiet",
+        "3p": "miglos"
       }
     }
   },
   {
-    "lv": "mikēt",
-    "en": "to mew, to miaow",
-    "ru": "мяукать",
+    "lv": "ņaudēt",
+    "en": "to meow, to miaow; to whine",
+    "ru": "мяукать; ныть",
     "conj": {
       "present": {
-        "1s": "mikēju",
-        "2s": "mikē",
-        "3s": "mikē",
-        "1p": "mikējam",
-        "2p": "mikējat",
-        "3p": "mikē"
+        "1s": "ņaudu",
+        "2s": "ņaudi",
+        "3s": "ņaud",
+        "1p": "ņaudam",
+        "2p": "ņaudat",
+        "3p": "ņaud"
       },
       "past": {
-        "1s": "mikēju",
-        "2s": "mikēji",
-        "3s": "mikēja",
-        "1p": "mikējām",
-        "2p": "mikējāt",
-        "3p": "mikēja"
+        "1s": "ņaudēju",
+        "2s": "ņaudēji",
+        "3s": "ņaudēja",
+        "1p": "ņaudējām",
+        "2p": "ņaudējāt",
+        "3p": "ņaudēja"
       },
       "future": {
-        "1s": "mikēšu",
-        "2s": "mikēsi",
-        "3s": "mikēs",
-        "1p": "mikēsim",
-        "2p": "mikēsiet",
-        "3p": "mikēs"
+        "1s": "ņaudēšu",
+        "2s": "ņaudēsi",
+        "3s": "ņaudēs",
+        "1p": "ņaudēsim",
+        "2p": "ņaudēsiet",
+        "3p": "ņaudēs"
       }
     }
   },
@@ -1241,7 +900,7 @@
   },
   {
     "lv": "noformēt",
-    "en": "to formalize, to draw up; to design",
+    "en": "to draw up, to formalize; to complete/fill out (documents)",
     "ru": "оформлять",
     "conj": {
       "present": {
@@ -1489,7 +1148,7 @@
   },
   {
     "lv": "noskriet",
-    "en": "to run (a distance), to run down",
+    "en": "to run (a distance); to run off/down (somewhere)",
     "ru": "пробежать",
     "conj": {
       "present": {
@@ -2160,7 +1819,7 @@
         "3p": "pārdeva"
       },
       "future": {
-        "1s": "pārdoshu",
+        "1s": "pārdošu",
         "2s": "pārdosi",
         "3s": "pārdos",
         "1p": "pārdosim",
@@ -2728,33 +2387,33 @@
     }
   },
   {
-    "lv": "pietiet",
-    "en": "(unclear lemma; needs review)",
-    "ru": "(неясный глагол; нужна проверка)",
+    "lv": "pietikt",
+    "en": "to be enough",
+    "ru": "хватать, быть достаточно",
     "conj": {
       "present": {
-        "1s": "pietieju",
-        "2s": "pietie",
-        "3s": "pietie",
-        "1p": "pietiejam",
-        "2p": "pietiejat",
-        "3p": "pietie"
+        "1s": "pietieku",
+        "2s": "pietiec",
+        "3s": "pietiek",
+        "1p": "pietiekam",
+        "2p": "pietiekat",
+        "3p": "pietiek"
       },
       "past": {
-        "1s": "pietieju",
-        "2s": "pietieji",
-        "3s": "pietieja",
-        "1p": "pietiejām",
-        "2p": "pietiejāt",
-        "3p": "pietieja"
+        "1s": "pietiku",
+        "2s": "pietiki",
+        "3s": "pietika",
+        "1p": "pietikām",
+        "2p": "pietikāt",
+        "3p": "pietika"
       },
       "future": {
-        "1s": "pietiešu",
-        "2s": "pietiesi",
-        "3s": "pieties",
-        "1p": "pietiesim",
-        "2p": "pietiesiet",
-        "3p": "pieties"
+        "1s": "pietikšu",
+        "2s": "pietiksi",
+        "3s": "pietiks",
+        "1p": "pietiksim",
+        "2p": "pietiksiet",
+        "3p": "pietiks"
       }
     }
   },
@@ -2896,20 +2555,20 @@
         "3p": "piesakās"
       },
       "past": {
-        "1s": "pieteicos",
-        "2s": "pieteicies",
-        "3s": "pieteicās",
-        "1p": "pieteicāmies",
-        "2p": "pieteicāties",
-        "3p": "pieteicās"
+        "1s": "piesacījos",
+        "2s": "piesacījies",
+        "3s": "piesacījās",
+        "1p": "piesacījāmies",
+        "2p": "piesacījāties",
+        "3p": "piesacījās"
       },
       "future": {
-        "1s": "pieteikšos",
-        "2s": "pieteiksies",
-        "3s": "pieteiksies",
-        "1p": "pieteiksimies",
-        "2p": "pieteiksieties",
-        "3p": "pieteiksies"
+        "1s": "piesacīšos",
+        "2s": "piesacīsies",
+        "3s": "piesacīsies",
+        "1p": "piesacīsimies",
+        "2p": "piesacīsieties",
+        "3p": "piesacīsies"
       }
     }
   },

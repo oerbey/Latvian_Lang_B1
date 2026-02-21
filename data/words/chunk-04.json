@@ -156,7 +156,7 @@
   },
   {
     "lv": "reģistrēties",
-    "en": "to register (oneself)",
+    "en": "to register; to sign up",
     "ru": "регистрироваться",
     "conj": {
       "present": {
@@ -373,7 +373,7 @@
   },
   {
     "lv": "sagaidīt",
-    "en": "to meet; to expect; to wait for",
+    "en": "to wait for; to meet (someone arriving); to expect",
     "ru": "встречать; ожидать",
     "conj": {
       "present": {
@@ -653,7 +653,33 @@
   {
     "lv": "sāpēt",
     "en": "to ache, to hurt",
-    "ru": "болеть"
+    "ru": "болеть",
+    "conj": {
+      "present": {
+        "1s": "—",
+        "2s": "—",
+        "3s": "sāp",
+        "1p": "—",
+        "2p": "—",
+        "3p": "sāp"
+      },
+      "past": {
+        "1s": "—",
+        "2s": "—",
+        "3s": "sāpēja",
+        "1p": "—",
+        "2p": "—",
+        "3p": "sāpēja"
+      },
+      "future": {
+        "1s": "—",
+        "2s": "—",
+        "3s": "sāpēs",
+        "1p": "—",
+        "2p": "—",
+        "3p": "sāpēs"
+      }
+    }
   },
   {
     "lv": "sargāt",
@@ -843,7 +869,7 @@
   },
   {
     "lv": "sēņot",
-    "en": "to pick mushrooms",
+    "en": "to go mushroom picking",
     "ru": "собирать грибы",
     "conj": {
       "present": {
@@ -1679,7 +1705,7 @@
     }
   },
   {
-    "lv": "tuvooties",
+    "lv": "tuvoties",
     "en": "to approach, to draw near",
     "ru": "приближаться",
     "conj": {

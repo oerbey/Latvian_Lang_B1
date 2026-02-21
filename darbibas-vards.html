@@ -69,6 +69,19 @@
                   <option value="12">12</option>
                 </select>
               </div>
+              <div class="dv-control dv-control--toggle">
+                <span class="dv-control__label">Izruna</span>
+                <div class="form-check form-switch dv-speak-toggle">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="speak-toggle"
+                    aria-label="Nolasīt latviešu vārdus skaļi"
+                  />
+                  <label class="form-check-label" for="speak-toggle">Nolasīt skaļi</label>
+                </div>
+              </div>
             </div>
             <div class="dv-hero__visual" aria-hidden="true">
               <div class="lp-orb dv-orb">
@@ -179,16 +192,6 @@
             </div>
             <div class="dv-board__actions">
               <button id="btn-new" class="btn btn-primary">Jauna spēle</button>
-              <div class="form-check form-switch dv-speak-toggle">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="speak-toggle"
-                  aria-label="Nolasīt latviešu vārdus skaļi"
-                />
-                <label class="form-check-label" for="speak-toggle">Nolasīt skaļi</label>
-              </div>
             </div>
           </div>
           <div id="help" class="dv-help" aria-live="polite"></div>

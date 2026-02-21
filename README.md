@@ -101,9 +101,6 @@ GitHub Actions CI (`.github/workflows/test.yml`) runs:
 
 - `documentation.md`: technical architecture and maintenance guide
 - `docs/*-spec.md`: feature/game specification docs
-- `docs/endings-builder-analysis/*`: deep-dive analysis docs
-- `docs/priority-a/*`: forward roadmap and issue backlog
-- `ideas/architectural-review-2026/*`: long-form architecture review notes
 
 ## Concept Design Sandbox
 

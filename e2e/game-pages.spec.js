@@ -7,17 +7,15 @@ test('darbibas vardi page loads and toggles study mode controls', async ({ page 
     page.getByRole('heading', { name: 'Latviešu valoda — Darbības Vārdi' }),
   ).toBeVisible();
   await expect(page.locator('#btn-new')).toBeEnabled();
-  await expect(page.locator('#speak-toggle')).toBeVisible();
-  await expect(page.locator('#speak-toggle')).not.toBeChecked();
+  const speakButton = page.locator('#btn-speak');
+  await expect(speakButton).toBeVisible();
+  await expect(speakButton).toHaveAttribute('aria-pressed', 'false');
   await expect(page.locator('#mode-use-all')).toBeChecked();
   await expect(page.locator('#list-lv .word-card').first()).toBeVisible();
   await expect(page.locator('#list-tr .word-card').first()).toBeVisible();
 
-  await page.locator('#speak-toggle').evaluate((node) => {
-    node.checked = true;
-    node.dispatchEvent(new Event('change', { bubbles: true }));
-  });
-  await expect(page.locator('#speak-toggle')).toBeChecked();
+  await speakButton.click();
+  await expect(speakButton).toHaveAttribute('aria-pressed', 'true');
 
   await page.locator('label[for="mode-locked-set"]').click();
   await expect(page.locator('#locked-controls')).toBeVisible();

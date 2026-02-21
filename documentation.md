@@ -128,8 +128,7 @@ Documentation is intentionally scoped to active references:
 
 - Keep technical truth in `README.md` and this file (`documentation.md`)
 - Keep game-level behavior/specs under `docs/*-spec.md`
-- Keep architecture deep dives in `ideas/architectural-review-2026/`
-- Remove completed tracker/task-list markdown files instead of leaving stale checklists
+- Remove temporary tracker/task-list markdown files instead of leaving stale checklists
 
 ## 8. Concept Design Sandbox
 

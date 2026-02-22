@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="lv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Latvian Language B1 Games — Design Prototype</title>
+    <meta name="description" content="Master Latvian grammar through focused, interactive games. 14 exercises covering verbs, conjugation, passive voice, cases, and vocabulary." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="dp-skip" href="#main">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="dp-nav" role="banner">
+      <div class="dp-container dp-nav__inner">
+        <a href="index.html" class="dp-nav__brand">
+          <span class="dp-nav__brand-icon">LV</span>
+          Latvian B1
+        </a>
+        <button class="dp-nav__hamburger" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="dp-nav__links" id="nav-links">
+          <li><a class="dp-nav__link dp-nav__link--active" href="index.html">Home</a></li>
+          <li><a class="dp-nav__link" href="darbibas-vards.html">Darbības Vārdi</a></li>
+        </ul>
+        <div class="dp-nav__actions">
+          <button class="dp-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <div class="dp-container">
+
+        <!-- ======= Hero ======= -->
+        <section class="dp-hero dp-reveal" aria-labelledby="hero-title">
+          <div class="dp-hero__copy">
+            <p class="dp-hero__eyebrow">Latvian Language B1</p>
+            <h1 class="dp-hero__title" id="hero-title">
+              Master Latvian grammar through focused, interactive&nbsp;games.
+            </h1>
+            <p class="dp-hero__lead">
+              14 purpose-built exercises covering verbs, conjugation, passive voice, cases, and
+              vocabulary — each designed for 4–20&nbsp;minute practice sessions.
+            </p>
+            <div class="dp-hero__actions">
+              <a class="dp-btn dp-btn--primary" href="#">Start Word Quest</a>
+              <a class="dp-btn dp-btn--outline" href="#games">Browse all games</a>
+            </div>
+            <div class="dp-hero__badges">
+              <span class="dp-badge">B1 level</span>
+              <span class="dp-badge">6 skill tracks</span>
+              <span class="dp-badge">Short sessions</span>
+            </div>
+          </div>
+          <div class="dp-hero__visual" aria-hidden="true">
+            <div class="dp-orb">
+              <div class="dp-orb__ring"></div>
+              <div class="dp-orb__ring"></div>
+              <div class="dp-orb__ring"></div>
+              <div class="dp-orb__core"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======= Skill Tracks ======= -->
+        <section class="dp-section dp-reveal" aria-labelledby="tracks-title">
+          <div class="dp-section-header">
+            <h2 class="dp-section-header__title" id="tracks-title">Skill Tracks</h2>
+            <p class="dp-section-header__sub">Choose a focus area to filter games by skill.</p>
+          </div>
+          <div class="dp-tracks__grid" role="list">
+            <button class="dp-track-card" data-track="verbs" role="listitem" aria-label="Verbs — 2 games">
+              <span class="dp-track-card__icon" aria-hidden="true">📖</span>
+              <span class="dp-track-card__title">Verbs</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+            <button class="dp-track-card" data-track="conjugation" role="listitem" aria-label="Conjugation — 2 games">
+              <span class="dp-track-card__icon" aria-hidden="true">⚡</span>
+              <span class="dp-track-card__title">Conjugation</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+            <button class="dp-track-card" data-track="passive" role="listitem" aria-label="Passive Voice — 2 games">
+              <span class="dp-track-card__icon" aria-hidden="true">🔬</span>
+              <span class="dp-track-card__title">Passive Voice</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+            <button class="dp-track-card" data-track="cases" role="listitem" aria-label="Cases — 3 games">
+              <span class="dp-track-card__icon" aria-hidden="true">🏠</span>
+              <span class="dp-track-card__title">Cases</span>
+              <span class="dp-track-card__count">3 games</span>
+            </button>
+            <button class="dp-track-card" data-track="vocabulary" role="listitem" aria-label="Vocabulary — 3 games">
+              <span class="dp-track-card__icon" aria-hidden="true">🎯</span>
+              <span class="dp-track-card__title">Vocabulary</span>
+              <span class="dp-track-card__count">3 games</span>
+            </button>
+            <button class="dp-track-card" data-track="adventure" role="listitem" aria-label="Adventure — 2 games">
+              <span class="dp-track-card__icon" aria-hidden="true">⚔️</span>
+              <span class="dp-track-card__title">Adventure</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ======= Game Library ======= -->
+        <section class="dp-section dp-reveal" id="games" aria-labelledby="games-title">
+          <div class="dp-section-header">
+            <h2 class="dp-section-header__title" id="games-title">Game Library</h2>
+            <p class="dp-section-header__sub">Pick a focus, pick a pace, and keep the momentum going.</p>
+          </div>
+          <div class="dp-filter-bar" role="toolbar" aria-label="Filter games by category">
+            <button class="dp-filter-btn" data-filter="all" aria-pressed="true">All</button>
+            <button class="dp-filter-btn" data-filter="verbs" aria-pressed="false">Verbs</button>
+            <button class="dp-filter-btn" data-filter="conjugation" aria-pressed="false">Conjugation</button>
+            <button class="dp-filter-btn" data-filter="passive" aria-pressed="false">Passive</button>
+            <button class="dp-filter-btn" data-filter="cases" aria-pressed="false">Cases</button>
+            <button class="dp-filter-btn" data-filter="vocabulary" aria-pressed="false">Vocabulary</button>
+            <button class="dp-filter-btn" data-filter="adventure" aria-pressed="false">Adventure</button>
+          </div>
+          <div id="gamesGrid" class="dp-games-grid"></div>
+          <div class="dp-sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
+        </section>
+
+        <!-- ======= Stats ======= -->
+        <section class="dp-section dp-reveal" aria-labelledby="stats-title">
+          <div class="dp-section-header">
+            <h2 class="dp-section-header__title" id="stats-title">By the Numbers</h2>
+            <p class="dp-section-header__sub">Designed for focused, effective practice.</p>
+          </div>
+          <div class="dp-stats__grid">
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">14</span>
+              <span class="dp-stat-card__label">Interactive Games</span>
+            </div>
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">6</span>
+              <span class="dp-stat-card__label">Skill Tracks</span>
+            </div>
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">4–20</span>
+              <span class="dp-stat-card__label">Min per Session</span>
+            </div>
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">B1</span>
+              <span class="dp-stat-card__label">CEFR Level</span>
+            </div>
+          </div>
+          <ul class="dp-benefits">
+            <li>Verb conjugation across three tenses with instant feedback</li>
+            <li>Passive voice construction with tikt + participle patterns</li>
+            <li>Case endings for 6th declension and debitive mood</li>
+            <li>Vocabulary building with character traits and translation drills</li>
+          </ul>
+        </section>
+
+        <!-- ======= Final CTA ======= -->
+        <section class="dp-cta dp-reveal">
+          <h2 class="dp-cta__title">Ready to level up your Latvian?</h2>
+          <p class="dp-cta__lead">Jump into any game and start building fluency today.</p>
+          <a class="dp-btn dp-btn--primary" href="#">Start Playing</a>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="dp-footer">
+      <div class="dp-container">
+        Latvian Language B1 Games · Design Prototype
+      </div>
+    </footer>
+
+    <script src="landing.js"></script>
+  </body>
+</html>

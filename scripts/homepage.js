@@ -1,10 +1,8 @@
-import { createIcon } from '../src/lib/icon.js';
-
 const games = [
   {
     title: 'Darbības Vārdi',
     href: 'darbibas-vards.html',
-    icon: 'book',
+    icon: '📖',
     desc: 'Pair Latvian verbs with meanings and build recall speed.',
     tag: 'Verbs',
     meta: ['Focus: verbs', '5–8 min', 'B1 core'],
@@ -15,7 +13,7 @@ const games = [
   {
     title: 'Conjugation Sprint',
     href: 'conjugation-sprint.html',
-    icon: 'gamepad',
+    icon: '🎮',
     desc: 'Rapid-fire conjugation prompts across three tenses.',
     tag: 'Sprint',
     meta: ['Focus: tenses', '6–9 min', 'Speed'],
@@ -26,7 +24,7 @@ const games = [
   {
     title: 'Endings Builder',
     href: 'endings-builder.html',
-    icon: 'pencil',
+    icon: '✏️',
     desc: 'Assemble verbs from stems and endings with precision.',
     tag: 'Builder',
     meta: ['Focus: endings', '6–10 min', 'Accuracy'],
@@ -37,7 +35,7 @@ const games = [
   {
     title: 'Passive Voice Builder',
     href: 'passive-lab.html',
-    icon: 'book',
+    icon: '🔬',
     desc: 'Construct passive forms with tikt + participles.',
     tag: 'Lab',
     meta: ['Focus: passive', '7–10 min', 'Form'],
@@ -48,7 +46,7 @@ const games = [
   {
     title: 'Sentence Surgery — Ciešamā kārta',
     href: 'sentence-surgery-passive.html',
-    icon: 'pencil',
+    icon: '🔧',
     desc: 'Repair one-token passive voice errors with an editable word bank.',
     tag: 'Surgery',
     meta: ['Focus: passive', '6–9 min', 'Token repair'],
@@ -58,7 +56,7 @@ const games = [
   {
     title: '⚔️ Word Quest — RPG Adventure',
     href: 'word-quest.html',
-    icon: 'star',
+    icon: '⚔️',
     desc: 'Explore 5 worlds of Latvian grammar in an RPG adventure. Battle words, earn XP, level up!',
     tag: 'Adventure',
     meta: ['Focus: all skills', '10–20 min', 'RPG'],
@@ -69,7 +67,7 @@ const games = [
   {
     title: 'English -> Latvian Word Catcher',
     href: 'english-latvian-arcade.html',
-    icon: 'stats',
+    icon: '🎯',
     desc: 'Catch the Latvian phrase matching each English prompt in a fast canvas arcade round.',
     tag: 'Arcade',
     meta: ['Focus: translation', '4–6 min', 'EN->LV'],
@@ -80,7 +78,7 @@ const games = [
   {
     title: 'Kas ir manā mājā?',
     href: 'decl6-detective.html',
-    icon: 'home',
+    icon: '🏠',
     desc: 'Detect 6th-declension forms in a room builder.',
     tag: 'Cases',
     meta: ['Focus: 6th decl.', '6–10 min', 'Detective'],
@@ -91,7 +89,7 @@ const games = [
   {
     title: 'Travel Tracker',
     href: 'travel-tracker.html',
-    icon: 'map',
+    icon: '🗺️',
     desc: 'Route the bus by choosing the right prefix.',
     tag: 'Routes',
     meta: ['Focus: prefixes', '6–9 min', 'Flow'],
@@ -102,7 +100,7 @@ const games = [
   {
     title: 'Maini vai mainies?',
     href: 'maini-vai-mainies.html',
-    icon: 'refresh',
+    icon: '🔄',
     desc: 'Choose reflexive vs. non-reflexive verbs.',
     tag: 'Reflexive',
     meta: ['Focus: -ies', '5–8 min', 'Contrast'],
@@ -113,7 +111,7 @@ const games = [
   {
     title: 'Kas jādara kam?',
     href: 'duty-dispatcher.html',
-    icon: 'user',
+    icon: '👤',
     desc: 'Assign duties using the debitive mood.',
     tag: 'Debitive',
     meta: ['Focus: duties', '6–9 min', 'Roles'],
@@ -124,7 +122,7 @@ const games = [
   {
     title: 'Rakstura īpašības — pāri',
     href: 'rakstura-ipasibas-match.html',
-    icon: 'star',
+    icon: '⭐',
     desc: 'Savieno rakstura īpašības ar tulkojumiem slēgtā kopā vai pilnajā sarakstā.',
     tag: 'Traits',
     meta: ['Focus: vocab', '5–7 min', 'Match'],
@@ -135,7 +133,7 @@ const games = [
   {
     title: 'Rakstura īpašības',
     href: 'character-traits.html',
-    icon: 'user',
+    icon: '👤',
     desc: 'Iemācies raksturot optimistu un pesimistu un atkārto rakstura īpašības.',
     tag: 'Traits',
     meta: ['Focus: vocab', '6–9 min', 'Describe'],
@@ -146,7 +144,7 @@ const games = [
   {
     title: 'Week 1',
     href: 'week1.html',
-    icon: 'stats',
+    icon: '📊',
     desc: 'Weekly exercises for structured review.',
     tag: 'Review',
     meta: ['Focus: recap', '10–12 min', 'Checklist'],
@@ -157,139 +155,122 @@ const games = [
 ];
 
 function buildGameCard(game, index) {
-  const col = document.createElement('div');
-  col.className = 'col-12 col-md-6 col-lg-4 lp-game-card-wrap';
-  col.dataset.category = game.category;
+  const wrap = document.createElement('div');
+  wrap.className = 'dp-game-card-wrap';
+  wrap.dataset.category = game.category;
 
   const link = document.createElement('a');
-  link.className = 'lp-game-card';
+  link.className = 'dp-game-card';
   link.href = game.href;
-  link.style.setProperty('--game-accent', game.accent || 'var(--lp-accent)');
-  link.style.setProperty('--delay', `${index * 70}ms`);
+  link.style.setProperty('--game-accent', game.accent || 'var(--dp-accent)');
+  link.style.setProperty('--delay', `${index * 60}ms`);
 
   const art = document.createElement('div');
-  art.className = 'lp-game-card__art';
+  art.className = 'dp-game-card__art';
   if (game.art) {
     art.style.backgroundImage = game.art;
   }
 
   const artIconWrap = document.createElement('span');
-  artIconWrap.className = 'lp-game-card__art-icon';
-
-  const artIcon = createIcon({ name: game.icon, size: 28, alt: '', className: '' });
-  artIconWrap.appendChild(artIcon);
+  artIconWrap.className = 'dp-game-card__art-icon';
+  artIconWrap.textContent = game.icon;
   art.appendChild(artIconWrap);
 
-  const top = document.createElement('div');
-  top.className = 'lp-game-card__top';
-
   const label = document.createElement('span');
-  label.className = 'lp-game-card__label';
+  label.className = 'dp-game-card__label';
   label.textContent = game.tag || 'B1';
-  const title = document.createElement('h2');
-  title.className = 'lp-game-card__title';
+
+  const title = document.createElement('h3');
+  title.className = 'dp-game-card__title';
   title.textContent = game.title;
 
-  top.append(label);
-
   const desc = document.createElement('p');
-  desc.className = 'lp-game-card__desc';
+  desc.className = 'dp-game-card__desc';
   desc.textContent = game.desc;
 
   const meta = document.createElement('div');
-  meta.className = 'lp-game-card__meta';
+  meta.className = 'dp-game-card__meta';
   (game.meta || []).forEach((item) => {
     const chip = document.createElement('span');
-    chip.className = 'lp-game-card__meta-item';
+    chip.className = 'dp-game-card__meta-item';
     chip.textContent = item;
     meta.appendChild(chip);
   });
 
-  const play = document.createElement('span');
-  play.className = 'lp-game-card__cta';
-  play.textContent = 'Play';
+  const cta = document.createElement('span');
+  cta.className = 'dp-game-card__cta';
+  cta.textContent = 'Play';
 
-  link.append(art, top, title, desc, meta, play);
-  col.appendChild(link);
-  return col;
+  link.append(art, label, title, desc, meta, cta);
+  wrap.appendChild(link);
+  return wrap;
 }
 
 function renderGames() {
   const grid = document.getElementById('gamesGrid');
   if (!grid) return;
-  games.forEach((game, index) => {
-    grid.appendChild(buildGameCard(game, index));
+  games.forEach((game, i) => {
+    grid.appendChild(buildGameCard(game, i));
   });
 }
 
 function initFilters() {
-  const buttons = document.querySelectorAll('.lp-filter-btn[data-filter]');
-  const cards = document.querySelectorAll('#gamesGrid .lp-game-card-wrap');
-  if (!buttons.length || !cards.length) return;
+  const btns = document.querySelectorAll('.dp-filter-btn[data-filter]');
+  const cards = () => document.querySelectorAll('#gamesGrid .dp-game-card-wrap');
+  if (!btns.length) return;
 
-  buttons.forEach((btn) => {
+  btns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
-
-      buttons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      btns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
       btn.setAttribute('aria-pressed', 'true');
 
-      let visibleCount = 0;
-      cards.forEach((card) => {
+      let count = 0;
+      cards().forEach((card) => {
         const show = filter === 'all' || card.dataset.category === filter;
         card.hidden = !show;
-        if (show) visibleCount++;
+        if (show) count++;
       });
-
-      announceFilter(filter, visibleCount);
+      announceFilter(filter, count);
     });
   });
 }
 
 function initTrackCards() {
-  const trackCards = document.querySelectorAll('.lp-track-card[data-track]');
-  trackCards.forEach((card) => {
+  document.querySelectorAll('.dp-track-card[data-track]').forEach((card) => {
     card.addEventListener('click', () => {
-      const track = card.dataset.track;
-      const gamesSection = document.getElementById('games');
-      if (gamesSection) {
-        gamesSection.scrollIntoView({ behavior: 'smooth' });
-      }
-
-      const filterBtn = document.querySelector(`.lp-filter-btn[data-filter="${track}"]`);
-      if (filterBtn) {
-        filterBtn.click();
-      }
+      const section = document.getElementById('games');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+      const btn = document.querySelector(`.dp-filter-btn[data-filter="${card.dataset.track}"]`);
+      if (btn) setTimeout(() => btn.click(), 350);
     });
   });
 }
 
 function initReveal() {
-  const sections = document.querySelectorAll('.lp-reveal');
+  const sections = document.querySelectorAll('.dp-reveal');
   if (!sections.length) return;
 
   if (!('IntersectionObserver' in window)) {
-    sections.forEach((s) => s.classList.add('lp-reveal--visible'));
+    sections.forEach((s) => s.classList.add('dp-reveal--visible'));
     return;
   }
-
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('lp-reveal--visible');
-          observer.unobserve(entry.target);
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('dp-reveal--visible');
+          observer.unobserve(e.target);
         }
       });
     },
-    { threshold: 0.1 },
+    { threshold: 0.08 },
   );
-
   sections.forEach((s) => observer.observe(s));
 }
 
 function announceFilter(filter, count) {
-  const live = document.querySelector('.lp-sr-live');
+  const live = document.querySelector('.dp-sr-live');
   if (!live) return;
   const label = filter === 'all' ? 'All games' : filter;
   live.textContent = `Showing ${label}: ${count} game${count !== 1 ? 's' : ''}`;

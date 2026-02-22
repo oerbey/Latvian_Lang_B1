@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="lv">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <meta name="description" content="Latviešu valodas darbības vārdu spēle B1 līmenim — Design Prototype." />
+    <title>Latviešu valoda – Darbības Vārdi (B1) — Design Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <a class="dp-skip" href="#main">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav class="dp-nav" role="banner">
+        <div class="dp-container dp-nav__inner">
+            <a href="index.html" class="dp-nav__brand">
+                <span class="dp-nav__brand-icon">LV</span>
+                Latvian B1
+            </a>
+            <button class="dp-nav__hamburger" id="menu-toggle" aria-label="Toggle navigation"
+                aria-expanded="false">☰</button>
+            <ul class="dp-nav__links" id="nav-links">
+                <li><a class="dp-nav__link" href="index.html">Home</a></li>
+                <li><a class="dp-nav__link dp-nav__link--active" href="darbibas-vards.html">Darbības Vārdi</a></li>
+            </ul>
+            <div class="dp-nav__actions">
+                <button class="dp-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main">
+        <div class="dp-container dp-ex-shell">
+
+            <!-- ======= Hero ======= -->
+            <header class="dp-ex-hero">
+                <div>
+                    <p class="dp-ex-eyebrow">B1 verb lab</p>
+                    <h1 class="dp-ex-title">Latviešu valoda — Darbības Vārdi</h1>
+                    <p class="dp-ex-lead">
+                        Sašauj latviešu vārdu ar tulkojumu un trenē atcerēšanos īsās, fokusētās sesijās.
+                    </p>
+                    <div class="dp-ex-badges">
+                        <span class="dp-badge"
+                            style="border-color: color-mix(in srgb, var(--dp-accent) 35%, var(--dp-border)); background: var(--dp-accent-soft);">Focus:
+                            verbs</span>
+                        <span class="dp-badge">B1 core</span>
+                        <span class="dp-badge">4-8 min</span>
+                    </div>
+                </div>
+                <div class="dp-ex-hero__side">
+                    <div class="dp-ex-controls">
+                        <div class="dp-ex-control">
+                            <label class="dp-ex-control__label" for="language-select">Valoda</label>
+                            <select id="language-select" aria-label="Language selection">
+                                <option value="en">English</option>
+                                <option value="ru">Русский</option>
+                            </select>
+                        </div>
+                        <div class="dp-ex-control">
+                            <label class="dp-ex-control__label" for="count-select">Komplekts</label>
+                            <select id="count-select" aria-label="Word count">
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="10" selected>10</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <div class="dp-ex-control dp-ex-control--toggle">
+                            <span class="dp-ex-control__label">Izruna</span>
+                            <button id="btn-speak" class="dp-ex-speak-btn" type="button" aria-pressed="false">
+                                🔊 Ieslēgt izrunu
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dp-ex-hero__visual" aria-hidden="true">
+                        <div class="dp-orb"
+                            style="width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px);">
+                            <div class="dp-orb__ring"></div>
+                            <div class="dp-orb__ring"></div>
+                            <div class="dp-orb__ring"></div>
+                            <div class="dp-orb__core"></div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ======= Study Mode Panel ======= -->
+            <section class="dp-ex-panel" aria-labelledby="study-mode-heading">
+                <div class="dp-ex-panel__body" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="dp-ex-panel__header">
+                        <div>
+                            <h2 id="study-mode-heading" class="dp-ex-panel__title">Study mode</h2>
+                            <p class="dp-ex-panel__lead">
+                                Strādā ar visu sarakstu vai ieslēdz slēgto kopu mērķtiecīgai atkārtošanai.
+                            </p>
+                        </div>
+                        <div class="dp-mode-group" role="group" aria-label="Study mode toggle">
+                            <input type="radio" name="study-mode" id="mode-use-all" value="all" checked />
+                            <label for="mode-use-all">Use all</label>
+                            <input type="radio" name="study-mode" id="mode-locked-set" value="locked" />
+                            <label for="mode-locked-set">Locked set</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======= Game Board ======= -->
+            <section class="dp-ex-board" aria-labelledby="status-heading">
+                <div class="dp-ex-board__header">
+                    <div>
+                        <h2 id="status-heading" class="dp-ex-board__title">Statuss</h2>
+                        <div id="score" class="dp-ex-score" aria-live="polite">Pareizi: 0 | Nepareizi: 0</div>
+                        <p class="dp-ex-board__hint">Izvēlies pa vienam vārdam no katras kolonnas.</p>
+                    </div>
+                    <div>
+                        <button id="btn-new" class="dp-btn dp-btn--primary dp-btn--sm">Jauna spēle</button>
+                    </div>
+                </div>
+
+                <div id="help" class="dp-ex-help" aria-live="polite"></div>
+
+                <div class="dp-ex-grid" aria-label="Vārdu saraksti">
+                    <section class="dp-ex-column" aria-labelledby="lv-heading">
+                        <h3 id="lv-heading" class="dp-ex-column__title">Latviešu vārdi</h3>
+                        <div id="list-lv" class="dp-ex-list" role="listbox" aria-label="Latviešu vārdi"></div>
+                    </section>
+                    <section class="dp-ex-column" aria-labelledby="tr-heading">
+                        <h3 id="tr-heading" class="dp-ex-column__title">Tulkojumi</h3>
+                        <div id="list-tr" class="dp-ex-list" role="listbox" aria-label="Tulkojumi"></div>
+                    </section>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="dp-footer">
+        <div class="dp-container">
+            Latvian Language B1 Games · Design Prototype
+        </div>
+    </footer>
+
+    <script src="exercise.js"></script>
+</body>
+
+</html>

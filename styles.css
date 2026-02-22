@@ -2382,7 +2382,9 @@ body {
   transform: translate(-50%, -180%);
   opacity: 0;
   z-index: 9999;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .dp-skip:focus {
@@ -2460,7 +2462,9 @@ body {
   font-weight: 600;
   font-size: 0.86rem;
   text-decoration: none;
-  transition: color 0.15s, background 0.15s;
+  transition:
+    color 0.15s,
+    background 0.15s;
   white-space: nowrap;
 }
 
@@ -2487,7 +2491,9 @@ body {
   display: grid;
   place-items: center;
   font-size: 1.15rem;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .dp-theme-toggle:hover {
@@ -2768,7 +2774,10 @@ body {
   text-align: center;
   color: var(--dp-text);
   box-shadow: 0 4px 14px var(--dp-shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .dp-track-card:hover {
@@ -2814,7 +2823,11 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   min-height: 40px;
-  transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
 }
 
 .dp-filter-btn:hover {
@@ -2858,7 +2871,10 @@ body {
   min-height: 100%;
   box-shadow: 0 6px 20px var(--dp-shadow);
   overflow: hidden;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
   animation: dp-fade-up 0.5s ease both;
   animation-delay: var(--delay, 0ms);
 }
@@ -3089,7 +3105,9 @@ body {
 .dp-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 .dp-reveal--visible {
@@ -3123,7 +3141,11 @@ body {
   border-radius: var(--dp-radius-lg);
   border: 1px solid var(--dp-border);
   background:
-    radial-gradient(circle at 82% 16%, color-mix(in srgb, var(--dp-accent) 18%, transparent), transparent 56%),
+    radial-gradient(
+      circle at 82% 16%,
+      color-mix(in srgb, var(--dp-accent) 18%, transparent),
+      transparent 56%
+    ),
     linear-gradient(160deg, var(--dp-surface) 0%, var(--dp-surface-subtle) 100%);
   box-shadow: 0 24px 50px var(--dp-shadow);
 }
@@ -3368,7 +3390,12 @@ body {
   text-align: center;
   min-height: 52px;
   box-shadow: 0 8px 18px var(--dp-shadow);
-  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease, color 140ms ease;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease,
+    color 140ms ease;
   user-select: none;
 }
 

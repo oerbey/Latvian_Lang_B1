@@ -41,7 +41,7 @@ if (document.readyState === 'loading') {
 window.addEventListener('online', updateOfflineBanner);
 window.addEventListener('offline', updateOfflineBanner);
 
-const nav = document.querySelector('.navbar.fixed-top');
+const nav = document.querySelector('[data-site-nav]');
 const main = document.querySelector('main');
 const baseBodyPaddingTop = (() => {
   const padding = Number.parseFloat(getComputedStyle(document.body).paddingTop);
@@ -51,7 +51,7 @@ const baseBodyPaddingTop = (() => {
 function updateNavOffset() {
   if (!nav) return;
   const navStyle = getComputedStyle(nav);
-  const navIsFixed = navStyle.position === 'fixed' || navStyle.position === 'sticky';
+  const navIsFixed = navStyle.position === 'fixed';
   if (!navIsFixed) {
     document.body.style.paddingTop = `${baseBodyPaddingTop}px`;
     return;

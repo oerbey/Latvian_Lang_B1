@@ -1,5 +1,4 @@
 import { NAV_ITEMS } from './nav-config.js';
-import { upgradeIcons } from '../src/lib/icon.js';
 
 function getCurrentPage() {
   const path = new URL(window.location.href).pathname;
@@ -21,82 +20,60 @@ function normalizeHref(href) {
 function renderNav() {
   const nav = document.querySelector('[data-site-nav]');
   if (!nav) return;
-  const current = getCurrentPage();
-  nav.classList.toggle('site-nav--home', current === 'index.html');
 
-  const navItems = NAV_ITEMS.map(
-    (item) => `<li class="nav-item"><a class="nav-link" href="${item.href}">${item.label}</a></li>`,
-  ).join('');
+  const current = getCurrentPage();
+  nav.className = 'dp-nav';
+  nav.setAttribute('role', 'banner');
+
+  const navItems = NAV_ITEMS.map((item) => {
+    const href = normalizeHref(item.href);
+    const isActive = href === current;
+    return `<li><a class="dp-nav__link${isActive ? ' dp-nav__link--active' : ''}" href="${item.href}"${isActive ? ' aria-current="page"' : ''}>${item.label}</a></li>`;
+  }).join('');
 
   nav.innerHTML = `
-    <div class="container site-nav__container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <span class="me-1" data-icon="globe" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
+    <div class="dp-container dp-nav__inner">
+      <a href="index.html" class="dp-nav__brand">
+        <span class="dp-nav__brand-icon">LV</span>
         Latvian B1
       </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav"
-              aria-controls="offcanvasNav" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body align-items-lg-center site-nav__body">
-          <ul class="navbar-nav mb-2 mb-lg-0 site-nav__list">
-            ${navItems}
-          </ul>
-
-          <div class="d-flex gap-2 site-nav__actions">
-            <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
-              <span class="d-none" id="iconDark" data-icon="moon" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
-              <span id="iconLight" data-icon="sun" data-icon-size="20" data-icon-alt="" aria-hidden="true"></span>
-            </button>
-            <a
-              class="btn btn-primary site-nav__github-btn"
-              href="https://github.com/oerbey/Latvian_Lang_B1"
-              target="_blank"
-              rel="noopener"
-              aria-label="Open Latvian B1 GitHub repository"
-            >
-              <span
-                class="site-nav__github-icon"
-                data-icon="info"
-                data-icon-size="20"
-                data-icon-alt=""
-                aria-hidden="true"
-              ></span>
-              <span class="site-nav__github-label">GitHub</span>
-            </a>
-          </div>
-        </div>
+      <button class="dp-nav__hamburger" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul class="dp-nav__links" id="nav-links">
+        ${navItems}
+      </ul>
+      <div class="dp-nav__actions">
+        <button class="dp-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
       </div>
     </div>
   `;
 
-  upgradeIcons(nav);
+  const navLinks = nav.querySelector('#nav-links');
+  const menuToggle = nav.querySelector('#menu-toggle');
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+    });
 
-  const iconDark = nav.querySelector('#iconDark');
-  const iconLight = nav.querySelector('#iconLight');
-  if (iconDark && iconLight) {
-    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
-    iconDark.classList.toggle('d-none', !isDark);
-    iconLight.classList.toggle('d-none', isDark);
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
   }
 
-  nav.querySelectorAll('.nav-link').forEach((link) => {
-    const href = normalizeHref(link.getAttribute('href'));
-    if (href === current) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
-    } else {
-      link.classList.remove('active');
-      link.removeAttribute('aria-current');
-    }
-  });
+  syncThemeToggleIcon();
+  window.addEventListener('llb1-theme-change', syncThemeToggleIcon);
+}
+
+function syncThemeToggleIcon() {
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+  const isDark =
+    document.documentElement.getAttribute('data-theme') === 'dark' ||
+    document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  toggle.textContent = isDark ? '☀️' : '🌙';
 }
 
 function renderFooter() {

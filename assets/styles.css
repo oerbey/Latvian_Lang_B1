@@ -9,6 +9,12 @@ main {
   padding: 1rem;
 }
 
+.dp-page main {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
 .grid-words {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));

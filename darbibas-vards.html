@@ -2,7 +2,6 @@
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-    <!-- CSP allows inline styles for existing inline snippets -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
@@ -24,185 +23,113 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="dv-page game-theme theme-darbibas">
-    <a class="skip-link" href="#main">Skip to main content</a>
-    <nav
-      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
-      role="banner"
-      data-site-nav
-    ></nav>
+  <body class="dp-page game-theme theme-darbibas">
+    <a class="dp-skip" href="#main">Skip to main content</a>
 
-    <main id="main" class="py-4 mt-5 dv-shell">
-      <div class="container dv-shell__inner">
-        <header class="dv-hero mb-4">
-          <div class="dv-hero__copy">
-            <p class="dv-eyebrow">B1 verb lab</p>
-            <h1 class="dv-title mb-2">Latviešu valoda — Darbības Vārdi</h1>
-            <p class="dv-lead mb-0">
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="dp-container dp-ex-shell">
+        <header class="dp-ex-hero">
+          <div>
+            <p class="dp-ex-eyebrow">B1 verb lab</p>
+            <h1 class="dp-ex-title">Latviešu valoda — Darbības Vārdi</h1>
+            <p class="dp-ex-lead">
               Sašauj latviešu vārdu ar tulkojumu un trenē atcerēšanos īsās, fokusētās sesijās.
             </p>
-            <div class="dv-hero__badges" aria-label="Exercise highlights">
-              <span class="dv-hero__tag">Focus: verbs</span>
-              <span class="dv-badge">B1 core</span>
-              <span class="dv-badge">4-8 min</span>
+            <div class="dp-ex-badges">
+              <span class="dp-badge dp-badge--focus">Focus: verbs</span>
+              <span class="dp-badge">B1 core</span>
+              <span class="dp-badge">4-8 min</span>
             </div>
           </div>
-          <div class="dv-hero__side">
-            <div class="dv-hero__controls">
-              <div class="dv-control">
-                <label class="dv-control__label" for="language-select">Valoda</label>
-                <select
-                  id="language-select"
-                  class="form-select w-auto"
-                  aria-label="Language selection"
-                >
+
+          <div class="dp-ex-hero__side">
+            <div class="dp-ex-controls">
+              <div class="dp-ex-control">
+                <label class="dp-ex-control__label" for="language-select">Valoda</label>
+                <select id="language-select" aria-label="Language selection">
                   <option value="en">English</option>
                   <option value="ru">Русский</option>
                 </select>
               </div>
-              <div class="dv-control">
-                <label class="dv-control__label" for="count-select">Komplekts</label>
-                <select id="count-select" class="form-select w-auto" aria-label="Word count">
+              <div class="dp-ex-control">
+                <label class="dp-ex-control__label" for="count-select">Komplekts</label>
+                <select id="count-select" aria-label="Word count">
                   <option value="6">6</option>
                   <option value="8">8</option>
                   <option value="10" selected>10</option>
                   <option value="12">12</option>
                 </select>
               </div>
-              <div class="dv-control dv-control--toggle">
-                <span class="dv-control__label">Izruna</span>
-                <button id="btn-speak" class="btn dv-speak-btn" type="button" aria-pressed="false">
-                  Ieslēgt izrunu
+              <div class="dp-ex-control dp-ex-control--toggle">
+                <span class="dp-ex-control__label">Izruna</span>
+                <button id="btn-speak" class="dp-ex-speak-btn" type="button" aria-pressed="false">
+                  🔊 Ieslēgt izrunu
                 </button>
               </div>
             </div>
-            <div class="dv-hero__visual" aria-hidden="true">
-              <div class="lp-orb dv-orb">
-                <div class="lp-orb__ring"></div>
-                <div class="lp-orb__ring"></div>
-                <div class="lp-orb__ring"></div>
-                <div class="lp-orb__core"></div>
+
+            <div class="dp-ex-hero__visual" aria-hidden="true">
+              <div class="dp-orb" style="width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px);">
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__core"></div>
               </div>
             </div>
           </div>
         </header>
 
-        <section class="dv-panel dv-panel--study mb-4" aria-labelledby="locked-mode-heading">
-          <div class="dv-panel__body d-flex flex-column gap-3">
-            <div class="dv-panel__header">
+        <section class="dp-ex-panel" aria-labelledby="study-mode-heading">
+          <div class="dp-ex-panel__body">
+            <div class="dp-ex-panel__header">
               <div>
-                <h2 id="locked-mode-heading" class="dv-panel__title mb-1">Study mode</h2>
-                <p class="dv-panel__lead mb-0">
+                <h2 id="study-mode-heading" class="dp-ex-panel__title">Study mode</h2>
+                <p class="dp-ex-panel__lead">
                   Strādā ar visu sarakstu vai ieslēdz slēgto kopu mērķtiecīgai atkārtošanai.
                 </p>
               </div>
-              <div class="d-flex flex-wrap align-items-center gap-2">
-                <div class="btn-group" role="group" aria-label="Study mode toggle">
-                  <input
-                    type="radio"
-                    class="btn-check"
-                    name="study-mode"
-                    id="mode-use-all"
-                    value="all"
-                    checked
-                  />
-                  <label class="btn btn-outline-secondary" for="mode-use-all">Use all</label>
-                  <input
-                    type="radio"
-                    class="btn-check"
-                    name="study-mode"
-                    id="mode-locked-set"
-                    value="locked"
-                  />
-                  <label class="btn btn-outline-secondary" for="mode-locked-set">Locked set</label>
-                </div>
-                <span class="dv-indicator" id="locked-indicator"></span>
-              </div>
-            </div>
-            <div id="locked-controls" class="row gy-3 gx-3 d-none">
-              <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
-                <label for="locked-set-size" class="form-label mb-0">Set size</label>
-                <select
-                  id="locked-set-size"
-                  class="form-select form-select-sm w-auto"
-                  aria-label="Locked set size"
-                >
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="custom">Custom</option>
-                </select>
-                <input
-                  type="number"
-                  id="locked-set-custom"
-                  class="form-control form-control-sm w-auto d-none"
-                  min="5"
-                  step="1"
-                  value="15"
-                  aria-label="Custom set size"
-                />
-              </div>
-              <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
-                <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">
-                  New mix
-                </button>
-                <button
-                  id="btn-reset-locked"
-                  class="btn btn-outline-secondary btn-sm"
-                  type="button"
-                >
-                  Reset locked set
-                </button>
-              </div>
-              <div class="col-12 col-md-auto">
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="prioritize-mistakes"
-                  />
-                  <label class="form-check-label" for="prioritize-mistakes"
-                    >Prioritize mistakes</label
-                  >
-                </div>
-              </div>
-              <div class="col-12">
-                <div id="locked-progress" class="text-secondary small"></div>
-                <div id="locked-feedback" class="text-warning small"></div>
+
+              <div class="dp-mode-group" role="group" aria-label="Study mode toggle">
+                <input type="radio" name="study-mode" id="mode-use-all" value="all" checked />
+                <label for="mode-use-all">Use all</label>
+                <input type="radio" name="study-mode" id="mode-locked-set" value="locked" />
+                <label for="mode-locked-set">Locked set</label>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="dv-board" aria-labelledby="status-heading">
-          <div class="dv-board__header">
+        <section class="dp-ex-board" aria-labelledby="status-heading">
+          <div class="dp-ex-board__header">
             <div>
-              <h2 id="status-heading" class="dv-board__title">Statuss</h2>
-              <div id="score" class="status dv-score" aria-live="polite">
-                Pareizi: 0 | Nepareizi: 0
-              </div>
-              <p class="dv-board__hint mb-0">Izvēlies pa vienam vārdam no katras kolonnas.</p>
+              <h2 id="status-heading" class="dp-ex-board__title">Statuss</h2>
+              <div id="score" class="dp-ex-score" aria-live="polite">Pareizi: 0 | Nepareizi: 0</div>
+              <p class="dp-ex-board__hint">Izvēlies pa vienam vārdam no katras kolonnas.</p>
             </div>
-            <div class="dv-board__actions">
-              <button id="btn-new" class="btn btn-primary">Jauna spēle</button>
+            <div>
+              <button id="btn-new" class="dp-btn dp-btn--primary dp-btn--sm">Jauna spēle</button>
             </div>
           </div>
-          <div id="help" class="dv-help" aria-live="polite"></div>
-          <div class="grid-words dv-grid" aria-label="Vārdu saraksti">
-            <section class="dv-column" aria-labelledby="dv-lv-heading">
-              <h3 id="dv-lv-heading" class="dv-column__title">Latviešu vārdi</h3>
-              <div id="list-lv" class="dv-list" role="listbox" aria-label="Latviešu vārdi"></div>
+
+          <div id="help" class="dp-ex-help" aria-live="polite"></div>
+
+          <div class="dp-ex-grid" aria-label="Vārdu saraksti">
+            <section class="dp-ex-column" aria-labelledby="lv-heading">
+              <h3 id="lv-heading" class="dp-ex-column__title">Latviešu vārdi</h3>
+              <div id="list-lv" class="dp-ex-list" role="listbox" aria-label="Latviešu vārdi"></div>
             </section>
-            <section class="dv-column" aria-labelledby="dv-tr-heading">
-              <h3 id="dv-tr-heading" class="dv-column__title">Tulkojumi</h3>
-              <div id="list-tr" class="dv-list" role="listbox" aria-label="Tulkojumi"></div>
+            <section class="dp-ex-column" aria-labelledby="tr-heading">
+              <h3 id="tr-heading" class="dp-ex-column__title">Tulkojumi</h3>
+              <div id="list-tr" class="dp-ex-list" role="listbox" aria-label="Tulkojumi"></div>
             </section>
           </div>
         </section>
       </div>
     </main>
 
-    <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>
+    <footer class="dp-footer" data-site-footer></footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

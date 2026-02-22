@@ -50,5 +50,7 @@ initMatchingGame({
   },
   texts: {
     lockedReady: (count) => `Locked set ready: ${count} items.`,
+    speakOn: '🔊 Izslēgt izrunu',
+    speakOff: '🔊 Ieslēgt izrunu',
   },
 });

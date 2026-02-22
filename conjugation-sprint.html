@@ -27,93 +27,115 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/conjugation-sprint/styles.css" />
   </head>
-  <body class="cs-page game-theme theme-conjugation">
-    <a class="skip-link" href="#main">Skip to main content</a>
-    <nav
-      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
-      role="banner"
-      data-site-nav
-    ></nav>
+  <body class="dp-page game-theme theme-conjugation cs-page">
+    <a class="dp-skip" href="#main">Skip to main content</a>
 
-    <main id="main" class="container py-4 mt-5 cs-shell">
-      <header class="cs-hero mb-4">
-        <div>
-          <p class="cs-eyebrow">Verb sprint</p>
-          <h1 class="cs-title mb-1">Conjugation Sprint</h1>
-          <p class="cs-lead mb-0">
-            Focus: verbs with full paradigms (present • past • future). Data from your
-            <code>words.json</code>.
-          </p>
-        </div>
-      </header>
+    <nav data-site-nav></nav>
 
-      <div class="card mb-3 cs-card" id="game">
-        <div class="card-body">
-          <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-            <label class="form-label mb-0 me-1" for="tenseFilter">Tense</label>
-            <select
-              class="form-select form-select-sm w-auto"
-              id="tenseFilter"
-              aria-label="Select tense for questions"
-            >
-              <option value="random" selected>Random</option>
-              <option value="present">Present</option>
-              <option value="past">Past</option>
-              <option value="future">Future</option>
-            </select>
+    <main id="main">
+      <div class="dp-container dp-ex-shell cs-shell">
+        <header class="dp-ex-hero cs-hero">
+          <div>
+            <p class="dp-ex-eyebrow">Verb sprint</p>
+            <h1 class="dp-ex-title mb-1">Conjugation Sprint</h1>
+            <p class="dp-ex-lead mb-0">
+              Focus: verbs with full paradigms (present • past • future). Data from your
+              <code>words.json</code>.
+            </p>
+            <div class="dp-ex-badges">
+              <span class="dp-badge dp-badge--focus">Focus: tenses</span>
+              <span class="dp-badge">Speed round</span>
+              <span class="dp-badge">B1 core</span>
+            </div>
           </div>
-          <h2 class="h5 cs-question" id="qtext">Loading…</h2>
-          <p class="text-muted cs-meta" id="meta"></p>
+
+          <div class="dp-ex-hero__side">
+            <div class="dp-ex-controls">
+              <div class="dp-ex-control">
+                <label class="dp-ex-control__label" for="tenseFilter">Tense mode</label>
+                <select id="tenseFilter" aria-label="Select tense for questions">
+                  <option value="random" selected>Random</option>
+                  <option value="present">Present</option>
+                  <option value="past">Past</option>
+                  <option value="future">Future</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="dp-ex-hero__visual" aria-hidden="true">
+              <div
+                class="dp-orb"
+                style="width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px)"
+              >
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__core"></div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="dp-ex-board" id="game" aria-labelledby="cs-status-heading">
+          <div class="dp-ex-board__header">
+            <div>
+              <h2 id="cs-status-heading" class="dp-ex-board__title">Sprint board</h2>
+              <div class="cs-stats" aria-live="polite">
+                <span class="cs-badge" id="score">score 0</span>
+                <span class="cs-badge" id="streak">streak 0</span>
+                <span class="cs-badge" id="round">round 0/20</span>
+              </div>
+            </div>
+            <div class="cs-actions">
+              <button class="dp-btn dp-btn--outline dp-btn--sm" id="skip">Skip</button>
+              <button class="dp-btn dp-btn--primary dp-btn--sm" id="again">Play again</button>
+            </div>
+          </div>
+
+          <h2 class="cs-question" id="qtext">Loading…</h2>
+          <p class="cs-meta" id="meta"></p>
           <div class="d-grid gap-2 cs-choices" id="choices"></div>
-        </div>
-        <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-2 cs-footer">
-          <span
-            class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill cs-badge"
-            id="score"
-            >score 0</span
-          >
-          <span
-            class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill cs-badge"
-            id="streak"
-            >streak 0</span
-          >
-          <span
-            class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill cs-badge"
-            id="round"
-            >round 0/20</span
-          >
-          <button class="btn btn-sm btn-outline-secondary ms-auto" id="skip">Skip</button>
-          <button class="btn btn-sm btn-primary" id="again">Play again</button>
-        </div>
-      </div>
+        </section>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark border">es</span>
-            <span class="badge bg-light text-dark border">tu</span>
-            <span class="badge bg-light text-dark border">viņš/viņa</span>
-            <span class="badge bg-light text-dark border">mēs</span>
-            <span class="badge bg-light text-dark border">jūs</span>
-            <span class="badge bg-light text-dark border">viņi/viņas</span>
+        <section class="dp-ex-panel" aria-labelledby="cs-pronouns-heading">
+          <div class="dp-ex-panel__body">
+            <div class="dp-ex-panel__header">
+              <div>
+                <h2 id="cs-pronouns-heading" class="dp-ex-panel__title">Pronoun Accuracy</h2>
+                <p class="dp-ex-panel__lead">
+                  Track performance by pronoun slot and stabilize weak endings.
+                </p>
+              </div>
+            </div>
+
+            <div class="cs-pronouns d-flex flex-wrap gap-2">
+              <span class="dp-badge">es</span>
+              <span class="dp-badge">tu</span>
+              <span class="dp-badge">viņš/viņa</span>
+              <span class="dp-badge">mēs</span>
+              <span class="dp-badge">jūs</span>
+              <span class="dp-badge">viņi/viņas</span>
+            </div>
+
+            <div class="row row-cols-6 g-2 mt-2 text-center cs-perstats" id="perstats">
+              <div class="col"><div>0%</div></div>
+              <div class="col"><div>0%</div></div>
+              <div class="col"><div>0%</div></div>
+              <div class="col"><div>0%</div></div>
+              <div class="col"><div>0%</div></div>
+              <div class="col"><div>0%</div></div>
+            </div>
+
+            <div class="cs-tip mt-3">
+              Tip: Watch your endings—<i>–u, –i, –a; –am, –at</i> in the past; and the future’s
+              <i>–š</i> spine.
+            </div>
           </div>
-          <div class="row row-cols-6 g-2 mt-2 text-center cs-perstats" id="perstats">
-            <div class="col"><div>0%</div></div>
-            <div class="col"><div>0%</div></div>
-            <div class="col"><div>0%</div></div>
-            <div class="col"><div>0%</div></div>
-            <div class="col"><div>0%</div></div>
-            <div class="col"><div>0%</div></div>
-          </div>
-          <div class="text-muted small mt-3">
-            Tip: Watch your endings—<i>–u, –i, –a; –am, –at</i> in the past; and the future’s
-            <i>–š</i> spine.
-          </div>
-        </div>
+        </section>
       </div>
     </main>
 
-    <footer class="border-top py-4 bg-body-tertiary mt-4" data-site-footer></footer>
+    <footer class="dp-footer" data-site-footer></footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

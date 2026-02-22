@@ -53,6 +53,15 @@ test('conjugation sprint loads and shows choices', async ({ page }) => {
   await expect(page.locator('#score')).toBeVisible();
 });
 
+test('endings builder loads and renders board controls', async ({ page }) => {
+  await page.goto('/endings-builder.html');
+  await expect(page.locator('[data-eb-heading]')).toBeVisible();
+  await expect(page.locator('#ebBoard')).toBeVisible();
+  await expect(page.locator('#ebOptions')).toBeVisible();
+  await expect(page.locator('.eb-shell')).toBeVisible();
+  await expect(page.locator('.eb-shell__controls button').first()).toBeVisible();
+});
+
 test('sentence surgery page loads and can check a round', async ({ page }) => {
   await page.goto('/sentence-surgery-passive.html');
   await expect(page.locator('#sspv-sentenceTokens .sspv-token').first()).toBeVisible();

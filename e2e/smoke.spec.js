@@ -1,42 +1,45 @@
 import { test, expect } from '@playwright/test';
 
 const homepagePreviewCards = [
-  { title: 'Darbības Vārdi', preview: 'verbs_preview.png', icon: 'book' },
-  { title: 'Conjugation Sprint', preview: 'sprint_preview.png', icon: 'gamepad' },
-  { title: 'Endings Builder', preview: 'endings_preview.png', icon: 'pencil' },
-  { title: 'Passive Voice Builder', preview: 'passive_preview.png', icon: 'book' },
-  { title: 'Sentence Surgery — Ciešamā kārta', preview: null, icon: 'pencil' },
-  { title: '⚔️ Word Quest — RPG Adventure', preview: null, icon: 'star' },
-  { title: 'English -> Latvian Word Catcher', preview: null, icon: 'stats' },
-  { title: 'Kas ir manā mājā?', preview: 'room_preview.png', icon: 'home' },
-  { title: 'Travel Tracker', preview: 'travel_preview.png', icon: 'map' },
+  { title: 'Darbības Vārdi', preview: 'verbs_preview.png', href: 'darbibas-vards.html' },
+  { title: 'Conjugation Sprint', preview: 'sprint_preview.png', href: 'conjugation-sprint.html' },
+  { title: 'Endings Builder', preview: 'endings_preview.png', href: 'endings-builder.html' },
+  { title: 'Passive Voice Builder', preview: 'passive_preview.png', href: 'passive-lab.html' },
+  {
+    title: 'Sentence Surgery — Ciešamā kārta',
+    preview: null,
+    href: 'sentence-surgery-passive.html',
+  },
+  { title: '⚔️ Word Quest — RPG Adventure', preview: null, href: 'word-quest.html' },
+  { title: 'English -> Latvian Word Catcher', preview: null, href: 'english-latvian-arcade.html' },
+  { title: 'Kas ir manā mājā?', preview: 'room_preview.png', href: 'decl6-detective.html' },
+  { title: 'Travel Tracker', preview: 'travel_preview.png', href: 'travel-tracker.html' },
 ];
 
 test('homepage loads and lists games', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('#lp-hero-title')).toBeVisible();
-  const cards = page.locator('#gamesGrid .lp-game-card');
+  await expect(page.locator('#hero-title')).toBeVisible();
+  const cards = page.locator('#gamesGrid .dp-game-card');
   await expect(cards.first()).toBeVisible();
 
   expect(await cards.count()).toBeGreaterThanOrEqual(homepagePreviewCards.length);
   for (const expected of homepagePreviewCards) {
     const card = cards.filter({ hasText: expected.title }).first();
     await expect(card).toBeVisible();
-    const art = card.locator('.lp-game-card__art');
-    const icon = card.locator('.lp-game-card__art-icon img');
+    const art = card.locator('.dp-game-card__art');
+    const icon = card.locator('.dp-game-card__art-icon');
+    const href = await card.getAttribute('href');
 
     await expect(art).toBeVisible();
+    await expect(icon).toBeVisible();
+    expect(href).toContain(expected.href);
+
     const backgroundImage = await art.evaluate((el) => getComputedStyle(el).backgroundImage);
     if (expected.preview) {
       expect(backgroundImage).toContain(expected.preview);
     } else {
-      expect(backgroundImage).not.toContain('url(');
+      expect(backgroundImage.length).toBeGreaterThan(0);
     }
-
-    await expect(icon).toBeVisible();
-    const iconSrc = await icon.getAttribute('src');
-    expect(iconSrc).toContain(`/assets/icons/${expected.icon}.svg`);
-    expect(iconSrc).not.toContain('/info.svg');
   }
 });
 

@@ -1,24 +1,30 @@
 import { test, expect } from '@playwright/test';
 
-test('darbibas vardi page loads and toggles study mode controls', async ({ page }) => {
+test('darbibas vardi page loads with prototype shell and mode toggle', async ({ page }) => {
   await page.goto('/darbibas-vards.html');
 
   await expect(
     page.getByRole('heading', { name: 'Latviešu valoda — Darbības Vārdi' }),
   ).toBeVisible();
+  await expect(page.locator('.dp-ex-hero')).toBeVisible();
+  await expect(page.locator('.dp-ex-panel')).toBeVisible();
+  await expect(page.locator('.dp-ex-board')).toBeVisible();
   await expect(page.locator('#btn-new')).toBeEnabled();
   const speakButton = page.locator('#btn-speak');
   await expect(speakButton).toBeVisible();
   await expect(speakButton).toHaveAttribute('aria-pressed', 'false');
+  await expect(speakButton).toContainText('Ieslēgt izrunu');
   await expect(page.locator('#mode-use-all')).toBeChecked();
   await expect(page.locator('#list-lv .word-card').first()).toBeVisible();
   await expect(page.locator('#list-tr .word-card').first()).toBeVisible();
 
   await speakButton.click();
   await expect(speakButton).toHaveAttribute('aria-pressed', 'true');
+  await expect(speakButton).toContainText('Izslēgt izrunu');
 
   await page.locator('label[for="mode-locked-set"]').click();
-  await expect(page.locator('#locked-controls')).toBeVisible();
+  await expect(page.locator('#mode-locked-set')).toBeChecked();
+  await expect(page.locator('#locked-controls')).toHaveCount(0);
 });
 
 test('darbibas vardi keeps columns parallel on mobile', async ({ page }) => {

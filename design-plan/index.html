@@ -1,52 +1,60 @@
 <!doctype html>
-<html lang="lv" data-bs-theme="auto">
+<html lang="lv">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
-    />
-
-    <title>Latvian Language B1 Games</title>
+    <title>Latvian Language B1 Games — Design Prototype</title>
     <meta
       name="description"
       content="Master Latvian grammar through focused, interactive games. 14 exercises covering verbs, conjugation, passive voice, cases, and vocabulary."
     />
-
-    <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
-
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="dp-skip" href="#main">Skip to main content</a>
 
-    <nav data-site-nav></nav>
+    <!-- Navbar -->
+    <nav class="dp-nav" role="banner">
+      <div class="dp-container dp-nav__inner">
+        <a href="index.html" class="dp-nav__brand">
+          <span class="dp-nav__brand-icon">LV</span>
+          Latvian B1
+        </a>
+        <button
+          class="dp-nav__hamburger"
+          id="menu-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+        <ul class="dp-nav__links" id="nav-links">
+          <li><a class="dp-nav__link dp-nav__link--active" href="index.html">Home</a></li>
+          <li><a class="dp-nav__link" href="darbibas-vards.html">Darbības Vārdi</a></li>
+        </ul>
+        <div class="dp-nav__actions">
+          <button class="dp-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            🌙
+          </button>
+        </div>
+      </div>
+    </nav>
 
     <main id="main">
       <div class="dp-container">
+        <!-- ======= Hero ======= -->
         <section class="dp-hero dp-reveal" aria-labelledby="hero-title">
           <div class="dp-hero__copy">
             <p class="dp-hero__eyebrow">Latvian Language B1</p>
             <h1 class="dp-hero__title" id="hero-title">
-              Master Latvian grammar through focused, interactive games.
+              Master Latvian grammar through focused, interactive&nbsp;games.
             </h1>
             <p class="dp-hero__lead">
               14 purpose-built exercises covering verbs, conjugation, passive voice, cases, and
-              vocabulary - each designed for 4-20 minute practice sessions.
+              vocabulary — each designed for 4–20&nbsp;minute practice sessions.
             </p>
             <div class="dp-hero__actions">
-              <a class="dp-btn dp-btn--primary" href="word-quest.html">Start Word Quest</a>
+              <a class="dp-btn dp-btn--primary" href="#">Start Word Quest</a>
               <a class="dp-btn dp-btn--outline" href="#games">Browse all games</a>
             </div>
             <div class="dp-hero__badges">
@@ -65,6 +73,7 @@
           </div>
         </section>
 
+        <!-- ======= Skill Tracks ======= -->
         <section class="dp-section dp-reveal" aria-labelledby="tracks-title">
           <div class="dp-section-header">
             <h2 class="dp-section-header__title" id="tracks-title">Skill Tracks</h2>
@@ -75,7 +84,7 @@
               class="dp-track-card"
               data-track="verbs"
               role="listitem"
-              aria-label="Verbs - 2 games"
+              aria-label="Verbs — 2 games"
             >
               <span class="dp-track-card__icon" aria-hidden="true">📖</span>
               <span class="dp-track-card__title">Verbs</span>
@@ -85,7 +94,7 @@
               class="dp-track-card"
               data-track="conjugation"
               role="listitem"
-              aria-label="Conjugation - 2 games"
+              aria-label="Conjugation — 2 games"
             >
               <span class="dp-track-card__icon" aria-hidden="true">⚡</span>
               <span class="dp-track-card__title">Conjugation</span>
@@ -95,7 +104,7 @@
               class="dp-track-card"
               data-track="passive"
               role="listitem"
-              aria-label="Passive Voice - 2 games"
+              aria-label="Passive Voice — 2 games"
             >
               <span class="dp-track-card__icon" aria-hidden="true">🔬</span>
               <span class="dp-track-card__title">Passive Voice</span>
@@ -105,7 +114,7 @@
               class="dp-track-card"
               data-track="cases"
               role="listitem"
-              aria-label="Cases - 3 games"
+              aria-label="Cases — 3 games"
             >
               <span class="dp-track-card__icon" aria-hidden="true">🏠</span>
               <span class="dp-track-card__title">Cases</span>
@@ -115,7 +124,7 @@
               class="dp-track-card"
               data-track="vocabulary"
               role="listitem"
-              aria-label="Vocabulary - 3 games"
+              aria-label="Vocabulary — 3 games"
             >
               <span class="dp-track-card__icon" aria-hidden="true">🎯</span>
               <span class="dp-track-card__title">Vocabulary</span>
@@ -125,7 +134,7 @@
               class="dp-track-card"
               data-track="adventure"
               role="listitem"
-              aria-label="Adventure - 2 games"
+              aria-label="Adventure — 2 games"
             >
               <span class="dp-track-card__icon" aria-hidden="true">⚔️</span>
               <span class="dp-track-card__title">Adventure</span>
@@ -134,6 +143,7 @@
           </div>
         </section>
 
+        <!-- ======= Game Library ======= -->
         <section class="dp-section dp-reveal" id="games" aria-labelledby="games-title">
           <div class="dp-section-header">
             <h2 class="dp-section-header__title" id="games-title">Game Library</h2>
@@ -162,6 +172,7 @@
           <div class="dp-sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
         </section>
 
+        <!-- ======= Stats ======= -->
         <section class="dp-section dp-reveal" aria-labelledby="stats-title">
           <div class="dp-section-header">
             <h2 class="dp-section-header__title" id="stats-title">By the Numbers</h2>
@@ -177,7 +188,7 @@
               <span class="dp-stat-card__label">Skill Tracks</span>
             </div>
             <div class="dp-stat-card">
-              <span class="dp-stat-card__number">4-20</span>
+              <span class="dp-stat-card__number">4–20</span>
               <span class="dp-stat-card__label">Min per Session</span>
             </div>
             <div class="dp-stat-card">
@@ -193,26 +204,19 @@
           </ul>
         </section>
 
+        <!-- ======= Final CTA ======= -->
         <section class="dp-cta dp-reveal">
           <h2 class="dp-cta__title">Ready to level up your Latvian?</h2>
           <p class="dp-cta__lead">Jump into any game and start building fluency today.</p>
-          <a class="dp-btn dp-btn--primary" href="word-quest.html">Start Playing</a>
+          <a class="dp-btn dp-btn--primary" href="#">Start Playing</a>
         </section>
       </div>
     </main>
 
-    <footer class="dp-footer" data-site-footer></footer>
+    <footer class="dp-footer">
+      <div class="dp-container">Latvian Language B1 Games · Design Prototype</div>
+    </footer>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-
-    <script type="module" src="app.js"></script>
-    <script type="module" src="theme.js"></script>
-    <script type="module" src="scripts/nav.js"></script>
-    <script type="module" src="scripts/page-init.js"></script>
-    <script type="module" src="scripts/homepage.js"></script>
+    <script src="landing.js"></script>
   </body>
 </html>

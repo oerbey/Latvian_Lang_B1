@@ -43,14 +43,43 @@ test('homepage loads and lists games', async ({ page }) => {
   }
 });
 
-test('conjugation sprint loads and shows choices', async ({ page }) => {
+test('conjugation sprint supports timed and untimed play modes', async ({ page }) => {
   await page.goto('/conjugation-sprint.html');
   const question = page.locator('#qtext');
   await expect(question).not.toHaveText('Loading…');
+
   const choices = page.locator('#choices button');
-  await expect(choices.first()).toBeVisible();
+  await expect(choices).toHaveCount(4);
+
+  const texts = await choices.allInnerTexts();
+  expect(texts.every((text) => text.trim().length > 0)).toBe(true);
+
+  const timer = page.locator('#timer');
+  await expect(timer).toBeVisible();
+  const timerBefore = await timer.innerText();
+  await page.waitForTimeout(1100);
+  const timerAfter = await timer.innerText();
+  expect(timerBefore).not.toEqual(timerAfter);
+
+  const timedQuestion = await question.innerText();
+  await expect
+    .poll(async () => (await question.innerText()) !== timedQuestion, { timeout: 10000 })
+    .toBe(true);
+  await expect(page.locator('#feedback')).toBeVisible();
+
+  await page.selectOption('#paceMode', 'untimed');
+  await expect(timer).toContainText('timer off');
+  await expect(choices).toHaveCount(4);
+
+  const untimedQuestion = await question.innerText();
+  await page.waitForTimeout(8200);
+  await expect(question).toHaveText(untimedQuestion);
+
   await choices.first().click();
-  await expect(page.locator('#score')).toBeVisible();
+  await expect(page.locator('#feedback')).toBeVisible();
+  await expect
+    .poll(async () => (await question.innerText()) !== untimedQuestion, { timeout: 3000 })
+    .toBe(true);
 });
 
 test('endings builder loads and renders board controls', async ({ page }) => {

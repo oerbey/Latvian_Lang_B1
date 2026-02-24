@@ -2,6 +2,11 @@
   max-width: 1040px;
 }
 
+.cs-hero .dp-ex-controls {
+  display: grid;
+  gap: 0.7rem;
+}
+
 .cs-hero .dp-ex-lead code {
   font-size: 0.86em;
   background: color-mix(in srgb, var(--dp-accent) 8%, var(--dp-surface));
@@ -30,14 +35,49 @@
   color: var(--dp-text);
 }
 
+.cs-badge--timer {
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cs-badge--timer.is-warning {
+  border-color: color-mix(in srgb, var(--dp-error) 35%, var(--dp-border));
+  background: color-mix(in srgb, var(--dp-error) 10%, var(--dp-surface));
+  color: var(--dp-error);
+}
+
+.cs-badge--timer.is-off {
+  border-style: dashed;
+  color: var(--dp-muted);
+  background: var(--dp-surface-subtle);
+}
+
 .cs-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
 }
 
+.cs-progress {
+  margin: 0.65rem 0 0.3rem;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--dp-border);
+  background: var(--dp-surface-subtle);
+  overflow: hidden;
+}
+
+.cs-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--dp-accent) 0%, color-mix(in srgb, var(--dp-accent) 70%, #8ec6ff) 100%);
+  transition: width 0.24s ease;
+}
+
 .cs-question {
-  margin: 0;
+  margin: 0.1rem 0 0;
   font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.85rem);
   font-weight: 700;
   color: var(--dp-text);
@@ -51,6 +91,7 @@
 
 .cs-choices {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  margin-top: 0.15rem;
 }
 
 .cs-choices .btn {
@@ -89,23 +130,86 @@
   box-shadow: 0 18px 30px color-mix(in srgb, var(--dp-error) 38%, transparent);
 }
 
-.cs-pronouns {
-  margin-top: 0.15rem;
+.cs-feedback {
+  margin: 0.75rem 0 0;
+  border: 1px solid var(--dp-border);
+  border-radius: 12px;
+  padding: 0.56rem 0.72rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  background: var(--dp-surface-subtle);
+  color: var(--dp-muted);
 }
 
-.cs-perstats > .col > div {
+.cs-feedback.is-success {
+  background: color-mix(in srgb, var(--dp-success) 12%, var(--dp-surface));
+  border-color: color-mix(in srgb, var(--dp-success) 30%, var(--dp-border));
+  color: color-mix(in srgb, var(--dp-success) 85%, var(--dp-text));
+}
+
+.cs-feedback.is-warning {
+  background: color-mix(in srgb, var(--dp-error) 10%, var(--dp-surface));
+  border-color: color-mix(in srgb, var(--dp-error) 26%, var(--dp-border));
+  color: color-mix(in srgb, var(--dp-error) 78%, var(--dp-text));
+}
+
+.cs-feedback.is-info {
+  background: color-mix(in srgb, var(--dp-accent) 10%, var(--dp-surface));
+  border-color: color-mix(in srgb, var(--dp-accent) 24%, var(--dp-border));
+  color: color-mix(in srgb, var(--dp-accent) 75%, var(--dp-text));
+}
+
+.cs-perstats .col {
+  display: flex;
+}
+
+.cs-perstats__cell {
+  width: 100%;
+  min-height: 88px;
   background: linear-gradient(180deg, var(--dp-surface) 0%, var(--dp-surface-subtle) 100%);
   border: 1px solid var(--dp-border);
   border-radius: 12px;
-  padding: 0.45rem 0.25rem;
-  font-weight: 700;
-  color: var(--dp-muted);
+  padding: 0.4rem 0.3rem;
   box-shadow: 0 6px 14px var(--dp-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.16rem;
+}
+
+.cs-perstats__pron {
+  font-size: 0.75rem;
+  color: var(--dp-muted);
+  line-height: 1.1;
+}
+
+.cs-perstats__pct {
+  font-size: 1rem;
+  color: var(--dp-text);
+  line-height: 1;
+}
+
+.cs-perstats__ratio {
+  font-size: 0.75rem;
+  color: var(--dp-muted);
+  line-height: 1.1;
 }
 
 .cs-tip {
   color: var(--dp-muted);
   font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .cs-stats {
+    gap: 0.4rem;
+  }
+
+  .cs-badge {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.64rem;
+  }
 }
 
 @media (max-width: 720px) {
@@ -117,8 +221,17 @@
     flex: 1;
   }
 
+  .cs-page .dp-ex-hero__visual {
+    display: none;
+  }
+
   .cs-choices {
     grid-template-columns: 1fr;
+  }
+
+  .cs-choices .btn {
+    padding: 0.72rem 0.85rem;
+    font-size: 0.95rem;
   }
 
   .cs-perstats {
@@ -126,8 +239,21 @@
     --bs-gutter-y: 0.35rem;
   }
 
-  .cs-perstats > .col > div {
-    font-size: 0.82rem;
-    padding: 0.35rem 0.2rem;
+  .cs-perstats__cell {
+    min-height: 76px;
+    padding: 0.34rem 0.2rem;
+  }
+
+  .cs-perstats__pron,
+  .cs-perstats__ratio {
+    font-size: 0.7rem;
+  }
+
+  .cs-perstats__pct {
+    font-size: 0.92rem;
+  }
+
+  .cs-tip {
+    font-size: 0.86rem;
   }
 }

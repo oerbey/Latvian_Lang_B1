@@ -60,6 +60,13 @@
                   <option value="future">Future</option>
                 </select>
               </div>
+              <div class="dp-ex-control">
+                <label class="dp-ex-control__label" for="paceMode">Pace mode</label>
+                <select id="paceMode" aria-label="Select pace mode">
+                  <option value="timed" selected>Timed sprint</option>
+                  <option value="untimed">No timer</option>
+                </select>
+              </div>
             </div>
 
             <div class="dp-ex-hero__visual" aria-hidden="true">
@@ -84,6 +91,8 @@
                 <span class="cs-badge" id="score">score 0</span>
                 <span class="cs-badge" id="streak">streak 0</span>
                 <span class="cs-badge" id="round">round 0/20</span>
+                <span class="cs-badge cs-badge--timer" id="timer">timer 8.0s</span>
+                <span class="cs-badge cs-badge--best" id="best">best 0 · streak 0</span>
               </div>
             </div>
             <div class="cs-actions">
@@ -92,9 +101,24 @@
             </div>
           </div>
 
+          <div
+            class="cs-progress"
+            id="roundProgress"
+            role="progressbar"
+            aria-label="Round progress"
+            aria-valuemin="0"
+            aria-valuemax="20"
+            aria-valuenow="0"
+          >
+            <div class="cs-progress__fill" id="roundProgressFill" style="width: 0%"></div>
+          </div>
+
           <h2 class="cs-question" id="qtext">Loading…</h2>
           <p class="cs-meta" id="meta"></p>
           <div class="d-grid gap-2 cs-choices" id="choices"></div>
+          <p class="cs-feedback is-info" id="feedback" aria-live="polite">
+            Pick the correct form. Keys: 1-4 answer, Enter skip, R replay.
+          </p>
         </section>
 
         <section class="dp-ex-panel" aria-labelledby="cs-pronouns-heading">
@@ -106,15 +130,6 @@
                   Track performance by pronoun slot and stabilize weak endings.
                 </p>
               </div>
-            </div>
-
-            <div class="cs-pronouns d-flex flex-wrap gap-2">
-              <span class="dp-badge">es</span>
-              <span class="dp-badge">tu</span>
-              <span class="dp-badge">viņš/viņa</span>
-              <span class="dp-badge">mēs</span>
-              <span class="dp-badge">jūs</span>
-              <span class="dp-badge">viņi/viņas</span>
             </div>
 
             <div class="row row-cols-6 g-2 mt-2 text-center cs-perstats" id="perstats">

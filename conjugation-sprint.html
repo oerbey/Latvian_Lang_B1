@@ -32,92 +32,113 @@
 
     <nav data-site-nav></nav>
 
-    <main id="main">
-      <div class="dp-container dp-ex-shell cs-shell">
-        <header class="dp-ex-hero cs-hero">
-          <div>
-            <p class="dp-ex-eyebrow">Verb sprint</p>
-            <h1 class="dp-ex-title mb-1">Conjugation Sprint</h1>
-            <p class="dp-ex-lead mb-0">
-              Focus: verbs with full paradigms (present • past • future). Data from your
-              <code>words.json</code>.
-            </p>
-            <div class="dp-ex-badges">
-              <span class="dp-badge dp-badge--focus">Focus: tenses</span>
-              <span class="dp-badge">Speed round</span>
-              <span class="dp-badge">B1 core</span>
-            </div>
-          </div>
+    <main id="main" class="cs-main">
+      <div class="dp-container cs-shell">
+        <section class="cs-stage" aria-labelledby="cs-page-title">
+          <div class="cs-stage__glow cs-stage__glow--one" aria-hidden="true"></div>
+          <div class="cs-stage__glow cs-stage__glow--two" aria-hidden="true"></div>
 
-          <div class="dp-ex-hero__side">
-            <div class="dp-ex-controls">
-              <div class="dp-ex-control">
-                <label class="dp-ex-control__label" for="tenseFilter">Tense mode</label>
+          <header class="cs-hero">
+            <div class="cs-hero__copy">
+              <p class="cs-eyebrow">Verb sprint protocol</p>
+              <h1 id="cs-page-title" class="cs-title">Conjugation Sprint</h1>
+              <p class="cs-lead">
+                Train present, past, and future endings under pressure. Switch to no-timer mode any
+                time when you want focused accuracy practice.
+              </p>
+              <div class="cs-chips" aria-hidden="true">
+                <span class="cs-chip">B1 Core Verbs</span>
+                <span class="cs-chip">Adaptive Pace</span>
+                <span class="cs-chip">Pronoun Matrix</span>
+              </div>
+            </div>
+
+            <div class="cs-hero__controls" aria-label="Sprint settings">
+              <div class="cs-control-card">
+                <label class="cs-control-card__label" for="tenseFilter">Tense mode</label>
                 <select id="tenseFilter" aria-label="Select tense for questions">
-                  <option value="random" selected>Random</option>
-                  <option value="present">Present</option>
-                  <option value="past">Past</option>
-                  <option value="future">Future</option>
+                  <option value="random" selected>Random mix</option>
+                  <option value="present">Present only</option>
+                  <option value="past">Past only</option>
+                  <option value="future">Future only</option>
                 </select>
               </div>
-            </div>
 
-            <div class="dp-ex-hero__visual" aria-hidden="true">
-              <div
-                class="dp-orb"
-                style="width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px)"
-              >
-                <div class="dp-orb__ring"></div>
-                <div class="dp-orb__ring"></div>
-                <div class="dp-orb__ring"></div>
-                <div class="dp-orb__core"></div>
+              <div class="cs-control-card">
+                <label class="cs-control-card__label" for="paceMode">Pace mode</label>
+                <select id="paceMode" aria-label="Select pace mode">
+                  <option value="timed">Timed sprint</option>
+                  <option value="untimed" selected>No timer</option>
+                </select>
               </div>
-            </div>
-          </div>
-        </header>
 
-        <section class="dp-ex-board" id="game" aria-labelledby="cs-status-heading">
-          <div class="dp-ex-board__header">
-            <div>
-              <h2 id="cs-status-heading" class="dp-ex-board__title">Sprint board</h2>
+              <p class="cs-shortcuts">
+                Shortcuts: <kbd>1-4</kbd> answer, <kbd>Enter</kbd> skip, <kbd>R</kbd> replay
+              </p>
+            </div>
+          </header>
+
+          <section class="cs-arena" id="game" aria-labelledby="cs-status-heading">
+            <aside class="cs-hud">
+              <h2 id="cs-status-heading" class="cs-hud__title">Mission HUD</h2>
+
               <div class="cs-stats" aria-live="polite">
                 <span class="cs-badge" id="score">score 0</span>
                 <span class="cs-badge" id="streak">streak 0</span>
                 <span class="cs-badge" id="round">round 0/20</span>
+                <span class="cs-badge cs-badge--timer" id="timer">timer 8.0s</span>
+                <span class="cs-badge cs-badge--best" id="best">best 0 · streak 0</span>
               </div>
-            </div>
-            <div class="cs-actions">
-              <button class="dp-btn dp-btn--outline dp-btn--sm" id="skip">Skip</button>
-              <button class="dp-btn dp-btn--primary dp-btn--sm" id="again">Play again</button>
-            </div>
-          </div>
 
-          <h2 class="cs-question" id="qtext">Loading…</h2>
-          <p class="cs-meta" id="meta"></p>
-          <div class="d-grid gap-2 cs-choices" id="choices"></div>
-        </section>
-
-        <section class="dp-ex-panel" aria-labelledby="cs-pronouns-heading">
-          <div class="dp-ex-panel__body">
-            <div class="dp-ex-panel__header">
-              <div>
-                <h2 id="cs-pronouns-heading" class="dp-ex-panel__title">Pronoun Accuracy</h2>
-                <p class="dp-ex-panel__lead">
-                  Track performance by pronoun slot and stabilize weak endings.
-                </p>
+              <div class="cs-progress-wrap">
+                <p class="cs-progress-label">Round progress</p>
+                <div
+                  class="cs-progress"
+                  id="roundProgress"
+                  role="progressbar"
+                  aria-label="Round progress"
+                  aria-valuemin="0"
+                  aria-valuemax="20"
+                  aria-valuenow="0"
+                >
+                  <div class="cs-progress__fill" id="roundProgressFill" style="width: 0%"></div>
+                </div>
               </div>
+
+              <div class="cs-actions">
+                <button class="dp-btn dp-btn--outline dp-btn--sm" id="skip">Skip</button>
+                <button
+                  class="dp-btn dp-btn--outline dp-btn--sm cs-start-btn"
+                  id="startTimed"
+                  hidden
+                >
+                  Start timer
+                </button>
+                <button class="dp-btn dp-btn--primary dp-btn--sm" id="again">Play again</button>
+              </div>
+
+              <p class="cs-feedback is-info" id="feedback" aria-live="polite">
+                Select the correct form to start the run.
+              </p>
+            </aside>
+
+            <article class="cs-question-panel">
+              <p class="cs-meta-label">Current prompt</p>
+              <h2 class="cs-question" id="qtext">Loading…</h2>
+              <p class="cs-meta" id="meta"></p>
+              <div class="d-grid gap-2 cs-choices" id="choices"></div>
+            </article>
+          </section>
+
+          <section class="cs-accuracy" aria-labelledby="cs-pronouns-heading">
+            <div class="cs-accuracy__head">
+              <h2 id="cs-pronouns-heading" class="cs-accuracy__title">Pronoun Accuracy Matrix</h2>
+              <p class="cs-accuracy__lead">
+                Track which pronoun slots need reinforcement and target your next replay.
+              </p>
             </div>
 
-            <div class="cs-pronouns d-flex flex-wrap gap-2">
-              <span class="dp-badge">es</span>
-              <span class="dp-badge">tu</span>
-              <span class="dp-badge">viņš/viņa</span>
-              <span class="dp-badge">mēs</span>
-              <span class="dp-badge">jūs</span>
-              <span class="dp-badge">viņi/viņas</span>
-            </div>
-
-            <div class="row row-cols-6 g-2 mt-2 text-center cs-perstats" id="perstats">
+            <div class="row row-cols-6 g-2 text-center cs-perstats" id="perstats">
               <div class="col"><div>0%</div></div>
               <div class="col"><div>0%</div></div>
               <div class="col"><div>0%</div></div>
@@ -126,11 +147,11 @@
               <div class="col"><div>0%</div></div>
             </div>
 
-            <div class="cs-tip mt-3">
-              Tip: Watch your endings—<i>–u, –i, –a; –am, –at</i> in the past; and the future’s
-              <i>–š</i> spine.
-            </div>
-          </div>
+            <p class="cs-tip">
+              Tip: In timed mode, answer early for bonus points. In no-timer mode, aim for clean
+              100% slots before switching back.
+            </p>
+          </section>
         </section>
       </div>
     </main>

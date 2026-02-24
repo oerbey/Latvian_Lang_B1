@@ -17,3 +17,9 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 ## TODO / Suggestions for next agent
 - Consider adding a dedicated integration test for localStorage persistence of `preferredPaceMode` and best stats.
 - Optionally add a compact mobile variant that collapses hero badges to expose more board area above the fold.
+## 2026-02-24 - Full GUI redesign pass
+- Rebuilt `conjugation-sprint.html` into a new "stage + mission HUD + question panel + accuracy matrix" layout while preserving all gameplay ids/hooks.
+- Replaced `src/games/conjugation-sprint/styles.css` with a complete visual system refresh (new gradients, card hierarchy, control styling, responsive layout, and motion).
+- Reformatted redesign files with `npx prettier --write conjugation-sprint.html src/games/conjugation-sprint/styles.css`.
+- Re-ran checks after redesign: `npm test`, `npm run test:e2e -- e2e/smoke.spec.js -g "conjugation sprint"`, and `npm run lint` all passed.
+- Captured visual QA screenshots (desktop + mobile) and adjusted stacked mobile order so the question panel appears above HUD when screen is narrow.

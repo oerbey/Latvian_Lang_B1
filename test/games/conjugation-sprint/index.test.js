@@ -26,6 +26,7 @@ test('should have all necessary elements present', () => {
     'roundProgressFill',
     'feedback',
     'skip',
+    'startTimed',
     'again',
     'perstats',
     'paceMode',

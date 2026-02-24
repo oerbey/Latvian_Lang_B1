@@ -55,13 +55,27 @@ test('conjugation sprint supports timed and untimed play modes', async ({ page }
   expect(texts.every((text) => text.trim().length > 0)).toBe(true);
 
   const timer = page.locator('#timer');
+  const startTimed = page.locator('#startTimed');
   await expect(timer).toBeVisible();
+  await expect(timer).toContainText('timer off');
+  await expect(startTimed).toBeHidden();
+
+  await page.selectOption('#paceMode', 'timed');
+  await expect(timer).toContainText('timer ready');
+  await expect(startTimed).toBeVisible();
+  await expect(startTimed).toBeEnabled();
+
+  const timedQuestion = await question.innerText();
+  await page.waitForTimeout(1400);
+  await expect(question).toHaveText(timedQuestion);
+  await expect(timer).toContainText('timer ready');
+
+  await startTimed.click();
   const timerBefore = await timer.innerText();
   await page.waitForTimeout(1100);
   const timerAfter = await timer.innerText();
   expect(timerBefore).not.toEqual(timerAfter);
 
-  const timedQuestion = await question.innerText();
   await expect
     .poll(async () => (await question.innerText()) !== timedQuestion, { timeout: 10000 })
     .toBe(true);
@@ -69,6 +83,7 @@ test('conjugation sprint supports timed and untimed play modes', async ({ page }
 
   await page.selectOption('#paceMode', 'untimed');
   await expect(timer).toContainText('timer off');
+  await expect(startTimed).toBeHidden();
   await expect(choices).toHaveCount(4);
 
   const untimedQuestion = await question.innerText();

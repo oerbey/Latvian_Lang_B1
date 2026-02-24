@@ -33,7 +33,8 @@ import {
   let bestStreak = 0;
 
   let tenseMode = 'random';
-  let paceMode = 'timed';
+  let paceMode = 'untimed';
+  let awaitingTimedStart = false;
 
   let roundTimerId = null;
   let remainingMs = ROUND_DURATION_MS;
@@ -59,6 +60,7 @@ import {
   const feedbackEl = id('feedback');
   const againBtn = id('again');
   const skipBtn = id('skip');
+  const startTimedBtn = id('startTimed');
   const tenseFilterEl = id('tenseFilter');
   const paceModeEl = id('paceMode');
 
@@ -67,6 +69,9 @@ import {
   }
   if (skipBtn) {
     skipBtn.onclick = () => checkAnswer({ selected: null, reason: 'skip' });
+  }
+  if (startTimedBtn) {
+    startTimedBtn.onclick = startTimedRound;
   }
 
   if (tenseFilterEl) {
@@ -161,6 +166,7 @@ import {
     streak = 0;
     answeredRounds = 0;
     lock = false;
+    awaitingTimedStart = false;
     current = null;
 
     Object.keys(perRight).forEach((slot) => {
@@ -182,11 +188,12 @@ import {
 
     setFeedback(
       paceMode === 'timed'
-        ? 'Timed sprint active. Answer quickly for bonus points.'
+        ? 'Timed sprint selected. Press Start timer to begin each round.'
         : 'No timer mode active. Focus on accuracy.',
       'info',
     );
 
+    setStartTimedButton(false, false);
     updateHUD();
     nextRound();
   }
@@ -216,8 +223,8 @@ import {
     }
 
     renderChoices(current.options);
+    prepareRoundPace();
     updateHUD();
-    startRoundTimer();
   }
 
   function pickPromptWithOptions() {
@@ -265,11 +272,59 @@ import {
     });
   }
 
+  function prepareRoundPace() {
+    stopRoundTimer();
+    remainingMs = ROUND_DURATION_MS;
+
+    if (paceMode === 'untimed') {
+      awaitingTimedStart = false;
+      setRoundInputsEnabled(true);
+      setStartTimedButton(false, false);
+      return;
+    }
+
+    awaitingTimedStart = true;
+    setRoundInputsEnabled(false);
+    setStartTimedButton(true, true);
+  }
+
+  function startTimedRound() {
+    if (paceMode !== 'timed' || !current || lock || !awaitingTimedStart) return;
+
+    awaitingTimedStart = false;
+    setRoundInputsEnabled(true);
+    setStartTimedButton(true, false);
+    startRoundTimer();
+    updateTimerBadge();
+  }
+
+  function setRoundInputsEnabled(enabled) {
+    if (cEl) {
+      const buttons = [...cEl.querySelectorAll('button')];
+      buttons.forEach((button) => {
+        button.disabled = !enabled;
+      });
+    }
+    if (skipBtn) {
+      skipBtn.disabled = !enabled;
+    }
+  }
+
+  function setStartTimedButton(visible, enabled) {
+    if (!startTimedBtn) return;
+    startTimedBtn.hidden = !visible;
+    startTimedBtn.disabled = !enabled;
+    startTimedBtn.textContent = enabled ? 'Start timer' : 'Timer running';
+  }
+
   function checkAnswer({ selected, button = null, reason = 'answer' }) {
     if (lock || !current) return;
+    if (paceMode === 'timed' && awaitingTimedStart) return;
     lock = true;
+    awaitingTimedStart = false;
 
     stopRoundTimer();
+    setStartTimedButton(false, false);
 
     perSeen[current.slot] += 1;
 
@@ -348,13 +403,7 @@ import {
 
   function startRoundTimer() {
     stopRoundTimer();
-
-    remainingMs = ROUND_DURATION_MS;
     updateTimerBadge();
-
-    if (paceMode === 'untimed') {
-      return;
-    }
 
     roundTimerId = window.setInterval(() => {
       if (lock) return;
@@ -437,16 +486,22 @@ import {
   function updateTimerBadge() {
     if (!timerEl) return;
 
+    timerEl.classList.remove('is-warning', 'is-off', 'is-ready');
+
     if (paceMode === 'untimed') {
       timerEl.textContent = 'timer off';
-      timerEl.classList.remove('is-warning');
       timerEl.classList.add('is-off');
+      return;
+    }
+
+    if (awaitingTimedStart) {
+      timerEl.textContent = `timer ready ${(ROUND_DURATION_MS / 1000).toFixed(1)}s`;
+      timerEl.classList.add('is-ready');
       return;
     }
 
     const seconds = (remainingMs / 1000).toFixed(1);
     timerEl.textContent = `timer ${seconds}s`;
-    timerEl.classList.remove('is-off');
     timerEl.classList.toggle('is-warning', remainingMs <= 3000);
   }
 
@@ -458,7 +513,10 @@ import {
   function finish(reasonMessage = '') {
     stopRoundTimer();
     lock = true;
+    awaitingTimedStart = false;
     current = null;
+    setRoundInputsEnabled(false);
+    setStartTimedButton(false, false);
 
     if (qEl) qEl.textContent = 'Sprint complete!';
 
@@ -517,7 +575,7 @@ import {
       bestScore: 0,
       bestStreak: 0,
       lastPlayedISO: null,
-      preferredPaceMode: 'timed',
+      preferredPaceMode: 'untimed',
     });
 
     bestScore = Number.isFinite(data.bestScore) ? Math.max(0, data.bestScore) : 0;

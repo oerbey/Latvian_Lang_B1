@@ -67,8 +67,8 @@
               <div class="cs-control-card">
                 <label class="cs-control-card__label" for="paceMode">Pace mode</label>
                 <select id="paceMode" aria-label="Select pace mode">
-                  <option value="timed" selected>Timed sprint</option>
-                  <option value="untimed">No timer</option>
+                  <option value="timed">Timed sprint</option>
+                  <option value="untimed" selected>No timer</option>
                 </select>
               </div>
 
@@ -107,6 +107,13 @@
 
               <div class="cs-actions">
                 <button class="dp-btn dp-btn--outline dp-btn--sm" id="skip">Skip</button>
+                <button
+                  class="dp-btn dp-btn--outline dp-btn--sm cs-start-btn"
+                  id="startTimed"
+                  hidden
+                >
+                  Start timer
+                </button>
                 <button class="dp-btn dp-btn--primary dp-btn--sm" id="again">Play again</button>
               </div>
 

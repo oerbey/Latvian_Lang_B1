@@ -22,12 +22,14 @@ const DATA_PATH = 'data/travel-tracker/routes.json';
 const BUS_ANIMATION_MS = 1100;
 
 const selectors = {
+  map: mustId('tt-map'),
   mapInner: mustId('tt-map-inner'),
   bus: mustId('tt-bus'),
   routeLayer: mustId('tt-route'),
   gap: mustId('tt-gap'),
   hint: mustId('tt-hint'),
   feedback: mustId('tt-feedback'),
+  feedbackMessage: mustId('tt-feedback-message'),
   input: mustId('tt-input'),
   check: mustId('checkBtn'),
   next: mustId('tt-next'),
@@ -36,10 +38,12 @@ const selectors = {
   choices: mustId('tt-choices'),
   score: mustId('tt-score'),
   streak: mustId('tt-streak'),
+  multiplier: mustId('tt-multiplier'),
   level: mustId('tt-level'),
   routeMeta: mustId('tt-route-meta'),
   liveRegion: mustId('tt-live'),
   progress: mustId('tt-progress'),
+  progressBar: mustId('tt-progress-bar'),
 };
 
 const state = createState();
@@ -53,6 +57,12 @@ let animationId = null;
 function setI18nLoading(isLoading) {
   if (!document?.body) return;
   document.body.classList.toggle('i18n-loading', isLoading);
+}
+
+function getMultiplier(streak) {
+  if (streak >= 6) return 3;
+  if (streak >= 3) return 2;
+  return 1;
 }
 
 const ui = createUI({
@@ -127,6 +137,7 @@ function resetState() {
   state.routeIndex = 0;
   state.score = 0;
   state.streak = 0;
+  state.attempts = 0;
   state.routeCompleted = false;
   state.inputLocked = false;
   state.started = true;
@@ -143,6 +154,7 @@ function presentCurrentRoute() {
     selectors.input.value = '';
     ui.syncChoiceSelection('');
   }
+  state.attempts = 0;
   state.routeCompleted = false;
   state.inputLocked = !state.started;
   ui.updateControls();
@@ -163,39 +175,69 @@ function presentCurrentRoute() {
 }
 
 function showCorrect(route) {
-  selectors.feedback.textContent = strings.correct;
-  selectors.feedback.classList.remove('is-wrong');
-  selectors.feedback.classList.add('is-correct');
-  ui.updateLive(strings.correct);
+  ui.setFeedbackMessage(strings.correct, 'correct');
   if (route?.explain) {
     ui.setHint(route.explain);
   }
 }
 
-function showWrong(route) {
-  selectors.feedback.textContent = strings.wrong;
-  selectors.feedback.classList.remove('is-correct');
-  selectors.feedback.classList.add('is-wrong');
-  ui.updateLive(strings.wrong);
-  if (route?.hint) {
-    ui.setHint(route.hint);
+function showHintProgression(route) {
+  const baseHint = route?.hint?.trim() ?? '';
+  if (state.attempts <= 1) {
+    const firstHint = baseHint || strings.wrong;
+    ui.setFeedbackMessage(firstHint, 'wrong');
+    ui.setHint();
+    return false;
   }
+  if (state.attempts === 2) {
+    const hintLabel = strings.hint ?? 'Hint';
+    const strongerHint = baseHint
+      ? `${hintLabel}: ${baseHint} ${strings.wrong ?? 'Try again!'}`
+      : (strings.wrong ?? 'Try again!');
+    ui.setFeedbackMessage(strongerHint, 'wrong');
+    ui.setHint();
+    return false;
+  }
+  const revealedAnswer = route?.answers?.[0] ?? '';
+  const answerLabel = strings.answerLabel ?? 'Answer';
+  const answerMessage = `${answerLabel}: ${revealedAnswer || '—'}`;
+  ui.setFeedbackMessage(answerMessage, 'wrong');
+  if (route?.explain) {
+    ui.setHint(route.explain);
+  } else {
+    ui.setHint();
+  }
+  if (selectors.input) {
+    selectors.input.value = revealedAnswer;
+    ui.syncChoiceSelection(revealedAnswer);
+  }
+  state.routeCompleted = true;
+  state.inputLocked = true;
+  ui.setChoicesCompleted(true);
+  const from = cityCoords.get(route.from);
+  const to = cityCoords.get(route.to);
+  ui.drawRouteLine(from, to, { completed: true });
+  return true;
 }
 
 function onCorrect(route) {
-  state.score += 10;
-  state.streak += 1;
+  const nextStreak = state.streak + 1;
+  const multiplier = getMultiplier(nextStreak);
+  state.score += 10 * multiplier;
+  state.streak = nextStreak;
+  state.attempts = 0;
   if (state.streak > 0 && state.streak % 5 === 0) {
     showReward({
       title: `Streak ${state.streak}`,
       detail: 'Prefixes on point.',
-      points: 10,
+      points: 10 * multiplier,
       pointsLabel: 'xp',
       tone: 'success',
     });
   }
   state.routeCompleted = true;
   state.inputLocked = true;
+  ui.setChoicesCompleted(true);
   ui.updateScoreboard();
   showCorrect(route);
   const from = cityCoords.get(route.from);
@@ -217,21 +259,38 @@ function onCorrect(route) {
     levelId: getCurrentLevel(state)?.id ?? null,
     from: route.from,
     to: route.to,
+    multiplier,
   });
 }
 
 function onWrong(route) {
+  state.attempts += 1;
   state.streak = 0;
+  const autoRevealed = showHintProgression(route);
+  if (!autoRevealed) {
+    state.routeCompleted = false;
+    state.inputLocked = false;
+  }
   ui.updateScoreboard();
-  showWrong(route);
-  state.routeCompleted = false;
-  state.inputLocked = false;
   ui.updateControls();
-  saveProgress();
+  if (autoRevealed) {
+    const nextPos = computeNextPosition(state);
+    saveProgress({
+      levelIndex: nextPos.levelIndex,
+      routeIndex: nextPos.routeIndex,
+      score: state.score,
+      streak: state.streak,
+      started: state.started,
+    });
+  } else {
+    saveProgress();
+  }
   dispatchTrack('wrong', {
     levelId: getCurrentLevel(state)?.id ?? null,
     from: route.from,
     to: route.to,
+    attempts: state.attempts,
+    autoRevealed,
   });
 }
 
@@ -242,9 +301,7 @@ function handleCheck() {
   const guess = selectors.input.value?.trim() ?? '';
   selectors.input.value = guess;
   if (!guess || normalizeAnswer(guess) === '') {
-    selectors.feedback.textContent = strings.enterAnswer;
-    selectors.feedback.classList.remove('is-correct', 'is-wrong');
-    ui.updateLive(strings.enterAnswer);
+    ui.setFeedbackMessage(strings.enterAnswer);
     ui.updateControls();
     return;
   }
@@ -279,9 +336,7 @@ function advanceRoute() {
   saveProgress();
   presentCurrentRoute();
   if (completedLevel && strings.level_complete) {
-    selectors.feedback.textContent = strings.level_complete;
-    selectors.feedback.classList.remove('is-correct', 'is-wrong');
-    ui.updateLive(strings.level_complete);
+    ui.setFeedbackMessage(strings.level_complete);
     showReward({
       title: strings.level_complete,
       detail: level?.title || '',
@@ -314,6 +369,7 @@ function handleRestart() {
   state.routeIndex = 0;
   state.score = 0;
   state.streak = 0;
+  state.attempts = 0;
   state.routeCompleted = false;
   state.inputLocked = !wasStarted;
   state.started = wasStarted;
@@ -350,6 +406,7 @@ async function init() {
       progressOf: 'of',
       progressIdle: '—',
       noHint: '—',
+      answerLabel: 'Answer',
       noQuestion: 'No questions available.',
       noRoute: '—',
       ...loadedStrings,
@@ -362,6 +419,7 @@ async function init() {
     strings.progressOf = strings.progressOf ?? 'of';
     strings.progressIdle = strings.progressIdle ?? '—';
     strings.noHint = strings.noHint ?? '—';
+    strings.answerLabel = strings.answerLabel ?? 'Answer';
     strings.noQuestion = strings.noQuestion ?? 'No questions available.';
     strings.noRoute = strings.noRoute ?? '—';
     ui.applyStrings();
@@ -376,6 +434,7 @@ async function init() {
     state.routeIndex = 0;
     state.score = 0;
     state.streak = 0;
+    state.attempts = 0;
     state.routeCompleted = false;
     state.started = false;
     state.inputLocked = true;
@@ -402,8 +461,8 @@ async function init() {
     ui.updateScoreboard();
   } catch (err) {
     console.error('Failed to boot Travel Tracker', err);
-    if (selectors.feedback) {
-      selectors.feedback.textContent = 'Failed to load Travel Tracker.';
+    if (selectors.feedbackMessage) {
+      selectors.feedbackMessage.textContent = 'Failed to load Travel Tracker.';
     }
     const safeError = err instanceof Error ? err : new Error('Failed to load Travel Tracker.');
     showFatalError(safeError);

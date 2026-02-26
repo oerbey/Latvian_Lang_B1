@@ -10,6 +10,7 @@ export function createState() {
     routeIndex: 0,
     score: 0,
     streak: 0,
+    attempts: 0,
     started: false,
     routeCompleted: false,
     inputLocked: true,

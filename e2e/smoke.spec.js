@@ -106,6 +106,55 @@ test('endings builder loads and renders board controls', async ({ page }) => {
   await expect(page.locator('.eb-shell__controls button').first()).toBeVisible();
 });
 
+test('decl6 detective starts and solves a clue', async ({ page }) => {
+  await page.goto('/decl6-detective.html');
+  await expect(page.locator('#decl6-canvas')).toBeVisible();
+  await expect(page.locator('#decl6-start')).toBeVisible();
+
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#decl6-round')).toContainText(/1\s*\/\s*8/);
+
+  const gameState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  expect(gameState.mode).toBe('playing');
+  expect(gameState.clue).toBeTruthy();
+
+  const target = gameState.rooms.find((room) => room.scene === gameState.clue.scene);
+  expect(target).toBeTruthy();
+
+  const canvas = page.locator('#decl6-canvas');
+  const box = await canvas.boundingBox();
+  expect(box).not.toBeNull();
+  if (!box || !target) {
+    return;
+  }
+
+  await canvas.click({
+    position: {
+      x: (target.x / gameState.canvas.width) * box.width,
+      y: (target.y / gameState.canvas.height) * box.height,
+    },
+  });
+  await page.keyboard.press('Enter');
+
+  await expect(page.locator('#decl6-feedback')).toContainText(/Pavediens atrasts/);
+
+  await page.evaluate((expectedAnswer) => {
+    const option = Array.from(document.querySelectorAll('#decl6-options .decl6-option')).find(
+      (button) => {
+        const label = button.textContent?.replace(/^\d+\.\s*/, '').trim();
+        return label === expectedAnswer;
+      },
+    );
+    option?.click();
+  }, gameState.clue.expectedAnswer);
+
+  await expect(page.locator('#decl6-next')).toBeEnabled();
+  await expect(page.locator('#decl6-solved')).toHaveText('1/8');
+
+  await page.locator('#decl6-next').click();
+  await expect(page.locator('#decl6-round')).toContainText(/2\s*\/\s*8/);
+});
+
 test('sentence surgery page loads and can check a round', async ({ page }) => {
   await page.goto('/sentence-surgery-passive.html');
   await expect(page.locator('#sspv-sentenceTokens .sspv-token').first()).toBeVisible();

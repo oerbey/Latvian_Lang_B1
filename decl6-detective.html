@@ -2,10 +2,9 @@
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-    <!-- CSP allows inline styles for existing inline snippets -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#0e0f13" />
@@ -33,164 +32,134 @@
     ></nav>
 
     <main id="main" class="container decl6-main py-5 mt-5">
-      <header class="decl6-hero text-center mb-4">
-        <div>
-          <p class="decl6-eyebrow mb-1">
-            Interactive practice for the 6th declension and plural-only nouns.
-          </p>
-          <h1 class="h3 mb-1">Kas ir manā mājā? — 6th Declension Detective</h1>
-          <p class="text-muted mb-0">
-            Switch between Detective Cards and the Room Builder to master preposition + case
-            combinations.
-          </p>
-        </div>
-        <div class="decl6-tags">
-          <span class="decl6-tag">Focus: cases</span>
-          <span class="decl6-tag">Mode: cards + builder</span>
-          <span class="decl6-tag">Level: B1</span>
-        </div>
+      <header class="decl6-hero mb-4">
+        <p class="decl6-eyebrow mb-2">B1 Detective Exercise</p>
+        <h1 class="h3 mb-2">Kas ir manā mājā? — 6th Declension Detective</h1>
+        <p class="mb-0 text-muted">
+          Izvēlies telpu uz kartes, atbloķē pavedienu un atrisini pareizo 6. deklinācijas formu.
+        </p>
       </header>
-
-      <div class="decl6-scoreboard mb-4">
-        <div>
-          <span class="text-secondary small" data-i18n-key="score">Score</span>
-          <strong id="decl6-score">0</strong>
-        </div>
-        <div>
-          <span class="text-secondary small" data-i18n-key="streak">Streak</span>
-          <strong id="decl6-streak">0</strong>
-        </div>
-        <div>
-          <span class="text-secondary small">Last played</span>
-          <strong id="decl6-last">—</strong>
-        </div>
-        <div class="ms-auto decl6-restart-container">
-          <button
-            id="decl6-restart"
-            class="btn btn-outline-primary btn-sm"
-            type="button"
-            data-i18n-key="start"
-          >
-            Start
-          </button>
-        </div>
-      </div>
 
       <div
         id="decl6-live-region"
+        class="visually-hidden"
         aria-live="polite"
         aria-atomic="true"
-        class="visually-hidden"
       ></div>
 
-      <section class="decl6-card decl6-card--mcq mb-4" id="decl6-mcq-card" data-scene="virtuve">
-        <div class="decl6-card__header">
-          <div>
-            <p class="mb-1 small text-muted" data-i18n-key="mode_mcq">Detective Cards</p>
-            <p class="h5 mb-0" id="decl6-mcq-progress">1/5</p>
-          </div>
-          <div class="decl6-scene-chip" id="decl6-mcq-scene">
-            <span id="decl6-mcq-scene-emoji">🍲</span>
-            <span id="decl6-mcq-scene-name">Virtuve</span>
-          </div>
-        </div>
-        <p
-          class="text-muted small mb-2"
-          id="decl6-mcq-instruction"
-          data-i18n-key="instructions_mcq"
-        >
-          Choose the correct 6th-declension form.
-        </p>
-        <h2 id="decl6-mcq-prompt" class="decl6-card__prompt">Loading…</h2>
-        <p id="decl6-mcq-case" class="decl6-card__case">Case info</p>
-        <div class="decl6-hint" aria-live="off">
-          <span class="decl6-hint-label" data-i18n-key="hint">Hint</span>
-          <span id="decl6-mcq-hint">—</span>
-        </div>
-        <div
-          id="decl6-mcq-options"
-          class="decl6-options"
-          role="radiogroup"
-          aria-labelledby="decl6-mcq-prompt"
-        ></div>
-        <p id="decl6-mcq-explain" class="decl6-explain visually-hidden">Explanation</p>
-        <div class="decl6-actions">
-          <button
-            id="decl6-mcq-next"
-            class="btn btn-primary btn-sm"
-            type="button"
-            data-i18n-key="next"
-            disabled
-          >
-            Next
-          </button>
-        </div>
-      </section>
+      <section id="decl6-stage" class="decl6-stage" aria-label="6th declension detective board">
+        <div id="decl6-board-panel" class="decl6-board-panel">
+          <canvas
+            id="decl6-canvas"
+            width="960"
+            height="540"
+            aria-label="Mājas un apkārtnes karte izmeklēšanai"
+          ></canvas>
 
-      <section class="decl6-card decl6-card--builder" id="decl6-builder-card" data-scene="pirts">
-        <div class="decl6-card__header">
-          <div>
-            <p class="mb-1 small text-muted" data-i18n-key="mode_typein">Room Builder</p>
-            <p class="h5 mb-0" id="decl6-type-progress">1/3</p>
-          </div>
-          <div class="decl6-scene-chip" id="decl6-type-scene">
-            <span id="decl6-type-scene-emoji">🪵</span>
-            <span id="decl6-type-scene-name">Pirts</span>
+          <div id="decl6-overlay" class="decl6-overlay">
+            <h2 id="decl6-overlay-title" class="h4 mb-2">6. deklinācijas detektīvs</h2>
+            <p id="decl6-overlay-body" class="mb-3">
+              Atrodi pareizo telpu ar bultiņām, nospied Enter un tad izvēlies pareizo formu.
+            </p>
+            <button id="decl6-start" type="button" class="btn btn-primary">Sākt izmeklēšanu</button>
           </div>
         </div>
-        <p class="text-muted small mb-2" data-i18n-key="instructions_typein">
-          Type the missing form (supports Latvian diacritics).
-        </p>
-        <h2 id="decl6-type-prompt" class="decl6-card__prompt">____</h2>
-        <p id="decl6-type-case" class="decl6-card__case">Case info</p>
-        <div class="decl6-builder-input mb-2">
-          <label class="visually-hidden" for="decl6-type-input">Answer</label>
-          <input
-            id="decl6-type-input"
-            class="form-control"
-            type="text"
-            autocomplete="off"
-            placeholder="_____"
-          />
-          <button
-            id="decl6-type-check"
-            class="btn btn-outline-primary"
-            type="button"
-            data-i18n-key="check"
-          >
-            Check
-          </button>
-        </div>
-        <div class="decl6-hint mb-2" aria-live="off">
-          <span class="decl6-hint-label" data-i18n-key="hint">Hint</span>
-          <span id="decl6-type-hint">—</span>
-        </div>
-        <div class="decl6-plan-wrapper">
-          <img
-            id="decl6-plan"
-            src="assets/img/decl6-detective/plan.svg"
-            alt="House floor plan"
-            loading="lazy"
-          />
-        </div>
-        <p id="decl6-type-explain" class="decl6-explain visually-hidden">Explanation</p>
-        <div class="decl6-actions mt-2">
-          <button
-            id="decl6-type-next"
-            class="btn btn-primary btn-sm"
-            type="button"
-            data-i18n-key="next"
-            disabled
-          >
-            Next
-          </button>
-        </div>
-      </section>
 
-      <div id="decl6-level-status" class="decl6-level-status visually-hidden">
-        <p class="mb-2 fw-semibold" data-i18n-key="level_complete">Level complete!</p>
-        <p class="text-muted small mb-0">Clear both modes to unlock a fresh scene.</p>
-      </div>
+        <aside class="decl6-dossier" aria-label="Case dossier">
+          <div class="decl6-metrics" aria-label="Game stats">
+            <div class="decl6-metric">
+              <span>Punkti</span>
+              <strong id="decl6-score">0</strong>
+            </div>
+            <div class="decl6-metric">
+              <span>Sērija</span>
+              <strong id="decl6-streak">0</strong>
+            </div>
+            <div class="decl6-metric">
+              <span>Labākā</span>
+              <strong id="decl6-best">0</strong>
+            </div>
+            <div class="decl6-metric">
+              <span>Dzīvības</span>
+              <strong id="decl6-hearts">3</strong>
+            </div>
+            <div class="decl6-metric">
+              <span>Laiks</span>
+              <strong id="decl6-timer">03:00</strong>
+            </div>
+            <div class="decl6-metric">
+              <span>Lietas</span>
+              <strong id="decl6-solved">0/8</strong>
+            </div>
+            <div class="decl6-metric">
+              <span>Kopējais XP</span>
+              <strong id="decl6-total-xp">0</strong>
+            </div>
+          </div>
+
+          <article class="decl6-clue-card" aria-live="polite">
+            <p id="decl6-round" class="decl6-round">Lieta 0 / 8</p>
+            <h2 id="decl6-prompt" class="decl6-prompt">Gaida pavedienu…</h2>
+            <p id="decl6-case" class="decl6-case">Mērķa forma: —</p>
+            <p id="decl6-hint" class="decl6-hint">Padoms: —</p>
+          </article>
+
+          <details class="decl6-howto">
+            <summary>Kā spēlēt / How to play</summary>
+            <ol class="decl6-howto-list">
+              <li>
+                Nospied <strong>Sākt izmeklēšanu</strong> vai taustiņu <strong>Enter</strong>.
+              </li>
+              <li>
+                Pārvieto izvēli pa karti ar <strong>bultiņām</strong> vai <strong>WASD</strong>.
+              </li>
+              <li>
+                Kad esi izvēlējies telpu, nospied <strong>Enter</strong>, lai pārmeklētu telpu.
+              </li>
+              <li>
+                Ja telpa ir pareiza, izvēlies vārda formu ar pogām <strong>1-4</strong> vai peles
+                klikšķi.
+              </li>
+              <li>
+                Nepareiza telpa vai forma samazina <strong>dzīvības</strong> un atņem
+                <strong>laiku</strong>.
+              </li>
+              <li>
+                Atrisini <strong>8 lietas</strong>, pirms beidzas laiks vai dzīvības, lai uzvarētu.
+              </li>
+            </ol>
+          </details>
+
+          <div class="decl6-controls">
+            <button id="decl6-inspect" class="btn btn-outline-light" type="button" disabled>
+              Pārmeklēt telpu (Enter)
+            </button>
+            <button id="decl6-next" class="btn btn-warning" type="button" disabled>
+              Nākamā lieta
+            </button>
+          </div>
+
+          <div
+            id="decl6-options"
+            class="decl6-options"
+            role="group"
+            aria-label="Atbilžu varianti"
+          ></div>
+
+          <p id="decl6-feedback" class="decl6-feedback">
+            Sāc izmeklēšanu, lai saņemtu pirmo pavedienu.
+          </p>
+
+          <p class="decl6-help mb-2">
+            Kontroles: bultiņas/WASD pārvieto izvēli, Enter pārmeklē telpu, 1-4 izvēlas formu, F
+            ieslēdz pilnekrānu.
+          </p>
+
+          <button id="decl6-restart" class="btn btn-outline-info" type="button">
+            Sākt no jauna
+          </button>
+        </aside>
+      </section>
     </main>
 
     <footer class="border-top py-4 bg-body-tertiary mt-4" data-site-footer></footer>

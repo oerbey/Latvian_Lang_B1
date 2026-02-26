@@ -37,3 +37,43 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Improved dark-mode label readability for HUD meta labels (including ROUND PROGRESS).
 - Updated Conjugation Sprint smoke test to validate start-gated timed flow.
 - Added `startTimed` id assertion to HTML structure test.
+
+## 2026-02-26 - Decl6 detective full rebuild start
+
+- Current prompt: Recreate “Kas ir manā mājā? — 6th Declension Detective” from scratch because gameplay quality is unsatisfying.
+- Audited existing implementation (`decl6-detective.html`, `src/games/decl6-detective/*`, `data/decl6-detective/items.json`, `docs/decl6-detective-spec.md`).
+- Decision: replace current dual-mode card flow with a new single-board detective loop and deterministic test hooks (`render_game_to_text`, `advanceTime`).
+- Verified no existing e2e test directly covers gameplay for `decl6-detective`, so a new smoke path should be added after rewrite.
+
+- Replaced `decl6-detective.html` from scratch with a new canvas-first detective stage + dossier UI.
+- Replaced `src/games/decl6-detective/index.js` with a new gameplay loop: room investigation, answer lock/unlock flow, hearts/timer pressure, scoring/streak system, and restart/victory/gameover states.
+- Added deterministic automation hooks: `window.render_game_to_text` (includes room coordinates + clue state) and `window.advanceTime(ms)`.
+- Re-themed `src/games/decl6-detective/styles.css` for the new layout and mobile/fullscreen behavior.
+- Added smoke coverage in `e2e/smoke.spec.js` for starting the detective game, solving one clue, and advancing to the next case.
+- Playwright skill loop run with `$WEB_GAME_CLIENT` + temporary local server on port `4173`.
+- Fixed web-game client blocker: removed `frame-ancestors` from page-level meta CSP to stop console error spam that halted iteration captures.
+- Fixed automation instability: switched menu loop to stop rewriting timer text every frame when not in `playing` mode.
+- Adjusted canvas status banner so non-playing modes render explicit status (`menu` / `gameover` / `victory`).
+- Captured and reviewed canvas screenshots + state dumps under:
+  - `output/web-game/decl6-pass4/`
+  - `output/web-game/decl6-pass5/`
+- Added robust e2e solve logic to avoid ambiguous text matches (`valsts` vs `valsts (pl.)`).
+
+## 2026-02-26 - Validation summary
+
+- `npm run test:e2e -- e2e/smoke.spec.js -g "decl6 detective"` ✅
+- `npm test` ✅ (59/59)
+- `npm run lint` ✅
+
+## TODO / Suggestions for next agent
+
+- Investigate why Playwright reports `#decl6-start` as unstable for direct mouse click and consider removing that fragility (keyboard start already works reliably).
+- Consider adding one more e2e assertion that validates hearts/time penalties after wrong-room investigation.
+- Optional UX improvement: add an explicit focus outline/state in the dossier options for keyboard-only learners.
+
+## 2026-02-26 - Decl6 instructions added
+
+- Added a dedicated in-game `Kā spēlēt / How to play` instructions block in the dossier (`decl6-detective.html`).
+- Instructions now explain full round flow: start, room navigation, investigation, answer selection, penalties, and win condition.
+- Added styles for a readable collapsible instruction panel in `src/games/decl6-detective/styles.css`.
+- Validation: `npm run test:e2e -- e2e/smoke.spec.js -g "decl6 detective"` passed.

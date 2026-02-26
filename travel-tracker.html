@@ -73,10 +73,10 @@
                 ><span class="tt-label" data-i18n-key="streak">Streak</span>:
                 <strong>0</strong></span
               >
-              <span class="travel-pill" id="tt-level">Level <strong>1</strong></span>
-              <span class="travel-panel__progress" id="tt-progress" data-i18n-key="progressLabel"
-                >Question <strong>1</strong></span
+              <span class="travel-pill tt-multiplier" id="tt-multiplier" hidden aria-hidden="true"
+                >×1</span
               >
+              <span class="travel-pill" id="tt-level">Level <strong>1</strong></span>
               <button
                 class="btn tt-restart"
                 id="tt-restart"
@@ -85,6 +85,16 @@
               >
                 Restart
               </button>
+            </div>
+            <div
+              class="tt-progress"
+              id="tt-progress"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+            >
+              <div class="tt-progress__fill" id="tt-progress-bar"></div>
             </div>
             <div class="travel-panel__content">
               <div
@@ -124,7 +134,10 @@
                 aria-live="polite"
                 aria-atomic="true"
                 role="status"
-              ></div>
+              >
+                <span class="tt-feedback-message" id="tt-feedback-message"></span>
+                <small id="tt-hint" class="tt-hint-inline" hidden></small>
+              </div>
             </div>
             <div class="travel-panel__actions">
               <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">
@@ -137,11 +150,6 @@
           </div>
         </div>
       </section>
-
-      <p class="travel-tracker-hint mt-3 text-muted small">
-        <span data-i18n-key="hint">Padoms</span>:
-        <span id="tt-hint">—</span>
-      </p>
 
       <div id="tt-live" class="visually-hidden" aria-live="polite"></div>
     </main>

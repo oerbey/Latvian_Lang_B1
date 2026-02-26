@@ -7,6 +7,12 @@ export function normalizeAnswer(str) {
   return sanitizeText(str).toLocaleLowerCase('lv-LV');
 }
 
+function getMultiplier(streak) {
+  if (streak >= 6) return 3;
+  if (streak >= 3) return 2;
+  return 1;
+}
+
 export function attachButtonBehavior(node, handler) {
   if (!node || typeof handler !== 'function') return;
   const invoke = (event) => {
@@ -42,33 +48,33 @@ export function createUI({
   setAnimationId,
   busAnimationMs,
 }) {
+  let prevMultiplier = 1;
+
   function updateProgressIndicator() {
-    if (!selectors.progress) return;
+    if (!selectors.progress || !selectors.progressBar) return;
     const strings = getStrings();
     const { current, total } = getProgressPosition(state);
+    const locale = document.documentElement?.lang || 'lv';
     if (!total) {
-      selectors.progress.textContent = strings.progressIdle ?? '';
+      selectors.progressBar.style.width = '0%';
+      selectors.progress.setAttribute('aria-valuenow', '0');
       selectors.progress.setAttribute('aria-label', strings.progressIdle ?? '');
       return;
     }
-    const locale = document.documentElement?.lang || 'lv';
+    const clampedCurrent = Math.min(current, total);
+    const progressRatio = total > 0 ? clampedCurrent / total : 0;
+    const progressPercent = Math.round(progressRatio * 100);
+    selectors.progressBar.style.width = `${progressPercent}%`;
+    selectors.progress.setAttribute('aria-valuenow', String(progressPercent));
     const rawLabel = strings.progressLabel;
     const label =
       typeof rawLabel === 'object'
-        ? formatPlural(locale, current, rawLabel, 'Question')
+        ? formatPlural(locale, clampedCurrent, rawLabel, 'Question')
         : (rawLabel ?? 'Question');
-    selectors.progress.replaceChildren();
-    const labelNode = document.createElement('span');
-    labelNode.textContent = `${label} `;
-    const strong = document.createElement('strong');
-    strong.textContent = `${formatNumber(current, locale)}/${formatNumber(total, locale)}`;
-    selectors.progress.append(labelNode, strong);
-    const ofSegment = strings.progressOf
-      ? `${strings.progressOf} ${formatNumber(total, locale)}`
-      : `${formatNumber(total, locale)}`;
+    const ofToken = strings.progressOf ?? '/';
     selectors.progress.setAttribute(
       'aria-label',
-      `${label} ${formatNumber(current, locale)} ${ofSegment}`.trim(),
+      `${label} ${formatNumber(clampedCurrent, locale)} ${ofToken} ${formatNumber(total, locale)}`.trim(),
     );
   }
 
@@ -88,9 +94,6 @@ export function createUI({
 
     const prompt = document.querySelector('[data-i18n-key="prompt"]');
     if (prompt && strings.prompt) prompt.textContent = strings.prompt;
-
-    const hintLabel = document.querySelector('[data-i18n-key="hint"]');
-    if (hintLabel && strings.hint) hintLabel.textContent = strings.hint;
 
     const scoreLabel = selectors.score?.querySelector('[data-i18n-key="score"]');
     if (scoreLabel && strings.score) scoreLabel.textContent = strings.score;
@@ -148,6 +151,7 @@ export function createUI({
 
   function drawRouteLine(from, to, { completed } = { completed: false }) {
     const overlaySvg = getOverlaySvg();
+    selectors.map?.classList.toggle('is-correct', Boolean(completed && from && to));
     if (!overlaySvg) return;
     overlaySvg.replaceChildren();
     if (!from || !to) return;
@@ -186,6 +190,21 @@ export function createUI({
         levelBadge.textContent = `${strings.level ?? 'Level'} —`;
       }
     }
+    if (selectors.multiplier) {
+      const multiplier = getMultiplier(state.streak);
+      const isActive = multiplier > 1;
+      selectors.multiplier.textContent = `×${multiplier}`;
+      selectors.multiplier.hidden = !isActive;
+      selectors.multiplier.classList.toggle('tt-multiplier--active', isActive);
+      selectors.multiplier.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      selectors.multiplier.classList.remove('tt-multiplier--pulse');
+      if (isActive && multiplier > prevMultiplier) {
+        // Force reflow so pulse can replay when multiplier steps up.
+        void selectors.multiplier.offsetWidth;
+        selectors.multiplier.classList.add('tt-multiplier--pulse');
+      }
+      prevMultiplier = multiplier;
+    }
     updateProgressIndicator();
   }
 
@@ -211,14 +230,40 @@ export function createUI({
   }
 
   function clearFeedback() {
-    selectors.feedback.textContent = '';
+    setFeedbackMessage('');
     selectors.feedback.classList.remove('is-correct', 'is-wrong');
+    setHint();
     updateLive('');
   }
 
   function setHint(text) {
     const strings = getStrings();
-    selectors.hint.textContent = text ?? strings.noHint ?? '—';
+    const trimmed = typeof text === 'string' ? text.trim() : '';
+    if (!trimmed) {
+      selectors.hint.textContent = '';
+      selectors.hint.hidden = true;
+      selectors.hint.classList.remove('is-visible');
+      return;
+    }
+    const label = strings.hint ?? 'Hint';
+    selectors.hint.textContent = `${label}: ${trimmed}`;
+    selectors.hint.hidden = false;
+    selectors.hint.classList.add('is-visible');
+  }
+
+  function setFeedbackMessage(message = '', tone = '') {
+    selectors.feedbackMessage.textContent = message;
+    selectors.feedback.classList.remove('is-correct', 'is-wrong');
+    if (tone === 'correct') {
+      selectors.feedback.classList.add('is-correct');
+    } else if (tone === 'wrong') {
+      selectors.feedback.classList.add('is-wrong');
+    }
+    updateLive(message);
+  }
+
+  function setChoicesCompleted(isCompleted) {
+    selectors.choices.classList.toggle('is-completed', Boolean(isCompleted));
   }
 
   function syncChoiceSelection(value = '') {
@@ -234,6 +279,7 @@ export function createUI({
 
   function updateChoices(route) {
     selectors.choices.replaceChildren();
+    selectors.choices.classList.remove('is-completed');
     if (!route) return;
     const options = new Set([...(route.answers ?? []), ...(route.distractors ?? [])]);
     if (options.size === 0) return;
@@ -284,6 +330,8 @@ export function createUI({
     drawRouteLine,
     hasInputValue,
     moveBusTo,
+    setChoicesCompleted,
+    setFeedbackMessage,
     setHint,
     syncChoiceSelection,
     updateChoices,

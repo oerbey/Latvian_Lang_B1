@@ -9,6 +9,29 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+function applyLatvianFlagFavicon() {
+  const flagHref = new URL('assets/icons/latvia-flag.svg', document.baseURI).toString();
+  const faviconSelectors = ['link[rel="icon"]', 'link[rel="shortcut icon"]'];
+  const existing = document.querySelectorAll(faviconSelectors.join(','));
+
+  if (existing.length > 0) {
+    existing.forEach((link) => {
+      link.setAttribute('href', flagHref);
+      link.setAttribute('type', 'image/svg+xml');
+      link.removeAttribute('sizes');
+    });
+    return;
+  }
+
+  const icon = document.createElement('link');
+  icon.rel = 'icon';
+  icon.type = 'image/svg+xml';
+  icon.href = flagHref;
+  document.head.append(icon);
+}
+
+applyLatvianFlagFavicon();
+
 const OFFLINE_BANNER_ID = 'llb1-offline';
 
 function ensureOfflineBanner() {

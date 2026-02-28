@@ -2,12 +2,92 @@ import { mountDnD } from './dnd.js';
 import { getTable } from './endings-resolver.js';
 import { createIcon, updateIcon } from '../../lib/icon.js';
 
+function interpolate(template, values) {
+  if (!template) return '';
+  return template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? '');
+}
+
+export function resolveGramColumnKey(gram) {
+  if (!gram) return '';
+  if (gram.gender) return `${gram.number}_${gram.gender}`;
+  return gram.number;
+}
+
+export function formatGramLabel(gram, strings) {
+  const caseLabel = strings.cases?.[gram.case] || gram.case;
+  const columnKey = resolveGramColumnKey(gram);
+  const numberLabel = strings.labels.columns?.[columnKey] || columnKey;
+  return `${caseLabel} · ${numberLabel}`;
+}
+
+export function buildRoundBrief({ round, state, strings }) {
+  const gramLabel = formatGramLabel(round.gram, strings);
+  const lemma =
+    round.item.translation?.lv ||
+    round.item.translation?.en ||
+    round.item.display ||
+    `${round.item.stem}-`;
+  const meaning = round.item.translation?.en || round.item.translation?.lv || '';
+
+  return {
+    eyebrow: interpolate(strings.round?.eyebrow || 'Round {round}', {
+      round: `${state?.roundNumber || 1}`,
+    }),
+    title: interpolate(strings.round?.targetTemplate || 'Build the {gram} form.', {
+      gram: gramLabel,
+    }),
+    meta: interpolate(strings.round?.wordTemplate || 'Word: {lemma} ({meaning})', {
+      lemma,
+      meaning,
+    }).trim(),
+    gramLabel,
+  };
+}
+
 export function applyStrings({ elements, strings }) {
-  const { headingEl, subtitleEl, feedbackEl, answerInput, keypadEl, pool } = elements;
+  const {
+    headingEl,
+    subtitleEl,
+    controlsHeadingEl,
+    boardHeadingEl,
+    buildZoneTitleEl,
+    optionsZoneTitleEl,
+    pickHelpEl,
+    roundBriefEl,
+    feedbackEl,
+    answerInput,
+    answerHelpEl,
+    keypadEl,
+    pool,
+  } = elements;
+
   headingEl.textContent = strings.title;
   subtitleEl.textContent = strings.subtitle;
+  if (controlsHeadingEl)
+    controlsHeadingEl.textContent = strings.sections?.controls || 'Round controls';
+  if (boardHeadingEl) boardHeadingEl.textContent = strings.sections?.workspace || 'Build workspace';
+  if (buildZoneTitleEl)
+    buildZoneTitleEl.textContent = strings.sections?.buildZone || 'Build the form';
+  if (optionsZoneTitleEl)
+    optionsZoneTitleEl.textContent =
+      strings.sections?.endingZone || strings.labels.options || 'Endings';
+  if (pickHelpEl)
+    pickHelpEl.textContent =
+      strings.labels.pickHelp || 'Tip: click an ending to place it instantly, or drag it.';
+
+  if (roundBriefEl) {
+    roundBriefEl.textContent = strings.round?.loading || 'Loading round...';
+  }
+
   feedbackEl.setAttribute('aria-label', strings.subtitle);
   answerInput.setAttribute('aria-label', strings.labels.answer);
+  answerInput.setAttribute(
+    'placeholder',
+    strings.labels.answerPlaceholder || strings.labels.answer,
+  );
+  if (answerHelpEl)
+    answerHelpEl.textContent =
+      strings.labels.answerHelp || 'Type the full form, then press Enter or Check.';
   keypadEl.setAttribute('aria-label', strings.labels.keypad);
   pool.setAttribute('aria-label', strings.labels.options || 'Endings');
 }
@@ -68,10 +148,33 @@ export function setupKeypad({ keypadEl, letters, onInsert }) {
   });
 }
 
-export function renderRound({ round, elements, strings, buildOptions, onDrop }) {
-  const { board, pool } = elements;
+function renderRoundBrief({ round, state, strings, roundBriefEl }) {
+  if (!roundBriefEl) return;
+  const brief = buildRoundBrief({ round, state, strings });
+  roundBriefEl.replaceChildren();
+
+  const eyebrow = document.createElement('p');
+  eyebrow.className = 'eb-round-brief__eyebrow';
+  eyebrow.textContent = brief.eyebrow;
+
+  const title = document.createElement('p');
+  title.className = 'eb-round-brief__title';
+  title.textContent = brief.title;
+
+  const meta = document.createElement('p');
+  meta.className = 'eb-round-brief__meta';
+  meta.textContent = brief.meta;
+
+  roundBriefEl.append(eyebrow, title, meta);
+}
+
+export function renderRound({ round, state, elements, strings, buildOptions, onDrop }) {
+  const { board, pool, roundBriefEl } = elements;
   board.replaceChildren();
   pool.replaceChildren();
+
+  renderRoundBrief({ round, state, strings, roundBriefEl });
+
   const stemEl = document.createElement('div');
   stemEl.className = 'eb-stem';
   stemEl.dataset.pos = round.item.pos;
@@ -85,7 +188,10 @@ export function renderRound({ round, elements, strings, buildOptions, onDrop }) 
   slot.className = 'eb-slot';
   slot.dataset.placeholder = strings.labels.dropPlaceholder;
   slot.dataset.role = 'slot';
-  slot.setAttribute('aria-label', strings.labels.dropPlaceholder);
+  slot.setAttribute(
+    'aria-label',
+    `${strings.labels.dropPlaceholder}: ${formatGramLabel(round.gram, strings)}`,
+  );
 
   board.append(stemEl, slot);
 

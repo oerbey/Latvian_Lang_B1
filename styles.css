@@ -2423,15 +2423,13 @@ body {
 }
 
 .dp-nav__brand-icon {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 27px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--dp-accent), var(--dp-teal));
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 800;
+  object-fit: cover;
+  display: block;
+  border: 1px solid color-mix(in srgb, var(--dp-border) 70%, transparent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--dp-shadow-strong) 55%, transparent);
 }
 
 .dp-nav__links {

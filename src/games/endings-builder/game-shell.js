@@ -8,6 +8,23 @@ function button(label, opts = {}) {
   return btn;
 }
 
+function statCard(label, key) {
+  const wrap = document.createElement('div');
+  wrap.className = 'eb-shell__stat';
+  wrap.dataset.value = key;
+
+  const labelEl = document.createElement('span');
+  labelEl.className = 'eb-shell__label';
+  labelEl.textContent = label;
+
+  const valueEl = document.createElement('strong');
+  valueEl.className = 'eb-shell__value';
+  valueEl.textContent = '0';
+
+  wrap.append(labelEl, valueEl);
+  return { wrap, valueEl };
+}
+
 function isTypingTarget(target) {
   return (
     target instanceof HTMLInputElement ||
@@ -25,11 +42,10 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
 
   const score = document.createElement('div');
   score.className = 'eb-shell__score';
-  const scoreHits = document.createElement('span');
-  const scoreStreak = document.createElement('span');
-  scoreHits.dataset.value = 'hits';
-  scoreStreak.dataset.value = 'streak';
-  score.append(scoreHits, scoreStreak);
+  const hitsStat = statCard(strings.labels.score, 'hits');
+  const streakStat = statCard(strings.labels.streak, 'streak');
+  const accuracyStat = statCard(strings.labels.accuracy || 'Accuracy', 'accuracy');
+  score.append(hitsStat.wrap, streakStat.wrap, accuracyStat.wrap);
 
   const controls = document.createElement('div');
   controls.className = 'eb-shell__controls';
@@ -69,19 +85,10 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
   root.append(live);
 
   const updateScore = ({ attempts = 0, correct = 0, streak = 0 }) => {
-    scoreHits.replaceChildren();
-    scoreStreak.replaceChildren();
-    const hitsText = document.createElement('span');
-    hitsText.textContent = `${strings.labels.score}: `;
-    const hitsStrong = document.createElement('strong');
-    hitsStrong.textContent = `${correct}/${attempts}`;
-    scoreHits.append(hitsText, hitsStrong);
-
-    const streakText = document.createElement('span');
-    streakText.textContent = `${strings.labels.streak}: `;
-    const streakStrong = document.createElement('strong');
-    streakStrong.textContent = `${streak}`;
-    scoreStreak.append(streakText, streakStrong);
+    const accuracy = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+    hitsStat.valueEl.textContent = `${correct}/${attempts}`;
+    streakStat.valueEl.textContent = `${streak}`;
+    accuracyStat.valueEl.textContent = `${accuracy}%`;
   };
 
   checkBtn.addEventListener('click', () => onCheck?.());
@@ -123,6 +130,9 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
     },
     setRuleLabel(label) {
       ruleBtn.textContent = label;
+    },
+    setNextLabel(label) {
+      nextBtn.textContent = label;
     },
     disableCheck(disabled) {
       checkBtn.disabled = disabled;

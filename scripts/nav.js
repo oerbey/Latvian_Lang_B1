@@ -34,7 +34,12 @@ function renderNav() {
   nav.innerHTML = `
     <div class="dp-container dp-nav__inner">
       <a href="index.html" class="dp-nav__brand">
-        <span class="dp-nav__brand-icon">LV</span>
+        <img
+          class="dp-nav__brand-icon"
+          src="assets/icons/latvia-flag.svg"
+          alt=""
+          aria-hidden="true"
+        />
         Latvian B1
       </a>
       <button class="dp-nav__hamburger" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>

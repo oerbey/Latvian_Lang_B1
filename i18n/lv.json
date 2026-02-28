@@ -60,15 +60,32 @@
     "buttons": {
       "check": "Pārbaudīt (Enter)",
       "next": "Nākamais (N)",
+      "skip": "Izlaist (N)",
       "rule": "Rādīt noteikumu",
       "ruleHide": "Slēpt noteikumu",
       "report": "Ziņot par kļūdu"
     },
+    "sections": {
+      "controls": "Raunda vadība",
+      "workspace": "Veidošanas zona",
+      "buildZone": "Veido formu",
+      "endingZone": "Galotņu banka"
+    },
+    "round": {
+      "loading": "Ielādē raundu...",
+      "eyebrow": "Raunds {round}",
+      "targetTemplate": "Izveido formu: {gram}.",
+      "wordTemplate": "Vārds: {lemma} ({meaning})"
+    },
     "labels": {
       "score": "Rezultāts",
       "streak": "Sērija",
+      "accuracy": "Precizitāte",
       "strict": "Stingrais režīms",
       "answer": "Ieraksti pilno formu",
+      "answerPlaceholder": "Ieraksti pilno formu un spied Enter",
+      "answerHelp": "Ieraksti pilno formu un spied Enter vai “Pārbaudīt”.",
+      "pickHelp": "Padoms: uzklikšķini uz galotnes, lai to ievietotu uzreiz, vai velc to.",
       "keypad": "Latviešu burti",
       "options": "Galotnes",
       "dropPlaceholder": "Nomet galotni",
@@ -87,6 +104,7 @@
     "feedback": {
       "correct": "Pareizi!",
       "incorrect": "Nepareizi — paskaties noteikumu.",
+      "empty": "Vispirms ieraksti atbildi.",
       "fallback": "Pieņēmu formu bez diakritiskajām zīmēm. Ieslēdz stingro režīmu, lai tās vingrinātu."
     },
     "icons": {

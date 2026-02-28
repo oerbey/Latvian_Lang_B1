@@ -60,15 +60,32 @@
     "buttons": {
       "check": "Check (Enter)",
       "next": "Next (N)",
+      "skip": "Skip (N)",
       "rule": "Show rule",
       "ruleHide": "Hide rule",
       "report": "Report error"
     },
+    "sections": {
+      "controls": "Round controls",
+      "workspace": "Build workspace",
+      "buildZone": "Build the form",
+      "endingZone": "Ending bank"
+    },
+    "round": {
+      "loading": "Loading round...",
+      "eyebrow": "Round {round}",
+      "targetTemplate": "Build the {gram} form.",
+      "wordTemplate": "Word: {lemma} ({meaning})"
+    },
     "labels": {
       "score": "Score",
       "streak": "Streak",
+      "accuracy": "Accuracy",
       "strict": "Strict diacritics",
       "answer": "Type the full form",
+      "answerPlaceholder": "Type the full form and press Enter",
+      "answerHelp": "Type the full form, then press Enter or Check.",
+      "pickHelp": "Tip: click an ending to place it instantly, or drag it.",
       "keypad": "Latvian letters",
       "options": "Endings",
       "dropPlaceholder": "Drop ending",
@@ -87,6 +104,7 @@
     "feedback": {
       "correct": "Correct!",
       "incorrect": "Wrong — check the rule.",
+      "empty": "Type an answer first.",
       "fallback": "Accepted without diacritics. Enable strict mode to practise marks."
     },
     "icons": {

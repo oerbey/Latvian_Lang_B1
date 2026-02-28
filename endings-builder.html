@@ -61,7 +61,36 @@
 
           <section class="dp-ex-panel eb-panel" aria-labelledby="eb-controls-heading">
             <div class="dp-ex-panel__body">
-              <h2 id="eb-controls-heading" class="dp-ex-panel__title">Round Controls</h2>
+              <h2 id="eb-controls-heading" class="dp-ex-panel__title" data-eb-controls-heading>
+                Round Controls
+              </h2>
+              <details class="eb-howto">
+                <summary>Kā spēlēt / How to play</summary>
+                <div class="eb-howto__grid">
+                  <section aria-labelledby="eb-howto-lv">
+                    <h3 id="eb-howto-lv">Latviski</h3>
+                    <ol>
+                      <li>Nolasi mērķa formu panelī “Round focus”.</li>
+                      <li>Uzklikšķini galotni un ievieto to pie saknes (vai velc ar peli).</li>
+                      <li>Ieraksti pilno formu laukā un spied Enter vai “Pārbaudīt”.</li>
+                      <li>“Rādīt noteikumu” parāda locīšanas tabulu tieši šim vārdam.</li>
+                      <li>
+                        “Izlaist / Nākamais” pāriet uz nākamo raundu; pareiza atbilde ceļ sēriju.
+                      </li>
+                    </ol>
+                  </section>
+                  <section aria-labelledby="eb-howto-en">
+                    <h3 id="eb-howto-en">English</h3>
+                    <ol>
+                      <li>Read the target form in the “Round focus” panel.</li>
+                      <li>Select an ending and place it onto the stem (or drag and drop).</li>
+                      <li>Type the full form and press Enter or “Check”.</li>
+                      <li>Use “Show rule” to open the declension table for this word.</li>
+                      <li>“Skip / Next” moves forward; correct answers build your streak.</li>
+                    </ol>
+                  </section>
+                </div>
+              </details>
               <div data-game-shell></div>
               <div class="eb-feedback" aria-live="polite">
                 <span class="eb-feedback__icon" data-feedback-icon></span>
@@ -73,10 +102,26 @@
 
           <section class="dp-ex-board eb-workspace" aria-labelledby="eb-board-heading">
             <div class="dp-ex-board__header">
-              <h2 id="eb-board-heading" class="dp-ex-board__title">Build Workspace</h2>
+              <h2 id="eb-board-heading" class="dp-ex-board__title" data-eb-board-heading>
+                Build Workspace
+              </h2>
             </div>
-            <div class="eb-board" id="ebBoard"></div>
-            <div class="eb-board" id="ebOptions" aria-label="Endings"></div>
+            <article class="eb-round-brief" data-eb-round-brief aria-live="polite"></article>
+            <div class="eb-workspace-grid">
+              <section class="eb-zone" aria-labelledby="eb-build-zone-title">
+                <h3 id="eb-build-zone-title" class="eb-zone__title" data-eb-build-zone-title>
+                  Build the form
+                </h3>
+                <div class="eb-board" id="ebBoard"></div>
+              </section>
+              <section class="eb-zone" aria-labelledby="eb-options-zone-title">
+                <h3 id="eb-options-zone-title" class="eb-zone__title" data-eb-options-zone-title>
+                  Ending bank
+                </h3>
+                <div class="eb-board eb-board--options" id="ebOptions" aria-label="Endings"></div>
+                <p class="eb-pick-help" data-eb-pick-help></p>
+              </section>
+            </div>
 
             <label class="w-100 eb-answer-wrap">
               <span class="visually-hidden" id="ebAnswerLabel">Type the full form</span>
@@ -87,6 +132,7 @@
                 autocomplete="off"
               />
             </label>
+            <p class="eb-answer-help" data-eb-answer-help></p>
             <div class="eb-keypad" aria-label="Latvian letters"></div>
           </section>
         </section>

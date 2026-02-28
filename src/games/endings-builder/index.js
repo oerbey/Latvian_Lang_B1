@@ -54,7 +54,14 @@ async function init() {
       explainEl: mustQuery('[data-eb-explain]'),
       headingEl: mustQuery('[data-eb-heading]'),
       subtitleEl: mustQuery('[data-eb-subtitle]'),
+      controlsHeadingEl: mustQuery('[data-eb-controls-heading]'),
+      boardHeadingEl: mustQuery('[data-eb-board-heading]'),
+      buildZoneTitleEl: mustQuery('[data-eb-build-zone-title]'),
+      optionsZoneTitleEl: mustQuery('[data-eb-options-zone-title]'),
+      pickHelpEl: mustQuery('[data-eb-pick-help]'),
+      roundBriefEl: mustQuery('[data-eb-round-brief]'),
       answerInput: mustQuery('.eb-answer'),
+      answerHelpEl: mustQuery('[data-eb-answer-help]'),
       keypadEl: mustQuery('.eb-keypad'),
     };
 
@@ -67,6 +74,7 @@ async function init() {
     state = {
       current: null,
       solved: false,
+      roundNumber: 0,
       attempts: 0,
       correct: 0,
       streak: 0,
@@ -124,6 +132,11 @@ async function init() {
     });
     elements.answerInput.addEventListener('input', () => {
       state.lastAttemptKey = null;
+    });
+    elements.answerInput.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') return;
+      event.preventDefault();
+      handlers?.checkTyped();
     });
 
     handlers.nextRound();

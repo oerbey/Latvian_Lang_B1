@@ -97,13 +97,31 @@ test('conjugation sprint supports timed and untimed play modes', async ({ page }
     .toBe(true);
 });
 
-test('endings builder loads and renders board controls', async ({ page }) => {
+test('endings builder shows instructions, target context, and keyboard check flow', async ({
+  page,
+}) => {
   await page.goto('/endings-builder.html');
   await expect(page.locator('[data-eb-heading]')).toBeVisible();
-  await expect(page.locator('#ebBoard')).toBeVisible();
-  await expect(page.locator('#ebOptions')).toBeVisible();
+  await expect(page.locator('[data-eb-round-brief]')).toBeVisible();
+  await expect(page.locator('[data-eb-round-brief]')).toContainText(/Raunds|Round/);
+  await expect(page.locator('#ebBoard .eb-slot')).toBeVisible();
+  await expect(page.locator('#ebOptions .eb-ending').first()).toBeVisible();
   await expect(page.locator('.eb-shell')).toBeVisible();
-  await expect(page.locator('.eb-shell__controls button').first()).toBeVisible();
+  await expect(page.getByRole('button', { name: /Izlaist|Skip/ })).toBeVisible();
+
+  const howTo = page.locator('.eb-howto');
+  await expect(howTo).toBeVisible();
+  await howTo.locator('summary').click();
+  await expect(howTo).toHaveAttribute('open', '');
+  await expect(howTo).toContainText('Latviski');
+  await expect(howTo).toContainText('English');
+
+  const hits = page.locator('.eb-shell__stat[data-value="hits"] .eb-shell__value');
+  const slot = page.locator('#ebBoard .eb-slot');
+  await expect(hits).toHaveText('0/0');
+  await page.locator('#ebOptions .eb-ending').first().click();
+  await expect(slot).toHaveClass(/has-ending/);
+  await expect(hits).not.toHaveText('0/0');
 });
 
 test('decl6 detective starts and solves a clue', async ({ page }) => {

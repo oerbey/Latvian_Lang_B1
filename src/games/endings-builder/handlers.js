@@ -59,6 +59,7 @@ export function createHandlers({
     const strings = getStrings();
     renderRound({
       round: state.current,
+      state,
       elements,
       strings,
       buildOptions,
@@ -70,17 +71,20 @@ export function createHandlers({
     const rounds = getRounds();
     const strings = getStrings();
     state.current = pickNextRound(rounds);
+    state.roundNumber = (state.roundNumber ?? 0) + 1;
     state.solved = false;
     state.lastAttemptKey = null;
     shell.disableCheck(false);
     shell.setRuleActive(false);
     shell.setRuleLabel(strings.buttons.rule);
+    shell.setNextLabel(strings.buttons.skip || strings.buttons.next);
     explainEl.classList.add('visually-hidden');
     explainEl.replaceChildren();
     setFeedback('', '');
     answerInput.value = '';
     answerInput.disabled = false;
     renderCurrentRound();
+    answerInput.focus();
   }
 
   function pickNextRound(rounds) {
@@ -119,6 +123,8 @@ export function createHandlers({
       answerInput.value = state.current.fullForm;
       answerInput.disabled = true;
       state.solved = true;
+      shell.disableCheck(true);
+      shell.setNextLabel(strings.buttons.next);
       renderExplanation({ round: state.current, strings, explainEl, shell });
     } else {
       slotEl.classList.add('is-wrong');
@@ -135,7 +141,10 @@ export function createHandlers({
     const strings = getStrings();
     if (state.solved) return;
     const value = norm(answerInput.value.trim());
-    if (!value) return;
+    if (!value) {
+      setFeedback(feedbackIcons.info, strings.feedback.empty || 'Type an answer first.');
+      return;
+    }
     const attemptKey = `type:${state.current.id}:${value}`;
     if (attemptKey === state.lastAttemptKey) return;
     state.lastAttemptKey = attemptKey;
@@ -153,11 +162,28 @@ export function createHandlers({
       answerInput.value = state.current.fullForm;
       answerInput.disabled = true;
       state.solved = true;
+      shell.disableCheck(true);
+      shell.setNextLabel(strings.buttons.next);
+      placeSolvedEnding();
       renderExplanation({ round: state.current, strings, explainEl, shell });
       shell.announce(strings.announce.correct);
     } else {
       shell.announce(strings.announce.incorrect);
     }
+  }
+
+  function placeSolvedEnding() {
+    const slot = elements.board?.querySelector('.eb-slot');
+    if (!slot) return;
+    slot.replaceChildren();
+    const endingEl = document.createElement('div');
+    endingEl.className = 'eb-ending is-locked';
+    endingEl.textContent = state.current.ending;
+    endingEl.setAttribute('aria-hidden', 'true');
+    slot.append(endingEl);
+    slot.classList.add('has-ending', 'is-correct');
+    slot.classList.remove('is-wrong');
+    slot.dataset.placeholder = '';
   }
 
   function toggleRule() {

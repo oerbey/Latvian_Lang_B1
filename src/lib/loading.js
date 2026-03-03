@@ -1,6 +1,11 @@
 let overlayEl = null;
 let messageEl = null;
 
+/**
+ * Ensure loading overlay element exists and is mounted to DOM.
+ * Reuses server-rendered element if available, otherwise creates on-demand.
+ * @returns {HTMLElement | null}
+ */
 function ensureOverlay() {
   if (typeof document === 'undefined') return null;
   if (overlayEl && overlayEl.isConnected) return overlayEl;
@@ -45,6 +50,11 @@ function ensureOverlay() {
   return overlayEl;
 }
 
+/**
+ * Show loading overlay with optional message; sets aria-busy on body.
+ * @param {string} [message='Loading...']
+ * @returns {boolean}
+ */
 export function showLoading(message = 'Loading...') {
   const overlay = ensureOverlay();
   if (!overlay) return false;
@@ -56,6 +66,10 @@ export function showLoading(message = 'Loading...') {
   return true;
 }
 
+/**
+ * Hide loading overlay and remove aria-busy attribute from body.
+ * @returns {boolean}
+ */
 export function hideLoading() {
   if (!overlayEl || !overlayEl.isConnected) {
     overlayEl = document.getElementById('llb1-loading-overlay');

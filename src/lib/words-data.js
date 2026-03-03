@@ -2,6 +2,12 @@ import { assetUrl } from './paths.js';
 
 const INDEX_PATH = 'data/words/index.json';
 
+/**
+ * Fetch JSON from URL; re-throws with descriptive error on 4xx/5xx.
+ * @param {string} url
+ * @param {object} [options]
+ * @returns {Promise<unknown>}
+ */
 async function fetchJson(url, options) {
   const res = await fetch(url, options);
   if (!res.ok) {
@@ -10,11 +16,21 @@ async function fetchJson(url, options) {
   return res.json();
 }
 
+/**
+ * Retrieve embedded fallback word dataset from window scope (offline support).
+ * @returns {Array | null}
+ */
 function getFallback() {
   if (typeof window === 'undefined') return null;
   return Array.isArray(window.__LATVIAN_WORDS__) ? window.__LATVIAN_WORDS__ : null;
 }
 
+/**
+ * Load words from chunked index; falls back to embedded data if fetch fails.
+ * Parallelizes chunk requests to minimize startup delay.
+ * @param {object} [options={cache: 'force-cache'}]
+ * @returns {Promise<{items: Array, usingFallback: boolean}>}
+ */
 export async function loadWords({ cache = 'force-cache' } = {}) {
   try {
     const indexUrl = assetUrl(INDEX_PATH);

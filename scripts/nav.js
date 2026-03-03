@@ -2,6 +2,7 @@ import { NAV_ITEMS } from './nav-config.js';
 
 function getCurrentPage() {
   const path = new URL(window.location.href).pathname;
+  // Treat trailing slash as `index.html` so active-link matching works on GitHub Pages.
   const trimmed = path.endsWith('/') ? `${path}index.html` : path;
   const parts = trimmed.split('/').filter(Boolean);
   return parts.pop() || 'index.html';
@@ -10,6 +11,7 @@ function getCurrentPage() {
 function normalizeHref(href) {
   try {
     const url = new URL(href, document.baseURI);
+    // Compare by page filename only to stay stable across subdirectory deployments.
     const parts = url.pathname.split('/').filter(Boolean);
     return parts.pop() || 'index.html';
   } catch {

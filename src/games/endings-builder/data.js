@@ -47,6 +47,7 @@ export async function loadStrings() {
   const langFallback = document.documentElement.lang || 'lv';
   const params = new URLSearchParams(location.search);
   const langPref = params.get('lang') || loadString('lang', '') || langFallback;
+  // Preserve user preference first, then hard-fallback to English.
   const order = [...new Set([langPref, 'en'])];
   const isFile = typeof window !== 'undefined' && window.location?.protocol === 'file:';
 
@@ -78,6 +79,7 @@ export async function loadStrings() {
 
   const fallback = window.__LL_I18N__?.en?.endingsBuilder;
   if (fallback) {
+    // Final safety net keeps UI usable when all external locale loads fail.
     console.warn('Falling back to embedded English i18n strings for endings builder.');
     document.documentElement.lang = 'en';
     return fallback;

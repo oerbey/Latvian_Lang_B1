@@ -6,11 +6,13 @@ async function loadEndings() {
   const fileUrl = new URL('../../../data/endings-builder/tables.json', import.meta.url);
   const fallback = typeof window !== 'undefined' ? window.__ENDINGS_DATA__ : undefined;
 
+  // `file:` mode (local open) cannot reliably fetch relative JSON, so prefer embedded payload.
   if (typeof window !== 'undefined' && window.location?.protocol === 'file:' && fallback) {
     return clone(fallback);
   }
 
   const isNode = typeof globalThis !== 'undefined' && globalThis.process?.versions?.node;
+  // Node test/runtime path: read fixture data directly from disk before trying network APIs.
   if (!fallback && isNode) {
     try {
       const [{ readFile }, { fileURLToPath }] = await Promise.all([
@@ -24,6 +26,7 @@ async function loadEndings() {
     }
   }
 
+  // Browser runtime path: fetch built JSON assets from the deployed public path.
   if (typeof fetch === 'function') {
     try {
       const url = assetUrl('data/endings-builder/tables.json');
@@ -35,6 +38,7 @@ async function loadEndings() {
     }
   }
 
+  // Last resort keeps the game usable offline when inline bootstrap data exists.
   if (fallback) {
     console.warn('Using embedded endings data fallback.');
     return clone(fallback);

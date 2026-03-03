@@ -92,6 +92,7 @@ function displayReward(reward) {
 export function showReward(reward = {}) {
   if (!reward?.title) return;
   if (isShowing) {
+    // Queue rewards to avoid overlapping animations/readability issues.
     queue.push(reward);
     return;
   }

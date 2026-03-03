@@ -28,6 +28,7 @@ function compareTrees(base, target, prefix, report) {
       }
       compareTrees(base[key], target[key], nextPath, report);
     }
+    // Extra keys are reported too, to keep locale payloads intentionally aligned.
     for (const key of Object.keys(target)) {
       if (!Object.prototype.hasOwnProperty.call(base, key)) {
         const extraPath = prefix ? `${prefix}.${key}` : key;

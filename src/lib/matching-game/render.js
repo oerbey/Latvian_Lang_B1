@@ -37,6 +37,7 @@ export function renderRound({ elements, items, currentLang, onRoundRendered }) {
   lv.forEach((o) => {
     elements.lvList.appendChild(createCard(o.text, o.key, 'lv'));
   });
+  // Shuffle a copy to preserve original key alignment with Latvian cards.
   shuffleInPlace(tr.slice()).forEach((o) => {
     elements.trList.appendChild(createCard(o.text, o.key, 'tr'));
   });

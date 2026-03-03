@@ -35,6 +35,18 @@
 - Keep UI text in Latvian/English strings close to components or in `i18n/` when shared.
 - Format files with `npm run format`; match existing two-space indentation.
 
+## Commenting Standards
+
+- Prefer self-explanatory code first; add comments only when intent, constraints, or tradeoffs are not obvious from names and structure.
+- Write comments that explain `why` and `when`, not line-by-line `what` the code is doing.
+- Keep comments short and specific (1-2 lines in most cases), placed directly above the logic they describe.
+- Add function-level docs for exported helpers when inputs/outputs, fallback behavior, or side effects are non-trivial.
+- Document edge cases and invariants near the branch/check that enforces them (for example fallback precedence, deterministic shuffle rules, strict-vs-lenient parsing).
+- When adding TODO/FIXME notes, include enough context to be actionable and searchable (for example `TODO(data): ...`).
+- Remove or update comments in the same change when behavior changes; stale comments are treated as bugs.
+- Do not leave commented-out code in committed files; rely on Git history instead.
+- Keep generated files comment-free unless the generator inserts them; add rationale in source scripts, not generated output.
+
 ## Testing Guidelines
 
 - Add Node test files under `test/` mirroring the source tree (e.g., `games/conjugation-sprint/index.test.js`), keeping the `.test.js` suffix.

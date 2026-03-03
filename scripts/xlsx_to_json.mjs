@@ -26,6 +26,7 @@ const rows = xlsx.utils.sheet_to_json(sheet, { defval: '' });
 const data = rows
   .map((row) => {
     const mapped = {};
+    // Accept fuzzy header names from spreadsheet exports (e.g. "English", "eng", "pos").
     for (const [k, v] of Object.entries(row)) {
       const nk = normalizeKey(k);
       if (nk.includes('lv')) mapped.lv = String(v).trim();
@@ -35,6 +36,7 @@ const data = rows
     }
     return mapped;
   })
+  // Require Latvian plus at least one translation target.
   .filter((r) => r.lv && (r.en || r.ru));
 
 fs.writeFileSync(outPath, JSON.stringify(data, null, 2), 'utf-8');

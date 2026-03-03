@@ -81,6 +81,7 @@ export function buildOptions(prompt, promptPool) {
 
   const distractors = [];
 
+  // Prefer "same verb + same tense" alternatives first to keep wrong answers plausible.
   promptPool.forEach((candidate) => {
     if (!candidate || candidate.key === prompt.key) return;
     if (candidate.verbIndex !== prompt.verbIndex) return;
@@ -88,6 +89,7 @@ export function buildOptions(prompt, promptPool) {
     addUnique(distractors, candidate.correct);
   });
 
+  // Next fallback: same tense + same pronoun slot from different verbs.
   if (distractors.length < 3) {
     promptPool.forEach((candidate) => {
       if (!candidate || candidate.key === prompt.key) return;
@@ -105,6 +107,7 @@ export function buildOptions(prompt, promptPool) {
     });
   }
 
+  // Final fallback: any remaining forms to guarantee 4 total options when possible.
   if (distractors.length < 3) {
     promptPool.forEach((candidate) => {
       if (!candidate || candidate.key === prompt.key) return;
@@ -121,6 +124,7 @@ export function buildOptions(prompt, promptPool) {
 export function calculateScoreDelta({ result, paceMode = 'timed', remainingMs = 0 }) {
   if (result === 'correct') {
     let bonus = 0;
+    // Timed mode rewards fast answers, but untimed keeps flat scoring.
     if (paceMode === 'timed') {
       if (remainingMs >= 5000) {
         bonus = 2;

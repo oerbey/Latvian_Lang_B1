@@ -5,6 +5,7 @@ function ensureOverlay() {
   if (typeof document === 'undefined') return null;
   if (overlayEl && overlayEl.isConnected) return overlayEl;
 
+  // Reuse server-rendered/static markup first, otherwise create overlay lazily.
   overlayEl = document.getElementById('llb1-loading-overlay');
   if (overlayEl) {
     messageEl = overlayEl.querySelector('[data-loading-message]');

@@ -22,6 +22,7 @@ export function startForgeRound() {
   const allForge = state.DATA?.forge || [];
   const pool = allForge.filter((e) => {
     if (!(e.games && e.games.includes('forge'))) return false;
+    // Accept target-language clue first, then fall back to English for partial datasets.
     return Boolean(e.translations?.[state.targetLang] ?? e.translations?.en);
   });
   if (!pool.length) {
@@ -37,6 +38,7 @@ export function startForgeRound() {
   const pick = pool[state.roundIndex % pool.length];
   const clue = pick.translations?.[state.targetLang] ?? pick.translations?.en;
   const opts = new Set([pick.correct]);
+  // Fill to five unique options while guaranteeing the correct prefix is present.
   while (opts.size < 5) opts.add(choice(ALL_PREFIXES));
   const options = shuffle(Array.from(opts));
   updateState((state) => {

@@ -43,6 +43,7 @@ export function initMatchingGame(options) {
   const mergedTexts = {
     ...DEFAULT_TEXTS,
     ...texts,
+    // Preserve nested defaults when callers override only part of locked-note strings.
     lockedNote: { ...DEFAULT_TEXTS.lockedNote, ...(texts.lockedNote || {}) },
   };
   const speakTexts = {
@@ -292,6 +293,7 @@ export function initMatchingGame(options) {
     const len = state.lockedOrder.length;
     if (!len) return { items: [], start: 0, ids: [] };
     const limit = Math.min(count, len);
+    // Cursor wraps across the locked set so each board starts from a deterministic point.
     const startIndex =
       typeof options.startIndex === 'number'
         ? ((options.startIndex % len) + len) % len
@@ -323,6 +325,7 @@ export function initMatchingGame(options) {
     const nextId = state.lockedOrder[normalizedCursor % state.lockedOrder.length] || null;
     const [entry] = state.lockedOrder.splice(idx, 1);
     const boardSize = Math.max(1, getRequestedBoardSize());
+    // Reinsert mistakes a few turns ahead instead of immediately, to avoid easy repeats.
     const distance = Math.max(
       1,
       Math.min(state.lockedOrder.length, priorityTurnsAhead * boardSize),
@@ -444,6 +447,7 @@ export function initMatchingGame(options) {
     const recentIdSet = new Set(state.recentSets.flat());
     const preferred = [];
     const fallback = [];
+    // Bias new mixes away from recently used ids, then backfill if needed.
     candidates.forEach((item) => {
       if (recentIdSet.has(item.id)) {
         fallback.push(item);
@@ -574,6 +578,7 @@ export function initMatchingGame(options) {
       const boardSize = Math.max(1, getBoardSize());
       const sliceOptions = {};
       if (options.reuseLastSlice && state.lastSliceStart !== null) {
+        // Count/language changes can rerender the same locked slice without advancing cursor.
         sliceOptions.startIndex = state.lastSliceStart;
         sliceOptions.advanceCursor = false;
       }
@@ -626,6 +631,7 @@ export function initMatchingGame(options) {
     const payload = await dataLoader();
     const items = Array.isArray(payload) ? payload : payload?.items || [];
     state.usingFallback = !!payload?.usingFallback;
+    // Normalize ids once so matching, stats, and persistence use the same stable key.
     items.forEach((item) => {
       const id = getItemId(item);
       const normalized = { ...item, id };

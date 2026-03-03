@@ -408,6 +408,7 @@ a {
 }
 
 /* Phones (480px and below): Further reduce touch targets to maintain readability */
+@media (max-width: 480px) {
   .week1-page #wrap {
     padding: 6px;
   }
@@ -437,6 +438,7 @@ a {
 }
 
 /* Very small phones (360px): Further optimize spacing while preserving touch targets */
+@media (max-width: 360px) {
   .week1-page button {
     padding: 10px 6px;
     font-size: 14px;

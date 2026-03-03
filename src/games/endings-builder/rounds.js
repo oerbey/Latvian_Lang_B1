@@ -13,6 +13,7 @@ export function buildRounds(items) {
     for (const gram of item.grams) {
       const ending = getEnding({ pos: item.pos, schema: item.schema, gram });
       if (!ending) continue;
+      // ID encodes lemma + grammatical slot so progress/results remain deterministic.
       const id = `${item.id}|${gram.case}|${gram.number}${gram.gender ? '|' + gram.gender : ''}`;
       rounds.push({
         id,
@@ -41,6 +42,7 @@ export function buildOptions(round, items) {
   const filtered = shuffle(choices.filter((v) => v !== correct));
   const needed = Math.max(0, 3 - filtered.length);
   if (needed > 0) {
+    // If a schema lacks enough endings, borrow distractors globally to keep 4 choices.
     const global = shuffle(collectGlobalEndings(items, correct));
     filtered.push(...global.slice(0, needed));
   }

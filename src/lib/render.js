@@ -19,12 +19,14 @@ export function setCanvasHeight(h) {
 
 export function updateCanvasScale() {
   const containerWidth = canvas.parentElement.offsetWidth;
+  // Keep a fixed logical canvas (980 x baseH) and scale only display pixels.
   scale = Math.min(1, containerWidth / 980);
   const displayWidth = 980 * scale;
   const displayHeight = baseH * scale;
   canvas.style.width = displayWidth + 'px';
   canvas.style.height = displayHeight + 'px';
   const dpr = window.devicePixelRatio || 1;
+  // Cap effective DPR while downscaled to limit overdraw cost on high-density screens.
   const scaledDpr = dpr > 1 && scale < 1 ? Math.min(dpr, 2) : 1;
   canvas.width = 980 * scaledDpr;
   canvas.height = baseH * scaledDpr;
@@ -93,6 +95,7 @@ let themeCache = { key: null, values: null };
 export function getCanvasTheme() {
   const root = document.documentElement;
   const key = root.getAttribute('data-bs-theme') || 'light';
+  // Theme values are cached per key to avoid repeated computed-style reads every frame.
   if (themeCache.key === key && themeCache.values) return themeCache.values;
   const styles = getComputedStyle(root);
   const read = (name, fallback) => styles.getPropertyValue(name).trim() || fallback;
@@ -132,6 +135,7 @@ export function setConfettiRenderer(renderer) {
 function scheduleConfettiFrame() {
   if (typeof requestAnimationFrame !== 'function') return;
   if (confettiFrameId !== null) return;
+  // Use a single RAF loop even when multiple confetti bursts are queued.
   confettiFrameId = requestAnimationFrame(stepConfetti);
 }
 

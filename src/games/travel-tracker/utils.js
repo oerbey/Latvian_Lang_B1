@@ -15,6 +15,7 @@ function toUint32(value) {
 export function createSeededRng(seed) {
   let state = toUint32(seed) || MULBERRY32_CONSTANT;
   return function rng() {
+    // Mulberry32 PRNG: fast deterministic randomness for repeatable route ordering.
     state += MULBERRY32_CONSTANT;
     let t = state;
     t = Math.imul(t ^ (t >>> 15), t | 1);
@@ -37,6 +38,7 @@ export function seededShuffle(input, rng = Math.random) {
 }
 
 export function stringToSeed(str) {
+  // FNV-1a hash converts stable string identifiers into uint32 seeds.
   let hash = 0x811c9dc5;
   for (let i = 0; i < str.length; i += 1) {
     hash ^= str.charCodeAt(i);

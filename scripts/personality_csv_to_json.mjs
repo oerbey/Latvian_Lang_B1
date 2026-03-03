@@ -11,6 +11,7 @@ function splitCsvLine(line) {
   const cols = [];
   let current = '';
   let inQuotes = false;
+  // Minimal CSV parser that supports escaped quotes and commas inside quoted fields.
   for (let i = 0; i < line.length; i += 1) {
     const ch = line[i];
     if (ch === '"') {
@@ -44,6 +45,7 @@ export function normalizeEnglish(value) {
 export function buildPersonalityData(text) {
   const lines = text.split(/\r?\n/);
   if (!lines.length) return { items: [], skipped: [] };
+  // Skip header row from the source CSV export.
   lines.shift();
   const items = [];
   const skipped = [];

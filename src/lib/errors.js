@@ -172,6 +172,7 @@ function buildOverlay(doc, info) {
 }
 
 export function showFatalError(error) {
+  // Only show one fatal overlay per session to prevent recursive UI noise.
   if (hasShown) return false;
   hasShown = true;
 
@@ -189,6 +190,7 @@ export function showFatalError(error) {
   } else {
     document.documentElement.appendChild(overlay);
   }
+  // Keep keyboard users inside the blocking dialog until page reload.
   trapFocus(overlay);
   return true;
 }

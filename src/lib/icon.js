@@ -46,6 +46,7 @@ const resolveIconPath = (name) => {
     return assetUrl(ICON_MAP[normalized]);
   }
 
+  // Unknown icons are resolved from theme-specific duotone folders.
   const folder = getTheme() === 'dark' ? 'duotone-dark' : 'duotone-light';
   return assetUrl(`${ICON_ROOT}/${folder}/${normalized}.svg`);
 };
@@ -87,6 +88,7 @@ export function initIcons() {
   observerAttached = true;
   const root = document.documentElement;
   if (!root) return;
+  // Refresh icon sources when theme attributes change.
   const observer = new MutationObserver(() => {
     refreshIcons();
   });

@@ -17,6 +17,7 @@ import { $id } from './dom.js';
 import { announceLive } from './aria.js';
 
 function buildMatchDeck(state) {
+  // Only include entries that are playable in match mode for the current target language.
   return state.DATA.units.flatMap((u) =>
     u.entries
       .filter((e) => e.games && e.games.includes('match') && e.translations[state.targetLang])
@@ -36,6 +37,7 @@ export function startMatchRound() {
   const deck = buildMatchDeck(state);
   let maxItems;
   if (state.deckSizeMode === 'auto') {
+    // Auto mode adapts board size to viewport scale to avoid clipped cards on mobile.
     const isMobile = scale < 0.7;
     const availableHeight = H - 140;
     const boxH = isMobile ? 80 : 46;
@@ -66,6 +68,7 @@ export function startMatchRound() {
   const gap = isMobile ? 16 : 14;
   const contentH = maxItems * (boxH + gap) - gap;
   const neededH = Math.max(560, 100 + contentH + 40);
+  // Match canvas height to current board size so scrolling only appears when required.
   setCanvasHeight(neededH);
   shuffle(right);
   updateState((state) => {
@@ -289,6 +292,7 @@ function hintForMismatch(k1, k2) {
   const pa = pref(a),
     pb = pref(b);
   if (pa || pb) {
+    // Prefix notes are stored in shared data notes and reused as contextual hints.
     const note = state.DATA.notes[`prefix:${pa || pb}`] || 'Skaties priedēkļa nozīmi.';
     return 'Priedēklis: ' + note;
   }

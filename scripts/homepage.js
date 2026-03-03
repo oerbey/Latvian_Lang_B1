@@ -210,6 +210,7 @@ function buildGameCard(game, index) {
 function renderGames() {
   const grid = document.getElementById('gamesGrid');
   if (!grid) return;
+  // Catalog is data-driven: adding entries to `games` automatically renders new cards.
   games.forEach((game, i) => {
     grid.appendChild(buildGameCard(game, i));
   });
@@ -253,6 +254,7 @@ function initReveal() {
   if (!sections.length) return;
 
   if (!('IntersectionObserver' in window)) {
+    // Fallback for older browsers: reveal content immediately.
     sections.forEach((s) => s.classList.add('dp-reveal--visible'));
     return;
   }

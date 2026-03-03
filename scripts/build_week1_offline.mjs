@@ -26,7 +26,7 @@ async function buildI18nBundle() {
     try {
       bundle[path.basename(file, '.json')] = await loadJson(filePath);
     } catch {
-      // ignore missing files
+      // Offline bundle build is best-effort for optional locale files.
     }
   }
   return bundle;
@@ -48,12 +48,12 @@ async function buildVocabBundle() {
         try {
           unitsMap[filePath] = await loadJson(source);
         } catch {
-          // skip missing unit files
+          // Keep build running when one unit file is missing/corrupt.
         }
       }
       bundle[target] = { index, forge, units: unitsMap };
     } catch {
-      // skip missing targets
+      // Some target packs may be absent in partial environments.
     }
   }
   return bundle;

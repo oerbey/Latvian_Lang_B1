@@ -23,6 +23,7 @@ export async function loadWords({ cache = 'force-cache' } = {}) {
     if (!chunks.length) {
       throw new Error('No word chunks listed in index.');
     }
+    // Fetch chunks in parallel to minimize startup delay on large vocab datasets.
     const responses = await Promise.all(
       chunks.map((chunkPath) => fetch(assetUrl(chunkPath), { cache })),
     );
@@ -39,6 +40,7 @@ export async function loadWords({ cache = 'force-cache' } = {}) {
   } catch (err) {
     const fallback = getFallback();
     if (fallback) {
+      // Embedded data keeps games functional when chunk/index fetch fails (offline/file mode).
       console.warn('words index fetch failed; using embedded fallback dataset.', err);
       return { items: fallback, usingFallback: true };
     }

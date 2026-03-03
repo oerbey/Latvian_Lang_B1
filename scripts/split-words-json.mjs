@@ -24,6 +24,7 @@ async function writeChunk(filePath, items) {
 async function buildChunks(words) {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const existing = await fs.readdir(OUT_DIR).catch(() => []);
+  // Remove old chunk files so deleted words do not linger in stale artifacts.
   await Promise.all(
     existing
       .filter((file) => file.startsWith('chunk-') && file.endsWith('.json'))

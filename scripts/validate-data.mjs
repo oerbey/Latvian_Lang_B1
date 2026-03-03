@@ -89,6 +89,7 @@ async function validateWordChunks() {
   let ok = true;
   let totalCount = 0;
 
+  // Validate each chunk against the same schema as monolithic `words.json`.
   for (const chunkPath of chunks) {
     const dataFile = path.resolve(ROOT, chunkPath);
     const data = await readJson(dataFile);
@@ -104,6 +105,7 @@ async function validateWordChunks() {
   }
 
   if (Number.isInteger(index.total) && totalCount !== index.total) {
+    // Guard against stale index totals after chunk regeneration.
     ok = false;
     console.error('\nWords chunk total mismatch');
     console.error(`Expected ${index.total}, found ${totalCount}`);

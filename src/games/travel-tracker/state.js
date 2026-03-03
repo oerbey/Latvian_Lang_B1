@@ -42,6 +42,7 @@ export function readSessionSeed() {
     if (stored) {
       const parsed = Number.parseInt(stored, 10);
       if (Number.isFinite(parsed)) {
+        // Normalize back to uint32 so persisted values stay compatible with RNG math.
         return parsed >>> 0;
       }
     }
@@ -72,6 +73,7 @@ function prepareLevels(levels, seed) {
   const baseLevels = cloneLevels(levels);
   if (!baseLevels.length) return [];
   const rng = createSeededRng(seed);
+  // One RNG instance is shared so level and route permutations are stable per seed/session.
   const shuffledLevels = seededShuffle(baseLevels, rng).map((level) => ({
     ...level,
     routes: seededShuffle(level.routes ?? [], rng),
@@ -106,6 +108,7 @@ export function getProgressPosition(state) {
     return { current: 0, total: 0 };
   }
   let passed = 0;
+  // Progress counts routes in previous levels plus current level position (1-based).
   for (let i = 0; i < state.levelIndex; i += 1) {
     passed += state.levels[i]?.routes?.length ?? 0;
   }

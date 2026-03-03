@@ -5,6 +5,11 @@ const FALLBACK_ICON = `${ICON_ROOT}/duotone-light/info.svg`;
 const DEFAULT_SIZE = 24;
 let observerAttached = false;
 
+/**
+ * Normalize icon name: trim, strip .svg extension if present.
+ * @param {unknown} value
+ * @returns {string}
+ */
 const normalizeName = (value) => {
   if (value == null) return '';
   const trimmed = String(value).trim();
@@ -12,12 +17,21 @@ const normalizeName = (value) => {
   return trimmed.endsWith('.svg') ? trimmed.slice(0, -4) : trimmed;
 };
 
+/**
+ * Parse size value; returns DEFAULT_SIZE if invalid.
+ * @param {unknown} value
+ * @returns {number}
+ */
 const toSize = (value) => {
   const parsed = Number.parseInt(value, 10);
   if (Number.isFinite(parsed) && parsed > 0) return parsed;
   return DEFAULT_SIZE;
 };
 
+/**
+ * Read theme from data attributes; defaults to 'light'.
+ * @returns {string}
+ */
 const getTheme = () => {
   if (typeof document === 'undefined') return 'light';
   const root = document.documentElement;
@@ -25,6 +39,7 @@ const getTheme = () => {
   return theme === 'dark' ? 'dark' : 'light';
 };
 
+// Map simple icon names to static assets (used by all themes).
 const ICON_MAP = {
   book: `${ICON_ROOT}/book.svg`,
   gamepad: `${ICON_ROOT}/gamepad.svg`,
@@ -38,6 +53,12 @@ const ICON_MAP = {
   check: `${ICON_ROOT}/check.svg`,
 };
 
+/**
+ * Resolve icon path from hardcoded map or theme-specific duotone folder.
+ * Falls back to info.svg if name not found.
+ * @param {string} name
+ * @returns {string}
+ */
 const resolveIconPath = (name) => {
   const normalized = normalizeName(name);
   if (!normalized) return assetUrl(FALLBACK_ICON);
@@ -51,6 +72,11 @@ const resolveIconPath = (name) => {
   return assetUrl(`${ICON_ROOT}/${folder}/${normalized}.svg`);
 };
 
+/**
+ * Bind error handler to fallback to info.svg on load failure.
+ * Idempotent—prevents duplicate handlers via data attribute flag.
+ * @param {HTMLImageElement} img
+ */
 const ensureFallbackHandler = (img) => {
   if (img.dataset.iconFallbackBound === 'true') return;
   img.dataset.iconFallbackBound = 'true';
@@ -60,6 +86,12 @@ const ensureFallbackHandler = (img) => {
   });
 };
 
+/**
+ * Apply alt text and aria-hidden attribute to image.
+ * Empty alt string marks image as decorative to screen readers.
+ * @param {HTMLImageElement} img
+ * @param {string | undefined} alt
+ */
 const applyAlt = (img, alt) => {
   if (alt === undefined) return;
   img.alt = alt;
@@ -70,6 +102,12 @@ const applyAlt = (img, alt) => {
   }
 };
 
+/**
+ * Apply width/height attributes based on requested size.
+ * Stores size in data attribute for later fallback.
+ * @param {HTMLImageElement} img
+ * @param {unknown} size
+ */
 const applySize = (img, size) => {
   const finalSize = toSize(size ?? img.dataset.iconSize);
   img.dataset.iconSize = String(finalSize);
@@ -77,12 +115,20 @@ const applySize = (img, size) => {
   img.height = finalSize;
 };
 
+/**
+ * Apply resolved icon source path and attach error fallback handler.
+ * @param {HTMLImageElement} img
+ */
 const applySource = (img) => {
   const name = img.dataset.iconName;
   img.src = resolveIconPath(name);
   ensureFallbackHandler(img);
 };
 
+/**
+ * Initialize icon theme observer (once per page load).
+ * Watches root element for theme attribute changes and refreshes icons.
+ */
 export function initIcons() {
   if (observerAttached || typeof document === 'undefined') return;
   observerAttached = true;
@@ -95,6 +141,11 @@ export function initIcons() {
   observer.observe(root, { attributes: true, attributeFilter: ['data-bs-theme', 'data-theme'] });
 }
 
+/**
+ * Refresh all icon images within container (usually document).
+ * Useful after dynamic theme changes or DOM updates.
+ * @param {Document | HTMLElement} [root=document]
+ */
 export function refreshIcons(root = document) {
   if (!root) return;
   root.querySelectorAll('img[data-icon-name]').forEach((img) => {
@@ -102,6 +153,17 @@ export function refreshIcons(root = document) {
   });
 }
 
+/**
+ * Update existing image element with new icon properties.
+ * Initializes theme observer as side effect (safe to call multiple times).
+ * @param {HTMLImageElement | null} img
+ * @param {object} [options={}]
+ * @param {string} [options.name]
+ * @param {number | string} [options.size]
+ * @param {string} [options.alt]
+ * @param {string} [options.className]
+ * @returns {HTMLImageElement | null}
+ */
 export function updateIcon(img, { name, size, alt, className } = {}) {
   if (!img) return null;
   const normalized = normalizeName(name ?? img.dataset.iconName);
@@ -114,6 +176,16 @@ export function updateIcon(img, { name, size, alt, className } = {}) {
   return img;
 }
 
+/**
+ * Create new icon image element with specified properties.
+ * Uses async decoding and lazy loading for performance.
+ * @param {object} [options={}]
+ * @param {string} [options.name]
+ * @param {number} [options.size=24]
+ * @param {string} [options.alt='']
+ * @param {string} [options.className]
+ * @returns {HTMLImageElement}
+ */
 export function createIcon({ name, size = DEFAULT_SIZE, alt = '', className } = {}) {
   const img = document.createElement('img');
   img.decoding = 'async';
@@ -122,6 +194,12 @@ export function createIcon({ name, size = DEFAULT_SIZE, alt = '', className } = 
   return img;
 }
 
+/**
+ * Upgrade data-attribute-marked elements to icon images.
+ * Replaces placeholders with proper img tags and applies icon styling.
+ * Supports [data-icon] and [data-icon-name] attributes (legacy and current).
+ * @param {Document | HTMLElement} [root=document]
+ */
 export function upgradeIcons(root = document) {
   if (!root) return;
   const candidates = root.querySelectorAll('[data-icon], [data-icon-name]');

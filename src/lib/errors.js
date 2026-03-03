@@ -1,11 +1,21 @@
 let hasShown = false;
 let handlersInstalled = false;
 
+/**
+ * Check if running on localhost (development).
+ * Used to conditionally show detailed error information.
+ * @returns {boolean}
+ */
 function isDevEnvironment() {
   if (typeof location === 'undefined') return false;
   return location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 }
 
+/**
+ * Extract and normalize error message and stack from various error types.
+ * @param {Error | string | unknown} error
+ * @returns {{message: string, stack: string}}
+ */
 export function formatError(error) {
   if (error instanceof Error) {
     return {
@@ -19,6 +29,11 @@ export function formatError(error) {
   return { message: 'Unknown error', stack: '' };
 }
 
+/**
+ * Inject error overlay styles if not already present.
+ * Uses computed styles from document or falls back to default values.
+ * @param {Document} doc
+ */
 function ensureStyles(doc) {
   if (doc.getElementById('llb1-error-styles')) return;
   const style = doc.createElement('style');
@@ -82,6 +97,12 @@ function ensureStyles(doc) {
   doc.head ? doc.head.appendChild(style) : doc.documentElement.appendChild(style);
 }
 
+/**
+ * Get all focusable interactive elements within container.
+ * Used for focus trap in modal dialogs.
+ * @param {HTMLElement | Element} container
+ * @returns {HTMLElement[]}
+ */
 function getFocusableElements(container) {
   const selector =
     'button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
@@ -90,6 +111,11 @@ function getFocusableElements(container) {
   );
 }
 
+/**
+ * Trap Tab key within modal to keep focus inside overlay and prevent escape.
+ * Essential for keyboard accessibility when displaying blocking modal dialogs.
+ * @param {HTMLElement} overlay
+ */
 function trapFocus(overlay) {
   const getFocusables = () => getFocusableElements(overlay);
   const focusables = getFocusables();
@@ -124,6 +150,13 @@ function trapFocus(overlay) {
   focusFirst();
 }
 
+/**
+ * Build error overlay UI with title, message, reload button, and optional stack details.
+ * Stack details shown only in dev environment (localhost).
+ * @param {Document} doc
+ * @param {{message: string, stack: string}} info
+ * @returns {HTMLElement}
+ */
 function buildOverlay(doc, info) {
   const overlay = doc.createElement('div');
   overlay.id = 'llb1-error-overlay';
@@ -171,6 +204,13 @@ function buildOverlay(doc, info) {
   return overlay;
 }
 
+/**
+ * Display fatal error overlay; prevents multiple overlays per session.
+ * Logs to console and optionally shows full stack on localhost.
+ * Applies keyboard focus trap to keep users engaged in the modal.
+ * @param {Error | string | unknown} error
+ * @returns {boolean}
+ */
 export function showFatalError(error) {
   // Only show one fatal overlay per session to prevent recursive UI noise.
   if (hasShown) return false;
@@ -195,6 +235,10 @@ export function showFatalError(error) {
   return true;
 }
 
+/**
+ * Install global error handlers for uncaught errors and unhandled promise rejections.
+ * Idempotent—safe to call multiple times, installs only once per window session.
+ */
 export function installGlobalErrorHandlers() {
   if (handlersInstalled) return;
   if (typeof window === 'undefined') return;
@@ -211,10 +255,17 @@ export function installGlobalErrorHandlers() {
   });
 }
 
+/**
+ * Check if fatal error overlay has been displayed in current session.
+ * @returns {boolean}
+ */
 export function isFatalErrorShown() {
   return hasShown;
 }
 
+/**
+ * Reset fatal error state (for testing or manual recovery).
+ */
 export function resetFatalErrorState() {
   hasShown = false;
   handlersInstalled = false;

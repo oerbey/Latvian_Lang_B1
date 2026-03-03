@@ -12,11 +12,20 @@ let canvasOffsetX = 0,
   canvasOffsetY = 0;
 let baseH = 560;
 
+/**
+ * Set logical canvas height and recompute scale (for game-specific layouts).
+ * @param {number} h
+ */
 export function setCanvasHeight(h) {
   baseH = h;
   updateCanvasScale();
 }
 
+/**
+ * Recompute canvas scale and physical dimensions.
+ * Maintains fixed logical size (980 x baseH) with DPR-aware scaling.
+ * Cap effective DPR when downscaled to limit overdraw on high-density screens.
+ */
 export function updateCanvasScale() {
   const containerWidth = canvas.parentElement.offsetWidth;
   // Keep a fixed logical canvas (980 x baseH) and scale only display pixels.
@@ -38,6 +47,12 @@ export function updateCanvasScale() {
   canvasOffsetY = newRect.top;
 }
 
+/**
+ * Convert client-space click coordinates to logical canvas coordinates.
+ * @param {number} clientX
+ * @param {number} clientY
+ * @returns {{x: number, y: number}}
+ */
 export function getCanvasCoordinates(clientX, clientY) {
   const rect = canvas.getBoundingClientRect();
   canvasOffsetX = rect.left;
@@ -48,10 +63,23 @@ export function getCanvasCoordinates(clientX, clientY) {
   };
 }
 
+/**
+ * Clear canvas to transparent.
+ */
 export function clear() {
   ctx.clearRect(0, 0, W, H);
 }
 
+/**
+ * Draw rounded rectangle with optional fill and stroke.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} w
+ * @param {number} h
+ * @param {number} r - Corner radius
+ * @param {string} [fillStyle]
+ * @param {string} [border]
+ */
 export function roundedRect(x, y, w, h, r, fillStyle, border) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -71,6 +99,18 @@ export function roundedRect(x, y, w, h, r, fillStyle, border) {
   }
 }
 
+/**
+ * Draw text with scaled font size and mobile-aware sizing.
+ * Scales up text on mobile and when canvas is downscaled to maintain readability.
+ * @param {string} txt
+ * @param {number} x
+ * @param {number} y
+ * @param {object} [opts]
+ * @param {string} [opts.align='left']
+ * @param {string} [opts.base='alphabetic']
+ * @param {number} [opts.font=16]
+ * @param {string} [opts.color='#e9eef5']
+ */
 export function drawText(txt, x, y, opts = {}) {
   ctx.textAlign = opts.align || 'left';
   ctx.textBaseline = opts.base || 'alphabetic';
@@ -92,6 +132,10 @@ export function drawText(txt, x, y, opts = {}) {
 
 let themeCache = { key: null, values: null };
 
+/**
+ * Read theme CSS variables from document root; cached by theme key.
+ * @returns {object}
+ */
 export function getCanvasTheme() {
   const root = document.documentElement;
   const key = root.getAttribute('data-bs-theme') || 'light';
@@ -116,6 +160,13 @@ export function getCanvasTheme() {
   return values;
 }
 
+/**
+ * Draw badge label with dynamic size and centered alignment.
+ * @param {string} txt
+ * @param {number} x
+ * @param {number} y
+ * @param {string} color
+ */
 export function drawBadge(txt, x, y, color) {
   ctx.font = '12px system-ui';
   const pad = 6;
@@ -128,10 +179,18 @@ let bursts = [];
 let confettiFrameId = null;
 let confettiRenderer = null;
 
+/**
+ * Register custom confetti renderer (allows custom animation logic).
+ * @param {(void) => void} renderer
+ */
 export function setConfettiRenderer(renderer) {
   confettiRenderer = typeof renderer === 'function' ? renderer : null;
 }
 
+/**
+ * Queue a single RAF to animate all active confetti bursts.
+ * Prevents multiple RAF registrations even with concurrent burst creation.
+ */
 function scheduleConfettiFrame() {
   if (typeof requestAnimationFrame !== 'function') return;
   if (confettiFrameId !== null) return;
@@ -139,6 +198,10 @@ function scheduleConfettiFrame() {
   confettiFrameId = requestAnimationFrame(stepConfetti);
 }
 
+/**
+ * Animate one frame of all active confetti bursts; removes when life <= 0.
+ * Delegates to custom renderer if registered, otherwise uses `renderConfetti`.
+ */
 function stepConfetti() {
   confettiFrameId = null;
   if (!bursts.length) return;
@@ -152,6 +215,10 @@ function stepConfetti() {
   }
 }
 
+/**
+ * Create a burst of confetti particles at center-screen with random spread.
+ * @param {number} y - Vertical spawn offset
+ */
 export function confetti(y) {
   const state = getState();
   for (let i = 0; i < 14; i += 1) {
@@ -166,6 +233,11 @@ export function confetti(y) {
   scheduleConfettiFrame();
 }
 
+/**
+ * Animate and render confetti particles (gravity, collision with bounds, fade out).
+ * Updates particle life and removes dead particles; returns true if any remain.
+ * @returns {boolean}
+ */
 export function renderConfetti() {
   if (!bursts.length) return false;
   let writeIndex = 0;

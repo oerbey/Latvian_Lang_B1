@@ -39,8 +39,16 @@ let i18n = {};
 let currentLang = 'lv';
 let lastHelpFocus = null;
 
+// Deep copy ensures i18n mutations don't affect fallback data.
 const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 
+/**
+ * Load and apply translations for specified language.
+ * Falls back to embedded English if fetch fails or language unavailable.
+ * Updates document.documentElement.lang and applies i18n to UI elements.
+ * @param {string} lang - BCP 47 language tag (e.g., 'lv', 'en')
+ * @throws {Error} if no language data found after fallback attempts
+ */
 async function loadTranslations(lang) {
   let resolvedLang = lang;
   let data = null;
@@ -75,6 +83,10 @@ async function loadTranslations(lang) {
   applyTranslations();
 }
 
+/**
+ * Apply i18n strings to UI elements and update aria-labels.
+ * Called after translations load to update all visible text.
+ */
 function applyTranslations() {
   document.title = i18n.html.title;
   const weekBadge = document.querySelector('.week-badge');
@@ -116,6 +128,11 @@ function applyTranslations() {
   triggerRedraw();
 }
 
+/**
+ * Toggle help overlay visibility with focus management.
+ * Saves current focus before moving to canvas and restores after closing.
+ * @param {boolean} show
+ */
 function setHelpVisibility(show) {
   updateState((state) => {
     state.showHelp = show;
@@ -141,6 +158,10 @@ function setHelpVisibility(show) {
   triggerRedraw();
 }
 
+/**
+ * Draw help overlay panel with instructions and close button.
+ * Responsive layout adjusts padding, width, and font sizes based on mobile detection.
+ */
 function drawHelp() {
   const theme = getCanvasTheme();
   const isMobile = scale < 0.7;
@@ -159,6 +180,7 @@ function drawHelp() {
   const lineHeight = isMobile ? 16 : 20;
   helpLines.forEach((line, i) => {
     const yPos = y + 52 + i * lineHeight;
+    // Skip lines that would render outside panel bounds.
     if (yPos < y + h - 40) {
       drawText(line, x + pad, yPos, {
         font: `${fontSize}px "Source Sans 3"`,
@@ -186,6 +208,10 @@ function drawHelp() {
   });
 }
 
+/**
+ * Main render loop: draw active game mode, confetti, and help overlay if shown.
+ * Confetti renders independently to layer above game content.
+ */
 function draw() {
   const state = getState();
   if (state.mode === MODES.MATCH) {
@@ -199,6 +225,10 @@ function draw() {
 setRedraw(draw);
 setConfettiRenderer(draw);
 
+/**
+ * Toggle deck size mode between 'auto' (adaptive to viewport) and 'full' (up to 15 items).
+ * Updates button icon and text, restarts match round if active.
+ */
 function toggleDeckSize() {
   updateState((state) => {
     state.deckSizeMode = state.deckSizeMode === 'auto' ? 'full' : 'auto';

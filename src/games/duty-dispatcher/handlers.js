@@ -1,6 +1,13 @@
 import { shuffle } from '../../lib/utils.js';
 import { showReward } from '../../lib/reward.js';
 
+/**
+ * Create game event handlers for duty dispatcher game.
+ * Handles task selection, scoring, validation, and progress tracking.
+ * Dependencies injected for testability and state management flexibility.
+ * @param {object} options - Handler dependencies
+ * @returns {object} - Event handler functions
+ */
 export function createHandlers({
   state,
   elements,

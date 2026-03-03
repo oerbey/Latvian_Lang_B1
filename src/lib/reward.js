@@ -9,6 +9,11 @@ const DEFAULT_ICONS = {
   info: '•',
 };
 
+/**
+ * Ensure reward element exists and is mounted to DOM.
+ * Reuses server-rendered element if available, otherwise creates on-demand.
+ * @returns {HTMLElement | null}
+ */
 function ensureRewardEl() {
   if (rewardEl) return rewardEl;
   const el = document.createElement('div');
@@ -40,12 +45,30 @@ function ensureRewardEl() {
   return el;
 }
 
+/**
+ * Format points with optional label (e.g., "+50 XP").
+ * @param {number | undefined} points
+ * @param {string | undefined} label
+ * @returns {string}
+ */
 function formatPoints(points, label) {
   if (typeof points !== 'number' || !Number.isFinite(points)) return '';
   const base = points > 0 ? `+${points}` : `${points}`;
   return label ? `${base} ${label}` : base;
 }
 
+/**
+ * Render reward to UI with animation, auto-hide, and queue management.
+ * Prevents overlapping animations by queuing rewards while showing.
+ * @param {object} reward
+ * @param {string} reward.title
+ * @param {string} [reward.detail]
+ * @param {string} [reward.tone='accent']
+ * @param {number} [reward.timeout=1800]
+ * @param {string} [reward.icon]
+ * @param {number} [reward.points]
+ * @param {string} [reward.pointsLabel]
+ */
 function displayReward(reward) {
   const { title, detail = '', tone = 'accent', timeout = 1800, icon, points, pointsLabel } = reward;
   if (!title) return;
@@ -89,6 +112,10 @@ function displayReward(reward) {
   }, timeout);
 }
 
+/**
+ * Display reward notification with optional queueing if one is already visible.
+ * @param {object} [reward={}]
+ */
 export function showReward(reward = {}) {
   if (!reward?.title) return;
   if (isShowing) {

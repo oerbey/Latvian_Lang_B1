@@ -36,7 +36,7 @@ function renderNav() {
       <a href="index.html" class="dp-nav__brand">
         <img
           class="dp-nav__brand-icon"
-          src="assets/icons/latvia-flag.svg"
+          src="assets/icons/logo.svg"
           alt=""
           aria-hidden="true"
         />

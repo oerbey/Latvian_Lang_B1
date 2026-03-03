@@ -51,6 +51,7 @@ const games = [
     tag: 'Surgery',
     meta: ['Focus: passive', '6–9 min', 'Token repair'],
     accent: '#355a77',
+    art: 'url("assets/previews/surgery_preview.png")',
     category: 'passive',
   },
   {
@@ -72,7 +73,7 @@ const games = [
     tag: 'Arcade',
     meta: ['Focus: translation', '4–6 min', 'EN->LV'],
     accent: '#1f567a',
-    art: 'linear-gradient(135deg, rgba(31, 86, 122, 0.34), rgba(239, 247, 252, 0.95)), radial-gradient(circle at 22% 18%, rgba(31, 86, 122, 0.56), transparent 55%), radial-gradient(circle at 78% 74%, rgba(111, 182, 219, 0.4), transparent 60%)',
+    art: 'url("assets/previews/arcade_preview.png")',
     category: 'vocabulary',
   },
   {
@@ -105,7 +106,7 @@ const games = [
     tag: 'Reflexive',
     meta: ['Focus: -ies', '5–8 min', 'Contrast'],
     accent: '#6a3b42',
-    art: 'linear-gradient(135deg, rgba(106, 59, 66, 0.3), rgba(246, 240, 234, 0.95)), radial-gradient(circle at 25% 20%, rgba(106, 59, 66, 0.55), transparent 55%), radial-gradient(circle at 80% 75%, rgba(189, 125, 135, 0.45), transparent 60%)',
+    art: 'url("assets/previews/reflexive_preview.png")',
     category: 'verbs',
   },
   {
@@ -116,7 +117,7 @@ const games = [
     tag: 'Debitive',
     meta: ['Focus: duties', '6–9 min', 'Roles'],
     accent: '#4f4a7a',
-    art: 'linear-gradient(135deg, rgba(79, 74, 122, 0.3), rgba(246, 243, 236, 0.95)), radial-gradient(circle at 25% 20%, rgba(79, 74, 122, 0.55), transparent 55%), radial-gradient(circle at 80% 70%, rgba(145, 140, 195, 0.45), transparent 60%)',
+    art: 'url("assets/previews/debitive_preview.png")',
     category: 'cases',
   },
   {
@@ -127,7 +128,7 @@ const games = [
     tag: 'Traits',
     meta: ['Focus: vocab', '5–7 min', 'Match'],
     accent: '#7a5b2b',
-    art: 'linear-gradient(135deg, rgba(122, 91, 43, 0.3), rgba(248, 243, 236, 0.95)), radial-gradient(circle at 25% 20%, rgba(122, 91, 43, 0.55), transparent 55%), radial-gradient(circle at 80% 75%, rgba(189, 152, 93, 0.45), transparent 60%)',
+    art: 'url("assets/previews/traits_match_preview.png")',
     category: 'vocabulary',
   },
   {
@@ -138,7 +139,7 @@ const games = [
     tag: 'Traits',
     meta: ['Focus: vocab', '6–9 min', 'Describe'],
     accent: '#6b4f2f',
-    art: 'linear-gradient(135deg, rgba(107, 79, 47, 0.3), rgba(248, 243, 236, 0.95)), radial-gradient(circle at 25% 20%, rgba(107, 79, 47, 0.55), transparent 55%), radial-gradient(circle at 80% 70%, rgba(176, 140, 89, 0.45), transparent 60%)',
+    art: 'url("assets/previews/traits_describe_preview.png")',
     category: 'vocabulary',
   },
   {
@@ -149,7 +150,7 @@ const games = [
     tag: 'Review',
     meta: ['Focus: recap', '10–12 min', 'Checklist'],
     accent: '#2f4c68',
-    art: 'linear-gradient(135deg, rgba(47, 76, 104, 0.3), rgba(245, 242, 236, 0.95)), radial-gradient(circle at 25% 20%, rgba(47, 76, 104, 0.55), transparent 55%), radial-gradient(circle at 80% 70%, rgba(122, 160, 192, 0.45), transparent 60%)',
+    art: 'url("assets/previews/week1_preview.png")',
     category: 'adventure',
   },
 ];

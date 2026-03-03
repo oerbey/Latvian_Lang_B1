@@ -2423,10 +2423,10 @@ body {
 }
 
 .dp-nav__brand-icon {
-  width: 36px;
-  height: 27px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   border: 1px solid color-mix(in srgb, var(--dp-border) 70%, transparent);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--dp-shadow-strong) 55%, transparent);

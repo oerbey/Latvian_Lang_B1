@@ -1,11 +1,12 @@
-import { assetUrl } from '../../lib/paths.js';
-
 /**
- * Fetch JSON file from asset URL; re-throws with descriptive error on 4xx/5xx.
- * Uses no-store cache to ensure fresh data (avoid stale game content between deploys).
- * @param {string} path - Asset path relative to document root
- * @returns {Promise<unknown>}
+ * @file duty-dispatcher/data.js
+ * Data loaders for the Duty Dispatcher game.
+ *
+ * Fetches roles, tasks, and i18n strings JSON via the shared assetUrl helper.
+ * Uses no-store cache so content stays fresh between deploys.
  */
+
+import { assetUrl } from '../../lib/paths.js';
 async function fetchJSON(path) {
   const url = assetUrl(path);
   const res = await fetch(url, { cache: 'no-store' });

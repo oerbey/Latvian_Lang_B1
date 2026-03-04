@@ -1,4 +1,16 @@
 /**
+ * utils.js — General-purpose utility functions.
+ * ===============================================
+ * Pure, stateless helpers used across the codebase.
+ *
+ * Exports:
+ *   clamp(value, min, max) — Restrict a number to a range.
+ *   shuffleInPlace(arr, rng) — Fisher-Yates in-place shuffle (mutates array).
+ *   shuffle(arr, rng)        — Non-mutating shuffle (returns a new array).
+ *   pickRandom(arr, rng)     — Return a random element from an array.
+ */
+
+/**
  * @param {number} value
  * @param {number} min
  * @param {number} max

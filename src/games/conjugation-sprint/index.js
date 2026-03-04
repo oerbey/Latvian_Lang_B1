@@ -1,3 +1,16 @@
+/**
+ * conjugation-sprint/index.js — Conjugation Sprint game entry point.
+ * ===================================================================
+ * A rapid-fire quiz where players conjugate Latvian verbs across three
+ * tenses (tagadne, pagātne, nākotne). Supports timed and untimed modes.
+ *
+ * Key features:
+ *   • Loads verb data from words-data.js and builds a prompt pool via logic.js.
+ *   • Displays a pronoun + infinitive prompt and multiple-choice options.
+ *   • Tracks score, streak, best score, and persists progress to localStorage.
+ *   • Timed mode (ROUND_DURATION_MS = 8 s) with a countdown bar.
+ *   • Reward toasts for streaks and high scores via reward.js.
+ */
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { loadWords } from '../../lib/words-data.js';

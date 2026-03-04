@@ -1,3 +1,13 @@
+/**
+ * @file sentence-surgery-passive/tokenize.js
+ * Latvian sentence tokeniser for Sentence Surgery – Passive.
+ *
+ * Splits sentences into words and punctuation tokens while
+ * preserving multi-character tokens from the word bank
+ * (e.g. "netiek"). Handles smart-quote and bracket spacing
+ * rules for proper Latvian typography.
+ */
+
 const PUNCT_OR_SYMBOL = /[\p{P}\p{S}]/u;
 
 const NO_SPACE_BEFORE = new Set(['.', ',', '?', '!', ';', ':', ')', ']', '}', '»', '”', '"']);

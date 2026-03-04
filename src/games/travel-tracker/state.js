@@ -1,3 +1,12 @@
+/**
+ * @file travel-tracker/state.js
+ * State management for the Travel Tracker game.
+ *
+ * Creates the initial game state, manages level/route
+ * advancement, seeded-RNG session persistence, and provides
+ * getters for current level, route, and progress position.
+ */
+
 import { createSeededRng, seededShuffle } from './utils.js';
 
 const SESSION_SEED_KEY = 'llb1:travel-tracker:seed';

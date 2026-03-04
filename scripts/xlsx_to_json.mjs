@@ -1,3 +1,13 @@
+/**
+ * @file scripts/xlsx_to_json.mjs
+ * Build script: converts the master XLSX word list to JSON.
+ *
+ * Reads data/latvian_words_with_translations.xlsx, maps columns
+ * (lv, en, ru, tag) to objects, and writes data/words.json.
+ *
+ * Usage: node scripts/xlsx_to_json.mjs
+ */
+
 import fs from 'fs';
 import path from 'path';
 import xlsx from 'xlsx';

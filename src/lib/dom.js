@@ -1,4 +1,15 @@
 /**
+ * dom.js — Lightweight DOM utility helpers.
+ * ==========================================
+ * Provides safe element lookups and event binding used across the app.
+ *
+ * Exports:
+ *   $id(id)         — getElementById wrapper; returns null if missing.
+ *   mustId(id)      — getElementById that throws if the element is absent.
+ *   on(el, ev, fn)  — addEventListener wrapper; silently no-ops if el is null.
+ */
+
+/**
  * @param {string} id
  * @returns {HTMLElement | null}
  */

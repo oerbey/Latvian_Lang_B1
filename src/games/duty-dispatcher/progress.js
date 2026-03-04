@@ -1,3 +1,12 @@
+/**
+ * @file duty-dispatcher/progress.js
+ * Persistence layer for the Duty Dispatcher game.
+ *
+ * Stores XP, streak count, and last-played timestamp.
+ * Validates numeric values on read; silently handles write errors
+ * so gameplay is never blocked by storage failures.
+ */
+
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
 const GAME_ID = 'duty-dispatcher';

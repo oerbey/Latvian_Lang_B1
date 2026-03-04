@@ -1,3 +1,12 @@
+/**
+ * @file travel-tracker/utils.js
+ * Deterministic randomness utilities for Travel Tracker.
+ *
+ * Implements Mulberry32 PRNG for repeatable route ordering
+ * across sessions, plus a seeded Fisher-Yates shuffle and
+ * a string-to-seed hash function.
+ */
+
 import { MULBERRY32_CONSTANT } from '../../lib/constants.js';
 
 const MAX_UINT32 = 0xffffffff;

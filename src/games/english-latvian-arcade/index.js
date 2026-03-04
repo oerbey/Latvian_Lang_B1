@@ -1,3 +1,17 @@
+/**
+ * english-latvian-arcade/index.js — "English → Latvian Word Catcher" arcade game.
+ * =================================================================================
+ * A canvas-based arcade where Latvian phrase cards fall from the top of the screen.
+ * An English prompt is displayed and the player must steer a paddle to catch
+ * the matching Latvian translation card while avoiding wrong answers.
+ *
+ * Controls:
+ *   • Left/Right arrow keys or A/D, or on-screen touch buttons.
+ *   • Mouse/touch to move the paddle.
+ *
+ * Scoring: points for correct catches, lives lost for wrong ones or misses.
+ * Uses data/lv-en/ vocabulary units and logic.js for round building.
+ */
 import { mustId } from '../../lib/dom.js';
 import { showFatalError } from '../../lib/errors.js';
 import { assetUrl } from '../../lib/paths.js';

@@ -1,3 +1,16 @@
+/**
+ * decl6-detective/index.js — "Kas ir manā mājā?" (6th-declension detective).
+ * ============================================================================
+ * A canvas-based exploration game where players navigate rooms (virtuve,
+ * viesistaba, etc.) and identify 6th-declension noun forms from objects
+ * scattered in each scene. Uses a top-down grid of Latvian house rooms.
+ *
+ * Mechanics:
+ *   • Arrow / WASD keys move between rooms in a 3×4 scene grid.
+ *   • Objects appear as clickable hotspots; correct picks earn points.
+ *   • Hearts (MAX_HEARTS) track lives; a 3-minute timer adds pressure.
+ *   • Progress (XP, streak) persists via progress.js / storage.js.
+ */
 import { mustId, on } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';
 import { sanitizeText } from '../../lib/sanitize.js';

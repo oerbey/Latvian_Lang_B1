@@ -1,3 +1,11 @@
+/**
+ * @file matching-game/constants.js
+ * Shared constants and default UI text for the matching-game engine.
+ *
+ * Defines MODE_ALL / MODE_LOCKED identifiers and Latvian/English
+ * default feedback strings used by all matching-game instances.
+ */
+
 export const MODE_ALL = 'all';
 export const MODE_LOCKED = 'locked';
 

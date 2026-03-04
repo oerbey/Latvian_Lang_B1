@@ -1,3 +1,12 @@
+/**
+ * personality-data.js — Loader for personality / character-traits vocabulary.
+ * ===========================================================================
+ * Fetches and validates data/personality/words.json for use by the
+ * character-traits and rakstura-ipasibas games.
+ *
+ * Exports:
+ *   loadPersonalityWords() — Returns a validated array of {id, lv, en, enVariants, group} entries.
+ */
 import { assetUrl } from './paths.js';
 
 /**

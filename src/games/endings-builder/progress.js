@@ -1,3 +1,11 @@
+/**
+ * @file endings-builder/progress.js
+ * Persistence layer for the Endings Builder game.
+ *
+ * Stores per-item mastery scores (spaced-repetition weight)
+ * and a strict-mode flag in localStorage via the shared storage module.
+ */
+
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
 const GAME_ID = 'endings-builder';

@@ -1,3 +1,7 @@
+/* Sentence Surgery (Passive) — game-scoped styles.
+   Sentence display with clickable error tokens, word-bank chips,
+   feedback bar, progress tracker, and results summary. */
+
 .sspv-page {
   background: var(--bg);
   color: var(--text);

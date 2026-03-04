@@ -1,3 +1,12 @@
+/**
+ * @file english-latvian-arcade/logic.js
+ * Game logic for the English → Latvian Word Catcher arcade.
+ *
+ * Normalises lv-en unit JSON into deduplicated EN↔LV pairs,
+ * generates timed falling-word rounds, validates catches,
+ * and manages scoring + lives state.
+ */
+
 import { shuffle } from '../../lib/utils.js';
 
 function normalizeText(value) {

@@ -1,3 +1,12 @@
+/**
+ * @file decl6-detective/data.js
+ * Data loaders for the 6th Declension Detective game.
+ *
+ * Exports:
+ *  - loadTranslations(defaultStrings) — fetches i18n strings for the game UI.
+ *  - loadItems(path) — fetches the noun items JSON for the current scene.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 
 export async function loadTranslations(defaultStrings) {

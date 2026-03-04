@@ -1,3 +1,15 @@
+/**
+ * reward.js — Toast-style reward notification system.
+ * =====================================================
+ * Displays short animated reward banners (e.g. "+50 XP", "Streak bonus!")
+ * when players complete a round or achieve milestones. Notifications queue
+ * so multiple rewards can fire in sequence without overlapping.
+ *
+ * Exports:
+ *   showReward(opts) — Display a reward toast with icon, title, detail, and points.
+ *
+ * The reward element is created lazily on first use and reused thereafter.
+ */
 let rewardEl = null;
 let hideTimer = null;
 let isShowing = false;

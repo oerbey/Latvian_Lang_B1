@@ -1,3 +1,11 @@
+/**
+ * @file travel-tracker/loaders.js
+ * Asset loaders for the Travel Tracker game.
+ *
+ * Fetches JSON (route data, i18n strings), loads raw SVG text
+ * for the Latvia map, and resolves game strings with fallback.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 import { setTrustedHTML } from '../../lib/safeHtml.js';
 

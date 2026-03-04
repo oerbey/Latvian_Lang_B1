@@ -1,3 +1,14 @@
+/**
+ * @file conjugation-sprint/logic.js
+ * Core game logic for Conjugation Sprint.
+ *
+ * Responsibilities:
+ *  - Builds round queues from verb conjugation data (6 pronouns × 3 tenses).
+ *  - Validates user answers with diacritics-aware normalisation.
+ *  - Manages scoring, streaks, and spaced-repetition weighting.
+ *  - Exposes PACE_MODES ('timed' / 'untimed') for the UI layer.
+ */
+
 const PRONOUNS = ['es', 'tu', 'viņš/viņa', 'mēs', 'jūs', 'viņi/viņas'];
 const SLOT_BY_PRONOUN = {
   es: '1s',

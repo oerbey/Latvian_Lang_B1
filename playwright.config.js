@@ -1,3 +1,11 @@
+/**
+ * @file playwright.config.js
+ * Playwright end-to-end test configuration.
+ *
+ * Spins up a local http-server on port 4173 and runs E2E specs
+ * from the e2e/ folder in headless Chromium.
+ */
+
 /* eslint-env node */
 import { defineConfig } from '@playwright/test';
 

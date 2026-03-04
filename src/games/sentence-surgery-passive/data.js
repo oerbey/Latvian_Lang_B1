@@ -1,3 +1,12 @@
+/**
+ * @file sentence-surgery-passive/data.js
+ * Dataset loader and normaliser for Sentence Surgery – Passive.
+ *
+ * Fetches the sentence dataset JSON, normalises each item
+ * (error types, word bank, tokens), and classifies errors
+ * (aux_tense, negation, participle_agreement) for UI labels.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 import { createPreserveTokenSet, tokenizeSentence } from './tokenize.js';
 

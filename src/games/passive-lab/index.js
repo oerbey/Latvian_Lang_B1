@@ -1,3 +1,16 @@
+/**
+ * passive-lab/index.js — Passive Voice Builder ("Ciešamās Kārtas Laboratorija").
+ * ================================================================================
+ * Players construct Latvian passive voice forms using the pattern:
+ *   tiek/tika/tiks + past participle (with gender/number agreement).
+ *
+ * Two sub-modes:
+ *   BUILDER — Click to select the correct patient (participle form) from a bank.
+ *   TYPEIN  — Type the full passive phrase manually.
+ *
+ * Tense selection: present (tiek), past (tika), future (tiks).
+ * Supports i18n via passive-lab/i18n.js. Progress persisted via progress.js.
+ */
 import { mustId } from '../../lib/dom.js';
 import { pickRandom, shuffle } from '../../lib/utils.js';
 import { createGameBase } from '../../lib/game-base.js';

@@ -1,3 +1,11 @@
+/**
+ * @file test/helpers/dom-stubs.js
+ * Lightweight Canvas 2D context and HTMLCanvasElement stubs for unit tests.
+ *
+ * Provides no-op drawing methods so game modules that use Canvas
+ * can be tested without a real browser rendering surface.
+ */
+
 function createCtxStub() {
   return {
     setTransform() {},

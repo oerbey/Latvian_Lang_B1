@@ -1,3 +1,13 @@
+/**
+ * @file endings-builder/norm.js
+ * Latvian-aware text normalisation for answer comparison.
+ *
+ * Exports:
+ *  - norm(s)          — NFC + lowercase using 'lv' locale.
+ *  - fold(s)          — norm + strip diacritics (ā→a, š→s, etc.).
+ *  - equalsLoose(a,b) — compare two strings ignoring diacritics.
+ */
+
 const FALLBACK_MAP = {
   ā: 'a',
   ē: 'e',

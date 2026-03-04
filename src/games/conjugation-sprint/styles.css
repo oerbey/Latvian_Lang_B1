@@ -1,3 +1,7 @@
+/* Conjugation Sprint — game-scoped styles.
+   Layout shell, tense selector, pronoun prompt, answer input,
+   timer bar, score/streak cards, and responsive overrides. */
+
 .cs-main {
   padding-block: clamp(0.8rem, 2vw, 1.6rem) clamp(2.1rem, 4vw, 3rem);
 }

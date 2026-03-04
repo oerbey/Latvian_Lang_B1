@@ -1,4 +1,16 @@
 /**
+ * i18n-format.js — Locale-aware number and date formatting.
+ * ===========================================================
+ * Thin wrappers around Intl.NumberFormat and Intl.DateTimeFormat that
+ * auto-detect locale from the document language and degrade gracefully
+ * when the Intl API is unavailable.
+ *
+ * Exports:
+ *   formatNumber(value, locale, options)    — Format a number (e.g. "1,234").
+ *   formatDateTime(value, locale, options)  — Format a Date (e.g. "3/21/2025, 2:30 PM").
+ */
+
+/**
  * Infer locale from document.documentElement.lang or navigator.language.
  * Falls back to 'en' if unavailable.
  * @returns {string}

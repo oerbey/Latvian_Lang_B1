@@ -1,3 +1,12 @@
+/**
+ * @file passive-lab/ui.js
+ * UI rendering helpers for the Passive Voice Lab game.
+ *
+ * Updates the scoreboard (XP, streak, last played), renders
+ * patient-choice buttons, tense selectors, feedback panels,
+ * and the answer/explanation display.
+ */
+
 import { formatNumber } from '../../lib/i18n-format.js';
 import { formatLastPlayed } from './progress.js';
 import { updateIcon } from '../../lib/icon.js';

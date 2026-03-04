@@ -1,3 +1,7 @@
+/* Duty Dispatcher — game-scoped styles.
+   Task statement card, role buttons (with highlight/disabled states),
+   score/streak bar, hint panel, and map container layout. */
+
 .dd-page {
   background: var(--bg);
   color: var(--text);

@@ -1,3 +1,13 @@
+/**
+ * duty-dispatcher/index.js — "Kas jādara kam?" (debitive mood game).
+ * ====================================================================
+ * Players assign duties to characters using the Latvian debitive mood
+ * (jā- construction). A task is shown (e.g. "jāiztīra istaba") and
+ * the player picks the correct dative-case role (e.g. "māmiņai").
+ *
+ * Architecture: data.js loads roles/tasks JSON, ui.js renders the grid,
+ * handlers.js processes clicks, progress.js tracks XP and streaks.
+ */
 import { mustId } from '../../lib/dom.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';

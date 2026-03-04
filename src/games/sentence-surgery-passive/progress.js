@@ -1,3 +1,12 @@
+/**
+ * @file sentence-surgery-passive/progress.js
+ * Persistence layer for Sentence Surgery – Passive.
+ *
+ * Tracks completed item IDs, total attempts, correct count,
+ * and current streak. Normalises stored data on read to
+ * prevent corrupt state from blocking gameplay.
+ */
+
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
 const GAME_ID = 'sentence-surgery-passive';

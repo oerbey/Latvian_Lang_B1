@@ -1,3 +1,12 @@
+/**
+ * @file passive-lab/i18n.js
+ * Internationalisation helpers for the Passive Voice Lab game.
+ *
+ * Loads language JSON, resolves dotted keys (e.g. "game.title"),
+ * interpolates {token} placeholders, and applies translations to
+ * all [data-i18n-key] elements in the DOM.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 
 export function getTranslation(i18n, key, fallback = '') {

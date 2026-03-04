@@ -1,3 +1,13 @@
+/**
+ * @file endings-builder/game-shell.js
+ * Reusable game shell UI for Endings Builder.
+ *
+ * Dynamically builds the game frame: prompt area, answer input,
+ * stat cards (round / correct / streak), navigation buttons
+ * (Check, Next, Toggle Rule), and a strict-mode checkbox.
+ * All callbacks are injected so the shell remains logic-agnostic.
+ */
+
 function button(label, opts = {}) {
   const btn = document.createElement('button');
   btn.type = 'button';

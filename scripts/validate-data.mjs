@@ -1,3 +1,14 @@
+/**
+ * @file scripts/validate-data.mjs
+ * Build script: validates JSON data files against JSON Schema.
+ *
+ * Uses Ajv to check words.json, items, routes, and other datasets
+ * against their schemas in the schemas/ folder. Exits with code 1
+ * on any validation failure.
+ *
+ * Usage: node scripts/validate-data.mjs
+ */
+
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import Ajv from 'ajv';

@@ -1,3 +1,12 @@
+/**
+ * @file scripts/jsdom-setup.js
+ * Test harness setup: creates a JSDOM environment for Vitest.
+ *
+ * Provides a minimal browser-like global (window, document,
+ * localStorage, sessionStorage, navigator, matchMedia) so
+ * modules that touch the DOM can run in a Node.js test runner.
+ */
+
 import { JSDOM } from 'jsdom';
 
 function createMemoryStorage() {

@@ -1,3 +1,14 @@
+/**
+ * @file scripts/split-words-json.mjs
+ * Build script: splits data/words.json into smaller chunk files.
+ *
+ * Reads the monolithic words.json, slices it into CHUNK_SIZE pieces,
+ * writes each chunk to data/words/chunk-N.json, and produces an
+ * index.json listing all chunk filenames for lazy loading.
+ *
+ * Usage: node scripts/split-words-json.mjs
+ */
+
 import fs from 'node:fs/promises';
 import path from 'node:path';
 

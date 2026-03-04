@@ -1,3 +1,14 @@
+/**
+ * @file scripts/build_week1_offline.mjs
+ * Build script: bundles i18n + game data for offline Week 1.
+ *
+ * Reads i18n JSON files and endings-builder data, then writes
+ * self-contained JS assignments (window.__ENDINGS_DATA__, etc.)
+ * so the Week 1 page can run without network access.
+ *
+ * Usage: node scripts/build_week1_offline.mjs
+ */
+
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 

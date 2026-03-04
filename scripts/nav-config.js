@@ -1,3 +1,12 @@
+/**
+ * nav-config.js — Central navigation link catalogue.
+ * ===================================================
+ * Single source of truth for every page link shown in the top nav bar
+ * and the page footer. To add a new game page, append an entry here —
+ * nav.js will automatically render it in both locations.
+ *
+ * @type {Array<{ href: string, label: string }>}
+ */
 export const NAV_ITEMS = [
   { href: 'index.html', label: 'Home' },
   { href: 'darbibas-vards.html', label: 'Darbības Vārds' },

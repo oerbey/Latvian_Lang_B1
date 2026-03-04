@@ -1,6 +1,25 @@
+/**
+ * sw.js — Service Worker for the Latvian Language B1 PWA.
+ * =======================================================
+ * Implements an offline-first caching strategy so all 14 games work
+ * without a network connection once visited.
+ *
+ * Caching strategies per resource type:
+ *   • Navigation (HTML pages)  — network-first, falls back to cache (then index.html).
+ *   • JSON data files          — stale-while-revalidate (serve cached, refresh in background).
+ *   • Scripts, styles, images  — cache-first (immutable assets with versioned filenames).
+ *
+ * CACHE_VERSION must be bumped on every release so the activate event
+ * can purge stale caches.
+ */
 const CACHE_VERSION = 'v16';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
+/**
+ * CORE_ASSETS — the full set of URLs pre-cached during the `install` event.
+ * Includes every HTML page, JS module, CSS file, JSON data file, and icon
+ * needed for offline play.
+ */
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -102,10 +121,19 @@ const CORE_ASSETS = [
   './i18n/ru.json',
 ];
 
+/**
+ * install — Pre-cache all core assets when the worker is first registered.
+ * The browser waits until every URL in CORE_ASSETS is cached before
+ * activating this version.
+ */
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)));
 });
 
+/**
+ * activate — Delete old caches whose names no longer match CACHE_NAME.
+ * Then claim all open clients so the new worker takes effect immediately.
+ */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
@@ -121,12 +149,32 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+/**
+ * message — Listen for SKIP_WAITING messages from the main thread.
+ * When the UI detects a new worker is waiting, it sends this message
+ * to force the waiting worker to activate immediately (instant update).
+ */
 self.addEventListener('message', (event) => {
   if (event?.data?.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
 
+/**
+ * fetch — Intercept every outgoing GET request and apply the appropriate
+ * caching strategy based on request type:
+ *
+ *   1. Navigation requests (HTML pages) → Network-first with cache fallback.
+ *      If both fail, serve cached index.html as an app-shell fallback.
+ *
+ *   2. Same-origin JSON files → Stale-while-revalidate: serve cached data
+ *      instantly while fetching a fresh copy in the background.
+ *
+ *   3. Same-origin static assets (script, style, image, font) → Cache-first:
+ *      serve from cache if available, otherwise fetch and cache.
+ *
+ * Non-GET requests and cross-origin requests are passed through unmodified.
+ */
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -135,6 +183,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // --- Strategy 1: Navigation — network-first with offline fallback ---
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
@@ -152,6 +201,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // --- Strategy 2: JSON data — stale-while-revalidate ---
   if (url.origin === self.location.origin && url.pathname.endsWith('.json')) {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) =>
@@ -175,6 +225,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // --- Strategy 3: Static assets — cache-first ---
   if (
     url.origin === self.location.origin &&
     ['script', 'style', 'image', 'font'].includes(request.destination)

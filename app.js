@@ -1,3 +1,28 @@
+/**
+ * app.js — Main entry point for the Word-Quest / Darbības Vārdi canvas game.
+ * ==========================================================================
+ * This module bootstraps the "Week 1" interactive vocabulary game which renders
+ * onto an HTML5 <canvas>. It supports two game modes:
+ *
+ *   MATCH — Pair Latvian words with their translations by clicking tiles.
+ *   FORGE — Type-in the correct translation with optional hints.
+ *
+ * Key responsibilities:
+ *   • Load and apply i18n translations (Latvian / English / Russian).
+ *   • Load vocabulary data from JSON files (or offline bundles).
+ *   • Wire up all UI event listeners (buttons, keyboard shortcuts, canvas
+ *     mouse/touch/wheel interactions).
+ *   • Manage the main render loop (draw → confetti → help overlay).
+ *   • Export game results to CSV.
+ *
+ * Architecture:
+ *   - Rendering primitives live in src/lib/render.js (canvas helpers).
+ *   - Game state is a central mutable object in src/lib/state.js.
+ *   - Each game mode has its own module (src/lib/match.js, src/lib/forge.js).
+ *   - Clickable hit-regions are tracked in src/lib/clickables.js.
+ */
+
+// --- Rendering helpers (canvas, shapes, confetti) ---
 import {
   canvas,
   updateCanvasScale,
@@ -11,6 +36,8 @@ import {
   setConfettiRenderer,
   getCanvasTheme,
 } from './src/lib/render.js';
+
+// --- Centralised application state management ---
 import {
   getState,
   setState,
@@ -21,25 +48,38 @@ import {
   setHelpText,
   triggerRedraw,
 } from './src/lib/state.js';
+
+// --- Hit-testing for clickable canvas regions ---
 import { clickables, hitAt } from './src/lib/clickables.js';
+
+// --- Status bar message display ---
 import { setStatus, setStatusHandler } from './src/lib/status.js';
+
+// --- Game-mode modules (Match & Forge) ---
 import { startMatchRound, drawMatch } from './src/lib/match.js';
 import { startForgeRound, drawForge } from './src/lib/forge.js';
+
+// --- DOM utilities & asset paths ---
 import { $id, mustId, on } from './src/lib/dom.js';
 import { assetUrl } from './src/lib/paths.js';
+
+// --- Global error handling & safe HTML injection ---
 import { installGlobalErrorHandlers, showFatalError } from './src/lib/errors.js';
 import { setTrustedHTML } from './src/lib/safeHtml.js';
 
+// Install window.onerror and unhandledrejection handlers early.
 installGlobalErrorHandlers();
+
+// Connect the status module to the #status DOM element.
 setStatusHandler((message) => {
   mustId('status').textContent = message || '';
 });
 
-let i18n = {};
-let currentLang = 'lv';
-let lastHelpFocus = null;
+let i18n = {};          // Current translation strings (populated by loadTranslations)
+let currentLang = 'lv'; // BCP 47 language tag for the active UI language
+let lastHelpFocus = null; // Element that had focus before the help overlay opened
 
-// Deep copy ensures i18n mutations don't affect fallback data.
+/** Deep copy ensures i18n mutations don't affect fallback data. */
 const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 
 /**
@@ -243,7 +283,14 @@ function toggleDeckSize() {
   if (state.mode === MODES.MATCH) startMatchRound();
 }
 
+/**
+ * Wire up all interactive UI event listeners.
+ * Includes: mode buttons, difficulty buttons, navigation (prev/next),
+ * deck-size toggle, help, export, language selector, canvas mouse/touch/wheel,
+ * window resize, and keyboard shortcuts.
+ */
 function setupEventListeners() {
+  // --- Mode selection: switch between Match and Forge modes ---
   on(mustId('mode-match'), 'click', () => {
     updateState((state) => {
       state.mode = MODES.MATCH;
@@ -258,6 +305,7 @@ function setupEventListeners() {
     });
     startForgeRound();
   });
+  // --- Difficulty selectors ---
   on(mustId('btn-practice'), 'click', () => {
     updateState((state) => {
       state.difficulty = 'practice';
@@ -270,6 +318,7 @@ function setupEventListeners() {
     });
     setStatus(i18n.status.challenge);
   });
+  // --- Round navigation (previous / next) ---
   on(mustId('btn-prev'), 'click', () => {
     updateState((state) => {
       state.roundIndex = Math.max(0, state.roundIndex - 1);
@@ -284,6 +333,7 @@ function setupEventListeners() {
     const { mode } = getState();
     mode === MODES.MATCH ? startMatchRound() : startForgeRound();
   });
+  // --- Deck size, help, export, language ---
   on(mustId('btn-deck-size'), 'click', toggleDeckSize);
   on(mustId('btn-help'), 'click', () => {
     setHelpVisibility(!getState().showHelp);
@@ -307,6 +357,7 @@ function setupEventListeners() {
       e.target.value = currentLang;
     }
   });
+  // --- Canvas pointer events (mouse click & hover cursor) ---
   on(canvas, 'mousemove', (e) => {
     const coords = getCanvasCoordinates(e.clientX, e.clientY);
     canvas.style.cursor = hitAt(coords.x, coords.y) ? 'pointer' : 'default';
@@ -316,6 +367,7 @@ function setupEventListeners() {
     const t = hitAt(coords.x, coords.y);
     if (t && t.onClick) t.onClick({ x: coords.x, y: coords.y, target: t });
   });
+  // --- Touch events (scrolling + tap detection for mobile) ---
   let touchStartY = null;
   let touchStartScrollY = 0;
   let touchStartTime = 0;
@@ -377,6 +429,7 @@ function setupEventListeners() {
     },
     { passive: false },
   );
+  // --- Mouse wheel scrolling for the match-mode tile grid ---
   on(
     canvas,
     'wheel',
@@ -399,10 +452,13 @@ function setupEventListeners() {
     },
     { passive: false },
   );
+  // --- Window resize: recalculate canvas dimensions ---
   on(window, 'resize', () => {
     updateCanvasScale();
     triggerRedraw();
   });
+
+  // --- Keyboard shortcuts: 1=Match, 2=Forge, H=Help, R=Restart, D=Deck ---
   on(document, 'keydown', (e) => {
     if (e.key === '1') {
       updateState((state) => {
@@ -427,6 +483,11 @@ function setupEventListeners() {
   });
 }
 
+/**
+ * Export accumulated game results as a downloadable CSV file.
+ * Columns: mode, timestamp, correct, total, time_s, detail (JSON).
+ * Creates a temporary <a> to trigger the browser download dialog.
+ */
 function exportCSV() {
   const rows = [['mode', 'timestamp', 'correct', 'total', 'time_s', 'detail'].join(',')];
   const state = getState();
@@ -445,11 +506,16 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
+// --- Loading overlay: show spinner while data loads, hide when ready ---
 const loadingOverlay = $id('loading');
 const canvasElement = canvas;
 if (loadingOverlay) loadingOverlay.classList.add('visible');
 canvasElement.classList.add('loading');
 
+/**
+ * Finalise game initialisation: scale the canvas, start the first round,
+ * and hide the loading overlay.
+ */
 function initializeGame() {
   updateCanvasScale();
   startMatchRound();
@@ -457,6 +523,14 @@ function initializeGame() {
   canvasElement.classList.remove('loading');
 }
 
+/**
+ * Fetch vocabulary data for a given language pair (e.g. lv→en, lv→ru).
+ * Loads a units index, each unit's word list, and a forge entries file.
+ * Falls back to offline embedded data (window.__WEEK1_VOCAB__) if fetch fails.
+ *
+ * @param {string} from - Source language code (default 'lv').
+ * @param {string} to   - Target language code (default 'en').
+ */
 async function loadVocabulary(from = 'lv', to = 'en') {
   const base = `data/${from}-${to}/`;
   try {
@@ -504,6 +578,14 @@ async function loadVocabulary(from = 'lv', to = 'en') {
   });
 }
 
+/**
+ * Application bootstrap sequence:
+ *   1. Load translations for the current language.
+ *   2. Set up all UI event listeners.
+ *   3. Load vocabulary data (fetch or offline).
+ *   4. Wait for web fonts, then start the first game round.
+ * Shows a fatal error banner if any step fails.
+ */
 async function startInit() {
   try {
     await loadTranslations(currentLang);
@@ -541,6 +623,7 @@ async function startInit() {
   }
 }
 
+// --- Kick off initialisation when the DOM is ready ---
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', startInit);
 } else {

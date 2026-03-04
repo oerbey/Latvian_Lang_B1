@@ -1,3 +1,13 @@
+/**
+ * words-data.js — Chunked vocabulary loader with offline fallback.
+ * =================================================================
+ * Loads words from a chunked JSON index (data/words/index.json →
+ * data/words/chunk-01.json, chunk-02.json, …). Falls back to the
+ * embedded window.__LATVIAN_WORDS__ array when offline.
+ *
+ * Exports:
+ *   loadWords(options) — Returns {items: Array, usingFallback: boolean}.
+ */
 import { assetUrl } from './paths.js';
 
 const INDEX_PATH = 'data/words/index.json';

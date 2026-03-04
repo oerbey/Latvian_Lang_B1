@@ -1,3 +1,18 @@
+/**
+ * endings-builder/index.js — Verb-endings construction game.
+ * ============================================================
+ * Players assemble correct verb conjugation forms by typing the ending
+ * for a given stem + pronoun + tense prompt. Supports a special-character
+ * keypad for Latvian diacritics (ā, ē, ī, ū, č, ģ, ķ, ļ, ņ, š, ž).
+ *
+ * Architecture:
+ *   data.js      — Load items and i18n strings from JSON.
+ *   rounds.js    — Build shuffled round queue from items.
+ *   ui.js        — Render prompts, keypad, and feedback.
+ *   handlers.js  — Process submit/skip/next actions.
+ *   progress.js  — Persist per-item mastery scores.
+ *   game-shell.js— Shared UI shell wrapper.
+ */
 import { mountGameShell } from './game-shell.js';
 import { norm, equalsLoose } from './norm.js';
 import { showFatalError } from '../../lib/errors.js';

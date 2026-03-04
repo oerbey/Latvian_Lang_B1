@@ -1,3 +1,12 @@
+/**
+ * @file duty-dispatcher/handlers.js
+ * Event handlers for the Duty Dispatcher game.
+ *
+ * Owns task selection, answer validation, scoring (with streak
+ * multiplier & XP rewards every 5 correct answers), and progress
+ * persistence. All DOM/state deps are injected for testability.
+ */
+
 import { shuffle } from '../../lib/utils.js';
 import { showReward } from '../../lib/reward.js';
 

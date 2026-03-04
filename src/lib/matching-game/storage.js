@@ -1,3 +1,12 @@
+/**
+ * @file matching-game/storage.js
+ * Persistence helpers for the matching-game engine.
+ *
+ * Reads/writes JSON config, active word sets, and locked-set state
+ * to localStorage. Validates data shape on read with type-aware
+ * fallbacks (object, array, number, boolean).
+ */
+
 import { loadJSON, remove, saveJSON } from '../storage.js';
 
 function isPlainObject(value) {

@@ -1,3 +1,12 @@
+/**
+ * @file duty-dispatcher/ui.js
+ * UI rendering helpers for the Duty Dispatcher game.
+ *
+ * Renders feedback messages, hint text, score/streak metrics,
+ * progress counters, role buttons (with highlight/disable states),
+ * and the task statement display. Also loads the Latvia map SVG.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 
 function formatScore(strings, value) {

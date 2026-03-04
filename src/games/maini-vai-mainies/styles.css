@@ -1,3 +1,7 @@
+/* Maini vai Mainies — game-scoped styles.
+   Sentence card, transitive/reflexive choice buttons,
+   feedback flash, streak counter, and progress indicator. */
+
 .mvm-page {
   background: var(--bg);
   color: var(--text);

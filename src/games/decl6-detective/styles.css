@@ -1,3 +1,7 @@
+/* 6th Declension Detective — game-scoped styles.
+   Custom colour palette (deep navy), scene badges, canvas overlay,
+   drag targets, score/XP panel, and scene-transition animations. */
+
 .decl6-page {
   --decl6-bg-0: #031925;
   --decl6-bg-1: #0f3f57;

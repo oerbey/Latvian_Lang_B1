@@ -1,3 +1,13 @@
+/**
+ * @file travel-tracker/ui.js
+ * UI rendering and interaction helpers for Travel Tracker.
+ *
+ * Renders route maps with SVG city highlights, prefix-choice
+ * buttons, answer feedback, score/streak display, level
+ * summaries, and overall results. Also handles answer
+ * normalisation and streak-based score multipliers.
+ */
+
 import { seededShuffle } from './utils.js';
 import { sanitizeText } from '../../lib/sanitize.js';
 import { formatNumber, formatPlural } from '../../lib/i18n-format.js';

@@ -1,3 +1,12 @@
+/**
+ * @file matching-game/render.js
+ * DOM rendering for the matching-game engine.
+ *
+ * Creates word-cards with ARIA roles, renders the left/right
+ * lists, announces score updates, and applies correct/incorrect
+ * flash animations.
+ */
+
 import { shuffleInPlace } from '../utils.js';
 
 export function announceStatus(elements, score) {

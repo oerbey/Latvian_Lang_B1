@@ -1,3 +1,14 @@
+/**
+ * loading.js — Full-page loading overlay with spinner and message.
+ * =================================================================
+ * Provides showLoading / hideLoading functions used by game-base.js
+ * to display a loading state while data is being fetched. The overlay
+ * is created lazily on first use and reused across pages.
+ *
+ * Key exports:
+ *   showLoading(message)  — Show the overlay with an optional message.
+ *   hideLoading()         — Hide the overlay and clear the message.
+ */
 let overlayEl = null;
 let messageEl = null;
 

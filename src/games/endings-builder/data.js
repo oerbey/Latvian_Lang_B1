@@ -1,3 +1,13 @@
+/**
+ * @file endings-builder/data.js
+ * Data loader for noun/adjective items used in the Endings Builder game.
+ *
+ * Supports three load strategies:
+ *  1. Embedded fallback (window.__ENDINGS_ITEMS__) for file: protocol.
+ *  2. Node.js fs (unit-test environments).
+ *  3. Browser fetch via assetUrl().
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 import { loadString } from '../../lib/storage.js';
 

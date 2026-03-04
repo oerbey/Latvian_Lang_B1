@@ -1,3 +1,19 @@
+/**
+ * match.js — "Match" game mode: pair Latvian words with translations.
+ * ====================================================================
+ * Renders two columns of tiles on the canvas — Latvian words on the left,
+ * translations on the right. The player clicks tiles to form pairs; correct
+ * matches flash green and incorrect ones flash red. Once all pairs are
+ * matched, confetti fires and results are recorded.
+ *
+ * Key exports:
+ *   startMatchRound() — Build a new deck and initialise match state.
+ *   drawMatch()       — Render the current match state onto the canvas.
+ *
+ * Internal helpers:
+ *   buildMatchDeck(state) — Filter vocabulary entries playable in match mode.
+ *   updateMatchState(fn)  — Mutate matchState inside the global state.
+ */
 import { getState, shuffle, now, triggerRedraw, updateState } from './state.js';
 import { clickables, resetClicks } from './clickables.js';
 import { setStatus } from './status.js';

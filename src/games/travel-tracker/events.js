@@ -1,3 +1,11 @@
+/**
+ * @file travel-tracker/events.js
+ * Event binding for the Travel Tracker game.
+ *
+ * Wires Check, Start, Next, and Restart buttons plus
+ * keyboard (Enter) and input events to their handler callbacks.
+ */
+
 import { attachButtonBehavior } from './ui.js';
 
 export function bindEvents({

@@ -9,28 +9,22 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-function applyLatvianFlagFavicon() {
-  const flagHref = new URL('assets/icons/latvia-flag.svg', document.baseURI).toString();
+function ensureLandingPageFavicon() {
+  // Keep page-defined icons when present; only add a fallback for pages without one.
   const faviconSelectors = ['link[rel="icon"]', 'link[rel="shortcut icon"]'];
   const existing = document.querySelectorAll(faviconSelectors.join(','));
+  if (existing.length > 0) return;
 
-  if (existing.length > 0) {
-    existing.forEach((link) => {
-      link.setAttribute('href', flagHref);
-      link.setAttribute('type', 'image/svg+xml');
-      link.removeAttribute('sizes');
-    });
-    return;
-  }
-
+  const iconHref = new URL('assets/icons/icon-192.png', document.baseURI).toString();
   const icon = document.createElement('link');
   icon.rel = 'icon';
-  icon.type = 'image/svg+xml';
-  icon.href = flagHref;
+  icon.type = 'image/png';
+  icon.sizes = '192x192';
+  icon.href = iconHref;
   document.head.append(icon);
 }
 
-applyLatvianFlagFavicon();
+ensureLandingPageFavicon();
 
 const OFFLINE_BANNER_ID = 'llb1-offline';
 

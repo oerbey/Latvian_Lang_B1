@@ -39,21 +39,21 @@ Each game has a dedicated HTML entry and module under `src/games/<game>/`.
 
 Current standalone modules:
 
-| Module folder | Entry | Extra modules |
-| --- | --- | --- |
-| `character-traits` | `index.js` | `styles.css` |
-| `character-traits-expansion` | `index.js` | — |
-| `character-traits-match` | `index.js` | `matching.js` |
-| `conjugation-sprint` | `index.js` | `logic.js`, `styles.css` |
-| `decl6-detective` | `index.js` | `data.js`, `progress.js`, `ui.js`, `styles.css` |
-| `duty-dispatcher` | `index.js` | `data.js`, `handlers.js`, `progress.js`, `ui.js`, `styles.css` |
-| `endings-builder` | `index.js` | `data.js`, `dnd.js`, `endings-resolver.js`, `game-shell.js`, `handlers.js`, `norm.js`, `progress.js`, `rounds.js`, `ui.js`, `styles.css` |
-| `english-latvian-arcade` | `index.js` | `logic.js`, `styles.css` |
-| `maini-vai-mainies` | `index.js` | `styles.css` |
-| `passive-lab` | `index.js` | `data.js`, `i18n.js`, `progress.js`, `ui.js`, `styles.css` |
-| `sentence-surgery-passive` | `index.js` | `data.js`, `progress.js`, `tokenize.js`, `styles.css` |
-| `travel-tracker` | `index.js` | `events.js`, `loaders.js`, `state.js`, `ui.js`, `utils.js`, `styles.css` |
-| `word-quest` | `main.js` | `styles.css` |
+| Module folder                | Entry      | Extra modules                                                                                                                            |
+| ---------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `character-traits`           | `index.js` | `styles.css`                                                                                                                             |
+| `character-traits-expansion` | `index.js` | —                                                                                                                                        |
+| `character-traits-match`     | `index.js` | `matching.js`                                                                                                                            |
+| `conjugation-sprint`         | `index.js` | `logic.js`, `styles.css`                                                                                                                 |
+| `decl6-detective`            | `index.js` | `data.js`, `progress.js`, `ui.js`, `styles.css`                                                                                          |
+| `duty-dispatcher`            | `index.js` | `data.js`, `handlers.js`, `progress.js`, `ui.js`, `styles.css`                                                                           |
+| `endings-builder`            | `index.js` | `data.js`, `dnd.js`, `endings-resolver.js`, `game-shell.js`, `handlers.js`, `norm.js`, `progress.js`, `rounds.js`, `ui.js`, `styles.css` |
+| `english-latvian-arcade`     | `index.js` | `logic.js`, `styles.css`                                                                                                                 |
+| `maini-vai-mainies`          | `index.js` | `styles.css`                                                                                                                             |
+| `passive-lab`                | `index.js` | `data.js`, `i18n.js`, `progress.js`, `ui.js`, `styles.css`                                                                               |
+| `sentence-surgery-passive`   | `index.js` | `data.js`, `progress.js`, `tokenize.js`, `styles.css`                                                                                    |
+| `travel-tracker`             | `index.js` | `events.js`, `loaders.js`, `state.js`, `ui.js`, `utils.js`, `styles.css`                                                                 |
+| `word-quest`                 | `main.js`  | `styles.css`                                                                                                                             |
 
 ### 2.4 Shared Libraries (`src/lib/`)
 
@@ -220,16 +220,16 @@ When adding new pages or assets that must work offline:
 
 ## 7. Configuration Files
 
-| File | Purpose |
-| --- | --- |
-| `.nvmrc` | Node.js version (20) |
-| `.prettierrc.json` | Prettier config (`printWidth: 100`, single quotes) |
-| `.eslintrc.cjs` | ESLint config with Prettier compatibility |
-| `.editorconfig` | Editor whitespace / encoding settings |
-| `tsconfig.check.json` | TypeScript checking config (no emit) |
-| `jsconfig.json` | VS Code JavaScript project settings |
-| `playwright.config.js` | Playwright E2E configuration |
-| `.husky/` | Git hooks (pre-commit: lint-staged) |
+| File                   | Purpose                                            |
+| ---------------------- | -------------------------------------------------- |
+| `.nvmrc`               | Node.js version (20)                               |
+| `.prettierrc.json`     | Prettier config (`printWidth: 100`, single quotes) |
+| `.eslintrc.cjs`        | ESLint config with Prettier compatibility          |
+| `.editorconfig`        | Editor whitespace / encoding settings              |
+| `tsconfig.check.json`  | TypeScript checking config (no emit)               |
+| `jsconfig.json`        | VS Code JavaScript project settings                |
+| `playwright.config.js` | Playwright E2E configuration                       |
+| `.husky/`              | Git hooks (pre-commit: lint-staged)                |
 
 ## 8. Documentation Governance
 

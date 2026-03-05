@@ -75,7 +75,7 @@ setStatusHandler((message) => {
   mustId('status').textContent = message || '';
 });
 
-let i18n = {};          // Current translation strings (populated by loadTranslations)
+let i18n = {}; // Current translation strings (populated by loadTranslations)
 let currentLang = 'lv'; // BCP 47 language tag for the active UI language
 let lastHelpFocus = null; // Element that had focus before the help overlay opened
 

@@ -352,7 +352,7 @@ function announceFilter(filter, count) {
 }
 
 // --- Execute on module load ---
-renderGames();    // Build the card grid
-initFilters();    // Wire up filter buttons
+renderGames(); // Build the card grid
+initFilters(); // Wire up filter buttons
 initTrackCards(); // Connect track cards to filters
-initReveal();     // Start scroll-reveal observer
+initReveal(); // Start scroll-reveal observer

@@ -27,8 +27,8 @@ import { loadAppState, loadString, saveAppState, saveString } from './src/lib/st
 
   // --- Resolve initial theme from storage hierarchy ---
   let appState = loadAppState();
-  const storedPrimary = loadString('dp-theme', null);   // Current key
-  const storedLegacy = loadString('bs-theme', null);     // Old key kept for migration
+  const storedPrimary = loadString('dp-theme', null); // Current key
+  const storedLegacy = loadString('bs-theme', null); // Old key kept for migration
   const stored = appState.theme || storedPrimary || storedLegacy;
 
   // Migrate legacy storage into appState if needed

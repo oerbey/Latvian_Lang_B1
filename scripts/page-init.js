@@ -6,7 +6,7 @@
  *   1. Install global error handlers (window.onerror, unhandledrejection).
  *   2. Upgrade any data-icon placeholders to inline SVG icons.
  *   3. Set the copyright year in the footer.
- *   4. Replace default favicon with the Latvian flag SVG.
+ *   4. Ensure browser-tab favicon matches landing-page icon defaults.
  *   5. Show / hide an "Offline mode" banner based on navigator.onLine.
  *   6. Adjust body padding-top to account for the fixed nav bar height.
  *   7. Apply an anti-scroll-trap workaround for mobile Safari.
@@ -25,32 +25,22 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-/**
- * Step 4: Replace the default favicon(s) with the Latvian flag SVG icon.
- * If no <link rel="icon"> exists, one is created and appended to <head>.
- */
-function applyLatvianFlagFavicon() {
-  const flagHref = new URL('assets/icons/latvia-flag.svg', document.baseURI).toString();
+function ensureLandingPageFavicon() {
+  // Keep page-defined icons when present; only add a fallback for pages without one.
   const faviconSelectors = ['link[rel="icon"]', 'link[rel="shortcut icon"]'];
   const existing = document.querySelectorAll(faviconSelectors.join(','));
+  if (existing.length > 0) return;
 
-  if (existing.length > 0) {
-    existing.forEach((link) => {
-      link.setAttribute('href', flagHref);
-      link.setAttribute('type', 'image/svg+xml');
-      link.removeAttribute('sizes');
-    });
-    return;
-  }
-
+  const iconHref = new URL('assets/icons/icon-192.png', document.baseURI).toString();
   const icon = document.createElement('link');
   icon.rel = 'icon';
-  icon.type = 'image/svg+xml';
-  icon.href = flagHref;
+  icon.type = 'image/png';
+  icon.sizes = '192x192';
+  icon.href = iconHref;
   document.head.append(icon);
 }
 
-applyLatvianFlagFavicon();
+ensureLandingPageFavicon();
 
 // --- Step 5: Offline mode banner ---
 const OFFLINE_BANNER_ID = 'llb1-offline';

@@ -1,3 +1,11 @@
+/**
+ * @file passive-lab/progress.js
+ * Persistence layer for the Passive Voice Lab game.
+ *
+ * Stores XP, streak, and last-played timestamp in localStorage.
+ * Also exposes a formatted last-played string for the scoreboard.
+ */
+
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { formatDateTime } from '../../lib/i18n-format.js';
 

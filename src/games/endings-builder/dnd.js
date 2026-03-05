@@ -1,3 +1,12 @@
+/**
+ * @file endings-builder/dnd.js
+ * Drag-and-Drop + keyboard accessibility module for Endings Builder.
+ *
+ * Wires pointer events and keyboard (Enter/Space/Escape) to let
+ * players drag suffix tiles onto the drop zone. Also sets proper
+ * ARIA grabbed/pressed attributes for screen-reader support.
+ */
+
 export function mountDnD({ dragSelector, dropSelector, onDrop }) {
   const drags = [...document.querySelectorAll(dragSelector)];
   const drops = [...document.querySelectorAll(dropSelector)];

@@ -1,3 +1,17 @@
+/**
+ * travel-tracker/index.js — Travel Tracker (prefix navigation game).
+ * ====================================================================
+ * Players "drive" a bus through Latvia by choosing the correct verb
+ * prefix for each route segment. An SVG map shows the bus moving along
+ * the route as correct answers are given.
+ *
+ * Architecture:
+ *   state.js   — Game state (level, route, score, seed-based RNG).
+ *   loaders.js — Fetch route data JSON and SVG map.
+ *   events.js  — Bind keyboard and button event handlers.
+ *   ui.js      — DOM rendering (choices, feedback, score display).
+ *   Progress persisted via storage.js with clearable session seed.
+ */
 import { mustId } from '../../lib/dom.js';
 import { clearGameProgress, readGameProgress, writeGameProgress } from '../../lib/storage.js';
 import { showFatalError } from '../../lib/errors.js';

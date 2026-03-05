@@ -1,3 +1,7 @@
+/* Character Traits — game-scoped styles.
+   Quiz card layout, optimist/pessimist colour coding,
+   answer buttons, feedback states, and scoreboard. */
+
 .character-traits-page {
   background: var(--bg);
   color: var(--text);

@@ -1,3 +1,15 @@
+/**
+ * forge.js — "Forge" game mode: prefix-selection verb builder.
+ * =============================================================
+ * Presents a base verb and a set of prefix options; the player selects
+ * the correct prefix to form the target word matching the given clue
+ * (translation). Correct answers advance, wrong ones flash feedback.
+ *
+ * Key exports:
+ *   startForgeRound()  — Pick the next forge entry and build option tiles.
+ *   drawForge()        — Render the forge UI (clue, base, prefix buttons).
+ *   ALL_PREFIXES       — Array of all Latvian verb prefixes used as distractors.
+ */
 import { getState, shuffle, choice, now, triggerRedraw, updateState } from './state.js';
 import { clickables, resetClicks } from './clickables.js';
 import { setStatus } from './status.js';

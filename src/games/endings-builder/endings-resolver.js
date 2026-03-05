@@ -1,3 +1,12 @@
+/**
+ * @file endings-builder/endings-resolver.js
+ * Resolves correct noun/adjective endings from declension tables.
+ *
+ * Loads tables.json (or embedded fallback) and exposes getEnding()
+ * and getTable() to look up the correct suffix for any
+ * part-of-speech + schema + grammatical slot combination.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 
 const clone = (value) => JSON.parse(JSON.stringify(value));

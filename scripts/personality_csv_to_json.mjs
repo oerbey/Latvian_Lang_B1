@@ -1,3 +1,14 @@
+/**
+ * @file scripts/personality_csv_to_json.mjs
+ * Build script: converts personality words CSV to JSON.
+ *
+ * Reads data/personality/words.csv, parses columns
+ * (lv, en, ru, group, gender), and writes a structured
+ * JSON array to data/personality/words.json.
+ *
+ * Usage: node scripts/personality_csv_to_json.mjs
+ */
+
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

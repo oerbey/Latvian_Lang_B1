@@ -1,3 +1,11 @@
+/**
+ * @file decl6-detective/progress.js
+ * Persistence layer for the 6th Declension Detective game.
+ *
+ * Stores XP, streak count, and last-played timestamp in localStorage
+ * via the shared storage module. Provides safe read/write with defaults.
+ */
+
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
 
 const GAME_ID = 'decl6-detective';

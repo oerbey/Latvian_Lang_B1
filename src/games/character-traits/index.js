@@ -1,3 +1,17 @@
+/**
+ * character-traits/index.js — "Rakstura īpašības" personality trait game.
+ * ========================================================================
+ * Quiz-style game where players learn character-trait vocabulary (e.g.
+ * "optimistisks", "pesimistisks") by categorising traits into groups
+ * (optimist vs pessimist) or translating them from Latvian to English.
+ *
+ * Two modes:
+ *   MODE_GROUPS    — "Which group does this trait belong to?"
+ *   MODE_TRANSLATE — "What does this word mean in English?"
+ *
+ * Tracks score, displays feedback with correct translation, and persists
+ * progress per group via storage.js.
+ */
 import { loadPersonalityWords } from '../../lib/personality-data.js';
 import { mustId } from '../../lib/dom.js';
 import { shuffle } from '../../lib/utils.js';

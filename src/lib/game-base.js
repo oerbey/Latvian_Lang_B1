@@ -1,4 +1,17 @@
 /**
+ * game-base.js — Reusable game lifecycle helper.
+ * ================================================
+ * Provides a standardised init → loadStrings → loadData → initUI → mount
+ * pipeline that each standalone game page can adopt. Handles errors and
+ * exposes a destroy() method for cleanup.
+ *
+ * Usage:
+ *   const game = createGameBase({ loadStrings, loadData, initUI, mount, teardown, onError });
+ *   await game.init();
+ *   // later: game.destroy();
+ */
+
+/**
  * Minimal game lifecycle helper to standardize init/cleanup flows.
  */
 export function createGameBase(options = {}) {

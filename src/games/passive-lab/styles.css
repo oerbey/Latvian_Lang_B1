@@ -1,3 +1,7 @@
+/* Passive Voice Lab — game-scoped styles.
+   Patient selector, tense toggle, answer construction area,
+   feedback panel, scoreboard, and explanation reveal. */
+
 .passive-lab-page {
   background: var(--bg);
   min-height: 100vh;

@@ -1,3 +1,16 @@
+/**
+ * maini-vai-mainies/index.js — "Maini vai mainies?" reflexive verb game.
+ * ========================================================================
+ * A sentence-completion quiz where players choose between the reflexive
+ * (-ies) and non-reflexive forms of Latvian verbs in context. An animated
+ * avatar reflects the player's progress (neutral → thinking → happy).
+ *
+ * Mechanics:
+ *   • Items loaded from data/maini-vai-mainies/items.json.
+ *   • Two-button choice per round; instant feedback with hint text.
+ *   • Score, streak, and per-item stats persisted via storage.js.
+ *   • Reward toasts at streak milestones.
+ */
 import { mustId } from '../../lib/dom.js';
 import { assetUrl } from '../../lib/paths.js';
 import { shuffle } from '../../lib/utils.js';

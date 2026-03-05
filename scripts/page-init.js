@@ -1,9 +1,25 @@
+/**
+ * page-init.js — Shared page bootstrapping script loaded on every page.
+ * =====================================================================
+ *
+ * Responsibilities:
+ *   1. Install global error handlers (window.onerror, unhandledrejection).
+ *   2. Upgrade any data-icon placeholders to inline SVG icons.
+ *   3. Set the copyright year in the footer.
+ *   4. Ensure browser-tab favicon matches landing-page icon defaults.
+ *   5. Show / hide an "Offline mode" banner based on navigator.onLine.
+ *   6. Adjust body padding-top to account for the fixed nav bar height.
+ *   7. Apply an anti-scroll-trap workaround for mobile Safari.
+ *   8. Register the service worker (sw.js) and prompt for updates.
+ */
 import { installGlobalErrorHandlers } from '../src/lib/errors.js';
 import { upgradeIcons } from '../src/lib/icon.js';
 
+// --- Step 1–2: Global error handling & icon upgrade ---
 installGlobalErrorHandlers();
 upgradeIcons();
 
+// --- Step 3: Dynamic copyright year ---
 const yearEl = document.getElementById('year');
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
@@ -26,8 +42,10 @@ function ensureLandingPageFavicon() {
 
 ensureLandingPageFavicon();
 
+// --- Step 5: Offline mode banner ---
 const OFFLINE_BANNER_ID = 'llb1-offline';
 
+/** Create the offline banner element if it doesn't already exist. */
 function ensureOfflineBanner() {
   const existing = document.getElementById(OFFLINE_BANNER_ID);
   if (existing) return existing;
@@ -42,6 +60,7 @@ function ensureOfflineBanner() {
   return banner;
 }
 
+/** Show or hide the offline banner based on navigator.onLine. */
 function updateOfflineBanner() {
   const banner = ensureOfflineBanner();
   if (!banner) return;
@@ -58,6 +77,7 @@ if (document.readyState === 'loading') {
 window.addEventListener('online', updateOfflineBanner);
 window.addEventListener('offline', updateOfflineBanner);
 
+// --- Step 6: Nav offset — adjust body padding for the fixed nav bar ---
 const nav = document.querySelector('[data-site-nav]');
 const main = document.querySelector('main');
 const baseBodyPaddingTop = (() => {
@@ -65,6 +85,10 @@ const baseBodyPaddingTop = (() => {
   return Number.isFinite(padding) ? padding : 0;
 })();
 
+/**
+ * Recalculate body padding-top so page content doesn't sit behind
+ * the fixed navigation bar. Called on load, resize, and font-ready events.
+ */
 function updateNavOffset() {
   if (!nav) return;
   const navStyle = getComputedStyle(nav);
@@ -180,6 +204,7 @@ if ('ResizeObserver' in window && nav) {
   }
 })();
 
+// --- Step 8: Service Worker registration ---
 // Register the service worker after the window has fully loaded
 function showUpdatePrompt(registration) {
   if (!registration?.waiting) return;

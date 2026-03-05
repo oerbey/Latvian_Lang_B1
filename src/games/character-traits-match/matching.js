@@ -1,3 +1,12 @@
+/**
+ * @file character-traits-match/matching.js
+ * Initialisation and wiring for the Character Traits Match game.
+ *
+ * Loads personality-word data, renders optimist/pessimist group
+ * progress, and bootstraps the shared matching-game engine
+ * with game-specific DOM selectors and callbacks.
+ */
+
 import { initMatchingGame, MATCHING_CONSTANTS } from '../../lib/matching-game.js';
 import { loadPersonalityWords } from '../../lib/personality-data.js';
 import { $id, mustId } from '../../lib/dom.js';

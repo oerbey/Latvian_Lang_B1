@@ -1,3 +1,12 @@
+/**
+ * @file endings-builder/rounds.js
+ * Round generation and option building for Endings Builder.
+ *
+ * Expands each item's grammatical slots into individual rounds,
+ * generates full inflected forms, and builds the pool of ending
+ * options (correct + distractors) for the current round.
+ */
+
 import { shuffle } from '../../lib/utils.js';
 import { getEnding, getTable } from './endings-resolver.js';
 

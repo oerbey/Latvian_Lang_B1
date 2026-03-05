@@ -1,3 +1,39 @@
+/**
+ * homepage.js — Dynamically renders the game-card grid and initialises
+ * interactive features on the landing page (index.html).
+ * ==================================================================
+ *
+ * Responsibilities:
+ *   • Define the `games` catalogue array (title, URL, icon, description,
+ *     tags, accent colour, background art, and category for each game).
+ *   • Build game-card DOM elements from the catalogue (buildGameCard).
+ *   • Render the cards into the #gamesGrid container (renderGames).
+ *   • Set up filter buttons so users can show/hide cards by category (initFilters).
+ *   • Connect skill-track cards to the filter bar with smooth scroll (initTrackCards).
+ *   • Implement scroll-triggered reveal animations via IntersectionObserver (initReveal).
+ *   • Announce filter changes to screen readers via a live region (announceFilter).
+ *
+ * Adding a new game:
+ *   Simply append an object to the `games` array below — it will
+ *   automatically appear in the grid and be filterable by its `category`.
+ */
+
+/**
+ * games — Master catalogue of all available exercises.
+ * Each entry drives one card in the Game Library grid.
+ *
+ * @type {Array<{
+ *   title: string,      — Display name shown on the card.
+ *   href: string,       — Relative URL to the game's HTML page.
+ *   icon: string,       — Emoji shown in the card art area.
+ *   desc: string,       — Short description below the title.
+ *   tag: string,        — Badge label (e.g. 'Sprint', 'Lab').
+ *   meta: string[],     — Chip items (focus area, duration, type).
+ *   accent: string,     — CSS colour for the card accent stripe.
+ *   art: string,        — CSS background-image value for the card header.
+ *   category: string    — Filter key (verbs|conjugation|passive|cases|vocabulary|adventure).
+ * }>}
+ */
 const games = [
   {
     title: 'Darbības Vārdi',
@@ -155,6 +191,15 @@ const games = [
   },
 ];
 
+/**
+ * Build a single game card DOM element from a catalogue entry.
+ * The card contains: art header with icon, badge label, title,
+ * description, meta chips, and a "Play" CTA link.
+ *
+ * @param {Object} game  — Entry from the `games` array.
+ * @param {number} index — Position index used for staggered reveal delay.
+ * @returns {HTMLDivElement} — Wrapper element ready to append to the grid.
+ */
 function buildGameCard(game, index) {
   const wrap = document.createElement('div');
   wrap.className = 'dp-game-card-wrap';
@@ -207,6 +252,9 @@ function buildGameCard(game, index) {
   return wrap;
 }
 
+/**
+ * Populate #gamesGrid by creating a card for every entry in the catalogue.
+ */
 function renderGames() {
   const grid = document.getElementById('gamesGrid');
   if (!grid) return;
@@ -216,6 +264,12 @@ function renderGames() {
   });
 }
 
+/**
+ * Attach click handlers to .dp-filter-btn elements.
+ * Clicking a filter button shows only cards whose data-category matches,
+ * or all cards when filter is "all". Updates aria-pressed state and
+ * announces the result count to screen readers.
+ */
 function initFilters() {
   const btns = document.querySelectorAll('.dp-filter-btn[data-filter]');
   const cards = () => document.querySelectorAll('#gamesGrid .dp-game-card-wrap');
@@ -238,6 +292,11 @@ function initFilters() {
   });
 }
 
+/**
+ * Connect skill-track cards (the large category buttons at the top)
+ * to the filter bar. Clicking a track card smooth-scrolls to the
+ * #games section and triggers the matching filter button after a short delay.
+ */
 function initTrackCards() {
   document.querySelectorAll('.dp-track-card[data-track]').forEach((card) => {
     card.addEventListener('click', () => {
@@ -249,6 +308,12 @@ function initTrackCards() {
   });
 }
 
+/**
+ * Initialise scroll-triggered reveal animations.
+ * Uses IntersectionObserver (threshold 8%) to add .dp-reveal--visible
+ * when a section scrolls into view, creating a fade-in/slide-up effect.
+ * Falls back to immediate visibility for browsers without IO support.
+ */
 function initReveal() {
   const sections = document.querySelectorAll('.dp-reveal');
   if (!sections.length) return;
@@ -272,6 +337,13 @@ function initReveal() {
   sections.forEach((s) => observer.observe(s));
 }
 
+/**
+ * Update the live-region text to announce the active filter and visible count
+ * to assistive technology (screen readers).
+ *
+ * @param {string} filter — The active filter key ('all' or a category name).
+ * @param {number} count  — Number of visible cards after filtering.
+ */
 function announceFilter(filter, count) {
   const live = document.querySelector('.dp-sr-live');
   if (!live) return;
@@ -279,7 +351,8 @@ function announceFilter(filter, count) {
   live.textContent = `Showing ${label}: ${count} game${count !== 1 ? 's' : ''}`;
 }
 
-renderGames();
-initFilters();
-initTrackCards();
-initReveal();
+// --- Execute on module load ---
+renderGames(); // Build the card grid
+initFilters(); // Wire up filter buttons
+initTrackCards(); // Connect track cards to filters
+initReveal(); // Start scroll-reveal observer

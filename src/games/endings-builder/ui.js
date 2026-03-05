@@ -1,3 +1,12 @@
+/**
+ * @file endings-builder/ui.js
+ * UI rendering for the Endings Builder game.
+ *
+ * Builds round prompts, draggable ending-tile options, feedback
+ * text, an interactive declension table with column highlighting,
+ * and the explanation panel. Uses drag-and-drop from ./dnd.js.
+ */
+
 import { mountDnD } from './dnd.js';
 import { getTable } from './endings-resolver.js';
 import { createIcon, updateIcon } from '../../lib/icon.js';

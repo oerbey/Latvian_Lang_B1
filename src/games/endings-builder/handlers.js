@@ -1,3 +1,12 @@
+/**
+ * @file endings-builder/handlers.js
+ * Event handlers for the Endings Builder game.
+ *
+ * Owns answer checking (with strict/loose diacritics modes),
+ * scoring with streak rewards, progress persistence, and
+ * round advancement. Dependencies injected for testability.
+ */
+
 import { showReward } from '../../lib/reward.js';
 
 export function createHandlers({

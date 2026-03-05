@@ -1,5 +1,25 @@
+/**
+ * nav.js — Renders the shared navigation bar and footer on every page.
+ * ====================================================================
+ *
+ * The navigation and footer HTML are generated dynamically from the
+ * NAV_ITEMS configuration (nav-config.js) so that adding a new game
+ * only requires updating one file.
+ *
+ * Functions:
+ *   getCurrentPage()     — Derive the current filename from window.location.
+ *   normalizeHref(href)  — Extract the filename portion of a URL for comparison.
+ *   renderNav()          — Build the <nav> element with links, hamburger menu, and theme toggle.
+ *   syncThemeToggleIcon()— Keep the theme-toggle emoji in sync with the active theme.
+ *   renderFooter()       — Build the <footer> element with navigation links and copyright.
+ */
 import { NAV_ITEMS } from './nav-config.js';
 
+/**
+ * Determine the current HTML filename (e.g. 'index.html') from the URL.
+ * Treats trailing slashes as 'index.html' for GitHub Pages compatibility.
+ * @returns {string} Current page filename.
+ */
 function getCurrentPage() {
   const path = new URL(window.location.href).pathname;
   // Treat trailing slash as `index.html` so active-link matching works on GitHub Pages.
@@ -8,6 +28,12 @@ function getCurrentPage() {
   return parts.pop() || 'index.html';
 }
 
+/**
+ * Extract just the filename from any href (absolute or relative)
+ * to enable page-name comparison independent of deployment path.
+ * @param {string} href — Anchor href value.
+ * @returns {string} Filename portion.
+ */
 function normalizeHref(href) {
   try {
     const url = new URL(href, document.baseURI);
@@ -19,6 +45,12 @@ function normalizeHref(href) {
   }
 }
 
+/**
+ * Build and inject the navigation bar into the [data-site-nav] element.
+ * Highlights the current page link with aria-current="page" and the
+ * dp-nav__link--active class. Also sets up the hamburger menu toggle
+ * for mobile viewports and synchronises the theme-toggle icon.
+ */
 function renderNav() {
   const nav = document.querySelector('[data-site-nav]');
   if (!nav) return;
@@ -74,6 +106,7 @@ function renderNav() {
   window.addEventListener('llb1-theme-change', syncThemeToggleIcon);
 }
 
+/** Update the #theme-toggle button text (☀️/🌙) to match the active theme. */
 function syncThemeToggleIcon() {
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
@@ -83,6 +116,10 @@ function syncThemeToggleIcon() {
   toggle.textContent = isDark ? '☀️' : '🌙';
 }
 
+/**
+ * Build and inject the page footer into the [data-site-footer] element.
+ * Contains a copyright line with the dynamic year and navigation links.
+ */
 function renderFooter() {
   const footer = document.querySelector('[data-site-footer]');
   if (!footer) return;
@@ -103,5 +140,6 @@ function renderFooter() {
   `;
 }
 
+// --- Execute immediately on module import ---
 renderNav();
 renderFooter();

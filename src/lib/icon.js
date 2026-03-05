@@ -1,3 +1,18 @@
+/**
+ * icon.js — SVG icon loader and <data-icon> upgrader.
+ * =====================================================
+ * Replaces placeholder elements with [data-icon] attributes with inline
+ * SVG icons fetched from the assets/icons directory. Supports theme-aware
+ * (duotone-light / duotone-dark) icon variants and automatic re-upgrade
+ * on theme changes.
+ *
+ * Key exports:
+ *   upgradeIcons()      — Scan DOM for [data-icon] elements and load SVGs.
+ *   upgradeIcon(el)     — Upgrade a single element.
+ *
+ * The icon map includes common UI icons (book, gamepad, etc.) as well
+ * as a theme-dependent lookup for Phosphor duotone icons.
+ */
 import { assetUrl } from './paths.js';
 
 const ICON_ROOT = 'assets/icons';

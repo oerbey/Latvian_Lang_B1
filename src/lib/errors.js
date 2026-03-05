@@ -1,3 +1,17 @@
+/**
+ * errors.js — Global error handling and user-facing error overlay.
+ * ================================================================
+ * Installs window.onerror and unhandledrejection handlers so uncaught
+ * exceptions display a friendly overlay instead of silently failing.
+ *
+ * Key exports:
+ *   installGlobalErrorHandlers() — Attach onerror + unhandledrejection once.
+ *   showFatalError(error)        — Display the full-screen error overlay.
+ *   formatError(error)           — Normalise any thrown value to {message, stack}.
+ *
+ * In development (localhost), stack traces are shown inside the overlay.
+ * In production, only the user-friendly message is displayed.
+ */
 let hasShown = false;
 let handlersInstalled = false;
 

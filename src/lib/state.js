@@ -1,3 +1,24 @@
+/**
+ * state.js — Centralised application state for the Word-Quest canvas game.
+ * ========================================================================
+ * Holds a single mutable state object (AppState) with mode, difficulty,
+ * deck size, round index, RNG, match/forge sub-states, results history,
+ * loaded vocabulary data, and UI flags (e.g. showHelp).
+ *
+ * Mutation API:
+ *   getState()           — Read current state (returns reference, not copy).
+ *   setState(patch)      — Merge a partial update or run a mutator function.
+ *   updateState(mutator) — Convenience for in-place mutation via callback.
+ *   subscribe(fn)        — Register a listener called after every state change.
+ *   unsubscribe(fn)      — Remove a previously registered listener.
+ *
+ * Also provides:
+ *   MODES                — Enum of game modes { MATCH, FORGE }.
+ *   mulberry32(seed)     — Seeded PRNG factory for deterministic shuffles.
+ *   setRedraw(fn)        — Register the main draw callback.
+ *   triggerRedraw()      — Request a canvas repaint (via the registered draw fn).
+ *   HELP_TEXT / setHelpText — Current help overlay text.
+ */
 import { MULBERRY32_CONSTANT } from './constants.js';
 import { pickRandom, shuffleInPlace } from './utils.js';
 

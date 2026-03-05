@@ -1,3 +1,25 @@
+/**
+ * storage.js — LocalStorage abstraction with schema versioning and migration.
+ * ============================================================================
+ * Wraps all localStorage access behind safe getters/setters that gracefully
+ * handle environments where storage is unavailable (private browsing, SSR).
+ *
+ * Data model:
+ *   llb1:app-state  — {schemaVersion, theme, language}
+ *   llb1:progress   — Per-game progress with XP, streaks, and timestamps.
+ *
+ * Legacy key migration:
+ *   On first load, older per-game keys (eb-progress-v1, dv_config, etc.)
+ *   are consolidated into the unified llb1:progress structure.
+ *
+ * Key exports:
+ *   loadString / saveString         — Read/write raw string values.
+ *   loadJSON / saveJSON             — Read/write JSON-serialisable values.
+ *   loadAppState / saveAppState     — App-wide settings (theme, language).
+ *   loadProgress / saveProgress     — Per-game progress data.
+ *   loadGameProgress / saveGameProgress — Convenience for a single game slot.
+ *   resetProgress                   — Clear all progress data.
+ */
 const STORAGE_PROBE_KEY = '__llb1_storage_probe__';
 const APP_STATE_KEY = 'llb1:app-state';
 const PROGRESS_KEY = 'llb1:progress';

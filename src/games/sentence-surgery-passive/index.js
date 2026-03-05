@@ -1,3 +1,16 @@
+/**
+ * sentence-surgery-passive/index.js — Sentence Surgery (passive voice repair).
+ * ==============================================================================
+ * Players fix one-token errors in Latvian passive voice sentences.
+ * A sentence is displayed with editable token slots; the player taps a
+ * wrong word and either replaces it from a word bank or types the correction.
+ *
+ * Features:
+ *   • Topic-based filtering (auxiliary, participle, gender agreement, etc.).
+ *   • Shuffle or sequential mode.
+ *   • Detailed error explanations and hints.
+ *   • Progress persistence (completed items, attempts, streak) via progress.js.
+ */
 import { mustId } from '../../lib/dom.js';
 import { showFatalError } from '../../lib/errors.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';

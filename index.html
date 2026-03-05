@@ -1,8 +1,25 @@
+<!--
+  index.html — Landing / Home Page for the Latvian Language B1 Games project.
+  ============================================================================
+  This is the main entry point of the Progressive Web App (PWA).
+  It displays:
+    • A hero section with project description and quick-start CTA.
+    • Skill-track filter buttons (Verbs, Conjugation, Passive, Cases, Vocabulary, Adventure).
+    • A dynamically-generated game library grid (rendered by scripts/homepage.js).
+    • Stats section with key metrics.
+    • CTA footer encouraging users to start playing.
+
+  External dependencies:
+    - Bootstrap 5.3.8 (CSS + JS bundle via CDN)
+    - Custom styles from styles.css
+    - Scripts: app.js, theme.js, nav.js, page-init.js, homepage.js
+-->
 <!doctype html>
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Content Security Policy — restricts resource origins to mitigate XSS -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
@@ -26,15 +43,21 @@
       crossorigin="anonymous"
     />
 
+    <!-- Custom project-wide styles (design tokens, layout, components) -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Accessibility: skip-to-main link for keyboard and screen-reader users -->
     <a class="dp-skip" href="#main">Skip to main content</a>
 
+    <!-- Site-wide navigation bar — dynamically rendered by scripts/nav.js -->
     <nav data-site-nav></nav>
 
     <main id="main">
       <div class="dp-container">
+        <!-- ===== HERO SECTION =====
+             Introductory banner with project name, tagline, CTA buttons, and
+             a decorative animated orb. Uses dp-reveal for scroll-in animation. -->
         <section class="dp-hero dp-reveal" aria-labelledby="hero-title">
           <div class="dp-hero__copy">
             <p class="dp-hero__eyebrow">Latvian Language B1</p>
@@ -65,6 +88,9 @@
           </div>
         </section>
 
+        <!-- ===== SKILL TRACKS SECTION =====
+             Clickable category cards that scroll to the game grid and
+             auto-activate the corresponding filter button. -->
         <section class="dp-section dp-reveal" aria-labelledby="tracks-title">
           <div class="dp-section-header">
             <h2 class="dp-section-header__title" id="tracks-title">Skill Tracks</h2>
@@ -134,6 +160,11 @@
           </div>
         </section>
 
+        <!-- ===== GAME LIBRARY SECTION =====
+             Contains filter toolbar and the #gamesGrid container.
+             Game cards are rendered dynamically by scripts/homepage.js from
+             the `games` data array. Filter buttons toggle card visibility
+             by category (verbs, conjugation, passive, cases, vocabulary, adventure). -->
         <section class="dp-section dp-reveal" id="games" aria-labelledby="games-title">
           <div class="dp-section-header">
             <h2 class="dp-section-header__title" id="games-title">Game Library</h2>
@@ -159,9 +190,13 @@
             </button>
           </div>
           <div id="gamesGrid" class="dp-games-grid"></div>
+          <!-- Live region for screen-reader announcements when filter changes -->
           <div class="dp-sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
         </section>
 
+        <!-- ===== STATS / BY THE NUMBERS SECTION =====
+             Displays key project metrics (14 games, 6 skill tracks, etc.)
+             and a bullet list of learning benefits. -->
         <section class="dp-section dp-reveal" aria-labelledby="stats-title">
           <div class="dp-section-header">
             <h2 class="dp-section-header__title" id="stats-title">By the Numbers</h2>
@@ -193,6 +228,8 @@
           </ul>
         </section>
 
+        <!-- ===== CALL TO ACTION =====
+             Final section encouraging users to start a game. -->
         <section class="dp-cta dp-reveal">
           <h2 class="dp-cta__title">Ready to level up your Latvian?</h2>
           <p class="dp-cta__lead">Jump into any game and start building fluency today.</p>
@@ -201,18 +238,26 @@
       </div>
     </main>
 
+    <!-- Site-wide footer — dynamically rendered by scripts/nav.js -->
     <footer class="dp-footer" data-site-footer></footer>
 
+    <!-- Bootstrap JS bundle (includes Popper) — loaded from CDN with SRI -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
 
+    <!-- App modules loaded as ES modules -->
     <script type="module" src="app.js"></script>
+    <!-- Main Word-Quest canvas game logic -->
     <script type="module" src="theme.js"></script>
+    <!-- Dark/light mode toggle with localStorage persistence -->
     <script type="module" src="scripts/nav.js"></script>
+    <!-- Dynamic nav-bar & footer rendering -->
     <script type="module" src="scripts/page-init.js"></script>
+    <!-- Year badge, favicon, offline banner, SW registration -->
     <script type="module" src="scripts/homepage.js"></script>
+    <!-- Builds game cards, filter bar, scroll-reveal -->
   </body>
 </html>

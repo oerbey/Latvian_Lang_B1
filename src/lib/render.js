@@ -1,3 +1,22 @@
+/**
+ * render.js — Canvas rendering utilities and confetti system.
+ * ============================================================
+ * Provides all low-level drawing primitives used by the Match and Forge
+ * game modes plus the shared confetti celebration animation.
+ *
+ * Key exports:
+ *   canvas / ctx              — The <canvas> element and its 2D context.
+ *   W, H, scale               — Logical canvas dimensions and current scale factor.
+ *   updateCanvasScale()        — Recompute dimensions on resize.
+ *   getCanvasCoordinates(x,y)  — Convert client coords to logical canvas coords.
+ *   clear()                    — Wipe the canvas.
+ *   roundedRect(…)             — Draw a rounded rectangle (fill + optional border).
+ *   drawText(…)                — Draw a single line of text with alignment options.
+ *   renderConfetti()           — Tick and draw confetti particles.
+ *   setConfettiRenderer(fn)    — Set the redraw callback the confetti system uses.
+ *   getCanvasTheme()           — Read current CSS custom properties for themed drawing.
+ *   setCanvasHeight(h)         — Override logical height (used by individual games).
+ */
 import { getState } from './state.js';
 import { mustId } from './dom.js';
 

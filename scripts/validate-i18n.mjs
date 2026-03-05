@@ -1,3 +1,13 @@
+/**
+ * @file scripts/validate-i18n.mjs
+ * Build script: validates i18n JSON files for key completeness.
+ *
+ * Compares every language file (en, lv, ru) against the base
+ * language to detect missing or extra translation keys.
+ *
+ * Usage: node scripts/validate-i18n.mjs
+ */
+
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 

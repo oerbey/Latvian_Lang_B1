@@ -1,3 +1,7 @@
+/* English → Latvian Arcade — game-scoped styles.
+   Canvas shell, prompt banner, falling-word lane layout,
+   score/lives HUD, and colour-mix accent borders. */
+
 .lv-en-arcade-page {
   --lv-en-shell-border: color-mix(in srgb, var(--game-accent, var(--accent)) 38%, var(--border));
 }

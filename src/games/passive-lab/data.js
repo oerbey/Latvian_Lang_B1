@@ -1,3 +1,12 @@
+/**
+ * @file passive-lab/data.js
+ * Data loading and helpers for the Passive Voice Lab game.
+ *
+ * Fetches passive-voice items, classifies alternate accepted forms
+ * by tense (tiek/tika/tiks), and produces unique patient keys
+ * for progress tracking.
+ */
+
 import { assetUrl } from '../../lib/paths.js';
 
 export async function loadItems(path) {

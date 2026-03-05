@@ -1,3 +1,13 @@
+/**
+ * status.js — Simple status message bus.
+ * =======================================
+ * Decouples status-bar updates from DOM: game logic calls setStatus(msg),
+ * and the consumer (app.js) registers a handler via setStatusHandler.
+ *
+ * Exports:
+ *   setStatusHandler(fn) — Register the callback that receives status text.
+ *   setStatus(message)   — Push a status message to the registered handler.
+ */
 let statusHandler = null;
 
 /**

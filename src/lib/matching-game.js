@@ -1,3 +1,21 @@
+/**
+ * matching-game.js — Reusable matching-game engine for multiple game pages.
+ * =========================================================================
+ * Provides the initMatchingGame() factory used by darbibas-vards.html,
+ * rakstura-ipasibas-match.html, and rakstura-ipasibas-expansion.html.
+ *
+ * How it works:
+ *   1. Receives DOM elements, a dataLoader, language options, and config.
+ *   2. Loads vocabulary via dataLoader, optionally filtering by locked sets.
+ *   3. Shuffles items and renders two columns (Latvian ↔ Translation).
+ *   4. Tracks clicks; correct matches earn XP, wrong guesses flash red.
+ *   5. After all pairs are matched, scores are persisted via storage.js.
+ *
+ * Key export:
+ *   initMatchingGame(options) — Instantiate and wire up a matching game.
+ *
+ * Options include: elements, dataLoader, languages, storageKeys, texts, etc.
+ */
 import { shuffleInPlace } from './utils.js';
 import { sanitizeText } from './sanitize.js';
 import { showFatalError } from './errors.js';

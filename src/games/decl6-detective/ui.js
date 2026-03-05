@@ -1,3 +1,12 @@
+/**
+ * @file decl6-detective/ui.js
+ * UI rendering helpers for the 6th Declension Detective game.
+ *
+ * Renders scene badges, scoreboard, last-played timestamp,
+ * and canvas overlays. Maps each scene (virtuve, pirts, klēts …)
+ * to an emoji/colour pair for visual variety.
+ */
+
 import { formatDateTime, formatNumber } from '../../lib/i18n-format.js';
 
 const SCENE_META = {

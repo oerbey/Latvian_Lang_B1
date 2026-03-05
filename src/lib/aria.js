@@ -1,4 +1,14 @@
 /**
+ * aria.js — Screen-reader live-region announcement helper.
+ * =========================================================
+ * Provides a single function to safely push messages to an aria-live
+ * region, with deduplication to avoid redundant announcements.
+ *
+ * Exports:
+ *   announceLive(node, message) — Set text content on a live region element.
+ */
+
+/**
  * Announce text to screen readers via live region; dedupes repeated messages.
  * Clears and re-renders text to ensure screen reader re-announcement on updates.
  * @param {HTMLElement | null} node

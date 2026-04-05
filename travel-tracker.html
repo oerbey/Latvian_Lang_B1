@@ -41,123 +41,173 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="container py-4 mt-5 travel-tracker-app" role="main">
-      <header class="travel-tracker-hero mb-4 text-center text-md-start">
-        <div>
-          <p class="travel-tracker-hero__eyebrow">Route practice</p>
-          <h1
-            class="travel-tracker-hero__title h4 mb-2"
-            id="travelTrackerTitle"
-            data-i18n-key="title"
-          >
-            Travel Tracker
-          </h1>
-          <p class="travel-tracker-hero__subtitle mb-0 text-secondary" data-i18n-key="instructions">
-            Aizpildi teikumus ar pareizo priedēkli, lai autobuss dotos pa maršrutu.
-          </p>
-        </div>
-        <div class="travel-tracker-hero__meta">
-          <span class="travel-tracker-tag">Focus: prefixes</span>
-          <span class="travel-tracker-tag">Mode: routes</span>
-          <span class="travel-tracker-tag">Level: B</span>
-        </div>
-      </header>
+    <main id="main" class="travel-tracker-main" role="main">
+      <div class="container">
+        <section class="travel-tracker-app">
+          <header class="travel-tracker-hero">
+            <div class="travel-tracker-hero__content">
+              <p class="travel-tracker-hero__eyebrow">Prefix route studio</p>
+              <h1 class="travel-tracker-hero__title" id="travelTrackerTitle" data-i18n-key="title">
+                Travel Tracker
+              </h1>
+              <p class="travel-tracker-hero__subtitle" data-i18n-key="instructions">
+                Aizpildi teikumus ar pareizo priedēkli, lai autobuss dotos pa maršrutu.
+              </p>
+              <div class="travel-tracker-hero__meta">
+                <span class="travel-tracker-tag">Focus: prefixes</span>
+                <span class="travel-tracker-tag">Mode: routes</span>
+                <span class="travel-tracker-tag">Level: B</span>
+              </div>
+            </div>
 
-      <section class="travel-tracker-layout card shadow-sm" aria-labelledby="travelTrackerTitle">
-        <div class="travel-tracker-layout__grid" data-testid="travel-tracker-layout">
-          <div class="travel-map" id="tt-map" aria-hidden="true">
-            <div class="travel-map__inner" id="tt-map-inner"></div>
-            <div class="travel-map__bus" id="tt-bus" role="img" aria-label="Bus"></div>
-            <div class="travel-map__route" id="tt-route"></div>
-          </div>
-          <div class="travel-panel">
-            <div class="travel-panel__scoreboard" aria-live="polite" aria-atomic="true">
-              <span class="travel-pill" id="tt-score"
-                ><span class="tt-label" data-i18n-key="score">Score</span>: <strong>0</strong></span
-              >
-              <span class="travel-pill" id="tt-streak"
-                ><span class="tt-label" data-i18n-key="streak">Streak</span>:
-                <strong>0</strong></span
-              >
-              <span class="travel-pill tt-multiplier" id="tt-multiplier" hidden aria-hidden="true"
-                >×1</span
-              >
-              <span class="travel-pill" id="tt-level">Level <strong>1</strong></span>
-              <button
-                class="btn tt-restart"
-                id="tt-restart"
-                type="button"
-                data-i18n-key="restartShort"
-              >
-                Restart
-              </button>
-            </div>
-            <div
-              class="tt-progress"
-              id="tt-progress"
-              role="progressbar"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-valuenow="0"
-            >
-              <div class="tt-progress__fill" id="tt-progress-bar"></div>
-            </div>
-            <div class="travel-panel__content">
-              <div
-                class="travel-panel__meta"
-                id="tt-route-meta"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                —
+            <aside class="travel-tracker-hero__visual" aria-label="Exercise overview">
+              <div class="travel-tracker-overview">
+                <p class="travel-tracker-overview__label">Route logic</p>
+                <p class="travel-tracker-overview__title">Read the movement, choose the prefix.</p>
+                <p class="travel-tracker-overview__text">
+                  Each prompt maps movement on the Latvia route board. Correct prefixes unlock the
+                  next leg and build streak momentum.
+                </p>
+                <div class="travel-tracker-overview__chips" aria-hidden="true">
+                  <span>aiz-</span>
+                  <span>ie-</span>
+                  <span>iz-</span>
+                  <span>no-</span>
+                  <span>pa-</span>
+                  <span>pie-</span>
+                  <span>sa-</span>
+                  <span>uz-</span>
+                </div>
               </div>
-              <p class="travel-panel__prompt" id="tt-gap">...</p>
-              <label class="travel-panel__label" for="tt-input" data-i18n-key="prompt"
-                >Tava atbilde</label
-              >
-              <div class="travel-panel__input-group">
-                <input
-                  type="text"
-                  class="travel-panel__input"
-                  id="tt-input"
-                  autocomplete="off"
-                  aria-describedby="tt-hint tt-feedback"
-                />
-                <button class="btn tt-check" id="checkBtn" type="button" data-i18n-key="check">
-                  Pārbaudīt
-                </button>
-              </div>
-              <div
-                class="travel-panel__choices"
-                id="tt-choices"
-                role="group"
-                aria-label="Answer choices"
-                data-testid="travel-tracker-choices"
-              ></div>
-              <div
-                class="travel-panel__feedback"
-                id="tt-feedback"
-                aria-live="polite"
-                aria-atomic="true"
-                role="status"
-              >
-                <span class="tt-feedback-message" id="tt-feedback-message"></span>
-                <small id="tt-hint" class="tt-hint-inline" hidden></small>
-              </div>
-            </div>
-            <div class="travel-panel__actions">
-              <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">
-                Nākamais maršruts
-              </button>
-              <button class="btn tt-start" id="tt-start" type="button" data-i18n-key="start">
-                Sākt
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+            </aside>
+          </header>
 
-      <div id="tt-live" class="visually-hidden" aria-live="polite"></div>
+          <section class="travel-tracker-layout" aria-labelledby="travelTrackerTitle">
+            <div class="travel-tracker-layout__grid" data-testid="travel-tracker-layout">
+              <div class="travel-map-panel">
+                <div class="travel-map-panel__head">
+                  <p class="travel-map-panel__eyebrow">Route board</p>
+                  <p class="travel-map-panel__lead">
+                    Watch the current leg on the map, then complete the sentence to move forward.
+                  </p>
+                </div>
+                <div class="travel-map" id="tt-map" aria-hidden="true">
+                  <div class="travel-map__inner" id="tt-map-inner"></div>
+                  <div class="travel-map__bus" id="tt-bus" role="img" aria-label="Bus"></div>
+                  <div class="travel-map__route" id="tt-route"></div>
+                </div>
+              </div>
+
+              <div class="travel-panel">
+                <div class="travel-panel__scoreboard" aria-live="polite" aria-atomic="true">
+                  <span class="travel-pill" id="tt-score"
+                    ><span class="tt-label" data-i18n-key="score">Score</span>
+                    <strong>0</strong></span
+                  >
+                  <span class="travel-pill" id="tt-streak"
+                    ><span class="tt-label" data-i18n-key="streak">Streak</span>
+                    <strong>0</strong></span
+                  >
+                  <span
+                    class="travel-pill tt-multiplier"
+                    id="tt-multiplier"
+                    hidden
+                    aria-hidden="true"
+                    >×1</span
+                  >
+                  <span class="travel-pill travel-pill--level" id="tt-level"
+                    >Level <strong>1</strong></span
+                  >
+                  <button
+                    class="btn tt-restart"
+                    id="tt-restart"
+                    type="button"
+                    data-i18n-key="restartShort"
+                  >
+                    Restart
+                  </button>
+                </div>
+
+                <div
+                  class="tt-progress"
+                  id="tt-progress"
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                >
+                  <div class="tt-progress__fill" id="tt-progress-bar"></div>
+                </div>
+
+                <div class="travel-panel__content">
+                  <div
+                    class="travel-panel__meta"
+                    id="tt-route-meta"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    —
+                  </div>
+                  <p class="travel-panel__prompt" id="tt-gap">...</p>
+
+                  <div class="travel-panel__entry">
+                    <label class="travel-panel__label" for="tt-input" data-i18n-key="prompt"
+                      >Tava atbilde</label
+                    >
+                    <div class="travel-panel__input-group">
+                      <input
+                        type="text"
+                        class="travel-panel__input"
+                        id="tt-input"
+                        autocomplete="off"
+                        aria-describedby="tt-hint tt-feedback"
+                      />
+                      <button
+                        class="btn tt-check"
+                        id="checkBtn"
+                        type="button"
+                        data-i18n-key="check"
+                      >
+                        Pārbaudīt
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="travel-panel__choices"
+                    id="tt-choices"
+                    role="group"
+                    aria-label="Answer choices"
+                    data-testid="travel-tracker-choices"
+                  ></div>
+
+                  <div
+                    class="travel-panel__feedback"
+                    id="tt-feedback"
+                    aria-live="polite"
+                    aria-atomic="true"
+                    role="status"
+                  >
+                    <span class="tt-feedback-message" id="tt-feedback-message"></span>
+                    <small id="tt-hint" class="tt-hint-inline" hidden></small>
+                  </div>
+                </div>
+
+                <div class="travel-panel__actions">
+                  <button class="btn tt-next" id="tt-next" type="button" data-i18n-key="next">
+                    Nākamais maršruts
+                  </button>
+                  <button class="btn tt-start" id="tt-start" type="button" data-i18n-key="start">
+                    Sākt
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div id="tt-live" class="visually-hidden" aria-live="polite"></div>
+        </section>
+      </div>
     </main>
 
     <footer

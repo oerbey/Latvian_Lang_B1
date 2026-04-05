@@ -163,9 +163,25 @@ function applyTranslations() {
   langSel.setAttribute('aria-label', i18n.labels.languageSelect);
   mustId('ui').setAttribute('aria-label', i18n.labels.controls);
   mustId('sr-game-state').setAttribute('aria-label', i18n.labels.gameState);
+  syncToolbarState();
   setStatus(i18n.status.ready);
   setHelpText(i18n.help.lines.join('\n'));
   triggerRedraw();
+}
+
+function syncToolbarState() {
+  const { mode, difficulty } = getState();
+  const toggleButton = (id, active) => {
+    const button = $id(id);
+    if (!button) return;
+    button.classList.toggle('is-selected', active);
+    button.setAttribute('aria-pressed', String(active));
+  };
+
+  toggleButton('mode-match', mode === MODES.MATCH);
+  toggleButton('mode-forge', mode === MODES.FORGE);
+  toggleButton('btn-practice', difficulty === 'practice');
+  toggleButton('btn-challenge', difficulty === 'challenge');
 }
 
 /**
@@ -279,6 +295,7 @@ function toggleDeckSize() {
     btn.textContent = state.deckSizeMode === 'auto' ? '📏' : '📜';
     btn.title = state.deckSizeMode === 'auto' ? i18n.deckSize.titleAuto : i18n.deckSize.titleFull;
   }
+  syncToolbarState();
   setStatus(state.deckSizeMode === 'auto' ? i18n.status.fit : i18n.status.full);
   if (state.mode === MODES.MATCH) startMatchRound();
 }
@@ -296,6 +313,7 @@ function setupEventListeners() {
       state.mode = MODES.MATCH;
       state.roundIndex = 0;
     });
+    syncToolbarState();
     startMatchRound();
   });
   on(mustId('mode-forge'), 'click', () => {
@@ -303,6 +321,7 @@ function setupEventListeners() {
       state.mode = MODES.FORGE;
       state.roundIndex = 0;
     });
+    syncToolbarState();
     startForgeRound();
   });
   // --- Difficulty selectors ---
@@ -310,12 +329,14 @@ function setupEventListeners() {
     updateState((state) => {
       state.difficulty = 'practice';
     });
+    syncToolbarState();
     setStatus(i18n.status.practice);
   });
   on(mustId('btn-challenge'), 'click', () => {
     updateState((state) => {
       state.difficulty = 'challenge';
     });
+    syncToolbarState();
     setStatus(i18n.status.challenge);
   });
   // --- Round navigation (previous / next) ---
@@ -464,12 +485,14 @@ function setupEventListeners() {
       updateState((state) => {
         state.mode = MODES.MATCH;
       });
+      syncToolbarState();
       startMatchRound();
     }
     if (e.key === '2') {
       updateState((state) => {
         state.mode = MODES.FORGE;
       });
+      syncToolbarState();
       startForgeRound();
     }
     if (e.key === 'h' || e.key === 'H') {
@@ -499,7 +522,7 @@ function exportCSV() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'b1_game_results.csv';
+  a.download = 'prefix-movement-results.csv';
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -518,6 +541,7 @@ canvasElement.classList.add('loading');
  */
 function initializeGame() {
   updateCanvasScale();
+  syncToolbarState();
   startMatchRound();
   if (loadingOverlay) loadingOverlay.classList.remove('visible');
   canvasElement.classList.remove('loading');

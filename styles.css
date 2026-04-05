@@ -69,39 +69,40 @@
 }
 
 [data-bs-theme='dark'] {
-  --bg: #0b0a09;
-  --surface: #151312;
-  --surface-alt: rgba(21, 19, 18, 0.92);
-  --surface-subtle: rgba(32, 29, 27, 0.95);
-  --surface-subtle-strong: rgba(44, 39, 36, 0.95);
-  --border: #2d2926;
-  --border-soft: rgba(185, 176, 165, 0.35);
-  --text: #f3efe6;
-  --muted: #d1c9bc;
-  --accent: #7da6d9;
-  --accent-hover: #6b95c7;
-  --accent-active: #5a84b5;
-  --accent-contrast: #101317;
-  --accent-focus: rgba(125, 166, 217, 0.5);
-  --accent-soft: rgba(125, 166, 217, 0.16);
-  --accent-shadow: rgba(125, 166, 217, 0.2);
-  --feedback-success: #3fb89f;
-  --feedback-error: #e07a6a;
-  --btn-disabled-bg: rgba(91, 84, 77, 0.55);
-  --btn-disabled-fg: rgba(226, 219, 209, 0.7);
-  --start-disabled-border: rgba(185, 176, 165, 0.28);
-  --start-disabled-fg: rgba(185, 176, 165, 0.6);
-  --restart-disabled-fg: rgba(185, 176, 165, 0.6);
-  --choice-selected-bg: rgba(125, 166, 217, 0.22);
-  --choice-hover-bg: rgba(44, 39, 36, 0.95);
-  --shadow-soft: rgba(10, 9, 8, 0.45);
-  --shadow-strong: rgba(10, 9, 8, 0.6);
-  --bg-gradient: linear-gradient(180deg, #0b0a09 0%, #11100f 100%);
+  --bg: #16110d;
+  --surface: #211913;
+  --surface-alt: rgba(33, 25, 19, 0.9);
+  --surface-subtle: rgba(44, 34, 27, 0.96);
+  --surface-subtle-strong: rgba(58, 46, 37, 0.98);
+  --border: #4a3a2d;
+  --border-soft: rgba(221, 208, 191, 0.24);
+  --text: #f5eee4;
+  --muted: #d6c7b6;
+  --accent: #8bb0d7;
+  --accent-hover: #7ca4cc;
+  --accent-active: #6d96bf;
+  --accent-contrast: #10171f;
+  --accent-focus: rgba(139, 176, 215, 0.46);
+  --accent-soft: rgba(139, 176, 215, 0.15);
+  --accent-shadow: rgba(14, 22, 33, 0.28);
+  --feedback-success: #55bea8;
+  --feedback-error: #ec8f79;
+  --btn-disabled-bg: rgba(116, 97, 82, 0.55);
+  --btn-disabled-fg: rgba(236, 229, 219, 0.74);
+  --start-disabled-border: rgba(214, 199, 182, 0.22);
+  --start-disabled-fg: rgba(214, 199, 182, 0.55);
+  --restart-disabled-fg: rgba(214, 199, 182, 0.55);
+  --choice-selected-bg: rgba(139, 176, 215, 0.24);
+  --choice-hover-bg: rgba(69, 55, 43, 0.98);
+  --shadow-soft: rgba(8, 6, 5, 0.42);
+  --shadow-strong: rgba(8, 6, 5, 0.62);
+  --bg-gradient: linear-gradient(180deg, #16110d 0%, #1d1611 56%, #231b15 100%);
   --bg-texture:
-    radial-gradient(circle at 10% 10%, rgba(125, 166, 217, 0.12), transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(193, 165, 120, 0.12), transparent 50%);
+    radial-gradient(circle at 10% 10%, rgba(139, 176, 215, 0.14), transparent 45%),
+    radial-gradient(circle at 82% 14%, rgba(193, 165, 120, 0.16), transparent 52%),
+    radial-gradient(circle at 35% 78%, rgba(101, 80, 56, 0.16), transparent 46%);
   --bs-primary: var(--accent);
-  --bs-primary-rgb: 125, 166, 217;
+  --bs-primary-rgb: 139, 176, 215;
 }
 
 /* ========================================
@@ -125,6 +126,14 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   overflow-x: hidden;
+}
+
+html {
+  color-scheme: light;
+}
+
+html[data-bs-theme='dark'] {
+  color-scheme: dark;
 }
 h1,
 h2,
@@ -188,6 +197,11 @@ h1 {
   font-weight: 600;
   color: var(--text);
   background: var(--surface);
+}
+
+.week1-page #language-select option {
+  background: var(--surface);
+  color: var(--text);
 }
 
 .week1-page button {
@@ -579,33 +593,80 @@ h1 {
   line-height: 1.6;
 }
 
-body[data-bs-theme='dark'] .week1-hero__content,
-body[data-bs-theme='dark'] .week1-panel,
-body[data-bs-theme='dark'] .week1-summary-card {
+html[data-bs-theme='dark'] .week1-hero__content,
+html[data-bs-theme='dark'] .week1-panel,
+html[data-bs-theme='dark'] .week1-summary-card {
   background:
-    linear-gradient(180deg, rgba(14, 23, 34, 0.9), rgba(13, 20, 31, 0.86)),
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 62%);
-  border-color: rgba(143, 181, 224, 0.18);
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface) 94%, #3a2d22 6%),
+      color-mix(in srgb, var(--surface-subtle) 88%, #100c09 12%)
+    ),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 64%);
+  border-color: color-mix(in srgb, var(--border) 82%, rgba(255, 244, 228, 0.18) 18%);
   box-shadow:
-    0 24px 60px rgba(2, 6, 23, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    0 28px 64px rgba(8, 6, 5, 0.42),
+    inset 0 1px 0 rgba(255, 244, 228, 0.04);
 }
 
-body[data-bs-theme='dark'] .week1-toolbar-shell,
-body[data-bs-theme='dark'] .week1-canvas-card,
-body[data-bs-theme='dark'] .week1-info-card,
-body[data-bs-theme='dark'] .week1-chip {
-  background: rgba(9, 15, 24, 0.82);
-  border-color: rgba(143, 181, 224, 0.16);
+html[data-bs-theme='dark'] .week1-toolbar-shell,
+html[data-bs-theme='dark'] .week1-canvas-card,
+html[data-bs-theme='dark'] .week1-info-card,
+html[data-bs-theme='dark'] .week1-chip {
+  background: color-mix(in srgb, var(--surface) 92%, #120d0a 8%);
+  border-color: color-mix(in srgb, var(--border) 72%, rgba(255, 244, 228, 0.14) 28%);
 }
 
-body[data-bs-theme='dark'] .week1-page #status {
-  background: rgba(143, 181, 224, 0.12);
-  color: #d9ebff;
+html[data-bs-theme='dark'] .week1-page #status {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface) 82%);
+  color: color-mix(in srgb, var(--accent) 74%, white 26%);
 }
 
-body[data-bs-theme='dark'] .week1-page #language-select {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+html[data-bs-theme='dark'] .week1-page #language-select,
+html[data-bs-theme='dark']
+  .week1-page
+  button:not(.pill):not(.ok):not(.is-selected):not([aria-pressed='true']) {
+  background: color-mix(in srgb, var(--surface-subtle) 86%, #140f0b 14%);
+  border-color: color-mix(in srgb, var(--border) 82%, rgba(255, 244, 228, 0.16) 18%);
+  color: var(--text);
+  box-shadow:
+    0 12px 24px rgba(8, 6, 5, 0.22),
+    inset 0 1px 0 rgba(255, 244, 228, 0.04);
+}
+
+html[data-bs-theme='dark'] .week1-page .ghost,
+html[data-bs-theme='dark'] .week1-page .outline {
+  background: color-mix(in srgb, var(--surface-subtle) 92%, #100c09 8%);
+  color: var(--text);
+}
+
+html[data-bs-theme='dark'] .week1-page .ghost:hover:not([disabled]),
+html[data-bs-theme='dark'] .week1-page .outline:hover:not([disabled]),
+html[data-bs-theme='dark'] .week1-page #language-select:hover {
+  border-color: color-mix(in srgb, var(--accent) 54%, var(--border) 46%);
+  background: color-mix(in srgb, var(--surface-subtle-strong) 84%, var(--accent) 16%);
+}
+
+html[data-bs-theme='dark'] .week1-page #canvas {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-subtle) 94%, #2c2219 6%) 0%,
+    color-mix(in srgb, var(--surface-subtle-strong) 90%, #120d0a 10%) 100%
+  );
+  border-color: color-mix(in srgb, var(--border) 84%, rgba(255, 244, 228, 0.12) 16%);
+}
+
+html[data-bs-theme='dark'] .week1-hero__pill,
+html[data-bs-theme='dark'] .week1-chip {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface) 82%);
+  color: color-mix(in srgb, var(--text) 88%, white 12%);
+}
+
+html[data-bs-theme='dark'] .week1-summary-card__label,
+html[data-bs-theme='dark'] .week1-language__label,
+html[data-bs-theme='dark'] .week1-panel__eyebrow,
+html[data-bs-theme='dark'] .week1-canvas-card__hint {
+  color: color-mix(in srgb, var(--muted) 88%, white 12%);
 }
 
 @media (max-width: 1080px) {
@@ -2529,7 +2590,7 @@ body[data-bs-theme='dark'].theme-traits-expansion {
   --game-accent-rgb: 210, 179, 121;
 }
 
-body[data-bs-theme='dark'].theme-week1 {
+html[data-bs-theme='dark'] body.theme-week1 {
   --game-accent: #8fb5e0;
   --game-accent-hover: #7fa6cf;
   --game-accent-active: #7097bf;

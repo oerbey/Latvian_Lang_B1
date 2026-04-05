@@ -63,6 +63,23 @@ test('english-latvian arcade page loads and starts a round', async ({ page }) =>
   await expect(page.locator('#arcade-round')).toHaveText('0');
 });
 
+test('week1 page applies its dark theme variables', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('dp-theme', 'dark');
+  });
+
+  await page.goto('/week1.html');
+
+  await expect(page.locator('html')).toHaveAttribute('data-bs-theme', 'dark');
+  await expect(page.locator('.week1-toolbar-shell')).toBeVisible();
+
+  const gameAccent = await page.locator('body.theme-week1').evaluate((element) => {
+    return getComputedStyle(element).getPropertyValue('--game-accent').trim();
+  });
+
+  expect(gameAccent).toBe('#8fb5e0');
+});
+
 test('word quest map flow renders worlds and nodes', async ({ page }) => {
   await page.goto('/word-quest.html');
 

@@ -36,7 +36,7 @@ The project is built with vanilla ES modules, ships as a Progressive Web App
 | `character-traits.html`            | Character-trait free practice                          |
 | `english-latvian-arcade.html`      | EN → LV Word Catcher arcade                            |
 | `word-quest.html`                  | RPG-style grammar adventure                            |
-| `week1.html`                       | Offline-friendly Week 1 vocabulary module              |
+| `week1.html`                       | Offline-friendly prefix movement vocabulary module     |
 
 ### Concept / Prototype Pages
 

@@ -40,7 +40,7 @@ window.__WEEK1_VOCAB__ = Object.assign({}, window.__WEEK1_VOCAB__ || {}, {
           file: 'units/b1-paligdarbibas-vardi.json',
         },
         {
-          name: 'Week 1 Movements',
+          name: 'Pārvietošanās ar priedēkļiem',
           file: 'units/week1-movements.json',
         },
       ],
@@ -1181,7 +1181,7 @@ window.__WEEK1_VOCAB__ = Object.assign({}, window.__WEEK1_VOCAB__ || {}, {
         ],
       },
       'units/week1-movements.json': {
-        name: 'Week 1 Movements',
+        name: 'Pārvietošanās ar priedēkļiem',
         entries: [
           {
             translations: {

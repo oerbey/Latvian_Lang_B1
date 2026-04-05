@@ -147,10 +147,10 @@ const games = [
     category: 'vocabulary',
   },
   {
-    title: 'Week 1',
+    title: 'Pārvietošanās ar priedēkļiem',
     href: '#',
     icon: '📊',
-    desc: 'Weekly exercises for structured review.',
+    desc: 'Prefix-based movement practice with structured review.',
     tag: 'Review',
     meta: ['Focus: recap', '10–12 min', 'Checklist'],
     accent: '#2f4c68',

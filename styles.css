@@ -6,7 +6,7 @@
  *  2. Design tokens (CSS custom properties for light & dark themes)
  *  3. Base / reset styles
  *  4. Accessibility helpers (sr-only, skip-to-content, i18n-loading)
- *  5. Week 1 canvas-game layout
+ *  5. Prefix-movement canvas-game layout
  *  6. Responsive breakpoints (tablet → phone → tiny)
  *  7. iOS / touch / HiDPI / landscape / Windows fixes
  *  8. UI polish on top of Bootstrap
@@ -331,7 +331,7 @@ a {
 /* ========================================
    HEADER, BADGE, & LAYOUT
    ======================================== */
-/* Week 1 header badge: branding element showing course level */
+/* Prefix-movement header badge: branding element showing exercise label */
 .week1-page #header {
   display: flex;
   align-items: center;

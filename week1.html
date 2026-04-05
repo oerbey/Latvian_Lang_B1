@@ -1,7 +1,7 @@
 <!--
   week1.html — Prefix-based movement review canvas game.
-  Practises core B-level words in a timed card-flip format.
-  Entry script: assets/app.js (canvas-based)
+  Practises prefixed movement verbs in match and forge modes.
+  Entry script: app.js (canvas-based)
 -->
 <!doctype html>
 <html lang="lv" data-bs-theme="auto">
@@ -38,42 +38,113 @@
       data-site-nav
     ></nav>
 
-    <main id="main" class="container py-4 mt-5">
-      <div id="wrap">
-        <div id="header">
-          <span class="week-badge"></span>
-          <select id="language-select" aria-label="Language selection">
-            <option value="lv">Latviešu</option>
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-          </select>
-        </div>
+    <main id="main" class="week1-main">
+      <div class="container week1-shell">
+        <section class="week1-hero">
+          <div class="week1-hero__content">
+            <div class="week1-hero__eyebrow">
+              <span class="week-badge"></span>
+              <span class="week1-hero__pill">Canvas drill</span>
+            </div>
+            <h1 id="title"></h1>
+            <p class="week1-hero__lede">
+              Train Latvian movement verbs with prefixes in two fast modes: match paired
+              translations or forge the right prefixed form from clues.
+            </p>
+            <div class="week1-hero__chips" aria-label="Exercise highlights">
+              <span class="week1-chip">Match + Forge</span>
+              <span class="week1-chip">Keyboard shortcuts</span>
+              <span class="week1-chip">Offline-friendly</span>
+            </div>
+          </div>
 
-        <h1 id="title"></h1>
-        <div id="ui" role="toolbar" aria-label="Game controls">
-          <button id="mode-match" class="pill"></button>
-          <button id="mode-forge" class="pill"></button>
-          <button id="btn-practice" class="ghost"></button>
-          <button id="btn-challenge" class="ghost"></button>
-          <button id="btn-prev" class="outline small">⟨</button>
-          <button id="btn-next" class="outline small">⟩</button>
-          <button id="btn-deck-size" class="outline small">📏</button>
-          <button id="btn-export" class="ok"></button>
-          <button id="btn-help" class="ghost"></button>
-          <span
-            id="status"
-            role="status"
-            aria-live="polite"
-            style="margin-left: auto; font-weight: 700"
-          ></span>
-        </div>
+          <aside class="week1-hero__aside" aria-label="Exercise summary">
+            <div class="week1-summary-card">
+              <span class="week1-summary-card__label">Focus</span>
+              <strong class="week1-summary-card__value">Movement + prefixes</strong>
+            </div>
+            <div class="week1-summary-card">
+              <span class="week1-summary-card__label">Flow</span>
+              <strong class="week1-summary-card__value">Review, test, export</strong>
+            </div>
+            <div class="week1-summary-card">
+              <span class="week1-summary-card__label">Languages</span>
+              <strong class="week1-summary-card__value">LV, EN, RU</strong>
+            </div>
+          </aside>
+        </section>
 
-        <div class="canvas-container">
-          <canvas id="canvas" width="980" height="560" tabindex="0"></canvas>
-          <div class="loading-overlay" id="loading"></div>
+        <div id="wrap" class="week1-layout">
+          <section class="week1-panel week1-panel--board">
+            <div class="week1-toolbar-shell">
+              <div class="week1-toolbar-shell__header">
+                <div>
+                  <p class="week1-panel__eyebrow">Session controls</p>
+                  <h2 class="week1-panel__title">Choose mode, pace, and language</h2>
+                </div>
+                <label class="week1-language" for="language-select">
+                  <span class="week1-language__label">UI language</span>
+                  <select id="language-select" aria-label="Language selection">
+                    <option value="lv">Latviešu</option>
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                  </select>
+                </label>
+              </div>
+
+              <div id="ui" class="week1-toolbar" role="toolbar" aria-label="Game controls">
+                <button id="mode-match" class="pill"></button>
+                <button id="mode-forge" class="pill"></button>
+                <button id="btn-practice" class="ghost"></button>
+                <button id="btn-challenge" class="ghost"></button>
+                <button id="btn-prev" class="outline small">⟨</button>
+                <button id="btn-next" class="outline small">⟩</button>
+                <button id="btn-deck-size" class="outline small">📏</button>
+                <button id="btn-export" class="ok"></button>
+                <button id="btn-help" class="ghost"></button>
+                <span id="status" role="status" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="week1-canvas-card">
+              <div class="week1-canvas-card__header">
+                <div>
+                  <p class="week1-panel__eyebrow">Active board</p>
+                  <h2 class="week1-panel__title">Interactive workspace</h2>
+                </div>
+                <span class="week1-canvas-card__hint">Tap cards, use 1/2, H, R, D</span>
+              </div>
+
+              <div class="canvas-container">
+                <canvas id="canvas" width="980" height="560" tabindex="0"></canvas>
+                <div class="loading-overlay" id="loading"></div>
+              </div>
+              <div
+                id="sr-game-state"
+                class="sr-only"
+                aria-live="polite"
+                aria-label="Game state"
+              ></div>
+            </div>
+          </section>
+
+          <aside class="week1-panel week1-panel--info">
+            <div class="week1-info-card">
+              <p class="week1-panel__eyebrow">How it works</p>
+              <h2 class="week1-panel__title">Play the full review loop</h2>
+              <ul class="week1-info-list">
+                <li>Use Match Rush to pair Latvian prefixed verbs with translations.</li>
+                <li>Switch to Prefix Forge to build the correct prefixed verb from clues.</li>
+                <li>Toggle deck size, review previous cards, and export results when needed.</li>
+              </ul>
+            </div>
+
+            <div class="week1-info-card week1-info-card--legend">
+              <p class="week1-panel__eyebrow">Shortcuts</p>
+              <div id="legend"></div>
+            </div>
+          </aside>
         </div>
-        <div id="sr-game-state" class="sr-only" aria-live="polite" aria-label="Game state"></div>
-        <div id="legend"></div>
       </div>
     </main>
 

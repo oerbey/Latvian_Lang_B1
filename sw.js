@@ -1,5 +1,5 @@
 /**
- * sw.js — Service Worker for the Latvian Language B1 PWA.
+ * sw.js — Service Worker for the Latvian Language B PWA.
  * =======================================================
  * Implements an offline-first caching strategy so all 14 games work
  * without a network connection once visited.

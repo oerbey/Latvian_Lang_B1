@@ -36,7 +36,7 @@ window.__WEEK1_VOCAB__ = Object.assign({}, window.__WEEK1_VOCAB__ || {}, {
           file: 'units/refleksivie-un-dzives-notikumi.json',
         },
         {
-          name: 'B1 palīgdarbības vārdi',
+          name: 'B līmeņa palīgdarbības vārdi',
           file: 'units/b1-paligdarbibas-vardi.json',
         },
         {
@@ -1104,7 +1104,7 @@ window.__WEEK1_VOCAB__ = Object.assign({}, window.__WEEK1_VOCAB__ || {}, {
         ],
       },
       'units/b1-paligdarbibas-vardi.json': {
-        name: 'B1 palīgdarbības vārdi',
+        name: 'B līmeņa palīgdarbības vārdi',
         entries: [
           {
             translations: {
@@ -1295,7 +1295,7 @@ window.__WEEK1_VOCAB__ = Object.assign({}, window.__WEEK1_VOCAB__ || {}, {
           file: 'units/refleksivie-un-dzives-notikumi.json',
         },
         {
-          name: 'B1 palīgdarbības vārdi',
+          name: 'B līmeņa palīgdarbības vārdi',
           file: 'units/b1-paligdarbibas-vardi.json',
         },
       ],
@@ -2359,7 +2359,7 @@ window.__WEEK1_VOCAB__ = Object.assign({}, window.__WEEK1_VOCAB__ || {}, {
         ],
       },
       'units/b1-paligdarbibas-vardi.json': {
-        name: 'B1 palīgdarbības vārdi',
+        name: 'B līmeņa palīgdarbības vārdi',
         entries: [
           {
             translations: {

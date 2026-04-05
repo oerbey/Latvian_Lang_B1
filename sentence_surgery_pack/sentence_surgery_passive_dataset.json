@@ -1,6 +1,6 @@
 {
   "meta": {
-    "name": "Sentence Surgery — Passive Voice (Ciešamā kārta) — B1 dataset",
+    "name": "Sentence Surgery — Passive Voice (Ciešamā kārta) — B level dataset",
     "version": "0.2",
     "created": "2026-02-07",
     "sources_used": [
@@ -57,7 +57,7 @@
           "negation swap (tiek↔netiek etc.)",
           "agreement swap (-ts/-ta/-ti/-tas)",
           "missing-token patterns (blank aux/blank participle)",
-          "word-order traps (controlled, B1-safe)"
+          "word-order traps (controlled, B-level safe)"
         ]
       },
       {

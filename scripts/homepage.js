@@ -41,7 +41,7 @@ const games = [
     icon: '📖',
     desc: 'Pair Latvian verbs with meanings and build recall speed.',
     tag: 'Verbs',
-    meta: ['Focus: verbs', '5–8 min', 'B1 core'],
+    meta: ['Focus: verbs', '5–8 min', 'B level core'],
     accent: '#2d4b73',
     art: 'url("assets/previews/verbs_preview.png")',
     category: 'verbs',
@@ -224,7 +224,7 @@ function buildGameCard(game, index) {
 
   const label = document.createElement('span');
   label.className = 'dp-game-card__label';
-  label.textContent = game.tag || 'B1';
+  label.textContent = game.tag || 'B';
 
   const title = document.createElement('h3');
   title.className = 'dp-game-card__title';

@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const html = readFileSync(resolve(__dirname, '../../../conjugation-sprint.html'), 'utf8');
 
 test('should load the game environment', () => {
-  assert.ok(html.includes('<title>Conjugation Sprint — Latvian B1</title>'));
+  assert.ok(html.includes('<title>Conjugation Sprint — Latvian B Level</title>'));
   assert.ok(/<h1[^>]*>\s*Conjugation Sprint\s*<\/h1>/.test(html));
 });
 

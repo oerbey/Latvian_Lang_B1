@@ -74,7 +74,7 @@ function renderNav() {
           alt=""
           aria-hidden="true"
         />
-        Latvian B1
+        Latvian B
       </a>
       <button class="dp-nav__hamburger" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
       <ul class="dp-nav__links" id="nav-links">
@@ -132,7 +132,7 @@ function renderFooter() {
 
   footer.innerHTML = `
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-      <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
+      <span class="text-secondary">© <span id="year"></span> Latvian B Games</span>
       <nav class="small">
         ${links}
       </nav>

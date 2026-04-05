@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const html = readFileSync(resolve(__dirname, '../../../sentence-surgery-passive.html'), 'utf8');
 
 test('sentence surgery page has expected title', () => {
-  assert.ok(html.includes('<title>Sentence Surgery — Ciešamā kārta | Latvian B1</title>'));
+  assert.ok(html.includes('<title>Sentence Surgery — Ciešamā kārta | Latvian B Level</title>'));
   assert.ok(/<h1[^>]*>Sentence Surgery — Ciešamā kārta<\/h1>/.test(html));
 });
 

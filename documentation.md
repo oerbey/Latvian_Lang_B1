@@ -1,9 +1,9 @@
-# Latvian Language B1 — Technical Documentation
+# Latvian Language B — Technical Documentation
 
 ## 1. Project Scope
 
-Latvian Language B1 is a static web app with 16 browser games for Latvian
-language practice at B1 level.
+Latvian Language B is a static web app with 16 browser games for Latvian
+language practice at B level.
 
 Design goals:
 

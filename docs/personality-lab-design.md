@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Interactive browser game for Latvian B1 learners to practise:
+Interactive browser game for Latvian B-level learners to practise:
 
 - personality adjectives and related nouns / phrases,
 - understanding which traits match an optimist or a pessimist,

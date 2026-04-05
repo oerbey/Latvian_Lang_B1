@@ -1,4 +1,4 @@
-Sentence Surgery — Passive Voice (Ciešamā kārta) — B1 Pack
+Sentence Surgery — Passive Voice (Ciešamā kārta) — B Level Pack
 ========================================================
 
 Contents
@@ -13,7 +13,7 @@ Dataset notes
   - word_bank: token list (includes distractors)
 
 Meta
-- name: Sentence Surgery — Passive Voice (Ciešamā kārta) — B1 dataset
+- name: Sentence Surgery — Passive Voice (Ciešamā kārta) — B level dataset
 - version: 0.2
 - created: 2026-02-07
 

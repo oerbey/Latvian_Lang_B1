@@ -1,9 +1,9 @@
 {
   "html": {
-    "title": "B1 LV→RU: Match Rush + Prefix Forge"
+    "title": "LV→RU: Match Rush + Prefix Forge, уровень B"
   },
   "badge": "Неделя 1",
-  "gameTitle": "LV→RU Слова (B1)",
+  "gameTitle": "LV→RU Слова (уровень B)",
   "buttons": {
     "modeMatch": "▶ Match Rush",
     "modeForge": "▶ Prefix Forge",
@@ -164,7 +164,7 @@
   },
   "passiveLab": {
     "title": "Passive Voice Builder",
-    "heroBadge": "B1 practice",
+    "heroBadge": "Практика уровня B",
     "heroAlt": "Illustration of a passive voice lab",
     "start": "Start",
     "builder": "Builder mode",

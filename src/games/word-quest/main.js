@@ -92,7 +92,7 @@ const WORLDS = [
     emoji: '⚔️',
     name: 'Verb Battleground',
     desc: 'Match Latvian verbs with their English translations in rapid battles.',
-    tags: ['Verbs', 'B1 Core'],
+    tags: ['Verbs', 'B Level Core'],
     accent: '#5eead4',
     glow: 'rgba(94, 234, 212, 0.3)',
     dataPath: 'data/words.json',

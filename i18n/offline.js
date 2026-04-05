@@ -2,10 +2,10 @@
 window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
   lv: {
     html: {
-      title: 'B1 LV→EN: Match Rush + Prefix Forge',
+      title: 'B līmenis LV→EN: Match Rush + Prefix Forge',
     },
     badge: 'Week 1',
-    gameTitle: 'LV→EN Vārdu Spēles (B1)',
+    gameTitle: 'LV→EN Vārdu Spēles (B līmenis)',
     buttons: {
       modeMatch: '▶ Match Rush',
       modeForge: '▶ Prefix Forge',
@@ -63,15 +63,32 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       buttons: {
         check: 'Pārbaudīt (Enter)',
         next: 'Nākamais (N)',
+        skip: 'Izlaist (N)',
         rule: 'Rādīt noteikumu',
         ruleHide: 'Slēpt noteikumu',
         report: 'Ziņot par kļūdu',
       },
+      sections: {
+        controls: 'Raunda vadība',
+        workspace: 'Veidošanas zona',
+        buildZone: 'Veido formu',
+        endingZone: 'Galotņu banka',
+      },
+      round: {
+        loading: 'Ielādē raundu...',
+        eyebrow: 'Raunds {round}',
+        targetTemplate: 'Izveido formu: {gram}.',
+        wordTemplate: 'Vārds: {lemma} ({meaning})',
+      },
       labels: {
         score: 'Rezultāts',
         streak: 'Sērija',
+        accuracy: 'Precizitāte',
         strict: 'Stingrais režīms',
         answer: 'Ieraksti pilno formu',
+        answerPlaceholder: 'Ieraksti pilno formu un spied Enter',
+        answerHelp: 'Ieraksti pilno formu un spied Enter vai “Pārbaudīt”.',
+        pickHelp: 'Padoms: uzklikšķini uz galotnes, lai to ievietotu uzreiz, vai velc to.',
         keypad: 'Latviešu burti',
         options: 'Galotnes',
         dropPlaceholder: 'Nomet galotni',
@@ -90,6 +107,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       feedback: {
         correct: 'Pareizi!',
         incorrect: 'Nepareizi — paskaties noteikumu.',
+        empty: 'Vispirms ieraksti atbildi.',
         fallback:
           'Pieņēmu formu bez diakritiskajām zīmēm. Ieslēdz stingro režīmu, lai tās vingrinātu.',
       },
@@ -152,7 +170,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
     },
     passiveLab: {
       title: 'Ciešamās Kārtas Laboratorija',
-      heroBadge: 'B1 prakse',
+      heroBadge: 'B līmeņa prakse',
       heroAlt: 'Laboratorijas ilustrācija',
       start: 'Sākt',
       builder: 'Būvēt teikumu',
@@ -248,10 +266,10 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
   },
   en: {
     html: {
-      title: 'B1 LV→EN: Match Rush + Prefix Forge',
+      title: 'B Level LV→EN: Match Rush + Prefix Forge',
     },
     badge: 'Week 1',
-    gameTitle: 'LV→EN Word Games (B1)',
+    gameTitle: 'LV→EN Word Games (B Level)',
     buttons: {
       modeMatch: '▶ Match Rush',
       modeForge: '▶ Prefix Forge',
@@ -309,15 +327,32 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       buttons: {
         check: 'Check (Enter)',
         next: 'Next (N)',
+        skip: 'Skip (N)',
         rule: 'Show rule',
         ruleHide: 'Hide rule',
         report: 'Report error',
       },
+      sections: {
+        controls: 'Round controls',
+        workspace: 'Build workspace',
+        buildZone: 'Build the form',
+        endingZone: 'Ending bank',
+      },
+      round: {
+        loading: 'Loading round...',
+        eyebrow: 'Round {round}',
+        targetTemplate: 'Build the {gram} form.',
+        wordTemplate: 'Word: {lemma} ({meaning})',
+      },
       labels: {
         score: 'Score',
         streak: 'Streak',
+        accuracy: 'Accuracy',
         strict: 'Strict diacritics',
         answer: 'Type the full form',
+        answerPlaceholder: 'Type the full form and press Enter',
+        answerHelp: 'Type the full form, then press Enter or Check.',
+        pickHelp: 'Tip: click an ending to place it instantly, or drag it.',
         keypad: 'Latvian letters',
         options: 'Endings',
         dropPlaceholder: 'Drop ending',
@@ -336,6 +371,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       feedback: {
         correct: 'Correct!',
         incorrect: 'Wrong — check the rule.',
+        empty: 'Type an answer first.',
         fallback: 'Accepted without diacritics. Enable strict mode to practise marks.',
       },
       icons: {
@@ -397,7 +433,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
     },
     passiveLab: {
       title: 'Passive Voice Builder',
-      heroBadge: 'B1 practice',
+      heroBadge: 'B practice',
       heroAlt: 'Illustration of a passive voice lab',
       start: 'Start',
       builder: 'Builder mode',
@@ -492,10 +528,10 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
   },
   ru: {
     html: {
-      title: 'B1 LV→RU: Match Rush + Prefix Forge',
+      title: 'LV→RU: Match Rush + Prefix Forge, уровень B',
     },
     badge: 'Неделя 1',
-    gameTitle: 'LV→RU Слова (B1)',
+    gameTitle: 'LV→RU Слова (уровень B)',
     buttons: {
       modeMatch: '▶ Match Rush',
       modeForge: '▶ Prefix Forge',
@@ -553,15 +589,32 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       buttons: {
         check: 'Проверить (Enter)',
         next: 'Далее (N)',
+        skip: 'Пропустить (N)',
         rule: 'Показать правило',
         ruleHide: 'Скрыть правило',
         report: 'Сообщить об ошибке',
       },
+      sections: {
+        controls: 'Управление раундом',
+        workspace: 'Рабочая зона',
+        buildZone: 'Соберите форму',
+        endingZone: 'Банк окончаний',
+      },
+      round: {
+        loading: 'Загрузка раунда...',
+        eyebrow: 'Раунд {round}',
+        targetTemplate: 'Соберите форму: {gram}.',
+        wordTemplate: 'Слово: {lemma} ({meaning})',
+      },
       labels: {
         score: 'Счёт',
         streak: 'Серия',
+        accuracy: 'Точность',
         strict: 'Строгий режим',
         answer: 'Введите полную форму',
+        answerPlaceholder: 'Введите полную форму и нажмите Enter',
+        answerHelp: 'Введите полную форму и нажмите Enter или «Проверить».',
+        pickHelp: 'Подсказка: нажмите на окончание, чтобы сразу поставить его, или перетащите.',
         keypad: 'Латышские буквы',
         options: 'Окончания',
         dropPlaceholder: 'Перетащите окончание',
@@ -580,6 +633,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       feedback: {
         correct: 'Верно!',
         incorrect: 'Неверно — посмотрите правило.',
+        empty: 'Сначала введите ответ.',
         fallback: 'Принято без диакритики. Включите строгий режим для тренировки знаков.',
       },
       icons: {
@@ -641,7 +695,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
     },
     passiveLab: {
       title: 'Passive Voice Builder',
-      heroBadge: 'B1 practice',
+      heroBadge: 'Практика уровня B',
       heroAlt: 'Illustration of a passive voice lab',
       start: 'Start',
       builder: 'Builder mode',

@@ -1,6 +1,6 @@
-# Latvian Language B1 Games
+# Latvian Language B Games
 
-A static, browser-first collection of Latvian B1 learning games and drills.
+A static, browser-first collection of Latvian B-level learning games and drills.
 
 The project is built with vanilla ES modules, ships as a Progressive Web App
 (PWA), and runs without a bundler.

@@ -1,9 +1,9 @@
 {
   "html": {
-    "title": "B1 LV→EN: Match Rush + Prefix Forge"
+    "title": "B līmenis LV→EN: Match Rush + Prefix Forge"
   },
   "badge": "Week 1",
-  "gameTitle": "LV→EN Vārdu Spēles (B1)",
+  "gameTitle": "LV→EN Vārdu Spēles (B līmenis)",
   "buttons": {
     "modeMatch": "▶ Match Rush",
     "modeForge": "▶ Prefix Forge",
@@ -164,7 +164,7 @@
   },
   "passiveLab": {
     "title": "Ciešamās Kārtas Laboratorija",
-    "heroBadge": "B1 prakse",
+    "heroBadge": "B līmeņa prakse",
     "heroAlt": "Laboratorijas ilustrācija",
     "start": "Sākt",
     "builder": "Būvēt teikumu",

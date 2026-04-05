@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-A B1 mini-game to master **reflexive vs. non‑reflexive** Latvian verbs (e.g., **mainīt**/_change something_ vs **mainīties**/_change oneself_). Players choose the correct form in short real‑life scenarios; an avatar reacts to illustrate the meaning.
+A B-level mini-game to master **reflexive vs. non‑reflexive** Latvian verbs (e.g., **mainīt**/_change something_ vs **mainīties**/_change oneself_). Players choose the correct form in short real‑life scenarios; an avatar reacts to illustrate the meaning.
 
 ## Goals
 

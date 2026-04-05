@@ -2,10 +2,10 @@
 window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
   lv: {
     html: {
-      title: 'B līmenis LV→EN: Match Rush + Prefix Forge',
+      title: 'Pārvietošanās ar priedēkļiem — B līmenis',
     },
-    badge: 'Week 1',
-    gameTitle: 'LV→EN Vārdu Spēles (B līmenis)',
+    badge: 'Pārvietošanās ar priedēkļiem',
+    gameTitle: 'Pārvietošanās ar priedēkļiem',
     buttons: {
       modeMatch: '▶ Match Rush',
       modeForge: '▶ Prefix Forge',
@@ -268,8 +268,8 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
     html: {
       title: 'B Level LV→EN: Match Rush + Prefix Forge',
     },
-    badge: 'Week 1',
-    gameTitle: 'LV→EN Word Games (B Level)',
+    badge: 'Pārvietošanās ar priedēkļiem',
+    gameTitle: 'Pārvietošanās ar priedēkļiem',
     buttons: {
       modeMatch: '▶ Match Rush',
       modeForge: '▶ Prefix Forge',
@@ -530,8 +530,8 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
     html: {
       title: 'LV→RU: Match Rush + Prefix Forge, уровень B',
     },
-    badge: 'Неделя 1',
-    gameTitle: 'LV→RU Слова (уровень B)',
+    badge: 'Pārvietošanās ar priedēkļiem',
+    gameTitle: 'Pārvietošanās ar priedēkļiem',
     buttons: {
       modeMatch: '▶ Match Rush',
       modeForge: '▶ Prefix Forge',

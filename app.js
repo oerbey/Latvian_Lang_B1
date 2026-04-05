@@ -1,7 +1,7 @@
 /**
  * app.js — Main entry point for the Word-Quest / Darbības Vārdi canvas game.
  * ==========================================================================
- * This module bootstraps the "Week 1" interactive vocabulary game which renders
+ * This module bootstraps the prefix-movement interactive vocabulary game which renders
  * onto an HTML5 <canvas>. It supports two game modes:
  *
  *   MATCH — Pair Latvian words with their translations by clicking tiles.

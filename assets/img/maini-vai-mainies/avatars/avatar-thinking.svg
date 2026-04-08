@@ -1,0 +1,7 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar thinking">
+  <rect width="120" height="120" rx="16" fill="#fef9c3"/>
+  <circle cx="60" cy="44" r="22" fill="#fde047"/>
+  <rect x="28" y="70" width="64" height="32" rx="12" fill="#facc15"/>
+  <circle cx="52" cy="42" r="4" fill="#0f172a"/><circle cx="68" cy="42" r="4" fill="#0f172a"/>
+  <path d="M48,54 Q60,48 72,54" stroke="#0f172a" stroke-width="3" fill="none"/>
+</svg>

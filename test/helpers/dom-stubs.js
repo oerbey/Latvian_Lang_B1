@@ -1,7 +1,17 @@
+/**
+ * @file test/helpers/dom-stubs.js
+ * Lightweight Canvas 2D context and HTMLCanvasElement stubs for unit tests.
+ *
+ * Provides no-op drawing methods so game modules that use Canvas
+ * can be tested without a real browser rendering surface.
+ */
+
 function createCtxStub() {
   return {
     setTransform() {},
-    measureText(txt = '') { return { width: (txt || '').length * 7 }; },
+    measureText(txt = '') {
+      return { width: (txt || '').length * 7 };
+    },
     clearRect() {},
     beginPath() {},
     moveTo() {},
@@ -19,7 +29,7 @@ function createCtxStub() {
     textAlign: 'left',
     textBaseline: 'alphabetic',
     fillStyle: '#000',
-    strokeStyle: '#000'
+    strokeStyle: '#000',
   };
 }
 
@@ -31,16 +41,37 @@ export function stubForgeDom() {
     height: 560,
     style: {},
     parentElement: { offsetWidth: 980 },
-    getBoundingClientRect: () => ({ left: 0, top: 0 })
+    getBoundingClientRect: () => ({ left: 0, top: 0 }),
   };
   const statusEl = { textContent: '' };
-  const srEl = { innerHTML: '', appendChild() {} };
+  const srEl = {
+    innerHTML: '',
+    dataset: {},
+    appendChild() {},
+    replaceChildren(...nodes) {
+      this.innerHTML = '';
+      this._children = nodes;
+    },
+    querySelector() {
+      return null;
+    },
+    querySelectorAll() {
+      return [];
+    },
+  };
+  const documentElement = {
+    getAttribute() {
+      return null;
+    },
+  };
+
   global.document = {
+    documentElement,
     createElement: (tag) => {
       if (tag === 'ul') return { appendChild() {} };
       if (tag === 'li') return { appendChild() {} };
       if (tag === 'button') return { addEventListener() {}, textContent: '' };
-      if (tag === 'p') return { textContent: '' };
+      if (tag === 'p') return { textContent: '', dataset: {} };
       return { appendChild() {} };
     },
     getElementById: (id) => {
@@ -48,8 +79,15 @@ export function stubForgeDom() {
       if (id === 'status') return statusEl;
       if (id === 'sr-game-state') return srEl;
       return canvasEl;
-    }
+    },
   };
+  global.getComputedStyle =
+    global.getComputedStyle ||
+    (() => ({
+      getPropertyValue() {
+        return '';
+      },
+    }));
   return { canvasEl, statusEl, srEl };
 }
 
@@ -62,19 +100,38 @@ export function stubMatchDom() {
     height: 560,
     style: {},
     parentElement: { offsetWidth: 980 },
-    getBoundingClientRect: () => ({ left: 0, top: 0 })
+    getBoundingClientRect: () => ({ left: 0, top: 0 }),
   };
   const statusEl = { textContent: '' };
   const srEl = {
     innerHTML: '',
+    dataset: {},
     appendChild() {},
+    replaceChildren(...nodes) {
+      this.innerHTML = '';
+      this._children = nodes;
+    },
+    querySelector() {
+      return null;
+    },
+    querySelectorAll() {
+      return [];
+    },
+  };
+
+  const documentElement = {
+    getAttribute() {
+      return null;
+    },
   };
 
   global.document = {
+    documentElement,
     createElement: (tag) => {
       if (tag === 'ul') return { appendChild() {} };
       if (tag === 'li') return { appendChild() {} };
       if (tag === 'button') return { addEventListener() {}, textContent: '' };
+      if (tag === 'p') return { textContent: '', dataset: {} };
       return { appendChild() {} };
     },
     getElementById: (id) => {
@@ -82,8 +139,16 @@ export function stubMatchDom() {
       if (id === 'status') return statusEl;
       if (id === 'sr-game-state') return srEl;
       return canvasEl;
-    }
+    },
   };
+  global.getComputedStyle =
+    global.getComputedStyle ||
+    (() => ({
+      getPropertyValue() {
+        return '';
+      },
+    }));
 
   return { canvasEl, statusEl, srEl };
 }
+/* eslint-env node */

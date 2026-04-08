@@ -6,84 +6,56 @@
         "lv": "lidot",
         "ru": "летать"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "ielidot",
         "ru": "влететь"
       },
-      "tags": [
-        "prefix:ie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "izlidot",
         "ru": "вылететь"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "atlidot",
         "ru": "прилететь обратно"
       },
-      "tags": [
-        "prefix:at"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:at"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aizlidot",
         "ru": "улететь"
       },
-      "tags": [
-        "prefix:aiz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:aiz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pārlidot",
         "ru": "перелететь"
       },
-      "tags": [
-        "prefix:pār"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pār"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aplidot",
         "ru": "облететь"
       },
-      "tags": [
-        "prefix:ap"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ap"],
+      "games": ["match"]
     }
   ]
 }

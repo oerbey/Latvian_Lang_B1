@@ -6,120 +6,80 @@
         "lv": "nest",
         "en": "to carry (by hand)"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "ienest",
         "en": "to carry in"
       },
-      "tags": [
-        "prefix:ie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "iznest",
         "en": "to carry out"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aiznest",
         "en": "to take away"
       },
-      "tags": [
-        "prefix:aiz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:aiz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "atnest",
         "en": "to bring (here)"
       },
-      "tags": [
-        "prefix:at"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:at"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pienest",
         "en": "to bring to; serve"
       },
-      "tags": [
-        "prefix:pie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pārnest",
         "en": "to carry over / move"
       },
-      "tags": [
-        "prefix:pār"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pār"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "uznest",
         "en": "to carry up"
       },
-      "tags": [
-        "prefix:uz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:uz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "nonest",
         "en": "to carry down"
       },
-      "tags": [
-        "prefix:no"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:no"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "sanest",
         "en": "to bring together (collect)"
       },
-      "tags": [
-        "prefix:sa"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:sa"],
+      "games": ["match"]
     }
   ]
 }

@@ -1,10 +1,12 @@
 {
-  "html": { "title": "B1 LV→EN: Match Rush + Prefix Forge" },
-  "badge": "Week 1",
-  "gameTitle": "LV→EN Word Games (B1)",
+  "html": {
+    "title": "B Level LV→EN: Match Rush + Prefix Forge"
+  },
+  "badge": "Pārvietošanās ar priedēkļiem",
+  "gameTitle": "Pārvietošanās ar priedēkļiem",
   "buttons": {
-    "modeMatch": "\u25B6 Match Rush",
-    "modeForge": "\u25B6 Prefix Forge",
+    "modeMatch": "▶ Match Rush",
+    "modeForge": "▶ Prefix Forge",
     "practice": "Practice",
     "challenge": "Challenge",
     "prevAria": "Previous card",
@@ -39,17 +41,219 @@
     "title": "Help",
     "close": "Close",
     "lines": [
-      "\u25B6 MATCH RUSH — Click the pair: first LV word, then its EN meaning.",
+      "▶ MATCH RUSH — Click the pair: first LV word, then its EN meaning.",
       "Mistakes in practice show a brief hint (e.g., -ties = reflexive).",
       "Challenge mode has a timer and hearts.",
       "",
       "📏 Deck Size — Toggle between 'fit screen' (no scrolling)",
       "and 'full deck' (scroll, more words).",
       "",
-      "\u25B6 PREFIX FORGE — Add the correct prefix to the verb root",
+      "▶ PREFIX FORGE — Add the correct prefix to the verb root",
       "(e.g., __mainīt → izmainīt) based on the given EN meaning.",
       "",
       "Shortcuts: [1] Match, [2] Forge, [H] help, [R] restart, [D] deck size."
     ]
+  },
+  "endingsBuilder": {
+    "title": "Endings Builder",
+    "subtitle": "Drop the correct ending to complete the word.",
+    "buttons": {
+      "check": "Check (Enter)",
+      "next": "Next (N)",
+      "skip": "Skip (N)",
+      "rule": "Show rule",
+      "ruleHide": "Hide rule",
+      "report": "Report error"
+    },
+    "sections": {
+      "controls": "Round controls",
+      "workspace": "Build workspace",
+      "buildZone": "Build the form",
+      "endingZone": "Ending bank"
+    },
+    "round": {
+      "loading": "Loading round...",
+      "eyebrow": "Round {round}",
+      "targetTemplate": "Build the {gram} form.",
+      "wordTemplate": "Word: {lemma} ({meaning})"
+    },
+    "labels": {
+      "score": "Score",
+      "streak": "Streak",
+      "accuracy": "Accuracy",
+      "strict": "Strict diacritics",
+      "answer": "Type the full form",
+      "answerPlaceholder": "Type the full form and press Enter",
+      "answerHelp": "Type the full form, then press Enter or Check.",
+      "pickHelp": "Tip: click an ending to place it instantly, or drag it.",
+      "keypad": "Latvian letters",
+      "options": "Endings",
+      "dropPlaceholder": "Drop ending",
+      "ruleTitle": "Rule table",
+      "case": "Case",
+      "number": "Number",
+      "columns": {
+        "SG": "Singular",
+        "PL": "Plural",
+        "SG_M": "SG masc",
+        "SG_F": "SG fem",
+        "PL_M": "PL masc",
+        "PL_F": "PL fem"
+      }
+    },
+    "feedback": {
+      "correct": "Correct!",
+      "incorrect": "Wrong — check the rule.",
+      "empty": "Type an answer first.",
+      "fallback": "Accepted without diacritics. Enable strict mode to practise marks."
+    },
+    "icons": {
+      "correct": "✔️",
+      "incorrect": "✖️",
+      "info": "ℹ️"
+    },
+    "announce": {
+      "correct": "Correct ending placed.",
+      "incorrect": "Wrong ending. Try again."
+    },
+    "explain": {
+      "prefix": "⇒"
+    },
+    "strictMode": {
+      "on": "Strict mode enabled.",
+      "off": "Strict mode disabled."
+    },
+    "reportTemplate": "### What happened?\n\nDescribe the incorrect ending or rule.\n\n### Context\n- Stem: (fill in)\n- Case/number: (fill in)\n- Device/browser: \n",
+    "cases": {
+      "NOM": "Nominative",
+      "GEN": "Genitive",
+      "DAT": "Dative",
+      "ACC": "Accusative",
+      "LOC": "Locative",
+      "VOC": "Vocative"
+    }
+  },
+  "travelTracker": {
+    "title": "Travel Tracker",
+    "start": "Start",
+    "restart": "Restart",
+    "restartShort": "Restart",
+    "check": "Check",
+    "next": "Next route",
+    "score": "Score",
+    "streak": "Streak",
+    "level": "Level",
+    "prompt": "Your answer",
+    "enterAnswer": "Type an answer first.",
+    "hint": "Hint",
+    "noHint": "No hint yet.",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "progressLabel": {
+      "one": "Question",
+      "few": "Questions",
+      "many": "Questions",
+      "other": "Questions"
+    },
+    "progressOf": "of",
+    "progressIdle": "Ready",
+    "noQuestion": "No questions available.",
+    "noRoute": "No route selected.",
+    "instructions": "Fill the gap with the correct verb form (prefix + tense/person) to move the bus to the next city."
+  },
+  "passiveLab": {
+    "title": "Passive Voice Builder",
+    "heroBadge": "B practice",
+    "heroAlt": "Illustration of a passive voice lab",
+    "start": "Start",
+    "builder": "Builder mode",
+    "typein": "Type-in mode",
+    "check": "Check",
+    "next": "Next task",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions_builder": "Choose tense, patient, and the correct participle ending.",
+    "instructions_typein": "Type the passive sentence (tiek/tika/tiks + participle).",
+    "patientLabel": "Patient (Nom.)",
+    "labels": {
+      "tense": "Tense",
+      "active": "Active sentence",
+      "ending": "Participle ending",
+      "typeinPlaceholder": "Type the passive sentence (tiek/tika/tiks + participle).",
+      "lastPlayed": "Last played"
+    },
+    "tenseOptions": {
+      "present": "Present",
+      "past": "Past",
+      "future": "Future"
+    },
+    "genderLabels": {
+      "m": {
+        "sg": "m.sg",
+        "pl": "m.pl"
+      },
+      "f": {
+        "sg": "f.sg",
+        "pl": "f.pl"
+      }
+    },
+    "status": {
+      "idle": "Pick a mode and build the sentence.",
+      "builderEndingHint": "Correct ending: {ending} ({gender}).",
+      "streakBonus": "Streak bonus! ({count}) +10 xp",
+      "noTasks": "No tasks available.",
+      "loadError": "Failed to load tasks."
+    },
+    "glyphAlt": {
+      "ok": "Success icon",
+      "error": "Error icon"
+    }
+  },
+  "decl6Detective": {
+    "title": "What’s in my house? — 6th Declension Detective",
+    "start": "Start",
+    "mode_mcq": "Detective Cards",
+    "mode_typein": "Room Builder",
+    "check": "Check",
+    "next": "Next",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions_mcq": "Choose the correct 6th-declension form.",
+    "instructions_typein": "Type the missing form (supports Latvian diacritics)."
+  },
+  "dutyDispatcher": {
+    "title": "Duty Dispatcher",
+    "start": "Start",
+    "check": "Check",
+    "next": "Next task",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions": "Drag the duty card onto the correct recipient (Dative: kam?)."
+  },
+  "mainiVaiMainies": {
+    "title": "Maini vai mainies?",
+    "start": "Start",
+    "check": "Check",
+    "next": "Next item",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions": "Choose the correct verb form (reflexive vs non‑reflexive) for the situation."
   }
 }

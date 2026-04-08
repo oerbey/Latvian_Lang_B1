@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Travel Tracker routes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["cities", "levels"],
+  "properties": {
+    "cities": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "levels": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/level" },
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "level": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "routes"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "routes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/route" },
+          "minItems": 1
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "gap", "answers", "distractors", "hint", "explain"],
+      "properties": {
+        "from": { "type": "string", "minLength": 1 },
+        "to": { "type": "string", "minLength": 1 },
+        "gap": { "type": "string", "minLength": 1 },
+        "answers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "distractors": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "hint": { "type": "string", "minLength": 1 },
+        "explain": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

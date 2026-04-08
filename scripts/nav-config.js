@@ -1,0 +1,27 @@
+/**
+ * nav-config.js — Central navigation link catalogue.
+ * ===================================================
+ * Single source of truth for every page link shown in the top nav bar
+ * and the page footer. To add a new game page, append an entry here —
+ * nav.js will automatically render it in both locations.
+ *
+ * @type {Array<{ href: string, label: string }>}
+ */
+export const NAV_ITEMS = [
+  { href: 'index.html', label: 'Home' },
+  { href: 'darbibas-vards.html', label: 'Darbības Vārds' },
+  { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },
+  { href: 'endings-builder.html', label: 'Endings Builder' },
+  { href: 'passive-lab.html', label: 'Ciešamās Kārtas Laboratorija' },
+  { href: 'sentence-surgery-passive.html', label: 'Sentence Surgery — Ciešamā kārta' },
+  { href: 'decl6-detective.html', label: 'Kas ir manā mājā?' },
+  { href: 'travel-tracker.html', label: 'Travel Tracker' },
+  { href: 'maini-vai-mainies.html', label: 'Maini vai mainies?' },
+  { href: 'duty-dispatcher.html', label: 'Kas jādara kam?' },
+  { href: 'rakstura-ipasibas-expansion.html', label: 'Rakstura īpašības — pāri (paplašināta)' },
+  { href: 'rakstura-ipasibas-match.html', label: 'Rakstura īpašības — pāri' },
+  { href: 'character-traits.html', label: 'Rakstura īpašības' },
+  { href: 'english-latvian-arcade.html', label: 'English -> Latvian Word Catcher' },
+  { href: 'word-quest.html', label: '⚔️ Word Quest' },
+  { href: 'week1.html', label: 'Pārvietošanās ar priedēkļiem' },
+];

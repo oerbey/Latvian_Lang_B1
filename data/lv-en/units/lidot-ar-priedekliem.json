@@ -6,84 +6,56 @@
         "lv": "lidot",
         "en": "to fly"
       },
-      "tags": [
-        "base"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["base"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "ielidot",
         "en": "to fly in (arrive)"
       },
-      "tags": [
-        "prefix:ie"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ie"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "izlidot",
         "en": "to fly out (depart)"
       },
-      "tags": [
-        "prefix:iz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:iz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "atlidot",
         "en": "to fly back"
       },
-      "tags": [
-        "prefix:at"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:at"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aizlidot",
         "en": "to fly away"
       },
-      "tags": [
-        "prefix:aiz"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:aiz"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pārlidot",
         "en": "to fly over"
       },
-      "tags": [
-        "prefix:pār"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:pār"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "aplidot",
         "en": "to fly around"
       },
-      "tags": [
-        "prefix:ap"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["prefix:ap"],
+      "games": ["match"]
     }
   ]
 }

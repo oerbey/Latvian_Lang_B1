@@ -1,193 +1,263 @@
+<!--
+  index.html — Landing / Home Page for the Latvian Language B Games project.
+  ============================================================================
+  This is the main entry point of the Progressive Web App (PWA).
+  It displays:
+    • A hero section with project description and quick-start CTA.
+    • Skill-track filter buttons (Verbs, Conjugation, Passive, Cases, Vocabulary, Adventure).
+    • A dynamically-generated game library grid (rendered by scripts/homepage.js).
+    • Stats section with key metrics.
+    • CTA footer encouraging users to start playing.
+
+  External dependencies:
+    - Bootstrap 5.3.8 (CSS + JS bundle via CDN)
+    - Custom styles from styles.css
+    - Scripts: app.js, theme.js, nav.js, page-init.js, homepage.js
+-->
 <!doctype html>
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Latvian Language B1 Games</title>
+    <!-- Content Security Policy — restricts resource origins to mitigate XSS -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
 
-    <!-- PWA bits (kept) -->
+    <title>Latvian Language B Games</title>
+    <meta
+      name="description"
+      content="Master Latvian grammar through focused, interactive games. 14 exercises covering verbs, conjugation, passive voice, cases, and vocabulary."
+    />
+
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
 
-    <!-- Bootstrap 5.3.8 + Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
 
-    <!-- Project styles -->
+    <!-- Custom project-wide styles (design tokens, layout, components) -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Navbar with offcanvas (mobile) -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom">
-      <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-          <i class="bi bi-translate"></i> Latvian B1
-        </a>
+    <!-- Accessibility: skip-to-main link for keyboard and screen-reader users -->
+    <a class="dp-skip" href="#main">Skip to main content</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav"
-                aria-controls="offcanvasNav" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Site-wide navigation bar — dynamically rendered by scripts/nav.js -->
+    <nav data-site-nav></nav>
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body align-items-lg-center">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="darbibas-vards.html">Darbības Vārds</a></li>
-              <li class="nav-item"><a class="nav-link" href="conjugation-sprint.html">Conjugation Sprint</a></li>
-              <li class="nav-item"><a class="nav-link" href="week1.html">Week 1</a></li>
-            </ul>
-            <div class="d-flex gap-2">
-              <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
-                <i class="bi bi-moon-stars-fill d-none" id="iconDark"></i>
-                <i class="bi bi-sun-fill" id="iconLight"></i>
-              </button>
-              <a class="btn btn-primary" href="https://github.com/oerbey/Latvian_Lang_B1" target="_blank" rel="noopener">
-                <i class="bi bi-github"></i> <span class="ms-1 d-none d-sm-inline">GitHub</span>
-              </a>
+    <main id="main">
+      <div class="dp-container">
+        <!-- ===== HERO SECTION =====
+             Introductory banner with project name, tagline, CTA buttons, and
+             a decorative animated orb. Uses dp-reveal for scroll-in animation. -->
+        <section class="dp-hero dp-reveal" aria-labelledby="hero-title">
+          <div class="dp-hero__copy">
+            <p class="dp-hero__eyebrow">Latvian Language B Level</p>
+            <h1 class="dp-hero__title" id="hero-title">
+              Master Latvian grammar through focused, interactive games.
+            </h1>
+            <p class="dp-hero__lead">
+              14 purpose-built exercises covering verbs, conjugation, passive voice, cases, and
+              vocabulary - each designed for 4-20 minute practice sessions.
+            </p>
+            <div class="dp-hero__actions">
+              <a class="dp-btn dp-btn--primary" href="word-quest.html">Start Word Quest</a>
+              <a class="dp-btn dp-btn--outline" href="#games">Browse all games</a>
+            </div>
+            <div class="dp-hero__badges">
+              <span class="dp-badge">B level</span>
+              <span class="dp-badge">6 skill tracks</span>
+              <span class="dp-badge">Short sessions</span>
             </div>
           </div>
-        </div>
-      </div>
-    </nav>
+          <div class="dp-hero__visual" aria-hidden="true">
+            <div class="dp-orb">
+              <div class="dp-orb__ring"></div>
+              <div class="dp-orb__ring"></div>
+              <div class="dp-orb__ring"></div>
+              <div class="dp-orb__core"></div>
+            </div>
+          </div>
+        </section>
 
-    <main class="container py-4 mt-5">
-      <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-        <div class="container-fluid py-5">
-          <h1 class="display-5 fw-bold">Latvian Language B1 Level</h1>
-          <p class="col-md-8 fs-4">
-            This page contains a collection of games and exercises to help you practice your Latvian language skills at the B1 level.
-          </p>
-        </div>
-      </div>
+        <!-- ===== SKILL TRACKS SECTION =====
+             Clickable category cards that scroll to the game grid and
+             auto-activate the corresponding filter button. -->
+        <section class="dp-section dp-reveal" aria-labelledby="tracks-title">
+          <div class="dp-section-header">
+            <h2 class="dp-section-header__title" id="tracks-title">Skill Tracks</h2>
+            <p class="dp-section-header__sub">Choose a focus area to filter games by skill.</p>
+          </div>
+          <div class="dp-tracks__grid" role="list">
+            <button
+              class="dp-track-card"
+              data-track="verbs"
+              role="listitem"
+              aria-label="Verbs - 2 games"
+            >
+              <span class="dp-track-card__icon" aria-hidden="true">📖</span>
+              <span class="dp-track-card__title">Verbs</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+            <button
+              class="dp-track-card"
+              data-track="conjugation"
+              role="listitem"
+              aria-label="Conjugation - 2 games"
+            >
+              <span class="dp-track-card__icon" aria-hidden="true">⚡</span>
+              <span class="dp-track-card__title">Conjugation</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+            <button
+              class="dp-track-card"
+              data-track="passive"
+              role="listitem"
+              aria-label="Passive Voice - 2 games"
+            >
+              <span class="dp-track-card__icon" aria-hidden="true">🔬</span>
+              <span class="dp-track-card__title">Passive Voice</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+            <button
+              class="dp-track-card"
+              data-track="cases"
+              role="listitem"
+              aria-label="Cases - 3 games"
+            >
+              <span class="dp-track-card__icon" aria-hidden="true">🏠</span>
+              <span class="dp-track-card__title">Cases</span>
+              <span class="dp-track-card__count">3 games</span>
+            </button>
+            <button
+              class="dp-track-card"
+              data-track="vocabulary"
+              role="listitem"
+              aria-label="Vocabulary - 3 games"
+            >
+              <span class="dp-track-card__icon" aria-hidden="true">🎯</span>
+              <span class="dp-track-card__title">Vocabulary</span>
+              <span class="dp-track-card__count">3 games</span>
+            </button>
+            <button
+              class="dp-track-card"
+              data-track="adventure"
+              role="listitem"
+              aria-label="Adventure - 2 games"
+            >
+              <span class="dp-track-card__icon" aria-hidden="true">⚔️</span>
+              <span class="dp-track-card__title">Adventure</span>
+              <span class="dp-track-card__count">2 games</span>
+            </button>
+          </div>
+        </section>
 
-      <div class="row align-items-md-stretch">
-        <div class="col-md-6 mb-4">
-          <div class="h-100 p-5 text-bg-dark rounded-3">
-            <h2>Darbības Vārdi</h2>
-            <p>Match the Latvian verb with its translation. Work with a mouse or keyboard.</p>
-            <a class="btn btn-outline-light" href="darbibas-vards.html">Play Game</a>
+        <!-- ===== GAME LIBRARY SECTION =====
+             Contains filter toolbar and the #gamesGrid container.
+             Game cards are rendered dynamically by scripts/homepage.js from
+             the `games` data array. Filter buttons toggle card visibility
+             by category (verbs, conjugation, passive, cases, vocabulary, adventure). -->
+        <section class="dp-section dp-reveal" id="games" aria-labelledby="games-title">
+          <div class="dp-section-header">
+            <h2 class="dp-section-header__title" id="games-title">Game Library</h2>
+            <p class="dp-section-header__sub">
+              Pick a focus, pick a pace, and keep the momentum going.
+            </p>
           </div>
-        </div>
-        <div class="col-md-6 mb-4">
-          <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-            <h2>Conjugation Sprint</h2>
-            <p>Focus: verbs with full paradigms (present • past • future). Data from your <code>words.json</code>.</p>
-            <a class="btn btn-outline-secondary" href="conjugation-sprint.html">Play Game</a>
+          <div class="dp-filter-bar" role="toolbar" aria-label="Filter games by category">
+            <button class="dp-filter-btn" data-filter="all" aria-pressed="true">All</button>
+            <button class="dp-filter-btn" data-filter="verbs" aria-pressed="false">Verbs</button>
+            <button class="dp-filter-btn" data-filter="conjugation" aria-pressed="false">
+              Conjugation
+            </button>
+            <button class="dp-filter-btn" data-filter="passive" aria-pressed="false">
+              Passive
+            </button>
+            <button class="dp-filter-btn" data-filter="cases" aria-pressed="false">Cases</button>
+            <button class="dp-filter-btn" data-filter="vocabulary" aria-pressed="false">
+              Vocabulary
+            </button>
+            <button class="dp-filter-btn" data-filter="adventure" aria-pressed="false">
+              Adventure
+            </button>
           </div>
-        </div>
-        <div class="col-md-6 mb-4">
-          <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-            <h2>Week 1</h2>
-            <p>Practice the vocabulary from the first week of the B1 course.</p>
-            <a class="btn btn-outline-secondary" href="week1.html">Practice</a>
+          <div id="gamesGrid" class="dp-games-grid"></div>
+          <!-- Live region for screen-reader announcements when filter changes -->
+          <div class="dp-sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
+        </section>
+
+        <!-- ===== STATS / BY THE NUMBERS SECTION =====
+             Displays key project metrics (14 games, 6 skill tracks, etc.)
+             and a bullet list of learning benefits. -->
+        <section class="dp-section dp-reveal" aria-labelledby="stats-title">
+          <div class="dp-section-header">
+            <h2 class="dp-section-header__title" id="stats-title">By the Numbers</h2>
+            <p class="dp-section-header__sub">Designed for focused, effective practice.</p>
           </div>
-        </div>
+          <div class="dp-stats__grid">
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">14</span>
+              <span class="dp-stat-card__label">Interactive Games</span>
+            </div>
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">6</span>
+              <span class="dp-stat-card__label">Skill Tracks</span>
+            </div>
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">4-20</span>
+              <span class="dp-stat-card__label">Min per Session</span>
+            </div>
+            <div class="dp-stat-card">
+              <span class="dp-stat-card__number">B</span>
+              <span class="dp-stat-card__label">CEFR Level</span>
+            </div>
+          </div>
+          <ul class="dp-benefits">
+            <li>Verb conjugation across three tenses with instant feedback</li>
+            <li>Passive voice construction with tikt + participle patterns</li>
+            <li>Case endings for 6th declension and debitive mood</li>
+            <li>Vocabulary building with character traits and translation drills</li>
+          </ul>
+        </section>
+
+        <!-- ===== CALL TO ACTION =====
+             Final section encouraging users to start a game. -->
+        <section class="dp-cta dp-reveal">
+          <h2 class="dp-cta__title">Ready to level up your Latvian?</h2>
+          <p class="dp-cta__lead">Jump into any game and start building fluency today.</p>
+          <a class="dp-btn dp-btn--primary" href="word-quest.html">Start Playing</a>
+        </section>
       </div>
     </main>
 
-    <footer class="border-top py-4 bg-body-tertiary">
-      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-        <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
-        <nav class="small">
-          <a class="link-secondary me-3" href="index.html">Home</a>
-          <a class="link-secondary me-3" href="darbibas-vards.html">Verbs</a>
-          <a class="link-secondary" href="week1.html">Week 1</a>
-        </nav>
-      </div>
-    </footer>
+    <!-- Site-wide footer — dynamically rendered by scripts/nav.js -->
+    <footer class="dp-footer" data-site-footer></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="theme.js"></script>
-    <script src="scripts/page-init.js" defer></script>
-  </body>
-</html>
+    <!-- Bootstrap JS bundle (includes Popper) — loaded from CDN with SRI -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
 
-            </ul>
-
-            <div class="d-flex gap-2">
-              <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle color mode">
-                <i class="bi bi-moon-stars-fill d-none" id="iconDark"></i>
-                <i class="bi bi-sun-fill" id="iconLight"></i>
-              </button>
-              <a class="btn btn-primary" href="https://github.com/oerbey/Latvian_Lang_B1" target="_blank" rel="noopener">
-                <i class="bi bi-github"></i> <span class="ms-1 d-none d-sm-inline">GitHub</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <main class="py-5 mt-5">
-      <div class="container">
-        <header class="text-center mb-4">
-          <h1 class="display-6 fw-semibold">Latvian Language B1 Games</h1>
-          <p class="text-secondary mb-0">Practice Latvian with interactive mini-games.</p>
-        </header>
-
-        <!-- Auto-generated game cards -->
-        <div id="gamesGrid" class="row g-4"></div>
-      </div>
-    </main>
-
-    <footer class="border-top py-4 bg-body-tertiary">
-      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-        <span class="text-secondary">© <span id="year"></span> Latvian B1 Games</span>
-        <nav class="small">
-          <a class="link-secondary me-3" href="index.html">Home</a>
-          <a class="link-secondary me-3" href="darbibas-vards.html">Verbs</a>
-          <a class="link-secondary" href="week1.html">Week 1</a>
-        </nav>
-      </div>
-    </footer>
-
-    <!-- Bootstrap bundle (incl. Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Your scripts -->
-    <script src="app.js"></script>
-    <script src="theme.js"></script>
-    <script src="scripts/page-init.js" defer></script>
-
-    <script>
-      // Footer year
-      document.getElementById('year').textContent = new Date().getFullYear();
-
-      // List your games here (title, link, icon, desc)
-      const games = [
-        { title: 'Darbības Vārds', href: 'darbibas-vards.html', icon: 'bi-joystick', desc: 'Verb practice game' },
-        { title: 'Week 1', href: 'week1.html', icon: 'bi-lightning-charge', desc: 'Weekly exercises' },
-        // { title: 'Nouns', href: 'lietvardi.html', icon: 'bi-book', desc: 'Noun practice' },
-      ];
-
-      // Build responsive cards
-      const grid = document.getElementById('gamesGrid');
-      games.forEach(g => {
-        const col = document.createElement('div');
-        col.className = 'col-12 col-sm-6 col-lg-4';
-        col.innerHTML = `
-          <a class="text-reset text-decoration-none" href="${g.href}">
-            <div class="card h-100 hover-lift">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-2">
-                  <i class="bi ${g.icon} fs-3 me-2"></i>
-                  <h2 class="h5 mb-0">${g.title}</h2>
-                </div>
-                <p class="text-secondary mb-3">${g.desc}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="badge bg-secondary-subtle text-secondary-emphasis">B1</span>
-                  <span class="btn btn-primary">Play</span>
-                </div>
-              </div>
-            </div>
-          </a>`;
-        grid.appendChild(col);
-      });
-    </script>
+    <!-- App modules loaded as ES modules -->
+    <script type="module" src="app.js"></script>
+    <!-- Main Word-Quest canvas game logic -->
+    <script type="module" src="theme.js"></script>
+    <!-- Dark/light mode toggle with localStorage persistence -->
+    <script type="module" src="scripts/nav.js"></script>
+    <!-- Dynamic nav-bar & footer rendering -->
+    <script type="module" src="scripts/page-init.js"></script>
+    <!-- Year badge, favicon, offline banner, SW registration -->
+    <script type="module" src="scripts/homepage.js"></script>
+    <!-- Builds game cards, filter bar, scroll-reveal -->
   </body>
 </html>

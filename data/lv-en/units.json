@@ -29,12 +29,16 @@
       "file": "units/nest-ar-priedekliem.json"
     },
     {
-      "name": "Refleksīvie un dzīves notikumi",
+      "name": "Refleksīvī un dzīves notikumi",
       "file": "units/refleksivie-un-dzives-notikumi.json"
     },
     {
-      "name": "B1 palīgdarbības vārdi",
+      "name": "B līmeņa palīgdarbības vārdi",
       "file": "units/b1-paligdarbibas-vardi.json"
+    },
+    {
+      "name": "Pārvietošanās ar priedēkļiem",
+      "file": "units/week1-movements.json"
     }
   ]
 }

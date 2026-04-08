@@ -1,10 +1,12 @@
 {
-  "html": { "title": "B1 LV→RU: Match Rush + Prefix Forge" },
-  "badge": "Неделя 1",
-  "gameTitle": "LV→RU Слова (B1)",
+  "html": {
+    "title": "LV→RU: Match Rush + Prefix Forge, уровень B"
+  },
+  "badge": "Pārvietošanās ar priedēkļiem",
+  "gameTitle": "Pārvietošanās ar priedēkļiem",
   "buttons": {
-    "modeMatch": "\u25B6 Match Rush",
-    "modeForge": "\u25B6 Prefix Forge",
+    "modeMatch": "▶ Match Rush",
+    "modeForge": "▶ Prefix Forge",
     "practice": "Практика",
     "challenge": "Игра",
     "prevAria": "Предыдущая карточка",
@@ -19,7 +21,7 @@
   "labels": {
     "loading": "Загрузка...",
     "loadError": "Не удалось загрузить данные.",
-    "legend": "<b>Управление:</b> клики мышью. — <span class=\"kbd\">H</span> помощь, <span class=\"kbd\">R</span> заново, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> размер колоды. <br/>\uD83D\uDCCF = Под экран (без прокрутки), \uD83D\uDCDD = Полная колода (с прокруткой).",
+    "legend": "<b>Управление:</b> клики мышью. — <span class=\"kbd\">H</span> помощь, <span class=\"kbd\">R</span> заново, <span class=\"kbd\">1</span> Match, <span class=\"kbd\">2</span> Forge, <span class=\"kbd\">D</span> размер колоды. <br/>📏 = Под экран (без прокрутки), 📝 = Полная колода (с прокруткой).",
     "languageSelect": "Выберите язык",
     "controls": "Элементы управления",
     "gameState": "Состояние игры"
@@ -27,7 +29,7 @@
   "status": {
     "ready": "Готово. Выберите режим.",
     "practice": "Режим практики",
-    "challenge": "Режим вызова (Match = \u2665\u2665\u2665)",
+    "challenge": "Режим вызова (Match = ♥♥♥)",
     "fit": "Режим под экран",
     "full": "Режим полной колоды (прокрутка)"
   },
@@ -39,17 +41,219 @@
     "title": "Помощь",
     "close": "Закрыть",
     "lines": [
-      "\u25B6 MATCH RUSH — Сначала щёлкните LV слово, затем его значение.",
+      "▶ MATCH RUSH — Сначала щёлкните LV слово, затем его значение.",
       "Ошибки в практике показывают подсказку (напр., -ties = возвратный).",
       "В режиме вызова есть таймер и сердца.",
       "",
-      "\uD83D\uDCCF Размер колоды — Переключение между 'под экран' (без прокрутки)",
+      "📏 Размер колоды — Переключение между 'под экран' (без прокрутки)",
       "и 'полная колода' (с прокруткой, больше слов).",
       "",
-      "\u25B6 PREFIX FORGE — Добавьте правильный префикс к корню глагола",
+      "▶ PREFIX FORGE — Добавьте правильный префикс к корню глагола",
       "(напр., __mainīt → izmainīt) по данному значению.",
       "",
       "Сочетания клавиш: [1] Match, [2] Forge, [H] помощь, [R] заново, [D] размер."
     ]
+  },
+  "endingsBuilder": {
+    "title": "Конструктор окончаний",
+    "subtitle": "Перетащите правильное окончание, чтобы завершить слово.",
+    "buttons": {
+      "check": "Проверить (Enter)",
+      "next": "Далее (N)",
+      "skip": "Пропустить (N)",
+      "rule": "Показать правило",
+      "ruleHide": "Скрыть правило",
+      "report": "Сообщить об ошибке"
+    },
+    "sections": {
+      "controls": "Управление раундом",
+      "workspace": "Рабочая зона",
+      "buildZone": "Соберите форму",
+      "endingZone": "Банк окончаний"
+    },
+    "round": {
+      "loading": "Загрузка раунда...",
+      "eyebrow": "Раунд {round}",
+      "targetTemplate": "Соберите форму: {gram}.",
+      "wordTemplate": "Слово: {lemma} ({meaning})"
+    },
+    "labels": {
+      "score": "Счёт",
+      "streak": "Серия",
+      "accuracy": "Точность",
+      "strict": "Строгий режим",
+      "answer": "Введите полную форму",
+      "answerPlaceholder": "Введите полную форму и нажмите Enter",
+      "answerHelp": "Введите полную форму и нажмите Enter или «Проверить».",
+      "pickHelp": "Подсказка: нажмите на окончание, чтобы сразу поставить его, или перетащите.",
+      "keypad": "Латышские буквы",
+      "options": "Окончания",
+      "dropPlaceholder": "Перетащите окончание",
+      "ruleTitle": "Таблица правил",
+      "case": "Падеж",
+      "number": "Число",
+      "columns": {
+        "SG": "Единств.",
+        "PL": "Множеств.",
+        "SG_M": "Ед. м.",
+        "SG_F": "Ед. ж.",
+        "PL_M": "Мн. м.",
+        "PL_F": "Мн. ж."
+      }
+    },
+    "feedback": {
+      "correct": "Верно!",
+      "incorrect": "Неверно — посмотрите правило.",
+      "empty": "Сначала введите ответ.",
+      "fallback": "Принято без диакритики. Включите строгий режим для тренировки знаков."
+    },
+    "icons": {
+      "correct": "✔️",
+      "incorrect": "✖️",
+      "info": "ℹ️"
+    },
+    "announce": {
+      "correct": "Окончание выбрано правильно.",
+      "incorrect": "Неверное окончание. Попробуйте снова."
+    },
+    "explain": {
+      "prefix": "⇒"
+    },
+    "strictMode": {
+      "on": "Строгий режим включён.",
+      "off": "Строгий режим отключён."
+    },
+    "reportTemplate": "### Что произошло?\n\nОпишите неверное окончание или правило.\n\n### Контекст\n- Основа: (впишите)\n- Падеж/число: (впишите)\n- Устройство/браузер: \n",
+    "cases": {
+      "NOM": "Именительный",
+      "GEN": "Родительный",
+      "DAT": "Дательный",
+      "ACC": "Винительный",
+      "LOC": "Местный",
+      "VOC": "Звательный"
+    }
+  },
+  "travelTracker": {
+    "title": "Travel Tracker",
+    "start": "Start",
+    "restart": "Restart",
+    "restartShort": "Restart",
+    "check": "Check",
+    "next": "Next route",
+    "score": "Score",
+    "streak": "Streak",
+    "level": "Level",
+    "prompt": "Your answer",
+    "enterAnswer": "Type an answer first.",
+    "hint": "Hint",
+    "noHint": "No hint yet.",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "progressLabel": {
+      "one": "Вопрос",
+      "few": "Вопроса",
+      "many": "Вопросов",
+      "other": "Вопросов"
+    },
+    "progressOf": "of",
+    "progressIdle": "Ready",
+    "noQuestion": "No questions available.",
+    "noRoute": "No route selected.",
+    "instructions": "Fill the gap with the correct verb form (prefix + tense/person) to move the bus to the next city."
+  },
+  "passiveLab": {
+    "title": "Passive Voice Builder",
+    "heroBadge": "Практика уровня B",
+    "heroAlt": "Illustration of a passive voice lab",
+    "start": "Start",
+    "builder": "Builder mode",
+    "typein": "Type-in mode",
+    "check": "Check",
+    "next": "Next task",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions_builder": "Choose tense, patient, and the correct participle ending.",
+    "instructions_typein": "Type the passive sentence (tiek/tika/tiks + participle).",
+    "patientLabel": "Patient (Nom.)",
+    "labels": {
+      "tense": "Tense",
+      "active": "Active sentence",
+      "ending": "Participle ending",
+      "typeinPlaceholder": "Type the passive sentence (tiek/tika/tiks + participle).",
+      "lastPlayed": "Last played"
+    },
+    "tenseOptions": {
+      "present": "Present",
+      "past": "Past",
+      "future": "Future"
+    },
+    "genderLabels": {
+      "m": {
+        "sg": "m.sg",
+        "pl": "m.pl"
+      },
+      "f": {
+        "sg": "f.sg",
+        "pl": "f.pl"
+      }
+    },
+    "status": {
+      "idle": "Pick a mode and build the sentence.",
+      "builderEndingHint": "Correct ending: {ending} ({gender}).",
+      "streakBonus": "Streak bonus! ({count}) +10 xp",
+      "noTasks": "No tasks available.",
+      "loadError": "Failed to load tasks."
+    },
+    "glyphAlt": {
+      "ok": "Success icon",
+      "error": "Error icon"
+    }
+  },
+  "decl6Detective": {
+    "title": "What’s in my house? — 6th Declension Detective",
+    "start": "Start",
+    "mode_mcq": "Detective Cards",
+    "mode_typein": "Room Builder",
+    "check": "Check",
+    "next": "Next",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions_mcq": "Choose the correct 6th-declension form.",
+    "instructions_typein": "Type the missing form (supports Latvian diacritics)."
+  },
+  "dutyDispatcher": {
+    "title": "Duty Dispatcher",
+    "start": "Start",
+    "check": "Check",
+    "next": "Next task",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions": "Drag the duty card onto the correct recipient (Dative: kam?)."
+  },
+  "mainiVaiMainies": {
+    "title": "Maini vai mainies?",
+    "start": "Start",
+    "check": "Check",
+    "next": "Next item",
+    "score": "Score",
+    "streak": "Streak",
+    "hint": "Hint",
+    "correct": "Correct!",
+    "wrong": "Try again!",
+    "level_complete": "Level complete!",
+    "instructions": "Choose the correct verb form (reflexive vs non‑reflexive) for the situation."
   }
 }

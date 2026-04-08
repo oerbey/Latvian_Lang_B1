@@ -1,0 +1,110 @@
+[
+  {
+    "id": "man",
+    "label": "Es",
+    "dative": "man",
+    "avatar": "role-user"
+  },
+  {
+    "id": "tev",
+    "label": "Tu",
+    "dative": "tev",
+    "avatar": "role-user"
+  },
+  {
+    "id": "vinam",
+    "label": "Viņš",
+    "dative": "viņam",
+    "avatar": "role-user"
+  },
+  {
+    "id": "vinai",
+    "label": "Viņa",
+    "dative": "viņai",
+    "avatar": "role-user"
+  },
+  {
+    "id": "mums",
+    "label": "Mēs",
+    "dative": "mums",
+    "avatar": "role-user"
+  },
+  {
+    "id": "jums",
+    "label": "Jūs",
+    "dative": "jums",
+    "avatar": "role-user"
+  },
+  {
+    "id": "vini",
+    "label": "Viņi",
+    "dative": "viņiem",
+    "avatar": "role-user"
+  },
+  {
+    "id": "vinas",
+    "label": "Viņas",
+    "dative": "viņām",
+    "avatar": "role-user"
+  },
+  {
+    "id": "mammai",
+    "label": "Mamma",
+    "dative": "mammai",
+    "avatar": "role-parent"
+  },
+  {
+    "id": "tetim",
+    "label": "Tētis",
+    "dative": "tētim",
+    "avatar": "role-parent"
+  },
+  {
+    "id": "bernam",
+    "label": "Bērns",
+    "dative": "bērnam",
+    "avatar": "role-child"
+  },
+  {
+    "id": "studentam",
+    "label": "Students",
+    "dative": "studentam",
+    "avatar": "role-student"
+  },
+  {
+    "id": "studentei",
+    "label": "Studente",
+    "dative": "studentei",
+    "avatar": "role-student"
+  },
+  {
+    "id": "arstam",
+    "label": "Ārsts",
+    "dative": "ārstam",
+    "avatar": "role-doctor"
+  },
+  {
+    "id": "arstei",
+    "label": "Ārste",
+    "dative": "ārstei",
+    "avatar": "role-doctor"
+  },
+  {
+    "id": "skolotajai",
+    "label": "Skolotāja",
+    "dative": "skolotājai",
+    "avatar": "role-teacher"
+  },
+  {
+    "id": "vaditajam",
+    "label": "Vadītājs",
+    "dative": "vadītājam",
+    "avatar": "role-manager"
+  },
+  {
+    "id": "klientam",
+    "label": "Klients",
+    "dative": "klientam",
+    "avatar": "role-customer"
+  }
+]

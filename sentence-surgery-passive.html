@@ -1,0 +1,217 @@
+<!--
+  sentence-surgery-passive.html — Sentence Surgery (Ciešamā kārta).
+  Fix sentences by replacing an incorrect word with the correct
+  passive-voice form from a word bank.
+  Entry script: src/games/sentence-surgery-passive/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Sentence Surgery — Ciešamā kārta. Izlabo teikumu, aizstājot kļūdaino vārdu ar pareizo formu no vārdu saraksta."
+    />
+    <title>Sentence Surgery — Ciešamā kārta | Latvian B Level</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/sentence-surgery-passive/styles.css" />
+  </head>
+  <body class="sspv-page game-theme theme-passive">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
+
+    <main id="main" class="sspv-main">
+      <div class="container">
+        <header class="sspv-hero">
+          <p class="sspv-eyebrow">B grammar practice</p>
+          <div class="sspv-hero__head">
+            <h1 class="sspv-title">Sentence Surgery — Ciešamā kārta</h1>
+            <button
+              type="button"
+              class="btn btn-outline-secondary sspv-info-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#sspvInfoModal"
+            >
+              Kā spēlēt / How to play
+            </button>
+          </div>
+          <p class="sspv-lead">
+            Izlabo teikumu, aizstājot kļūdaino vārdu ar pareizo formu no vārdu saraksta.
+          </p>
+        </header>
+
+        <section class="sspv-card" aria-labelledby="sspvGameTitle">
+          <h2 id="sspvGameTitle" class="visually-hidden">Sentence Surgery spēles panelis</h2>
+
+          <div class="sspv-controls">
+            <div class="sspv-controls__group">
+              <div class="sspv-controls__row">
+                <label class="form-label" for="sspv-mode">Režīms</label>
+                <select id="sspv-mode" class="form-select" aria-label="Atlasīt režīmu">
+                  <option value="shuffle" selected>Jaukts</option>
+                  <option value="sequential">Secīgi</option>
+                </select>
+              </div>
+              <div class="sspv-controls__row mt-2">
+                <label class="form-label" for="sspv-topic">Temats</label>
+                <select id="sspv-topic" class="form-select" aria-label="Atlasīt tematu"></select>
+              </div>
+            </div>
+
+            <div class="sspv-controls__group">
+              <div class="sspv-progress">
+                <strong id="sspv-progressText">0 / 0 pabeigti</strong>
+                <small id="sspv-progressFilterText">0 / 0 atlasē</small>
+              </div>
+              <div class="sspv-stats mt-2" aria-label="Progresa statistika">
+                <div class="sspv-stat">
+                  <span>Mēģinājumi</span><strong id="sspv-attemptsValue">0</strong>
+                </div>
+                <div class="sspv-stat">
+                  <span>Pareizi</span><strong id="sspv-correctValue">0</strong>
+                </div>
+                <div class="sspv-stat">
+                  <span>Sērija</span><strong id="sspv-streakValue">0</strong>
+                </div>
+                <div class="sspv-stat">
+                  <span>Precizitāte</span><strong id="sspv-accuracyValue">0%</strong>
+                </div>
+              </div>
+              <button
+                id="sspv-resetProgress"
+                type="button"
+                class="btn btn-sm btn-outline-secondary mt-2"
+              >
+                Notīrīt progresu
+              </button>
+            </div>
+          </div>
+
+          <div class="sspv-meta">
+            <span class="sspv-badge">Temats: <span id="sspv-topicBadge" class="ms-1">—</span></span>
+            <span class="sspv-badge">Avots: <span id="sspv-sourceBadge" class="ms-1">—</span></span>
+            <span class="sspv-badge">ID: <span id="sspv-itemBadge" class="ms-1">—</span></span>
+          </div>
+
+          <section class="sspv-section sspv-section--broken" aria-label="Rediģējamais teikums">
+            <h2>Kļūdainais teikums</h2>
+            <p id="sspv-focusBadge" class="sspv-focus-badge">Labojamais fokuss: —</p>
+            <p id="sspv-sentencePreview" class="sspv-sentence-preview">—</p>
+            <div id="sspv-translationPanel" class="sspv-translation sspv-translation--inline">
+              <p id="sspv-translationText">—</p>
+            </div>
+            <div id="sspv-sentenceTokens" class="sspv-token-grid" aria-live="polite"></div>
+          </section>
+
+          <section class="sspv-section" aria-label="Vārdu banka">
+            <h2>Vārdu banka</h2>
+            <div id="sspv-wordBank" class="sspv-token-grid"></div>
+            <p id="sspv-bankHint" class="sspv-message sspv-message--bank"></p>
+          </section>
+
+          <div class="sspv-actions">
+            <button id="sspv-check" type="button" class="btn btn-primary">Pārbaudīt</button>
+            <button id="sspv-next" type="button" class="btn btn-secondary" hidden>Nākamais</button>
+            <button id="sspv-reset" type="button" class="btn btn-outline-secondary">
+              Atiestatīt
+            </button>
+            <button id="sspv-hint" type="button" class="btn btn-outline-secondary">Padoms</button>
+            <button id="sspv-translationToggle" type="button" class="btn btn-outline-secondary">
+              Paslēpt tulkojumu
+            </button>
+          </div>
+
+          <p
+            id="sspv-feedback"
+            class="sspv-feedback"
+            role="status"
+            aria-live="polite"
+            data-tone="info"
+          >
+            —
+          </p>
+          <p id="sspv-hintText" class="sspv-message" aria-live="polite"></p>
+          <p
+            id="sspv-explanationText"
+            class="sspv-message sspv-message--error"
+            aria-live="polite"
+          ></p>
+        </section>
+      </div>
+    </main>
+
+    <div
+      class="modal fade"
+      id="sspvInfoModal"
+      tabindex="-1"
+      aria-labelledby="sspvInfoModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="sspvInfoModalTitle">Kā spēlēt / How to play</h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body sspv-info-modal">
+            <h3>Latviski</h3>
+            <ol>
+              <li>Izvēlies labojamo vārdu sadaļā “Kļūdainais teikums”.</li>
+              <li>Spied vārdu no “Vārdu banka”, lai aizvietotu izvēlēto vārdu.</li>
+              <li>Vari arī vilkt bankas vārdu virsū labojamajam vārdam (drag & drop).</li>
+              <li>Spied “Pārbaudīt”. Ja ir kļūda, tiks iezīmētas nepareizās vietas.</li>
+              <li>“Padoms” strādā vienu reizi katrā uzdevumā.</li>
+              <li>Pēc pareizas atbildes spied “Nākamais”.</li>
+            </ol>
+            <h3>English</h3>
+            <ol>
+              <li>Select a token in the broken sentence.</li>
+              <li>Tap a token in the word bank to replace the selected token.</li>
+              <li>You can also drag a bank token onto a sentence token.</li>
+              <li>Press “Pārbaudīt” (Check). Wrong positions will be highlighted.</li>
+              <li>“Padoms” (Hint) can be used once per round.</li>
+              <li>After a correct answer, press “Nākamais” (Next).</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      defer
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="theme.js" defer></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="src/games/sentence-surgery-passive/index.js"></script>
+  </body>
+</html>

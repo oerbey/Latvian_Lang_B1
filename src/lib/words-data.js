@@ -1,0 +1,75 @@
+/**
+ * words-data.js — Chunked vocabulary loader with offline fallback.
+ * =================================================================
+ * Loads words from a chunked JSON index (data/words/index.json →
+ * data/words/chunk-01.json, chunk-02.json, …). Falls back to the
+ * embedded window.__LATVIAN_WORDS__ array when offline.
+ *
+ * Exports:
+ *   loadWords(options) — Returns {items: Array, usingFallback: boolean}.
+ */
+import { assetUrl } from './paths.js';
+
+const INDEX_PATH = 'data/words/index.json';
+
+/**
+ * Fetch JSON from URL; re-throws with descriptive error on 4xx/5xx.
+ * @param {string} url
+ * @param {object} [options]
+ * @returns {Promise<unknown>}
+ */
+async function fetchJson(url, options) {
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new Error(`Failed to load ${url}: ${res.status}`);
+  }
+  return res.json();
+}
+
+/**
+ * Retrieve embedded fallback word dataset from window scope (offline support).
+ * @returns {Array | null}
+ */
+function getFallback() {
+  if (typeof window === 'undefined') return null;
+  return Array.isArray(window.__LATVIAN_WORDS__) ? window.__LATVIAN_WORDS__ : null;
+}
+
+/**
+ * Load words from chunked index; falls back to embedded data if fetch fails.
+ * Parallelizes chunk requests to minimize startup delay.
+ * @param {object} [options={cache: 'force-cache'}]
+ * @returns {Promise<{items: Array, usingFallback: boolean}>}
+ */
+export async function loadWords({ cache = 'force-cache' } = {}) {
+  try {
+    const indexUrl = assetUrl(INDEX_PATH);
+    const index = await fetchJson(indexUrl, { cache });
+    const chunks = Array.isArray(index?.chunks) ? index.chunks : [];
+    if (!chunks.length) {
+      throw new Error('No word chunks listed in index.');
+    }
+    // Fetch chunks in parallel to minimize startup delay on large vocab datasets.
+    const responses = await Promise.all(
+      chunks.map((chunkPath) => fetch(assetUrl(chunkPath), { cache })),
+    );
+    const payloads = await Promise.all(
+      responses.map((res, idx) => {
+        if (!res.ok) {
+          throw new Error(`Failed to load ${chunks[idx]}: ${res.status}`);
+        }
+        return res.json();
+      }),
+    );
+    const items = payloads.flat().filter((item) => item && typeof item === 'object');
+    return { items, usingFallback: false };
+  } catch (err) {
+    const fallback = getFallback();
+    if (fallback) {
+      // Embedded data keeps games functional when chunk/index fetch fails (offline/file mode).
+      console.warn('words index fetch failed; using embedded fallback dataset.', err);
+      return { items: fallback, usingFallback: true };
+    }
+    throw err;
+  }
+}

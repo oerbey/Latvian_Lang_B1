@@ -6,84 +6,56 @@
         "lv": "mainīties",
         "ru": "меняться; изменяться"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "pārcelties",
         "ru": "переехать; переселиться"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "atgriezties",
         "ru": "вернуться"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "ciemoties",
         "ru": "гостить"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "viesoties",
         "ru": "быть в гостях"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "precēties",
         "ru": "жениться; выходить замуж"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "apprecēties",
         "ru": "пожениться"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
@@ -91,45 +63,31 @@
         "ru": "родиться"
       },
       "tags": [],
-      "games": [
-        "match"
-      ]
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "celties",
         "ru": "вставать"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "satikties",
         "ru": "встречаться"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     },
     {
       "translations": {
         "lv": "iemācīties",
         "ru": "выучиться; освоить"
       },
-      "tags": [
-        "reflexive"
-      ],
-      "games": [
-        "match"
-      ]
+      "tags": ["reflexive"],
+      "games": ["match"]
     }
   ]
 }

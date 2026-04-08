@@ -1,0 +1,164 @@
+/**
+ * @file endings-builder/data.js
+ * Data loader for noun/adjective items used in the Endings Builder game.
+ *
+ * Supports three load strategies:
+ *  1. Embedded fallback (window.__ENDINGS_ITEMS__) for file: protocol.
+ *  2. Node.js fs (unit-test environments).
+ *  3. Browser fetch via assetUrl().
+ */
+
+import { assetUrl } from '../../lib/paths.js';
+import { loadString } from '../../lib/storage.js';
+
+const clone = (value) => JSON.parse(JSON.stringify(value));
+
+export async function loadItems() {
+  const fileUrl = new URL('../../../data/endings-builder/items.json', import.meta.url);
+  const fallback = typeof window !== 'undefined' ? window.__ENDINGS_ITEMS__ : undefined;
+
+  if (typeof window !== 'undefined' && window.location?.protocol === 'file:' && fallback) {
+    return clone(fallback);
+  }
+
+  const isNode = typeof globalThis !== 'undefined' && globalThis.process?.versions?.node;
+  if (!fallback && isNode) {
+    try {
+      const [{ readFile }, { fileURLToPath }] = await Promise.all([
+        import('node:fs/promises'),
+        import('node:url'),
+      ]);
+      const raw = await readFile(fileURLToPath(fileUrl), 'utf8');
+      return JSON.parse(raw);
+    } catch (fsErr) {
+      console.warn('Failed reading endings items from filesystem fallback.', fsErr);
+    }
+  }
+
+  if (typeof fetch === 'function') {
+    try {
+      const url = assetUrl('data/endings-builder/items.json');
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.warn('Failed loading endings items via fetch.', err);
+    }
+  }
+
+  if (fallback) {
+    console.warn('Using embedded endings item fallback.');
+    return clone(fallback);
+  }
+  throw new Error('Failed to load endings items.');
+}
+
+export async function loadStrings() {
+  const langFallback = document.documentElement.lang || 'lv';
+  const params = new URLSearchParams(location.search);
+  const langPref = params.get('lang') || loadString('lang', '') || langFallback;
+  // Preserve user preference first, then hard-fallback to English.
+  const order = [...new Set([langPref, 'en'])];
+  const isFile = typeof window !== 'undefined' && window.location?.protocol === 'file:';
+
+  for (const lang of order) {
+    let data = null;
+    if (!isFile) {
+      try {
+        const url = assetUrl(`i18n/${lang}.json`);
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`Failed to load ${url}: ${res.status}`);
+        }
+        data = await res.json();
+      } catch (err) {
+        console.warn('Failed loading i18n', lang, err);
+      }
+    }
+
+    if (!data && window.__LL_I18N__ && window.__LL_I18N__[lang]) {
+      data = window.__LL_I18N__[lang];
+      console.warn('Using embedded i18n fallback for', lang);
+    }
+
+    if (data?.endingsBuilder) {
+      document.documentElement.lang = lang;
+      return data.endingsBuilder;
+    }
+  }
+
+  const fallback = window.__LL_I18N__?.en?.endingsBuilder;
+  if (fallback) {
+    // Final safety net keeps UI usable when all external locale loads fail.
+    console.warn('Falling back to embedded English i18n strings for endings builder.');
+    document.documentElement.lang = 'en';
+    return fallback;
+  }
+  return {
+    title: 'Endings Builder',
+    subtitle: 'Drag the correct ending to the stem.',
+    buttons: {
+      check: 'Check',
+      next: 'Next',
+      skip: 'Skip',
+      rule: 'Show rule',
+      ruleHide: 'Hide rule',
+      report: 'Report error',
+    },
+    sections: {
+      controls: 'Round controls',
+      workspace: 'Build workspace',
+      buildZone: 'Build the form',
+      endingZone: 'Ending bank',
+    },
+    round: {
+      loading: 'Loading round...',
+      eyebrow: 'Round {round}',
+      targetTemplate: 'Build the {gram} form.',
+      wordTemplate: 'Word: {lemma} ({meaning})',
+    },
+    labels: {
+      score: 'Score',
+      streak: 'Streak',
+      accuracy: 'Accuracy',
+      strict: 'Strict mode',
+      answer: 'Type the full form',
+      answerPlaceholder: 'Type the full form and press Enter',
+      answerHelp: 'Type the full form, then press Enter or Check.',
+      pickHelp: 'Tip: click an ending to place it instantly, or drag it.',
+      keypad: 'Latvian letters',
+      options: 'Endings',
+      dropPlaceholder: 'Drop ending',
+      ruleTitle: 'Rule table',
+      case: 'Case',
+      number: 'Number',
+      columns: {
+        SG: 'Singular',
+        PL: 'Plural',
+        SG_M: 'SG masc',
+        SG_F: 'SG fem',
+        PL_M: 'PL masc',
+        PL_F: 'PL fem',
+      },
+    },
+    feedback: {
+      correct: 'Correct!',
+      incorrect: 'Try again.',
+      empty: 'Type an answer first.',
+      fallback: 'Accepted without diacritics. Enable strict mode to practise marks.',
+    },
+    icons: { correct: '✔️', incorrect: '✖️', info: 'ℹ️' },
+    announce: { correct: 'Correct ending placed.', incorrect: 'Wrong ending.' },
+    explain: { prefix: '⇒' },
+    reportTemplate: 'Please describe the issue.',
+    strictMode: { on: 'Strict mode enabled', off: 'Strict mode disabled' },
+    cases: {
+      NOM: 'NOM',
+      GEN: 'GEN',
+      DAT: 'DAT',
+      ACC: 'ACC',
+      LOC: 'LOC',
+      VOC: 'VOC',
+    },
+  };
+}

@@ -1,0 +1,57 @@
+/**
+ * @file travel-tracker/utils.js
+ * Deterministic randomness utilities for Travel Tracker.
+ *
+ * Implements Mulberry32 PRNG for repeatable route ordering
+ * across sessions, plus a seeded Fisher-Yates shuffle and
+ * a string-to-seed hash function.
+ */
+
+import { MULBERRY32_CONSTANT } from '../../lib/constants.js';
+
+const MAX_UINT32 = 0xffffffff;
+
+function toUint32(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value >>> 0;
+  }
+  if (typeof value === 'string') {
+    return stringToSeed(value);
+  }
+  return 0;
+}
+
+export function createSeededRng(seed) {
+  let state = toUint32(seed) || MULBERRY32_CONSTANT;
+  return function rng() {
+    // Mulberry32 PRNG: fast deterministic randomness for repeatable route ordering.
+    state += MULBERRY32_CONSTANT;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / (MAX_UINT32 + 1);
+  };
+}
+
+export function seededShuffle(input, rng = Math.random) {
+  if (!Array.isArray(input)) {
+    return [];
+  }
+  const arr = [...input];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const random = rng();
+    const j = Math.floor(random * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+export function stringToSeed(str) {
+  // FNV-1a hash converts stable string identifiers into uint32 seeds.
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < str.length; i += 1) {
+    hash ^= str.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash >>> 0;
+}

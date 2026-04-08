@@ -1,0 +1,186 @@
+<!--
+  rakstura-ipasibas-expansion.html — Rakstura Īpašības Expansion.
+  Extended pair game with extra study modes and a closed-set option
+  for deeper optimist/pessimist vocabulary practice.
+  Entry script: src/games/character-traits-expansion/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <!-- CSP allows inline styles for existing inline snippets -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <meta
+      name="description"
+      content="Rakstura īpašības — pāru spēle ar papildu mācību režīmiem. Optimistu/pesimistu vārdu krājums ar slēgtu kopas iespēju."
+    />
+    <title>Rakstura īpašības — pāru spēle (paplašināta)</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="match-page game-theme theme-traits-expansion">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
+      role="banner"
+      data-site-nav
+    ></nav>
+
+    <main id="main" class="container py-4 mt-5 match-shell">
+      <header class="match-hero mb-4">
+        <div class="match-hero__copy">
+          <p class="match-eyebrow">Vocabulary match</p>
+          <h1 class="match-title mb-2">Rakstura īpašības — pāru spēle (paplašināta)</h1>
+          <p class="match-lead mb-0">
+            Sašauj rakstura īpašību ar tulkojumu. Noklusējums: latviešu ➜ angļu, papildus slēgto
+            kopu režīms.
+          </p>
+        </div>
+        <div class="match-hero__controls">
+          <div class="match-control">
+            <label class="match-control__label" for="language-select">Valoda</label>
+            <select id="language-select" class="form-select w-auto" aria-label="Language selection">
+              <option value="en" selected>English</option>
+            </select>
+          </div>
+          <div class="match-control">
+            <label class="match-control__label" for="count-select">Komplekts</label>
+            <select id="count-select" class="form-select w-auto" aria-label="Word count">
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10" selected>10</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="match-hero__tag">Focus: traits</div>
+        </div>
+      </header>
+
+      <section class="match-panel mb-4" aria-labelledby="locked-mode-heading">
+        <div class="match-panel__body d-flex flex-column gap-3">
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <span id="locked-mode-heading" class="fw-semibold">Study mode</span>
+            <div class="btn-group" role="group" aria-label="Study mode toggle">
+              <input
+                type="radio"
+                class="btn-check"
+                name="study-mode"
+                id="mode-use-all"
+                value="all"
+                checked
+              />
+              <label class="btn btn-outline-secondary" for="mode-use-all">Use all</label>
+              <input
+                type="radio"
+                class="btn-check"
+                name="study-mode"
+                id="mode-locked-set"
+                value="locked"
+              />
+              <label class="btn btn-outline-secondary" for="mode-locked-set">Locked set</label>
+            </div>
+            <span class="match-indicator" id="locked-indicator"></span>
+          </div>
+          <div id="locked-controls" class="row gy-3 gx-3 d-none">
+            <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
+              <label for="locked-set-size" class="form-label mb-0">Set size</label>
+              <select
+                id="locked-set-size"
+                class="form-select form-select-sm w-auto"
+                aria-label="Locked set size"
+              >
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="custom">Custom</option>
+              </select>
+              <input
+                type="number"
+                id="locked-set-custom"
+                class="form-control form-control-sm w-auto d-none"
+                min="5"
+                step="1"
+                value="15"
+                aria-label="Custom set size"
+              />
+            </div>
+            <div class="col-12 col-md-auto d-flex flex-wrap align-items-center gap-2">
+              <button id="btn-new-mix" class="btn btn-outline-primary btn-sm" type="button">
+                New mix
+              </button>
+              <button id="btn-reset-locked" class="btn btn-outline-secondary btn-sm" type="button">
+                Reset locked set
+              </button>
+            </div>
+            <div class="col-12 col-md-auto">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="prioritize-mistakes"
+                />
+                <label class="form-check-label" for="prioritize-mistakes"
+                  >Prioritize mistakes</label
+                >
+              </div>
+            </div>
+            <div class="col-12">
+              <div id="locked-progress" class="text-secondary small"></div>
+              <div id="locked-feedback" class="text-warning small"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="match-board" aria-labelledby="status-heading">
+        <div class="match-board__header">
+          <div>
+            <h2 id="status-heading" class="match-board__title">Statuss</h2>
+            <div id="score" class="status match-score" aria-live="polite">
+              Pareizi: 0 | Nepareizi: 0
+            </div>
+            <div id="group-progress" class="match-progress"></div>
+          </div>
+          <div class="match-board__actions">
+            <button id="btn-new" class="btn btn-primary">Jauna spēle</button>
+            <button id="btn-speak" class="btn btn-outline-secondary" aria-pressed="false">
+              Ieslēgt izrunu
+            </button>
+          </div>
+        </div>
+        <div id="help" class="match-help" aria-live="polite"></div>
+        <div class="grid-words match-grid" aria-label="Vārdu saraksti">
+          <div id="list-lv" class="match-list" role="listbox" aria-label="Latviešu vārdi"></div>
+          <div id="list-tr" class="match-list" role="listbox" aria-label="Tulkojumi"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="src/games/character-traits-expansion/index.js"></script>
+  </body>
+</html>

@@ -15,11 +15,13 @@
  */
 
 import { loadString, saveString } from '../../lib/storage.js';
+import { saveCloudProgress } from '../../lib/cloud-progress.js';
 
 // ═══════════════════════════════════════════
 //  CONSTANTS
 // ═══════════════════════════════════════════
 const STORAGE_KEY = 'llb1:word-quest';
+const GAME_ID = 'word-quest';
 const XP_PER_LEVEL = 120;
 const BASE_XP = 10;
 const MAX_LIVES = 3;
@@ -53,7 +55,16 @@ function loadState() {
 }
 
 function saveState() {
-  saveString(STORAGE_KEY, JSON.stringify(state));
+  const serialized = JSON.stringify(state);
+  const savedLocally = saveString(STORAGE_KEY, serialized);
+  if (!savedLocally) return;
+
+  const payload = JSON.parse(serialized);
+  void saveCloudProgress(GAME_ID, payload).then((result) => {
+    if (!result) {
+      console.warn('Unable to sync Word Quest progress to cloud');
+    }
+  });
 }
 
 function addXP(amount) {

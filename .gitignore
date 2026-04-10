@@ -8,6 +8,7 @@ playwright-report/
 playwright-results/
 test-results/
 output/
+.swa-static/
 
 # Local tool/editor config
 .codex/

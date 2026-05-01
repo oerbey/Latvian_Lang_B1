@@ -1,0 +1,126 @@
+<!--
+  prefixed-coming-verbs.html — Prefixed "nākt" verb exercise.
+  Data-driven mixed exercise for sentence completion, meaning matching,
+  grammar clues, and sentence building.
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <meta
+      name="description"
+      content="B1-B2 uzdevumi par pienākt, nonākt, nākt, sanākt, pārnākt, atnākt un pienākties."
+    />
+    <title>Pienākt, nonākt, nākt, sanākt, pārnākt, atnākt, pienākties</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/prefixed-coming-verbs/styles.css" />
+  </head>
+  <body class="pcv-page game-theme theme-prefixed-coming">
+    <a class="dp-skip" href="#main">Skip to main content</a>
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="pcv-shell">
+        <header class="pcv-hero">
+          <div class="pcv-hero__copy">
+            <p class="pcv-eyebrow">Priedēkļi un loģika</p>
+            <h1 id="pcvTitle" class="pcv-title">
+              Pienākt, nonākt, nākt, sanākt, pārnākt, atnākt, pienākties
+            </h1>
+            <p class="pcv-lead">
+              Izvēlies formu pēc konteksta: vieta, mājas, secinājums, kopā sanākšana, pienākums vai
+              tiesības.
+            </p>
+            <div class="pcv-badges">
+              <span class="pcv-badge" id="pcvLevel">B1-B2</span>
+              <span class="pcv-badge">PREFIX</span>
+              <span class="pcv-badge">CASE</span>
+              <span class="pcv-badge">WORD ORDER</span>
+            </div>
+          </div>
+          <aside class="pcv-reference" aria-labelledby="pcvReferenceTitle">
+            <h2 id="pcvReferenceTitle">Vārdu karte</h2>
+            <div id="pcvVerbList" class="pcv-verb-list"></div>
+          </aside>
+        </header>
+
+        <section class="pcv-workspace" aria-labelledby="pcvTaskTitle">
+          <div class="pcv-card pcv-card--task">
+            <div class="pcv-task-head">
+              <div>
+                <p id="pcvProgress" class="pcv-progress">Uzdevums 1 / 16</p>
+                <p id="pcvType" class="pcv-type">Teikuma papildināšana</p>
+              </div>
+              <span id="pcvScore" class="pcv-score">Pareizi: 0</span>
+            </div>
+
+            <h2 id="pcvTaskTitle" class="pcv-prompt">Ielādē...</h2>
+
+            <div id="pcvChoiceArea" class="pcv-choice-grid"></div>
+
+            <div id="pcvBuilderArea" class="pcv-builder" hidden>
+              <div>
+                <p class="pcv-builder__label">Vārdu banka</p>
+                <div id="pcvChunkBank" class="pcv-chip-row"></div>
+              </div>
+              <div>
+                <p class="pcv-builder__label">Tavs teikums</p>
+                <div id="pcvSelectedChunks" class="pcv-selected" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <div class="pcv-actions">
+              <button id="pcvClear" class="btn btn-outline-secondary" type="button" hidden>
+                Notīrīt
+              </button>
+              <button id="pcvCheck" class="btn btn-primary" type="button" hidden>Pārbaudīt</button>
+              <button id="pcvNext" class="btn btn-primary" type="button" disabled>Nākamais</button>
+              <button id="pcvRestart" class="btn btn-outline-secondary" type="button">
+                Sākt no jauna
+              </button>
+            </div>
+
+            <div id="pcvFeedbackPanel" class="pcv-feedback" aria-live="polite">
+              <p id="pcvFeedback" class="pcv-feedback__title"></p>
+              <p id="pcvExplanation" class="pcv-feedback__text"></p>
+              <div id="pcvTags" class="pcv-tag-row" aria-label="Gramatikas birkas"></div>
+            </div>
+          </div>
+
+          <aside class="pcv-card pcv-card--list" aria-labelledby="pcvListTitle">
+            <h2 id="pcvListTitle">Uzdevumu saraksts</h2>
+            <ol id="pcvItemList" class="pcv-item-list"></ol>
+          </aside>
+        </section>
+      </div>
+    </main>
+
+    <footer class="dp-footer" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="src/games/prefixed-coming-verbs/index.js"></script>
+  </body>
+</html>

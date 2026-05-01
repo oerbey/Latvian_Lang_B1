@@ -1,0 +1,72 @@
+{
+  "id": "prefixed_coming_verbs_b1",
+  "title": "Pienākt, nonākt, nākt, sanākt, pārnākt, atnākt, pienākties",
+  "level": "B1-B2",
+  "language": "lv",
+  "skill_focus": [
+    "verb prefix meaning",
+    "interrogative matching",
+    "preposition and case clues",
+    "natural Latvian sentence completion"
+  ],
+  "target_words": [
+    {
+      "lemma": "pienākt",
+      "meaning_en": "to arrive; to approach; for a time/deadline to come",
+      "example_lv": "Beigās mēs pienācām pie pareizā lēmuma."
+    },
+    {
+      "lemma": "nonākt",
+      "meaning_en": "to end up; to arrive at a place, result, or situation",
+      "example_lv": "Viņi nonāca pie secinājuma."
+    },
+    {
+      "lemma": "nākt",
+      "meaning_en": "to come; in nāksies = will have to",
+      "example_lv": "Mums nāksies atrisināt šo problēmu."
+    },
+    {
+      "lemma": "sanākt",
+      "meaning_en": "to gather; to turn out; to manage",
+      "example_lv": "Vai tev sanāca pabeigt darbu laikā?"
+    },
+    {
+      "lemma": "pārnākt",
+      "meaning_en": "to come back home",
+      "example_lv": "Kad tu pārnāksi mājās?"
+    },
+    {
+      "lemma": "atnākt",
+      "meaning_en": "to come to a place",
+      "example_lv": "Vai tu vari atnākt pie loga?"
+    },
+    {
+      "lemma": "pienākties",
+      "meaning_en": "to be due; to be entitled to",
+      "example_lv": "Katram darbiniekam pienākas atvaļinājums."
+    }
+  ],
+  "exercise_types": [
+    {
+      "type": "multiple_choice_sentence_completion",
+      "description": "Learner chooses the correct verb form for a sentence."
+    },
+    {
+      "type": "meaning_match",
+      "description": "Learner matches each verb to its meaning and logic."
+    },
+    {
+      "type": "case_clue",
+      "description": "Learner identifies the preposition or case clue that helps choose the answer."
+    },
+    {
+      "type": "sentence_builder",
+      "description": "Learner reorders Latvian sentence chunks."
+    }
+  ],
+  "feedback_style": {
+    "correct": "Brief confirmation plus the logic.",
+    "incorrect": "Hint first; do not immediately reveal the answer unless the learner asks or fails twice.",
+    "grammar_tags": ["PREFIX", "CASE", "PREPOSITION", "STYLE", "VERB FORM", "WORD ORDER"]
+  }
+}

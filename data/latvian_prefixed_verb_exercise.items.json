@@ -1,0 +1,164 @@
+{
+  "exercise_id": "prefixed_coming_verbs_b1",
+  "items": [
+    {
+      "id": "pv_001",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Beigās mēs ___ pie pareizā lēmuma.",
+      "choices": ["nonācām", "pārnācām", "sanācām", "pienācās"],
+      "answer": "nonācām",
+      "explanation_en": "Use 'nonākt pie' for reaching a conclusion or result.",
+      "tag": ["PREFIX", "PREPOSITION"]
+    },
+    {
+      "id": "pv_002",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Mums ___ pacelties uz jaunu biroja ēku.",
+      "choices": ["nāksies", "nonāksim", "pārnāksim", "pienāksim"],
+      "answer": "nāksies",
+      "explanation_en": "'Nāksies' means 'will have to'.",
+      "tag": ["VERB FORM"]
+    },
+    {
+      "id": "pv_003",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Vai tu, lūdzu, vari ___ pie loga?",
+      "choices": ["atnākt", "sanākt", "pārnākt", "pienākties"],
+      "answer": "atnākt",
+      "explanation_en": "'Atnākt' means to come to a place.",
+      "tag": ["PREFIX"]
+    },
+    {
+      "id": "pv_004",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Šodien ___ jauns darbinieks.",
+      "choices": ["atnāks", "pienāksies", "nonāks", "sanāks"],
+      "answer": "atnāks",
+      "explanation_en": "A person comes to a place: 'atnāks'.",
+      "tag": ["PREFIX"]
+    },
+    {
+      "id": "pv_005",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Katru vakaru no darba es ___ ap plkst. 18.00.",
+      "choices": ["pārnāku", "nonāku", "pienākos", "sanāku"],
+      "answer": "pārnāku",
+      "explanation_en": "'Pārnākt' means to come back home.",
+      "tag": ["PREFIX"]
+    },
+    {
+      "id": "pv_006",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Rīt mēs atkal ___ kopā, lai apspriestu aktuālos jautājumus.",
+      "choices": ["sanāksim", "pārnāksim", "pienāksim", "nonāksim"],
+      "answer": "sanāksim",
+      "explanation_en": "'Sanākt kopā' means to gather together.",
+      "tag": ["PREFIX", "STYLE"]
+    },
+    {
+      "id": "pv_007",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Arī tev ___ gadskārtējais atvaļinājums.",
+      "choices": ["pienākas", "sanāk", "atnāk", "nonāk"],
+      "answer": "pienākas",
+      "explanation_en": "'Pienākties' means to be entitled to or be due.",
+      "tag": ["VERB FORM"]
+    },
+    {
+      "id": "pv_008",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Kad jūs beidzot ___ pie secinājuma?",
+      "choices": ["nonāksiet", "pārnāksiet", "sanāksiet", "atnāksiet"],
+      "answer": "nonāksiet",
+      "explanation_en": "'Nonākt pie secinājuma' means to arrive at a conclusion.",
+      "tag": ["PREFIX", "PREPOSITION"]
+    },
+    {
+      "id": "pv_009",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Kad tu ___ pie manis, lai pārrunātu darba jautājumus?",
+      "choices": ["atnāksi", "pārnāksi", "pienāksies", "sanāksi"],
+      "answer": "atnāksi",
+      "explanation_en": "'Atnākt pie kāda' means to come to someone’s place.",
+      "tag": ["PREFIX", "PREPOSITION"]
+    },
+    {
+      "id": "pv_010",
+      "type": "multiple_choice_sentence_completion",
+      "prompt_lv": "Vai nākamgad mums arī ___ brīvdienas par virsstundām?",
+      "choices": ["pienāksies", "sanāks", "atnāks", "nonāks"],
+      "answer": "pienāksies",
+      "explanation_en": "Use 'pienākties' for something someone is entitled to.",
+      "tag": ["VERB FORM"]
+    },
+    {
+      "id": "pv_011",
+      "type": "case_clue",
+      "prompt_lv": "Kurš pavediens palīdz izvēlēties vārdu teikumā: “Viņi nonāca pie secinājuma”?",
+      "choices": [
+        "pie + ģenitīvs, abstrakts rezultāts",
+        "uz + akuzatīvs, virziens",
+        "līdz + datīvs, robeža",
+        "mājās, atgriešanās"
+      ],
+      "answer": "pie + ģenitīvs, abstrakts rezultāts",
+      "explanation_en": "'Nonākt pie secinājuma' is a fixed natural pattern: arrive at a conclusion.",
+      "tag": ["CASE", "PREPOSITION"]
+    },
+    {
+      "id": "pv_012",
+      "type": "case_clue",
+      "prompt_lv": "Kurš pavediens palīdz izvēlēties “pārnākt”?",
+      "choices": ["mājās / no darba", "pie secinājuma", "tiesības uz atvaļinājumu", "kopā sapulcē"],
+      "answer": "mājās / no darba",
+      "explanation_en": "'Pārnākt' means to come back home.",
+      "tag": ["PREFIX"]
+    },
+    {
+      "id": "pv_013",
+      "type": "meaning_match",
+      "prompt_lv": "Savieno: “sanākt kopā”.",
+      "choices": [
+        "to gather together",
+        "to be entitled to",
+        "to come back home",
+        "to end up at a conclusion"
+      ],
+      "answer": "to gather together",
+      "explanation_en": "'Sanākt kopā' means people gather together.",
+      "tag": ["PREFIX"]
+    },
+    {
+      "id": "pv_014",
+      "type": "meaning_match",
+      "prompt_lv": "Savieno: “pienākties”.",
+      "choices": [
+        "to be due / be entitled to",
+        "to come to a place",
+        "to come back home",
+        "to gather"
+      ],
+      "answer": "to be due / be entitled to",
+      "explanation_en": "'Pienākties' is used for rights, benefits, holidays, salary, etc.",
+      "tag": ["VERB FORM"]
+    },
+    {
+      "id": "pv_015",
+      "type": "sentence_builder",
+      "prompt_lv": "Sakārto vārdus pareizā secībā.",
+      "chunks": ["Kad", "tu", "pārnāksi", "mājās", "?"],
+      "answer": "Kad tu pārnāksi mājās?",
+      "explanation_en": "Natural word order for a question: question word + subject + verb + place.",
+      "tag": ["WORD ORDER"]
+    },
+    {
+      "id": "pv_016",
+      "type": "sentence_builder",
+      "prompt_lv": "Sakārto vārdus pareizā secībā.",
+      "chunks": ["Mums", "nāksies", "meklēt", "citu", "risinājumu", "."],
+      "answer": "Mums nāksies meklēt citu risinājumu.",
+      "explanation_en": "'Mums nāksies' = 'we will have to'.",
+      "tag": ["VERB FORM", "WORD ORDER"]
+    }
+  ]
+}

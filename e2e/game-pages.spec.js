@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test';
+import fs from 'node:fs/promises';
+
+const prefixedVerbItems = JSON.parse(
+  await fs.readFile('data/latvian_prefixed_verb_exercise.items.json', 'utf8'),
+).items;
 
 test('darbibas vardi page loads with prototype shell and mode toggle', async ({ page }) => {
   await page.goto('/darbibas-vards.html');
@@ -78,6 +83,60 @@ test('week1 page applies its dark theme variables', async ({ page }) => {
   });
 
   expect(gameAccent).toBe('#8fb5e0');
+});
+
+test('prefixed coming verbs exercise loads every item and gives feedback', async ({ page }) => {
+  await page.goto('/prefixed-coming-verbs.html');
+
+  await expect(
+    page.getByRole('heading', {
+      name: 'Pienākt, nonākt, nākt, sanākt, pārnākt, atnākt, pienākties',
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Nākt ar priedēkļiem' }).first()).toHaveAttribute(
+    'href',
+    'prefixed-coming-verbs.html',
+  );
+  await expect(page.locator('#pcvItemList li')).toHaveCount(prefixedVerbItems.length);
+  await expect(page.locator('#pcvVerbList .pcv-verb-card')).toHaveCount(7);
+
+  const firstWrong = prefixedVerbItems[0].choices.find(
+    (choice) => choice !== prefixedVerbItems[0].answer,
+  );
+  await page.locator('#pcvChoiceArea').getByRole('button', { name: firstWrong }).click();
+  await expect(page.locator('#pcvFeedback')).toHaveText('Mēģini vēlreiz.');
+  await expect(page.locator('#pcvExplanation')).toContainText('Padoms:');
+
+  const secondWrong = prefixedVerbItems[0].choices.find(
+    (choice) => choice !== prefixedVerbItems[0].answer && choice !== firstWrong,
+  );
+  await page.locator('#pcvChoiceArea').getByRole('button', { name: secondWrong }).click();
+  await expect(page.locator('#pcvExplanation')).toContainText('Pareizā atbilde: nonācām.');
+  await page.locator('#pcvNext').click();
+
+  for (const item of prefixedVerbItems.slice(1)) {
+    await expect(page.locator('#pcvTaskTitle')).toHaveText(item.prompt_lv);
+
+    if (item.type === 'sentence_builder') {
+      for (const chunk of item.chunks) {
+        await page
+          .locator('#pcvChunkBank')
+          .getByRole('button', { name: chunk, exact: true })
+          .click();
+      }
+      await page.locator('#pcvCheck').click();
+    } else {
+      await page.locator('#pcvChoiceArea').getByRole('button', { name: item.answer }).click();
+    }
+
+    await expect(page.locator('#pcvFeedback')).toHaveText('Pareizi!');
+    await expect(page.locator('#pcvTags .pcv-tag').first()).toBeVisible();
+    if (item !== prefixedVerbItems.at(-1)) {
+      await page.locator('#pcvNext').click();
+    }
+  }
+
+  await expect(page.locator('#pcvScore')).toHaveText(`Pareizi: ${prefixedVerbItems.length - 1}`);
 });
 
 test('word quest map flow renders worlds and nodes', async ({ page }) => {

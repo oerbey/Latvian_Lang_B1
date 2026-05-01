@@ -1,0 +1,406 @@
+.pcv-page {
+  --pcv-accent: var(--game-accent, #27615c);
+  --pcv-accent-strong: var(--game-accent-active, #17413e);
+  --pcv-accent-contrast: #ffffff;
+  --pcv-warm: #8a5a24;
+  --pcv-surface: color-mix(in srgb, var(--surface) 94%, #ffffff);
+  --pcv-soft: color-mix(in srgb, var(--surface-subtle) 82%, var(--pcv-accent) 8%);
+  --pcv-choice-bg: color-mix(in srgb, var(--surface) 92%, var(--pcv-accent) 3%);
+  --pcv-feedback-bg: color-mix(in srgb, var(--surface-subtle) 90%, var(--pcv-accent) 4%);
+}
+
+.pcv-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: clamp(5rem, 8vw, 6.5rem) 0 2.5rem;
+}
+
+.pcv-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: 1rem;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+
+.pcv-hero__copy,
+.pcv-card,
+.pcv-reference {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--pcv-surface);
+  box-shadow: 0 16px 34px var(--shadow-soft);
+}
+
+.pcv-hero__copy {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pcv-eyebrow,
+.pcv-progress,
+.pcv-type,
+.pcv-builder__label {
+  margin: 0;
+  color: var(--pcv-accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pcv-title {
+  max-width: 16ch;
+  margin: 0.35rem 0 0.75rem;
+  font-size: clamp(1.8rem, 4vw, 3.6rem);
+  line-height: 0.98;
+}
+
+.pcv-lead {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.7vw, 1.18rem);
+}
+
+.pcv-badges,
+.pcv-tag-row,
+.pcv-chip-row,
+.pcv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pcv-badges {
+  margin-top: 1rem;
+}
+
+.pcv-badge,
+.pcv-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--pcv-accent) 36%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pcv-accent) 10%, transparent);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.pcv-reference {
+  padding: 1rem;
+}
+
+.pcv-reference h2,
+.pcv-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.pcv-verb-list {
+  display: grid;
+  gap: 0.55rem;
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 0.2rem;
+}
+
+.pcv-verb-card {
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--border-soft);
+  border-left: 4px solid var(--pcv-accent);
+  border-radius: 8px;
+  background: var(--pcv-soft);
+}
+
+.pcv-verb-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.pcv-verb-card p {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.pcv-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.pcv-card {
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.pcv-card--task {
+  min-height: 520px;
+}
+
+.pcv-task-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.pcv-type {
+  margin-top: 0.25rem;
+  color: var(--pcv-warm);
+}
+
+.pcv-score {
+  flex: 0 0 auto;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: var(--pcv-accent);
+  color: var(--pcv-accent-contrast);
+  font-weight: 800;
+}
+
+.pcv-prompt {
+  min-height: 4.4rem;
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.pcv-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.pcv-choice,
+.pcv-chunk,
+.pcv-selected__chunk {
+  min-height: 48px;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--pcv-choice-bg);
+  color: var(--text);
+  font-weight: 800;
+  text-align: left;
+}
+
+.pcv-choice:hover:not(:disabled),
+.pcv-chunk:hover:not(:disabled),
+.pcv-selected__chunk:hover:not(:disabled) {
+  border-color: var(--pcv-accent);
+  background: color-mix(in srgb, var(--pcv-accent) 8%, var(--surface));
+}
+
+.pcv-choice.is-selected,
+.pcv-choice.is-correct {
+  border-color: var(--feedback-success);
+  background: color-mix(in srgb, var(--feedback-success) 16%, var(--surface));
+}
+
+.pcv-choice.is-wrong {
+  border-color: var(--feedback-error);
+  background: color-mix(in srgb, var(--feedback-error) 12%, var(--surface));
+}
+
+.pcv-builder {
+  display: grid;
+  gap: 1rem;
+}
+
+.pcv-builder[hidden],
+.pcv-choice-grid[hidden] {
+  display: none;
+}
+
+.pcv-builder__label {
+  margin-bottom: 0.45rem;
+}
+
+.pcv-chip-row {
+  align-items: center;
+}
+
+.pcv-chunk:disabled {
+  opacity: 0.45;
+}
+
+.pcv-selected {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 58px;
+  padding: 0.65rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: var(--pcv-feedback-bg);
+}
+
+.pcv-selected__placeholder,
+.pcv-selected__sentence {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.pcv-selected__sentence {
+  flex-basis: 100%;
+  padding-top: 0.2rem;
+}
+
+.pcv-actions {
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.pcv-page .btn-primary {
+  --bs-btn-bg: var(--pcv-accent);
+  --bs-btn-border-color: var(--pcv-accent);
+  --bs-btn-color: var(--pcv-accent-contrast);
+  --bs-btn-hover-bg: var(--pcv-accent-strong);
+  --bs-btn-hover-border-color: var(--pcv-accent-strong);
+  --bs-btn-active-bg: var(--pcv-accent-strong);
+  --bs-btn-active-border-color: var(--pcv-accent-strong);
+  --bs-btn-disabled-bg: color-mix(in srgb, var(--pcv-accent) 46%, var(--surface));
+  --bs-btn-disabled-border-color: color-mix(in srgb, var(--pcv-accent) 36%, var(--border));
+  --bs-btn-disabled-color: color-mix(in srgb, var(--text) 64%, transparent);
+}
+
+.pcv-page .btn-outline-secondary {
+  --bs-btn-color: var(--muted);
+  --bs-btn-border-color: var(--border);
+  --bs-btn-hover-bg: color-mix(in srgb, var(--pcv-accent) 12%, var(--surface));
+  --bs-btn-hover-border-color: var(--pcv-accent);
+  --bs-btn-hover-color: var(--text);
+}
+
+.pcv-page .pcv-actions .btn-primary {
+  animation: none;
+}
+
+.pcv-feedback {
+  min-height: 120px;
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--pcv-feedback-bg);
+}
+
+.pcv-feedback__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.pcv-feedback__text {
+  margin: 0.35rem 0 0.7rem;
+  color: var(--muted);
+}
+
+.pcv-card--list {
+  position: sticky;
+  top: 5rem;
+}
+
+.pcv-item-list {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: pcv-items;
+}
+
+.pcv-item-list li {
+  padding: 0.45rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.pcv-item-list li.is-current {
+  border-color: var(--pcv-accent);
+  background: color-mix(in srgb, var(--pcv-accent) 14%, var(--surface));
+  color: var(--text);
+}
+
+html[data-bs-theme='dark'] .pcv-page {
+  --pcv-accent-contrast: #08211d;
+  --pcv-warm: #d8b77e;
+  --pcv-surface: color-mix(in srgb, var(--surface) 94%, #0b121a);
+  --pcv-soft: color-mix(in srgb, var(--surface-subtle) 86%, var(--pcv-accent) 8%);
+  --pcv-choice-bg: color-mix(in srgb, var(--surface) 84%, #050b11);
+  --pcv-feedback-bg: color-mix(in srgb, var(--surface-subtle) 84%, #050b11);
+}
+
+html[data-bs-theme='dark'] .pcv-hero__copy,
+html[data-bs-theme='dark'] .pcv-card,
+html[data-bs-theme='dark'] .pcv-reference {
+  box-shadow: 0 18px 42px rgba(2, 8, 13, 0.38);
+}
+
+html[data-bs-theme='dark'] .pcv-badge,
+html[data-bs-theme='dark'] .pcv-tag {
+  background: color-mix(in srgb, var(--pcv-accent) 14%, var(--surface));
+  color: var(--text);
+}
+
+html[data-bs-theme='dark'] .pcv-choice.is-selected,
+html[data-bs-theme='dark'] .pcv-choice.is-correct {
+  color: #eafff8;
+}
+
+html[data-bs-theme='dark'] .pcv-choice.is-wrong {
+  color: #ffece8;
+}
+
+.pcv-item-list li.is-done::after {
+  content: ' pabeigts';
+  color: var(--feedback-success);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+@media (max-width: 920px) {
+  .pcv-hero,
+  .pcv-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .pcv-card--list {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .pcv-shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 4.5rem;
+  }
+
+  .pcv-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pcv-task-head,
+  .pcv-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pcv-score {
+    width: fit-content;
+  }
+}

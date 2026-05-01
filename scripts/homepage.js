@@ -47,6 +47,17 @@ const games = [
     category: 'verbs',
   },
   {
+    title: 'Nākt ar priedēkļiem',
+    href: 'prefixed-coming-verbs.html',
+    icon: '↗',
+    desc: 'Practice pienākt, nonākt, sanākt, pārnākt, atnākt, nāksies, and pienākties.',
+    tag: 'B1-B2',
+    meta: ['Focus: prefixes', '6–10 min', 'Logic'],
+    accent: '#27615c',
+    art: 'linear-gradient(135deg, rgba(39, 97, 92, 0.24), rgba(138, 90, 36, 0.24)), url("assets/previews/verbs_preview.png")',
+    category: 'verbs',
+  },
+  {
     title: 'Conjugation Sprint',
     href: 'conjugation-sprint.html',
     icon: '🎮',

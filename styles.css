@@ -2320,6 +2320,25 @@ body.theme-travel {
   --game-icon-opacity: 0.12;
 }
 
+body.theme-prefixed-coming {
+  --game-accent: #27615c;
+  --game-accent-hover: #20534e;
+  --game-accent-active: #19443f;
+  --game-accent-focus: rgba(39, 97, 92, 0.35);
+  --game-accent-soft: rgba(39, 97, 92, 0.12);
+  --game-accent-shadow: rgba(39, 97, 92, 0.2);
+  --game-accent-rgb: 39, 97, 92;
+  --game-bg-texture:
+    radial-gradient(circle at 15% 16%, rgba(39, 97, 92, 0.16), transparent 46%),
+    radial-gradient(circle at 82% 14%, rgba(138, 90, 36, 0.14), transparent 54%),
+    radial-gradient(circle at 24% 82%, rgba(39, 97, 92, 0.1), transparent 50%);
+  --game-motif:
+    radial-gradient(circle at 30% 28%, rgba(39, 97, 92, 0.28), transparent 60%),
+    radial-gradient(circle at 78% 72%, rgba(138, 90, 36, 0.2), transparent 70%);
+  --game-icon-mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cpath%20d%3D%22M62%2018l32%2032-32%2032-8-8%2018-18H22V44h50L54%2026l8-8z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M36%2084h62v12H36z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E');
+  --game-icon-opacity: 0.1;
+}
+
 body.theme-maini {
   --game-accent: #6a3b42;
   --game-accent-hover: #5b3239;
@@ -2533,6 +2552,30 @@ body[data-bs-theme='dark'].theme-travel {
   --game-accent-focus: rgba(125, 203, 181, 0.5);
   --game-accent-soft: rgba(125, 203, 181, 0.2);
   --game-accent-shadow: rgba(125, 203, 181, 0.3);
+  --game-accent-rgb: 125, 203, 181;
+}
+
+html[data-bs-theme='dark'] body.theme-prefixed-coming {
+  --bg: #101923;
+  --surface: #182431;
+  --surface-alt: rgba(24, 36, 49, 0.94);
+  --surface-subtle: #203140;
+  --surface-subtle-strong: #293b4c;
+  --border: #3a5064;
+  --border-soft: rgba(155, 187, 204, 0.32);
+  --text: #f5f9fb;
+  --muted: #c9d9e2;
+  --bg-gradient: linear-gradient(180deg, #101923 0%, #142231 58%, #172637 100%);
+  --bg-texture:
+    radial-gradient(circle at 12% 10%, rgba(125, 203, 181, 0.16), transparent 46%),
+    radial-gradient(circle at 82% 12%, rgba(215, 184, 126, 0.12), transparent 52%),
+    radial-gradient(circle at 24% 86%, rgba(125, 203, 181, 0.1), transparent 52%);
+  --game-accent: #7dcbb5;
+  --game-accent-hover: #6bbba5;
+  --game-accent-active: #5aab96;
+  --game-accent-focus: rgba(125, 203, 181, 0.5);
+  --game-accent-soft: rgba(125, 203, 181, 0.2);
+  --game-accent-shadow: rgba(125, 203, 181, 0.28);
   --game-accent-rgb: 125, 203, 181;
 }
 

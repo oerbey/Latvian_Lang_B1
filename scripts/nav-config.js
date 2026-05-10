@@ -11,6 +11,7 @@ export const NAV_ITEMS = [
   { href: 'index.html', label: 'Home' },
   { href: 'darbibas-vards.html', label: 'Darbības Vārds' },
   { href: 'prefixed-coming-verbs.html', label: 'Nākt ar priedēkļiem' },
+  { href: 'similar-word-groups.html', label: 'Līdzīgo formu treniņš' },
   { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },
   { href: 'endings-builder.html', label: 'Endings Builder' },
   { href: 'passive-lab.html', label: 'Ciešamās Kārtas Laboratorija' },

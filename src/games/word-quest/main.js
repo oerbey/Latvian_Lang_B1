@@ -7,6 +7,7 @@
  * Data sources (all from the existing project):
  *   - data/words.json          → Verb conjugation challenges
  *   - data/lv-en/forge.json    → Prefix challenges
+ *   - data/latvian_prefixed_verb_exercise.spec.json → Prefixed nākt meaning matches
  *   - data/maini-vai-mainies/items.json → Reflexive verb challenges
  *   - data/personality/words.json       → Personality trait matching
  *   - data/passive-lab/items.json       → Passive voice challenges
@@ -121,6 +122,18 @@ const WORLDS = [
     dataPath: 'data/lv-en/forge.json',
     nodeCount: 8,
     buildChallenges: buildPrefixChallenges,
+  },
+  {
+    id: 'prefixed-coming',
+    emoji: '🧭',
+    name: 'Coming Verb Quest',
+    desc: 'Match pienākt, nonākt, nākt, sanākt, pārnākt, atnākt, and pienākties by logic.',
+    tags: ['Nākt verbs', 'Meaning match'],
+    accent: '#7dcbb5',
+    glow: 'rgba(125, 203, 181, 0.3)',
+    dataPath: 'data/latvian_prefixed_verb_exercise.spec.json',
+    nodeCount: 7,
+    buildChallenges: buildPrefixedComingChallenges,
   },
   {
     id: 'reflexive',
@@ -250,6 +263,30 @@ function buildPrefixChallenges(data, count) {
       options,
       correct: entry.correct,
       explain: `${entry.correct}${entry.base} = ${entry.translations.en}`,
+    };
+  });
+}
+
+/** Prefixed nākt challenges: match each verb to its core meaning and logic. */
+function buildPrefixedComingChallenges(data, count) {
+  const words = Array.isArray(data?.target_words) ? data.target_words : [];
+  const usable = words.filter((entry) => entry.lemma && entry.meaning_en);
+  if (usable.length < 4) return [];
+  const selected = pick(usable, count);
+  return selected.map((entry) => {
+    const wrongPool = usable.filter((word) => word.lemma !== entry.lemma);
+    const wrongs = pick(wrongPool, 3).map((word) => word.meaning_en);
+    const options = shuffle([entry.meaning_en, ...wrongs]);
+    return {
+      type: 'meaning',
+      word: entry.lemma,
+      prompt: `Match the Latvian verb:<br/><strong>${entry.lemma}</strong>`,
+      hint: entry.example_lv ? `Example: ${entry.example_lv}` : '',
+      options,
+      correct: entry.meaning_en,
+      explain: entry.example_lv
+        ? `${entry.lemma} = ${entry.meaning_en}. ${entry.example_lv}`
+        : `${entry.lemma} = ${entry.meaning_en}`,
     };
   });
 }
@@ -799,6 +836,58 @@ function init() {
     }
   });
 }
+
+function visibleScreenId() {
+  const visible = Array.from($$('.wq-screen')).find((screen) => !screen.hidden);
+  return visible?.id || null;
+}
+
+function renderGameToText() {
+  const challenge = battleState?.challenges?.[battleState.currentIndex] || null;
+  const payload = {
+    mode: visibleScreenId(),
+    level: state.level,
+    xp: state.xp,
+    worlds: WORLDS.map((world) => {
+      const ws = state.worlds[world.id] || { completed: [], current: 0 };
+      return {
+        id: world.id,
+        name: world.name,
+        nodes: world.nodeCount,
+        completed: ws.completed?.length || 0,
+        current: ws.current || 0,
+      };
+    }),
+    currentWorld: currentWorld
+      ? {
+          id: currentWorld.id,
+          name: currentWorld.name,
+        }
+      : null,
+    battle: battleState
+      ? {
+          worldId: battleState.world.id,
+          nodeIndex: battleState.nodeIndex,
+          challengeIndex: battleState.currentIndex,
+          lives: battleState.lives,
+          streak: battleState.streak,
+          isAnswered: battleState.isAnswered,
+          challenge: challenge
+            ? {
+                type: challenge.type,
+                word: challenge.word,
+                options: challenge.options,
+                correct: challenge.correct,
+              }
+            : null,
+        }
+      : null,
+  };
+  return JSON.stringify(payload);
+}
+
+window.render_game_to_text = renderGameToText;
+window.advanceTime = () => renderGameToText();
 
 // Boot
 if (document.readyState === 'loading') {

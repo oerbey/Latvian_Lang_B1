@@ -1,0 +1,123 @@
+<!--
+  similar-word-groups.html — Similar Latvian word form exercise.
+  Entry script: src/games/similar-word-groups/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <meta
+      name="description"
+      content="B1-B2 Latvian exercise for choosing between similar forms such as atzīmēta, piezīmēta, pārzīmēta, rādīta, radīta, and parādīta."
+    />
+    <title>Līdzīgo formu treniņš</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/similar-word-groups/styles.css" />
+  </head>
+  <body class="swg-page game-theme">
+    <a class="dp-skip" href="#main">Skip to main content</a>
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="swg-shell">
+        <header class="swg-hero">
+          <div class="swg-hero__copy">
+            <h1 id="swgTitle" class="swg-title">Līdzīgo formu treniņš</h1>
+            <p class="swg-lead">
+              Trenē nozīmes nianses starp līdzīgiem priedēkļu, divdabju un īpašības vārdu pāriem.
+            </p>
+            <div class="swg-badges">
+              <span id="swgLevel" class="swg-badge">B1-B2</span>
+              <span class="swg-badge">NOZĪMES</span>
+              <span class="swg-badge">KONTEKSTS</span>
+              <span class="swg-badge">FORMAS</span>
+            </div>
+          </div>
+          <aside class="swg-hero__art" aria-label="Līdzīgo vārdu piemēri">
+            <div class="swg-word-stack">
+              <div class="swg-word-tile">
+                <strong>rādīta</strong>
+                <span>shown</span>
+              </div>
+              <div class="swg-word-tile">
+                <strong>radīta</strong>
+                <span>created</span>
+              </div>
+              <div class="swg-word-tile">
+                <strong>parādīta</strong>
+                <span>displayed</span>
+              </div>
+            </div>
+          </aside>
+        </header>
+
+        <section class="swg-workspace" aria-labelledby="swgTaskHeading">
+          <div class="swg-card swg-card--task">
+            <div class="swg-task-head">
+              <div>
+                <p id="swgProgress" class="swg-progress">Uzdevums 1 / 33</p>
+                <p id="swgGroup" class="swg-current-group">Vārdu grupa</p>
+              </div>
+              <span id="swgScore" class="swg-score">Pareizi: 0</span>
+            </div>
+
+            <p class="swg-prompt-label">English meaning</p>
+            <h2 id="swgPrompt" class="swg-prompt">Ielādē...</h2>
+            <p id="swgSentence" class="swg-sentence">___</p>
+
+            <div id="swgChoiceArea" class="swg-choice-grid"></div>
+
+            <div class="swg-actions">
+              <button id="swgNext" class="btn btn-primary" type="button" disabled>Nākamais</button>
+              <button id="swgRestart" class="btn btn-outline-secondary" type="button">
+                Sākt no jauna
+              </button>
+            </div>
+
+            <div id="swgFeedbackPanel" class="swg-feedback" aria-live="polite">
+              <p id="swgFeedback" class="swg-feedback__title"></p>
+              <p id="swgExplanation" class="swg-feedback__text"></p>
+              <div id="swgTags" class="swg-tag-row" aria-label="Formas birkas"></div>
+            </div>
+          </div>
+
+          <aside class="swg-reference-panel" aria-labelledby="swgTaskHeading">
+            <p>Progress</p>
+            <h2 id="swgTaskHeading">Vārdu grupas</h2>
+            <ol id="swgGroupList" class="swg-group-list"></ol>
+          </aside>
+        </section>
+
+        <section class="swg-reference" id="swgReference" aria-label="Pilna vārdu karte"></section>
+      </div>
+    </main>
+
+    <footer class="dp-footer" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="src/games/similar-word-groups/index.js"></script>
+  </body>
+</html>

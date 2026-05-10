@@ -4,6 +4,14 @@ import fs from 'node:fs/promises';
 const prefixedVerbItems = JSON.parse(
   await fs.readFile('data/latvian_prefixed_verb_exercise.items.json', 'utf8'),
 ).items;
+const similarWordGroups = JSON.parse(await fs.readFile('data/similar-word-groups.json', 'utf8'));
+const similarWordTasks = similarWordGroups.groups.flatMap((group) =>
+  group.entries.map((entry) => ({
+    ...entry,
+    groupTitle: group.title,
+    choices: group.entries.map((choice) => choice.word),
+  })),
+);
 
 test('darbibas vardi page loads with prototype shell and mode toggle', async ({ page }) => {
   await page.goto('/darbibas-vards.html');
@@ -139,6 +147,78 @@ test('prefixed coming verbs exercise loads every item and gives feedback', async
   await expect(page.locator('#pcvScore')).toHaveText(`Pareizi: ${prefixedVerbItems.length - 1}`);
 });
 
+test('similar word groups exercise loads the supplied words and gives feedback', async ({
+  page,
+}) => {
+  await page.goto('/similar-word-groups.html');
+
+  await expect(page.getByRole('heading', { name: 'Līdzīgo formu treniņš' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Līdzīgo formu treniņš' }).first()).toHaveAttribute(
+    'href',
+    'similar-word-groups.html',
+  );
+  await expect(page.locator('#swgReference .swg-reference-card')).toHaveCount(
+    similarWordGroups.groups.length,
+  );
+  await expect(page.locator('#swgReference dt')).toHaveCount(similarWordTasks.length);
+
+  const firstTask = similarWordTasks[0];
+  const firstWrong = firstTask.choices.find((choice) => choice !== firstTask.word);
+  await expect(page.locator('#swgPrompt')).toHaveText(firstTask.meaning_en);
+  await expect(page.locator('#swgSentence')).toHaveText(firstTask.sentence_lv);
+
+  await page.locator('#swgChoiceArea').getByRole('button', { name: firstWrong }).click();
+  await expect(page.locator('#swgFeedback')).toHaveText('Mēģini vēlreiz.');
+  await expect(page.locator('#swgExplanation')).toContainText('Pavediens:');
+
+  await page
+    .locator('#swgChoiceArea')
+    .getByRole('button', { name: firstTask.word, exact: true })
+    .click();
+  await expect(page.locator('#swgFeedback')).toHaveText('Pareizi!');
+  await expect(page.locator('#swgExplanation')).toContainText(firstTask.word);
+  await page.locator('#swgNext').click();
+
+  for (const task of similarWordTasks.slice(1)) {
+    await expect(page.locator('#swgPrompt')).toHaveText(task.meaning_en);
+    await expect(page.locator('#swgSentence')).toHaveText(task.sentence_lv);
+    await page
+      .locator('#swgChoiceArea')
+      .getByRole('button', { name: task.word, exact: true })
+      .click();
+    await expect(page.locator('#swgFeedback')).toHaveText('Pareizi!');
+    if (task !== similarWordTasks.at(-1)) {
+      await page.locator('#swgNext').click();
+    }
+  }
+
+  await expect(page.locator('#swgScore')).toHaveText(`Pareizi: ${similarWordTasks.length}`);
+  await expect(page.locator('#swgNext')).toHaveText('Pabeigts');
+  await expect(page.locator('#swgNext')).toBeDisabled();
+});
+
+test('similar word groups follows the shared dark theme palette', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('dp-theme', 'dark');
+  });
+
+  await page.goto('/similar-word-groups.html');
+  await expect(page.locator('html')).toHaveAttribute('data-bs-theme', 'dark');
+
+  const palette = await page.locator('.swg-card--task').evaluate((card) => {
+    const score = document.getElementById('swgScore');
+    return {
+      bodyBg: getComputedStyle(document.body).backgroundColor,
+      cardBg: getComputedStyle(card).backgroundColor,
+      scoreBg: score ? getComputedStyle(score).backgroundColor : '',
+    };
+  });
+
+  expect(palette.bodyBg).toBe('rgb(12, 16, 33)');
+  expect(palette.cardBg).toBe('rgb(21, 27, 46)');
+  expect(palette.scoreBg).toBe('rgb(45, 212, 191)');
+});
+
 test('word quest map flow renders worlds and nodes', async ({ page }) => {
   await page.goto('/word-quest.html');
 
@@ -154,10 +234,42 @@ test('word quest map flow renders worlds and nodes', async ({ page }) => {
   await expect(page.locator('#wq-map-screen')).toBeVisible();
 
   const worldCards = page.locator('#wq-map-grid .wq-world-card');
-  await expect(worldCards).toHaveCount(5);
+  await expect(worldCards).toHaveCount(6);
+  await expect(worldCards.filter({ hasText: 'Coming Verb Quest' })).toBeVisible();
 
   await worldCards.first().click();
 
   await expect(page.locator('#wq-world-screen')).toBeVisible();
   await expect(page.locator('#wq-node-path .wq-node').first()).toBeVisible();
+});
+
+test('word quest prefixed coming world matches target verb meanings', async ({ page }) => {
+  await page.goto('/word-quest.html');
+  await page.locator('#wq-btn-play').click();
+  await page
+    .locator('#wq-map-grid .wq-world-card')
+    .filter({ hasText: 'Coming Verb Quest' })
+    .click();
+
+  await expect(page.locator('#wq-world-title')).toContainText('Coming Verb Quest');
+  await expect(page.locator('#wq-node-path .wq-node')).toHaveCount(7);
+
+  await page.locator('#wq-node-path .wq-node').first().click();
+  await expect(page.locator('#wq-battle-screen')).toBeVisible();
+  await expect(page.locator('#wq-enemy-label')).toHaveText('Meaning challenge');
+
+  const gameState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  expect(gameState.battle.worldId).toBe('prefixed-coming');
+  expect(gameState.battle.challenge.word).toBeTruthy();
+  expect(gameState.battle.challenge.options).toHaveLength(4);
+
+  await page.evaluate((answer) => {
+    const button = Array.from(document.querySelectorAll('#wq-battle-choices .wq-choice-btn')).find(
+      (choice) => choice.textContent?.trim() === answer,
+    );
+    button?.click();
+  }, gameState.battle.challenge.correct);
+
+  await expect(page.locator('#wq-feedback-text')).toHaveText('Correct!');
+  await expect(page.locator('#wq-feedback-detail')).toContainText(gameState.battle.challenge.word);
 });

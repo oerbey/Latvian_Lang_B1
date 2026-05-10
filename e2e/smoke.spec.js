@@ -7,6 +7,11 @@ const homepagePreviewCards = [
     preview: 'verbs_preview.png',
     href: 'prefixed-coming-verbs.html',
   },
+  {
+    title: 'Līdzīgo formu treniņš',
+    preview: 'verbs_preview.png',
+    href: 'similar-word-groups.html',
+  },
   { title: 'Conjugation Sprint', preview: 'sprint_preview.png', href: 'conjugation-sprint.html' },
   { title: 'Endings Builder', preview: 'endings_preview.png', href: 'endings-builder.html' },
   { title: 'Passive Voice Builder', preview: 'passive_preview.png', href: 'passive-lab.html' },

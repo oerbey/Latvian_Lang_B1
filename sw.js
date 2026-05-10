@@ -1,7 +1,7 @@
 /**
  * sw.js — Service Worker for the Latvian Language B PWA.
  * =======================================================
- * Implements an offline-first caching strategy so all 15 games work
+ * Implements an offline-first caching strategy so all 16 games work
  * without a network connection once visited.
  *
  * Caching strategies per resource type:
@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v17';
+const CACHE_VERSION = 'v19';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -53,6 +53,7 @@ const CORE_ASSETS = [
   './maini-vai-mainies.html',
   './passive-lab.html',
   './prefixed-coming-verbs.html',
+  './similar-word-groups.html',
   './sentence-surgery-passive.html',
   './rakstura-ipasibas-expansion.html',
   './rakstura-ipasibas-match.html',
@@ -73,6 +74,9 @@ const CORE_ASSETS = [
   './src/games/prefixed-coming-verbs/index.js',
   './src/games/prefixed-coming-verbs/logic.js',
   './src/games/prefixed-coming-verbs/styles.css',
+  './src/games/similar-word-groups/index.js',
+  './src/games/similar-word-groups/logic.js',
+  './src/games/similar-word-groups/styles.css',
   './src/games/sentence-surgery-passive/index.js',
   './src/games/sentence-surgery-passive/data.js',
   './src/games/sentence-surgery-passive/progress.js',
@@ -95,6 +99,7 @@ const CORE_ASSETS = [
   './data/passive-lab/items.json',
   './data/latvian_prefixed_verb_exercise.spec.json',
   './data/latvian_prefixed_verb_exercise.items.json',
+  './data/similar-word-groups.json',
   './sentence_surgery_pack/sentence_surgery_passive_dataset.json',
   './data/travel-tracker/routes.json',
   './data/personality/words.json',

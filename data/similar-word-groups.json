@@ -1,0 +1,355 @@
+{
+  "id": "similar_word_groups_b1",
+  "title": "Līdzīgo formu treniņš",
+  "level": "B1-B2",
+  "language": "lv",
+  "skill_focus": [
+    "similar word forms",
+    "prefix nuance",
+    "participle and adjective meaning",
+    "context-based vocabulary choice"
+  ],
+  "groups": [
+    {
+      "id": "zimet-prefixes",
+      "title": "atzīmēta / piezīmēta / pārzīmēta",
+      "focus": "zīmēt with prefixes",
+      "entries": [
+        {
+          "id": "zimet-atzimeta",
+          "word": "atzīmēta",
+          "meaning_en": "marked, noted",
+          "sentence_lv": "Šī kļūda ir ___ pārskatā.",
+          "explanation_en": "Atzīmēta points to something marked, selected, or noted in a source.",
+          "tags": ["PREFIX", "PARTICIPLE"]
+        },
+        {
+          "id": "zimet-piezimeta",
+          "word": "piezīmēta",
+          "meaning_en": "written down, annotated",
+          "sentence_lv": "Adrese ir ___ blakus vārdam.",
+          "explanation_en": "Piezīmēta means added as a note or written down beside something.",
+          "tags": ["PREFIX", "NOTE"]
+        },
+        {
+          "id": "zimet-parzimeta",
+          "word": "pārzīmēta",
+          "meaning_en": "copied, drawn over",
+          "sentence_lv": "Karte ir ___ jaunā lapā.",
+          "explanation_en": "Pārzīmēta is used when a drawing or plan is copied or redrawn.",
+          "tags": ["PREFIX", "DRAWING"]
+        }
+      ]
+    },
+    {
+      "id": "ciesama-necessity",
+      "title": "pieciešama / ciešama / nepieciešama",
+      "focus": "tolerable vs necessary",
+      "entries": [
+        {
+          "id": "ciesama-pieciesama",
+          "word": "pieciešama",
+          "meaning_en": "tolerable, acceptable",
+          "sentence_lv": "Neliela kavēšanās šoreiz ir ___.",
+          "explanation_en": "Pieciešama marks something that can be tolerated or accepted.",
+          "tags": ["ADJECTIVE", "TOLERANCE"]
+        },
+        {
+          "id": "ciesama-ciesama",
+          "word": "ciešama",
+          "meaning_en": "bearable",
+          "sentence_lv": "Situācija ir ___, bet ne patīkama.",
+          "explanation_en": "Ciešama means bearable: not good, but possible to endure.",
+          "tags": ["ADJECTIVE", "STATE"]
+        },
+        {
+          "id": "ciesama-nepieciesama",
+          "word": "nepieciešama",
+          "meaning_en": "necessary",
+          "sentence_lv": "Šī atļauja ir ___ pirms brauciena.",
+          "explanation_en": "Nepieciešama means required or necessary.",
+          "tags": ["ADJECTIVE", "NECESSITY"]
+        }
+      ]
+    },
+    {
+      "id": "radit-vowels",
+      "title": "rādīta / radīta / parādīta",
+      "focus": "vowel and prefix contrast",
+      "entries": [
+        {
+          "id": "radit-radita-shown",
+          "word": "rādīta",
+          "meaning_en": "shown",
+          "sentence_lv": "Filma vakar tika ___ televīzijā.",
+          "explanation_en": "Rādīta comes from rādīt and means shown or broadcast.",
+          "tags": ["VOWEL", "PASSIVE"]
+        },
+        {
+          "id": "radit-radita-created",
+          "word": "radīta",
+          "meaning_en": "created",
+          "sentence_lv": "Šī metode ir ___ tieši studentiem.",
+          "explanation_en": "Radīta comes from radīt and means created.",
+          "tags": ["VOWEL", "CREATION"]
+        },
+        {
+          "id": "radit-paradita",
+          "word": "parādīta",
+          "meaning_en": "demonstrated, displayed",
+          "sentence_lv": "Diagramma ir ___ prezentācijas beigās.",
+          "explanation_en": "Parādīta emphasizes that something has been shown, displayed, or demonstrated.",
+          "tags": ["PREFIX", "DISPLAY"]
+        }
+      ]
+    },
+    {
+      "id": "sakt-actions",
+      "title": "sācis / pasācis / pārtraucis",
+      "focus": "start, undertake, stop",
+      "entries": [
+        {
+          "id": "sakt-sacis",
+          "word": "sācis",
+          "meaning_en": "started, begun",
+          "sentence_lv": "Viņš ir ___ jaunu kursu.",
+          "explanation_en": "Sācis is the neutral form for having started or begun something.",
+          "tags": ["VERB FORM", "ACTION"]
+        },
+        {
+          "id": "sakt-pasacis",
+          "word": "pasācis",
+          "meaning_en": "started doing, undertaken",
+          "sentence_lv": "Ko tu atkal esi ___ darīt?",
+          "explanation_en": "Pasācis often sounds like someone has taken up or started doing something.",
+          "tags": ["PREFIX", "ACTION"]
+        },
+        {
+          "id": "sakt-partraucis",
+          "word": "pārtraucis",
+          "meaning_en": "interrupted, stopped",
+          "sentence_lv": "Runātājs ir ___ lekciju uz brīdi.",
+          "explanation_en": "Pārtraucis means stopped or interrupted an action.",
+          "tags": ["PREFIX", "STOP"]
+        }
+      ]
+    },
+    {
+      "id": "sniegt-results",
+      "title": "pasniegta / sniegta / sasniegta",
+      "focus": "serve, provide, achieve",
+      "entries": [
+        {
+          "id": "sniegt-pasniegta",
+          "word": "pasniegta",
+          "meaning_en": "served, presented",
+          "sentence_lv": "Zupa tika ___ karsta.",
+          "explanation_en": "Pasniegta is used for food being served or something being presented.",
+          "tags": ["PREFIX", "PRESENTATION"]
+        },
+        {
+          "id": "sniegt-sniegta",
+          "word": "sniegta",
+          "meaning_en": "given, provided",
+          "sentence_lv": "Palīdzība tika ___ laikā.",
+          "explanation_en": "Sniegta means given, offered, or provided.",
+          "tags": ["PASSIVE", "SUPPORT"]
+        },
+        {
+          "id": "sniegt-sasniegta",
+          "word": "sasniegta",
+          "meaning_en": "achieved, reached",
+          "sentence_lv": "Vienošanās tika ___ pēc ilgām sarunām.",
+          "explanation_en": "Sasniegta means reached or achieved after effort.",
+          "tags": ["PREFIX", "RESULT"]
+        }
+      ]
+    },
+    {
+      "id": "veicami-sveicami",
+      "title": "veicami / sveicami / apsveicami",
+      "focus": "one-letter contrast",
+      "entries": [
+        {
+          "id": "veicami-veicami",
+          "word": "veicami",
+          "meaning_en": "to be done, performable",
+          "sentence_lv": "Šie darbi ir ___ līdz piektdienai.",
+          "explanation_en": "Veicami describes tasks that are to be carried out or can be performed.",
+          "tags": ["ADJECTIVE", "TASKS"]
+        },
+        {
+          "id": "veicami-sveicami",
+          "word": "sveicami",
+          "meaning_en": "welcome, commendable",
+          "sentence_lv": "Jūsu centieni ir ___.",
+          "explanation_en": "Sveicami describes something welcome or commendable.",
+          "tags": ["ADJECTIVE", "APPROVAL"]
+        },
+        {
+          "id": "veicami-apsveicami",
+          "word": "apsveicami",
+          "meaning_en": "congratulatory, worthy of congratulations",
+          "sentence_lv": "Uzvarētāji ir ___ pēc fināla.",
+          "explanation_en": "Apsveicami points to people or results worthy of congratulations.",
+          "tags": ["ADJECTIVE", "CONGRATULATION"]
+        }
+      ]
+    },
+    {
+      "id": "amas-possibility",
+      "title": "rēķināmas / iespējamas / risināmas",
+      "focus": "what can be counted, possible, or solved",
+      "entries": [
+        {
+          "id": "amas-rekinamas",
+          "word": "rēķināmas",
+          "meaning_en": "countable, calculable",
+          "sentence_lv": "Izmaksas ir ___ jau šodien.",
+          "explanation_en": "Rēķināmas describes things that can be counted or calculated.",
+          "tags": ["ADJECTIVE", "CALCULATION"]
+        },
+        {
+          "id": "amas-iespejamas",
+          "word": "iespējamas",
+          "meaning_en": "possible",
+          "sentence_lv": "Izmaiņas grafikā ir ___ nākamnedēļ.",
+          "explanation_en": "Iespējamas means possible or able to happen.",
+          "tags": ["ADJECTIVE", "POSSIBILITY"]
+        },
+        {
+          "id": "amas-risinamas",
+          "word": "risināmas",
+          "meaning_en": "solvable",
+          "sentence_lv": "Šīs problēmas ir ___ kopīgā darbā.",
+          "explanation_en": "Risināmas describes problems that can be solved.",
+          "tags": ["ADJECTIVE", "SOLUTION"]
+        }
+      ]
+    },
+    {
+      "id": "teiktais-veiktais",
+      "title": "pateiktais / paveiktais / pasakāmais",
+      "focus": "said, done, to be said",
+      "entries": [
+        {
+          "id": "teiktais-pateiktais",
+          "word": "pateiktais",
+          "meaning_en": "what was said",
+          "sentence_lv": "___ sapulcē vēl jāprecizē.",
+          "explanation_en": "Pateiktais refers to the content that was said.",
+          "tags": ["NOMINAL FORM", "SPEECH"]
+        },
+        {
+          "id": "teiktais-paveiktais",
+          "word": "paveiktais",
+          "meaning_en": "what was accomplished",
+          "sentence_lv": "___ šonedēļ ir redzams rezultātos.",
+          "explanation_en": "Paveiktais refers to completed work or what has been accomplished.",
+          "tags": ["NOMINAL FORM", "RESULT"]
+        },
+        {
+          "id": "teiktais-pasakamais",
+          "word": "pasakāmais",
+          "meaning_en": "what must or should be said",
+          "sentence_lv": "Viss ___ jāizsaka skaidri.",
+          "explanation_en": "Pasakāmais points to the message that still needs to be said.",
+          "tags": ["NOMINAL FORM", "SPEECH"]
+        }
+      ]
+    },
+    {
+      "id": "inos-adjectives",
+      "title": "kaitinošs / motivējošs / izaicinošs",
+      "focus": "effect adjectives",
+      "entries": [
+        {
+          "id": "inos-kaitinoss",
+          "word": "kaitinošs",
+          "meaning_en": "annoying",
+          "sentence_lv": "Šis troksnis ir ___.",
+          "explanation_en": "Kaitinošs describes something that annoys or irritates.",
+          "tags": ["ADJECTIVE", "EFFECT"]
+        },
+        {
+          "id": "inos-motivejoss",
+          "word": "motivējošs",
+          "meaning_en": "motivating",
+          "sentence_lv": "Labs piemērs ir ___.",
+          "explanation_en": "Motivējošs describes something that gives motivation.",
+          "tags": ["ADJECTIVE", "EFFECT"]
+        },
+        {
+          "id": "inos-izaicinoss",
+          "word": "izaicinošs",
+          "meaning_en": "challenging",
+          "sentence_lv": "Uzdevums bija ___, bet vērtīgs.",
+          "explanation_en": "Izaicinošs describes something challenging or demanding.",
+          "tags": ["ADJECTIVE", "DIFFICULTY"]
+        }
+      ]
+    },
+    {
+      "id": "ama-adjectives",
+      "title": "nepieciešama / apsveicama / skaidrojama",
+      "focus": "required, welcome, explainable",
+      "entries": [
+        {
+          "id": "ama-nepieciesama",
+          "word": "nepieciešama",
+          "meaning_en": "necessary",
+          "sentence_lv": "Komandai ir ___ skaidra stratēģija.",
+          "explanation_en": "Nepieciešama marks something that is required.",
+          "tags": ["ADJECTIVE", "NECESSITY"]
+        },
+        {
+          "id": "ama-apsveicama",
+          "word": "apsveicama",
+          "meaning_en": "commendable, welcome",
+          "sentence_lv": "Šāda iniciatīva ir ___.",
+          "explanation_en": "Apsveicama describes an action or initiative that deserves approval.",
+          "tags": ["ADJECTIVE", "APPROVAL"]
+        },
+        {
+          "id": "ama-skaidrojama",
+          "word": "skaidrojama",
+          "meaning_en": "explainable, needing explanation",
+          "sentence_lv": "Šī atšķirība ir ___ ar kontekstu.",
+          "explanation_en": "Skaidrojama means explainable or requiring explanation.",
+          "tags": ["ADJECTIVE", "EXPLANATION"]
+        }
+      ]
+    },
+    {
+      "id": "oties-forms",
+      "title": "darbojoties / pateicoties / uzmanoties",
+      "focus": "-oties forms in context",
+      "entries": [
+        {
+          "id": "oties-darbojoties",
+          "word": "darbojoties",
+          "meaning_en": "while working, while functioning",
+          "sentence_lv": "Iekārta sakarst ___ visu dienu.",
+          "explanation_en": "Darbojoties means while working or functioning.",
+          "tags": ["-OTIES", "PROCESS"]
+        },
+        {
+          "id": "oties-pateicoties",
+          "word": "pateicoties",
+          "meaning_en": "thanks to",
+          "sentence_lv": "___ komandai, projekts izdevās.",
+          "explanation_en": "Pateicoties introduces the cause or support that made something possible.",
+          "tags": ["-OTIES", "CAUSE"]
+        },
+        {
+          "id": "oties-uzmanoties",
+          "word": "uzmanoties",
+          "meaning_en": "being careful, while taking care",
+          "sentence_lv": "Ej pa ledu, ___ no plaisām.",
+          "explanation_en": "Uzmanoties means being careful, often with no plus the risk.",
+          "tags": ["-OTIES", "CAUTION"]
+        }
+      ]
+    }
+  ]
+}

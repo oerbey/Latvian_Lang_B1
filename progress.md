@@ -77,3 +77,24 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Instructions now explain full round flow: start, room navigation, investigation, answer selection, penalties, and win condition.
 - Added styles for a readable collapsible instruction panel in `src/games/decl6-detective/styles.css`.
 - Validation: `npm run test:e2e -- e2e/smoke.spec.js -g "decl6 detective"` passed.
+
+## 2026-05-02 - Word Quest prefixed nākt world
+
+- Current prompt: Create another Word Quest style matching exercise for pienākt, nonākt, nākt, sanākt, pārnākt, atnākt, and pienākties.
+- Audited Word Quest world definitions and battle flow in `src/games/word-quest/main.js`.
+- Plan: add a sixth data-driven Word Quest world using `data/latvian_prefixed_verb_exercise.spec.json`, generating meaning-match battle prompts from `target_words`.
+- Added `Coming Verb Quest` to Word Quest with 7 nodes and meaning-match battles generated from the prefixed verb spec JSON.
+- Updated Word Quest copy from 5 to 6 worlds and added automation hooks (`render_game_to_text`, `advanceTime`) for state inspection.
+- Fixed the Word Quest Bootstrap bundle SRI typo caught by the web-game client.
+- Added e2e coverage for the sixth world and answering a prefixed-coming meaning challenge.
+- Validation: `npm run lint`, focused Word Quest Playwright tests, web-game client pass, `npm test`, and full `npm run test:e2e` passed.
+- Visual QA artifacts: `output/web-game/word-quest-prefixed-coming-pass2/map-screen.png` and `output/web-game/word-quest-prefixed-coming-pass2/battle-screen.png`.
+
+## 2026-05-10 - Similar word groups exercise
+
+- Current prompt: Create a totally new exercise from grouped Latvian words such as `atzīmēta`, `piezīmēta`, `pārzīmēta`, `rādīta`, `radīta`, and `parādīta`.
+- Added standalone data-driven exercise page `similar-word-groups.html` with 11 groups and 33 word-choice tasks.
+- Added `data/similar-word-groups.json`, `src/games/similar-word-groups/logic.js`, `index.js`, and `styles.css`.
+- Wired the exercise into the homepage catalogue, nav, service worker cache, homepage counts, and smoke/e2e tests.
+- Validation: `npm test`, `npm run lint`, `npm run typecheck`, `npm run validate:data`, `npm run validate:i18n`, `npm run test:e2e -- e2e/game-pages.spec.js`, and focused homepage smoke passed.
+- Follow-up: restyled the exercise to use the shared `--dp-*` blue/teal palette in light and dark modes, removed the outdated warm brown/ruby accents, and added dark-theme e2e coverage.

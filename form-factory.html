@@ -1,0 +1,220 @@
+<!--
+  form-factory.html — Form Factory.
+  Practice Latvian adverbial participles: -dams, -dama, -damies, -damās.
+  Entry script: src/games/form-factory/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <meta
+      name="description"
+      content="Form Factory — practice Latvian divdabji with -dams, -dama, -damies, and -damās."
+    />
+    <title>Form Factory — Latvian B Level</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/form-factory/styles.css" />
+  </head>
+  <body class="dp-page game-theme theme-endings ff-page">
+    <a class="dp-skip" href="#main">Skip to main content</a>
+
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="dp-container ff-shell" data-form-factory>
+        <header class="dp-ex-hero ff-hero">
+          <div>
+            <p class="dp-ex-eyebrow">Divdabju darbnīca</p>
+            <h1 class="dp-ex-title">Form Factory</h1>
+            <p class="dp-ex-lead">
+              Izvēlies vai uzbūvē pareizo formu ar -dams, -dama, -damies vai -damās.
+            </p>
+            <div class="dp-ex-badges">
+              <span class="dp-badge dp-badge--focus">Focus: divdabji</span>
+              <span class="dp-badge">B1 grammar</span>
+              <span class="dp-badge">Choice + build</span>
+            </div>
+          </div>
+
+          <div class="dp-ex-hero__side">
+            <div class="ff-rule-card" aria-label="Form Factory rule summary">
+              <span>-dams</span>
+              <span>-dama</span>
+              <span>-damies</span>
+              <span>-damās</span>
+            </div>
+            <div class="dp-ex-hero__visual" aria-hidden="true">
+              <div
+                class="dp-orb"
+                style="width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px)"
+              >
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__ring"></div>
+                <div class="dp-orb__core"></div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="dp-ex-panel ff-control-panel" aria-labelledby="ff-controls-title">
+          <div class="dp-ex-panel__body">
+            <div class="dp-ex-panel__header">
+              <div>
+                <h2 id="ff-controls-title" class="dp-ex-panel__title">Round controls</h2>
+                <p class="dp-ex-panel__lead">
+                  Multiple choice gives fast recognition practice; build mode checks the full form
+                  with Latvian diacritics.
+                </p>
+              </div>
+              <button id="ff-restart" class="dp-btn dp-btn--primary dp-btn--sm" type="button">
+                Sākt no jauna
+              </button>
+            </div>
+
+            <div class="ff-controls-row">
+              <div class="dp-mode-group" role="group" aria-label="Game mode">
+                <input type="radio" name="ff-mode" id="ff-mode-choice" value="choice" checked />
+                <label for="ff-mode-choice">Multiple choice</label>
+                <input type="radio" name="ff-mode" id="ff-mode-build" value="build" />
+                <label for="ff-mode-build">Build mode</label>
+              </div>
+
+              <div class="ff-scoreboard" aria-label="Round score">
+                <div class="ff-stat">
+                  <span class="ff-stat__label">Punkti</span>
+                  <strong id="ff-score">0</strong>
+                </div>
+                <div class="ff-stat">
+                  <span class="ff-stat__label">Sērija</span>
+                  <strong id="ff-streak">0</strong>
+                </div>
+                <div class="ff-stat">
+                  <span class="ff-stat__label">Precizitāte</span>
+                  <strong id="ff-accuracy">0%</strong>
+                </div>
+                <div class="ff-stat">
+                  <span class="ff-stat__label">Progress</span>
+                  <strong id="ff-progress">0/0</strong>
+                </div>
+              </div>
+            </div>
+
+            <p id="ff-best" class="ff-best">Labākais rezultāts: 0</p>
+            <div id="ff-error" class="ff-error" role="alert" hidden></div>
+          </div>
+        </section>
+
+        <section class="dp-ex-board ff-board" aria-labelledby="ff-board-title">
+          <div class="dp-ex-board__header">
+            <div>
+              <h2 id="ff-board-title" class="dp-ex-board__title">Uzdevums</h2>
+              <p id="ff-round-hint" class="dp-ex-board__hint">
+                Dati tiek ielādēti no Form Factory uzdevumu kopas.
+              </p>
+            </div>
+            <span id="ff-reflexive-badge" class="dp-badge">—</span>
+          </div>
+
+          <article class="ff-prompt-card" aria-live="polite">
+            <div class="ff-prompt-card__item">
+              <span class="ff-prompt-card__label">Darbības vārds</span>
+              <strong id="ff-lemma">—</strong>
+              <span id="ff-translation" class="ff-muted">—</span>
+            </div>
+            <div class="ff-prompt-card__item">
+              <span class="ff-prompt-card__label">Subjekts</span>
+              <strong id="ff-subject">—</strong>
+              <span id="ff-subject-meta" class="ff-muted">—</span>
+            </div>
+          </article>
+
+          <div class="ff-mode-panel" data-ff-mode-panel="choice">
+            <div id="ff-choices" class="ff-choice-grid" aria-label="Answer choices"></div>
+          </div>
+
+          <div class="ff-mode-panel" data-ff-mode-panel="build" hidden>
+            <div class="ff-build-grid">
+              <section class="ff-build-zone" aria-labelledby="ff-stem-title">
+                <h3 id="ff-stem-title" class="ff-zone-title">Build the form</h3>
+                <div id="ff-build-target" class="ff-build-target">
+                  <span id="ff-stem" class="ff-stem">—</span>
+                  <span id="ff-selected-ending" class="ff-selected-ending">?</span>
+                </div>
+                <label class="ff-answer-label" for="ff-answer-input">
+                  Full answer
+                  <input
+                    id="ff-answer-input"
+                    class="ff-answer-input"
+                    type="text"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Ieraksti vai saliec formu"
+                  />
+                </label>
+              </section>
+
+              <section class="ff-build-zone" aria-labelledby="ff-endings-title">
+                <h3 id="ff-endings-title" class="ff-zone-title">Ending bank</h3>
+                <div id="ff-endings" class="ff-ending-bank" aria-label="Endings"></div>
+                <p class="ff-muted mb-0">Klikšķini galotni vai pārvelc to uz veidošanas lauku.</p>
+              </section>
+            </div>
+            <button id="ff-check-build" class="dp-btn dp-btn--primary" type="button">
+              Pārbaudīt
+            </button>
+          </div>
+
+          <div
+            id="ff-feedback"
+            class="ff-feedback"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            Izvēlies atbildi, lai sāktu.
+          </div>
+
+          <div class="ff-example">
+            <p class="ff-example__label">Piemērs</p>
+            <p id="ff-example">—</p>
+          </div>
+
+          <div class="ff-actions">
+            <button id="ff-next" class="dp-btn dp-btn--outline" type="button" disabled>
+              Nākamais uzdevums
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="dp-footer" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="src/games/form-factory/index.js"></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+  </body>
+</html>

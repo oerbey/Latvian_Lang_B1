@@ -14,6 +14,7 @@ const homepagePreviewCards = [
   },
   { title: 'Conjugation Sprint', preview: 'sprint_preview.png', href: 'conjugation-sprint.html' },
   { title: 'Endings Builder', preview: 'endings_preview.png', href: 'endings-builder.html' },
+  { title: 'Form Factory', preview: 'endings_preview.png', href: 'form-factory.html' },
   { title: 'Passive Voice Builder', preview: 'passive_preview.png', href: 'passive-lab.html' },
   {
     title: 'Sentence Surgery — Ciešamā kārta',
@@ -132,6 +133,33 @@ test('endings builder shows instructions, target context, and keyboard check flo
   await page.locator('#ebOptions .eb-ending').first().click();
   await expect(slot).toHaveClass(/has-ending/);
   await expect(hits).not.toHaveText('0/0');
+});
+
+test('form factory loads data and checks choice and build modes', async ({ page }) => {
+  await page.goto('/form-factory.html');
+
+  await expect(page.getByRole('heading', { name: 'Form Factory' })).toBeVisible();
+  await expect(page.locator('#ff-lemma')).not.toHaveText('—');
+  await expect(page.locator('#ff-choices button')).toHaveCount(4);
+
+  const initialState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page
+    .locator('#ff-choices')
+    .getByRole('button', { name: initialState.prompt.answer, exact: true })
+    .click();
+  await expect(page.locator('#ff-feedback')).toContainText('Pareizi!');
+  await expect(page.locator('#ff-score')).toHaveText('1');
+
+  await page.locator('#ff-next').click();
+  await page.locator('label[for="ff-mode-build"]').click();
+  const buildState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  const ending = buildState.prompt.answer.match(/dam(?:ies|ās|as|a|i|s)$/)?.[0] || '';
+  await page
+    .locator('#ff-endings')
+    .getByRole('button', { name: `-${ending}`, exact: true })
+    .click();
+  await page.locator('#ff-check-build').click();
+  await expect(page.locator('#ff-feedback')).toContainText('Pareizi!');
 });
 
 test('decl6 detective starts and solves a clue', async ({ page }) => {

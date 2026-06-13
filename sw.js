@@ -1,7 +1,7 @@
 /**
  * sw.js — Service Worker for the Latvian Language B PWA.
  * =======================================================
- * Implements an offline-first caching strategy so all 16 games work
+ * Implements an offline-first caching strategy so all 17 games work
  * without a network connection once visited.
  *
  * Caching strategies per resource type:
@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v19';
+const CACHE_VERSION = 'v20';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -50,6 +50,7 @@ const CORE_ASSETS = [
   './duty-dispatcher.html',
   './english-latvian-arcade.html',
   './endings-builder.html',
+  './form-factory.html',
   './maini-vai-mainies.html',
   './passive-lab.html',
   './prefixed-coming-verbs.html',
@@ -69,6 +70,8 @@ const CORE_ASSETS = [
   './src/games/english-latvian-arcade/logic.js',
   './src/games/english-latvian-arcade/styles.css',
   './src/games/endings-builder/index.js',
+  './src/games/form-factory/index.js',
+  './src/games/form-factory/styles.css',
   './src/games/maini-vai-mainies/index.js',
   './src/games/passive-lab/index.js',
   './src/games/prefixed-coming-verbs/index.js',
@@ -95,6 +98,7 @@ const CORE_ASSETS = [
   './data/duty-dispatcher/roles.json',
   './data/endings-builder/items.json',
   './data/endings-builder/tables.json',
+  './data/form-factory/items.json',
   './data/maini-vai-mainies/items.json',
   './data/passive-lab/items.json',
   './data/latvian_prefixed_verb_exercise.spec.json',

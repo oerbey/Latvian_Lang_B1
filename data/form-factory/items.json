@@ -1,0 +1,431 @@
+{
+  "version": 1,
+  "title": "Form Factory: divdabji ar -dams, -dama, -damies, -damās",
+  "sourceNotes": [
+    "Verb lemmas should be checked against Tēzaurs /v1/inflections/[word].",
+    "Initial set focuses on B1-friendly verbs and the forms requested by the learner: -dams, -dama, -damies, -damās.",
+    "Plural forms -dami and -damas are included as optional extension items."
+  ],
+  "rules": {
+    "nonReflexive": {
+      "masculineSingular": "-dams",
+      "feminineSingular": "-dama",
+      "masculinePlural": "-dami",
+      "femininePlural": "-damas"
+    },
+    "reflexive": {
+      "masculineSingular": "-damies",
+      "feminineSingular": "-damās",
+      "masculinePlural": "-damies",
+      "femininePlural": "-damās"
+    }
+  },
+  "subjects": [
+    {
+      "id": "vins",
+      "label": "viņš",
+      "gender": "masculine",
+      "number": "singular"
+    },
+    {
+      "id": "vina",
+      "label": "viņa",
+      "gender": "feminine",
+      "number": "singular"
+    },
+    {
+      "id": "janis",
+      "label": "Jānis",
+      "gender": "masculine",
+      "number": "singular"
+    },
+    {
+      "id": "anna",
+      "label": "Anna",
+      "gender": "feminine",
+      "number": "singular"
+    },
+    {
+      "id": "vini",
+      "label": "viņi",
+      "gender": "masculine",
+      "number": "plural",
+      "extension": true
+    },
+    {
+      "id": "vinas",
+      "label": "viņas",
+      "gender": "feminine",
+      "number": "plural",
+      "extension": true
+    }
+  ],
+  "items": [
+    {
+      "id": "ff-001",
+      "level": 1,
+      "lemma": "lasīt",
+      "translation": "to read",
+      "reflexive": false,
+      "stemHint": "lasī-",
+      "subject": "viņš",
+      "answer": "lasīdams",
+      "distractors": ["lasīdama", "lasīdamies", "lasīdamās"],
+      "example": "Viņš sēdēja istabā, lasīdams grāmatu.",
+      "explanation": "Viņš = masculine singular, non-reflexive verb → -dams."
+    },
+    {
+      "id": "ff-002",
+      "level": 1,
+      "lemma": "lasīt",
+      "translation": "to read",
+      "reflexive": false,
+      "stemHint": "lasī-",
+      "subject": "viņa",
+      "answer": "lasīdama",
+      "distractors": ["lasīdams", "lasīdamies", "lasīdamās"],
+      "example": "Viņa sēdēja istabā, lasīdama grāmatu.",
+      "explanation": "Viņa = feminine singular, non-reflexive verb → -dama."
+    },
+    {
+      "id": "ff-003",
+      "level": 1,
+      "lemma": "rakstīt",
+      "translation": "to write",
+      "reflexive": false,
+      "stemHint": "rakstī-",
+      "subject": "Jānis",
+      "answer": "rakstīdams",
+      "distractors": ["rakstīdama", "rakstīdamies", "rakstīdamās"],
+      "example": "Jānis domāja par tekstu, rakstīdams vēstuli.",
+      "explanation": "Jānis = masculine singular, non-reflexive verb → -dams."
+    },
+    {
+      "id": "ff-004",
+      "level": 1,
+      "lemma": "rakstīt",
+      "translation": "to write",
+      "reflexive": false,
+      "stemHint": "rakstī-",
+      "subject": "Anna",
+      "answer": "rakstīdama",
+      "distractors": ["rakstīdams", "rakstīdamies", "rakstīdamās"],
+      "example": "Anna klausījās mūziku, rakstīdama vēstuli.",
+      "explanation": "Anna = feminine singular, non-reflexive verb → -dama."
+    },
+    {
+      "id": "ff-005",
+      "level": 1,
+      "lemma": "runāt",
+      "translation": "to speak",
+      "reflexive": false,
+      "stemHint": "runā-",
+      "subject": "viņš",
+      "answer": "runādams",
+      "distractors": ["runādama", "runādamies", "runādamās"],
+      "example": "Viņš smaidīja, runādams ar draugu.",
+      "explanation": "Non-reflexive masculine singular → -dams."
+    },
+    {
+      "id": "ff-006",
+      "level": 1,
+      "lemma": "runāt",
+      "translation": "to speak",
+      "reflexive": false,
+      "stemHint": "runā-",
+      "subject": "viņa",
+      "answer": "runādama",
+      "distractors": ["runādams", "runādamies", "runādamās"],
+      "example": "Viņa smaidīja, runādama ar draugu.",
+      "explanation": "Non-reflexive feminine singular → -dama."
+    },
+    {
+      "id": "ff-007",
+      "level": 1,
+      "lemma": "strādāt",
+      "translation": "to work",
+      "reflexive": false,
+      "stemHint": "strādā-",
+      "subject": "viņš",
+      "answer": "strādādams",
+      "distractors": ["strādādama", "strādādamies", "strādādamās"],
+      "example": "Viņš dzēra kafiju, strādādams pie datora.",
+      "explanation": "Non-reflexive masculine singular → -dams."
+    },
+    {
+      "id": "ff-008",
+      "level": 1,
+      "lemma": "strādāt",
+      "translation": "to work",
+      "reflexive": false,
+      "stemHint": "strādā-",
+      "subject": "viņa",
+      "answer": "strādādama",
+      "distractors": ["strādādams", "strādādamies", "strādādamās"],
+      "example": "Viņa klausījās radio, strādādama pie datora.",
+      "explanation": "Non-reflexive feminine singular → -dama."
+    },
+    {
+      "id": "ff-009",
+      "level": 2,
+      "lemma": "dziedāt",
+      "translation": "to sing",
+      "reflexive": false,
+      "stemHint": "dziedā-",
+      "subject": "viņš",
+      "answer": "dziedādams",
+      "distractors": ["dziedādama", "dziedādamies", "dziedādamās"],
+      "example": "Viņš gāja pa ielu, dziedādams dziesmu.",
+      "explanation": "Non-reflexive masculine singular → -dams."
+    },
+    {
+      "id": "ff-010",
+      "level": 2,
+      "lemma": "dziedāt",
+      "translation": "to sing",
+      "reflexive": false,
+      "stemHint": "dziedā-",
+      "subject": "viņa",
+      "answer": "dziedādama",
+      "distractors": ["dziedādams", "dziedādamies", "dziedādamās"],
+      "example": "Viņa gāja pa ielu, dziedādama dziesmu.",
+      "explanation": "Non-reflexive feminine singular → -dama."
+    },
+    {
+      "id": "ff-011",
+      "level": 2,
+      "lemma": "spēlēt",
+      "translation": "to play",
+      "reflexive": false,
+      "stemHint": "spēlē-",
+      "subject": "viņš",
+      "answer": "spēlēdams",
+      "distractors": ["spēlēdama", "spēlēdamies", "spēlēdamās"],
+      "example": "Viņš smējās, spēlēdams klavieres.",
+      "explanation": "Non-reflexive masculine singular → -dams."
+    },
+    {
+      "id": "ff-012",
+      "level": 2,
+      "lemma": "spēlēt",
+      "translation": "to play",
+      "reflexive": false,
+      "stemHint": "spēlē-",
+      "subject": "viņa",
+      "answer": "spēlēdama",
+      "distractors": ["spēlēdams", "spēlēdamies", "spēlēdamās"],
+      "example": "Viņa smējās, spēlēdama klavieres.",
+      "explanation": "Non-reflexive feminine singular → -dama."
+    },
+    {
+      "id": "ff-013",
+      "level": 2,
+      "lemma": "mācīties",
+      "translation": "to study / to learn",
+      "reflexive": true,
+      "stemHint": "mācī-",
+      "subject": "viņš",
+      "answer": "mācīdamies",
+      "distractors": ["mācīdams", "mācīdama", "mācīdamās"],
+      "example": "Viņš klausījās mūziku, mācīdamies eksāmenam.",
+      "explanation": "Mācīties is reflexive; masculine singular reflexive form → -damies."
+    },
+    {
+      "id": "ff-014",
+      "level": 2,
+      "lemma": "mācīties",
+      "translation": "to study / to learn",
+      "reflexive": true,
+      "stemHint": "mācī-",
+      "subject": "viņa",
+      "answer": "mācīdamās",
+      "distractors": ["mācīdams", "mācīdama", "mācīdamies"],
+      "example": "Viņa klausījās mūziku, mācīdamās eksāmenam.",
+      "explanation": "Mācīties is reflexive; feminine singular reflexive form → -damās."
+    },
+    {
+      "id": "ff-015",
+      "level": 2,
+      "lemma": "mazgāties",
+      "translation": "to wash oneself",
+      "reflexive": true,
+      "stemHint": "mazgā-",
+      "subject": "viņš",
+      "answer": "mazgādamies",
+      "distractors": ["mazgādams", "mazgādama", "mazgādamās"],
+      "example": "Viņš dziedāja, mazgādamies dušā.",
+      "explanation": "Mazgāties is reflexive; masculine singular reflexive form → -damies."
+    },
+    {
+      "id": "ff-016",
+      "level": 2,
+      "lemma": "mazgāties",
+      "translation": "to wash oneself",
+      "reflexive": true,
+      "stemHint": "mazgā-",
+      "subject": "viņa",
+      "answer": "mazgādamās",
+      "distractors": ["mazgādams", "mazgādama", "mazgādamies"],
+      "example": "Viņa dziedāja, mazgādamās dušā.",
+      "explanation": "Mazgāties is reflexive; feminine singular reflexive form → -damās."
+    },
+    {
+      "id": "ff-017",
+      "level": 2,
+      "lemma": "ģērbties",
+      "translation": "to get dressed",
+      "reflexive": true,
+      "stemHint": "ģērb-",
+      "subject": "viņš",
+      "answer": "ģērbdamies",
+      "distractors": ["ģērbdams", "ģērbdama", "ģērbdamās"],
+      "example": "Viņš steidzās, ģērbdamies priekšnamā.",
+      "explanation": "Ģērbties is reflexive; masculine singular reflexive form → -damies."
+    },
+    {
+      "id": "ff-018",
+      "level": 2,
+      "lemma": "ģērbties",
+      "translation": "to get dressed",
+      "reflexive": true,
+      "stemHint": "ģērb-",
+      "subject": "viņa",
+      "answer": "ģērbdamās",
+      "distractors": ["ģērbdams", "ģērbdama", "ģērbdamies"],
+      "example": "Viņa steidzās, ģērbdamās priekšnamā.",
+      "explanation": "Ģērbties is reflexive; feminine singular reflexive form → -damās."
+    },
+    {
+      "id": "ff-019",
+      "level": 3,
+      "lemma": "iet",
+      "translation": "to go",
+      "reflexive": false,
+      "stemHint": "ie-",
+      "subject": "viņš",
+      "answer": "iedams",
+      "distractors": ["iedama", "iedamies", "iedamās"],
+      "example": "Viņš skatījās telefonā, iedams uz darbu.",
+      "explanation": "Iet has the form iedams for masculine singular."
+    },
+    {
+      "id": "ff-020",
+      "level": 3,
+      "lemma": "iet",
+      "translation": "to go",
+      "reflexive": false,
+      "stemHint": "ie-",
+      "subject": "viņa",
+      "answer": "iedama",
+      "distractors": ["iedams", "iedamies", "iedamās"],
+      "example": "Viņa skatījās telefonā, iedama uz darbu.",
+      "explanation": "Iet has the form iedama for feminine singular."
+    },
+    {
+      "id": "ff-021",
+      "level": 3,
+      "lemma": "dzert",
+      "translation": "to drink",
+      "reflexive": false,
+      "stemHint": "dzer-",
+      "subject": "viņš",
+      "answer": "dzerdams",
+      "distractors": ["dzerdama", "dzerdamies", "dzerdamās"],
+      "example": "Viņš lasīja avīzi, dzerdams tēju.",
+      "explanation": "Non-reflexive masculine singular → -dams."
+    },
+    {
+      "id": "ff-022",
+      "level": 3,
+      "lemma": "dzert",
+      "translation": "to drink",
+      "reflexive": false,
+      "stemHint": "dzer-",
+      "subject": "viņa",
+      "answer": "dzerdama",
+      "distractors": ["dzerdams", "dzerdamies", "dzerdamās"],
+      "example": "Viņa lasīja avīzi, dzerdama tēju.",
+      "explanation": "Non-reflexive feminine singular → -dama."
+    },
+    {
+      "id": "ff-023",
+      "level": 3,
+      "lemma": "skriet",
+      "translation": "to run",
+      "reflexive": false,
+      "stemHint": "skrie-",
+      "subject": "viņš",
+      "answer": "skriedams",
+      "distractors": ["skriedama", "skriedamies", "skriedamās"],
+      "example": "Viņš smagi elpoja, skriedams pa stadionu.",
+      "explanation": "Skriet has the participle stem skrie- → skriedams."
+    },
+    {
+      "id": "ff-024",
+      "level": 3,
+      "lemma": "skriet",
+      "translation": "to run",
+      "reflexive": false,
+      "stemHint": "skrie-",
+      "subject": "viņa",
+      "answer": "skriedama",
+      "distractors": ["skriedams", "skriedamies", "skriedamās"],
+      "example": "Viņa smagi elpoja, skriedama pa stadionu.",
+      "explanation": "Skriet has the participle stem skrie- → skriedama."
+    }
+  ],
+  "extensionItems": [
+    {
+      "id": "ff-ext-001",
+      "level": 4,
+      "lemma": "lasīt",
+      "translation": "to read",
+      "reflexive": false,
+      "stemHint": "lasī-",
+      "subject": "viņi",
+      "answer": "lasīdami",
+      "distractors": ["lasīdams", "lasīdama", "lasīdamas"],
+      "example": "Viņi sēdēja bibliotēkā, lasīdami grāmatas.",
+      "explanation": "Viņi = masculine/mixed plural, non-reflexive → -dami."
+    },
+    {
+      "id": "ff-ext-002",
+      "level": 4,
+      "lemma": "lasīt",
+      "translation": "to read",
+      "reflexive": false,
+      "stemHint": "lasī-",
+      "subject": "viņas",
+      "answer": "lasīdamas",
+      "distractors": ["lasīdams", "lasīdama", "lasīdami"],
+      "example": "Viņas sēdēja bibliotēkā, lasīdamas grāmatas.",
+      "explanation": "Viņas = feminine plural, non-reflexive → -damas."
+    },
+    {
+      "id": "ff-ext-003",
+      "level": 4,
+      "lemma": "mācīties",
+      "translation": "to study / to learn",
+      "reflexive": true,
+      "stemHint": "mācī-",
+      "subject": "viņi",
+      "answer": "mācīdamies",
+      "distractors": ["mācīdami", "mācīdamas", "mācīdamās"],
+      "example": "Viņi klausījās ierakstu, mācīdamies jaunus vārdus.",
+      "explanation": "Reflexive masculine/mixed plural uses -damies."
+    },
+    {
+      "id": "ff-ext-004",
+      "level": 4,
+      "lemma": "mācīties",
+      "translation": "to study / to learn",
+      "reflexive": true,
+      "stemHint": "mācī-",
+      "subject": "viņas",
+      "answer": "mācīdamās",
+      "distractors": ["mācīdami", "mācīdamas", "mācīdamies"],
+      "example": "Viņas klausījās ierakstu, mācīdamās jaunus vārdus.",
+      "explanation": "Reflexive feminine plural uses -damās."
+    }
+  ]
+}

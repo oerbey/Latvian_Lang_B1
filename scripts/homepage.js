@@ -91,6 +91,17 @@ const games = [
     category: 'conjugation',
   },
   {
+    title: 'Form Factory',
+    href: 'form-factory.html',
+    icon: '🏭',
+    desc: 'Practice divdabji with -dams, -dama, -damies, and -damās forms.',
+    tag: 'Divdabji',
+    meta: ['Focus: participles', '6–9 min', 'Build'],
+    accent: '#6a4b2e',
+    art: 'linear-gradient(135deg, rgba(106, 75, 46, 0.24), rgba(47, 107, 91, 0.2)), url("assets/previews/endings_preview.png")',
+    category: 'conjugation',
+  },
+  {
     title: 'Passive Voice Builder',
     href: 'passive-lab.html',
     icon: '🔬',

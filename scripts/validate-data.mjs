@@ -46,6 +46,11 @@ const DATASETS = [
     dataPath: 'data/travel-tracker/routes.json',
     schemaPath: 'schemas/travel-tracker-routes.schema.json',
   },
+  {
+    name: 'form-factory items',
+    dataPath: 'data/form-factory/items.json',
+    schemaPath: 'schemas/form-factory.schema.json',
+  },
 ];
 
 const ajv = new Ajv({ allErrors: true, strict: false });

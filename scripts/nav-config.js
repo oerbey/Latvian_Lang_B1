@@ -14,6 +14,7 @@ export const NAV_ITEMS = [
   { href: 'similar-word-groups.html', label: 'Līdzīgo formu treniņš' },
   { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },
   { href: 'endings-builder.html', label: 'Endings Builder' },
+  { href: 'form-factory.html', label: 'Form Factory' },
   { href: 'passive-lab.html', label: 'Ciešamās Kārtas Laboratorija' },
   { href: 'sentence-surgery-passive.html', label: 'Sentence Surgery — Ciešamā kārta' },
   { href: 'decl6-detective.html', label: 'Kas ir manā mājā?' },

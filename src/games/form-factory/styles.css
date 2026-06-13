@@ -1,0 +1,317 @@
+/* Form Factory — scoped layout for divdabju choice/build practice. */
+
+.ff-page {
+  min-height: 100vh;
+}
+
+.ff-shell {
+  display: grid;
+  gap: 1.35rem;
+  padding: clamp(1.3rem, 3vw, 2.4rem) 0;
+}
+
+.ff-hero {
+  gap: 1rem;
+}
+
+.ff-rule-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.85rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-surface-alt);
+  box-shadow: 0 12px 24px var(--dp-shadow);
+}
+
+.ff-rule-card span {
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  border-radius: 10px;
+  background: var(--dp-accent-soft);
+  color: var(--dp-text);
+  font-weight: 800;
+}
+
+.ff-control-panel .dp-ex-panel__body {
+  display: grid;
+  gap: 1rem;
+}
+
+.ff-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ff-page .ff-controls-row .dp-mode-group label.is-active {
+  background: var(--dp-accent);
+  color: #fff;
+}
+
+.ff-page .ff-controls-row .dp-mode-group label:not(.is-active) {
+  background: var(--dp-surface);
+  color: var(--dp-text);
+}
+
+.ff-scoreboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(84px, 1fr));
+  gap: 0.55rem;
+  flex: 1 1 420px;
+}
+
+.ff-stat {
+  display: grid;
+  gap: 0.2rem;
+  min-height: 62px;
+  padding: 0.48rem 0.6rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 12px;
+  background: var(--dp-surface-subtle);
+}
+
+.ff-stat__label {
+  color: var(--dp-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ff-stat strong {
+  color: var(--dp-text);
+  font-size: 1.1rem;
+  line-height: 1.15;
+}
+
+.ff-best,
+.ff-muted {
+  color: var(--dp-muted);
+}
+
+.ff-best {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.ff-error {
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--feedback-error);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--feedback-error) 10%, var(--dp-surface));
+  color: var(--feedback-error);
+  font-weight: 700;
+}
+
+.ff-board {
+  gap: 1rem;
+}
+
+.ff-prompt-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ff-prompt-card__item {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 96px;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 14px;
+  background:
+    linear-gradient(120deg, rgba(106, 75, 46, 0.08), rgba(47, 107, 91, 0.08)), var(--dp-surface);
+}
+
+.ff-prompt-card__label,
+.ff-zone-title,
+.ff-example__label {
+  margin: 0;
+  color: var(--dp-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ff-prompt-card strong {
+  color: var(--dp-text);
+  font-size: clamp(1.45rem, 1.1rem + 1.4vw, 2.1rem);
+  line-height: 1.05;
+}
+
+.ff-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.ff-choice,
+.ff-ending-tile {
+  min-height: 52px;
+  border: 1px solid var(--dp-border);
+  border-radius: 13px;
+  background: linear-gradient(180deg, var(--dp-surface) 0%, var(--dp-surface-subtle) 100%);
+  color: var(--dp-text);
+  font-weight: 800;
+  box-shadow: 0 8px 18px var(--dp-shadow);
+}
+
+.ff-choice:hover:not(:disabled),
+.ff-ending-tile:hover:not(:disabled) {
+  border-color: var(--dp-accent);
+  box-shadow: 0 14px 28px var(--dp-shadow-strong);
+}
+
+.ff-choice.is-correct,
+.ff-answer-input.is-correct {
+  border-color: var(--feedback-success);
+  background: var(--dp-success-soft);
+  color: var(--feedback-success);
+}
+
+.ff-choice.is-wrong,
+.ff-answer-input.is-wrong {
+  border-color: var(--feedback-error);
+  background: color-mix(in srgb, var(--feedback-error) 10%, var(--dp-surface));
+  color: var(--feedback-error);
+}
+
+.ff-build-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 0.75rem;
+}
+
+.ff-build-zone {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.85rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 14px;
+  background: var(--dp-surface);
+}
+
+.ff-build-target {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  min-height: 62px;
+  padding: 0.75rem;
+  border: 1px dashed color-mix(in srgb, var(--dp-accent) 55%, var(--dp-border));
+  border-radius: 12px;
+  background: var(--dp-accent-soft);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem);
+  font-weight: 900;
+}
+
+.ff-stem {
+  color: var(--dp-text);
+}
+
+.ff-selected-ending {
+  color: var(--dp-accent);
+}
+
+.ff-answer-label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--dp-muted);
+  font-weight: 700;
+}
+
+.ff-answer-input {
+  min-height: 48px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 12px;
+  background: var(--dp-surface);
+  color: var(--dp-text);
+  font: inherit;
+  font-weight: 700;
+}
+
+.ff-answer-input:focus {
+  border-color: var(--dp-accent);
+  box-shadow: 0 0 0 3px var(--dp-accent-soft);
+  outline: none;
+}
+
+.ff-ending-bank {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.ff-ending-tile[aria-pressed='true'] {
+  border-color: var(--dp-accent);
+  background: color-mix(in srgb, var(--dp-accent) 18%, var(--dp-surface));
+  box-shadow: 0 12px 24px var(--dp-accent-shadow);
+}
+
+.ff-feedback {
+  min-height: 58px;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 14px;
+  background: var(--dp-surface-subtle);
+  color: var(--dp-text);
+  font-weight: 700;
+}
+
+.ff-feedback[data-tone='right'] {
+  border-color: var(--feedback-success);
+  background: var(--dp-success-soft);
+}
+
+.ff-feedback[data-tone='wrong'] {
+  border-color: var(--feedback-error);
+  background: color-mix(in srgb, var(--feedback-error) 9%, var(--dp-surface));
+}
+
+.ff-example {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 12px;
+  background: var(--dp-surface);
+}
+
+.ff-example p:last-child {
+  margin-bottom: 0;
+}
+
+.ff-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 760px) {
+  .ff-scoreboard,
+  .ff-prompt-card,
+  .ff-choice-grid,
+  .ff-build-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ff-controls-row {
+    align-items: stretch;
+  }
+
+  .ff-controls-row .dp-mode-group {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ff-choice,
+  .ff-ending-tile {
+    transition: none;
+  }
+}

@@ -15,6 +15,8 @@ const homepagePreviewCards = [
   { title: 'Conjugation Sprint', preview: 'sprint_preview.png', href: 'conjugation-sprint.html' },
   { title: 'Endings Builder', preview: 'endings_preview.png', href: 'endings-builder.html' },
   { title: 'Form Factory', preview: 'endings_preview.png', href: 'form-factory.html' },
+  { title: 'Form Factory v2', preview: 'endings_preview.png', href: 'form-factory-v2.html' },
+  { title: 'Form Factory v3', preview: 'endings_preview.png', href: 'form-factory-v3.html' },
   { title: 'Passive Voice Builder', preview: 'passive_preview.png', href: 'passive-lab.html' },
   {
     title: 'Sentence Surgery — Ciešamā kārta',
@@ -160,6 +162,43 @@ test('form factory loads data and checks choice and build modes', async ({ page 
     .click();
   await page.locator('#ff-check-build').click();
   await expect(page.locator('#ff-feedback')).toContainText('Pareizi!');
+});
+
+test('form factory v2 starts a cloze round and checks an answer', async ({ page }) => {
+  await page.goto('/form-factory-v2.html');
+
+  await expect(page.getByRole('heading', { name: 'Form Factory v2' })).toBeVisible();
+  await page.getByRole('button', { name: /Pamata raunds/ }).click();
+
+  await expect(page.locator('#ffv2-progress-text')).toHaveText(/1\/\d+/);
+  await expect(page.locator('#ffv2-options button')).toHaveCount(4);
+
+  const gameState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page
+    .locator('#ffv2-options')
+    .getByRole('button', { name: gameState.prompt.answer, exact: true })
+    .click();
+
+  await expect(page.locator('#ffv2-feedback')).toContainText('Pareizi!');
+  await expect(page.locator('#ffv2-score')).toHaveText('1');
+  await expect(page.locator('#ffv2-cloze-gap')).toHaveText(gameState.prompt.answer);
+});
+
+test('form factory v3 starts a tap-first round and checks an answer', async ({ page }) => {
+  await page.goto('/form-factory-v3.html');
+
+  await expect(page.getByRole('heading', { name: 'Form Factory v3' })).toBeVisible();
+  await page.getByRole('button', { name: /Pamata/ }).click();
+
+  await expect(page.locator('#ffv3-progress-text')).toHaveText(/1\/\d+/);
+  await expect(page.locator('#ffv3-options button')).toHaveCount(4);
+
+  const gameState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page.locator('#ffv3-options button').filter({ hasText: gameState.prompt.answer }).click();
+
+  await expect(page.locator('#ffv3-feedback')).toContainText('Pareizi!');
+  await expect(page.locator('#ffv3-score')).toHaveText('1');
+  await expect(page.locator('#ffv3-cloze-gap')).toHaveText(gameState.prompt.answer);
 });
 
 test('decl6 detective starts and solves a clue', async ({ page }) => {

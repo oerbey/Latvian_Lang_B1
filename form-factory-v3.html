@@ -1,0 +1,221 @@
+<!--
+  form-factory-v3.html — Form Factory v3.
+  Mobile-first cloze practice for Latvian adverbial participles:
+  -dams, -dama, -damies, -damās, -dami, -damas.
+  Entry script: src/games/form-factory-v3/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#f6fbfa" />
+    <meta
+      name="description"
+      content="Form Factory v3 — mobile-friendly Latvian divdabju practice with fast cloze rounds."
+    />
+    <title>Form Factory v3 — Latvian B Level</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/form-factory-v3/styles.css" />
+  </head>
+  <body class="dp-page game-theme ffv3-page">
+    <a class="dp-skip" href="#main">Skip to main content</a>
+
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="ffv3-app" data-form-factory-v3>
+        <div id="ffv3-error" class="ffv3-error" role="alert" hidden></div>
+
+        <section class="ffv3-screen ffv3-start" data-screen="start" aria-labelledby="ffv3-title">
+          <div class="ffv3-start__intro">
+            <div class="ffv3-brand">
+              <span class="ffv3-brand__mark" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="visually-hidden">Divdabju treniņš</span>
+            </div>
+            <h1 id="ffv3-title" class="ffv3-title">Form Factory v3</h1>
+            <p class="ffv3-lead">
+              Trenē -dams, -dama, -damies un -damās īsos teikuma raundos ar lielām, ātri nospiežamām
+              atbildēm.
+            </p>
+
+            <div class="ffv3-memory" aria-label="Saglabātais progress">
+              <p id="ffv3-best-line">Sāc pirmo raundu un saglabā savu labāko sēriju.</p>
+              <p id="ffv3-rounds-line">12 īsi jautājumi vienā raundā.</p>
+            </div>
+          </div>
+
+          <div class="ffv3-start__panel">
+            <div class="ffv3-deck-list" role="group" aria-label="Izvēlies raunda kopu">
+              <button class="ffv3-deck" type="button" data-deck="core">
+                <span>
+                  <strong>Pamata</strong>
+                  <small>Ikdienas teikumi un biežākās formas</small>
+                </span>
+                <em id="ffv3-core-count">0 formas</em>
+              </button>
+              <button class="ffv3-deck" type="button" data-deck="reflexive">
+                <span>
+                  <strong>Atgriezeniskie</strong>
+                  <small>Fokuss uz -damies un -damās</small>
+                </span>
+                <em id="ffv3-reflexive-count">0 formas</em>
+              </button>
+              <button class="ffv3-deck" type="button" data-deck="all">
+                <span>
+                  <strong>Visas formas</strong>
+                  <small>Jaukts raunds ar daudzskaitli</small>
+                </span>
+                <em id="ffv3-all-count">0 formas</em>
+              </button>
+            </div>
+
+            <div class="ffv3-ending-rail" aria-label="Formu galotnes">
+              <span>-dams</span>
+              <span>-dama</span>
+              <span>-damies</span>
+              <span>-damās</span>
+              <span>-dami</span>
+              <span>-damas</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="ffv3-screen ffv3-play" data-screen="play" aria-label="Uzdevums" hidden>
+          <header class="ffv3-hud">
+            <button
+              id="ffv3-quit"
+              class="ffv3-icon-btn"
+              type="button"
+              aria-label="Atpakaļ uz sākumu"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+
+            <div class="ffv3-hud__main">
+              <div class="ffv3-hud__line">
+                <span id="ffv3-deck-label">Visas formas</span>
+                <strong id="ffv3-progress-text">0/0</strong>
+              </div>
+              <div
+                class="ffv3-progress"
+                role="progressbar"
+                aria-label="Raunda progress"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <span id="ffv3-progress-bar"></span>
+              </div>
+            </div>
+
+            <div class="ffv3-mini-stats" aria-label="Raunda rezultāts">
+              <span><small>Punkti</small><strong id="ffv3-score">0</strong></span>
+              <span><small>Sērija</small><strong id="ffv3-streak">0</strong></span>
+            </div>
+          </header>
+
+          <article class="ffv3-card" aria-live="polite">
+            <div class="ffv3-meta">
+              <span id="ffv3-subject">—</span>
+              <span id="ffv3-verb">—</span>
+              <span id="ffv3-type">—</span>
+            </div>
+
+            <p class="ffv3-cloze">
+              <span id="ffv3-cloze-before">—</span>
+              <span id="ffv3-cloze-gap" class="ffv3-cloze__gap">___</span>
+              <span id="ffv3-cloze-after"></span>
+            </p>
+
+            <div id="ffv3-options" class="ffv3-options" aria-label="Atbilžu varianti"></div>
+          </article>
+
+          <aside
+            id="ffv3-feedback"
+            class="ffv3-feedback"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+          >
+            <div>
+              <h2 id="ffv3-feedback-title">Pareizi!</h2>
+              <p id="ffv3-feedback-text">—</p>
+            </div>
+            <button id="ffv3-next" class="ffv3-primary" type="button">Tālāk</button>
+          </aside>
+        </section>
+
+        <section
+          class="ffv3-screen ffv3-summary"
+          data-screen="summary"
+          aria-labelledby="ffv3-summary-title"
+          hidden
+        >
+          <div class="ffv3-summary__top">
+            <h2 id="ffv3-summary-title" class="ffv3-title">Raunds pabeigts</h2>
+            <p id="ffv3-summary-message">—</p>
+          </div>
+
+          <div class="ffv3-summary__score" aria-label="Raunda precizitāte">
+            <strong id="ffv3-summary-accuracy">0%</strong>
+            <span>precizitāte</span>
+          </div>
+
+          <dl class="ffv3-summary-grid">
+            <div>
+              <dt>Rezultāts</dt>
+              <dd id="ffv3-summary-score">0/0</dd>
+            </div>
+            <div>
+              <dt>Labākā sērija</dt>
+              <dd id="ffv3-summary-streak">0</dd>
+            </div>
+            <div>
+              <dt>Labākais rezultāts</dt>
+              <dd id="ffv3-summary-best">0</dd>
+            </div>
+          </dl>
+
+          <div class="ffv3-summary-actions">
+            <button id="ffv3-replay" class="ffv3-primary" type="button">Spēlēt vēlreiz</button>
+            <button id="ffv3-change-deck" class="ffv3-secondary" type="button">Mainīt kopu</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="dp-footer" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="src/games/form-factory-v3/index.js"></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+  </body>
+</html>

@@ -1,0 +1,192 @@
+<!--
+  form-factory-v2.html — Form Factory v2.
+  Mobile-first cloze practice for Latvian adverbial participles:
+  -dams, -dama, -damies, -damās (plus plural -dami, -damas).
+  Entry script: src/games/form-factory-v2/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0f13" />
+    <meta
+      name="description"
+      content="Form Factory v2 — mobile-first cloze practice for Latvian divdabji with -dams, -dama, -damies, and -damās."
+    />
+    <title>Form Factory v2 — Latvian B Level</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/form-factory-v2/styles.css" />
+  </head>
+  <body class="dp-page game-theme theme-endings ffv2-page">
+    <a class="dp-skip" href="#main">Skip to main content</a>
+
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="ffv2-shell" data-form-factory-v2>
+        <div id="ffv2-error" class="ffv2-error" role="alert" hidden></div>
+
+        <!-- Start screen: pick a deck -->
+        <section class="ffv2-start" data-screen="start" aria-labelledby="ffv2-title">
+          <p class="ffv2-eyebrow">Divdabju darbnīca · v2</p>
+          <h1 id="ffv2-title" class="ffv2-title">Form Factory v2</h1>
+          <p class="ffv2-lead">
+            Aizpildi teikuma tukšo vietu ar pareizo divdabja formu: -dams, -dama, -damies vai
+            -damās.
+          </p>
+          <div class="ffv2-endings-strip" aria-hidden="true">
+            <span>-dams</span>
+            <span>-dama</span>
+            <span>-damies</span>
+            <span>-damās</span>
+            <span>-dami</span>
+            <span>-damas</span>
+          </div>
+          <div class="ffv2-deck-grid" role="group" aria-label="Izvēlies uzdevumu kopu">
+            <button class="ffv2-deck" type="button" data-deck="core">
+              <strong>Pamata raunds</strong>
+              <span>Vienskaitļa formas · 1.–3. līmenis</span>
+            </button>
+            <button class="ffv2-deck" type="button" data-deck="plural">
+              <strong>Daudzskaitlis</strong>
+              <span>-dami un -damas · paplašinājums</span>
+            </button>
+            <button class="ffv2-deck" type="button" data-deck="all">
+              <strong>Viss kopā</strong>
+              <span>Jauktas formas · pilnais izaicinājums</span>
+            </button>
+          </div>
+          <p id="ffv2-start-best" class="ffv2-start-best">
+            Spēlē pirmo raundu, lai sāktu krāt rezultātus.
+          </p>
+        </section>
+
+        <!-- Play screen: cloze card -->
+        <section class="ffv2-play" data-screen="play" aria-label="Uzdevums" hidden>
+          <div class="ffv2-hud">
+            <div class="ffv2-hud__stat">
+              <small>Uzdevums</small>
+              <strong id="ffv2-progress-text">0/0</strong>
+            </div>
+            <div
+              class="ffv2-progress"
+              role="progressbar"
+              aria-label="Raunda progress"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+            >
+              <div id="ffv2-progress-bar" class="ffv2-progress__bar"></div>
+            </div>
+            <div class="ffv2-hud__stat">
+              <small>Sērija</small>
+              <strong id="ffv2-streak">—</strong>
+            </div>
+            <div class="ffv2-hud__stat">
+              <small>Punkti</small>
+              <strong id="ffv2-score">0</strong>
+            </div>
+          </div>
+
+          <article class="ffv2-card" aria-live="polite">
+            <div class="ffv2-chips">
+              <span id="ffv2-subject-chip" class="ffv2-chip ffv2-chip--subject">—</span>
+              <span id="ffv2-verb-chip" class="ffv2-chip">—</span>
+              <span id="ffv2-reflex-chip" class="ffv2-chip ffv2-chip--reflex">—</span>
+            </div>
+
+            <p class="ffv2-cloze">
+              <span id="ffv2-cloze-before">—</span>
+              <span id="ffv2-cloze-gap" class="ffv2-cloze__gap">___</span>
+              <span id="ffv2-cloze-after"></span>
+            </p>
+
+            <div id="ffv2-options" class="ffv2-options" aria-label="Atbilžu varianti"></div>
+
+            <div
+              id="ffv2-feedback"
+              class="ffv2-feedback"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              hidden
+            >
+              <p id="ffv2-feedback-text"></p>
+              <button id="ffv2-next" class="dp-btn dp-btn--primary ffv2-next" type="button">
+                Tālāk
+              </button>
+            </div>
+          </article>
+
+          <div class="ffv2-quit-row">
+            <button id="ffv2-quit" class="ffv2-quit" type="button">Pārtraukt raundu</button>
+          </div>
+        </section>
+
+        <!-- Summary screen -->
+        <section
+          class="ffv2-summary"
+          data-screen="summary"
+          aria-labelledby="ffv2-summary-title"
+          hidden
+        >
+          <h2 id="ffv2-summary-title" class="ffv2-title">Raunds pabeigts!</h2>
+          <p id="ffv2-summary-message" class="ffv2-summary-message">—</p>
+          <div class="ffv2-summary-grid">
+            <div class="ffv2-summary-stat">
+              <small>Rezultāts</small>
+              <strong id="ffv2-summary-score">0/0</strong>
+            </div>
+            <div class="ffv2-summary-stat">
+              <small>Precizitāte</small>
+              <strong id="ffv2-summary-accuracy">0%</strong>
+            </div>
+            <div class="ffv2-summary-stat">
+              <small>Labākā sērija</small>
+              <strong id="ffv2-summary-streak">0</strong>
+            </div>
+            <div class="ffv2-summary-stat">
+              <small>Labākais rezultāts</small>
+              <strong id="ffv2-summary-best">0</strong>
+            </div>
+          </div>
+          <div class="ffv2-summary-actions">
+            <button id="ffv2-replay" class="dp-btn dp-btn--primary" type="button">
+              Spēlēt vēlreiz
+            </button>
+            <button id="ffv2-change-deck" class="dp-btn dp-btn--outline" type="button">
+              Mainīt kopu
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="dp-footer" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="src/games/form-factory-v2/index.js"></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+  </body>
+</html>

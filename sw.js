@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v20';
+const CACHE_VERSION = 'v22';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -51,6 +51,8 @@ const CORE_ASSETS = [
   './english-latvian-arcade.html',
   './endings-builder.html',
   './form-factory.html',
+  './form-factory-v2.html',
+  './form-factory-v3.html',
   './maini-vai-mainies.html',
   './passive-lab.html',
   './prefixed-coming-verbs.html',
@@ -71,6 +73,12 @@ const CORE_ASSETS = [
   './src/games/english-latvian-arcade/styles.css',
   './src/games/endings-builder/index.js',
   './src/games/form-factory/index.js',
+  './src/games/form-factory-v2/index.js',
+  './src/games/form-factory-v2/logic.js',
+  './src/games/form-factory-v2/styles.css',
+  './src/games/form-factory-v3/index.js',
+  './src/games/form-factory-v3/logic.js',
+  './src/games/form-factory-v3/styles.css',
   './src/games/form-factory/styles.css',
   './src/games/maini-vai-mainies/index.js',
   './src/games/passive-lab/index.js',

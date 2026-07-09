@@ -15,6 +15,8 @@ export const NAV_ITEMS = [
   { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },
   { href: 'endings-builder.html', label: 'Endings Builder' },
   { href: 'form-factory.html', label: 'Form Factory' },
+  { href: 'form-factory-v2.html', label: 'Form Factory v2' },
+  { href: 'form-factory-v3.html', label: 'Form Factory v3' },
   { href: 'passive-lab.html', label: 'Ciešamās Kārtas Laboratorija' },
   { href: 'sentence-surgery-passive.html', label: 'Sentence Surgery — Ciešamā kārta' },
   { href: 'decl6-detective.html', label: 'Kas ir manā mājā?' },

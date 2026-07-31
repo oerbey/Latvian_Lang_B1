@@ -3,6 +3,11 @@ import { test, expect } from '@playwright/test';
 const homepagePreviewCards = [
   { title: 'Darbības Vārdi', preview: 'verbs_preview.png', href: 'darbibas-vards.html' },
   {
+    title: 'Darbības Vārdi V2',
+    preview: 'verbs_preview.png',
+    href: 'darbibas-vardi-v2.html',
+  },
+  {
     title: 'Nākt ar priedēkļiem',
     preview: 'verbs_preview.png',
     href: 'prefixed-coming-verbs.html',
@@ -141,27 +146,27 @@ test('form factory loads data and checks choice and build modes', async ({ page 
   await page.goto('/form-factory.html');
 
   await expect(page.getByRole('heading', { name: 'Form Factory' })).toBeVisible();
-  await expect(page.locator('#ff-lemma')).not.toHaveText('—');
-  await expect(page.locator('#ff-choices button')).toHaveCount(4);
+  await expect(page.locator('#fx-lemma')).not.toHaveText('—');
+  await expect(page.locator('#fx-choices button')).toHaveCount(4);
 
   const initialState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   await page
-    .locator('#ff-choices')
+    .locator('#fx-choices')
     .getByRole('button', { name: initialState.prompt.answer, exact: true })
     .click();
-  await expect(page.locator('#ff-feedback')).toContainText('Pareizi!');
-  await expect(page.locator('#ff-score')).toHaveText('1');
+  await expect(page.locator('#fx-feedback')).toContainText('Pareizi!');
+  await expect(page.locator('#fx-score')).toHaveText('1');
 
-  await page.locator('#ff-next').click();
-  await page.locator('label[for="ff-mode-build"]').click();
+  await page.locator('#fx-next').click();
+  await page.locator('label[for="fx-mode-build"]').click();
   const buildState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   const ending = buildState.prompt.answer.match(/dam(?:ies|ās|as|a|i|s)$/)?.[0] || '';
   await page
-    .locator('#ff-endings')
+    .locator('#fx-endings')
     .getByRole('button', { name: `-${ending}`, exact: true })
     .click();
-  await page.locator('#ff-check-build').click();
-  await expect(page.locator('#ff-feedback')).toContainText('Pareizi!');
+  await page.locator('#fx-check-build').click();
+  await expect(page.locator('#fx-feedback')).toContainText('Pareizi!');
 });
 
 test('form factory v2 starts a cloze round and checks an answer', async ({ page }) => {

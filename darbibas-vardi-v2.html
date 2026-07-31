@@ -1,0 +1,327 @@
+<!--
+  darbibas-vardi-v2.html — Darbības Vārdi V2.
+  Mobile-first adaptive Latvian verb trainer: a per-verb Leitner ladder that
+  moves from meaning, to conjugated form, to assembling a form from parts.
+  Entry script: src/games/darbibas-vardi-v2/index.js
+-->
+<!doctype html>
+<html lang="lv" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f6fb" />
+    <meta
+      name="description"
+      content="Darbības Vārdi V2 — adaptīvs latviešu darbības vārdu treniņš ar atkārtošanas intervāliem, formu izvēli un formu salikšanu."
+    />
+    <title>Darbības Vārdi V2 — Latvian B Level</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/games/darbibas-vardi-v2/styles.css" />
+  </head>
+  <body class="dp-page game-theme dv2-page">
+    <a class="dp-skip" href="#main">Skip to main content</a>
+
+    <nav data-site-nav></nav>
+
+    <main id="main">
+      <div class="dv2-app" data-darbibas-vardi-v2>
+        <div id="dv2-error" class="dv2-error" role="alert" hidden></div>
+        <p id="dv2-live" class="visually-hidden" role="status" aria-live="polite"></p>
+
+        <section class="dv2-screen dv2-start" data-screen="start" aria-labelledby="dv2-title">
+          <header class="dv2-hero">
+            <span class="dv2-eyebrow">Adaptīvais treniņš</span>
+            <h1 id="dv2-title" class="dv2-title">Darbības Vārdi V2</h1>
+            <p class="dv2-lead">
+              Katrs darbības vārds ceļo pa savu prasmju kāpni. Kļūdas atgriežas uzreiz, zināmie
+              vārdi atgriežas pēc dienām.
+            </p>
+          </header>
+
+          <div class="dv2-stat-row" aria-label="Tavs progress">
+            <div class="dv2-stat">
+              <strong id="dv2-xp">0</strong>
+              <span>XP</span>
+            </div>
+            <div class="dv2-stat">
+              <strong id="dv2-daily-streak">0</strong>
+              <span>dienu sērija</span>
+            </div>
+            <div class="dv2-stat">
+              <strong id="dv2-best-streak">0</strong>
+              <span>labākā sērija</span>
+            </div>
+          </div>
+
+          <section class="dv2-panel" aria-labelledby="dv2-deck-heading">
+            <h2 id="dv2-deck-heading" class="dv2-panel__title">Tava kava</h2>
+            <div class="dv2-deck-grid">
+              <div class="dv2-deck-cell dv2-deck-cell--due">
+                <strong id="dv2-due-count">0</strong>
+                <span>atkārtot tagad</span>
+              </div>
+              <div class="dv2-deck-cell">
+                <strong id="dv2-learning-count">0</strong>
+                <span>mācās</span>
+              </div>
+              <div class="dv2-deck-cell">
+                <strong id="dv2-mastered-count">0</strong>
+                <span>apgūti</span>
+              </div>
+              <div class="dv2-deck-cell">
+                <strong id="dv2-fresh-count">0</strong>
+                <span>vēl nesākti</span>
+              </div>
+            </div>
+            <div class="dv2-mastery" aria-hidden="true">
+              <span id="dv2-mastery-bar"></span>
+            </div>
+            <p id="dv2-deck-note" class="dv2-note">Ielādē vārdu krājumu…</p>
+          </section>
+
+          <section class="dv2-panel" aria-labelledby="dv2-ladder-heading">
+            <h2 id="dv2-ladder-heading" class="dv2-panel__title">Prasmju kāpne</h2>
+            <ol class="dv2-ladder">
+              <li>
+                <strong>Nozīme</strong>
+                <span>Sasaisti darbības vārdu ar tulkojumu abos virzienos.</span>
+              </li>
+              <li>
+                <strong>Forma</strong>
+                <span>Izvēlies pareizo personu un laiku starp līdzīgām formām.</span>
+              </li>
+              <li>
+                <strong>Būve</strong>
+                <span>Saliec formu no saknes un galotnes.</span>
+              </li>
+            </ol>
+          </section>
+
+          <section class="dv2-panel" aria-labelledby="dv2-settings-heading">
+            <h2 id="dv2-settings-heading" class="dv2-panel__title">Iestatījumi</h2>
+
+            <div class="dv2-setting">
+              <span id="dv2-language-label" class="dv2-setting__label">Tulkojuma valoda</span>
+              <div class="dv2-segment" role="group" aria-labelledby="dv2-language-label">
+                <button
+                  id="dv2-lang-en"
+                  class="dv2-segment__btn"
+                  type="button"
+                  data-language="en"
+                  aria-pressed="true"
+                >
+                  English
+                </button>
+                <button
+                  id="dv2-lang-ru"
+                  class="dv2-segment__btn"
+                  type="button"
+                  data-language="ru"
+                  aria-pressed="false"
+                >
+                  Русский
+                </button>
+              </div>
+            </div>
+
+            <div class="dv2-setting">
+              <span class="dv2-setting__label">Izruna</span>
+              <button id="dv2-speech-toggle" class="dv2-switch" type="button" aria-pressed="false">
+                <span class="dv2-switch__track" aria-hidden="true"></span>
+                <span class="dv2-switch__text">Izslēgta</span>
+              </button>
+            </div>
+
+            <div class="dv2-setting">
+              <span class="dv2-setting__label">Vibrācija</span>
+              <button id="dv2-haptics-toggle" class="dv2-switch" type="button" aria-pressed="true">
+                <span class="dv2-switch__track" aria-hidden="true"></span>
+                <span class="dv2-switch__text">Ieslēgta</span>
+              </button>
+            </div>
+          </section>
+
+          <div class="dv2-cta">
+            <button id="dv2-start" class="dv2-primary" type="button">Sākt treniņu</button>
+            <button id="dv2-reset" class="dv2-ghost" type="button">Notīrīt progresu</button>
+          </div>
+        </section>
+
+        <section class="dv2-screen dv2-play" data-screen="play" aria-label="Uzdevums" hidden>
+          <header class="dv2-hud">
+            <button id="dv2-quit" class="dv2-icon-btn" type="button" aria-label="Beigt raundu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+
+            <div class="dv2-hud__main">
+              <div class="dv2-hud__line">
+                <span id="dv2-stage-label" class="dv2-stage-chip">Nozīme</span>
+                <strong id="dv2-progress-text">0/0</strong>
+              </div>
+              <div
+                id="dv2-progress"
+                class="dv2-progress"
+                role="progressbar"
+                aria-label="Raunda progress"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <span id="dv2-progress-bar"></span>
+              </div>
+            </div>
+
+            <div class="dv2-mini-stats" aria-label="Raunda rezultāts">
+              <span><small>XP</small><strong id="dv2-round-xp">0</strong></span>
+              <span><small>Sērija</small><strong id="dv2-streak">0</strong></span>
+            </div>
+          </header>
+
+          <article id="dv2-card" class="dv2-card">
+            <div class="dv2-card__head">
+              <p id="dv2-prompt-label" class="dv2-prompt-label">Ko nozīmē šis darbības vārds?</p>
+              <button
+                id="dv2-speak"
+                class="dv2-icon-btn dv2-icon-btn--soft"
+                type="button"
+                aria-label="Noklausīties izrunu"
+                hidden
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4 9v6h4l5 4V5L8 9H4z" />
+                  <path d="M16 8.5a5 5 0 010 7" />
+                </svg>
+              </button>
+            </div>
+
+            <p id="dv2-prompt" class="dv2-prompt">—</p>
+
+            <div id="dv2-context" class="dv2-context" hidden>
+              <span id="dv2-pronoun" class="dv2-chip">—</span>
+              <span id="dv2-tense" class="dv2-chip dv2-chip--tense">—</span>
+            </div>
+
+            <div id="dv2-options" class="dv2-options" role="group" aria-label="Atbilžu varianti">
+            </div>
+
+            <div id="dv2-builder" class="dv2-builder" hidden>
+              <p class="dv2-builder__preview" aria-live="polite">
+                <span id="dv2-build-stem" class="dv2-slot" data-empty="true">sakne</span>
+                <span id="dv2-build-ending" class="dv2-slot dv2-slot--ending" data-empty="true"
+                  >galotne</span
+                >
+              </p>
+              <div
+                id="dv2-stem-options"
+                class="dv2-chip-row"
+                role="group"
+                aria-label="Saknes varianti"
+              ></div>
+              <div
+                id="dv2-ending-options"
+                class="dv2-chip-row"
+                role="group"
+                aria-label="Galotnes varianti"
+              ></div>
+              <button id="dv2-check" class="dv2-primary" type="button" disabled>Pārbaudīt</button>
+            </div>
+
+            <p class="dv2-hint">
+              <span class="dv2-hint__touch">Velc pa kreisi — tālāk · pa labi — noklausies</span>
+              <span class="dv2-hint__keys">Taustiņi 1–4 izvēlas atbildi · Enter turpina</span>
+            </p>
+          </article>
+
+          <aside
+            id="dv2-feedback"
+            class="dv2-feedback"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+          >
+            <div class="dv2-feedback__body">
+              <h2 id="dv2-feedback-title" class="dv2-feedback__title">Pareizi!</h2>
+              <p id="dv2-feedback-text" class="dv2-feedback__text">—</p>
+            </div>
+            <button id="dv2-next" class="dv2-primary" type="button">Tālāk</button>
+          </aside>
+        </section>
+
+        <section
+          class="dv2-screen dv2-summary"
+          data-screen="summary"
+          aria-labelledby="dv2-summary-title"
+          hidden
+        >
+          <header class="dv2-hero">
+            <h2 id="dv2-summary-title" class="dv2-title">Raunds pabeigts</h2>
+            <p id="dv2-summary-message" class="dv2-lead">—</p>
+          </header>
+
+          <div class="dv2-ring" role="img" aria-labelledby="dv2-summary-accuracy-label">
+            <strong id="dv2-summary-accuracy">0%</strong>
+            <span id="dv2-summary-accuracy-label">precizitāte</span>
+          </div>
+
+          <dl class="dv2-summary-grid">
+            <div>
+              <dt>Rezultāts</dt>
+              <dd id="dv2-summary-score">0/0</dd>
+            </div>
+            <div>
+              <dt>Nopelnīts</dt>
+              <dd id="dv2-summary-xp">0 XP</dd>
+            </div>
+            <div>
+              <dt>Labākā sērija</dt>
+              <dd id="dv2-summary-streak">0</dd>
+            </div>
+            <div>
+              <dt>Apgūti kopā</dt>
+              <dd id="dv2-summary-mastered">0</dd>
+            </div>
+          </dl>
+
+          <section class="dv2-panel" aria-labelledby="dv2-review-heading">
+            <h3 id="dv2-review-heading" class="dv2-panel__title">Šī raunda vārdi</h3>
+            <ul id="dv2-review" class="dv2-review"></ul>
+          </section>
+
+          <div class="dv2-cta">
+            <button id="dv2-replay" class="dv2-primary" type="button">Vēl viens raunds</button>
+            <button id="dv2-home" class="dv2-ghost" type="button">Uz sākumu</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="dp-footer" data-site-footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script defer src="data/words.offline.js"></script>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script type="module" src="src/games/darbibas-vardi-v2/index.js"></script>
+  </body>
+</html>

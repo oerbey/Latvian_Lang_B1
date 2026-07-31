@@ -56,6 +56,50 @@ test('darbibas vardi keeps columns parallel on mobile', async ({ page }) => {
   expect(Math.abs((trBox?.x || 0) - (lvBox?.x || 0))).toBeGreaterThan(20);
 });
 
+test('darbibas vardi v2 plays an adaptive round', async ({ page }) => {
+  await page.goto('/darbibas-vardi-v2.html');
+
+  await expect(page.getByRole('heading', { name: 'Darbības Vārdi V2' })).toBeVisible();
+  const start = page.locator('#dv2-start');
+  await expect(start).toBeEnabled();
+  await start.click();
+
+  await expect(page.locator('[data-screen="play"]')).toBeVisible();
+  // A fresh deck has no mastery records, so every verb starts on the meaning stage.
+  await expect(page.locator('#dv2-stage-label')).toHaveText('Nozīme');
+  await expect(page.locator('#dv2-progress-text')).toHaveText(/^0\/\d+$/);
+
+  const options = page.locator('#dv2-options .dv2-option');
+  await expect(options).toHaveCount(4);
+  await options.first().click();
+
+  const feedback = page.locator('#dv2-feedback');
+  await expect(feedback).toBeVisible();
+  await expect(page.locator('#dv2-progress-text')).toHaveText(/^1\/\d+$/);
+
+  await page.locator('#dv2-next').click();
+  await expect(feedback).toBeHidden();
+  await expect(options.first()).toBeEnabled();
+
+  await page.locator('#dv2-quit').click();
+  await expect(page.locator('[data-screen="start"]')).toBeVisible();
+});
+
+test('darbibas vardi v2 fits a phone viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/darbibas-vardi-v2.html');
+
+  const start = page.locator('#dv2-start');
+  await expect(start).toBeEnabled();
+  await start.click();
+  await expect(page.locator('#dv2-options .dv2-option').first()).toBeVisible();
+
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
+});
+
 test('english-latvian arcade page loads and starts a round', async ({ page }) => {
   await page.goto('/english-latvian-arcade.html');
 

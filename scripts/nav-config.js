@@ -10,6 +10,7 @@
 export const NAV_ITEMS = [
   { href: 'index.html', label: 'Home' },
   { href: 'darbibas-vards.html', label: 'Darbības Vārds' },
+  { href: 'darbibas-vardi-v2.html', label: 'Darbības Vārdi V2' },
   { href: 'prefixed-coming-verbs.html', label: 'Nākt ar priedēkļiem' },
   { href: 'similar-word-groups.html', label: 'Līdzīgo formu treniņš' },
   { href: 'conjugation-sprint.html', label: 'Conjugation Sprint' },

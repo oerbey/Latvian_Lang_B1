@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v22';
+const CACHE_VERSION = 'v23';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -31,14 +31,18 @@ const CORE_ASSETS = [
   './assets/icons/apple-touch-icon.png',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
+  './src/lib/aria.js',
   './src/lib/constants.js',
   './src/lib/dom.js',
   './src/lib/errors.js',
+  './src/lib/loading.js',
   './src/lib/paths.js',
   './src/lib/safeHtml.js',
+  './src/lib/sanitize.js',
   './src/lib/state.js',
   './src/lib/storage.js',
   './src/lib/utils.js',
+  './src/lib/words-data.js',
   './src/lib/render.js',
   './src/lib/reward.js',
   './src/lib/match.js',
@@ -46,6 +50,7 @@ const CORE_ASSETS = [
   './character-traits.html',
   './conjugation-sprint.html',
   './darbibas-vards.html',
+  './darbibas-vardi-v2.html',
   './decl6-detective.html',
   './duty-dispatcher.html',
   './english-latvian-arcade.html',
@@ -66,6 +71,9 @@ const CORE_ASSETS = [
   './src/games/character-traits/index.js',
   './src/games/character-traits-expansion/index.js',
   './src/games/character-traits-match/index.js',
+  './src/games/darbibas-vardi-v2/index.js',
+  './src/games/darbibas-vardi-v2/logic.js',
+  './src/games/darbibas-vardi-v2/styles.css',
   './src/games/decl6-detective/index.js',
   './src/games/duty-dispatcher/index.js',
   './src/games/english-latvian-arcade/index.js',

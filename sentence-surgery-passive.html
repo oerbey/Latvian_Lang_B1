@@ -1,21 +1,15 @@
-<!--
-  sentence-surgery-passive.html — Sentence Surgery (Ciešamā kārta).
-  Fix sentences by replacing an incorrect word with the correct
-  passive-voice form from a word bank.
-  Entry script: src/games/sentence-surgery-passive/index.js
--->
 <!doctype html>
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta
       name="description"
-      content="Sentence Surgery — Ciešamā kārta. Izlabo teikumu, aizstājot kļūdaino vārdu ar pareizo formu no vārdu saraksta."
+      content="Sentence Surgery — atrodi pareizo formu un salabo kļūdaino vārdu latviešu teikumā."
     />
     <title>Sentence Surgery — Ciešamā kārta | Latvian B Level</title>
     <link rel="manifest" href="manifest.json" />
@@ -40,166 +34,269 @@
     ></nav>
 
     <main id="main" class="sspv-main">
-      <div class="container">
-        <header class="sspv-hero">
-          <p class="sspv-eyebrow">B grammar practice</p>
-          <div class="sspv-hero__head">
-            <h1 class="sspv-title">Sentence Surgery — Ciešamā kārta</h1>
-            <button
-              type="button"
-              class="btn btn-outline-secondary sspv-info-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#sspvInfoModal"
-            >
-              Kā spēlēt / How to play
-            </button>
+      <div class="container sspv-stage">
+        <header class="sspv-game-header">
+          <div class="sspv-game-header__title">
+            <p class="sspv-eyebrow" data-i18n-key="eyebrow">Ciešamās kārtas treniņš</p>
+            <h1 id="sspv-title" data-i18n-key="title">Sentence Surgery</h1>
           </div>
-          <p class="sspv-lead">
-            Izlabo teikumu, aizstājot kļūdaino vārdu ar pareizo formu no vārdu saraksta.
-          </p>
+          <button
+            id="sspv-settingsOpen"
+            class="sspv-icon-button"
+            type="button"
+            aria-haspopup="dialog"
+            aria-controls="sspv-settingsDialog"
+            aria-label="Atvērt iestatījumus"
+            data-i18n-key="aria.openSettings"
+            data-i18n-attr="aria-label"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22">
+              <path
+                d="M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Zm7.2-3.4c0-.5-.1-1-.2-1.5l2-1.5-2-3.4-2.4 1a8 8 0 0 0-2.6-1.5L13.7 2h-4l-.4 3.1c-.9.4-1.7.9-2.5 1.5l-2.4-1-2 3.4 2 1.5a7.9 7.9 0 0 0 0 3L2.4 15l2 3.4 2.4-1c.8.6 1.6 1.1 2.5 1.5l.4 3.1h4l.4-3.1a8 8 0 0 0 2.5-1.5l2.4 1 2-3.4-2-1.5c.1-.5.2-1 .2-1.5Z"
+              />
+            </svg>
+            <span data-i18n-key="settings.open">Iestatījumi</span>
+          </button>
         </header>
 
-        <section class="sspv-card" aria-labelledby="sspvGameTitle">
-          <h2 id="sspvGameTitle" class="visually-hidden">Sentence Surgery spēles panelis</h2>
+        <section
+          class="sspv-hud"
+          aria-label="Spēles progress"
+          data-i18n-key="aria.progressRegion"
+          data-i18n-attr="aria-label"
+        >
+          <div class="sspv-progress-copy">
+            <span id="sspv-progressText">0 / 52 pabeigti</span>
+            <span class="sspv-streak" aria-label="Sērija: 0">
+              <span class="sspv-streak__spark" aria-hidden="true">✦</span>
+              <span data-i18n-key="header.streak">Sērija</span>
+              <strong id="sspv-streakValue">0</strong>
+            </span>
+          </div>
+          <progress
+            id="sspv-progressBar"
+            class="sspv-progress-bar"
+            value="0"
+            max="52"
+            aria-label="Pabeigtie uzdevumi"
+            data-i18n-key="aria.progressBar"
+            data-i18n-attr="aria-label"
+          ></progress>
+        </section>
 
-          <div class="sspv-controls">
-            <div class="sspv-controls__group">
-              <div class="sspv-controls__row">
-                <label class="form-label" for="sspv-mode">Režīms</label>
-                <select id="sspv-mode" class="form-select" aria-label="Atlasīt režīmu">
-                  <option value="shuffle" selected>Jaukts</option>
-                  <option value="sequential">Secīgi</option>
-                </select>
-              </div>
-              <div class="sspv-controls__row mt-2">
-                <label class="form-label" for="sspv-topic">Temats</label>
-                <select id="sspv-topic" class="form-select" aria-label="Atlasīt tematu"></select>
-              </div>
-            </div>
-
-            <div class="sspv-controls__group">
-              <div class="sspv-progress">
-                <strong id="sspv-progressText">0 / 0 pabeigti</strong>
-                <small id="sspv-progressFilterText">0 / 0 atlasē</small>
-              </div>
-              <div class="sspv-stats mt-2" aria-label="Progresa statistika">
-                <div class="sspv-stat">
-                  <span>Mēģinājumi</span><strong id="sspv-attemptsValue">0</strong>
-                </div>
-                <div class="sspv-stat">
-                  <span>Pareizi</span><strong id="sspv-correctValue">0</strong>
-                </div>
-                <div class="sspv-stat">
-                  <span>Sērija</span><strong id="sspv-streakValue">0</strong>
-                </div>
-                <div class="sspv-stat">
-                  <span>Precizitāte</span><strong id="sspv-accuracyValue">0%</strong>
-                </div>
-              </div>
-              <button
-                id="sspv-resetProgress"
-                type="button"
-                class="btn btn-sm btn-outline-secondary mt-2"
-              >
-                Notīrīt progresu
-              </button>
+        <section id="sspv-round" class="sspv-round" aria-labelledby="sspv-promptTitle">
+          <div class="sspv-round__topline">
+            <p class="sspv-round-count">
+              <span data-i18n-key="round.repairSlot">Uzdevums</span>
+              <strong id="sspv-roundText">1 / 52</strong>
+            </p>
+            <div
+              class="sspv-badges"
+              aria-label="Uzdevuma informācija"
+              data-i18n-key="aria.roundDetails"
+              data-i18n-attr="aria-label"
+            >
+              <span id="sspv-topicBadge" class="sspv-badge">Visi temati</span>
+              <span id="sspv-focusBadge" class="sspv-badge sspv-badge--focus">Forma</span>
             </div>
           </div>
 
-          <div class="sspv-meta">
-            <span class="sspv-badge">Temats: <span id="sspv-topicBadge" class="ms-1">—</span></span>
-            <span class="sspv-badge">Avots: <span id="sspv-sourceBadge" class="ms-1">—</span></span>
-            <span class="sspv-badge">ID: <span id="sspv-itemBadge" class="ms-1">—</span></span>
+          <div class="sspv-prompt">
+            <h2 id="sspv-promptTitle" data-i18n-key="round.instruction">Salabo izcelto vārdu</h2>
+            <p id="sspv-sentence" class="sspv-sentence" lang="lv">Teikums tiek ielādēts…</p>
           </div>
 
-          <section class="sspv-section sspv-section--broken" aria-label="Rediģējamais teikums">
-            <h2>Kļūdainais teikums</h2>
-            <p id="sspv-focusBadge" class="sspv-focus-badge">Labojamais fokuss: —</p>
-            <p id="sspv-sentencePreview" class="sspv-sentence-preview">—</p>
-            <div id="sspv-translationPanel" class="sspv-translation sspv-translation--inline">
-              <p id="sspv-translationText">—</p>
-            </div>
-            <div id="sspv-sentenceTokens" class="sspv-token-grid" aria-live="polite"></div>
-          </section>
+          <fieldset class="sspv-choice-fieldset">
+            <legend id="sspv-choicePrompt" data-i18n-key="choices.legend">
+              Izvēlies aizvietotāju
+            </legend>
+            <div id="sspv-choices" class="sspv-choices"></div>
+          </fieldset>
 
-          <section class="sspv-section" aria-label="Vārdu banka">
-            <h2>Vārdu banka</h2>
-            <div id="sspv-wordBank" class="sspv-token-grid"></div>
-            <p id="sspv-bankHint" class="sspv-message sspv-message--bank"></p>
-          </section>
+          <button id="sspv-hint" class="sspv-hint-button" type="button">
+            <span aria-hidden="true">＋</span>
+            <span data-i18n-key="actions.hint">Parādīt gramatikas padomu</span>
+          </button>
 
-          <div class="sspv-actions">
-            <button id="sspv-check" type="button" class="btn btn-primary">Pārbaudīt</button>
-            <button id="sspv-next" type="button" class="btn btn-secondary" hidden>Nākamais</button>
-            <button id="sspv-reset" type="button" class="btn btn-outline-secondary">
-              Atiestatīt
-            </button>
-            <button id="sspv-hint" type="button" class="btn btn-outline-secondary">Padoms</button>
-            <button id="sspv-translationToggle" type="button" class="btn btn-outline-secondary">
-              Paslēpt tulkojumu
-            </button>
-          </div>
-
-          <p
+          <section
             id="sspv-feedback"
             class="sspv-feedback"
-            role="status"
-            aria-live="polite"
-            data-tone="info"
+            aria-labelledby="sspv-feedbackTitle"
+            hidden
           >
-            —
+            <div id="sspv-feedbackIcon" class="sspv-feedback__icon" aria-hidden="true">!</div>
+            <div class="sspv-feedback__content">
+              <h3 id="sspv-feedbackTitle">Pamēģini vēlreiz</h3>
+              <p id="sspv-feedbackBody">Pievērs uzmanību darbības vārda laikam.</p>
+              <p id="sspv-correction" class="sspv-correction" hidden></p>
+              <p id="sspv-translation" class="sspv-translation" lang="en" hidden></p>
+            </div>
+          </section>
+
+          <button id="sspv-next" class="sspv-next-button" type="button" hidden>
+            <span data-i18n-key="actions.next">Nākamais uzdevums</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </section>
+
+        <section
+          id="sspv-complete"
+          class="sspv-complete"
+          aria-labelledby="sspv-completeTitle"
+          hidden
+        >
+          <span class="sspv-complete__mark" aria-hidden="true">✓</span>
+          <p class="sspv-eyebrow" data-i18n-key="completion.eyebrow">Labs darbs!</p>
+          <h2 id="sspv-completeTitle" data-i18n-key="completion.title">Šī atlase ir pabeigta</h2>
+          <p id="sspv-completeBody" data-i18n-key="completion.body">
+            Vari atkārtot šo atlasi vai izvēlēties citu tematu.
           </p>
-          <p id="sspv-hintText" class="sspv-message" aria-live="polite"></p>
-          <p
-            id="sspv-explanationText"
-            class="sspv-message sspv-message--error"
-            aria-live="polite"
-          ></p>
+          <div class="sspv-complete__actions">
+            <button
+              id="sspv-practiceAgain"
+              class="sspv-next-button"
+              type="button"
+              data-i18n-key="actions.practiceAgain"
+            >
+              Trenēties vēlreiz
+            </button>
+            <button
+              id="sspv-changeTopic"
+              class="sspv-secondary-button"
+              type="button"
+              data-i18n-key="actions.chooseTopic"
+            >
+              Mainīt tematu
+            </button>
+          </div>
         </section>
       </div>
     </main>
 
-    <div
-      class="modal fade"
-      id="sspvInfoModal"
-      tabindex="-1"
-      aria-labelledby="sspvInfoModalTitle"
-      aria-hidden="true"
+    <dialog
+      id="sspv-settingsDialog"
+      class="sspv-settings-dialog"
+      aria-labelledby="sspv-settingsTitle"
+      aria-describedby="sspv-settingsDescription"
     >
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="sspvInfoModalTitle">Kā spēlēt / How to play</h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+      <form class="sspv-settings" method="dialog">
+        <header class="sspv-settings__header">
+          <div>
+            <h2 id="sspv-settingsTitle" data-i18n-key="settings.title">Iestatījumi</h2>
           </div>
-          <div class="modal-body sspv-info-modal">
-            <h3>Latviski</h3>
-            <ol>
-              <li>Izvēlies labojamo vārdu sadaļā “Kļūdainais teikums”.</li>
-              <li>Spied vārdu no “Vārdu banka”, lai aizvietotu izvēlēto vārdu.</li>
-              <li>Vari arī vilkt bankas vārdu virsū labojamajam vārdam (drag & drop).</li>
-              <li>Spied “Pārbaudīt”. Ja ir kļūda, tiks iezīmētas nepareizās vietas.</li>
-              <li>“Padoms” strādā vienu reizi katrā uzdevumā.</li>
-              <li>Pēc pareizas atbildes spied “Nākamais”.</li>
-            </ol>
-            <h3>English</h3>
-            <ol>
-              <li>Select a token in the broken sentence.</li>
-              <li>Tap a token in the word bank to replace the selected token.</li>
-              <li>You can also drag a bank token onto a sentence token.</li>
-              <li>Press “Pārbaudīt” (Check). Wrong positions will be highlighted.</li>
-              <li>“Padoms” (Hint) can be used once per round.</li>
-              <li>After a correct answer, press “Nākamais” (Next).</li>
-            </ol>
+          <button
+            id="sspv-settingsClose"
+            class="sspv-close-button"
+            type="button"
+            aria-label="Aizvērt iestatījumus"
+            data-i18n-key="settings.close"
+            data-i18n-attr="aria-label"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+
+        <div class="sspv-settings__body">
+          <p
+            id="sspv-settingsDescription"
+            class="sspv-settings__intro"
+            data-i18n-key="settings.description"
+          >
+            Izvēlies, ko un kā vēlies trenēt.
+          </p>
+
+          <div class="sspv-field">
+            <label for="sspv-topic" data-i18n-key="settings.topic">Temats</label>
+            <select id="sspv-topic" class="form-select">
+              <option value="all" data-i18n-key="topics.all">Visi temati</option>
+            </select>
+          </div>
+
+          <div class="sspv-field">
+            <label for="sspv-mode" data-i18n-key="settings.order">Uzdevumu secība</label>
+            <select id="sspv-mode" class="form-select">
+              <option value="shuffle" data-i18n-key="order.shuffle">Jaukta</option>
+              <option value="sequential" data-i18n-key="order.sequential">Secīga</option>
+            </select>
+          </div>
+
+          <div class="sspv-field">
+            <label for="sspv-language" data-i18n-key="settings.language">Saskarnes valoda</label>
+            <select id="sspv-language" class="form-select">
+              <option value="lv" data-i18n-key="languages.lv">Latviešu</option>
+              <option value="en" data-i18n-key="languages.en">English</option>
+              <option value="ru" data-i18n-key="languages.ru">Русский</option>
+            </select>
+          </div>
+
+          <section class="sspv-settings-section" aria-labelledby="sspv-statsTitle">
+            <h3 id="sspv-statsTitle" data-i18n-key="settings.statistics">Kopējā statistika</h3>
+            <dl class="sspv-stats">
+              <div>
+                <dt data-i18n-key="stats.attempts">Mēģinājumi</dt>
+                <dd id="sspv-attemptsValue">0</dd>
+              </div>
+              <div>
+                <dt data-i18n-key="stats.correct">Pareizi</dt>
+                <dd id="sspv-correctValue">0</dd>
+              </div>
+              <div>
+                <dt data-i18n-key="stats.accuracy">Precizitāte</dt>
+                <dd id="sspv-accuracyValue">0%</dd>
+              </div>
+              <div>
+                <dt data-i18n-key="stats.completed">Pabeigti</dt>
+                <dd id="sspv-completedValue">0</dd>
+              </div>
+            </dl>
+          </section>
+
+          <div class="sspv-settings-section sspv-settings-section--actions">
+            <button id="sspv-reviewCompleted" class="sspv-settings-action" type="button">
+              <span>
+                <strong data-i18n-key="settings.reviewCompleted">Atkārtot pabeigtos</strong>
+                <small data-i18n-key="settings.reviewCompletedHelp"
+                  >Pagaidu treniņš, neizdzēšot progresu</small
+                >
+              </span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <button
+              id="sspv-resetProgress"
+              class="sspv-settings-action sspv-settings-action--danger"
+              type="button"
+            >
+              <span>
+                <strong data-i18n-key="settings.resetProgress">Notīrīt progresu</strong>
+                <small data-i18n-key="settings.resetProgressHelp"
+                  >Dzēst pabeigtos uzdevumus un statistiku</small
+                >
+              </span>
+            </button>
           </div>
         </div>
-      </div>
-    </div>
+
+        <footer class="sspv-settings__footer">
+          <button
+            id="sspv-applySettings"
+            class="sspv-next-button"
+            type="submit"
+            value="apply"
+            data-i18n-key="settings.apply"
+          >
+            Saglabāt un turpināt
+          </button>
+        </footer>
+      </form>
+    </dialog>
+
+    <div
+      id="sspv-live"
+      class="visually-hidden"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
 
     <footer class="border-top py-4 bg-body-tertiary" data-site-footer></footer>
 

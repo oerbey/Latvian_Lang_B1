@@ -8,16 +8,23 @@
  */
 
 import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
+import { ALL_TOPICS, normalizeOrder, ORDER_SHUFFLE } from './logic.js';
 
 const GAME_ID = 'sentence-surgery-passive';
 
-const DEFAULT_PROGRESS = {
-  completedItemIds: [],
-  totalAttempts: 0,
-  correctCount: 0,
-  streak: 0,
-  updatedAt: null,
-};
+export function createDefaultProgress() {
+  return {
+    completedItemIds: [],
+    totalAttempts: 0,
+    correctCount: 0,
+    streak: 0,
+    updatedAt: null,
+    settings: {
+      topic: ALL_TOPICS,
+      order: ORDER_SHUFFLE,
+    },
+  };
+}
 
 function toSafeInt(value) {
   if (!Number.isFinite(value)) return 0;
@@ -40,9 +47,26 @@ function normalizeCompletedIds(value, validIdSet = null) {
   return normalized;
 }
 
-export function normalizeProgress(progress, validIds = []) {
+export function normalizeSettings(settings, validTopics = []) {
+  const safe = settings && typeof settings === 'object' ? settings : {};
+  const allowedTopics = new Set(Array.isArray(validTopics) ? validTopics : []);
+  let topic = typeof safe.topic === 'string' ? safe.topic.trim() : ALL_TOPICS;
+  if (!topic || (allowedTopics.size && topic !== ALL_TOPICS && !allowedTopics.has(topic))) {
+    topic = ALL_TOPICS;
+  }
+  return {
+    topic,
+    order: normalizeOrder(safe.order),
+  };
+}
+
+export function normalizeProgress(progress, validIds = [], validTopics = []) {
   const validIdSet = validIds.length ? new Set(validIds) : null;
   const safe = progress && typeof progress === 'object' ? progress : {};
+  const legacySettings = {
+    topic: safe.topic,
+    order: safe.order,
+  };
 
   return {
     completedItemIds: normalizeCompletedIds(safe.completedItemIds, validIdSet),
@@ -50,21 +74,74 @@ export function normalizeProgress(progress, validIds = []) {
     correctCount: toSafeInt(safe.correctCount),
     streak: toSafeInt(safe.streak),
     updatedAt: typeof safe.updatedAt === 'string' ? safe.updatedAt : null,
+    settings: normalizeSettings(safe.settings || legacySettings, validTopics),
   };
 }
 
-export function readProgress(validIds = []) {
+export function updateProgressSettings(progress, settings, validIds = [], validTopics = []) {
+  const next = normalizeProgress(progress, validIds, validTopics);
+  next.settings = normalizeSettings({ ...next.settings, ...settings }, validTopics);
+  return next;
+}
+
+export function recordProgressAttempt(
+  progress,
+  { correct = false, updatedAt = null } = {},
+  validIds = [],
+  validTopics = [],
+) {
+  const next = normalizeProgress(progress, validIds, validTopics);
+  next.totalAttempts += 1;
+  if (correct) {
+    next.correctCount += 1;
+    next.streak += 1;
+  } else {
+    next.streak = 0;
+  }
+  if (typeof updatedAt === 'string') {
+    next.updatedAt = updatedAt;
+  }
+  return next;
+}
+
+export function markItemCompleted(progress, itemId, validIds = [], validTopics = []) {
+  const next = normalizeProgress(progress, validIds, validTopics);
+  const allowedIds = validIds.length ? new Set(validIds) : null;
+  if (
+    typeof itemId === 'string' &&
+    itemId &&
+    (!allowedIds || allowedIds.has(itemId)) &&
+    !next.completedItemIds.includes(itemId)
+  ) {
+    next.completedItemIds.push(itemId);
+  }
+  return next;
+}
+
+export function applyProgressAttempt(
+  progress,
+  { itemId = '', correct = false, review = false, updatedAt = null } = {},
+  validIds = [],
+  validTopics = [],
+) {
+  const attempted = recordProgressAttempt(progress, { correct, updatedAt }, validIds, validTopics);
+  return correct && !review
+    ? markItemCompleted(attempted, itemId, validIds, validTopics)
+    : attempted;
+}
+
+export function readProgress(validIds = [], validTopics = []) {
   try {
-    const parsed = readGameProgress(GAME_ID, DEFAULT_PROGRESS);
-    return normalizeProgress(parsed, validIds);
+    const parsed = readGameProgress(GAME_ID, createDefaultProgress());
+    return normalizeProgress(parsed, validIds, validTopics);
   } catch (error) {
     console.warn('Failed to read sentence surgery progress', error);
-    return normalizeProgress(DEFAULT_PROGRESS, validIds);
+    return normalizeProgress(createDefaultProgress(), validIds, validTopics);
   }
 }
 
-export function persistProgress(progress, validIds = []) {
-  const normalized = normalizeProgress(progress, validIds);
+export function persistProgress(progress, validIds = [], validTopics = []) {
+  const normalized = normalizeProgress(progress, validIds, validTopics);
   try {
     writeGameProgress(GAME_ID, normalized);
   } catch (error) {

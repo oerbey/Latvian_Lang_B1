@@ -1,7 +1,6 @@
 <!--
-  form-factory-v3.html — Form Factory v3.
-  Mobile-first cloze practice for Latvian adverbial participles:
-  -dams, -dama, -damies, -damās, -dami, -damas.
+  form-factory-v3.html — adaptive Latvian participle trainer.
+  Each form advances from ending-rule recognition to contextual cloze and typed production.
   Entry script: src/games/form-factory-v3/index.js
 -->
 <!doctype html>
@@ -13,10 +12,10 @@
       content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="theme-color" content="#f6fbfa" />
+    <meta name="theme-color" content="#f4f6fb" />
     <meta
       name="description"
-      content="Form Factory v3 — mobile-friendly Latvian divdabju practice with fast cloze rounds."
+      content="Form Factory v3 — adaptīvs divdabju treniņš no galotnes likuma līdz pilnas formas rakstīšanai."
     />
     <title>Form Factory v3 — Latvian B Level</title>
     <link rel="manifest" href="manifest.json" />
@@ -32,7 +31,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/form-factory-v3/styles.css" />
   </head>
-  <body class="dp-page game-theme ffv3-page">
+  <body class="dp-page game-theme ffv3-page" data-ffv3-screen="start">
     <a class="dp-skip" href="#main">Skip to main content</a>
 
     <nav data-site-nav></nav>
@@ -40,84 +39,100 @@
     <main id="main">
       <div class="ffv3-app" data-form-factory-v3>
         <div id="ffv3-error" class="ffv3-error" role="alert" hidden></div>
+        <p id="ffv3-live" class="visually-hidden" role="status" aria-live="polite"></p>
 
         <section class="ffv3-screen ffv3-start" data-screen="start" aria-labelledby="ffv3-title">
-          <div class="ffv3-start__intro">
-            <div class="ffv3-brand">
-              <span class="ffv3-brand__mark" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-              <span class="visually-hidden">Divdabju treniņš</span>
-            </div>
+          <header class="ffv3-hero">
+            <span class="ffv3-eyebrow">Adaptīvais treniņš</span>
             <h1 id="ffv3-title" class="ffv3-title">Form Factory v3</h1>
             <p class="ffv3-lead">
-              Trenē -dams, -dama, -damies un -damās īsos teikuma raundos ar lielām, ātri nospiežamām
-              atbildēm.
+              Katra divdabja forma ceļo no galotnes likuma līdz teikumam un patstāvīgai rakstīšanai.
+              Kļūdas atgriežas šajā pašā raundā.
             </p>
+          </header>
 
-            <div class="ffv3-memory" aria-label="Saglabātais progress">
-              <p id="ffv3-best-line">Sāc pirmo raundu un saglabā savu labāko sēriju.</p>
-              <p id="ffv3-rounds-line">12 īsi jautājumi vienā raundā.</p>
+          <div class="ffv3-stat-row" aria-label="Tavs progress">
+            <div class="ffv3-stat"><strong id="ffv3-xp">0</strong><span>XP</span></div>
+            <div class="ffv3-stat"><strong id="ffv3-rounds">0</strong><span>raundi</span></div>
+            <div class="ffv3-stat">
+              <strong id="ffv3-best-streak">0</strong><span>labākā sērija</span>
             </div>
           </div>
 
-          <div class="ffv3-start__panel">
+          <section class="ffv3-panel" aria-labelledby="ffv3-deck-heading">
+            <h2 id="ffv3-deck-heading" class="ffv3-panel__title">Tava kava</h2>
+            <div class="ffv3-deck-grid">
+              <div class="ffv3-deck-cell ffv3-deck-cell--due">
+                <strong id="ffv3-due-count">0</strong><span>atkārtot tagad</span>
+              </div>
+              <div class="ffv3-deck-cell">
+                <strong id="ffv3-learning-count">0</strong><span>mācās</span>
+              </div>
+              <div class="ffv3-deck-cell">
+                <strong id="ffv3-mastered-count">0</strong><span>apgūti</span>
+              </div>
+              <div class="ffv3-deck-cell">
+                <strong id="ffv3-fresh-count">0</strong><span>vēl nesākti</span>
+              </div>
+            </div>
+            <div class="ffv3-mastery" aria-hidden="true"><span id="ffv3-mastery-bar"></span></div>
+            <p id="ffv3-deck-note" class="ffv3-note">Ielādē divdabju krājumu…</p>
+          </section>
+
+          <section class="ffv3-panel" aria-labelledby="ffv3-ladder-heading">
+            <h2 id="ffv3-ladder-heading" class="ffv3-panel__title">Prasmju kāpne</h2>
+            <ol class="ffv3-ladder">
+              <li>
+                <strong>Likums</strong>
+                <span>Izvēlies galotni pēc subjekta un darbības vārda tipa.</span>
+              </li>
+              <li>
+                <strong>Teikums</strong>
+                <span>Atrodi pareizo pilno formu teikuma kontekstā.</span>
+              </li>
+              <li>
+                <strong>Būve</strong>
+                <span>Ieraksti visu divdabja formu bez atbilžu variantiem.</span>
+              </li>
+            </ol>
+          </section>
+
+          <section class="ffv3-panel" aria-labelledby="ffv3-focus-heading">
+            <h2 id="ffv3-focus-heading" class="ffv3-panel__title">Izvēlies fokusu</h2>
             <div class="ffv3-deck-list" role="group" aria-label="Izvēlies raunda kopu">
               <button class="ffv3-deck" type="button" data-deck="core">
-                <span>
-                  <strong>Pamata</strong>
-                  <small>Ikdienas teikumi un biežākās formas</small>
-                </span>
-                <em id="ffv3-core-count">0 formas</em>
+                <span><strong>Pamata</strong><small>1.–3. līmenis</small></span>
+                <em id="ffv3-core-count">0 formas</em><b aria-hidden="true">→</b>
               </button>
               <button class="ffv3-deck" type="button" data-deck="reflexive">
-                <span>
-                  <strong>Atgriezeniskie</strong>
-                  <small>Fokuss uz -damies un -damās</small>
-                </span>
-                <em id="ffv3-reflexive-count">0 formas</em>
+                <span><strong>Atgriezeniskie</strong><small>-damies un -damās</small></span>
+                <em id="ffv3-reflexive-count">0 formas</em><b aria-hidden="true">→</b>
               </button>
               <button class="ffv3-deck" type="button" data-deck="all">
-                <span>
-                  <strong>Visas formas</strong>
-                  <small>Jaukts raunds ar daudzskaitli</small>
-                </span>
-                <em id="ffv3-all-count">0 formas</em>
+                <span><strong>Visas formas</strong><small>Jaukts raunds</small></span>
+                <em id="ffv3-all-count">0 formas</em><b aria-hidden="true">→</b>
               </button>
             </div>
+          </section>
 
-            <div class="ffv3-ending-rail" aria-label="Formu galotnes">
-              <span>-dams</span>
-              <span>-dama</span>
-              <span>-damies</span>
-              <span>-damās</span>
-              <span>-dami</span>
-              <span>-damas</span>
-            </div>
-          </div>
+          <button id="ffv3-reset" class="ffv3-ghost" type="button">Notīrīt progresu</button>
         </section>
 
         <section class="ffv3-screen ffv3-play" data-screen="play" aria-label="Uzdevums" hidden>
           <header class="ffv3-hud">
-            <button
-              id="ffv3-quit"
-              class="ffv3-icon-btn"
-              type="button"
-              aria-label="Atpakaļ uz sākumu"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
+            <button id="ffv3-quit" class="ffv3-icon-btn" type="button" aria-label="Beigt raundu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M15 6l-6 6 6 6" />
               </svg>
             </button>
 
             <div class="ffv3-hud__main">
               <div class="ffv3-hud__line">
-                <span id="ffv3-deck-label">Visas formas</span>
+                <span id="ffv3-stage-label" class="ffv3-stage-chip">Likums</span>
                 <strong id="ffv3-progress-text">0/0</strong>
               </div>
               <div
+                id="ffv3-progress"
                 class="ffv3-progress"
                 role="progressbar"
                 aria-label="Raunda progress"
@@ -130,38 +145,70 @@
             </div>
 
             <div class="ffv3-mini-stats" aria-label="Raunda rezultāts">
-              <span><small>Punkti</small><strong id="ffv3-score">0</strong></span>
+              <span><small>XP</small><strong id="ffv3-score">0</strong></span>
               <span><small>Sērija</small><strong id="ffv3-streak">0</strong></span>
             </div>
           </header>
 
-          <article class="ffv3-card" aria-live="polite">
-            <div class="ffv3-meta">
-              <span id="ffv3-subject">—</span>
-              <span id="ffv3-verb">—</span>
-              <span id="ffv3-type">—</span>
+          <article class="ffv3-card">
+            <div class="ffv3-card__head">
+              <p id="ffv3-prompt-label" class="ffv3-prompt-label">Izvēlies pareizo galotni</p>
+              <span id="ffv3-deck-label" class="ffv3-deck-chip">Visas formas</span>
+            </div>
+            <p id="ffv3-prompt" class="ffv3-prompt">—</p>
+
+            <div class="ffv3-context">
+              <span id="ffv3-subject" class="ffv3-chip">—</span>
+              <span id="ffv3-type" class="ffv3-chip ffv3-chip--type">—</span>
+              <span id="ffv3-verb" class="visually-hidden">—</span>
             </div>
 
-            <p class="ffv3-cloze">
+            <p id="ffv3-cloze" class="ffv3-cloze" hidden>
               <span id="ffv3-cloze-before">—</span>
               <span id="ffv3-cloze-gap" class="ffv3-cloze__gap">___</span>
               <span id="ffv3-cloze-after"></span>
             </p>
 
-            <div id="ffv3-options" class="ffv3-options" aria-label="Atbilžu varianti"></div>
+            <div
+              id="ffv3-options"
+              class="ffv3-options"
+              role="group"
+              aria-label="Atbilžu varianti"
+            ></div>
+
+            <div id="ffv3-builder" class="ffv3-builder" hidden>
+              <p class="ffv3-builder__stem">
+                Dotais celms: <strong id="ffv3-build-stem">—</strong>
+              </p>
+              <label for="ffv3-build-input">Pilnā divdabja forma</label>
+              <input
+                id="ffv3-build-input"
+                class="ffv3-build-input"
+                type="text"
+                lang="lv"
+                autocomplete="off"
+                autocapitalize="none"
+                spellcheck="false"
+                placeholder="piem., lasīdama"
+              />
+              <button id="ffv3-check" class="ffv3-primary" type="button" disabled>Pārbaudīt</button>
+            </div>
+
+            <p id="ffv3-keys-hint" class="ffv3-hint">
+              Taustiņi 1–4 izvēlas atbildi · Enter turpina
+            </p>
           </article>
 
           <aside
             id="ffv3-feedback"
             class="ffv3-feedback"
-            role="status"
             aria-live="polite"
             aria-atomic="true"
             hidden
           >
-            <div>
-              <h2 id="ffv3-feedback-title">Pareizi!</h2>
-              <p id="ffv3-feedback-text">—</p>
+            <div class="ffv3-feedback__body">
+              <h2 id="ffv3-feedback-title" class="ffv3-feedback__title">Pareizi!</h2>
+              <p id="ffv3-feedback-text" class="ffv3-feedback__text">—</p>
             </div>
             <button id="ffv3-next" class="ffv3-primary" type="button">Tālāk</button>
           </aside>
@@ -173,14 +220,13 @@
           aria-labelledby="ffv3-summary-title"
           hidden
         >
-          <div class="ffv3-summary__top">
+          <header class="ffv3-hero">
             <h2 id="ffv3-summary-title" class="ffv3-title">Raunds pabeigts</h2>
-            <p id="ffv3-summary-message">—</p>
-          </div>
+            <p id="ffv3-summary-message" class="ffv3-lead">—</p>
+          </header>
 
-          <div class="ffv3-summary__score" aria-label="Raunda precizitāte">
-            <strong id="ffv3-summary-accuracy">0%</strong>
-            <span>precizitāte</span>
+          <div class="ffv3-ring" role="img" aria-label="Raunda precizitāte">
+            <strong id="ffv3-summary-accuracy">0%</strong><span>precizitāte</span>
           </div>
 
           <dl class="ffv3-summary-grid">
@@ -189,18 +235,27 @@
               <dd id="ffv3-summary-score">0/0</dd>
             </div>
             <div>
+              <dt>Iegūts</dt>
+              <dd id="ffv3-summary-xp">0 XP</dd>
+            </div>
+            <div>
               <dt>Labākā sērija</dt>
               <dd id="ffv3-summary-streak">0</dd>
             </div>
             <div>
-              <dt>Labākais rezultāts</dt>
-              <dd id="ffv3-summary-best">0</dd>
+              <dt>Apgūtas</dt>
+              <dd id="ffv3-summary-mastered">0/0</dd>
             </div>
           </dl>
 
+          <section class="ffv3-panel" aria-labelledby="ffv3-review-heading">
+            <h3 id="ffv3-review-heading" class="ffv3-panel__title">Formu progress</h3>
+            <ul id="ffv3-review" class="ffv3-review"></ul>
+          </section>
+
           <div class="ffv3-summary-actions">
             <button id="ffv3-replay" class="ffv3-primary" type="button">Spēlēt vēlreiz</button>
-            <button id="ffv3-change-deck" class="ffv3-secondary" type="button">Mainīt kopu</button>
+            <button id="ffv3-change-deck" class="ffv3-ghost" type="button">Mainīt fokusu</button>
           </div>
         </section>
       </div>

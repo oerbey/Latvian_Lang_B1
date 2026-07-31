@@ -9,26 +9,37 @@ const html = readFileSync(resolve(__dirname, '../../../sentence-surgery-passive.
 
 test('sentence surgery page has expected title', () => {
   assert.ok(html.includes('<title>Sentence Surgery — Ciešamā kārta | Latvian B Level</title>'));
-  assert.ok(/<h1[^>]*>Sentence Surgery — Ciešamā kārta<\/h1>/.test(html));
+  assert.ok(/<h1[^>]*id="sspv-title"[^>]*>Sentence Surgery<\/h1>/.test(html));
 });
 
-test('sentence surgery page includes required controls', () => {
+test('sentence surgery page includes the focused repair controls', () => {
   const ids = [
     'sspv-mode',
     'sspv-topic',
+    'sspv-language',
     'sspv-focusBadge',
-    'sspv-sentenceTokens',
-    'sspv-wordBank',
-    'sspv-bankHint',
-    'sspv-check',
-    'sspv-reset',
+    'sspv-sentence',
+    'sspv-choices',
+    'sspv-feedback',
     'sspv-next',
     'sspv-hint',
     'sspv-progressText',
-    'sspvInfoModal',
+    'sspv-progressBar',
+    'sspv-settingsDialog',
+    'sspv-reviewCompleted',
+    'sspv-complete',
+    'sspv-live',
   ];
 
   ids.forEach((id) => {
     assert.ok(new RegExp(`id="${id}"`).test(html), `missing id ${id}`);
   });
+});
+
+test('sentence surgery page has one live region and no legacy drag/token controls', () => {
+  assert.equal((html.match(/aria-live=/g) || []).length, 1);
+  assert.equal(html.includes('draggable='), false);
+  ['sspv-sentenceTokens', 'sspv-wordBank', 'sspv-check', 'sspv-translationToggle'].forEach(
+    (legacyId) => assert.equal(html.includes(`id="${legacyId}"`), false),
+  );
 });

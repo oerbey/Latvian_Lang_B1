@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v23';
+const CACHE_VERSION = 'v25';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -98,8 +98,11 @@ const CORE_ASSETS = [
   './src/games/similar-word-groups/styles.css',
   './src/games/sentence-surgery-passive/index.js',
   './src/games/sentence-surgery-passive/data.js',
+  './src/games/sentence-surgery-passive/i18n.js',
+  './src/games/sentence-surgery-passive/logic.js',
   './src/games/sentence-surgery-passive/progress.js',
   './src/games/sentence-surgery-passive/tokenize.js',
+  './src/games/sentence-surgery-passive/ui.js',
   './src/games/sentence-surgery-passive/styles.css',
   './src/games/travel-tracker/index.js',
   './data/words.json',
@@ -146,7 +149,6 @@ const CORE_ASSETS = [
   './data/lv-ru/units/nest-ar-priedekliem.json',
   './data/lv-ru/units/refleksivie-un-dzives-notikumi.json',
   './data/lv-ru/units/b1-paligdarbibas-vardi.json',
-  './data/lv-ru/units/week1-movements.json',
   './i18n/lv.json',
   './i18n/en.json',
   './i18n/ru.json',

@@ -45,6 +45,10 @@ export function initMatchingGame(options) {
     priorityTurnsAhead = 3,
     maxPriorityChain = 2,
     onRoundRendered,
+    onScoreChange,
+    onRoundComplete,
+    onReady,
+    autoStart = true,
     texts = {},
     speakLang = 'lv-LV',
     getItemId = (item) => `${item.lv}|${item[defaultLanguage] || ''}`,
@@ -241,9 +245,19 @@ export function initMatchingGame(options) {
               detail: 'Nice match run.',
               tone: 'success',
             });
+            onRoundComplete?.({
+              items: [...state.current],
+              score: { ...state.score },
+            });
           }
         }
         recordResult(state.current[state.selections.lv], true);
+        onScoreChange?.({
+          result: 'correct',
+          item: state.current[state.selections.lv],
+          items: [...state.current],
+          score: { ...state.score },
+        });
       } else {
         state.score.wrong += 1;
         announceStatus(els, state.score);
@@ -257,6 +271,12 @@ export function initMatchingGame(options) {
             : mergedTexts.incorrect;
         els.help.textContent = incorrectText;
         recordResult(state.current[state.selections.lv], false);
+        onScoreChange?.({
+          result: 'wrong',
+          item: state.current[state.selections.lv],
+          items: [...state.current],
+          score: { ...state.score },
+        });
       }
       clearSelections(state, els);
     }
@@ -613,6 +633,7 @@ export function initMatchingGame(options) {
         currentLang: state.currentLang,
         onRoundRendered,
       });
+      onScoreChange?.({ items: [...state.current], score: { ...state.score } });
       updateLockedUI(slice);
       return;
     }
@@ -639,6 +660,7 @@ export function initMatchingGame(options) {
       currentLang: state.currentLang,
       onRoundRendered,
     });
+    onScoreChange?.({ items: [...state.current], score: { ...state.score } });
     updateLockedUI();
   }
 
@@ -771,7 +793,10 @@ export function initMatchingGame(options) {
       if (state.lockedConfig.mode === MODE_LOCKED && !state.lockedOrder.length) {
         handleNewMix({ quiet: true, skipRender: true });
       }
-      await newGame({ initial: true });
+      if (autoStart) {
+        await newGame({ initial: true });
+      }
+      onReady?.({ itemCount: state.data.length, mode: state.lockedConfig.mode });
       if (state.usingFallback && mergedTexts.fallbackUsed) {
         els.help.textContent = mergedTexts.fallbackUsed;
       }
@@ -784,6 +809,11 @@ export function initMatchingGame(options) {
       hideLoading();
     }
   })();
+
+  return {
+    start: () => newGame({ initial: true }),
+    newGame: () => newGame(),
+  };
 }
 
 export const MATCHING_CONSTANTS = { MODE_ALL, MODE_LOCKED };

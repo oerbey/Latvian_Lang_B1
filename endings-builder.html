@@ -1,19 +1,22 @@
 <!--
   endings-builder.html — Endings Builder.
-  Construct correct verb endings by picking the right suffix tiles.
+  A focused Latvian morphology trainer with a Darbības Vārdi V2-style flow.
   Entry script: src/games/endings-builder/index.js
 -->
 <!doctype html>
 <html lang="lv" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
-    <!-- CSP allows inline styles for existing inline snippets -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+      content="default-src 'self'; script-src 'self' https:; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https: data:; object-src 'none'; base-uri 'self';"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="theme-color" content="#0e0f13" />
+    <meta name="theme-color" content="#f4f6fb" />
+    <meta
+      name="description"
+      content="Galotņu veidotājs — latviešu vārdu formu treniņš ar galotņu izvēli un pilnās formas ievadi."
+    />
     <title>Endings Builder — Latvian B Level</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
@@ -28,119 +31,158 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="src/games/endings-builder/styles.css" />
   </head>
-  <body class="dp-page game-theme theme-endings eb-page">
+  <body class="dp-page game-theme eb-page">
     <a class="dp-skip" href="#main">Skip to main content</a>
 
     <nav data-site-nav></nav>
 
     <main id="main">
-      <div class="dp-container">
-        <section class="eb-wrapper" id="ebRoot">
-          <header class="dp-ex-hero eb-hero">
-            <div class="eb-hero__copy">
-              <p class="dp-ex-eyebrow">Morphology lab</p>
-              <h1 class="dp-ex-title mb-2" data-eb-heading>Endings Builder</h1>
-              <p class="dp-ex-lead mb-0" data-eb-subtitle>
-                Drag the correct ending to build the word.
+      <div class="eb-app">
+        <div class="eb-wrapper" id="ebRoot" data-screen="start">
+          <section class="eb-screen eb-start" data-eb-screen="start" aria-labelledby="eb-title">
+            <header class="eb-hero">
+              <span class="eb-eyebrow">Morfoloģijas treniņš</span>
+              <h1 id="eb-title" class="eb-title" data-eb-heading>Galotņu veidotājs</h1>
+              <p class="eb-lead" data-eb-subtitle>
+                Izvēlies pareizo galotni un izveido pilno vārda formu.
               </p>
-              <div class="dp-ex-badges">
-                <span class="dp-badge dp-badge--focus">Focus: endings</span>
-                <span class="dp-badge">Mode: build + type</span>
-                <span class="dp-badge">Level: B</span>
-              </div>
-            </div>
-            <div class="dp-ex-hero__side">
-              <div class="dp-ex-hero__visual" aria-hidden="true">
-                <div
-                  class="dp-orb"
-                  style="width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px)"
-                >
-                  <div class="dp-orb__ring"></div>
-                  <div class="dp-orb__ring"></div>
-                  <div class="dp-orb__ring"></div>
-                  <div class="dp-orb__core"></div>
-                </div>
-              </div>
-            </div>
-          </header>
+            </header>
 
-          <section class="dp-ex-panel eb-panel" aria-labelledby="eb-controls-heading">
-            <div class="dp-ex-panel__body">
-              <h2 id="eb-controls-heading" class="dp-ex-panel__title" data-eb-controls-heading>
-                Round Controls
-              </h2>
-              <details class="eb-howto">
-                <summary>Kā spēlēt / How to play</summary>
-                <div class="eb-howto__grid">
-                  <section aria-labelledby="eb-howto-lv">
-                    <h3 id="eb-howto-lv">Latviski</h3>
-                    <ol>
-                      <li>Nolasi mērķa formu panelī “Round focus”.</li>
-                      <li>Uzklikšķini galotni un ievieto to pie saknes (vai velc ar peli).</li>
-                      <li>Ieraksti pilno formu laukā un spied Enter vai “Pārbaudīt”.</li>
-                      <li>“Rādīt noteikumu” parāda locīšanas tabulu tieši šim vārdam.</li>
-                      <li>
-                        “Izlaist / Nākamais” pāriet uz nākamo raundu; pareiza atbilde ceļ sēriju.
-                      </li>
-                    </ol>
-                  </section>
-                  <section aria-labelledby="eb-howto-en">
-                    <h3 id="eb-howto-en">English</h3>
-                    <ol>
-                      <li>Read the target form in the “Round focus” panel.</li>
-                      <li>Select an ending and place it onto the stem (or drag and drop).</li>
-                      <li>Type the full form and press Enter or “Check”.</li>
-                      <li>Use “Show rule” to open the declension table for this word.</li>
-                      <li>“Skip / Next” moves forward; correct answers build your streak.</li>
-                    </ol>
-                  </section>
-                </div>
-              </details>
-              <div data-game-shell></div>
-              <div class="eb-feedback" aria-live="polite">
+            <div class="eb-stat-row" aria-label="Treniņa pārskats">
+              <div class="eb-stat">
+                <strong data-eb-practised>0</strong>
+                <span>vingrinātas formas</span>
+              </div>
+              <div class="eb-stat">
+                <strong data-eb-strong>0</strong>
+                <span>droši apgūtas</span>
+              </div>
+              <div class="eb-stat">
+                <strong data-eb-total>0</strong>
+                <span>formas kopā</span>
+              </div>
+            </div>
+
+            <section class="eb-panel" aria-labelledby="eb-method-title">
+              <h2 id="eb-method-title" class="eb-panel__title">Kā notiek treniņš</h2>
+              <ol class="eb-ladder">
+                <li>
+                  <strong>Nolasi mērķi</strong>
+                  <span>Atrodi vajadzīgo locījumu, skaitli un dzimti.</span>
+                </li>
+                <li>
+                  <strong>Izvēlies galotni</strong>
+                  <span>Pieskaries galotnei vai ievelc to pie vārda celma.</span>
+                </li>
+                <li>
+                  <strong>Nostiprini formu</strong>
+                  <span>Ieraksti pilno vārdu un izmanto noteikumu tabulu, kad tā vajadzīga.</span>
+                </li>
+              </ol>
+            </section>
+
+            <section class="eb-panel" aria-labelledby="eb-settings-title">
+              <h2 id="eb-settings-title" class="eb-panel__title">Iestatījumi</h2>
+              <div class="eb-setting">
+                <span class="eb-setting__copy">
+                  <strong>Stingrais režīms</strong>
+                  <small>Atbildei jābūt ar pareizām diakritiskajām zīmēm.</small>
+                </span>
+                <button class="eb-switch" type="button" data-eb-strict-start aria-pressed="false">
+                  <span class="eb-switch__track" aria-hidden="true"></span>
+                  <span class="eb-switch__text">Izslēgts</span>
+                </button>
+              </div>
+            </section>
+
+            <details class="eb-howto eb-panel">
+              <summary>Pilna pamācība / Full instructions</summary>
+              <div class="eb-howto__grid">
+                <section aria-labelledby="eb-howto-lv">
+                  <h3 id="eb-howto-lv">Latviski</h3>
+                  <ol>
+                    <li>Nolasi mērķa formu uzdevuma kartītē.</li>
+                    <li>Uzklikšķini galotni vai ievelc to pie celma.</li>
+                    <li>Vari arī ierakstīt pilno formu un spiest Enter.</li>
+                    <li>“Rādīt noteikumu” atver locīšanas tabulu.</li>
+                  </ol>
+                </section>
+                <section aria-labelledby="eb-howto-en">
+                  <h3 id="eb-howto-en">English</h3>
+                  <ol>
+                    <li>Read the target form on the exercise card.</li>
+                    <li>Tap an ending or drag it next to the stem.</li>
+                    <li>You can also type the full form and press Enter.</li>
+                    <li>“Show rule” opens the declension table.</li>
+                  </ol>
+                </section>
+              </div>
+            </details>
+
+            <button class="eb-primary eb-start-button" type="button" data-eb-start>
+              Sākt treniņu
+            </button>
+          </section>
+
+          <section
+            class="eb-screen eb-play"
+            data-eb-screen="play"
+            aria-label="Galotņu uzdevums"
+            hidden
+          >
+            <div data-game-shell></div>
+
+            <article class="eb-card" aria-labelledby="eb-board-heading">
+              <div class="eb-card__head">
+                <h2 id="eb-board-heading" class="eb-prompt-label" data-eb-board-heading>
+                  Veidošanas zona
+                </h2>
+                <span class="eb-mode-chip">Galotne + pilnā forma</span>
+              </div>
+
+              <article class="eb-round-brief" data-eb-round-brief aria-live="polite"></article>
+
+              <section class="eb-build-zone" aria-labelledby="eb-build-zone-title">
+                <h3 id="eb-build-zone-title" class="visually-hidden" data-eb-build-zone-title>
+                  Veido formu
+                </h3>
+                <div class="eb-board" id="ebBoard"></div>
+              </section>
+
+              <section class="eb-ending-zone" aria-labelledby="eb-options-zone-title">
+                <h3 id="eb-options-zone-title" class="eb-zone__title" data-eb-options-zone-title>
+                  Galotņu banka
+                </h3>
+                <div class="eb-board eb-board--options" id="ebOptions" aria-label="Galotnes"></div>
+                <p class="eb-pick-help" data-eb-pick-help></p>
+              </section>
+
+              <div class="eb-divider"><span>vai ieraksti pilno formu</span></div>
+
+              <label class="eb-answer-wrap">
+                <span class="visually-hidden" id="ebAnswerLabel">Ieraksti pilno formu</span>
+                <input
+                  type="text"
+                  class="eb-answer"
+                  aria-labelledby="ebAnswerLabel"
+                  autocomplete="off"
+                  autocapitalize="none"
+                  spellcheck="false"
+                />
+              </label>
+              <p class="eb-answer-help" data-eb-answer-help></p>
+              <div class="eb-keypad" aria-label="Latviešu burti"></div>
+
+              <div class="eb-feedback" aria-live="polite" aria-atomic="true">
                 <span class="eb-feedback__icon" data-feedback-icon></span>
                 <span class="eb-feedback__text" data-feedback-text></span>
               </div>
               <div class="eb-explain visually-hidden" data-eb-explain aria-live="polite"></div>
-            </div>
+            </article>
           </section>
 
-          <section class="dp-ex-board eb-workspace" aria-labelledby="eb-board-heading">
-            <div class="dp-ex-board__header">
-              <h2 id="eb-board-heading" class="dp-ex-board__title" data-eb-board-heading>
-                Build Workspace
-              </h2>
-            </div>
-            <article class="eb-round-brief" data-eb-round-brief aria-live="polite"></article>
-            <div class="eb-workspace-grid">
-              <section class="eb-zone" aria-labelledby="eb-build-zone-title">
-                <h3 id="eb-build-zone-title" class="eb-zone__title" data-eb-build-zone-title>
-                  Build the form
-                </h3>
-                <div class="eb-board" id="ebBoard"></div>
-              </section>
-              <section class="eb-zone" aria-labelledby="eb-options-zone-title">
-                <h3 id="eb-options-zone-title" class="eb-zone__title" data-eb-options-zone-title>
-                  Ending bank
-                </h3>
-                <div class="eb-board eb-board--options" id="ebOptions" aria-label="Endings"></div>
-                <p class="eb-pick-help" data-eb-pick-help></p>
-              </section>
-            </div>
-
-            <label class="w-100 eb-answer-wrap">
-              <span class="visually-hidden" id="ebAnswerLabel">Type the full form</span>
-              <input
-                type="text"
-                class="eb-answer"
-                aria-labelledby="ebAnswerLabel"
-                autocomplete="off"
-              />
-            </label>
-            <p class="eb-answer-help" data-eb-answer-help></p>
-            <div class="eb-keypad" aria-label="Latvian letters"></div>
-          </section>
-        </section>
+          <span class="visually-hidden" data-eb-controls-heading>Raunda vadība</span>
+        </div>
       </div>
     </main>
 

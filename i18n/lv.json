@@ -214,6 +214,179 @@
       "error": "Kļūdas ikona"
     }
   },
+  "sentenceSurgery": {
+    "pageTitle": "Teikumu ķirurģija — ciešamā kārta | Latviešu valodas B līmenis",
+    "title": "Teikumu ķirurģija",
+    "eyebrow": "Ciešamās kārtas labošana",
+    "instructions": "Salabo izcelto vārdu, izvēloties tieši to latviešu valodas formu, kas vajadzīga teikumā.",
+    "header": {
+      "progress": "Progress",
+      "progressValue": "{completed} no {total}",
+      "streak": "Sērija",
+      "streakValue": "{count}",
+      "streakCelebration": "{count} pareizi pēc kārtas!"
+    },
+    "settings": {
+      "open": "Iestatījumi",
+      "title": "Vingrinājuma iestatījumi",
+      "description": "Izvēlies vingrinājuma saturu un apskati savus rezultātus.",
+      "apply": "Lietot iestatījumus",
+      "close": "Aizvērt iestatījumus",
+      "topic": "Temats",
+      "topicHelp": "Ierobežo labojumu rindu ar vienu kontekstu.",
+      "order": "Uzdevumu secība",
+      "orderHelp": "Sajauc uzdevumus vai izmanto datu kopas secību.",
+      "language": "Saskarnes valoda",
+      "languageHelp": "Latviešu teikumi un tulkojumi angļu valodā nemainās.",
+      "statistics": "Statistika",
+      "reviewCompleted": "Atkārtot pabeigtos",
+      "reviewCompletedHelp": "Īslaicīgi vingrinies ar jau atrisinātajiem teikumiem.",
+      "reviewUnsolved": "Vingrināties ar neatrisinātajiem",
+      "reviewUnsolvedHelp": "Atgriezties pie nepabeigto teikumu standarta rindas.",
+      "resetProgress": "Atiestatīt progresu",
+      "resetProgressHelp": "Dzēst pabeigtos uzdevumus, mēģinājumus, precizitāti un sēriju datus."
+    },
+    "order": {
+      "shuffle": "Sajaukt",
+      "sequential": "Pēc kārtas"
+    },
+    "languages": {
+      "lv": "Latviešu",
+      "en": "English",
+      "ru": "Русский"
+    },
+    "stats": {
+      "completed": "Pabeigti",
+      "attempts": "Mēģinājumi",
+      "correct": "Pareizi",
+      "accuracy": "Precizitāte",
+      "streak": "Pašreizējā sērija"
+    },
+    "round": {
+      "eyebrow": "Labojums {current} no {total}",
+      "instruction": "Kura forma salabo šo teikumu?",
+      "repairSlot": "Labojamais vārds",
+      "repairSlotWithWord": "Labojamais vārds: {word}",
+      "focus": "Gramatikas fokuss: {focus}",
+      "topic": "Temats: {topic}"
+    },
+    "choices": {
+      "legend": "Aizvietojuma varianti",
+      "instruction": "Izvēlies vienu aizvietojumu. Pēc nepareizas atbildes vari mēģināt vēlreiz.",
+      "choiceAria": "Aizstāt {wrong} ar {choice}",
+      "correct": "Pareizais variants",
+      "incorrect": "Nepareizs variants"
+    },
+    "actions": {
+      "hint": "Rādīt padomu",
+      "next": "Nākamais teikums",
+      "practiceAgain": "Vingrināties vēlreiz",
+      "reviewCompleted": "Atkārtot pabeigtos",
+      "chooseTopic": "Izvēlēties citu tematu",
+      "retryLoading": "Mēģināt ielādēt vēlreiz"
+    },
+    "hints": {
+      "title": "Gramatikas padoms",
+      "generic": "Pārbaudi ciešamās kārtas modeli un vārdus ap labojuma vietu.",
+      "aux_tense": "Izmanto laika kontekstu, lai noteiktu, vai darbība notiek tagad, notika agrāk vai notiks vēlāk.",
+      "negation": "Nosaki, vai teikums vēsta, ka darbība notiek vai nenotiek, un saglabā to pašu laiku.",
+      "participle_agreement": "Saskaņo divdabi ar ciešamās kārtas teikuma priekšmetu dzimtē un skaitlī."
+    },
+    "feedback": {
+      "ready": "Izvēlies aizvietojumu, lai salabotu teikumu.",
+      "wrong": "Vēl nav pareizi. Šī forma neveido vajadzīgo teikumu.",
+      "wrongWithChoice": "“{choice}” nav šim teikumam vajadzīgā forma. Izvēlies citu variantu.",
+      "tryAgain": "Izvēlies citu variantu.",
+      "correct": "Pareizi — teikums ir salabots!",
+      "correctWithAnswer": "Pareizi — “{answer}” ir tieši šim teikumam vajadzīgā forma.",
+      "explanationTitle": "Kāpēc tas ir pareizi",
+      "translationTitle": "Tulkojums angļu valodā",
+      "explanations": {
+        "generic": "Aizvietojums atjauno pareizo ciešamās kārtas teikumu.",
+        "aux_tense": "Palīgdarbības vārds nosaka ciešamās kārtas teikuma laiku.",
+        "negation": "Noliegtais palīgdarbības vārds parāda, ka darbība nenotiek, vienlaikus saglabājot tās laiku.",
+        "participle_agreement": "Ciešamās kārtas divdabis jāsaskaņo ar teikuma priekšmetu dzimtē un skaitlī."
+      }
+    },
+    "completion": {
+      "eyebrow": "Kopa pabeigta",
+      "title": "Vingrinājuma kopa pabeigta!",
+      "allTitle": "Operācija pabeigta!",
+      "body": "Tu salaboji visus šajā atlasē pieejamos teikumus.",
+      "allBody": "Tu salaboji visus {total} teikumus.",
+      "summary": "{correct} pareizas atbildes no {attempts} mēģinājumiem · precizitāte {accuracy}%"
+    },
+    "topics": {
+      "all": "Visi temati",
+      "city": "Pilsēta",
+      "construction": "Būvniecība",
+      "culture": "Kultūra",
+      "garden": "Dārzs",
+      "history": "Vēsture",
+      "library": "Bibliotēka",
+      "nature": "Daba",
+      "real_estate": "Nekustamais īpašums",
+      "science": "Zinātne",
+      "study": "Mācības",
+      "tech": "Tehnoloģijas",
+      "work": "Darbs"
+    },
+    "focus": {
+      "aux_tense": "Palīgdarbības vārda laiks",
+      "negation": "Noliegums",
+      "participle_agreement": "Divdabja saskaņa",
+      "other": "Cita gramatiskā forma"
+    },
+    "aria": {
+      "openSettings": "Atvērt vingrinājuma iestatījumus",
+      "closeSettings": "Aizvērt vingrinājuma iestatījumus",
+      "settingsDrawer": "Vingrinājuma iestatījumi",
+      "progressRegion": "Teikumu ķirurģijas progress",
+      "progressBar": "Kopējais progress",
+      "progress": "Pabeigti {completed} no {total} teikumiem",
+      "streak": "Pašreizējā sērija: {count}",
+      "roundDetails": "Pašreizējā labojuma informācija",
+      "sentence": "Teikums ar vienu labojamu vārdu",
+      "repairSlot": "Nepareizais vārds {word}; izvēlies aizvietojumu zemāk",
+      "choices": "Vārda {word} aizvietojuma varianti",
+      "feedback": "Atbildes vērtējums",
+      "translation": "Tulkojums angļu valodā",
+      "statistics": "Detalizēta vingrinājuma statistika",
+      "topic": "Izvēlēties tematu",
+      "order": "Izvēlēties uzdevumu secību",
+      "language": "Izvēlēties saskarnes valodu"
+    },
+    "reset": {
+      "confirmTitle": "Atiestatīt visu Teikumu ķirurģijas progresu?",
+      "confirmMessage": "Tiks dzēsti pabeigtie teikumi, mēģinājumi, precizitāte un sērijas. Šo darbību nevar atsaukt.",
+      "confirm": "Atiestatīt progresu",
+      "cancel": "Saglabāt progresu",
+      "success": "Teikumu ķirurģijas progress ir atiestatīts."
+    },
+    "status": {
+      "loading": "Ielādē Teikumu ķirurģiju…",
+      "loadingLanguage": "Ielādē valodu…",
+      "ready": "Teikums ir gatavs.",
+      "roundLoaded": "Ielādēts jauns teikums. Izvēlies aizvietojumu.",
+      "noItems": "Šim tematam nav pieejamu teikumu.",
+      "noUnsolved": "Šajā atlasē nav neatrisinātu teikumu.",
+      "reviewMode": "Atkārtošanas režīms: pabeigtie teikumi.",
+      "languageChanged": "Saskarnes valoda nomainīta uz {language}.",
+      "settingsOpened": "Vingrinājuma iestatījumi atvērti.",
+      "settingsClosed": "Vingrinājuma iestatījumi aizvērti.",
+      "wrongAnnouncement": "Nepareizs variants. Mēģini vēlreiz.",
+      "correctAnnouncement": "Pareizais variants. Teikums ir salabots.",
+      "completed": "Vingrinājuma kopa pabeigta.",
+      "resetSuccess": "Progress atiestatīts."
+    },
+    "errors": {
+      "loadTitle": "Teikumu ķirurģiju neizdevās sākt",
+      "loadData": "Neizdevās ielādēt teikumu datus. Lūdzu, mēģini vēlreiz.",
+      "loadTranslations": "Neizdevās ielādēt saskarnes valodu.",
+      "invalidData": "Teikumu dati nav derīgi. Katram uzdevumam vajadzīgs viens labojums un tā precīzā atbilde.",
+      "unexpected": "Radās kļūda. Lūdzu, pārlādē lapu."
+    }
+  },
   "decl6Detective": {
     "title": "Kas ir manā mājā? — 6. deklinācijas detektīvs",
     "start": "Sākt",

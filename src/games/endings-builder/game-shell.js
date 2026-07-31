@@ -11,7 +11,7 @@
 function button(label, opts = {}) {
   const btn = document.createElement('button');
   btn.type = 'button';
-  btn.className = opts.className || 'btn btn-primary';
+  btn.className = opts.className || 'eb-primary';
   btn.textContent = label;
   if (opts.title) btn.title = opts.title;
   if (opts.ariaLabel) btn.setAttribute('aria-label', opts.ariaLabel);
@@ -19,7 +19,7 @@ function button(label, opts = {}) {
 }
 
 function statCard(label, key) {
-  const wrap = document.createElement('div');
+  const wrap = document.createElement('span');
   wrap.className = 'eb-shell__stat';
   wrap.dataset.value = key;
 
@@ -50,24 +50,50 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
   const shell = document.createElement('section');
   shell.className = 'eb-shell';
 
+  const hud = document.createElement('header');
+  hud.className = 'eb-hud';
+
+  const quitBtn = button('‹', {
+    className: 'eb-icon-button',
+    ariaLabel: 'Atgriezties uz sākumu',
+  });
+
+  const roundBlock = document.createElement('div');
+  roundBlock.className = 'eb-hud__main';
+  const roundLine = document.createElement('div');
+  roundLine.className = 'eb-hud__line';
+  const stageChip = document.createElement('span');
+  stageChip.className = 'eb-stage-chip';
+  stageChip.textContent = strings.sections?.endingZone || 'Endings';
+  const roundValue = document.createElement('strong');
+  roundValue.className = 'eb-round-value';
+  roundValue.textContent = strings.round?.eyebrow?.replace('{round}', '1') || 'Round 1';
+  roundLine.append(stageChip, roundValue);
+  const progressTrack = document.createElement('div');
+  progressTrack.className = 'eb-progress';
+  progressTrack.setAttribute('aria-hidden', 'true');
+  progressTrack.append(document.createElement('span'));
+  roundBlock.append(roundLine, progressTrack);
+
   const score = document.createElement('div');
   score.className = 'eb-shell__score';
   const hitsStat = statCard(strings.labels.score, 'hits');
   const streakStat = statCard(strings.labels.streak, 'streak');
   const accuracyStat = statCard(strings.labels.accuracy || 'Accuracy', 'accuracy');
   score.append(hitsStat.wrap, streakStat.wrap, accuracyStat.wrap);
+  hud.append(quitBtn, roundBlock, score);
 
   const controls = document.createElement('div');
   controls.className = 'eb-shell__controls';
 
   const checkBtn = button(strings.buttons.check, {
-    className: 'btn btn-success',
+    className: 'eb-primary eb-check-button',
   });
   const nextBtn = button(strings.buttons.next, {
-    className: 'btn btn-outline-primary',
+    className: 'eb-secondary',
   });
   const ruleBtn = button(strings.buttons.rule, {
-    className: 'btn btn-outline-secondary',
+    className: 'eb-ghost',
   });
 
   const strictWrap = document.createElement('label');
@@ -82,11 +108,11 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
   strictWrap.append(strictInput, strictLabel);
 
   const reportBtn = button(strings.buttons.report, {
-    className: 'btn btn-outline-danger',
+    className: 'eb-text-button',
   });
 
   controls.append(checkBtn, nextBtn, ruleBtn, strictWrap, reportBtn);
-  shell.append(score, controls);
+  shell.append(hud, controls);
   shellHost.append(shell);
 
   const live = document.createElement('div');
@@ -116,7 +142,7 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
   });
 
   document.addEventListener('keydown', (e) => {
-    if (isTypingTarget(e.target)) return;
+    if (root.dataset.screen !== 'play' || isTypingTarget(e.target)) return;
     if (e.key === 'Enter') {
       e.preventDefault();
       onCheck?.();
@@ -131,6 +157,15 @@ export function mountGameShell({ root, strings, onCheck, onNext, onToggleRule, o
     setScore: updateScore,
     setStrict(value) {
       strictInput.checked = value;
+    },
+    setRound(roundNumber) {
+      roundValue.textContent =
+        strings.round?.eyebrow?.replace('{round}', `${roundNumber}`) || `Round ${roundNumber}`;
+      const progress = progressTrack.firstElementChild;
+      if (progress) progress.style.width = `${((Math.max(1, roundNumber) - 1) % 10) * 10 + 10}%`;
+    },
+    onQuit(callback) {
+      quitBtn.addEventListener('click', callback);
     },
     announce(msg) {
       live.textContent = msg;

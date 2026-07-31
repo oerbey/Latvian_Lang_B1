@@ -103,6 +103,7 @@ export function applyStrings({ elements, strings }) {
 
 export function setFeedback(feedbackEl, icon, text) {
   if (!feedbackEl) return;
+  feedbackEl.dataset.result = icon === 'check' ? 'correct' : icon === 'close' ? 'wrong' : 'info';
   let iconEl = feedbackEl.querySelector('.eb-feedback__icon');
   if (!iconEl || iconEl.tagName.toLowerCase() !== 'img') {
     const created = createIcon({

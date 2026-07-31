@@ -12,6 +12,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import Ajv from 'ajv';
+import {
+  createPreserveTokenSet,
+  tokenizeSentence,
+} from '../src/games/sentence-surgery-passive/tokenize.js';
 
 const ROOT = process.cwd();
 
@@ -50,6 +54,11 @@ const DATASETS = [
     name: 'form-factory items',
     dataPath: 'data/form-factory/items.json',
     schemaPath: 'schemas/form-factory.schema.json',
+  },
+  {
+    name: 'sentence-surgery passive items',
+    dataPath: 'sentence_surgery_pack/sentence_surgery_passive_dataset.json',
+    schemaPath: 'schemas/sentence-surgery-passive.schema.json',
   },
 ];
 
@@ -130,6 +139,63 @@ async function validateWordChunks() {
   return ok;
 }
 
+async function validateSentenceSurgerySemantics() {
+  const dataFile = path.resolve(
+    ROOT,
+    'sentence_surgery_pack/sentence_surgery_passive_dataset.json',
+  );
+  const dataset = await readJson(dataFile);
+  const items = Array.isArray(dataset?.items) ? dataset.items : [];
+  const seenIds = new Set();
+  const errors = [];
+
+  items.forEach((item, index) => {
+    const label = item?.id || `item ${index + 1}`;
+    if (seenIds.has(item?.id)) {
+      errors.push(`${label}: duplicate id`);
+    }
+    seenIds.add(item?.id);
+
+    const wordBank = Array.isArray(item?.word_bank) ? item.word_bank : [];
+    const preserveTokens = createPreserveTokenSet(wordBank);
+    const brokenTokens = tokenizeSentence(item?.broken_lv, preserveTokens);
+    const targetTokens = tokenizeSentence(item?.target_lv, preserveTokens);
+    const mismatchIndices = [];
+    const tokenCount = Math.max(brokenTokens.length, targetTokens.length);
+
+    for (let tokenIndex = 0; tokenIndex < tokenCount; tokenIndex += 1) {
+      if (brokenTokens[tokenIndex] !== targetTokens[tokenIndex]) {
+        mismatchIndices.push(tokenIndex);
+      }
+    }
+
+    if (mismatchIndices.length !== 1) {
+      errors.push(`${label}: expected exactly one token mismatch, found ${mismatchIndices.length}`);
+      return;
+    }
+
+    const mismatchIndex = mismatchIndices[0];
+    const error = item?.errors?.[0];
+    const wrongToken = brokenTokens[mismatchIndex];
+    const correctToken = targetTokens[mismatchIndex];
+
+    if (error?.wrong !== wrongToken || error?.correct !== correctToken) {
+      errors.push(`${label}: declared error does not match the broken/target token pair`);
+    }
+    if (!wordBank.includes(correctToken)) {
+      errors.push(`${label}: word bank does not include the exact target token`);
+    }
+  });
+
+  if (errors.length) {
+    console.error('\nSemantic validation failed for sentence-surgery passive items');
+    errors.forEach((error) => console.error(`  - ${error}`));
+    return false;
+  }
+
+  return true;
+}
+
 async function main() {
   let ok = true;
   for (const entry of DATASETS) {
@@ -150,6 +216,15 @@ async function main() {
   } catch (err) {
     ok = false;
     console.error('\nFailed to validate word chunks');
+    console.error(err instanceof Error ? err.message : String(err));
+  }
+
+  try {
+    const validSentenceSurgery = await validateSentenceSurgerySemantics();
+    if (!validSentenceSurgery) ok = false;
+  } catch (err) {
+    ok = false;
+    console.error('\nFailed to validate sentence-surgery semantics');
     console.error(err instanceof Error ? err.message : String(err));
   }
 

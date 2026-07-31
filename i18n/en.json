@@ -214,6 +214,179 @@
       "error": "Error icon"
     }
   },
+  "sentenceSurgery": {
+    "pageTitle": "Sentence Surgery — Passive Voice | Latvian B Level",
+    "title": "Sentence Surgery",
+    "eyebrow": "Passive voice repair",
+    "instructions": "Repair the highlighted word by choosing the exact Latvian form the sentence needs.",
+    "header": {
+      "progress": "Progress",
+      "progressValue": "{completed} of {total}",
+      "streak": "Streak",
+      "streakValue": "{count}",
+      "streakCelebration": "{count} in a row!"
+    },
+    "settings": {
+      "open": "Settings",
+      "title": "Practice settings",
+      "description": "Choose what to practise and review your results.",
+      "apply": "Apply settings",
+      "close": "Close settings",
+      "topic": "Topic",
+      "topicHelp": "Limit the repair queue to one context.",
+      "order": "Question order",
+      "orderHelp": "Shuffle the queue or follow the dataset order.",
+      "language": "Interface language",
+      "languageHelp": "Latvian sentences and English translations stay unchanged.",
+      "statistics": "Statistics",
+      "reviewCompleted": "Review completed",
+      "reviewCompletedHelp": "Temporarily practise sentences you have already solved.",
+      "reviewUnsolved": "Practise unsolved",
+      "reviewUnsolvedHelp": "Return to the default queue of unfinished sentences.",
+      "resetProgress": "Reset progress",
+      "resetProgressHelp": "Clear completion, attempts, accuracy, and streak data."
+    },
+    "order": {
+      "shuffle": "Shuffle",
+      "sequential": "In order"
+    },
+    "languages": {
+      "lv": "Latviešu",
+      "en": "English",
+      "ru": "Русский"
+    },
+    "stats": {
+      "completed": "Completed",
+      "attempts": "Attempts",
+      "correct": "Correct",
+      "accuracy": "Accuracy",
+      "streak": "Current streak"
+    },
+    "round": {
+      "eyebrow": "Repair {current} of {total}",
+      "instruction": "Which form repairs this sentence?",
+      "repairSlot": "Word to repair",
+      "repairSlotWithWord": "Word to repair: {word}",
+      "focus": "Grammar focus: {focus}",
+      "topic": "Topic: {topic}"
+    },
+    "choices": {
+      "legend": "Replacement choices",
+      "instruction": "Choose one replacement. You can try again after a wrong answer.",
+      "choiceAria": "Replace {wrong} with {choice}",
+      "correct": "Correct choice",
+      "incorrect": "Wrong choice"
+    },
+    "actions": {
+      "hint": "Show hint",
+      "next": "Next sentence",
+      "practiceAgain": "Practise again",
+      "reviewCompleted": "Review completed",
+      "chooseTopic": "Choose another topic",
+      "retryLoading": "Try loading again"
+    },
+    "hints": {
+      "title": "Grammar hint",
+      "generic": "Check the passive pattern and the words around the repair slot.",
+      "aux_tense": "Use the time context to decide whether the action is happening now, happened before, or will happen later.",
+      "negation": "Decide whether the sentence says the action happens or does not happen, then keep the same tense.",
+      "participle_agreement": "Make the participle agree with the passive subject in gender and number."
+    },
+    "feedback": {
+      "ready": "Choose a replacement to repair the sentence.",
+      "wrong": "Not quite. That form does not make the target sentence.",
+      "wrongWithChoice": "“{choice}” is not the form this sentence needs. Try another choice.",
+      "tryAgain": "Try another choice.",
+      "correct": "Correct — the sentence is repaired!",
+      "correctWithAnswer": "Correct — “{answer}” is the exact form this sentence needs.",
+      "explanationTitle": "Why it works",
+      "translationTitle": "English translation",
+      "explanations": {
+        "generic": "The replacement restores the target passive sentence.",
+        "aux_tense": "The auxiliary verb sets the tense of the passive sentence.",
+        "negation": "The negative auxiliary shows that the action does not happen while preserving its tense.",
+        "participle_agreement": "The passive participle must agree with the sentence subject in gender and number."
+      }
+    },
+    "completion": {
+      "eyebrow": "Set complete",
+      "title": "Practice set complete!",
+      "allTitle": "Surgery complete!",
+      "body": "You repaired every available sentence in this filter.",
+      "allBody": "You repaired all {total} sentences.",
+      "summary": "{correct} correct answers from {attempts} attempts · {accuracy}% accuracy"
+    },
+    "topics": {
+      "all": "All topics",
+      "city": "City",
+      "construction": "Construction",
+      "culture": "Culture",
+      "garden": "Garden",
+      "history": "History",
+      "library": "Library",
+      "nature": "Nature",
+      "real_estate": "Real estate",
+      "science": "Science",
+      "study": "Study",
+      "tech": "Technology",
+      "work": "Work"
+    },
+    "focus": {
+      "aux_tense": "Auxiliary tense",
+      "negation": "Negation",
+      "participle_agreement": "Participle agreement",
+      "other": "Other grammar form"
+    },
+    "aria": {
+      "openSettings": "Open practice settings",
+      "closeSettings": "Close practice settings",
+      "settingsDrawer": "Practice settings",
+      "progressRegion": "Sentence Surgery progress",
+      "progressBar": "Overall completion",
+      "progress": "{completed} of {total} sentences completed",
+      "streak": "Current streak: {count}",
+      "roundDetails": "Current repair details",
+      "sentence": "Sentence with one word to repair",
+      "repairSlot": "Incorrect word {word}; choose a replacement below",
+      "choices": "Replacement choices for {word}",
+      "feedback": "Answer feedback",
+      "translation": "English translation",
+      "statistics": "Detailed practice statistics",
+      "topic": "Select a topic",
+      "order": "Select question order",
+      "language": "Select interface language"
+    },
+    "reset": {
+      "confirmTitle": "Reset all Sentence Surgery progress?",
+      "confirmMessage": "This clears completed sentences, attempts, accuracy, and streaks. It cannot be undone.",
+      "confirm": "Reset progress",
+      "cancel": "Keep progress",
+      "success": "Sentence Surgery progress was reset."
+    },
+    "status": {
+      "loading": "Loading Sentence Surgery…",
+      "loadingLanguage": "Loading language…",
+      "ready": "Sentence ready.",
+      "roundLoaded": "New sentence loaded. Choose a replacement.",
+      "noItems": "No sentences are available for this topic.",
+      "noUnsolved": "There are no unsolved sentences in this filter.",
+      "reviewMode": "Review mode: completed sentences.",
+      "languageChanged": "Interface language changed to {language}.",
+      "settingsOpened": "Practice settings opened.",
+      "settingsClosed": "Practice settings closed.",
+      "wrongAnnouncement": "Wrong choice. Try again.",
+      "correctAnnouncement": "Correct choice. The sentence is repaired.",
+      "completed": "Practice set complete.",
+      "resetSuccess": "Progress reset."
+    },
+    "errors": {
+      "loadTitle": "Sentence Surgery could not start",
+      "loadData": "The sentence data could not be loaded. Please try again.",
+      "loadTranslations": "The interface language could not be loaded.",
+      "invalidData": "The sentence data is invalid. Every exercise needs one repair and its exact answer.",
+      "unexpected": "Something went wrong. Please reload the page."
+    }
+  },
   "decl6Detective": {
     "title": "What’s in my house? — 6th Declension Detective",
     "start": "Start",

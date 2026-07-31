@@ -8,18 +8,12 @@
  */
 
 import { assetUrl } from '../../lib/paths.js';
-import { createPreserveTokenSet, tokenizeSentence } from './tokenize.js';
+import { createPreserveTokenSet, findMismatchIndices, tokenizeSentence } from './tokenize.js';
 
 const DATASET_PATHS = [
   'sentence_surgery_pack/sentence_surgery_passive_dataset.json',
   'data/sentence_surgery_passive_dataset.json',
 ];
-
-const ERROR_TYPE_LABELS = {
-  aux_tense: 'laiks (tiek/tika/tiks)',
-  negation: 'noliegums (netiek/netika)',
-  participle_agreement: 'saskaņa (-ts/-ta/-ti/-tas)',
-};
 
 const AUXILIARY_FORMS = new Set(['tiek', 'tika', 'tiks', 'netiek', 'netika', 'netiks']);
 
@@ -36,26 +30,17 @@ function uniqueTokens(tokens = []) {
   return unique;
 }
 
-function normalizeError(error = {}) {
+function normalizeError(error, itemId) {
   if (!error || typeof error !== 'object') {
-    return { type: 'unknown', wrong: '', correct: '' };
+    throw new Error(`Item ${itemId} has an invalid declared error`);
   }
-  return {
-    type: typeof error.type === 'string' && error.type ? error.type : 'unknown',
-    wrong: typeof error.wrong === 'string' ? error.wrong : '',
-    correct: typeof error.correct === 'string' ? error.correct : '',
-  };
-}
-
-function findMismatchIndices(leftTokens = [], rightTokens = []) {
-  const mismatches = [];
-  const maxLength = Math.max(leftTokens.length, rightTokens.length);
-  for (let index = 0; index < maxLength; index += 1) {
-    if ((leftTokens[index] || '') !== (rightTokens[index] || '')) {
-      mismatches.push(index);
-    }
+  const type = typeof error.type === 'string' ? error.type.trim() : '';
+  const wrong = typeof error.wrong === 'string' ? error.wrong.trim() : '';
+  const correct = typeof error.correct === 'string' ? error.correct.trim() : '';
+  if (!type || !wrong || !correct) {
+    throw new Error(`Item ${itemId} error must include non-empty type, wrong, and correct values`);
   }
-  return mismatches;
+  return { type, wrong, correct };
 }
 
 function participleStem(token = '') {
@@ -65,11 +50,17 @@ function participleStem(token = '') {
   return normalized.replace(/(tas|ti|ta|ts)$/u, '');
 }
 
+function buildParticipleForms(brokenToken, targetToken) {
+  const stem = participleStem(targetToken) || participleStem(brokenToken);
+  if (!stem) return [];
+  return ['ts', 'ta', 'ti', 'tas'].map((ending) => `${stem}${ending}`);
+}
+
 function buildReplacementOptions(baseWordBank, brokenToken, targetToken, error) {
   const orderedBank = uniqueTokens(baseWordBank);
   const candidates = new Set();
 
-  [brokenToken, targetToken, error?.wrong, error?.correct].forEach((token) => {
+  [targetToken, error?.correct].forEach((token) => {
     if (typeof token === 'string' && token.trim()) {
       candidates.add(token.trim());
     }
@@ -92,58 +83,66 @@ function buildReplacementOptions(baseWordBank, brokenToken, targetToken, error) 
         candidates.add(token);
       }
     });
+    buildParticipleForms(brokenToken, targetToken).forEach((token) => candidates.add(token));
   }
 
-  let focused = orderedBank.filter((token) => candidates.has(token));
-  if (focused.length < 2) {
-    focused = orderedBank.filter((token) => token !== brokenToken).slice(0, 4);
-  }
+  const generated =
+    error?.type === 'participle_agreement' ? buildParticipleForms(brokenToken, targetToken) : [];
+  const focused = uniqueTokens([
+    ...orderedBank.filter((token) => candidates.has(token)),
+    ...generated,
+  ]).filter((token) => token !== brokenToken);
 
-  return uniqueTokens([brokenToken, ...focused, targetToken]);
+  return uniqueTokens([...focused, targetToken]).filter((token) => token !== brokenToken);
 }
 
-function normalizeItem(item, index) {
+export function normalizeSentenceSurgeryItem(item, index = 0) {
   if (!item || typeof item !== 'object') {
     throw new Error(`Invalid item at index ${index}`);
   }
 
-  const id = typeof item.id === 'string' && item.id ? item.id : `item-${index + 1}`;
-  const topic = typeof item.topic === 'string' && item.topic ? item.topic : 'general';
+  const id = typeof item.id === 'string' ? item.id.trim() : '';
+  if (!id) {
+    throw new Error(`Item at index ${index} is missing a non-empty id`);
+  }
+  const topic = typeof item.topic === 'string' && item.topic.trim() ? item.topic.trim() : 'general';
   const source = typeof item.source === 'string' ? item.source : '';
   const targetLv = typeof item.target_lv === 'string' ? item.target_lv.trim() : '';
   const brokenLv = typeof item.broken_lv === 'string' ? item.broken_lv.trim() : '';
   const targetEn = typeof item.target_en === 'string' ? item.target_en.trim() : '';
 
-  if (!targetLv || !brokenLv) {
-    throw new Error(`Item ${id} is missing target_lv or broken_lv`);
+  if (!targetLv || !brokenLv || !targetEn) {
+    throw new Error(`Item ${id} must include non-empty target_lv, broken_lv, and target_en`);
+  }
+  if (!Array.isArray(item.errors) || item.errors.length !== 1) {
+    throw new Error(`Item ${id} must declare exactly one error`);
+  }
+  if (!Array.isArray(item.word_bank)) {
+    throw new Error(`Item ${id} must include a word_bank array`);
   }
 
-  const rawWordBank = Array.isArray(item.word_bank) ? item.word_bank : [];
+  const rawWordBank = uniqueTokens(item.word_bank);
   const preserveTokens = createPreserveTokenSet(rawWordBank);
-  const normalizedErrors = Array.isArray(item.errors)
-    ? item.errors.map((entry) => normalizeError(entry))
-    : [];
+  const error = normalizeError(item.errors[0], id);
   const targetTokens = tokenizeSentence(targetLv, preserveTokens);
   const brokenTokens = tokenizeSentence(brokenLv, preserveTokens);
   const mismatchIndices = findMismatchIndices(brokenTokens, targetTokens);
-  const fallbackWrongIndex = normalizedErrors[0]?.wrong
-    ? brokenTokens.findIndex((token) => token === normalizedErrors[0].wrong)
-    : -1;
-  const editableIndices = mismatchIndices.length
-    ? mismatchIndices
-    : fallbackWrongIndex >= 0
-      ? [fallbackWrongIndex]
-      : [];
-  const primaryEditableIndex = editableIndices[0] ?? 0;
-  const baseWordBank = uniqueTokens(
-    rawWordBank.length ? rawWordBank : targetTokens.concat(brokenTokens),
-  );
-  const wordBank = buildReplacementOptions(
-    baseWordBank,
-    brokenTokens[primaryEditableIndex] || '',
-    targetTokens[primaryEditableIndex] || '',
-    normalizedErrors[0],
-  );
+  if (brokenTokens.length !== targetTokens.length || mismatchIndices.length !== 1) {
+    throw new Error(`Item ${id} must contain exactly one token replacement`);
+  }
+  const primaryEditableIndex = mismatchIndices[0];
+  const brokenToken = brokenTokens[primaryEditableIndex];
+  const targetToken = targetTokens[primaryEditableIndex];
+  if (error.wrong !== brokenToken || error.correct !== targetToken) {
+    throw new Error(`Item ${id} declared error does not match the changed sentence tokens`);
+  }
+  if (!rawWordBank.includes(targetToken)) {
+    throw new Error(`Item ${id} word_bank must include the correct target option “${targetToken}”`);
+  }
+  const choices = buildReplacementOptions(rawWordBank, brokenToken, targetToken, error);
+  if (!choices.includes(targetToken)) {
+    throw new Error(`Item ${id} could not build a correct target choice`);
+  }
 
   return {
     id,
@@ -152,10 +151,11 @@ function normalizeItem(item, index) {
     targetLv,
     targetEn,
     brokenLv,
-    errors: normalizedErrors,
-    editableIndices,
+    errors: [error],
+    editableIndices: [primaryEditableIndex],
     primaryEditableIndex,
-    wordBank,
+    choices,
+    wordBank: [...choices],
     preserveTokens,
     targetTokens,
     brokenTokens,
@@ -163,7 +163,7 @@ function normalizeItem(item, index) {
   };
 }
 
-function normalizeDataset(raw, resolvedPath) {
+export function normalizeSentenceSurgeryDataset(raw, resolvedPath = '') {
   if (!raw || typeof raw !== 'object') {
     throw new Error('Dataset payload is not an object');
   }
@@ -171,10 +171,17 @@ function normalizeDataset(raw, resolvedPath) {
     throw new Error('Dataset is missing an items array');
   }
 
-  const items = raw.items.map((item, index) => normalizeItem(item, index));
+  const items = raw.items.map((item, index) => normalizeSentenceSurgeryItem(item, index));
   if (!items.length) {
     throw new Error('Dataset contains no items');
   }
+  const ids = new Set();
+  items.forEach((item) => {
+    if (ids.has(item.id)) {
+      throw new Error(`Dataset contains duplicate item id ${item.id}`);
+    }
+    ids.add(item.id);
+  });
 
   return {
     meta: raw.meta && typeof raw.meta === 'object' ? raw.meta : {},
@@ -195,7 +202,7 @@ export async function loadSentenceSurgeryDataset() {
         continue;
       }
       const raw = await response.json();
-      return normalizeDataset(raw, path);
+      return normalizeSentenceSurgeryDataset(raw, path);
     } catch (error) {
       lastError = error;
     }
@@ -210,36 +217,4 @@ export function extractTopics(items = []) {
     if (item?.topic) topics.add(item.topic);
   });
   return Array.from(topics).sort((left, right) => left.localeCompare(right, 'lv'));
-}
-
-export function toTopicLabel(topic) {
-  if (!topic) return 'Visi temati';
-  return topic
-    .split('_')
-    .map((part) => (part ? part[0].toUpperCase() + part.slice(1) : part))
-    .join(' ');
-}
-
-export function getErrorTypeLabel(type) {
-  return ERROR_TYPE_LABELS[type] || `gramatiskā forma (${type || 'cits'})`;
-}
-
-export function buildErrorExplanation(error) {
-  if (!error) {
-    return 'Kļūda: pārbaudi teikuma formu un pieturzīmes.';
-  }
-  const label = getErrorTypeLabel(error.type);
-  const correct = error.correct ? ` Pareizi: ${error.correct}.` : '';
-  return `Kļūda: ${label}.${correct}`;
-}
-
-export function buildHintText(error) {
-  if (!error) {
-    return 'Padoms: salīdzini teikumu ar ciešamās kārtas modeli.';
-  }
-  const label = getErrorTypeLabel(error.type);
-  if (error.correct) {
-    return `Padoms: pārbaudi ${label}. Pareizā forma ir “${error.correct}”.`;
-  }
-  return `Padoms: pārbaudi ${label}.`;
 }

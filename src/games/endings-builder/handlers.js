@@ -81,6 +81,7 @@ export function createHandlers({
     const strings = getStrings();
     state.current = pickNextRound(rounds);
     state.roundNumber = (state.roundNumber ?? 0) + 1;
+    shell.setRound?.(state.roundNumber);
     state.solved = false;
     state.lastAttemptKey = null;
     shell.disableCheck(false);
@@ -127,6 +128,7 @@ export function createHandlers({
     });
 
     if (correct) {
+      slotEl.classList.remove('is-wrong');
       slotEl.classList.add('is-correct');
       shell.announce(strings.announce.correct);
       answerInput.value = state.current.fullForm;
@@ -139,9 +141,12 @@ export function createHandlers({
       slotEl.classList.add('is-wrong');
       shell.announce(strings.announce.incorrect);
       setTimeout(() => {
-        slotEl.classList.remove('is-wrong', 'has-ending');
+        if (!slotEl.isConnected) return;
+        slotEl.classList.remove('is-wrong');
+        if (endingEl.parentElement === slotEl || !endingEl.isConnected) pool.append(endingEl);
+        if (state.solved) return;
+        slotEl.classList.remove('has-ending');
         slotEl.dataset.placeholder = strings.labels.dropPlaceholder;
-        pool.append(endingEl);
       }, 600);
     }
   }

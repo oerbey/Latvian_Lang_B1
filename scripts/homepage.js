@@ -47,6 +47,17 @@ const games = [
     category: 'verbs',
   },
   {
+    title: 'Darbības Vārdi V2',
+    href: 'darbibas-vardi-v2.html',
+    icon: '🧠',
+    desc: 'Adaptive Latvian verb practice from meaning to conjugated forms and assembly.',
+    tag: 'Adaptive',
+    meta: ['Focus: verbs', '5–10 min', 'B level'],
+    accent: '#4f46e5',
+    art: 'linear-gradient(135deg, rgba(79, 70, 229, 0.28), rgba(217, 119, 6, 0.2)), url("assets/previews/verbs_preview.png")',
+    category: 'verbs',
+  },
+  {
     title: 'Nākt ar priedēkļiem',
     href: 'prefixed-coming-verbs.html',
     icon: '↗',

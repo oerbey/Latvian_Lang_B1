@@ -31,80 +31,72 @@
   </head>
   <body class="mvm-page game-theme theme-maini">
     <a class="skip-link" href="#main">Skip to main content</a>
-    <nav
-      class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom"
-      role="banner"
-      data-site-nav
-    ></nav>
+    <nav data-site-nav></nav>
 
-    <main id="main" class="container py-4 mt-5 mvm-shell">
-      <header class="mvm-hero mb-4">
-        <div class="mvm-hero__copy">
-          <p class="mvm-eyebrow">Reflexive contrast</p>
-          <h1 class="mvm-title mb-2" id="mvmTitle">Maini vai mainies?</h1>
-          <p class="mvm-lead mb-0" id="mvmInstructions">
-            Izvēlies pareizo darbības vārda formu (refleksīvs vai nerefekss).
-          </p>
-        </div>
-        <div class="mvm-hero__meta">
-          <span class="mvm-tag">Focus: -ies</span>
-          <span class="mvm-tag">Mode: choose</span>
-          <span class="mvm-tag">Level: B</span>
-        </div>
-      </header>
+    <main id="main">
+      <div class="mvm-app">
+        <section class="mvm-screen" aria-labelledby="mvmTitle">
+          <header class="mvm-hero">
+            <span class="mvm-eyebrow">Darbības vārdu treniņš</span>
+            <h1 class="mvm-title" id="mvmTitle">Maini vai mainies?</h1>
+            <p class="mvm-lead" id="mvmInstructions">
+              Izvēlies pareizo darbības vārda formu: refleksīvu vai nereflek­sīvu.
+            </p>
+          </header>
 
-      <section class="mvm-wrapper card" id="mvmGame" aria-live="off">
-        <div class="card-body">
-          <div class="mvm-top d-flex flex-column flex-md-row align-items-center gap-3">
-            <div class="mvm-avatar">
-              <img
-                id="mvmAvatar"
-                src="assets/img/maini-vai-mainies/avatars/avatar-neutral.svg"
-                alt="Avatar"
-                loading="lazy"
-              />
-            </div>
-            <div class="mvm-content flex-grow-1 w-100">
-              <p class="mvm-sentence h5 text-center text-md-start" id="mvmSentence">–</p>
-              <div class="mvm-buttons d-grid gap-3 mt-3">
-                <button
-                  type="button"
-                  class="btn btn-lg btn-outline-primary mvm-choice"
-                  id="mvmChoiceA"
-                  data-choice="0"
-                >
+          <div class="mvm-stat-row" aria-label="Treniņa pārskats">
+            <div class="mvm-stat"><strong>-t / -ties</strong><span>gramatikas fokuss</span></div>
+            <div class="mvm-stat"><strong>2</strong><span>atbilžu varianti</span></div>
+            <div class="mvm-stat"><strong>B</strong><span>līmenis</span></div>
+          </div>
+
+          <article class="mvm-card" id="mvmGame" aria-live="off">
+            <header class="mvm-card__head">
+              <div>
+                <p class="mvm-prompt-label">Izvēlies pareizo formu</p>
+                <p class="mvm-sentence" id="mvmSentence">–</p>
+              </div>
+              <div class="mvm-metrics">
+                <span class="mvm-chip" id="mvmScore">score 0</span>
+                <span class="mvm-chip" id="mvmStreak">streak 0</span>
+              </div>
+            </header>
+
+            <div class="mvm-question-layout">
+              <div class="mvm-avatar">
+                <img
+                  id="mvmAvatar"
+                  src="assets/img/maini-vai-mainies/avatars/avatar-neutral.svg"
+                  alt="Avatar"
+                  loading="lazy"
+                />
+              </div>
+              <div class="mvm-buttons">
+                <button type="button" class="mvm-choice" id="mvmChoiceA" data-choice="0">
                   Option A
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-lg btn-outline-primary mvm-choice"
-                  id="mvmChoiceB"
-                  data-choice="1"
-                >
+                <button type="button" class="mvm-choice" id="mvmChoiceB" data-choice="1">
                   Option B
                 </button>
               </div>
             </div>
-          </div>
-          <div class="visually-hidden" id="mvmLive" role="status" aria-live="polite"></div>
-          <p class="mvm-feedback fw-semibold mt-3" id="mvmFeedback"></p>
-          <p class="mvm-hint text-secondary mb-0" id="mvmHint"></p>
-        </div>
-        <div class="card-footer bg-transparent d-flex flex-wrap align-items-center gap-3">
-          <div class="mvm-metrics d-flex flex-wrap gap-3">
-            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmScore"
-              >score 0</span
-            >
-            <span class="badge bg-secondary-subtle text-secondary-emphasis" id="mvmStreak"
-              >streak 0</span
-            >
-          </div>
-          <div class="ms-auto d-flex gap-2">
-            <button class="btn btn-outline-secondary" id="mvmStart">Start</button>
-            <button class="btn btn-primary" id="mvmNext" disabled>Next</button>
-          </div>
-        </div>
-      </section>
+
+            <div class="mvm-feedback" id="mvmFeedback" role="status" aria-live="polite"></div>
+            <p class="mvm-hint" id="mvmHint"></p>
+            <div
+              class="mvm-live visually-hidden"
+              id="mvmLive"
+              role="status"
+              aria-live="polite"
+            ></div>
+
+            <footer class="mvm-card__footer">
+              <button class="mvm-ghost" id="mvmStart" hidden>Start</button>
+              <button class="mvm-primary" id="mvmNext" disabled>Next</button>
+            </footer>
+          </article>
+        </section>
+      </div>
     </main>
 
     <footer class="border-top py-4 bg-body-tertiary mt-4" data-site-footer></footer>

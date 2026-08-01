@@ -118,6 +118,9 @@ function initFormFactoryV2(root) {
       if (!items.length) throw new Error('Form Factory v2 data has no usable items.');
       state.items = items;
       state.locked = false;
+      els.deckButtons.forEach((button) => {
+        button.disabled = false;
+      });
     })
     .catch((err) => {
       console.error(err);
@@ -131,6 +134,7 @@ function initFormFactoryV2(root) {
 
 function bindControls(els, state) {
   els.deckButtons.forEach((button) => {
+    button.disabled = true;
     button.addEventListener('click', () => {
       if (!state.items.length) return;
       state.deckFilter = button.dataset.deck || 'all';

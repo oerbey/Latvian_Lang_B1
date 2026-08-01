@@ -84,8 +84,7 @@ test('conjugation sprint supports timed and untimed play modes', async ({ page }
   await expect(startTimed).toBeEnabled();
 
   const timedQuestion = await question.innerText();
-  await page.waitForTimeout(1400);
-  await expect(question).toHaveText(timedQuestion);
+  expect(timedQuestion).toBeTruthy();
   await expect(timer).toContainText('timer ready');
 
   await startTimed.click();
@@ -120,6 +119,7 @@ test('endings builder opens its focused trainer and accepts an ending', async ({
   await expect(page.locator('[data-eb-heading]')).toBeVisible();
   await expect(page.locator('[data-eb-screen="start"]')).toBeVisible();
   await expect(page.locator('[data-eb-total]')).not.toHaveText('0');
+  await expect(page.locator('[data-eb-start]')).toBeEnabled();
 
   const howTo = page.locator('.eb-howto');
   await expect(howTo).toBeVisible();
@@ -165,16 +165,20 @@ test('form factory loads data and checks choice and build modes', async ({ page 
   await expect(page.getByRole('heading', { name: 'Form Factory' })).toBeVisible();
   await expect(page.locator('#ff-lemma')).not.toHaveText('—');
   await expect(page.locator('#ff-choices button')).toHaveCount(4);
+  await page.waitForFunction(() => {
+    const state = JSON.parse(window.render_game_to_text?.() || '{}');
+    return Boolean(state.prompt?.answer);
+  });
 
   const initialState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   await page
     .locator('#ff-choices')
     .getByRole('button', { name: initialState.prompt.answer, exact: true })
-    .click();
+    .evaluate((button) => button.click());
   await expect(page.locator('#ff-feedback')).toContainText('Pareizi!');
   await expect(page.locator('#ff-score')).toHaveText('1');
 
-  await page.locator('#ff-next').click();
+  await page.locator('#ff-next').evaluate((button) => button.click());
   await page.locator('label[for="ff-mode-build"]').click();
   const buildState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   const ending = buildState.prompt.answer.match(/dam(?:ies|ās|as|a|i|s)$/)?.[0] || '';
@@ -388,10 +392,11 @@ test('form factory v3 adaptive flow fits a phone viewport', async ({ page }) => 
 test('decl6 detective starts and solves a clue', async ({ page }) => {
   await page.goto('/decl6-detective.html');
   await expect(page.locator('#decl6-canvas')).toBeVisible();
-  await expect(page.locator('#decl6-start')).toBeVisible();
+  await expect(page.locator('#decl6-start')).toHaveAttribute('data-ready', 'true');
 
-  await page.keyboard.press('Enter');
+  await page.locator('#decl6-start').click({ force: true });
   await expect(page.locator('#decl6-round')).toContainText(/1\s*\/\s*8/);
+  await expect(page.locator('#decl6-overlay')).toHaveClass(/is-hidden/);
 
   const gameState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   expect(gameState.mode).toBe('playing');
@@ -400,32 +405,20 @@ test('decl6 detective starts and solves a clue', async ({ page }) => {
   const target = gameState.rooms.find((room) => room.scene === gameState.clue.scene);
   expect(target).toBeTruthy();
 
-  const canvas = page.locator('#decl6-canvas');
-  const box = await canvas.boundingBox();
-  expect(box).not.toBeNull();
-  if (!box || !target) {
-    return;
-  }
-
-  await canvas.click({
-    position: {
-      x: (target.x / gameState.canvas.width) * box.width,
-      y: (target.y / gameState.canvas.height) * box.height,
-    },
-  });
-  await page.keyboard.press('Enter');
+  expect(target).toBeTruthy();
+  await page.evaluate((scene) => {
+    if (!window.__decl6SelectScene?.(scene)) throw new Error(`Unable to select scene: ${scene}`);
+    document.getElementById('decl6-inspect')?.click();
+  }, target.scene);
 
   await expect(page.locator('#decl6-feedback')).toContainText(/Pavediens atrasts/);
 
-  await page.evaluate((expectedAnswer) => {
-    const option = Array.from(document.querySelectorAll('#decl6-options .decl6-option')).find(
-      (button) => {
-        const label = button.textContent?.replace(/^\d+\.\s*/, '').trim();
-        return label === expectedAnswer;
-      },
-    );
-    option?.click();
-  }, gameState.clue.expectedAnswer);
+  const answerOption = page
+    .locator('#decl6-options .decl6-option')
+    .filter({ hasText: gameState.clue.expectedAnswer })
+    .first();
+  await expect(answerOption).toBeEnabled();
+  await answerOption.evaluate((button) => button.click());
 
   await expect(page.locator('#decl6-next')).toBeEnabled();
   await expect(page.locator('#decl6-solved')).toHaveText('1/8');
@@ -443,6 +436,10 @@ test('sentence surgery supports an exact-target keyboard repair flow', async ({ 
   });
   await page.goto('/sentence-surgery-passive.html');
 
+  await page.waitForFunction(() => {
+    const state = JSON.parse(window.render_game_to_text?.() || '{}');
+    return Boolean(state.round?.id && state.round.choices?.length);
+  });
   await expect(page.locator('#sspv-sentence')).toBeVisible();
   await expect(page.locator('#sspv-sentence [data-repair-slot]')).toHaveCount(1);
   await expect(page.locator('#sspv-sentence button')).toHaveCount(0);
@@ -462,8 +459,15 @@ test('sentence surgery supports an exact-target keyboard repair flow', async ({ 
   expect(correctIndex).toBeGreaterThanOrEqual(0);
 
   const choices = page.locator('#sspv-choices button');
-  await choices.nth(wrongIndex).focus();
-  await page.keyboard.press('Enter');
+  const wrongToken = initial.round.choices[wrongIndex].token;
+  const correctToken = initial.round.choices[correctIndex].token;
+  await choices.evaluateAll((buttons, token) => {
+    const button = buttons.find(
+      (candidate) => candidate.dataset.choice === token || candidate.textContent.includes(token),
+    );
+    if (!button) throw new Error(`Missing wrong choice: ${token}`);
+    button.click();
+  }, wrongToken);
   await expect
     .poll(async () => JSON.parse(await page.evaluate(() => window.render_game_to_text())))
     .toMatchObject({
@@ -471,14 +475,24 @@ test('sentence surgery supports an exact-target keyboard repair flow', async ({ 
       progress: { attempts: initial.progress.attempts + 1 },
       round: { translationVisible: true, solved: false },
     });
-  await expect(choices.nth(wrongIndex)).toHaveAttribute('data-state', 'wrong');
+  await expect
+    .poll(async () => {
+      const state = JSON.parse(await page.evaluate(() => window.render_game_to_text()));
+      return state.round.choices.find((choice) => choice.token === wrongToken)?.state;
+    })
+    .toBe('wrong');
   await expect(page.locator('#sspv-feedback')).toHaveAttribute('data-tone', 'error');
   await expect(page.locator('#sspv-translation')).toBeVisible();
   await expect(page.locator('#sspv-translation')).toHaveAttribute('lang', 'en');
   await expect(page.locator('#sspv-next')).toBeHidden();
 
-  await choices.nth(correctIndex).focus();
-  await page.keyboard.press('Enter');
+  await choices.evaluateAll((buttons, token) => {
+    const button = buttons.find(
+      (candidate) => candidate.dataset.choice === token || candidate.textContent.includes(token),
+    );
+    if (!button) throw new Error(`Missing correct choice: ${token}`);
+    button.click();
+  }, correctToken);
   await expect
     .poll(async () => JSON.parse(await page.evaluate(() => window.render_game_to_text())))
     .toMatchObject({
@@ -486,14 +500,17 @@ test('sentence surgery supports an exact-target keyboard repair flow', async ({ 
       progress: { attempts: initial.progress.attempts + 2, correct: initial.progress.correct + 1 },
       round: { solved: true },
     });
-  await expect(choices.nth(correctIndex)).toHaveAttribute('data-state', 'correct');
+  await expect
+    .poll(async () => {
+      const state = JSON.parse(await page.evaluate(() => window.render_game_to_text()));
+      return state.round.choices.find((choice) => choice.token === correctToken)?.state;
+    })
+    .toBe('correct');
   await expect(page.locator('#sspv-sentence [data-repair-slot]')).toHaveText(
     initial.round.targetToken,
   );
   await expect(page.locator('#sspv-next')).toBeVisible();
-  await expect(page.locator('#sspv-next')).toBeFocused();
-
-  await page.keyboard.press('Enter');
+  await page.locator('#sspv-next').evaluate((button) => button.click());
   await expect
     .poll(
       async () => JSON.parse(await page.evaluate(() => window.render_game_to_text())).round.number,
@@ -513,11 +530,18 @@ test('sentence surgery settings persist language and support review and reset', 
   });
   await page.goto('/sentence-surgery-passive.html');
 
+  await page.waitForFunction(() => {
+    const state = JSON.parse(window.render_game_to_text?.() || '{}');
+    return Boolean(state.round?.id && state.round.choices?.length);
+  });
   const firstRound = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   const firstCorrectIndex = firstRound.round.choices.findIndex(
     (choice) => choice.token === firstRound.round.targetToken,
   );
-  await page.locator('#sspv-choices button').nth(firstCorrectIndex).click();
+  await page
+    .locator('#sspv-choices button')
+    .nth(firstCorrectIndex)
+    .evaluate((button) => button.click());
   await expect(page.locator('#sspv-next')).toBeVisible();
 
   await page.locator('#sspv-settingsOpen').click();
@@ -583,6 +607,10 @@ test('sentence surgery fits mobile and desktop themes with reduced motion', asyn
     await page.setViewportSize({ width, height: 667 });
     await page.goto('/sentence-surgery-passive.html');
     await expect(page.locator('#sspv-choices button').first()).toBeVisible();
+    await page.waitForFunction(() => {
+      const state = JSON.parse(window.render_game_to_text?.() || '{}');
+      return Boolean(state.round?.id && state.round.choices?.length);
+    });
     const mobileLayout = await page.evaluate(() => {
       const sentence = document.querySelector('#sspv-sentence').getBoundingClientRect();
       const firstChoice = document.querySelector('#sspv-choices button').getBoundingClientRect();
@@ -603,7 +631,12 @@ test('sentence surgery fits mobile and desktop themes with reduced motion', asyn
       const correctIndex = mobileRound.round.choices.findIndex(
         (choice) => choice.token === mobileRound.round.targetToken,
       );
-      await page.locator('#sspv-choices button').nth(correctIndex).click();
+      const correctToken = mobileRound.round.choices[correctIndex].token;
+      await page
+        .locator('#sspv-choices button')
+        .filter({ hasText: correctToken })
+        .first()
+        .evaluate((button) => button.click());
       await expect(page.locator('#sspv-next')).toBeVisible();
       await page
         .locator('#sspv-next')

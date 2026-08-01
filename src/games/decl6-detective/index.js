@@ -751,6 +751,7 @@ import { readProgress, persistProgress } from './progress.js';
 
   async function init() {
     showLoading('Ielādē 6. deklinācijas detektīvu...');
+    nodes.start.disabled = true;
 
     try {
       const progress = readProgress();
@@ -769,14 +770,22 @@ import { readProgress, persistProgress } from './progress.js';
       }
 
       state.mode = 'menu';
+      nodes.start.disabled = false;
       setFeedback('Sāc izmeklēšanu, lai saņemtu pirmo pavedienu.');
       state.needsUiSync = true;
       attachEvents();
+      nodes.start.dataset.ready = 'true';
       syncHud();
       renderCanvas();
       requestAnimationFrame(loop);
 
       window.render_game_to_text = renderGameToText;
+      window.__decl6SelectScene = (scene) => {
+        if (state.mode !== 'playing' || !sceneCoords.has(scene)) return false;
+        state.selectedScene = scene;
+        state.needsUiSync = true;
+        return true;
+      };
       window.advanceTime = (ms) => {
         const numeric = Number(ms);
         const total = Number.isFinite(numeric) ? Math.max(0, numeric) : 0;

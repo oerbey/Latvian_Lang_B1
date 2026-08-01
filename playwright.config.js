@@ -12,10 +12,17 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './e2e',
   timeout: 30000,
+  expect: { timeout: 10000 },
+  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 2 : 0,
   outputDir: 'playwright-results',
   use: {
     baseURL: 'http://127.0.0.1:4173',
     headless: true,
+    reducedMotion: 'reduce',
+    // A newly activated worker reloads the page by design; that makes isolated
+    // UI interactions race with navigation in a browser-test context.
+    serviceWorkers: 'block',
   },
   webServer: {
     command: 'npx http-server . -p 4173 -a 127.0.0.1 -c-1',

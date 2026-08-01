@@ -137,6 +137,9 @@ async function init() {
       startStrictButton: mustQuery('[data-eb-strict-start]'),
     };
 
+    elements.startButton.disabled = true;
+    elements.startStrictButton.disabled = true;
+
     strings = await loadStrings();
     applyStrings({ elements, strings });
 
@@ -229,6 +232,8 @@ async function init() {
       shell.setStrict(strict);
       syncStartStrictControl();
     });
+    elements.startButton.disabled = false;
+    elements.startStrictButton.disabled = false;
     showScreen('start');
   } catch (err) {
     console.error('Failed to initialize Endings Builder', err);

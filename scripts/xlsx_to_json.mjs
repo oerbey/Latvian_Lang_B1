@@ -14,6 +14,7 @@ import xlsx from 'xlsx';
 
 const xlsxPath = path.resolve('data/latvian_words_with_translations.xlsx');
 const outPath = path.resolve('data/words.json');
+const conjugationPath = path.resolve('data/conjugations.json');
 
 // Adjust these to your actual sheet/column names if different:
 const SHEET_NAME = 0; // 0 = first sheet
@@ -33,7 +34,7 @@ if (!sheet) {
 
 const rows = xlsx.utils.sheet_to_json(sheet, { defval: '' });
 
-const data = rows
+const baseData = rows
   .map((row) => {
     const mapped = {};
     // Accept fuzzy header names from spreadsheet exports (e.g. "English", "eng", "pos").
@@ -48,6 +49,31 @@ const data = rows
   })
   // Require Latvian plus at least one translation target.
   .filter((r) => r.lv && (r.en || r.ru));
+
+// Keep conjugations in a small reviewable source file because the workbook
+// contains translations, while the verb tables are maintained separately.
+const previousData = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, 'utf8')) : [];
+const previousByLv = new Map(previousData.map((item) => [item.lv, item]));
+const conjugationData = fs.existsSync(conjugationPath)
+  ? JSON.parse(fs.readFileSync(conjugationPath, 'utf8'))
+  : [];
+const mergedByLv = new Map(baseData.map((item) => [item.lv, { ...item }]));
+
+previousByLv.forEach((item, lv) => {
+  const target = mergedByLv.get(lv);
+  if (target && item.conj) target.conj = item.conj;
+});
+
+conjugationData.forEach((item) => {
+  if (!item?.lv) return;
+  const target = mergedByLv.get(item.lv) || { lv: item.lv };
+  if (item.en) target.en = item.en;
+  if (item.ru) target.ru = item.ru;
+  if (item.conj) target.conj = item.conj;
+  if (target.en || target.ru) mergedByLv.set(item.lv, target);
+});
+
+const data = [...mergedByLv.values()];
 
 fs.writeFileSync(outPath, JSON.stringify(data, null, 2), 'utf-8');
 console.log(`Wrote ${data.length} items to ${outPath}`);

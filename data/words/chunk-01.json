@@ -310,7 +310,7 @@
     }
   },
   {
-    "lv": "apiet",
+    "lv": "apjiet",
     "en": "to go around, to bypass",
     "ru": "обходить, обойти",
     "conj": {
@@ -1674,33 +1674,33 @@
     }
   },
   {
-    "lv": "flīzēt",
+    "lv": "flizēt",
     "en": "to tile, to lay tiles",
     "ru": "облицовывать плиткой",
     "conj": {
       "present": {
-        "1s": "flīzēju",
-        "2s": "flīzē",
-        "3s": "flīzē",
-        "1p": "flīzējam",
-        "2p": "flīzējat",
-        "3p": "flīzē"
+        "1s": "flizēju",
+        "2s": "flizē",
+        "3s": "flizē",
+        "1p": "flizējam",
+        "2p": "flizējat",
+        "3p": "flizē"
       },
       "past": {
-        "1s": "flīzēju",
-        "2s": "flīzēji",
-        "3s": "flīzēja",
-        "1p": "flīzējām",
-        "2p": "flīzējāt",
-        "3p": "flīzēja"
+        "1s": "flizēju",
+        "2s": "flizēji",
+        "3s": "flizēja",
+        "1p": "flizējām",
+        "2p": "flizējāt",
+        "3p": "flizēja"
       },
       "future": {
-        "1s": "flīzēšu",
-        "2s": "flīzēsi",
-        "3s": "flīzēs",
-        "1p": "flīzēsim",
-        "2p": "flīzēsiet",
-        "3p": "flīzēs"
+        "1s": "flizēšu",
+        "2s": "flizēsi",
+        "3s": "flizēs",
+        "1p": "flizēsim",
+        "2p": "flizēsiet",
+        "3p": "flizēs"
       }
     }
   },
@@ -1768,7 +1768,7 @@
   },
   {
     "lv": "garšot",
-    "en": "to taste; to taste good to someone; to be tasty",
+    "en": "to taste (have a taste), to be tasty",
     "ru": "нравиться (на вкус), быть вкусным",
     "conj": {
       "present": {
@@ -2326,7 +2326,7 @@
   },
   {
     "lv": "interesēt",
-    "en": "to interest; to concern; to be relevant to",
+    "en": "to interest",
     "ru": "интересовать",
     "conj": {
       "present": {

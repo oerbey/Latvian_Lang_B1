@@ -290,6 +290,7 @@ test('word quest map flow renders worlds and nodes', async ({ page }) => {
 test('word quest prefixed coming world matches target verb meanings', async ({ page }) => {
   await page.goto('/word-quest.html');
   await page.locator('#wq-btn-play').click();
+  await expect(page.locator('#wq-map-grid .wq-world-card')).toHaveCount(6);
   await page
     .locator('#wq-map-grid .wq-world-card')
     .filter({ hasText: 'Coming Verb Quest' })

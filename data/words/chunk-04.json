@@ -156,7 +156,7 @@
   },
   {
     "lv": "reģistrēties",
-    "en": "to register; to sign up",
+    "en": "to register (oneself)",
     "ru": "регистрироваться",
     "conj": {
       "present": {
@@ -373,7 +373,7 @@
   },
   {
     "lv": "sagaidīt",
-    "en": "to wait for; to meet (someone arriving); to expect",
+    "en": "to meet; to expect; to wait for",
     "ru": "встречать; ожидать",
     "conj": {
       "present": {
@@ -653,33 +653,7 @@
   {
     "lv": "sāpēt",
     "en": "to ache, to hurt",
-    "ru": "болеть",
-    "conj": {
-      "present": {
-        "1s": "—",
-        "2s": "—",
-        "3s": "sāp",
-        "1p": "—",
-        "2p": "—",
-        "3p": "sāp"
-      },
-      "past": {
-        "1s": "—",
-        "2s": "—",
-        "3s": "sāpēja",
-        "1p": "—",
-        "2p": "—",
-        "3p": "sāpēja"
-      },
-      "future": {
-        "1s": "—",
-        "2s": "—",
-        "3s": "sāpēs",
-        "1p": "—",
-        "2p": "—",
-        "3p": "sāpēs"
-      }
-    }
+    "ru": "болеть"
   },
   {
     "lv": "sargāt",
@@ -869,7 +843,7 @@
   },
   {
     "lv": "sēņot",
-    "en": "to go mushroom picking",
+    "en": "to pick mushrooms",
     "ru": "собирать грибы",
     "conj": {
       "present": {
@@ -1705,7 +1679,7 @@
     }
   },
   {
-    "lv": "tuvoties",
+    "lv": "tuvooties",
     "en": "to approach, to draw near",
     "ru": "приближаться",
     "conj": {
@@ -2538,6 +2512,150 @@
         "1p": "zvanīsim",
         "2p": "zvanīsiet",
         "3p": "zvanīs"
+      }
+    }
+  },
+  {
+    "lv": "apiet",
+    "en": "to go around; to bypass",
+    "ru": "обойти; миновать",
+    "conj": {
+      "present": {
+        "1s": "apeju",
+        "2s": "apej",
+        "3s": "apiet"
+      },
+      "past": {
+        "1s": "apgāju"
+      },
+      "future": {
+        "1s": "apiešu"
+      }
+    }
+  },
+  {
+    "lv": "flīzēt",
+    "en": "to tile",
+    "ru": "облицовывать плиткой",
+    "conj": {
+      "present": {
+        "1s": "flīzēju",
+        "2s": "flīzē",
+        "3s": "flīzē"
+      },
+      "past": {
+        "1s": "flīzēju"
+      },
+      "future": {
+        "1s": "flīzēšu"
+      }
+    }
+  },
+  {
+    "lv": "mājot",
+    "en": "to wave",
+    "ru": "махать рукой",
+    "conj": {
+      "present": {
+        "1s": "mājoju",
+        "2s": "mājo",
+        "3s": "mājo"
+      },
+      "past": {
+        "1s": "mājoju"
+      },
+      "future": {
+        "1s": "mājošu"
+      }
+    }
+  },
+  {
+    "lv": "miglot",
+    "en": "to mist; to spray",
+    "ru": "опрыскивать; распылять",
+    "conj": {
+      "present": {
+        "1s": "migloju",
+        "2s": "miglo",
+        "3s": "miglo"
+      },
+      "past": {
+        "1s": "migloju"
+      },
+      "future": {
+        "1s": "miglošu"
+      }
+    }
+  },
+  {
+    "lv": "mīkstināt",
+    "en": "to soften",
+    "ru": "смягчать",
+    "conj": {
+      "present": {
+        "1s": "mīkstinu",
+        "2s": "mīkstini",
+        "3s": "mīkstina"
+      },
+      "past": {
+        "1s": "mīkstināju"
+      },
+      "future": {
+        "1s": "mīkstināšu"
+      }
+    }
+  },
+  {
+    "lv": "ņaudēt",
+    "en": "to meow",
+    "ru": "мяукать",
+    "conj": {
+      "present": {
+        "1s": "ņaudu",
+        "2s": "ņaudi",
+        "3s": "ņaud"
+      },
+      "past": {
+        "1s": "ņaudēju"
+      },
+      "future": {
+        "1s": "ņaudēšu"
+      }
+    }
+  },
+  {
+    "lv": "pietikt",
+    "en": "to be enough",
+    "ru": "хватать; быть достаточным",
+    "conj": {
+      "present": {
+        "1s": "pietieku",
+        "2s": "pietiec",
+        "3s": "pietiek"
+      },
+      "past": {
+        "1s": "pietiku"
+      },
+      "future": {
+        "1s": "pietikšu"
+      }
+    }
+  },
+  {
+    "lv": "smelties",
+    "en": "to draw from; to take inspiration from",
+    "ru": "черпать; брать пример",
+    "conj": {
+      "present": {
+        "1s": "smeļos",
+        "2s": "smelies",
+        "3s": "smeļas"
+      },
+      "past": {
+        "1s": "smēlos"
+      },
+      "future": {
+        "1s": "smelšos"
       }
     }
   }

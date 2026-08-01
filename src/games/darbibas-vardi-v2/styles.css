@@ -22,8 +22,7 @@
   --dv2-radius-sm: 12px;
   background:
     radial-gradient(circle at 12% 0%, rgba(79, 70, 229, 0.16), transparent 42%),
-    radial-gradient(circle at 88% 8%, rgba(217, 119, 6, 0.14), transparent 40%),
-    var(--dv2-bg);
+    radial-gradient(circle at 88% 8%, rgba(217, 119, 6, 0.14), transparent 40%), var(--dv2-bg);
   background-attachment: fixed;
 }
 
@@ -47,8 +46,7 @@
   --dv2-shadow-strong: rgba(0, 0, 0, 0.52);
   background:
     radial-gradient(circle at 12% 0%, rgba(155, 140, 255, 0.16), transparent 42%),
-    radial-gradient(circle at 88% 8%, rgba(251, 191, 36, 0.1), transparent 40%),
-    var(--dv2-bg);
+    radial-gradient(circle at 88% 8%, rgba(251, 191, 36, 0.1), transparent 40%), var(--dv2-bg);
   background-attachment: fixed;
 }
 

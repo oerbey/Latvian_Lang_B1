@@ -20,6 +20,9 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:4173',
     headless: true,
     reducedMotion: 'reduce',
+    // A newly activated worker reloads the page by design; that makes isolated
+    // UI interactions race with navigation in a browser-test context.
+    serviceWorkers: 'block',
   },
   webServer: {
     command: 'npx http-server . -p 4173 -a 127.0.0.1 -c-1',

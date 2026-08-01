@@ -97,8 +97,6 @@ function setActiveModeButton(mode) {
     if (!btn) return;
     const isActive = key === mode;
     btn.classList.toggle('active', isActive);
-    btn.classList.toggle('btn-primary', isActive);
-    btn.classList.toggle('btn-outline-primary', !isActive);
     btn.setAttribute('aria-pressed', String(isActive));
   });
   els.modeLabel.textContent = mode === MODE_GROUPS ? 'Optimists vai pesimists' : 'Latviešu ➜ angļu';
@@ -138,7 +136,8 @@ function renderLastResult() {
 }
 
 function setFeedbackNeutral() {
-  els.feedback.className = 'alert alert-secondary mt-3';
+  els.feedback.className = 'ct-feedback';
+  els.feedback.dataset.result = '';
   els.feedbackText.textContent = 'Izvēlies atbildi un saņem uzreiz skaidrojumu.';
   els.translationLine.textContent = '';
   els.feedback.classList.remove('d-none');
@@ -240,7 +239,7 @@ function renderChoices(question) {
     options.forEach((opt) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'btn btn-outline-primary btn-lg text-start';
+      btn.className = 'ct-option';
       btn.dataset.value = opt.value;
       btn.textContent = opt.label;
       btn.addEventListener('click', () => handleOptionClick(opt.value));
@@ -252,7 +251,7 @@ function renderChoices(question) {
     options.forEach((opt) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'btn btn-outline-primary btn-lg text-start';
+      btn.className = 'ct-option';
       btn.dataset.value = opt;
       btn.textContent = opt;
       btn.addEventListener('click', () => handleOptionClick(opt));
@@ -269,7 +268,8 @@ function showFeedback(isCorrect, question, selectedValue, correctValue) {
         ? 'Šī īpašība parasti raksturo optimistu, jo tā meklē labo.'
         : 'Šī īpašība biežāk raksturo pesimistu, jo tā uzsver grūtības.'
       : 'Pārbaudi tulkojumu, lai nostiprinātu vārdu.';
-  els.feedback.className = isCorrect ? 'alert alert-success mt-3' : 'alert alert-danger mt-3';
+  els.feedback.className = 'ct-feedback';
+  els.feedback.dataset.result = isCorrect ? 'correct' : 'wrong';
   els.feedbackText.textContent = isCorrect ? 'Pareizi!' : 'Šoreiz nepareizi.';
   const translation = state.mode === MODE_GROUPS ? formatOption(question.enVariants) : correctValue;
   els.translationLine.textContent = `Tulkojums: ${translation}. ${rationale}`;
@@ -281,13 +281,12 @@ function showFeedback(isCorrect, question, selectedValue, correctValue) {
         ? value === question.group
         : value.toLowerCase() === correctValue.toLowerCase();
     btn.disabled = true;
-    btn.classList.remove('btn-outline-primary');
     if (isCorrectOption) {
-      btn.classList.add('btn-success');
+      btn.classList.add('ct-option--correct');
     } else if (value === selectedValue) {
-      btn.classList.add('btn-danger');
+      btn.classList.add('ct-option--wrong');
     } else {
-      btn.classList.add('btn-outline-secondary');
+      btn.classList.add('ct-option--muted');
     }
   });
   els.feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -304,6 +303,7 @@ function showSummary() {
   state.autoAdvanceTimer = null;
   els.questionArea.classList.add('d-none');
   els.summaryArea.classList.remove('d-none');
+  els.summaryArea.hidden = false;
   els.feedback.classList.add('d-none');
   const percent = state.asked ? Math.round((state.correct / state.asked) * 100) : 0;
   els.summaryScore.textContent = `Pareizi: ${state.correct} no ${state.asked} (${percent}%)`;
@@ -388,6 +388,7 @@ function renderQuestion() {
   }
   state.locked = false;
   els.summaryArea.classList.add('d-none');
+  els.summaryArea.hidden = true;
   els.questionArea.classList.remove('d-none');
   setFeedbackNeutral();
   const question = state.questionPool[state.questionIndex];

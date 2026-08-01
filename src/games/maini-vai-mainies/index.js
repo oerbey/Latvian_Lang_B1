@@ -118,6 +118,7 @@ function setAvatar(mode) {
 function setFeedback(message = '') {
   if (selectors.feedback) {
     selectors.feedback.textContent = message;
+    if (!message) selectors.feedback.dataset.result = '';
   }
   if (selectors.live) {
     selectors.live.textContent = message;
@@ -155,12 +156,12 @@ function setButtonsDisabled(disabled) {
 
 function highlightSelection(button, correct) {
   selectors.buttons.forEach((btn) => {
-    btn.classList.remove('btn-success', 'btn-danger');
-    btn.classList.add('btn-outline-primary');
+    btn.classList.remove('mvm-choice--correct', 'mvm-choice--wrong', 'mvm-choice--muted');
+    btn.classList.add('mvm-choice--muted');
   });
   if (!button) return;
-  button.classList.remove('btn-outline-primary');
-  button.classList.add(correct ? 'btn-success' : 'btn-danger');
+  button.classList.remove('mvm-choice--muted');
+  button.classList.add(correct ? 'mvm-choice--correct' : 'mvm-choice--wrong');
 }
 
 function currentItem() {
@@ -182,8 +183,7 @@ function prepareNextItem() {
   state.readyForNext = false;
   setButtonsDisabled(false);
   selectors.buttons.forEach((btn) => {
-    btn.classList.remove('btn-success', 'btn-danger');
-    btn.classList.add('btn-outline-primary');
+    btn.classList.remove('mvm-choice--correct', 'mvm-choice--wrong', 'mvm-choice--muted');
   });
   if (selectors.next) {
     selectors.next.disabled = true;
@@ -229,6 +229,7 @@ function handleCorrect(button) {
   setFeedback(
     `${state.strings.correct ?? 'Correct!'} +${earned}${bonusText}.${explainText}`.trim(),
   );
+  selectors.feedback.dataset.result = 'correct';
   setHint('');
   setAvatar('happy');
   if (selectors.next) {
@@ -249,6 +250,7 @@ function handleWrong(button) {
   highlightSelection(button, false);
   setAvatar('thinking');
   setFeedback(state.strings.wrong ?? 'Try again!');
+  selectors.feedback.dataset.result = 'wrong';
   const hintLabel = state.strings.hintLabel ?? 'Hint';
   setHint(item.hint ? `${hintLabel}: ${item.hint}` : '');
   window.requestAnimationFrame(() => {
@@ -388,7 +390,8 @@ async function bootstrap() {
     }
     state.items = items;
     selectors.start.disabled = false;
-    if (selectors.sentence) selectors.sentence.textContent = '—';
+    selectors.start.hidden = true;
+    startSession();
   } catch (err) {
     console.error(err);
     setFeedback('Neizdevās ielādēt datus.');

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "verify:cloud:dev": "node scripts/verify-cloud-dev.mjs",
     "prepare": "husky install",
     "start": "npx http-server . -p 5173",
     "test": "node --test --import ./scripts/jsdom-setup.js",

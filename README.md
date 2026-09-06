@@ -5,6 +5,9 @@ A static, browser-first collection of Latvian B-level learning games and drills.
 The project is built with vanilla ES modules, ships as a Progressive Web App
 (PWA), and runs without a bundler.
 
+See [CHANGELOG.md](CHANGELOG.md) for notable changes and release history recorded
+from September 2026 onward.
+
 ## Highlights
 
 - **16 game pages** covering verbs, grammar, sentence repair, vocabulary,

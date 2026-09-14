@@ -1,5 +1,25 @@
 {
   "platform": {
     "apiRuntime": "node:20"
-  }
+  },
+  "routes": [
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
+    },
+    {
+      "route": "/api/getProgress",
+      "methods": ["GET"],
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/api/saveProgress",
+      "methods": ["POST"],
+      "allowedRoles": ["authenticated"]
+    }
+  ]
 }

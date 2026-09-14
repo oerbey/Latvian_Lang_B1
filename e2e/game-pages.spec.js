@@ -267,6 +267,8 @@ test('word quest map flow renders worlds and nodes', async ({ page }) => {
   await page.goto('/word-quest.html');
 
   await expect(page.locator('#wq-title-screen')).toBeVisible();
+  await expect(page.locator('#wq-auth-label')).toBeVisible();
+  await expect(page.locator('#wq-sync-status')).toBeVisible();
   await expect(page.locator('#wq-btn-play')).toBeVisible();
 
   await page.locator('#wq-btn-how').click();

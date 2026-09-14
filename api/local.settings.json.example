@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "COSMOS_ENDPOINT": "https://your-account.documents.azure.com:443/",
+    "COSMOS_KEY": "replace-with-a-local-secret",
+    "COSMOS_DATABASE": "llb1",
+    "COSMOS_PROGRESS_CONTAINER": "progress_dev"
+  }
+}

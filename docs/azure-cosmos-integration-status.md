@@ -1,31 +1,45 @@
 # Azure Cosmos DB integration: status and remaining work
 
-Reviewed on 2026-09-06 against local commit `3508767`.
+Reviewed on 2026-09-14 against dev baseline commit `6d0fd82`.
 
-The repository implements an initial Azure Static Web Apps / Azure Functions /
-Cosmos DB progress-saving prototype. Word Quest can attempt to upload local
-progress, but cloud restore and per-user authentication are unfinished. There is
-no Cognos integration in the inspected code; this report assumes “Azure Cognos”
-refers to Cosmos DB.
+The repository now contains a dev-only authenticated Azure Static Web Apps /
+Azure Functions / Cosmos DB progress-sync implementation for Word Quest. No
+production settings, records, or deployments were changed for this milestone.
+There is no Cognos integration in the inspected code; this report assumes “Azure
+Cognos” refers to Cosmos DB.
+
+## Dev-only implementation — 2026-09-14
+
+- Microsoft Entra authentication uses the Static Web Apps client principal; API
+  ownership is derived server-side and browser-supplied user IDs are rejected.
+- Word Quest remains local-first for guests and restores authenticated cloud
+  progress with an explicit local-versus-cloud conflict choice.
+- Saves are revisioned, serialized, retried, and surfaced through sync status;
+  malformed requests and Cosmos failures receive controlled API responses.
+- The Azure workflow now deploys only from `dev` after reusable quality, API, and
+  E2E checks. Production deployment remains disabled by this change.
+- The live verifier is read-only and checks dev health plus anonymous API gates;
+  authenticated save/restore acceptance must use a dedicated dev test account.
 
 The initial repository audit was followed by a read-only Azure portal review on
 2026-09-06. The verified settings and remaining verification limits are recorded
 below. That portal review changed no Azure settings or database records. The
-subsequent dev diagnostic created one isolated test record, as described next.
+historical pre-auth dev diagnostic created one isolated test record; the current
+dev verifier is read-only.
 
-## Live dev verification implemented — 2026-09-06
+## Historical pre-auth live verification — 2026-09-06
 
-Run `npm run verify:cloud:dev` from the repository root with Node 20 or newer and
-network access. No Cosmos keys or additional packages are needed. The command is
-fixed to the dev URL confirmed through Azure's Environments page:
+The pre-auth diagnostic was run against the dev URL confirmed through Azure's
+Environments page:
 `https://red-ocean-014d1e603-dev.westeurope.4.azurestaticapps.net`.
 
 The live run passed API health, missing-game validation, missing-record lookup,
 initial save/read, and update/read. Each read matched the complete saved payload,
-including Latvian characters and nested data. This confirms dev API-to-Cosmos
-read/write connectivity with the currently configured credentials. A separate
+including Latvian characters and nested data. This confirmed dev API-to-Cosmos
+read/write connectivity for the anonymous prototype at that time. A separate
 read-only production health check also returned HTTP 200 with the expected body;
-production database writes were not tested.
+production database writes were not tested. These results are historical and do
+not represent the authenticated implementation now in the working tree.
 
 Each diagnostic run uses a random `integration-check-<UUID>` user and game ID
 `integration-check`. It does not use `demo-user` or a player's Word Quest record.
@@ -37,18 +51,19 @@ authentication is introduced; do not bypass authentication to keep it passing.
 One disposable record remains in `llb1/progress_dev` because no deletion endpoint
 exists. Successful run document ID:
 `integration-check-f785461a-3371-432a-9250-2bbef1b7620e:integration-check`.
-Future runs also retain one small record each and print its ID even if a later
-step fails. These can be reviewed and removed manually in Data Explorer.
+Future pre-auth runs also retained one small record each and printed its ID even
+if a later step failed. These can be reviewed and removed manually in Data
+Explorer.
 
-Observed response quirk: a missing document returns HTTP 200 with an empty body
-and no JSON content type. The diagnostic tolerates that only for the initial
-missing-document lookup; saved records must return valid JSON and exact data.
-Normalize this response when hardening the API.
+Observed pre-auth response quirk: a missing document returned HTTP 200 with an
+empty body and no JSON content type. The current API normalizes a missing record
+to JSON `null`; saved records must return valid JSON and exact data.
 
-Four local diagnostic tests cover successful create/update, stale reads,
-health failures before writing, and empty-body behavior. The next implementation
-milestone is authenticated server-derived ownership before enabling cloud restore.
-The profile-container naming correction remains outstanding.
+Four local diagnostic tests covered successful create/update, stale reads,
+health failures before writing, and empty-body behavior. The authenticated
+implementation replaces that write-capable diagnostic with the current
+read-only dev verifier plus API and browser tests. The profile-container naming
+correction remains deferred because profile synchronization is out of scope.
 
 ## Azure portal verification — 2026-09-06
 
@@ -100,138 +115,77 @@ supersedes its previously unverified resource/settings prerequisites where state
 | 2026-04-10 | `03235c1`            | Configured the managed API runtime as Node 20.                                                        |
 | 2026-04-10 | `31b4487`            | Staged static files separately from the API for deployment.                                           |
 | 2026-04-10 | `2a5ea45`            | Added browser cloud-progress helpers, Word Quest uploads, and four helper tests.                      |
+| 2026-09-14 | working tree         | Added dev-only Entra ownership, Word Quest restore/sync, API tests, and gated dev deployment.         |
 
-No later changes to the integration files appeared in the inspected local history.
+The 2026-09-14 implementation is intentionally not deployed from this
+working tree. The Azure workflow will deploy only a pushed `dev` commit.
+The read-only verifier reached the currently deployed dev health endpoint on
+2026-09-14, but the deployed progress API still returned HTTP 200 for an
+unauthenticated Word Quest read instead of the new expected HTTP 401. The
+verifier stopped before attempting any save request, confirming that the
+preview is still running the pre-auth implementation.
 
 ### Backend and deployment
 
-- `api/src/lib/cosmos.js` lazily creates a Cosmos client using environment
-  variables and exposes progress and profile container helpers.
+- `api/src/lib/cosmos.js` lazily creates a Cosmos client using required environment
+  variables and exposes only the progress container for this milestone.
+- `api/src/lib/auth.js` validates the authenticated Static Web Apps principal and
+  supplies the server-derived user ID to handlers.
+- `api/src/lib/progress-validation.js` limits the API to validated Word Quest
+  payloads and a 64 KiB serialized state.
 - `GET /api/health` returns a static API-health response. It does not test Cosmos
   connectivity.
-- `POST /api/saveProgress` upserts a document containing `id`, `userId`, `gameId`,
-  `data`, and a server-generated `updatedAt` timestamp.
-- `GET /api/getProgress` reads one document, returning `null` if it is missing.
-  Both progress endpoints require a truthy `gameId`.
+- `POST /api/saveProgress` requires an authenticated principal, validates the
+  request, and writes a revisioned document with a server-generated timestamp.
+- `GET /api/getProgress` derives the document identity from the authenticated
+  principal and returns `null` if the record is missing.
 - Documents use the ID `${userId}:${gameId}`; reads pass `userId` as the partition
   key value, so the container configuration must match that assumption.
-- `.github/workflows/azure-static-web-apps-red-ocean-014d1e603.yml` deploys pushes
-  to `main` and `dev`, handles PRs targeting `main`, and closes PR environments.
-  It stages the static site under `.swa-static`, excludes the API and workflows
-  from that staging directory, and supplies `api` separately for API deployment.
-- `staticwebapp.config.json` specifies `node:20`. It contains no authentication
-  route restrictions.
+- `.github/workflows/azure-static-web-apps-red-ocean-014d1e603.yml` deploys only
+  `dev`, after the reusable quality, API, and E2E workflow succeeds.
+- `staticwebapp.config.json` specifies Node 20, Entra login/logout routes, and
+  authenticated API route restrictions.
 
 ### Browser integration
 
-- `src/lib/cloud-progress.js` provides `saveCloudProgress` and
-  `loadCloudProgress`, using same-origin `/api/...` URLs.
-- The helpers tolerate HTTP, network, and JSON-decoding failures by returning
-  `false` for saves or `null` for loads.
-- `src/games/word-quest/main.js` saves to local storage first and then attempts a
-  cloud upload of the full state: XP, level, streaks, world progress, and answer
-  totals. Failed uploads produce a console warning.
-- Word Quest is the only game currently using these helpers. Its startup still
-  loads exclusively from local storage; `loadCloudProgress` has no game caller.
-- If the local save fails, Word Quest skips its cloud upload too.
+- `src/lib/cloud-progress.js` provides current-user, cloud-load, and revisioned
+  cloud-save helpers with explicit auth, conflict, and availability statuses.
+- `src/games/word-quest/main.js` saves locally first, restores cloud state for
+  authenticated users, prompts on conflicts, queues one upload at a time, and
+  retries transient failures.
+- Guests remain local-only. Word Quest is the only game currently using cloud
+  sync.
 
 ## Remaining work, in recommended order
 
-### 1. Establish the actual deployment and database state
+### 1. Deploy and accept the dev implementation
 
-- [ ] Inspect the latest Azure deployment and confirm that all three Functions
-      routes are deployed and reachable on the intended site.
-- [ ] Verify these application settings without putting their values in source:
-      `COSMOS_ENDPOINT`, `COSMOS_KEY`, `COSMOS_DATABASE`, and
-      `COSMOS_PROGRESS_CONTAINER`.
-- [ ] Confirm the progress container exists and uses `/userId` as its partition
-      key, consistent with the current read implementation.
-- [ ] Verify the workflow deployment secret exists and document which Azure
-      environments `main`, `dev`, and PR deployments use, including whether their
-      databases are isolated.
-- [ ] Perform a controlled save/read round trip with disposable test data.
+- [ ] Enable Entra authentication in the dev Static Web App and confirm the dev
+      environment exposes the authenticated principal to the managed Functions.
+- [ ] Run authenticated dev acceptance with a dedicated test account: sign-in,
+      save, restore, conflict choice, offline retry, and cross-user isolation.
+- [ ] Review dev logs, Cosmos revisions, sync failures, and user feedback.
 
-These are unverified prerequisites, not confirmed missing Azure resources.
+### 2. Production hold
 
-### 2. Replace the shared demo identity before enabling real user sync
+- [ ] Do not change production settings, records, authentication, or deployment.
+- [ ] Do not merge the dev implementation into `main` until explicit approval.
+- [ ] If dev acceptance fails, redeploy the recorded pre-change dev commit
+      `6d0fd82` or revert the dev implementation commits.
 
-- [ ] Add sign-in and derive the user identity on the server from a validated
-      authentication context.
-- [ ] Require authentication for progress reads and writes and enforce ownership.
-      Do not trust a `userId` supplied by the browser.
-- [ ] Remove the `demo-user` fallback from real-user operations and define guest
-      behavior and local-progress migration after sign-in.
+### 3. Deferred scope
 
-Currently both endpoints are anonymous and accept arbitrary client user IDs.
-All default Word Quest uploads target the same `demo-user:word-quest` document.
-If deployed as written, users can overwrite that shared progress, and a supplied
-user ID is sufficient to select another user's document. Function-level
-`authLevel: 'anonymous'` must be assessed together with the eventual platform
-authentication enforcement; no such enforcement exists in the inspected routes.
-
-### 3. Finish Word Quest save and restore
-
-- [ ] Load cloud progress during initialization and apply a validated state
-      before allowing changes that might overwrite it.
-- [ ] Define how local-only progress, cloud progress, resets, and conflicting
-      device histories are reconciled. Add schema/version metadata as needed.
-- [ ] Distinguish “no saved record” from “cloud unavailable”; both currently
-      produce `null` in the browser helper.
-- [ ] Serialize/coalesce uploads and implement an explicit concurrency policy.
-      Current fire-and-forget full-document upserts can arrive out of order;
-      `updatedAt` alone does not prevent stale writes.
-- [ ] Retain pending changes for retry after connection failures and show the
-      user whether progress is local, syncing, saved, or awaiting retry.
-- [ ] Decide whether cloud saving should proceed when local storage is unavailable.
-
-Completion criterion: the same signed-in user can play in one browser, resume
-in another, and recover from offline play without silently losing newer progress.
-
-### 4. Harden and make the API reproducible
-
-- [ ] Validate JSON bodies, identifier types/lengths, and game-specific progress
-      payloads; return controlled errors for malformed requests.
-- [ ] Handle configuration and database failures with useful server logs and
-      consistent client responses.
-- [ ] Pin API dependency versions and commit an API lockfile. Both Azure packages
-      currently use `latest`; the root lockfile does not lock this separate package.
-- [ ] Add a documented local API development workflow and a placeholder settings
-      example. `npm run start` currently serves static files only.
-- [ ] Ignore local secret settings before creating them; `.gitignore` currently
-      has no entry for `local.settings.json` or `.env` files.
-- [ ] Document resource provisioning, runtime compatibility checks, environment
-      configuration, and operational diagnostics.
-
-### 5. Add integration coverage and deployment gates
-
-- [ ] Test Functions validation, missing documents, Cosmos failures, and
-      authentication/ownership isolation.
-- [ ] Extend helper coverage for invalid JSON, error distinctions, and the chosen
-      retry/conflict behavior.
-- [ ] Add browser tests for cloud restore, offline recovery, sign-in transitions,
-      and concurrent saves, plus a controlled real-backend round-trip check.
-- [ ] Install and validate the separate API package in CI. Existing quality jobs
-      install the root package; no dedicated API test workflow is present.
-- [ ] Make Azure deployment depend on successful required checks. The current
-      Azure deployment workflow runs separately from the quality/E2E workflow.
-
-### 6. Expand scope after Word Quest works end to end
-
-- [ ] Choose which additional games should sync and map their existing local
-      storage formats to a shared cloud-progress contract.
-- [ ] Implement or remove the unused profile-container helper. There are no
-      profile endpoints or profile UI; `COSMOS_PROFILE_CONTAINER` is only needed
-      if that feature is retained.
-- [ ] Document API availability for each hosting mode. The same-origin cloud
-      URLs require a backend; the plain static development server does not
-      provide one.
+- [ ] Additional game synchronization.
+- [ ] Profile endpoints, profile UI, and profile containers.
+- [ ] Any production rollout or production data migration.
 
 ## Verification performed
 
-`node --test test/lib/cloud-progress.test.js`: **4 passed, 0 failed**.
+Root tests, API tests, lint, formatting, and Word Quest E2E smoke tests pass for
+the local implementation. The live verifier is intentionally read-only and has
+not been run against production. Against the currently deployed dev preview it
+passed health and stopped at the expected authentication gate mismatch; no
+write request was made.
 
-These tests mock `fetch`; they verify helper request construction and selected
-failure cases, not Azure connectivity, Functions execution, or Cosmos persistence.
-No application code was changed during this audit. The next implementation
-milestone should be authenticated Word Quest save-and-restore, after confirming
-the existing deployment and container configuration.
+The automated tests mock browser/API boundaries and do not replace authenticated
+dev acceptance. No production settings, records, or deployment were touched.

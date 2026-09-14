@@ -9,6 +9,10 @@ playwright-results/
 test-results/
 output/
 .swa-static/
+api/local.settings.json
+.env
+.env.*
+!.env.example
 
 # Local tool/editor config
 .codex/

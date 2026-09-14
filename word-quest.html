@@ -72,6 +72,12 @@
               <span class="wq-stat-icon">🔥</span> <strong id="wq-title-streak">0</strong> streak
             </div>
           </div>
+          <div class="wq-auth-panel" aria-live="polite">
+            <span id="wq-auth-label">Playing locally</span>
+            <a id="wq-login-link" class="wq-auth-link" href="/login">Sign in to sync</a>
+            <a id="wq-logout-link" class="wq-auth-link" href="/logout" hidden>Sign out</a>
+            <span id="wq-sync-status" class="wq-sync-status">Checking sign-in…</span>
+          </div>
           <div class="wq-title-actions">
             <button id="wq-btn-play" class="wq-btn wq-btn--primary wq-btn--xl">
               <span class="wq-btn-icon">▶</span> Enter the Map
@@ -124,6 +130,32 @@
             </div>
           </div>
           <button class="wq-btn wq-btn--primary wq-how-close-btn">Got it!</button>
+        </div>
+      </div>
+
+      <!-- ═══════════ SYNC CONFLICT MODAL ═══════════ -->
+      <div
+        id="wq-sync-modal"
+        class="wq-modal"
+        hidden
+        aria-modal="true"
+        role="dialog"
+        aria-labelledby="wq-sync-title"
+      >
+        <div class="wq-modal-backdrop"></div>
+        <div class="wq-modal-card wq-sync-modal-card">
+          <h2 id="wq-sync-title">Choose your progress</h2>
+          <p>We found different progress on this device and in the cloud.</p>
+          <div class="wq-sync-choices">
+            <button id="wq-sync-use-local" class="wq-btn wq-btn--primary">
+              Use this device
+              <small id="wq-sync-local-summary"></small>
+            </button>
+            <button id="wq-sync-use-cloud" class="wq-btn wq-btn--ghost">
+              Use cloud progress
+              <small id="wq-sync-cloud-summary"></small>
+            </button>
+          </div>
         </div>
       </div>
 

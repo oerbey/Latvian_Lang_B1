@@ -3,8 +3,9 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -43,9 +44,27 @@ jobs:
       - name: Validate i18n
         run: npm run validate:i18n
 
+  api-quality:
+    name: API Quality + Unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: api/package-lock.json
+      - name: Install API dependencies
+        working-directory: api
+        run: npm ci
+      - name: Run API unit tests
+        working-directory: api
+        run: npm test
+
   e2e:
     name: E2E (Playwright)
-    needs: quality
+    needs: [quality, api-quality]
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:

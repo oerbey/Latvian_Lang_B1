@@ -7,7 +7,7 @@
     "verify:cloud:dev": "node scripts/verify-cloud-dev.mjs",
     "prepare": "husky install",
     "start": "npx http-server . -p 5173",
-    "test": "node --test --import ./scripts/jsdom-setup.js",
+    "test": "node --test --import ./scripts/jsdom-setup.js 'test/**/*.test.js'",
     "test:watch": "node --test --watch --import ./scripts/jsdom-setup.js",
     "test:coverage": "node --test --experimental-test-coverage --import ./scripts/jsdom-setup.js",
     "test:e2e": "playwright test",

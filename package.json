@@ -9,7 +9,7 @@
     "start": "npx http-server . -p 5173",
     "test": "node --test --import ./scripts/jsdom-setup.js 'test/**/*.test.js'",
     "test:watch": "node --test --watch --import ./scripts/jsdom-setup.js",
-    "test:coverage": "node --test --experimental-test-coverage --import ./scripts/jsdom-setup.js",
+    "test:coverage": "node --test --experimental-test-coverage --import ./scripts/jsdom-setup.js 'test/**/*.test.js'",
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

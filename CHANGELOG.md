@@ -40,6 +40,8 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
   checks. No production deployment is enabled by this change.
 - Azure API dependencies are pinned with a separate lockfile compatible with the
   configured Node 20 runtime.
+- Root coverage now scopes discovery to the root test suite so API tests remain
+  covered by their separate API CI job.
 
 ### Security
 

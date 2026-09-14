@@ -670,17 +670,35 @@ test('sentence surgery fits mobile and desktop themes with reduced motion', asyn
   expect(desktopLayout.overflow).toBe(false);
 
   for (const theme of ['light', 'dark']) {
-    await page.evaluate((nextTheme) => {
-      document.documentElement.setAttribute('data-theme', nextTheme);
-      document.documentElement.setAttribute('data-bs-theme', nextTheme);
-    }, theme);
-    await page.waitForTimeout(50);
+    if ((await page.locator('html').getAttribute('data-bs-theme')) !== theme) {
+      await page.locator('#theme-toggle').click();
+    }
+    await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+    await expect(page.locator('html')).toHaveAttribute('data-bs-theme', theme);
+    await expect(page.locator('body')).toHaveAttribute('data-bs-theme', theme);
+    const expectedSentenceColor = theme === 'dark' ? 'rgb(245, 238, 228)' : 'rgb(29, 26, 22)';
+    await expect
+      .poll(() =>
+        page.locator('#sspv-sentence').evaluate((element) => getComputedStyle(element).color),
+      )
+      .toBe(expectedSentenceColor);
     const contrast = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1;
+      const context = canvas.getContext('2d', { willReadFrequently: true });
       const toRgb = (value) => {
-        const channels = (value.match(/[\d.]+/gu) || []).map(Number);
-        return value.startsWith('color(srgb')
-          ? channels.slice(0, 3).map((channel) => channel * 255)
-          : channels.slice(0, 3);
+        const channels = (value.match(/-?[\d.]+/gu) || []).map(Number);
+        if (value.startsWith('color(srgb')) {
+          return channels.slice(0, 3).map((channel) => channel * 255);
+        }
+        if (value.startsWith('rgb')) {
+          return channels.slice(0, 3);
+        }
+        context.clearRect(0, 0, 1, 1);
+        context.fillStyle = value;
+        context.fillRect(0, 0, 1, 1);
+        return [...context.getImageData(0, 0, 1, 1).data.slice(0, 3)];
       };
       const luminance = (value) => {
         const channels = toRgb(value).map((channel) => {
@@ -703,11 +721,22 @@ test('sentence surgery fits mobile and desktop themes with reduced motion', asyn
         sentence: pair('#sspv-sentence', '#sspv-round'),
         repairSlot: pair('[data-repair-slot]', '[data-repair-slot]'),
         choice: pair('.sspv-choice__label', '.sspv-choice'),
+        colors: {
+          sentence: getComputedStyle(document.querySelector('#sspv-sentence')).color,
+          round: getComputedStyle(document.querySelector('#sspv-round')).backgroundColor,
+          repairSlot: getComputedStyle(document.querySelector('[data-repair-slot]')).color,
+          repairSlotBackground: getComputedStyle(document.querySelector('[data-repair-slot]'))
+            .backgroundColor,
+          choice: getComputedStyle(document.querySelector('.sspv-choice__label')).color,
+          choiceBackground: getComputedStyle(document.querySelector('.sspv-choice'))
+            .backgroundColor,
+        },
       };
     });
-    expect(contrast.sentence).toBeGreaterThanOrEqual(4.5);
-    expect(contrast.repairSlot).toBeGreaterThanOrEqual(4.5);
-    expect(contrast.choice).toBeGreaterThanOrEqual(4.5);
+    const contrastDetails = JSON.stringify({ theme, colors: contrast.colors });
+    expect(contrast.sentence, contrastDetails).toBeGreaterThanOrEqual(4.5);
+    expect(contrast.repairSlot, contrastDetails).toBeGreaterThanOrEqual(4.5);
+    expect(contrast.choice, contrastDetails).toBeGreaterThanOrEqual(4.5);
   }
 
   const current = await page.evaluate(() => JSON.parse(window.render_game_to_text()));

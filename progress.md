@@ -184,3 +184,13 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 ## TODO / Suggestions for next agent
 
 - No known follow-up items from this redesign pass.
+
+## 2026-09-14 - Dev Azure deployment E2E contrast stabilization
+
+- Current prompt: unblock the dev-only Azure sync deployment after the Sentence Surgery contrast check failed in GitHub Actions; production remains untouched.
+- Reproduced the focused test ten times locally in CI mode without failure, confirming runner-dependent behavior rather than a consistent visual regression.
+- Diagnostics captured the actual failing colors: the document reported dark mode while the sentence and repair text still used light-theme tokens.
+- Root cause: the theme controller updated `<html>`, but shared game-theme dark palettes are selected by a `data-bs-theme` attribute on `<body>`.
+- Updated the controller to keep theme attributes synchronized on both elements, and updated the test to switch through the real theme control and assert both elements.
+- A full-suite run showed that Chromium can expose the new attributes before inherited color tokens finish recalculating under load, so the check now waits for the expected computed sentence color before measuring contrast.
+- Added format-aware color conversion for `rgb()` and `color(srgb)` plus a browser fallback for other supported CSS color syntaxes.

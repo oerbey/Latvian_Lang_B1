@@ -7,8 +7,8 @@
  *   1. On load, reads the saved theme from appState / localStorage keys
  *      'dp-theme' (primary) or 'bs-theme' (legacy fallback).
  *   2. If nothing is stored, uses the OS-level `prefers-color-scheme` media query.
- *   3. Sets `data-theme` and `data-bs-theme` attributes on <html> so both
- *      custom CSS variables and Bootstrap utilities react to the chosen mode.
+ *   3. Sets `data-theme` and `data-bs-theme` attributes on <html> and <body> so
+ *      custom game palettes and Bootstrap utilities react to the chosen mode.
  *   4. Dispatches a custom `llb1-theme-change` event so other modules
  *      (nav.js, canvas renderers) can synchronise their icons/colours.
  *   5. Listens for OS preference changes and follows them only when the
@@ -50,6 +50,8 @@ import { loadAppState, loadString, saveAppState, saveString } from './src/lib/st
   function setTheme(t, persist = true) {
     html.setAttribute('data-theme', t);
     html.setAttribute('data-bs-theme', t);
+    document.body.setAttribute('data-theme', t);
+    document.body.setAttribute('data-bs-theme', t);
     if (persist) {
       saveString('dp-theme', t);
       appState = saveAppState({ ...appState, theme: t });

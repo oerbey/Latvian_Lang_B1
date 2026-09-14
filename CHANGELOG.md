@@ -42,6 +42,10 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
   configured Node 20 runtime.
 - Root coverage now scopes discovery to the root test suite so API tests remain
   covered by their separate API CI job.
+- Theme changes now synchronize `<html>` and `<body>`, allowing shared dark game
+  palettes to activate consistently. Sentence Surgery contrast checks now use
+  the real theme control, wait for computed theme tokens, and handle
+  runner-dependent computed CSS color formats.
 
 ### Security
 

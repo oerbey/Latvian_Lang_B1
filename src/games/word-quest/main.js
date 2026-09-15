@@ -16,13 +16,16 @@
  */
 
 import { loadString, saveString } from '../../lib/storage.js';
-import { saveCloudProgress } from '../../lib/cloud-progress.js';
+import { getCurrentUser, loadCloudProgress, saveCloudProgress } from '../../lib/cloud-progress.js';
 
 // ═══════════════════════════════════════════
 //  CONSTANTS
 // ═══════════════════════════════════════════
 const STORAGE_KEY = 'llb1:word-quest';
+const SYNC_STORAGE_KEY = 'llb1:word-quest:sync';
 const GAME_ID = 'word-quest';
+const SYNC_SAVE_DELAY = 750;
+const MAX_SYNC_RETRIES = 5;
 const XP_PER_LEVEL = 120;
 const BASE_XP = 10;
 const MAX_LIVES = 3;
@@ -32,9 +35,22 @@ const CHALLENGES_PER_NODE = 3;
 //  STATE
 // ═══════════════════════════════════════════
 let state = loadState();
+const syncState = {
+  status: 'checking',
+  user: null,
+  cloudRevision: 0,
+  pending: loadSyncMeta()?.pending || null,
+  canWrite: false,
+  ready: false,
+  inFlight: false,
+  retryCount: 0,
+  timer: null,
+  retryTimer: null,
+};
 
 function defaultState() {
   return {
+    schemaVersion: 1,
     xp: 0,
     level: 1,
     streak: 0,
@@ -48,24 +64,292 @@ function defaultState() {
 function loadState() {
   try {
     const raw = loadString(STORAGE_KEY, null);
-    if (raw) return { ...defaultState(), ...JSON.parse(raw) };
+    if (raw) return normalizeState(JSON.parse(raw));
   } catch {
     /* ignore */
   }
   return defaultState();
 }
 
-function saveState() {
+function normalizeState(value) {
+  const base = defaultState();
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return base;
+
+  const next = { ...base, ...value, schemaVersion: 1 };
+  for (const field of ['xp', 'level', 'streak', 'bestStreak', 'totalCorrect', 'totalWrong']) {
+    if (!Number.isFinite(next[field]) || next[field] < 0) next[field] = base[field];
+  }
+  for (const field of ['level', 'streak', 'bestStreak', 'totalCorrect', 'totalWrong']) {
+    next[field] = Math.floor(next[field]);
+  }
+  next.worlds =
+    value.worlds && typeof value.worlds === 'object' && !Array.isArray(value.worlds)
+      ? value.worlds
+      : {};
+  return next;
+}
+
+function loadSyncMeta() {
+  try {
+    const raw = loadString(SYNC_STORAGE_KEY, null);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function persistSyncMeta() {
+  saveString(
+    SYNC_STORAGE_KEY,
+    JSON.stringify({
+      cloudRevision: syncState.cloudRevision,
+      pending: syncState.pending,
+      status: syncState.status,
+    }),
+  );
+}
+
+function saveState({ queueCloud = true } = {}) {
+  state = normalizeState(state);
   const serialized = JSON.stringify(state);
   const savedLocally = saveString(STORAGE_KEY, serialized);
   if (!savedLocally) return;
 
-  const payload = JSON.parse(serialized);
-  void saveCloudProgress(GAME_ID, payload).then((result) => {
-    if (!result) {
-      console.warn('Unable to sync Word Quest progress to cloud');
-    }
+  if (queueCloud) queueCloudSave(JSON.parse(serialized));
+}
+
+function updateSyncUi(status = syncState.status, message = '') {
+  syncState.status = status;
+  const statusEl = $id('wq-sync-status');
+  if (statusEl) statusEl.textContent = message;
+
+  const authLabel = $id('wq-auth-label');
+  const loginLink = $id('wq-login-link');
+  const logoutLink = $id('wq-logout-link');
+  if (authLabel) {
+    authLabel.textContent = syncState.user
+      ? `Signed in as ${syncState.user.userDetails || 'learner'}`
+      : 'Playing locally';
+  }
+  if (loginLink) loginLink.hidden = Boolean(syncState.user) || status === 'unavailable';
+  if (logoutLink) logoutLink.hidden = !syncState.user;
+}
+
+function setGameReady(ready) {
+  const playButton = $id('wq-btn-play');
+  if (playButton) playButton.disabled = !ready;
+}
+
+function hasProgress(value) {
+  return (
+    value.level > 1 ||
+    value.xp > 0 ||
+    value.streak > 0 ||
+    value.bestStreak > 0 ||
+    value.totalCorrect > 0 ||
+    value.totalWrong > 0 ||
+    Object.keys(value.worlds || {}).length > 0
+  );
+}
+
+function sameState(left, right) {
+  return JSON.stringify(normalizeState(left)) === JSON.stringify(normalizeState(right));
+}
+
+function describeProgress(value) {
+  const completed = Object.values(value.worlds || {}).reduce(
+    (total, world) => total + (Array.isArray(world?.completed) ? world.completed.length : 0),
+    0,
+  );
+  return `Level ${value.level}, ${value.xp} XP, ${completed} completed nodes`;
+}
+
+function promptProgressChoice(localState, cloudState) {
+  const modal = $id('wq-sync-modal');
+  if (!modal) return Promise.resolve('cloud');
+
+  $id('wq-sync-local-summary').textContent = describeProgress(localState);
+  $id('wq-sync-cloud-summary').textContent = describeProgress(cloudState);
+  show(modal);
+
+  return new Promise((resolve) => {
+    const finish = (choice) => {
+      hide(modal);
+      localButton.onclick = null;
+      cloudButton.onclick = null;
+      resolve(choice);
+    };
+    const localButton = $id('wq-sync-use-local');
+    const cloudButton = $id('wq-sync-use-cloud');
+    localButton.onclick = () => finish('local');
+    cloudButton.onclick = () => finish('cloud');
   });
+}
+
+function queueCloudSave(payload) {
+  if (!syncState.user || !syncState.ready || !syncState.canWrite) {
+    if (syncState.user) {
+      syncState.pending = payload;
+      persistSyncMeta();
+    }
+    return;
+  }
+
+  syncState.pending = payload;
+  syncState.retryCount = 0;
+  persistSyncMeta();
+  if (syncState.timer) clearTimeout(syncState.timer);
+  syncState.timer = setTimeout(() => void flushCloudSave(), SYNC_SAVE_DELAY);
+  updateSyncUi('pending', 'Changes waiting to sync…');
+}
+
+function scheduleCloudRetry() {
+  if (syncState.retryTimer) clearTimeout(syncState.retryTimer);
+  if (syncState.retryCount >= MAX_SYNC_RETRIES) {
+    updateSyncUi('retry-pending', 'Cloud unavailable. Your local progress is safe; retry pending.');
+    persistSyncMeta();
+    return;
+  }
+  const delay = 2 ** syncState.retryCount * 1000;
+  syncState.retryCount++;
+  syncState.retryTimer = setTimeout(() => void flushCloudSave(), delay);
+  updateSyncUi('retrying', 'Cloud unavailable. Retrying…');
+}
+
+async function handleCloudConflict(localPayload, cloudItem) {
+  let current = cloudItem;
+  if (!current) {
+    const loaded = await loadCloudProgress(GAME_ID);
+    if (loaded.status !== 'ok') {
+      scheduleCloudRetry();
+      return;
+    }
+    current = loaded.item;
+  }
+
+  const choice = await promptProgressChoice(localPayload, current.data);
+  if (choice === 'cloud') {
+    syncState.cloudRevision = Number.isInteger(current.revision) ? current.revision : 0;
+    syncState.pending = null;
+    state = normalizeState(current.data);
+    saveState({ queueCloud: false });
+    updateSyncUi('saved', 'Cloud progress restored.');
+    persistSyncMeta();
+    renderTitleScreen();
+    return;
+  }
+
+  syncState.cloudRevision = Number.isInteger(current.revision) ? current.revision : 0;
+  syncState.pending = normalizeState(localPayload);
+  syncState.retryCount = 0;
+  persistSyncMeta();
+  updateSyncUi('pending', 'Your local progress will replace the cloud copy.');
+  void flushCloudSave();
+}
+
+async function flushCloudSave() {
+  if (syncState.inFlight || !syncState.user || !syncState.canWrite || !syncState.pending) return;
+
+  const payload = syncState.pending;
+  syncState.pending = null;
+  syncState.inFlight = true;
+  persistSyncMeta();
+  updateSyncUi('syncing', 'Saving to cloud…');
+
+  const result = await saveCloudProgress(GAME_ID, payload, syncState.cloudRevision);
+  syncState.inFlight = false;
+
+  if (result.status === 'saved') {
+    syncState.cloudRevision = Number.isInteger(result.item?.revision)
+      ? result.item.revision
+      : syncState.cloudRevision + 1;
+    syncState.retryCount = 0;
+    updateSyncUi('saved', 'Saved to cloud.');
+    persistSyncMeta();
+    if (syncState.pending) void flushCloudSave();
+    return;
+  }
+
+  if (result.status === 'conflict') {
+    syncState.pending = payload;
+    persistSyncMeta();
+    await handleCloudConflict(payload, result.item);
+    return;
+  }
+
+  if (result.status === 'unauthenticated') {
+    syncState.user = null;
+    syncState.canWrite = false;
+    syncState.pending = null;
+    updateSyncUi('anonymous', 'Your progress remains saved on this device.');
+    persistSyncMeta();
+    return;
+  }
+
+  syncState.pending = payload;
+  persistSyncMeta();
+  scheduleCloudRetry();
+}
+
+async function initializeCloudSync() {
+  updateSyncUi('checking', 'Checking sign-in…');
+  const auth = await getCurrentUser();
+
+  if (auth.status !== 'authenticated') {
+    syncState.user = null;
+    syncState.canWrite = false;
+    syncState.pending = null;
+    syncState.ready = true;
+    updateSyncUi(
+      auth.status === 'unavailable' ? 'unavailable' : 'anonymous',
+      auth.status === 'unavailable'
+        ? 'Cloud sign-in is unavailable here. Progress is local-only.'
+        : 'Sign in to sync progress across devices.',
+    );
+    setGameReady(true);
+    return;
+  }
+
+  syncState.user = auth.user;
+  updateSyncUi('checking', 'Loading cloud progress…');
+  const remote = await loadCloudProgress(GAME_ID);
+  if (remote.status === 'unavailable' || remote.status === 'unauthenticated') {
+    syncState.ready = true;
+    syncState.canWrite = false;
+    updateSyncUi('unavailable', 'Cloud progress is unavailable; playing locally for now.');
+    setGameReady(true);
+    return;
+  }
+
+  syncState.ready = true;
+  syncState.canWrite = true;
+  const localState = normalizeState(state);
+  if (remote.status === 'ok') {
+    syncState.cloudRevision = Number.isInteger(remote.item.revision) ? remote.item.revision : 0;
+    const cloudState = normalizeState(remote.item.data);
+    if (!sameState(localState, cloudState)) {
+      const choice = await promptProgressChoice(localState, cloudState);
+      if (choice === 'cloud') {
+        state = cloudState;
+        syncState.pending = null;
+        saveState({ queueCloud: false });
+      } else {
+        syncState.pending = localState;
+      }
+    }
+  } else {
+    syncState.cloudRevision = 0;
+    syncState.pending = hasProgress(localState) ? localState : null;
+  }
+
+  persistSyncMeta();
+  updateSyncUi(
+    'saved',
+    syncState.pending ? 'Local progress is ready to sync.' : 'Cloud sync ready.',
+  );
+  setGameReady(true);
+  if (syncState.pending) void flushCloudSave();
 }
 
 function addXP(amount) {
@@ -772,6 +1056,7 @@ function updatePlayerBar() {
 //  EVENT WIRING
 // ═══════════════════════════════════════════
 function init() {
+  setGameReady(false);
   renderTitleScreen();
 
   // Title → Map
@@ -783,6 +1068,13 @@ function init() {
   howModal.querySelector('.wq-modal-close').addEventListener('click', () => hide(howModal));
   howModal.querySelector('.wq-how-close-btn').addEventListener('click', () => hide(howModal));
   howModal.querySelector('.wq-modal-backdrop').addEventListener('click', () => hide(howModal));
+
+  window.addEventListener('online', () => {
+    if (syncState.user) void initializeCloudSync();
+  });
+  window.addEventListener('offline', () => {
+    if (syncState.user) updateSyncUi('offline', 'Offline. Local progress is safe.');
+  });
 
   // Map ← Back
   $id('wq-btn-back-title').addEventListener('click', () => {
@@ -835,6 +1127,8 @@ function init() {
       nextChallenge();
     }
   });
+
+  void initializeCloudSync();
 }
 
 function visibleScreenId() {

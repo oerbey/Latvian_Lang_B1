@@ -61,6 +61,7 @@
 
 ## Commit & Pull Request Guidelines
 
+- Update `CHANGELOG.md` under `Unreleased` for meaningful application, data, infrastructure, or tooling changes. Follow its maintenance guidance, record only implemented changes, and distinguish verification from deployment.
 - Follow the existing concise style: imperative subject line (`Add tense selector to Conjugation Sprint`) and optional body for context.
 - Push feature branches (`feature/<topic>`) and open PRs that summarize the change, include repro steps, and link related issues or cards.
 - Attach screenshots or screen recordings for UI adjustments when feasible; mention any manual testing performed.

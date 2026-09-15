@@ -3,29 +3,30 @@ const { CosmosClient } = require('@azure/cosmos');
 
 let client;
 
+function requireSetting(name) {
+  const value = process.env[name];
+  if (!value) throw new Error(`Missing required Cosmos setting: ${name}`);
+  return value;
+}
+
 function getClient() {
   if (!client) {
     client = new CosmosClient({
-      endpoint: process.env.COSMOS_ENDPOINT,
-      key: process.env.COSMOS_KEY,
+      endpoint: requireSetting('COSMOS_ENDPOINT'),
+      key: requireSetting('COSMOS_KEY'),
     });
   }
   return client;
 }
 
 function getDatabase() {
-  return getClient().database(process.env.COSMOS_DATABASE);
+  return getClient().database(requireSetting('COSMOS_DATABASE'));
 }
 
 function getProgressContainer() {
-  return getDatabase().container(process.env.COSMOS_PROGRESS_CONTAINER);
-}
-
-function getProfileContainer() {
-  return getDatabase().container(process.env.COSMOS_PROFILE_CONTAINER);
+  return getDatabase().container(requireSetting('COSMOS_PROGRESS_CONTAINER'));
 }
 
 module.exports = {
   getProgressContainer,
-  getProfileContainer,
 };

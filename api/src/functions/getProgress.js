@@ -1,39 +1,54 @@
 /* eslint-env node */
 const { app } = require('@azure/functions');
+const { requireClientPrincipal } = require('../lib/auth');
 const { getProgressContainer } = require('../lib/cosmos');
+const { toPublicProgressItem } = require('../lib/progress-item');
+const { GAME_ID } = require('../lib/progress-validation');
+
+async function getProgressHandler(request, { getContainer = getProgressContainer } = {}) {
+  const auth = requireClientPrincipal(request);
+  if (auth.response) return auth.response;
+
+  const { userId } = auth.principal;
+  const gameId = request.query.get('gameId');
+
+  if (gameId !== GAME_ID) {
+    return {
+      status: 400,
+      jsonBody: { error: `gameId must be ${GAME_ID}` },
+    };
+  }
+
+  const id = `${userId}:${gameId}`;
+
+  try {
+    const { resource } = await getContainer().item(id, userId).read();
+
+    return {
+      status: 200,
+      jsonBody: toPublicProgressItem(resource),
+    };
+  } catch (err) {
+    if (err.code === 404) {
+      return {
+        status: 200,
+        jsonBody: null,
+      };
+    }
+
+    return {
+      status: 503,
+      jsonBody: { error: 'progress service unavailable' },
+    };
+  }
+}
 
 app.http('getProgress', {
   methods: ['GET'],
   authLevel: 'anonymous',
-  handler: async (request) => {
-    const userId = request.query.get('userId') || 'demo-user';
-    const gameId = request.query.get('gameId');
-
-    if (!gameId) {
-      return {
-        status: 400,
-        jsonBody: { error: 'gameId is required' },
-      };
-    }
-
-    const id = `${userId}:${gameId}`;
-
-    try {
-      const { resource } = await getProgressContainer().item(id, userId).read();
-
-      return {
-        status: 200,
-        jsonBody: resource || null,
-      };
-    } catch (err) {
-      if (err.code === 404) {
-        return {
-          status: 200,
-          jsonBody: null,
-        };
-      }
-
-      throw err;
-    }
-  },
+  handler: getProgressHandler,
 });
+
+module.exports = {
+  getProgressHandler,
+};

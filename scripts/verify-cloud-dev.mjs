@@ -15,8 +15,18 @@ export async function verifyCloudDev({ fetchImpl = fetch, report = console.log }
     });
     assert.equal(response.status, expectedStatus, `${path}: unexpected HTTP status`);
     const text = await response.text();
-    assert.match(response.headers.get('content-type') || '', /application\/json/i);
-    return text ? JSON.parse(text) : null;
+    const contentType = response.headers.get('content-type') || '';
+    if (/application\/json/i.test(contentType)) {
+      return text ? JSON.parse(text) : null;
+    }
+    assert.equal(expectedStatus, 401, `${path}: expected a JSON response`);
+    return null;
+  }
+
+  function assertAuthenticationBlocked(responseBody) {
+    if (responseBody !== null) {
+      assert.equal(responseBody.error, 'authentication required');
+    }
   }
 
   const health = await request('/api/health');
@@ -25,7 +35,7 @@ export async function verifyCloudDev({ fetchImpl = fetch, report = console.log }
   report('PASS: dev API health');
 
   const unauthenticatedRead = await request('/api/getProgress?gameId=word-quest', {}, 401);
-  assert.equal(unauthenticatedRead.error, 'authentication required');
+  assertAuthenticationBlocked(unauthenticatedRead);
   report('PASS: anonymous progress reads are blocked');
 
   const unauthenticatedSave = await request(
@@ -41,7 +51,7 @@ export async function verifyCloudDev({ fetchImpl = fetch, report = console.log }
     },
     401,
   );
-  assert.equal(unauthenticatedSave.error, 'authentication required');
+  assertAuthenticationBlocked(unauthenticatedSave);
   report('PASS: anonymous progress writes are blocked');
 
   report('PASS: read-only dev verification complete; no Cosmos records changed');

@@ -57,6 +57,10 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 - The pre-auth live dev create/read/update/read verification passed. It retained
   one isolated disposable record per run because the old API had no delete endpoint.
 - The current dev verifier is read-only and does not create diagnostic records.
+- The verifier accepts either API JSON or Azure Static Web Apps' platform HTML
+  for an expected HTTP 401 authentication gate.
+- The owner confirmed authenticated Dev sign-in, Word Quest cloud save, restore,
+  conflict handling, offline retry, and cross-account isolation.
 - On 2026-09-14 it reached dev health successfully, then stopped when the
   currently deployed pre-auth API returned HTTP 200 instead of the new
   unauthenticated-gate expectation of HTTP 401; no write request was made.

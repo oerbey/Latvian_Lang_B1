@@ -1,6 +1,6 @@
 # Azure Cosmos DB integration: status and remaining work
 
-Reviewed on 2026-09-14 against dev baseline commit `6d0fd82`.
+Reviewed on 2026-09-15 against dev commit `c92757d`.
 
 The repository now contains a dev-only authenticated Azure Static Web Apps /
 Azure Functions / Cosmos DB progress-sync implementation for Word Quest. No
@@ -115,15 +115,14 @@ supersedes its previously unverified resource/settings prerequisites where state
 | 2026-04-10 | `03235c1`            | Configured the managed API runtime as Node 20.                                                        |
 | 2026-04-10 | `31b4487`            | Staged static files separately from the API for deployment.                                           |
 | 2026-04-10 | `2a5ea45`            | Added browser cloud-progress helpers, Word Quest uploads, and four helper tests.                      |
-| 2026-09-14 | working tree         | Added dev-only Entra ownership, Word Quest restore/sync, API tests, and gated dev deployment.         |
+| 2026-09-14 | `c92757d`            | Deployed dev-only Entra ownership, Word Quest restore/sync, API tests, and gated dev deployment.      |
 
-The 2026-09-14 implementation is intentionally not deployed from this
-working tree. The Azure workflow will deploy only a pushed `dev` commit.
-The read-only verifier reached the currently deployed dev health endpoint on
-2026-09-14, but the deployed progress API still returned HTTP 200 for an
-unauthenticated Word Quest read instead of the new expected HTTP 401. The
-verifier stopped before attempting any save request, confirming that the
-preview is still running the pre-auth implementation.
+The 2026-09-14 implementation is live in the `dev` preview. The read-only
+verifier passes API health and confirms that anonymous Word Quest reads and
+writes both return HTTP 401. The authenticated Dev acceptance flow has since
+been confirmed by the owner: sign-in, cloud save, cross-browser restore, and
+account isolation worked against Dev. No production settings, records, or
+deployments were changed.
 
 ### Backend and deployment
 
@@ -160,11 +159,13 @@ preview is still running the pre-auth implementation.
 
 ### 1. Deploy and accept the dev implementation
 
-- [ ] Enable Entra authentication in the dev Static Web App and confirm the dev
-      environment exposes the authenticated principal to the managed Functions.
-- [ ] Run authenticated dev acceptance with a dedicated test account: sign-in,
+- [x] Deploy the authenticated implementation and confirm anonymous dev reads
+      and writes are blocked.
+- [x] Confirm the Dev environment exposes the authenticated principal to the
+      managed Functions.
+- [x] Run authenticated Dev acceptance with a dedicated test account: sign-in,
       save, restore, conflict choice, offline retry, and cross-user isolation.
-- [ ] Review dev logs, Cosmos revisions, sync failures, and user feedback.
+- [ ] Review Dev logs, Cosmos revisions, sync failures, and user feedback.
 
 ### 2. Production hold
 
@@ -182,10 +183,12 @@ preview is still running the pre-auth implementation.
 ## Verification performed
 
 Root tests, API tests, lint, formatting, and Word Quest E2E smoke tests pass for
-the local implementation. The live verifier is intentionally read-only and has
-not been run against production. Against the currently deployed dev preview it
-passed health and stopped at the expected authentication gate mismatch; no
-write request was made.
+the implementation. The live verifier is intentionally read-only and has not
+been run against production. Against the deployed Dev preview it passed health
+and both anonymous authentication gates. The owner subsequently confirmed the
+authenticated Dev save and restore flow, including cross-account isolation.
+The authenticated acceptance result is user-reported; the verifier itself does
+not write Cosmos records.
 
 The automated tests mock browser/API boundaries and do not replace authenticated
 dev acceptance. No production settings, records, or deployment were touched.

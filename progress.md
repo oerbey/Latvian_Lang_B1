@@ -194,3 +194,28 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Updated the controller to keep theme attributes synchronized on both elements, and updated the test to switch through the real theme control and assert both elements.
 - A full-suite run showed that Chromium can expose the new attributes before inherited color tokens finish recalculating under load, so the check now waits for the expected computed sentence color before measuring contrast.
 - Added format-aware color conversion for `rgb()` and `color(srgb)` plus a browser fallback for other supported CSS color syntaxes.
+
+## 2026-09-15 - Dev-only production-readiness identity metadata
+
+- Current prompt: prepare the accepted Microsoft-only Azure sync implementation
+  for a future production release while the owner retains control of the merge.
+- Production remains untouched; all code work is on `dev` and no deployment or
+  Cosmos operation is part of this task.
+- Added private, server-derived identity-provider metadata and an explicit
+  ownership schema version to new progress writes without changing the current
+  document ID or `/userId` partition strategy.
+- Public progress responses intentionally omit the new ownership metadata.
+- Added API coverage proving browser-supplied ownership metadata is ignored and
+  legacy records acquire server-derived metadata on their next successful save.
+- Validation passed: API tests (7/7), root tests (152/152), lint, typecheck,
+  formatting, data validation, i18n validation, and full Playwright (25/25).
+- The required web-game client pass was visually inspected against anonymous
+  Dev: the Word Quest title screen and text state matched, no console errors were
+  recorded, and no authenticated API or Cosmos write was attempted.
+
+## TODO / Suggestions for next agent
+
+- Before enabling multiple providers, introduce a canonical application account
+  ID and proof-based account linking; never link accounts by email alone.
+- Treat any switch from preconfigured Entra authentication to custom OIDC as an
+  identity-migration event and verify it with dedicated Dev accounts.

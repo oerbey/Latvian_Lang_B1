@@ -3,6 +3,7 @@ const { app } = require('@azure/functions');
 const { requireClientPrincipal } = require('../lib/auth');
 const { getProgressContainer } = require('../lib/cosmos');
 const { toPublicProgressItem } = require('../lib/progress-item');
+const { createProgressOwnership } = require('../lib/progress-ownership');
 const { validateSaveRequest } = require('../lib/progress-validation');
 
 async function saveProgressHandler(request, { getContainer = getProgressContainer } = {}) {
@@ -27,7 +28,8 @@ async function saveProgressHandler(request, { getContainer = getProgressContaine
     };
   }
 
-  const { userId } = auth.principal;
+  const ownership = createProgressOwnership(auth.principal);
+  const { userId } = ownership;
   const { gameId, data, expectedRevision } = validation.value;
   let container;
   try {
@@ -63,7 +65,7 @@ async function saveProgressHandler(request, { getContainer = getProgressContaine
 
   const item = {
     id,
-    userId,
+    ...ownership,
     gameId,
     data,
     revision: currentRevision + 1,

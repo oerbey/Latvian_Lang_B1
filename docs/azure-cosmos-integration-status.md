@@ -140,6 +140,13 @@ deployments were changed.
   principal and returns `null` if the record is missing.
 - Documents use the ID `${userId}:${gameId}`; reads pass `userId` as the partition
   key value, so the container configuration must match that assumption.
+- New writes also store the server-derived `identityProvider` and
+  `ownershipSchemaVersion: 1`. Version 1 explicitly means ownership remains tied
+  to the Static Web Apps app-scoped `userId`; these private fields are omitted
+  from API responses and provide migration context for a future canonical
+  account ID.
+- Existing documents do not require a bulk migration. They acquire the version 1
+  ownership metadata on their next successful save.
 - `.github/workflows/azure-static-web-apps-red-ocean-014d1e603.yml` deploys only
   `dev`, after the reusable quality, API, and E2E workflow succeeds.
 - `staticwebapp.config.json` specifies Node 20, Entra login/logout routes, and
@@ -171,6 +178,9 @@ deployments were changed.
 
 - [ ] Do not change production settings, records, authentication, or deployment.
 - [ ] Do not merge the dev implementation into `main` until explicit approval.
+- [ ] Before a future multi-provider rollout, define a canonical application
+      account ID and a proof-based identity-linking flow; never merge identities
+      automatically by matching email addresses.
 - [ ] If dev acceptance fails, redeploy the recorded pre-change dev commit
       `6d0fd82` or revert the dev implementation commits.
 

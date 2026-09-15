@@ -36,6 +36,9 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 - Word Quest now uses Microsoft Entra authentication through Azure Static Web
   Apps and derives progress ownership from the server-provided principal.
+- New progress writes retain the server-provided identity provider and ownership
+  schema version as private Cosmos metadata, preparing for a future canonical
+  account migration without changing the current `/userId` partition strategy.
 - Azure deployment is dev-only and runs after the reusable quality, API, and E2E
   checks. No production deployment is enabled by this change.
 - Azure API dependencies are pinned with a separate lockfile compatible with the
@@ -51,6 +54,8 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 - Anonymous progress reads and writes are rejected; browser-supplied `userId`
   values are no longer accepted.
+- Identity-provider metadata is derived only from the authenticated server
+  principal and is not included in public progress API responses.
 
 ### Verification notes — 2026-09-06
 

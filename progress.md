@@ -219,3 +219,14 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
   ID and proof-based account linking; never link accounts by email alone.
 - Treat any switch from preconfigured Entra authentication to custom OIDC as an
   identity-migration event and verify it with dedicated Dev accounts.
+
+## 2026-09-26 - Authentication rollout baseline
+
+- Objective: begin the Microsoft, Google and email OTP rollout plan at Chunk 0 without changing production.
+- Local Dev baseline is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`. GitHub reports `main` at `2e9d43cbc9e97e6bcc37368d4cb1cd5ff5372856`, which already includes the accepted Dev commit; local `main` is stale.
+- Root tests 152/152, API tests 7/7, Playwright 25/25, lint, formatting, typecheck, data validation and i18n validation passed locally under Node 22. CI uses Node 20.
+- Azure Portal confirms the existing `Latvian` resource is Free, with production at `https://red-ocean-014d1e603.4.azurestaticapps.net` using `progress_prod` and Dev at `https://red-ocean-014d1e603-dev.westeurope.4.azurestaticapps.net` using `progress_dev`.
+- Azure deployment history identifies historical production build `11bb4ef32acae49772896e91e2f66c8f9a474108`. Code at that SHA has anonymous progress routes and trusts browser-supplied user IDs, so it cannot serve as a safe rollback after the authenticated release. There is no safe authenticated production rollback SHA yet.
+- Chunk 0 handoff: the forward minimum is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`; the exact release SHA will be chosen from `main` when dispatched. The historical production SHA is recorded above, and no safe authenticated rollback SHA exists yet.
+- Azure actions: read-only portal review. No settings, deployments or Cosmos records were changed.
+- Next: add and validate the manual production release workflow; establish a protected GitHub production environment before any deployment.

@@ -1,5 +1,16 @@
 # Azure Cosmos DB integration: status and remaining work
 
+## Authentication rollout baseline — 2026-09-26
+
+- Local `dev` is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
+- GitHub reports `main` at `2e9d43cbc9e97e6bcc37368d4cb1cd5ff5372856`, five commits ahead of that Dev baseline; the Dev commit is an ancestor. Local `main` is stale and must not be used as the release ref.
+- Local baseline checks passed: root tests 152/152, API tests 7/7, Playwright 25/25, lint, formatting, typecheck, data validation and i18n validation. These ran under local Node 22; CI specifies Node 20.
+- Azure Portal confirms Static Web App `Latvian` in `AZ-myWebApp` remains on the Free plan. Production is Ready at `https://red-ocean-014d1e603.4.azurestaticapps.net`, and Dev is Ready at `https://red-ocean-014d1e603-dev.westeurope.4.azurestaticapps.net`.
+- Production uses `COSMOS_PROGRESS_CONTAINER=progress_prod`; Dev uses `COSMOS_PROGRESS_CONTAINER=progress_dev`. No setting values containing credentials were copied into source control.
+- Production last updated 2026-08-01 at 21:52:29 GMT+3. Azure deployment history shows the successful `11bb4ef` build at 21:52:33; the full historical production SHA is `11bb4ef32acae49772896e91e2f66c8f9a474108`. The matching time and deploy-on-main workflow identify this as the production build, though Azure's summary displays the short SHA.
+- That build has no authenticated progress route restriction, and its API accepts browser-supplied `userId`. It is **not** a safe rollback target after an authenticated release. No authenticated production rollback SHA exists yet; the first can be recorded only after Microsoft-only production acceptance. The forward minimum is accepted Dev SHA `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`; the exact release SHA must be selected from `main` at dispatch.
+- No Azure settings, deployment or Cosmos records were changed during this baseline review.
+
 Reviewed on 2026-09-15 against dev commit `c92757d`.
 
 The repository now contains a dev-only authenticated Azure Static Web Apps /

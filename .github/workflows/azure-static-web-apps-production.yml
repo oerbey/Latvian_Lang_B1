@@ -1,0 +1,90 @@
+name: Azure Static Web Apps production release
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: Approved main commit SHA (leave empty for the selected main HEAD)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: azure-static-web-apps-production
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    name: Validate release commit
+    runs-on: ubuntu-latest
+    outputs:
+      commit_sha: ${{ steps.validate.outputs.commit_sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Validate selected commit
+        id: validate
+        env:
+          REQUESTED_SHA: ${{ inputs.commit_sha }}
+          MAIN_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF" != 'refs/heads/main' ]]; then
+            echo 'Production releases must be dispatched from main.' >&2
+            exit 1
+          fi
+          sha="${REQUESTED_SHA:-$MAIN_SHA}"
+          if [[ ! "$sha" =~ ^[0-9a-fA-F]{40}$ ]]; then
+            echo 'Release commit must be a full 40-character SHA.' >&2
+            exit 1
+          fi
+          sha="$(git rev-parse --verify "$sha^{commit}")"
+          if ! git merge-base --is-ancestor "$sha" "$MAIN_SHA"; then
+            echo 'Release commit is not in the selected main history.' >&2
+            exit 1
+          fi
+          # The older production build accepts browser-supplied user IDs; it cannot be an authenticated rollback.
+          if ! git merge-base --is-ancestor 45f54ca6d8fc351c0cf51e2ca262086a58661a1e "$sha"; then
+            echo 'Release commit predates the authenticated baseline.' >&2
+            exit 1
+          fi
+          echo "commit_sha=$sha" >> "$GITHUB_OUTPUT"
+
+  ci:
+    name: Required checks
+    needs: resolve
+    uses: ./.github/workflows/test.yml
+    with:
+      commit_sha: ${{ needs.resolve.outputs.commit_sha }}
+
+  build_and_deploy_production:
+    name: Build and deploy production
+    needs: [resolve, ci]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.resolve.outputs.commit_sha }}
+          submodules: true
+          lfs: false
+      - name: Stage Static App
+        run: |
+          rm -rf .swa-static
+          mkdir -p .swa-static
+          git archive --format=tar HEAD | tar -xf - -C .swa-static
+          rm -rf .swa-static/api .swa-static/.github
+      - name: Build and deploy production
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PRODUCTION }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: 'upload'
+          app_location: '.swa-static'
+          api_location: 'api'
+          output_location: ''
+          skip_app_build: true
+          production_branch: 'main'

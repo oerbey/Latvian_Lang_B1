@@ -230,3 +230,12 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Chunk 0 handoff: the forward minimum is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`; the exact release SHA will be chosen from `main` when dispatched. The historical production SHA is recorded above, and no safe authenticated rollback SHA exists yet.
 - Azure actions: read-only portal review. No settings, deployments or Cosmos records were changed.
 - Next: add and validate the manual production release workflow; establish a protected GitHub production environment before any deployment.
+
+## 2026-09-26 - Manual production workflow implementation
+
+- Objective: implement Chunk 1 of the authentication rollout plan without dispatching a production release.
+- Added `workflow_dispatch` production deployment with a full SHA input, `main` ref and ancestry checks, and an authenticated-baseline guard against the historical anonymous build.
+- Reusable CI now checks out the exact requested SHA in its quality, API and Playwright jobs; the production deploy job checks out that same SHA after CI and references the `production` environment and its dedicated token name.
+- Verification: workflow YAML parses, touched files pass Prettier, and local lint, typecheck and `git diff --check` pass. The release validation script accepts the authenticated baseline and rejects the historical anonymous build and a `dev` dispatch. Full root/API/Playwright tests passed at Chunk 0 baseline. GitHub Actions execution awaits a push.
+- Azure actions: none. No production deployment or Cosmos change occurred. GitHub `production` environment was created, but its reviewer and deployment secret are not configured. Automatic approval review blocked assigning `@oerbey` as required reviewer, pending explicit user authorization.
+- Next: configure the required reviewer and environment-scoped `AZURE_STATIC_WEB_APPS_API_TOKEN_PRODUCTION` secret after authorization, push this branch and verify its GitHub CI before considering Chunk 1 complete.

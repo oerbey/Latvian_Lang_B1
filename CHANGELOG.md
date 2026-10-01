@@ -21,6 +21,11 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Added
 
+- Temporary old Dev migration bridge for authenticated Word Quest cloud
+  snapshots, with a private 15-minute proof token, hashed operation storage,
+  one-hour operation TTL and a deliberate copy-token handoff. Issuance defaults
+  to disabled; Azure Dev settings and live deployment acceptance are pending.
+
 - Dev-only Azure integration diagnostic, run with `npm run verify:cloud:dev`.
   It checks API health and confirms anonymous progress access is blocked. It is
   read-only and targets the fixed dev deployment.

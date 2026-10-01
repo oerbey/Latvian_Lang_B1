@@ -2,7 +2,7 @@
 
 ## Microsoft-only production release — 2026-09-30
 
-**Deployed; acceptance pending.** Production now serves
+**Accepted with documented deferrals on 2026-10-01.** Production now serves
 `cbed2cc6f70f245a3673548cc5f2deb57e764950` at
 `https://red-ocean-014d1e603.4.azurestaticapps.net`.
 [Production release run #1](https://github.com/oerbey/Latvian_Lang_B1/actions/runs/36722117741)
@@ -18,11 +18,13 @@ The owner explicitly authorized Chunk 2 after merging PR #200.
   used the existing read-only checks with the origin replaced by production;
   no Cosmos records were written by this verification.
 - Azure Portal confirms the Free plan and production
-  `COSMOS_PROGRESS_CONTAINER=progress_prod`. This verifies configuration;
-  the owner-reported save/restore checks confirm authenticated writes, while
-  independent record placement verification remains pending. Data Explorer
-  loaded the containers, but browser controls could not select the query scope
-  to run a metadata-only verification query.
+  `COSMOS_PROGRESS_CONTAINER=progress_prod`. On 2026-10-01, read-only aggregate
+  queries independently found one Word Quest record updated since the production
+  deployment in `progress_prod`, and zero matching records in `progress_dev`.
+  The query required `identityProvider = 'aad'` and `ownershipSchemaVersion = 1`;
+  it returned counts only, without reading player identities or progress data.
+  This supports the production record placement check together with the owner's
+  successful save/restore test and the verified production container setting.
 - The production Word Quest guest page renders and offers Microsoft sign-in.
   The in-app browser sign-in continuation reached a blank Microsoft page, then
   returned HTTP 401 after reload. The owner subsequently confirmed a fresh
@@ -38,6 +40,9 @@ The owner explicitly authorized Chunk 2 after merging PR #200.
   still outstanding. Cosmos monitoring shows zero health events and alerts
   over the last 24 hours and 0% throttling, but request/latency panels lack
   values and report a portal component error; this is not a complete log review.
+  On 2026-10-01, Cosmos Diagnostic settings explicitly reported no diagnostic
+  settings defined. Historical request logs cannot be reviewed because they
+  were not collected; enabling collection now would cover only future traffic.
 - The successful deploy reported an unexpected `production_branch` input
   warning. Microsoft's current [action metadata](https://github.com/Azure/static-web-apps-deploy/blob/v1/action.yml)
   declares that input; retain the warning for investigation before another
@@ -45,10 +50,13 @@ The owner explicitly authorized Chunk 2 after merging PR #200.
 - No Azure settings, hosting plan, identity-provider configuration or Cosmos
   records were edited during deployment verification.
 
-Chunk 2 remains open. Do not begin Chunk 3 or promote this build as an accepted
-rollback baseline until the outstanding checks are resolved. The historical
-anonymous SHA remains unsuitable for rollback; failures require the documented
-fix-forward recovery process.
+On 2026-10-01 the owner explicitly deferred live two-account isolation and
+instructed proceeding to Chunk 3 after the available checks were documented.
+Historical telemetry review remains unavailable because collection was disabled;
+this is a recorded verification limitation, not a passed check. Chunk 2 is
+accepted with these deferrals. Its deployed SHA is the authenticated rollback
+baseline for later releases, subject to those acceptance limits. The historical
+anonymous SHA remains unsuitable for rollback.
 
 ## Authentication rollout baseline — 2026-09-26
 
@@ -242,7 +250,8 @@ deployments were changed.
 - [x] Complete dedicated-account sign-in, save and refresh/second-browser restore
       (owner-reported).
 - [ ] Complete isolation with a second dedicated account.
-- [ ] Confirm authenticated records are written only to `progress_prod`.
+- [x] Confirm production record placement using the container setting,
+      owner-reported save/restore and aggregate production/Dev counts.
 - [ ] Review available authentication, Functions and Cosmos telemetry.
 - [ ] Before a future multi-provider rollout, define a canonical application
       account ID and a proof-based identity-linking flow; never merge identities

@@ -19,6 +19,14 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Deployment
+
+- Microsoft-only Word Quest cloud sync deployed to Azure production on
+  2026-09-30 from `cbed2cc6f70f245a3673548cc5f2deb57e764950` through the manual
+  approval gate. Live health and anonymous API rejection passed; authenticated
+  production acceptance remains pending. See the
+  [integration status](docs/azure-cosmos-integration-status.md).
+
 ### Added
 
 - Manual production Static Web Apps release workflow with an exact-SHA CI gate,

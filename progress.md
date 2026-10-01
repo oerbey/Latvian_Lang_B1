@@ -241,3 +241,29 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - GitHub actions: after explicit user approval, configured the `production` environment with `@oerbey` as required reviewer and the environment-scoped `AZURE_STATIC_WEB_APPS_API_TOKEN_PRODUCTION` secret. A subsequent explicit approval authorized disabling administrator bypass; GitHub confirmed the updated protection rule. The environment has no separate branch restriction, while the workflow itself rejects a non-`main` dispatch.
 - Pushed `feature/auth-release-workflow` and opened draft PR #199 against `main`. GitHub CI passed on commit `29b9df4c473259e08a67abe73de46891aa3a5f56`: quality, API and Playwright jobs all succeeded. Production remains at historical `11bb4ef32acae49772896e91e2f66c8f9a474108`.
 - Chunk 1 handoff: workflow syntax and CI passed, the reviewer and dedicated environment secret are configured, and no production deployment occurred. The PR can be reviewed and merged when the owner accepts the first-release recovery approach. Any production dispatch belongs to Chunk 2 and requires separate owner approval.
+
+## 2026-09-30 - Microsoft-only production deployment, acceptance pending
+
+- Objective: execute Chunk 2 after the owner merged PR #200 and authorized the release.
+- Exact deployed SHA: `cbed2cc6f70f245a3673548cc5f2deb57e764950`; production URL: `https://red-ocean-014d1e603.4.azurestaticapps.net`.
+- GitHub release run `36722117741` passed ancestry validation, quality/unit, API and Playwright checks, then deployed successfully after the configured production review gate was approved.
+- Live verification passed health and anonymous read/write rejection (HTTP 401). The read-only verifier made no successful Cosmos writes. Azure confirms the Free plan and `progress_prod` production setting.
+- Production guest Word Quest renders. The in-app Microsoft continuation was blank and returned 401 after reload. The owner confirmed a fresh dedicated-account login in their usual browser reaches “Cloud sync ready”; sign-in/cloud-load readiness passed as user-reported.
+- The owner confirmed dedicated-account save, refresh restore and restore in a second browser pass. One dedicated account is available; two-account isolation and independent production record placement remain pending. Application Insights is disabled; authentication/Functions telemetry review is unavailable and Cosmos review is pending.
+- Deployment emitted an unexpected `production_branch` input warning despite the current official action metadata declaring it. Record and investigate before another release.
+- Azure actions: production deployment only; no settings, identity-provider, hosting-plan or database-record edits during verification.
+- Handoff: Chunk 2 is deployed but not accepted. Do not start Chunk 3; no accepted authenticated rollback SHA exists yet. Follow the plan's fix-forward recovery process if acceptance fails.
+
+- Documentation validation: root tests 152/152, data/i18n validation and touched-file formatting passed. Local full Playwright passed 24/25; the existing Decl6 next-button smoke assertion failed again in a focused rerun. Exact-release GitHub Playwright passed before deployment. No game code was changed for this release record.
+- Read-only Cosmos monitoring: last-24-hour health events and alerts are zero and throttling is 0%; several request/latency panels have no values and a portal component error. Full telemetry review remains incomplete.
+- Data Explorer loaded the progress containers, but browser interaction failed when selecting the query scope; no record query or mutation occurred. Independent placement verification remains pending.
+
+## 2026-10-01 - Production acceptance follow-up
+
+- Continued the remaining read-only checks after the owner's go-ahead.
+- Worked around unavailable embedded Data Explorer controls using the standalone Cosmos explorer and the existing resource directory.
+- Aggregate query over Word Quest records updated since `2026-09-30T13:36:07Z`, with `aad` provider and ownership schema version 1, returned 1 in `progress_prod` and 0 in `progress_dev`. Queries returned counts only; no player identities/progress were read or records mutated. Together with the production setting and owner-reported save/restore, this passes record placement verification.
+- Live production health and anonymous read/write rejection passed again.
+- Cosmos Diagnostic settings reports no diagnostic settings defined. Historical request telemetry was not collected; Application Insights was already confirmed disabled. Full historical log review is unavailable.
+- Two-account production isolation remains unavailable with the owner's single test account. Asked whether to defer this acceptance check before Step 3, as required by the plan's stop-at-handoff instruction.
+- Owner decision: explicitly defer live two-account isolation and proceed to Step 3 after documenting available checks. Chunk 2 is accepted with that deferral and unavailable historical telemetry recorded; the deployed authenticated SHA is the rollback baseline with these verification limits.

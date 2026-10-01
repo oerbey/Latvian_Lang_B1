@@ -1,5 +1,63 @@
 # Azure Cosmos DB integration: status and remaining work
 
+## Microsoft-only production release — 2026-09-30
+
+**Accepted with documented deferrals on 2026-10-01.** Production now serves
+`cbed2cc6f70f245a3673548cc5f2deb57e764950` at
+`https://red-ocean-014d1e603.4.azurestaticapps.net`.
+[Production release run #1](https://github.com/oerbey/Latvian_Lang_B1/actions/runs/36722117741)
+passed the exact-SHA ancestry guard, quality/unit checks, API checks, Playwright
+and deployment after the configured `production` reviewer approved the job.
+The owner explicitly authorized Chunk 2 after merging PR #200.
+
+- Azure lists production as Ready, last updated 2026-09-30 at 16:36:07 GMT+3,
+  receiving 100% of traffic. The old Dev preview remains Ready with its
+  2026-09-15 deployment timestamp.
+- Live production `/api/health` returned HTTP 200 with the expected service body.
+- Anonymous Word Quest reads and writes both returned HTTP 401. The verifier
+  used the existing read-only checks with the origin replaced by production;
+  no Cosmos records were written by this verification.
+- Azure Portal confirms the Free plan and production
+  `COSMOS_PROGRESS_CONTAINER=progress_prod`. On 2026-10-01, read-only aggregate
+  queries independently found one Word Quest record updated since the production
+  deployment in `progress_prod`, and zero matching records in `progress_dev`.
+  The query required `identityProvider = 'aad'` and `ownershipSchemaVersion = 1`;
+  it returned counts only, without reading player identities or progress data.
+  This supports the production record placement check together with the owner's
+  successful save/restore test and the verified production container setting.
+- The production Word Quest guest page renders and offers Microsoft sign-in.
+  The in-app browser sign-in continuation reached a blank Microsoft page, then
+  returned HTTP 401 after reload. The owner subsequently confirmed a fresh
+  dedicated-account sign-in in their usual browser reaches “Cloud sync ready.”
+  Production sign-in and cloud-load readiness are accepted as user-reported.
+- The owner confirmed dedicated-account save, refresh restore and restore
+  in a second browser all pass on production. These checks are user-reported.
+  Only one dedicated test account is available, so two-account isolation
+  remains unverified on production. Dev isolation acceptance does not
+  substitute for this production check.
+- Application Insights is disabled on the resource. Authentication and Functions
+  telemetry review is unavailable, and Cosmos error/request-volume review is
+  still outstanding. Cosmos monitoring shows zero health events and alerts
+  over the last 24 hours and 0% throttling, but request/latency panels lack
+  values and report a portal component error; this is not a complete log review.
+  On 2026-10-01, Cosmos Diagnostic settings explicitly reported no diagnostic
+  settings defined. Historical request logs cannot be reviewed because they
+  were not collected; enabling collection now would cover only future traffic.
+- The successful deploy reported an unexpected `production_branch` input
+  warning. Microsoft's current [action metadata](https://github.com/Azure/static-web-apps-deploy/blob/v1/action.yml)
+  declares that input; retain the warning for investigation before another
+  release. Live production checks confirm the authenticated build is serving.
+- No Azure settings, hosting plan, identity-provider configuration or Cosmos
+  records were edited during deployment verification.
+
+On 2026-10-01 the owner explicitly deferred live two-account isolation and
+instructed proceeding to Chunk 3 after the available checks were documented.
+Historical telemetry review remains unavailable because collection was disabled;
+this is a recorded verification limitation, not a passed check. Chunk 2 is
+accepted with these deferrals. Its deployed SHA is the authenticated rollback
+baseline for later releases, subject to those acceptance limits. The historical
+anonymous SHA remains unsuitable for rollback.
+
 ## Authentication rollout baseline — 2026-09-26
 
 - Local `dev` is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
@@ -185,10 +243,16 @@ deployments were changed.
       save, restore, conflict choice, offline retry, and cross-user isolation.
 - [ ] Review Dev logs, Cosmos revisions, sync failures, and user feedback.
 
-### 2. Production hold
+### 2. Production acceptance
 
-- [ ] Do not change production settings, records, authentication, or deployment.
-- [ ] Do not merge the dev implementation into `main` until explicit approval.
+- [x] Merge the accepted implementation and manually deploy after owner approval.
+- [x] Verify production health and anonymous progress rejection.
+- [x] Complete dedicated-account sign-in, save and refresh/second-browser restore
+      (owner-reported).
+- [ ] Complete isolation with a second dedicated account.
+- [x] Confirm production record placement using the container setting,
+      owner-reported save/restore and aggregate production/Dev counts.
+- [ ] Review available authentication, Functions and Cosmos telemetry.
 - [ ] Before a future multi-provider rollout, define a canonical application
       account ID and a proof-based identity-linking flow; never merge identities
       automatically by matching email addresses.
@@ -199,9 +263,9 @@ deployments were changed.
 
 - [ ] Additional game synchronization.
 - [ ] Profile endpoints, profile UI, and profile containers.
-- [ ] Any production rollout or production data migration.
+- [ ] Multi-provider production rollout or production data migration.
 
-## Verification performed
+## Historical Dev verification performed
 
 Root tests, API tests, lint, formatting, and Word Quest E2E smoke tests pass for
 the implementation. The live verifier is intentionally read-only and has not

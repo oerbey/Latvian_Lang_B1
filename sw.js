@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v25';
+const CACHE_VERSION = 'v26';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -41,6 +41,8 @@ const CORE_ASSETS = [
   './src/lib/sanitize.js',
   './src/lib/state.js',
   './src/lib/storage.js',
+  './src/lib/cloud-progress.js',
+  './src/lib/migration-bridge.js',
   './src/lib/utils.js',
   './src/lib/words-data.js',
   './src/lib/render.js',

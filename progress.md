@@ -219,3 +219,14 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
   ID and proof-based account linking; never link accounts by email alone.
 - Treat any switch from preconfigured Entra authentication to custom OIDC as an
   identity-migration event and verify it with dedicated Dev accounts.
+
+## 2026-10-01 - Old Dev migration bridge implementation
+
+- Owner explicitly deferred production live two-account isolation and authorized Step 3. Production placement passed (one matching post-release record in `progress_prod`, zero in `progress_dev`); historical telemetry collection was disabled. Updated acceptance PR #201 with these results and deferrals.
+- Created `feature/old-dev-migration-bridge` from accepted Dev `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
+- Added authenticated, old-origin `POST /api/migration/start`, default-disabled Dev issuance guards, server-only snapshot ownership, 256-bit random tokens, hash-only operation IDs, bounded snapshots/revisions, 15-minute expiry, one-hour TTL and no-store responses.
+- Added the old-Dev-only Word Quest copy-token panel, capture/expiry messaging, sync-readiness gate and in-memory token clearing. Added required module precaching and bumped the service worker cache version.
+- Azure actions: created `llb1/accounts_dev` with `/pk`, existing shared throughput, automatic indexing and TTL On (no default); verified TTL after explorer reload. No production settings, progress records or hosting plan changed.
+- Azure limitation: embedded SWA environment controls could not be operated; native Brave fallback access was not approved. Old Dev accounts/issuance settings remain pending. Issuance remains disabled by default.
+- Verification: root tests 152 passed, API tests 12 passed, full Playwright 28 passed before adding the additional expiry edge case; focused bridge tests cover guest/origin visibility, readiness, explicit copy, sign-out clearing, generation failure and expiry. Lint, typecheck, data/i18n validation and touched-file formatting passed. Snapshot UI screenshot uses a synthetic test token.
+- Deployment state: old Dev still serves accepted `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`; bridge deployment SHA/live issuance acceptance are pending. Instructions and recovery are in `docs/old-dev-migration-bridge.md`. Stop before Chunk 4 until the bridge handoff passes.

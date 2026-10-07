@@ -1,5 +1,17 @@
 # Azure Cosmos DB integration: status and remaining work
 
+## Old Dev migration bridge — 2026-10-01
+
+Bridge implementation and automated tests are complete; deployment and live
+acceptance remain pending. Created `llb1/accounts_dev` with `/pk`, existing
+shared database throughput and TTL On (no default), verified after reload. No
+progress records or production settings were modified. Old Dev application
+settings could not be changed through available browser controls; token issuance
+remains disabled by default. See the
+[bridge setup and acceptance guide](old-dev-migration-bridge.md).
+
+The pre-bridge fallback remains `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
+
 Reviewed on 2026-09-15 against dev commit `c92757d`.
 
 The repository now contains a dev-only authenticated Azure Static Web Apps /

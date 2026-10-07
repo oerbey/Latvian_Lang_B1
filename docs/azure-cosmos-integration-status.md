@@ -18,6 +18,9 @@ Live two-account isolation remains deferred with owner authorization. See the
 The accepted bridge fallback is `6b8c377c3298121cb6d1985be5e5bf15c9354548`.
 The pre-bridge fallback is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
 Chunk 4 must redirect automatic Dev deployments before further merges into `dev`.
+The owner held creation of the paid Standard resource on October 7. No new
+resource, credential transfer or workflow redirection occurred; keep these
+acceptance records in a draft until the deployment boundary can be preserved.
 
 Reviewed on 2026-09-15 against dev commit `c92757d`.
 

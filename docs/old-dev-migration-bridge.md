@@ -83,7 +83,15 @@ Live authenticated acceptance on **old Dev only**, October 7:
   Chunk 4 must redirect automatic Dev deployments before merging further code;
   retain this build on the shared resource.
 
-The new lab does not exist yet. Add `COSMOS_ACCOUNTS_CONTAINER=accounts_dev` to
+The new lab does not exist yet. The owner explicitly held creation of the paid
+Standard resource on October 7 after reviewing the US$9/month base hosting cost
+plus applicable taxes/currency conversion and usage charges. The creation form
+was prepared but not submitted. No new deployment secret was transferred and
+the Dev workflow was not repointed. Keep this acceptance documentation as a
+draft until the workflow can be redirected; merging into Dev now would deploy
+again to the old preview. Resume Chunk 4 only when the owner releases this hold.
+
+Add `COSMOS_ACCOUNTS_CONTAINER=accounts_dev` to
 its Dev environment when Chunk 4 creates it, while leaving issuance disabled.
 Do not add either setting to production.
 
@@ -100,4 +108,5 @@ the pre-bridge fallback SHA is recorded above. Leave progress records intact.
 Chunk 3's deployment and available live acceptance are complete.
 Live two-account isolation is still deferred because only one dedicated account
 is available; API tests cover separate server identities without claiming a
-live two-account acceptance result. Chunk 4 may proceed with that recorded limit.
+live two-account acceptance result. Chunk 4's technical prerequisite has passed,
+but paid resource creation is on hold at the owner's request.

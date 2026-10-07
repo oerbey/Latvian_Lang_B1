@@ -17,9 +17,6 @@
 
 import { loadString, saveString } from '../../lib/storage.js';
 import { getCurrentUser, loadCloudProgress, saveCloudProgress } from '../../lib/cloud-progress.js';
-import { createMigrationBridge } from '../../lib/migration-bridge.js';
-
-const updateMigrationBridge = createMigrationBridge();
 
 // ═══════════════════════════════════════════
 //  CONSTANTS
@@ -137,7 +134,6 @@ function updateSyncUi(status = syncState.status, message = '') {
   }
   if (loginLink) loginLink.hidden = Boolean(syncState.user) || status === 'unavailable';
   if (logoutLink) logoutLink.hidden = !syncState.user;
-  updateMigrationBridge(Boolean(syncState.user), status);
 }
 
 function setGameReady(ready) {

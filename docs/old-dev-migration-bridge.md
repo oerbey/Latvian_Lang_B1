@@ -1,10 +1,14 @@
 # Old Dev migration bridge
 
-## Status — 2026-10-01
+## Status — 2026-10-07
 
 Implemented on `feature/old-dev-migration-bridge`, based on the accepted Dev SHA
-`45f54ca6d8fc351c0cf51e2ca262086a58661a1e`. Deployment and live acceptance are
-pending. The old Dev URL remains:
+`45f54ca6d8fc351c0cf51e2ca262086a58661a1e`. PR #202 was merged and Dev deployment
+of `6b8c377c3298121cb6d1985be5e5bf15c9354548` succeeded in
+[run 37664952672](https://github.com/oerbey/Latvian_Lang_B1/actions/runs/37664952672).
+The matching CI run passed. Live acceptance passed with the previously authorized
+two-account isolation deferral. This SHA is the accepted old Dev migration fallback.
+The old Dev URL remains:
 `https://red-ocean-014d1e603-dev.westeurope.4.azurestaticapps.net`.
 
 Production was accepted with documented verification deferrals before this
@@ -55,30 +59,36 @@ Completed:
 - Partition key `/pk`, automatic indexing, existing shared database throughput
   (no dedicated container throughput added).
 - TTL saved as **On (no default)** and verified after reloading the explorer.
-- No progress records, production settings or hosting plan were edited.
+- No production settings or hosting plan were edited. The owner used the
+  dedicated Dev account for normal progress saves and token issuance.
+- Saved and verified `COSMOS_ACCOUNTS_CONTAINER=accounts_dev` on old Dev only
+  on October 7; `COSMOS_PROGRESS_CONTAINER=progress_dev` remains selected.
+- Live API health, anonymous progress GET/POST rejection and anonymous migration
+  POST rejection passed (401). Guest UI contains the bridge panel but hides it.
 
-Pending on the **old Dev environment only**:
+Live authenticated acceptance on **old Dev only**, October 7:
 
-1. Add `COSMOS_ACCOUNTS_CONTAINER=accounts_dev`.
-2. Merge the bridge PR into `dev`, letting the existing Dev workflow run its
-   checks and deploy to the shared Free SWA resource. Do not repoint that workflow.
-3. Verify health, anonymous progress rejection and anonymous migration rejection.
-4. For the dedicated Dev account, verify its normal save/restore still works.
-5. Set `MIGRATION_ISSUANCE_ENABLED=true` on old Dev for the migration window.
-6. Generate a token, confirm capture/expiry information and copy it privately.
-   Do not paste the token into a PR, log or chat. Verify the stored operation
-   using metadata/counts without exposing player identities or the raw token.
-7. Record the bridge deployment SHA as the frozen old Dev fallback before
-   continuing to the isolated lab resource.
+- Owner confirmed sign-in, progress save and refresh restore passed.
+- Saved and verified `MIGRATION_ISSUANCE_ENABLED=true` for the migration window.
+- Owner confirmed token generation, snapshot/expiry messaging and explicit copy.
+  No raw token was supplied to this chat or stored in source control.
+- A metadata-only Cosmos query returned one operation: creation
+  `2026-10-07T18:26:29.742Z`, expiry `2026-10-07T18:41:29.742Z`, TTL 3600,
+  source revision 8, pending status, attempt count 0, schema version 1 and
+  Word Quest game ID. No snapshot or identity values were read.
+- Aggregate count returned 1 for the same day's operations with `migration:`
+  prefixed 74-character keys, equal `id`/`pk`, TTL 3600, and no `token` or
+  `userId` property. Hash generation itself is covered by the API tests.
+- Accepted fallback: `6b8c377c3298121cb6d1985be5e5bf15c9354548` at the old Dev URL.
+  Chunk 4 must redirect automatic Dev deployments before merging further code;
+  retain this build on the shared resource.
 
 The new lab does not exist yet. Add `COSMOS_ACCOUNTS_CONTAINER=accounts_dev` to
 its Dev environment when Chunk 4 creates it, while leaving issuance disabled.
 Do not add either setting to production.
 
-Embedded Azure environment-variable controls could not be operated through the
-available browser controls, and access to the native Brave fallback was not
-approved. These application settings were not changed. This is an access
-limitation, not a failed Azure configuration write.
+The October 1 browser-control limitation was resolved in the October 7 session.
+The accounts and issuance settings were saved through Azure Portal and verified.
 
 ## Recovery and acceptance limits
 
@@ -87,7 +97,7 @@ Microsoft-only sync does not require the accounts container. If needed, revert
 the bridge on `dev` and let the gated Dev workflow redeploy the accepted code;
 the pre-bridge fallback SHA is recorded above. Leave progress records intact.
 
-Chunk 3 is not complete until deployment and live token issuance are verified.
+Chunk 3's deployment and available live acceptance are complete.
 Live two-account isolation is still deferred because only one dedicated account
 is available; API tests cover separate server identities without claiming a
-live two-account acceptance result. Do not begin Chunk 4 yet.
+live two-account acceptance result. Chunk 4 may proceed with that recorded limit.

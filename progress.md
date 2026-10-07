@@ -230,3 +230,12 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Azure limitation: embedded SWA environment controls could not be operated; native Brave fallback access was not approved. Old Dev accounts/issuance settings remain pending. Issuance remains disabled by default.
 - Verification: root tests 152 passed, API tests 12 passed, full Playwright 28 passed before adding the additional expiry edge case; focused bridge tests cover guest/origin visibility, readiness, explicit copy, sign-out clearing, generation failure and expiry. Lint, typecheck, data/i18n validation and touched-file formatting passed. Snapshot UI screenshot uses a synthetic test token.
 - Deployment state: old Dev still serves accepted `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`; bridge deployment SHA/live issuance acceptance are pending. Instructions and recovery are in `docs/old-dev-migration-bridge.md`. Stop before Chunk 4 until the bridge handoff passes.
+
+## 2026-10-07 - Merged bridge deployment and Dev accounts setting
+
+- Owner merged PR #202 and authorized the next steps. Dev SHA `6b8c377c3298121cb6d1985be5e5bf15c9354548` passed CI and Azure Dev deployment (runs 37664952040 and 37664952672).
+- Saved and verified `COSMOS_ACCOUNTS_CONTAINER=accounts_dev` through Azure Portal on the old Dev environment; `COSMOS_PROGRESS_CONTAINER=progress_dev` remains in place. Production settings and progress records were not changed.
+- Live read-only verifier passed health and anonymous progress GET/POST rejection; anonymous migration POST returned 401. The deployed guest page contains the migration panel and hides it.
+- Owner confirmed dedicated-account sign-in/save/refresh restore. Then saved and verified old Dev `MIGRATION_ISSUANCE_ENABLED=true`; owner confirmed live token generation, capture/expiry and explicit copy.
+- Read-only Cosmos metadata returned one operation created at `2026-10-07T18:26:29.742Z`, expiring exactly 15 minutes later, TTL 3600, source revision 8, pending status, attempt count 0, schema version 1. Aggregate storage-shape query returned 1 for migration-prefixed 74-character equal id/pk keys with no raw token/userId properties. No player snapshots or identity values were read.
+- Chunk 3 accepted with the previously authorized live two-account isolation deferral. Frozen bridge fallback is `6b8c377c3298121cb6d1985be5e5bf15c9354548` at the existing old Dev URL. Chunk 4 may proceed; redirect Dev workflow before further Dev merges to preserve this build.

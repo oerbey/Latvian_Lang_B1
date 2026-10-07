@@ -19,6 +19,13 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Removed
+
+- Retired the temporary Dev migration endpoint, token panel, accounts-container
+  helper and migration-only tests. Dev issuance is disabled and its accounts
+  setting removed; code removal awaits the Dev merge/deployment. Microsoft
+  sign-in and normal cloud sync remain the current implementation.
+
 ### Added
 
 - Temporary old Dev migration bridge for authenticated Word Quest cloud

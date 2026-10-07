@@ -1,5 +1,26 @@
 # Azure Cosmos DB integration: status and remaining work
 
+## Current direction — 2026-10-07
+
+The owner chose email/password-only accounts on Free hosting and does not need
+existing accounts/progress preserved. Remaining work is defined by the
+[replacement authentication plan](email-password-authentication-plan.md).
+The paid isolated resource, account linking and migration are no longer in scope.
+The historical deployment/configuration evidence below remains accurate; this
+planning change does not modify live Azure settings or code.
+
+## Migration retirement — 2026-10-07
+
+Dev issuance was saved and verified as `MIGRATION_ISSUANCE_ENABLED=false`;
+`COSMOS_ACCOUNTS_CONTAINER` was removed from Dev. Progress remains `progress_dev`.
+The retirement branch removes the migration function/panel/module/styles,
+accounts helper and migration-only tests, and refreshes the service worker.
+Code removal awaits merge/deployment; the existing Free resource, Dev URL,
+Microsoft authentication and Dev deployment workflow are retained. Production
+remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`; existing Dev build is
+`6b8c377c3298121cb6d1985be5e5bf15c9354548`. Historical freezes below are superseded.
+No Cosmos records or containers were deleted. Remaining work follows the new plan.
+
 ## Old Dev migration bridge — 2026-10-07
 
 Bridge PR #202 deployed Dev SHA `6b8c377c3298121cb6d1985be5e5bf15c9354548`;

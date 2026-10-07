@@ -208,42 +208,6 @@
   font-weight: 700;
 }
 
-.wq-migration-panel {
-  max-width: 36rem;
-  margin: 0 auto 1.5rem;
-  padding: 1rem;
-  border: 1px solid var(--wq-muted);
-  border-radius: 0.75rem;
-  text-align: left;
-  color: var(--wq-muted);
-  font-size: 0.9rem;
-}
-
-.wq-migration-panel summary {
-  cursor: pointer;
-  color: var(--wq-accent);
-  font-weight: 700;
-}
-
-.wq-migration-panel [hidden] {
-  display: none;
-}
-
-.wq-migration-panel label {
-  display: block;
-  margin-top: 0.75rem;
-}
-
-.wq-migration-panel input {
-  width: 100%;
-  padding: 0.6rem;
-  margin: 0.5rem 0;
-  box-sizing: border-box;
-  font-family: monospace;
-  color: var(--wq-text);
-  background: var(--wq-bg);
-}
-
 .wq-sync-status {
   flex-basis: 100%;
   color: var(--wq-muted);

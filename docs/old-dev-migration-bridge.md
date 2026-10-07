@@ -1,5 +1,26 @@
 # Old Dev migration bridge
 
+> Historical rollout: the owner subsequently chose email/password-only accounts
+> with no preservation of existing accounts/progress. Remaining work follows the
+> [replacement implementation plan](email-password-authentication-plan.md).
+> This guide records what was deployed; migration is no longer required.
+
+## Retirement — 2026-10-07
+
+Saved and verified `MIGRATION_ISSUANCE_ENABLED=false` on Dev and removed its
+`COSMOS_ACCOUNTS_CONTAINER` setting. `progress_dev` remains the progress container.
+No records, containers or production settings were changed. Issuance is disabled
+even while the existing bridge build is still deployed.
+
+Removed the bridge endpoint, UI/module/styles, accounts helper, migration tests
+and route from the retirement branch; code removal awaits its Dev merge/deployment.
+Service-worker version v27 removes the obsolete module while retaining cloud-sync
+precaching. Current Microsoft sign-in and progress authentication remain intact.
+
+The deployment-freeze instructions below and in draft PR #203 are superseded:
+the existing Free Dev workflow can deploy the retirement build to the same URL.
+Keep the following sections as historical acceptance evidence, not rollout steps.
+
 ## Status — 2026-10-07
 
 Implemented on `feature/old-dev-migration-bridge`, based on the accepted Dev SHA

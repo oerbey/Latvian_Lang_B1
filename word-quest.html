@@ -78,27 +78,6 @@
             <a id="wq-logout-link" class="wq-auth-link" href="/logout" hidden>Sign out</a>
             <span id="wq-sync-status" class="wq-sync-status">Checking sign-in…</span>
           </div>
-          <details id="wq-migration-panel" class="wq-migration-panel" hidden>
-            <summary>Move your Dev progress</summary>
-            <p>
-              Generate a token for your saved cloud progress when the new Dev site is ready. Anyone
-              with this token can import that snapshot. Keep it private; it expires in 15 minutes.
-              The new site's import flow is not available yet.
-            </p>
-            <p>
-              Wait until cloud sync is ready before generating. Later saves are not included;
-              generate a new token to capture them.
-            </p>
-            <button id="wq-migration-generate" class="wq-btn wq-btn--ghost" disabled>
-              Generate migration token
-            </button>
-            <label id="wq-migration-token-label" for="wq-migration-token" hidden>
-              Private migration token
-            </label>
-            <input id="wq-migration-token" readonly autocomplete="off" spellcheck="false" hidden />
-            <button id="wq-migration-copy" class="wq-btn wq-btn--ghost" hidden>Copy token</button>
-            <p id="wq-migration-status" role="status"></p>
-          </details>
           <div class="wq-title-actions">
             <button id="wq-btn-play" class="wq-btn wq-btn--primary wq-btn--xl">
               <span class="wq-btn-icon">▶</span> Enter the Map

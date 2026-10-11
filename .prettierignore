@@ -4,3 +4,4 @@ output
 playwright-results
 .DS_Store
 CLAUDE.md
+assets/vendor/msal-browser/

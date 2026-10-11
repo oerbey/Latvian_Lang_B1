@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v27';
+const CACHE_VERSION = 'v28';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -212,6 +212,16 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
+
+  // Authentication callbacks can carry authorization codes; never cache their navigation.
+  if (
+    /\/(?:api|\.auth)\//.test(url.pathname) ||
+    url.pathname.endsWith('/auth-probe.html') ||
+    url.pathname.endsWith('/src/auth-probe.js') ||
+    url.pathname.includes('/assets/vendor/msal-browser/')
+  ) {
+    return;
+  }
 
   if (request.method !== 'GET') {
     return;

@@ -34,6 +34,14 @@ jobs:
           mkdir -p .swa-static
           git archive --format=tar HEAD | tar -xf - -C .swa-static
           rm -rf .swa-static/api .swa-static/.github
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Build Authentication Test Assets
+        run: |
+          npm ci --ignore-scripts
+          node scripts/build-auth-probe.mjs .swa-static
       - name: Build And Deploy dev
         uses: Azure/static-web-apps-deploy@v1
         with:

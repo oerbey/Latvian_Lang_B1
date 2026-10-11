@@ -99,10 +99,10 @@ Confirm the actual selected features and billing configuration before rollout.
 
 ### 1. Retire the superseded migration work and confirm Free configuration
 
-October 7 implementation status: Dev issuance is disabled and the accounts
-setting removed. Retirement code and historical-plan/status updates are prepared
-on `feature/retire-migration-setup`; endpoint/panel removal awaits Dev deployment.
-The existing Free deployment workflow and Microsoft sync remain in place.
+October 11 status: retirement PR #204 deployed Dev SHA
+`7ebbff8fe9e1d242e6043ab94ed8126dba2f27b3`; CI/deployment passed, health/anonymous
+progress checks passed and the removed endpoint returned 404. Dev issuance is
+disabled and the accounts setting removed. Free hosting and Microsoft sync remain.
 
 - Record current Dev/production SHAs, URLs, plan and container settings.
 - Disable `MIGRATION_ISSUANCE_ENABLED` on old Dev; migration is no longer required.
@@ -118,6 +118,12 @@ The existing Free deployment workflow and Microsoft sync remain in place.
 paid resource, new hosting fee or account-migration dependency remains.
 
 ### 2. Configure External ID and prove the Free API path
+
+October 11 status: customer tenant, Dev registrations, delegated consent,
+email/password flow and public Dev settings are configured. The local probe
+implementation is prepared on `feature/email-password-auth-probe`.
+Deployment and real Free-hosting acceptance are pending; Step 3 is gated on that
+result. Details are in [the feasibility record](email-password-dev-probe.md).
 
 - Create/configure the customer tenant, Dev SPA/API registrations and delegated
   progress permission. Configure hosted email/password registration, verification

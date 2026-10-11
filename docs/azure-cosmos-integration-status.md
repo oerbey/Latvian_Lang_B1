@@ -1,5 +1,20 @@
 # Azure Cosmos DB integration: status and remaining work
 
+## Email/password feasibility setup — 2026-10-11
+
+Retirement PR #204 is deployed at Dev `7ebbff8fe9e1d242e6043ab94ed8126dba2f27b3`;
+CI/deployment, health, anonymous progress rejection and migration endpoint 404 passed.
+Created the Basic customer tenant and Dev app registrations, approved/granted
+sign-in/session/custom API scopes and connected the email/password-only flow.
+Verified email recovery prerequisites and saved public authentication settings
+on Dev only. Hosting remains Free and progress remains in `progress_dev`.
+
+The probe implementation and local checks are ready; it awaits Dev merge/deployment
+and actual customer sign-up/login/reset/token acceptance. It never accesses Cosmos.
+Production remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`; its settings, progress
+authentication and database credentials are unchanged. No RTU configuration or
+Cosmos records were modified. See [the test setup and acceptance record](email-password-dev-probe.md).
+
 ## Current direction — 2026-10-07
 
 The owner chose email/password-only accounts on Free hosting and does not need

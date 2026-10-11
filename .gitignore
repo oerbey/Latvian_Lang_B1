@@ -17,3 +17,4 @@ api/local.settings.json
 # Local tool/editor config
 .codex/
 .continue/
+assets/vendor/msal-browser/

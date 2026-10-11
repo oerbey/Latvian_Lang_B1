@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:auth-probe": "node scripts/build-auth-probe.mjs",
+    "prestart": "npm run build:auth-probe",
+    "pretest:e2e": "npm run build:auth-probe",
     "verify:cloud:dev": "node scripts/verify-cloud-dev.mjs",
     "prepare": "husky install",
     "start": "npx http-server . -p 5173",
@@ -41,12 +44,15 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "husky": "^9.1.6",
     "http-server": "^14.1.1",
+    "husky": "^9.1.6",
     "jsdom": "^22.1.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "typescript": "^5.4.5",
     "xlsx": "^0.18.5"
+  },
+  "dependencies": {
+    "@azure/msal-browser": "5.25.0"
   }
 }

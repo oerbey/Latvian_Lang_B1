@@ -19,11 +19,20 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Added
+
+- Dev-only email/password authentication test using External ID and pinned
+  browser/JWT libraries, with public configuration, validated access-token checks
+  and no progress reads/writes. Customer tenant/apps/user flow and Dev settings
+  are configured; test deployment and real Free-hosting acceptance remain pending.
+- Reproducible Microsoft authentication bundle staging for the existing Dev
+  deployment workflow, plus authentication callback/API cache bypass protection.
+
 ### Removed
 
 - Retired the temporary Dev migration endpoint, token panel, accounts-container
   helper and migration-only tests. Dev issuance is disabled and its accounts
-  setting removed; code removal awaits the Dev merge/deployment. Microsoft
+  setting removed; deployed on Dev at `7ebbff8` on 2026-10-11. Microsoft
   sign-in and normal cloud sync remain the current implementation.
 
 ### Added

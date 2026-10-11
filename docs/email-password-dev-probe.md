@@ -86,6 +86,8 @@ and Azure limits still apply; the setup does not promise a zero total Azure bill
   bundle/license from installed packages; generated assets are ignored by Git.
   The Dev workflow builds them into the staged static app. Production asset
   building must be updated as part of the future production integration/release.
+- The quality job installs API dependencies before repository-wide lint so the
+  API's dynamic JWT-library import resolves in a clean checkout.
 - The test uses full-page redirects and processes callbacks with
   `handleRedirectPromise`; it does not use popup/silent-iframe login. MSAL manages
   session caching and token renewal. No custom token store or token logging.

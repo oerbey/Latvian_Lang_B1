@@ -12,11 +12,6 @@
       "redirect": "/.auth/logout"
     },
     {
-      "route": "/api/migration/start",
-      "methods": ["POST"],
-      "allowedRoles": ["authenticated"]
-    },
-    {
       "route": "/api/getProgress",
       "methods": ["GET"],
       "allowedRoles": ["authenticated"]

@@ -1,16 +1,47 @@
 # Azure Cosmos DB integration: status and remaining work
 
-## Old Dev migration bridge — 2026-10-01
+## Current direction — 2026-10-07
 
-Bridge implementation and automated tests are complete; deployment and live
-acceptance remain pending. Created `llb1/accounts_dev` with `/pk`, existing
+The owner chose email/password-only accounts on Free hosting and does not need
+existing accounts/progress preserved. Remaining work is defined by the
+[replacement authentication plan](email-password-authentication-plan.md).
+The paid isolated resource, account linking and migration are no longer in scope.
+The historical deployment/configuration evidence below remains accurate; this
+planning change does not modify live Azure settings or code.
+
+## Migration retirement — 2026-10-07
+
+Dev issuance was saved and verified as `MIGRATION_ISSUANCE_ENABLED=false`;
+`COSMOS_ACCOUNTS_CONTAINER` was removed from Dev. Progress remains `progress_dev`.
+The retirement branch removes the migration function/panel/module/styles,
+accounts helper and migration-only tests, and refreshes the service worker.
+Code removal awaits merge/deployment; the existing Free resource, Dev URL,
+Microsoft authentication and Dev deployment workflow are retained. Production
+remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`; existing Dev build is
+`6b8c377c3298121cb6d1985be5e5bf15c9354548`. Historical freezes below are superseded.
+No Cosmos records or containers were deleted. Remaining work follows the new plan.
+
+## Old Dev migration bridge — 2026-10-07
+
+Bridge PR #202 deployed Dev SHA `6b8c377c3298121cb6d1985be5e5bf15c9354548`;
+deployment and CI passed. Dedicated-account sign-in/save/refresh restore and
+migration generation/copy passed, confirmed by the owner.
+Created `llb1/accounts_dev` with `/pk`, existing
 shared database throughput and TTL On (no default), verified after reload. No
-progress records or production settings were modified. Old Dev application
-settings could not be changed through available browser controls; token issuance
-remains disabled by default. See the
+production settings were modified. Saved and verified old Dev
+`COSMOS_ACCOUNTS_CONTAINER=accounts_dev`; progress remains `progress_dev`.
+Live health and anonymous progress/migration rejection passed. Token issuance
+is enabled on old Dev; Cosmos metadata verified a 15-minute expiry, one-hour TTL,
+source revision 8 and hash-format keys without raw token/userId properties.
+Live two-account isolation remains deferred with owner authorization. See the
 [bridge setup and acceptance guide](old-dev-migration-bridge.md).
 
-The pre-bridge fallback remains `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
+The accepted bridge fallback is `6b8c377c3298121cb6d1985be5e5bf15c9354548`.
+The pre-bridge fallback is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
+Chunk 4 must redirect automatic Dev deployments before further merges into `dev`.
+The owner held creation of the paid Standard resource on October 7. No new
+resource, credential transfer or workflow redirection occurred; keep these
+acceptance records in a draft until the deployment boundary can be preserved.
 
 Reviewed on 2026-09-15 against dev commit `c92757d`.
 

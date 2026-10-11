@@ -230,3 +230,30 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Azure limitation: embedded SWA environment controls could not be operated; native Brave fallback access was not approved. Old Dev accounts/issuance settings remain pending. Issuance remains disabled by default.
 - Verification: root tests 152 passed, API tests 12 passed, full Playwright 28 passed before adding the additional expiry edge case; focused bridge tests cover guest/origin visibility, readiness, explicit copy, sign-out clearing, generation failure and expiry. Lint, typecheck, data/i18n validation and touched-file formatting passed. Snapshot UI screenshot uses a synthetic test token.
 - Deployment state: old Dev still serves accepted `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`; bridge deployment SHA/live issuance acceptance are pending. Instructions and recovery are in `docs/old-dev-migration-bridge.md`. Stop before Chunk 4 until the bridge handoff passes.
+
+## 2026-10-07 - Merged bridge deployment and Dev accounts setting
+
+- Owner merged PR #202 and authorized the next steps. Dev SHA `6b8c377c3298121cb6d1985be5e5bf15c9354548` passed CI and Azure Dev deployment (runs 37664952040 and 37664952672).
+- Saved and verified `COSMOS_ACCOUNTS_CONTAINER=accounts_dev` through Azure Portal on the old Dev environment; `COSMOS_PROGRESS_CONTAINER=progress_dev` remains in place. Production settings and progress records were not changed.
+- Live read-only verifier passed health and anonymous progress GET/POST rejection; anonymous migration POST returned 401. The deployed guest page contains the migration panel and hides it.
+- Owner confirmed dedicated-account sign-in/save/refresh restore. Then saved and verified old Dev `MIGRATION_ISSUANCE_ENABLED=true`; owner confirmed live token generation, capture/expiry and explicit copy.
+- Read-only Cosmos metadata returned one operation created at `2026-10-07T18:26:29.742Z`, expiring exactly 15 minutes later, TTL 3600, source revision 8, pending status, attempt count 0, schema version 1. Aggregate storage-shape query returned 1 for migration-prefixed 74-character equal id/pk keys with no raw token/userId properties. No player snapshots or identity values were read.
+- Chunk 3 accepted with the previously authorized live two-account isolation deferral. Frozen bridge fallback is `6b8c377c3298121cb6d1985be5e5bf15c9354548` at the existing old Dev URL. Chunk 4 may proceed; redirect Dev workflow before further Dev merges to preserve this build.
+- Chunk 4 preparation: Azure creation form prepared for `latvian-auth-dev-014d1e`, `AZ-myWebApp`, West Europe, Standard hosting, deployment-token authorization, manual source and enterprise edge off. Official pricing page displayed US$9/app/month plus applicable taxes/currency conversion and usage. Owner answered “Hold off on the paid resource.” Creation was not submitted. Reverted the uncommitted workflow redirection; no new resource or secret transfer occurred. Keep acceptance documentation as a draft until an approved workflow redirection can preserve the old bridge build.
+
+## 2026-10-07 - Replacement email/password implementation plan
+
+- Owner chose email/password-only authentication on Free hosting and confirmed that existing accounts/progress need not be preserved because they are the only current user.
+- Added `docs/email-password-authentication-plan.md`: External ID hosted registration/login/reset with direct MSAL integration and server-validated API access tokens; existing Free resource/URLs, managed Functions and Dev/production progress containers retained.
+- Removed migration, canonical-account/linking registry, social providers and the paid isolated resource from the replacement scope. New accounts start fresh; no database/account deletion is necessary.
+- The plan includes a Free API feasibility gate, environment-specific app registrations, token/ownership validation, guest/account state isolation, automated/live acceptance and manually approved production release/recovery.
+- This turn creates a plan only. Azure configuration, migration issuance, app code, accounts, progress and deployments have not been changed. Historical PR #203 instructions are superseded by this replacement plan and must be reconciled before implementation.
+
+## 2026-10-07 - Retire the migration setup (replacement Step 1)
+
+- Owner authorized the first step of the replacement email/password plan. Created `feature/retire-migration-setup` from the acceptance-record branch, preserving its history and the new plan.
+- Azure: saved and verified Dev `MIGRATION_ISSUANCE_ENABLED=false`; removed Dev `COSMOS_ACCOUNTS_CONTAINER`. Progress stays `progress_dev`; no production setting, record, container, credential or hosting-plan change.
+- Removed migration endpoint/route, frontend helper/panel/styles, accounts-container helper and migration-specific API/browser tests. Bumped service worker to v27, retaining cloud-progress precaching and the title-page scrolling fix. Existing Microsoft sign-in/cloud-sync handlers and gates are unchanged.
+- Archived the previous multi-provider plan, recorded the replacement plan and superseded old freeze/migration instructions. Opened retirement PR #204 and closed PR #203 as superseded; existing Free Dev workflow remains the deployment path.
+- Root tests 152 passed, remaining API tests 7 passed and full browser suite 25 passed. Lint, typecheck, full formatting, data/i18n validation and diff checks passed. Azure reads confirmed Free hosting and production `progress_prod` with no migration setting. Live read-only Dev and production health/anonymous progress rejection checks passed; no Cosmos writes were performed by the verifier.
+- Existing deployment baselines: Dev `6b8c377c3298121cb6d1985be5e5bf15c9354548`, production `cbed2cc6f70f245a3673548cc5f2deb57e764950`. Live issuance is disabled now; code removal awaits Dev merge/deployment. External ID configuration and new email/password implementation have not started.

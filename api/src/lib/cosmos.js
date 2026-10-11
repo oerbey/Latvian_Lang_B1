@@ -27,11 +27,6 @@ function getProgressContainer() {
   return getDatabase().container(requireSetting('COSMOS_PROGRESS_CONTAINER'));
 }
 
-function getAccountsContainer() {
-  return getDatabase().container(requireSetting('COSMOS_ACCOUNTS_CONTAINER'));
-}
-
 module.exports = {
   getProgressContainer,
-  getAccountsContainer,
 };

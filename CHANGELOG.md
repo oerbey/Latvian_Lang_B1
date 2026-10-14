@@ -34,6 +34,10 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Fixed
 
+- Fresh Word Quest accounts receive explicit JSON `null` for missing cloud progress,
+  avoiding an empty Azure Functions response that blocked initial cloud sync.
+  Regression verification uses the installed Functions response serializer;
+  deployment and owner acceptance remain pending.
 - API access tokens use a dedicated application header to avoid the managed
   Static Web Apps gateway overwriting Authorization. Full JWT checks remain
   enforced; the owner accepted the standalone token path on Free on 2026-10-14.

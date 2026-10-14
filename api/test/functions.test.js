@@ -1,6 +1,7 @@
 /* eslint-env node */
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { HttpResponse } = require('@azure/functions');
 
 const { getProgressHandler } = require('../src/functions/getProgress');
 const { saveProgressHandler } = require('../src/functions/saveProgress');
@@ -116,7 +117,21 @@ test('save and get use server identity and reject stale revisions', async () => 
     getContainer,
     ...learner.dependencies,
   });
-  assert.equal(otherUser.jsonBody, null);
+  const emptyResponse = new HttpResponse(otherUser);
+  assert.equal(emptyResponse.status, 200);
+  assert.equal(emptyResponse.headers.get('content-type'), 'application/json');
+  assert.equal(await emptyResponse.text(), 'null');
+});
+
+test('a fresh account receives parseable JSON when Cosmos returns no resource', async () => {
+  const response = new HttpResponse(
+    await getProgressHandler(request(), {
+      ...learner.dependencies,
+      getContainer: () => ({ item: () => ({ read: async () => ({ resource: undefined }) }) }),
+    }),
+  );
+  assert.equal(response.status, 200);
+  assert.equal(await response.json(), null);
 });
 
 test('a successful save keeps server-derived ownership metadata', async () => {

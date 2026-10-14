@@ -52,6 +52,10 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Added
 
+- Manual production Static Web Apps release workflow with an exact-SHA CI gate,
+  a `production` environment approval gate and a guard against pre-authentication
+  builds. The environment uses `@oerbey` as required reviewer and holds the
+  dedicated production deployment token.
 - Public application authentication configuration and a token-validated session
   endpoint returning only the server-derived owner key for local namespaces.
 - Reproducible pinned MSAL bundle/license staging for Dev deployment and local
@@ -94,8 +98,9 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 - New progress writes retain the server-provided identity provider and ownership
   schema version as private Cosmos metadata, preparing for a future canonical
   account migration without changing the current `/userId` partition strategy.
-- Azure deployment is dev-only and runs after the reusable quality, API, and E2E
-  checks. No production deployment is enabled by this change.
+- Automatic Azure deployment remains dev-only and runs after the reusable
+  quality, API, and E2E checks. Production deployment requires a separate manual
+  workflow and environment approval; no production release has occurred.
 - Azure API dependencies are pinned with a separate lockfile compatible with the
   configured Node 20 runtime.
 - Root coverage now scopes discovery to the root test suite so API tests remain

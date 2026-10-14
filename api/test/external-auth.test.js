@@ -115,6 +115,7 @@ test('invalid signatures, issuer, audience, lifetime and user claims fail closed
     await sign({ nbf: Math.floor(Date.now() / 1000) + 120 }),
     await sign({ tid: spaId }),
     await sign({ oid: '' }),
+    await sign({ oid: [userId] }),
     await sign({ ver: '1.0' }),
     await new jose.SignJWT({}).setProtectedHeader({ alg: 'RS256' }).sign(otherKeys.privateKey),
     'broken.token.value',

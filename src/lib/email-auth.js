@@ -137,14 +137,13 @@ export function createEmailAuth({
     generation++;
     session = null;
     if (!client) return;
-    const account = client.getActiveAccount();
     try {
+      // Clear all app accounts so refresh cannot silently select a different cached learner.
       await client.logoutRedirect({
-        account,
         postLogoutRedirectUri: new URL('/auth-probe.html', location().origin).href,
       });
     } catch (error) {
-      await client.clearCache({ account });
+      await client.clearCache();
       throw error;
     }
   }

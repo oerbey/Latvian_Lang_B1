@@ -139,3 +139,51 @@ test('provider logout failure still clears the local session and SDK cache', asy
   assert.equal((await auth.getCurrentUser()).status, 'anonymous');
   await assert.rejects(auth.getAccessToken(owner));
 });
+
+test('logout clears every app account so a refresh cannot silently select another learner', async () => {
+  let accounts = [{ homeAccountId: 'cached-A' }, { homeAccountId: 'cached-B' }];
+  class Client {
+    async initialize() {}
+    async handleRedirectPromise() {
+      return null;
+    }
+    getAllAccounts() {
+      return accounts;
+    }
+    getActiveAccount() {
+      return accounts[0] || null;
+    }
+    setActiveAccount() {}
+    async acquireTokenSilent() {
+      return { accessToken: 'synthetic-token' };
+    }
+    async logoutRedirect(options) {
+      accounts = options.account ? accounts.filter((account) => account !== options.account) : [];
+    }
+  }
+  const options = {
+    sdk: () => ({
+      PublicClientApplication: Client,
+      CacheLookupPolicy: { AccessTokenAndRefreshToken: 2 },
+    }),
+    location: () => ({ origin: 'https://example.test' }),
+    fetchImpl: async (url) =>
+      new Response(
+        JSON.stringify(
+          url.endsWith('Config')
+            ? {
+                redirectPath: '/auth-probe.html',
+                authority: 'https://test.ciamlogin.com/',
+                clientId: 'app',
+                scope: 'progress.access',
+              }
+            : { userId: owner },
+        ),
+      ),
+  };
+  const auth = createEmailAuth(options);
+  assert.equal((await auth.getCurrentUser()).status, 'authenticated');
+  await auth.signOut();
+  assert.equal(accounts.length, 0);
+  assert.equal((await createEmailAuth(options).getCurrentUser()).status, 'anonymous');
+});

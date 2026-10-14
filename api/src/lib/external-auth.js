@@ -117,7 +117,12 @@ async function requireExternalAccessToken(request, { settings = process.env, key
     };
   }
 
-  if (payload.ver !== '2.0' || payload.tid !== config.tenantId || !UUID.test(payload.oid || '')) {
+  if (
+    payload.ver !== '2.0' ||
+    payload.tid !== config.tenantId ||
+    typeof payload.oid !== 'string' ||
+    !UUID.test(payload.oid)
+  ) {
     const reason =
       payload.ver !== '2.0'
         ? 'invalid_version'

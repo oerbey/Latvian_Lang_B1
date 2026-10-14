@@ -47,7 +47,8 @@ keys are ignored. Signing in starts a fresh account or restores that account's
 cloud copy; guest progress is not imported. Missing cloud records are not written
 until there is account progress to save. Existing Cosmos records remain intact.
 
-Sign-out cancels debounce/retry work, aborts requests, closes conflict choices and
+Sign-out clears all SDK accounts/tokens for this app, cancels debounce/retry work,
+aborts requests, closes conflict choices and
 returns to guest state. Every load/save/choice checks the captured session
 sequence before applying a response. Tokens are bound to the captured SDK account
 and verified owner, so a pending snapshot cannot be retargeted to a new account.

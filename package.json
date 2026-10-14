@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prestart": "npm run build:auth-client",
+    "pretest:e2e": "npm run build:auth-client",
     "verify:cloud:dev": "node scripts/verify-cloud-dev.mjs",
     "prepare": "husky install",
     "start": "npx http-server . -p 5173",
@@ -21,7 +23,8 @@
     "build:words:chunks": "node scripts/split-words-json.mjs",
     "build:personality": "node scripts/personality_csv_to_json.mjs",
     "build:offline": "node scripts/build_week1_offline.mjs",
-    "lint": "eslint . --ext .js"
+    "lint": "eslint . --ext .js",
+    "build:auth-client": "node scripts/build-auth-client.mjs"
   },
   "lint-staged": {
     "*.js": [
@@ -41,12 +44,15 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "husky": "^9.1.6",
     "http-server": "^14.1.1",
+    "husky": "^9.1.6",
     "jsdom": "^22.1.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "typescript": "^5.4.5",
     "xlsx": "^0.18.5"
+  },
+  "dependencies": {
+    "@azure/msal-browser": "5.25.0"
   }
 }

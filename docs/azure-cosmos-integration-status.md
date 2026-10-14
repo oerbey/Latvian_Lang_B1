@@ -1,5 +1,79 @@
 # Azure Cosmos DB integration: status and remaining work
 
+## Email/password integration — 2026-10-14
+
+The owner accepted the live Dev email/password/token path, refresh/logout and
+password reset at `ec247afba815119cdfd5cf01b390ceafbd510aca` (PR #207). The Free
+hosting feasibility gate is complete. Word Quest integration is deployed on Dev
+at `c8060870772747670b47f0e364fc057887b78af0`: application-token progress handlers, hashed
+External ID ownership (schema 2), independent local namespaces, a registered
+callback return page and removed probe APIs. The owner accepted cloud save,
+refresh/second-browser restore, direct logout, guest separation and two-account
+isolation. Owner-reported External ID schema-2 Word Quest counts are 1 in
+progress_dev and 0 in progress_prod. Production identity apps/flow/permissions
+and public settings are prepared; the approved application release and live
+production acceptance remain pending. No Cosmos mutation was performed by the
+agent. See [the integration guide](word-quest-email-auth.md) and
+[cutover record](email-password-production-cutover.md).
+
+## Historical feasibility setup — 2026-10-11
+
+Retirement PR #204 is deployed at Dev `7ebbff8fe9e1d242e6043ab94ed8126dba2f27b3`;
+CI/deployment, health, anonymous progress rejection and migration endpoint 404 passed.
+Created the Basic customer tenant and Dev app registrations, approved/granted
+sign-in/session/custom API scopes and connected the email/password-only flow.
+Verified email recovery prerequisites and saved public authentication settings
+on Dev only. Hosting remains Free and progress remains in `progress_dev`.
+
+The probe implementation and local checks are ready; it awaits Dev merge/deployment
+and actual customer sign-up/login/reset/token acceptance. It never accesses Cosmos.
+Production remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`; its settings, progress
+authentication and database credentials are unchanged. No RTU configuration or
+Cosmos records were modified. See [the test setup and acceptance record](email-password-dev-probe.md).
+
+## Current direction — 2026-10-07
+
+The owner chose email/password-only accounts on Free hosting and does not need
+existing accounts/progress preserved. Remaining work is defined by the
+[replacement authentication plan](email-password-authentication-plan.md).
+The paid isolated resource, account linking and migration are no longer in scope.
+The historical deployment/configuration evidence below remains accurate; this
+planning change does not modify live Azure settings or code.
+
+## Migration retirement — 2026-10-07
+
+Dev issuance was saved and verified as `MIGRATION_ISSUANCE_ENABLED=false`;
+`COSMOS_ACCOUNTS_CONTAINER` was removed from Dev. Progress remains `progress_dev`.
+The retirement branch removes the migration function/panel/module/styles,
+accounts helper and migration-only tests, and refreshes the service worker.
+Code removal awaits merge/deployment; the existing Free resource, Dev URL,
+Microsoft authentication and Dev deployment workflow are retained. Production
+remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`; existing Dev build is
+`6b8c377c3298121cb6d1985be5e5bf15c9354548`. Historical freezes below are superseded.
+No Cosmos records or containers were deleted. Remaining work follows the new plan.
+
+## Old Dev migration bridge — 2026-10-07
+
+Bridge PR #202 deployed Dev SHA `6b8c377c3298121cb6d1985be5e5bf15c9354548`;
+deployment and CI passed. Dedicated-account sign-in/save/refresh restore and
+migration generation/copy passed, confirmed by the owner.
+Created `llb1/accounts_dev` with `/pk`, existing
+shared database throughput and TTL On (no default), verified after reload. No
+production settings were modified. Saved and verified old Dev
+`COSMOS_ACCOUNTS_CONTAINER=accounts_dev`; progress remains `progress_dev`.
+Live health and anonymous progress/migration rejection passed. Token issuance
+is enabled on old Dev; Cosmos metadata verified a 15-minute expiry, one-hour TTL,
+source revision 8 and hash-format keys without raw token/userId properties.
+Live two-account isolation remains deferred with owner authorization. See the
+[bridge setup and acceptance guide](old-dev-migration-bridge.md).
+
+The accepted bridge fallback is `6b8c377c3298121cb6d1985be5e5bf15c9354548`.
+The pre-bridge fallback is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.
+Chunk 4 must redirect automatic Dev deployments before further merges into `dev`.
+The owner held creation of the paid Standard resource on October 7. No new
+resource, credential transfer or workflow redirection occurred; keep these
+acceptance records in a draft until the deployment boundary can be preserved.
+
 ## Authentication rollout baseline — 2026-09-26
 
 - Local `dev` is `45f54ca6d8fc351c0cf51e2ca262086a58661a1e`.

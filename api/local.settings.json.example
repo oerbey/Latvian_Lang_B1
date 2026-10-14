@@ -6,6 +6,13 @@
     "COSMOS_ENDPOINT": "https://your-account.documents.azure.com:443/",
     "COSMOS_KEY": "replace-with-a-local-secret",
     "COSMOS_DATABASE": "llb1",
-    "COSMOS_PROGRESS_CONTAINER": "progress_dev"
+    "COSMOS_PROGRESS_CONTAINER": "progress_dev",
+    "EXTERNAL_AUTH_AUTHORITY": "https://your-customer-tenant.ciamlogin.com/",
+    "EXTERNAL_AUTH_TENANT_ID": "replace-with-customer-tenant-id",
+    "EXTERNAL_AUTH_ISSUER": "replace-with-issuer-from-openid-discovery",
+    "EXTERNAL_AUTH_JWKS_URI": "replace-with-jwks-uri-from-openid-discovery",
+    "EXTERNAL_AUTH_API_AUDIENCE": "replace-with-dev-api-client-id",
+    "EXTERNAL_AUTH_SPA_CLIENT_ID": "replace-with-dev-spa-client-id",
+    "EXTERNAL_AUTH_SCOPE": "progress.access"
   }
 }

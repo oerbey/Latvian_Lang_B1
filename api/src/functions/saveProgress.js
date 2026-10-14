@@ -1,13 +1,14 @@
 /* eslint-env node */
 const { app } = require('@azure/functions');
-const { requireClientPrincipal } = require('../lib/auth');
+const { requireExternalAccessToken } = require('../lib/external-auth');
 const { getProgressContainer } = require('../lib/cosmos');
 const { toPublicProgressItem } = require('../lib/progress-item');
 const { createProgressOwnership } = require('../lib/progress-ownership');
 const { validateSaveRequest } = require('../lib/progress-validation');
 
-async function saveProgressHandler(request, { getContainer = getProgressContainer } = {}) {
-  const auth = requireClientPrincipal(request);
+async function saveProgressHandler(request, dependencies = {}) {
+  const { getContainer = getProgressContainer } = dependencies;
+  const auth = await requireExternalAccessToken(request, dependencies);
   if (auth.response) return auth.response;
 
   let body;
@@ -105,7 +106,10 @@ async function saveProgressHandler(request, { getContainer = getProgressContaine
 app.http('saveProgress', {
   methods: ['POST'],
   authLevel: 'anonymous',
-  handler: saveProgressHandler,
+  handler: async (request) => ({
+    ...(await saveProgressHandler(request)),
+    headers: { 'Cache-Control': 'no-store' },
+  }),
 });
 
 module.exports = {

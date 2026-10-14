@@ -1,5 +1,9 @@
 # Microsoft, Google and Email OTP Authentication Plan
 
+> Superseded on 2026-10-07 by the [email/password Free-hosting plan](email-password-authentication-plan.md).
+> The owner is the only current user and does not require account/progress preservation.
+> Remaining Standard-hosting, multi-provider, linking and migration chunks are historical and must not be implemented.
+
 ## Summary
 
 Adopt Microsoft Entra External ID as the single customer-identity broker, initially offering personal Microsoft accounts, Google accounts and email one-time code. Apple is deferred to a separate future plan.

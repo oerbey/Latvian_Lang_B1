@@ -1,12 +1,20 @@
 /* eslint-env node */
 const { app } = require('@azure/functions');
-const { requireClientPrincipal } = require('../lib/auth');
+const { requireExternalAccessToken } = require('../lib/external-auth');
 const { getProgressContainer } = require('../lib/cosmos');
 const { toPublicProgressItem } = require('../lib/progress-item');
 const { GAME_ID } = require('../lib/progress-validation');
 
-async function getProgressHandler(request, { getContainer = getProgressContainer } = {}) {
-  const auth = requireClientPrincipal(request);
+function progressResponse(item) {
+  // Azure Functions treats jsonBody: null as no body; send literal JSON for a fresh account.
+  return item === null
+    ? { status: 200, body: 'null', headers: { 'Content-Type': 'application/json' } }
+    : { status: 200, jsonBody: item };
+}
+
+async function getProgressHandler(request, dependencies = {}) {
+  const { getContainer = getProgressContainer } = dependencies;
+  const auth = await requireExternalAccessToken(request, dependencies);
   if (auth.response) return auth.response;
 
   const { userId } = auth.principal;
@@ -24,16 +32,10 @@ async function getProgressHandler(request, { getContainer = getProgressContainer
   try {
     const { resource } = await getContainer().item(id, userId).read();
 
-    return {
-      status: 200,
-      jsonBody: toPublicProgressItem(resource),
-    };
+    return progressResponse(toPublicProgressItem(resource));
   } catch (err) {
     if (err.code === 404) {
-      return {
-        status: 200,
-        jsonBody: null,
-      };
+      return progressResponse(null);
     }
 
     return {
@@ -46,7 +48,10 @@ async function getProgressHandler(request, { getContainer = getProgressContainer
 app.http('getProgress', {
   methods: ['GET'],
   authLevel: 'anonymous',
-  handler: getProgressHandler,
+  handler: async (request) => {
+    const response = await getProgressHandler(request);
+    return { ...response, headers: { ...response.headers, 'Cache-Control': 'no-store' } };
+  },
 });
 
 module.exports = {

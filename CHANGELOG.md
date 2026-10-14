@@ -19,12 +19,77 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Changed
+
+- Word Quest uses hosted email/password sign-in, application-token cloud sync and
+  server-derived External ID ownership, deployed and owner-accepted on Dev at
+  `c806087` on 2026-10-14. Production cutover remains pending. Guest and
+  account progress have independent local namespaces; logout cancels stale work,
+  renewal failures ask for sign-in, and conflicts require an explicit choice.
+  The temporary probe APIs and legacy SWA principal authorization are retired.
+- Reuse the exact registered sign-in callback as a minimal return page. Stage
+  the pinned SDK through build:auth-client, precache Word Quest/public auth assets
+  and keep callbacks/private APIs out of service-worker caches (v30).
+- Word Quest's visual test hook now advances browser frames so UI animations and
+  save timers settle before inspection. Live Dev game acceptance passes.
+- Production release staging now includes the pinned authentication SDK bundle.
+  Exact-SHA reusable CI and the existing production environment approval remain
+  required; staging skips the SDK build for older recovery commits without it.
+  This workflow preparation does not deploy production.
+
+### Fixed
+
+- Word Quest sends the active account's provider-issued logout hint to skip the
+  hosted sign-out account picker when available. App logout still clears every
+  cached account. Enable the `login_hint` optional ID-token claim on each SPA
+  registration and sign in again before live verification.
+- Fresh Word Quest accounts receive explicit JSON `null` for missing cloud progress,
+  avoiding an empty Azure Functions response that blocked initial cloud sync.
+  Regression verification uses the installed Functions response serializer;
+  Dev deployment and owner save/restore acceptance pass.
+- API access tokens use a dedicated application header to avoid the managed
+  Static Web Apps gateway overwriting Authorization. Full JWT checks remain
+  enforced; the owner accepted the standalone token path on Free on 2026-10-14.
+  Live Dev Word Quest save/restore and two-account isolation pass.
+- Sign-in callbacks show safe error codes and a return path instead of reporting
+  that authentication is disabled. Raw error details, accounts and tokens remain
+  hidden; sign-in discovery trusts the configured named and GUID issuer hosts.
+
 ### Added
 
 - Manual production Static Web Apps release workflow with an exact-SHA CI gate,
   a `production` environment approval gate and a guard against pre-authentication
   builds. The environment uses `@oerbey` as required reviewer and holds the
   dedicated production deployment token.
+- Public application authentication configuration and a token-validated session
+  endpoint returning only the server-derived owner key for local namespaces.
+- Separate production customer SPA/API registrations, email/password flow,
+  exact callback, logout hint claim and the three owner-approved delegated
+  permissions. Public authentication settings are saved on existing Free
+  production hosting with `progress_prod` retained. Application cutover and
+  live production acceptance remain pending.
+- Reproducible pinned MSAL bundle/license staging for Dev deployment and local
+  startup/browser checks. Customer tenant/apps/user flow and Dev settings were
+  accepted through the standalone probe; Dev game integration is also accepted.
+
+### Removed
+
+- Retired the temporary Dev migration endpoint, token panel, accounts-container
+  helper and migration-only tests. Dev issuance is disabled and its accounts
+  setting removed; deployed on Dev at `7ebbff8` on 2026-10-11. Microsoft
+  sign-in and normal cloud sync were retained in that retirement build.
+  Production still uses that authentication model; Dev now uses email/password.
+
+### Added
+
+- Temporary old Dev migration bridge for authenticated Word Quest cloud
+  snapshots, with a private 15-minute proof token, hashed operation storage,
+  one-hour operation TTL and a deliberate copy-token handoff. Issuance defaults
+  to disabled. Deployed to old Dev on 2026-10-07 at `6b8c377` and configured
+  its accounts container. Enabled issuance on old Dev after owner-confirmed
+  save/restore acceptance; live generation/copy and Cosmos metadata checks passed.
+  Live two-account isolation remains deferred with owner authorization.
+
 - Dev-only Azure integration diagnostic, run with `npm run verify:cloud:dev`.
   It checks API health and confirms anonymous progress access is blocked. It is
   read-only and targets the fixed dev deployment.

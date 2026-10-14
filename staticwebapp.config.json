@@ -5,21 +5,11 @@
   "routes": [
     {
       "route": "/login",
-      "redirect": "/.auth/login/aad"
+      "redirect": "/word-quest.html"
     },
     {
       "route": "/logout",
-      "redirect": "/.auth/logout"
-    },
-    {
-      "route": "/api/getProgress",
-      "methods": ["GET"],
-      "allowedRoles": ["authenticated"]
-    },
-    {
-      "route": "/api/saveProgress",
-      "methods": ["POST"],
-      "allowedRoles": ["authenticated"]
+      "redirect": "/word-quest.html"
     }
   ]
 }

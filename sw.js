@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v25';
+const CACHE_VERSION = 'v30';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -41,6 +41,13 @@ const CORE_ASSETS = [
   './src/lib/sanitize.js',
   './src/lib/state.js',
   './src/lib/storage.js',
+  './src/lib/cloud-progress.js',
+  './src/lib/email-auth.js',
+  './src/lib/auth-probe-errors.js',
+  './assets/vendor/msal-browser/msal-browser.min.js',
+  './word-quest.html',
+  './src/games/word-quest/main.js',
+  './src/games/word-quest/styles.css',
   './src/lib/utils.js',
   './src/lib/words-data.js',
   './src/lib/render.js',
@@ -211,6 +218,15 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
+
+  // Authentication callbacks can carry authorization codes; never cache their navigation.
+  if (
+    /\/(?:api|\.auth)\//.test(url.pathname) ||
+    url.pathname.endsWith('/auth-probe.html') ||
+    url.pathname.endsWith('/src/auth-callback.js')
+  ) {
+    return;
+  }
 
   if (request.method !== 'GET') {
     return;

@@ -59,6 +59,7 @@
   color: var(--wq-text);
   font-family: var(--wq-font);
   min-height: 100vh;
+  height: auto;
 }
 
 .wq-main {
@@ -203,6 +204,11 @@
 }
 
 .wq-auth-link {
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 0.5rem;
+  min-height: 44px;
+  padding: 0.4rem 0.7rem;
   color: var(--wq-accent);
   font-weight: 700;
 }

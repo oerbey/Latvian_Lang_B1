@@ -1,26 +1,21 @@
 /* eslint-env node */
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { HttpResponse } = require('@azure/functions');
 
 const { getProgressHandler } = require('../src/functions/getProgress');
 const { saveProgressHandler } = require('../src/functions/saveProgress');
 
-const principal = {
-  identityProvider: 'aad',
-  userId: 'user-1',
-  userDetails: 'learner@example.com',
-  userRoles: ['anonymous', 'authenticated'],
-};
-
-function principalHeader(value = principal) {
-  return Buffer.from(JSON.stringify(value), 'utf8').toString('base64');
-}
-
-function request({ body, gameId = 'word-quest', principalValue = principal } = {}) {
+const { identity } = require('./helpers/external-identity.cjs');
+let learner;
+let other;
+test.before(async () => {
+  learner = await identity();
+  other = await identity('55555555-5555-4555-8555-555555555555');
+});
+function request({ body, gameId = 'word-quest', principalValue = learner } = {}) {
   return {
-    headers: {
-      get: (name) => (name === 'x-ms-client-principal' ? principalHeader(principalValue) : null),
-    },
+    headers: new Headers({ 'X-Latvian-Authorization': `Bearer ${principalValue.token}` }),
     query: new URLSearchParams(gameId === undefined ? '' : { gameId }),
     json: async () => body,
   };
@@ -91,45 +86,60 @@ test('save and get use server identity and reject stale revisions', async () => 
         data: progress,
         expectedRevision: 0,
         identityProvider: 'browser-supplied-provider',
+        userId: other.userId,
         ownershipSchemaVersion: 99,
       },
     }),
-    { getContainer },
+    { getContainer, ...learner.dependencies },
   );
   assert.equal(created.status, 200);
-  assert.equal(created.jsonBody.item.userId, 'user-1');
+  assert.equal(created.jsonBody.item.userId, learner.userId);
   assert.equal(created.jsonBody.item.revision, 1);
   assert.equal('identityProvider' in created.jsonBody.item, false);
   assert.equal('ownershipSchemaVersion' in created.jsonBody.item, false);
 
   const stored = [...container.records.values()][0];
-  assert.equal(stored.userId, 'user-1');
-  assert.equal(stored.identityProvider, 'aad');
-  assert.equal(stored.ownershipSchemaVersion, 1);
+  assert.equal(stored.userId, learner.userId);
+  assert.equal(stored.identityProvider, 'external-id');
+  assert.equal(stored.ownershipSchemaVersion, 2);
 
-  const loaded = await getProgressHandler(request(), { getContainer });
+  const loaded = await getProgressHandler(request(), { getContainer, ...learner.dependencies });
   assert.deepEqual(loaded.jsonBody.data, progress);
 
   const stale = await saveProgressHandler(
     request({ body: { gameId: 'word-quest', data: progress, expectedRevision: 0 } }),
-    { getContainer },
+    { getContainer, ...learner.dependencies },
   );
   assert.equal(stale.status, 409);
   assert.equal(stale.jsonBody.current.revision, 1);
 
-  const otherUser = await getProgressHandler(
-    request({ principalValue: { ...principal, userId: 'user-2' } }),
-    { getContainer },
-  );
-  assert.equal(otherUser.jsonBody, null);
+  const otherUser = await getProgressHandler(request({ principalValue: other }), {
+    getContainer,
+    ...learner.dependencies,
+  });
+  const emptyResponse = new HttpResponse(otherUser);
+  assert.equal(emptyResponse.status, 200);
+  assert.equal(emptyResponse.headers.get('content-type'), 'application/json');
+  assert.equal(await emptyResponse.text(), 'null');
 });
 
-test('a successful save upgrades legacy records with server-derived ownership metadata', async () => {
+test('a fresh account receives parseable JSON when Cosmos returns no resource', async () => {
+  const response = new HttpResponse(
+    await getProgressHandler(request(), {
+      ...learner.dependencies,
+      getContainer: () => ({ item: () => ({ read: async () => ({ resource: undefined }) }) }),
+    }),
+  );
+  assert.equal(response.status, 200);
+  assert.equal(await response.json(), null);
+});
+
+test('a successful save keeps server-derived ownership metadata', async () => {
   const container = createContainer();
-  const key = 'user-1:user-1:word-quest';
+  const key = `${learner.userId}:${learner.userId}:word-quest`;
   container.records.set(key, {
-    id: 'user-1:word-quest',
-    userId: 'user-1',
+    id: `${learner.userId}:word-quest`,
+    userId: learner.userId,
     gameId: 'word-quest',
     data: progress,
     revision: 3,
@@ -139,13 +149,13 @@ test('a successful save upgrades legacy records with server-derived ownership me
 
   const updated = await saveProgressHandler(
     request({ body: { gameId: 'word-quest', data: progress, expectedRevision: 3 } }),
-    { getContainer: () => container },
+    { getContainer: () => container, ...learner.dependencies },
   );
 
   assert.equal(updated.status, 200);
   assert.equal(updated.jsonBody.item.revision, 4);
-  assert.equal(container.records.get(key).identityProvider, 'aad');
-  assert.equal(container.records.get(key).ownershipSchemaVersion, 1);
+  assert.equal(container.records.get(key).identityProvider, 'external-id');
+  assert.equal(container.records.get(key).ownershipSchemaVersion, 2);
 });
 
 test('save handler returns controlled validation and storage errors', async () => {
@@ -153,10 +163,15 @@ test('save handler returns controlled validation and storage errors', async () =
     body: { gameId: 'word-quest', data: progress, expectedRevision: 0 },
   });
   const malformed = { ...validRequest, json: async () => JSON.parse('{bad') };
-  assert.equal((await saveProgressHandler(malformed)).status, 400);
+  assert.equal((await saveProgressHandler(malformed, learner.dependencies)).status, 400);
 
   assert.equal(
-    (await saveProgressHandler(request({ body: { gameId: 'word-quest', data: progress } }))).status,
+    (
+      await saveProgressHandler(
+        request({ body: { gameId: 'word-quest', data: progress } }),
+        learner.dependencies,
+      )
+    ).status,
     400,
   );
 
@@ -171,9 +186,62 @@ test('save handler returns controlled validation and storage errors', async () =
   };
   const unavailable = await saveProgressHandler(validRequest, {
     getContainer: () => failingContainer,
+    ...learner.dependencies,
   });
   assert.deepEqual(unavailable, {
     status: 503,
     jsonBody: { error: 'progress service unavailable' },
   });
+});
+
+test('legacy SWA headers alone cannot read or write progress', async () => {
+  const forged = request();
+  forged.headers = new Headers({
+    'x-ms-client-principal': Buffer.from(
+      JSON.stringify({
+        userId: learner.userId,
+        identityProvider: 'aad',
+        userRoles: ['authenticated'],
+      }),
+    ).toString('base64'),
+  });
+  for (const handler of [getProgressHandler, saveProgressHandler]) {
+    assert.equal((await handler(forged, learner.dependencies)).status, 401);
+  }
+});
+
+test('two verified identities own independent partitions; wrong client/scope fail before storage', async () => {
+  const container = createContainer();
+  const deps = { getContainer: () => container, ...learner.dependencies };
+  await saveProgressHandler(
+    request({ body: { gameId: 'word-quest', data: progress, expectedRevision: 0 } }),
+    deps,
+  );
+  await saveProgressHandler(
+    request({
+      principalValue: other,
+      body: { gameId: 'word-quest', data: { ...progress, xp: 73 }, expectedRevision: 0 },
+    }),
+    deps,
+  );
+  assert.equal((await getProgressHandler(request(), deps)).jsonBody.data.xp, 10);
+  assert.equal(
+    (await getProgressHandler(request({ principalValue: other }), deps)).jsonBody.data.xp,
+    73,
+  );
+  assert.equal(container.records.size, 2);
+  for (const claims of [{ azp: '66666666-6666-4666-8666-666666666666' }, { scp: 'other.scope' }]) {
+    const forbidden = await identity(undefined, claims);
+    for (const handler of [getProgressHandler, saveProgressHandler]) {
+      assert.equal(
+        (
+          await handler(request({ principalValue: forbidden }), {
+            ...deps,
+            getContainer: () => assert.fail('No unauthorized storage access'),
+          })
+        ).status,
+        403,
+      );
+    }
+  }
 });

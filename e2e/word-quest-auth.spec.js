@@ -13,7 +13,14 @@ const state = (xp) => ({
 
 async function fixture(
   page,
-  { account = 'A', records = new Map(), loadHook, saveHook, expired = false } = {},
+  {
+    account = 'A',
+    records = new Map(),
+    loadHook,
+    saveHook,
+    expired = false,
+    logoutFails = false,
+  } = {},
 ) {
   await page.addInitScript((initial) => {
     if (!sessionStorage.getItem('fixture-started')) {
@@ -52,7 +59,7 @@ async function fixture(
           return {accessToken: 'token-' + request.account.homeAccountId};
         }
         async loginRedirect() { sessionStorage.setItem('fixture-account', sessionStorage.getItem('fixture-next') || 'A'); location.href = '/auth-probe.html'; }
-        async logoutRedirect() { sessionStorage.removeItem('fixture-account'); this.account = null; location.href = '/auth-probe.html'; }
+        async logoutRedirect() { if (${logoutFails}) throw new Error('Synthetic logout failure'); sessionStorage.removeItem('fixture-account'); this.account = null; location.href = '/auth-probe.html'; }
         async clearCache() { sessionStorage.removeItem('fixture-account'); this.account = null; }
       }
     };`,
@@ -319,4 +326,45 @@ test.describe('cached guest offline play', () => {
       xp,
     );
   });
+});
+
+test('failed provider logout cannot replay an old battle into the guest namespace', async ({
+  page,
+}) => {
+  await fixture(page, { logoutFails: true });
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-sync-status')).toContainText('New account');
+  await earnXP(page);
+  await expect(page.locator('#wq-sync-status')).toHaveText('Saved to cloud.');
+  await returnTitle(page);
+  await page.locator('#wq-logout-link').click();
+  await expect(page.locator('#wq-sync-status')).toContainText(
+    'Provider sign-out could not complete',
+  );
+  expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(0);
+  await page.keyboard.press('Enter');
+  expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(0);
+  expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).battle)).toBe(null);
+});
+
+test('same-owner reconnection preserves an active battle when cloud progress agrees', async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-sync-status')).toContainText('New account');
+  await earnXP(page);
+  await expect(page.locator('#wq-sync-status')).toHaveText('Saved to cloud.');
+  await returnTitle(page);
+  await page.locator('#wq-btn-play').click();
+  await page.locator('.wq-world-card').filter({ hasText: 'Coming Verb Quest' }).click();
+  await page.locator('#wq-node-path .wq-node').first().click();
+  await expect(page.locator('#wq-enemy-label')).toHaveText('Meaning challenge');
+  const before = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page.evaluate(() => window.dispatchEvent(new Event('online')));
+  await expect(page.locator('#wq-sync-status')).toHaveText('Cloud sync ready.');
+  await expect(page.locator('#wq-battle-screen')).toBeVisible();
+  const after = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  expect(after.battle.challenge.word).toBe(before.battle.challenge.word);
+  expect(after.xp).toBe(before.xp);
 });

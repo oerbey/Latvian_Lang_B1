@@ -169,6 +169,7 @@ function describeProgress(value) {
 }
 
 let syncGeneration = 0;
+let gameplayGeneration = 0;
 let syncAbort = new AbortController();
 let cancelProgressChoice;
 
@@ -185,6 +186,13 @@ function stopSync() {
   return syncGeneration;
 }
 
+function resetGameplay() {
+  gameplayGeneration++;
+  currentWorld = null;
+  battleState = null;
+  showScreen('wq-title-screen');
+}
+
 function selectLocalOwner(user) {
   const namespace = user?.userId || 'guest';
   if (namespace !== storageNamespace) {
@@ -193,10 +201,10 @@ function selectLocalOwner(user) {
     state = loadState();
     syncState.pending = loadSyncMeta()?.pending || null;
     syncState.cloudRevision = 0;
+    resetGameplay();
+    renderTitleScreen();
   }
   syncState.user = user;
-  showScreen('wq-title-screen');
-  renderTitleScreen();
 }
 
 function cloudOptions() {
@@ -270,6 +278,7 @@ async function handleCloudConflict(localPayload, cloudItem, epoch) {
   if (choice === 'cloud') {
     syncState.pending = null;
     state = normalizeState(current.data);
+    resetGameplay();
     saveState({ queueCloud: false });
     updateSyncUi('saved', 'Cloud progress restored.');
     renderTitleScreen();
@@ -356,6 +365,7 @@ async function initializeCloudSync() {
         : await promptProgressChoice(localState, cloudState);
     if (epoch !== syncGeneration || choice === 'cancel') return;
     if (choice === 'cloud') {
+      if (!sameState(localState, cloudState)) resetGameplay();
       state = cloudState;
       syncState.pending = null;
       saveState({ queueCloud: false });
@@ -848,6 +858,8 @@ function renderWorldNodes(world) {
 let battleState = null;
 
 async function startBattle(world, nodeIndex) {
+  const epoch = ++gameplayGeneration;
+  const namespace = storageNamespace;
   showScreen('wq-battle-screen');
 
   // Load data
@@ -855,11 +867,19 @@ async function startBattle(world, nodeIndex) {
   try {
     data = await loadJSON(world.dataPath);
   } catch (err) {
+    if (epoch !== gameplayGeneration || namespace !== storageNamespace) return;
     console.error('Data load error:', err);
     $id('wq-battle-prompt').textContent = 'Failed to load challenge data. Please try again.';
     return;
   }
 
+  if (
+    epoch !== gameplayGeneration ||
+    namespace !== storageNamespace ||
+    currentWorld !== world ||
+    $id('wq-battle-screen').hidden
+  )
+    return;
   const challenges = world.buildChallenges(data, CHALLENGES_PER_NODE);
   if (!challenges || challenges.length === 0) {
     $id('wq-battle-prompt').textContent = 'No challenges available for this node.';
@@ -992,7 +1012,10 @@ function handleAnswer(chosen, btnEl) {
 
   // Check if battle is over
   if (battleState.lives <= 0) {
-    setTimeout(() => showResult(false), 1200);
+    const lostBattle = battleState;
+    setTimeout(() => {
+      if (battleState === lostBattle && !$id('wq-battle-screen').hidden) showResult(false);
+    }, 1200);
     return;
   }
 
@@ -1180,7 +1203,12 @@ function init() {
       }
     }
     // Enter for next challenge
-    if (e.key === 'Enter' && battleState?.isAnswered && !$id('wq-btn-next-battle').hidden) {
+    if (
+      e.key === 'Enter' &&
+      battleState?.isAnswered &&
+      !$id('wq-battle-screen').hidden &&
+      !$id('wq-btn-next-battle').hidden
+    ) {
       nextChallenge();
     }
   });

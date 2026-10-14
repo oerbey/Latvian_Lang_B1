@@ -132,6 +132,14 @@ token to the managed Function. That requires deployment and the next checks.
    sign-in/token/API test closes the Free-hosting feasibility gate. Resolve any
    failure before Step 3; it does not authorize an upgrade to Standard.
 
+Callback failures display **Sign-in could not complete** with only allowlisted
+SDK codes and numeric `AADSTS` codes, and keep Sign in available for retry.
+Share only that status text when reporting a failure. Raw error descriptions,
+callback URLs, email codes and tokens must remain private. A cached account
+does not enable Check access after a failed callback. Startup errors are shown
+separately from unavailable configuration; these diagnostics do not establish
+that a live callback or access-token check has passed.
+
 If the owner's admin email is reused for customer signup, External ID can create
 a separate customer account with the same email. No account linking or migration
 is attempted. Use the new email/password account for these checks.

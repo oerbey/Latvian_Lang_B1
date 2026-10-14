@@ -21,6 +21,9 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Fixed
 
+- Dev sign-in callback failures show safe diagnostic codes and allow retry instead
+  of reporting that authentication is disabled. Error details, accounts and
+  tokens remain hidden; the owner's live callback failure is still under diagnosis.
 - Dev email/password sign-in discovery trusts both the configured CIAM sign-in
   hostname and its configured token issuer hostname. A real MSAL browser
   regression covers hosted sign-in startup; live account acceptance is pending.

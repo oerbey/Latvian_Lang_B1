@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v29';
+const CACHE_VERSION = 'v30';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**

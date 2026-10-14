@@ -34,6 +34,10 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Fixed
 
+- Word Quest sends the active account's provider-issued logout hint to skip the
+  hosted sign-out account picker when available. App logout still clears every
+  cached account. Enable the `login_hint` optional ID-token claim on each SPA
+  registration and sign in again before live verification.
 - Fresh Word Quest accounts receive explicit JSON `null` for missing cloud progress,
   avoiding an empty Azure Functions response that blocked initial cloud sync.
   Regression verification uses the installed Functions response serializer;

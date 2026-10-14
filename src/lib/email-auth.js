@@ -133,6 +133,9 @@ export function createEmailAuth({
   }
 
   async function signOut() {
+    const account = client?.getActiveAccount();
+    const hint = account?.loginHint || account?.idTokenClaims?.login_hint;
+    const logoutHint = typeof hint === 'string' && hint ? hint : undefined;
     locallySignedOut = true;
     generation++;
     session = null;
@@ -140,6 +143,7 @@ export function createEmailAuth({
     try {
       // Clear all app accounts so refresh cannot silently select a different cached learner.
       await client.logoutRedirect({
+        logoutHint,
         postLogoutRedirectUri: new URL('/auth-probe.html', location().origin).href,
       });
     } catch (error) {

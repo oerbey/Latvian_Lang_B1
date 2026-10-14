@@ -6,9 +6,12 @@ Prepared from accepted Dev `ec247afba815119cdfd5cf01b390ceafbd510aca`, after the
 owner confirmed real registration/login/API access/refresh/logout/password reset
 on Free hosting. PR #208 is deployed to Dev at
 `1d94d489bb036a3450b4f838311d2238173b2cca`; CI and public endpoint checks passed.
-Live game acceptance reported unavailable cloud progress. A follow-up fixes the
-reproduced empty response for missing records; its deployment and live acceptance
-remain pending. Production remains the Microsoft-only recovery build
+Live game acceptance initially reported unavailable cloud progress. PR #209 fixes
+the reproduced empty response and is deployed at
+`5cea6b90fbbbfa7bae1af3c5e58996ffce9e90ee`; CI/deployment and public API checks pass.
+The owner confirmed sign-in, cloud save, refresh restore and same-account restore
+in another browser. Game logout/guest separation, live two-account isolation and
+storage placement confirmation remain pending. Production remains the Microsoft-only recovery build
 `cbed2cc6f70f245a3673548cc5f2deb57e764950`; no production deployment/configuration
 or database mutations are part of this change.
 
@@ -62,6 +65,15 @@ sequence before applying a response. Tokens are bound to the captured SDK accoun
 and verified owner, so a pending snapshot cannot be retargeted to a new account.
 Pending snapshots persist until acknowledgement. A revision conflict requires
 an explicit local/cloud choice before a replacement write.
+
+Sign-out passes the active account's opaque MSAL `loginHint` or ID-token
+`login_hint` as `logoutHint`, while omitting `account` so MSAL still clears every
+app account. Enable the `login_hint` optional **ID** claim in Token configuration
+for the Dev SPA (and the separate production SPA during setup). Sign in again to
+obtain the new claim. Email addresses are never substituted for this hint. If the
+claim is absent, provider logout retains its account picker; local logout still
+clears the session. Service worker v30 refreshes the cached authentication helper.
+See [Microsoft's promptless logout guidance](https://learn.microsoft.com/en-us/entra/msal/javascript/browser/logout#promptless-logout).
 
 Guest play works offline after assets are cached, including refresh and visited
 battle data. If authentication/configuration cannot be verified on a reload,

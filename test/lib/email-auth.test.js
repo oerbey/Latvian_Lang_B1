@@ -187,3 +187,34 @@ test('logout clears every app account so a refresh cannot silently select anothe
   assert.equal(accounts.length, 0);
   assert.equal((await createEmailAuth(options).getCurrentUser()).status, 'anonymous');
 });
+
+test('logout identifies the active provider session while clearing all app accounts', async () => {
+  for (const hintSource of ['loginHint', 'idTokenClaims']) {
+    const { auth, getClient } = fixture();
+    await auth.getCurrentUser();
+    const client = getClient();
+    if (hintSource === 'loginHint') client.account.loginHint = 'synthetic-opaque-hint';
+    else client.account.idTokenClaims = { login_hint: 'synthetic-opaque-hint' };
+    client.logoutRedirect = async (options) => {
+      assert.equal(options.logoutHint, 'synthetic-opaque-hint');
+      assert.equal(options.account, undefined);
+      assert.equal(options.postLogoutRedirectUri, 'https://example.test/auth-probe.html');
+      client.account = null;
+    };
+    await auth.signOut();
+    assert.equal((await auth.getCurrentUser()).status, 'anonymous');
+  }
+});
+
+test('logout never substitutes an email address or a malformed claim for the provider hint', async () => {
+  const { auth, getClient } = fixture();
+  await auth.getCurrentUser();
+  const client = getClient();
+  client.account.username = 'synthetic@example.test';
+  client.account.idTokenClaims = { login_hint: ['malformed-hint'] };
+  client.logoutRedirect = async (options) => {
+    assert.equal(options.logoutHint, undefined);
+    client.account = null;
+  };
+  await auth.signOut();
+});

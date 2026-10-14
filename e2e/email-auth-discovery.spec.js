@@ -43,6 +43,7 @@ async function configureDiscovery(page, discoveredIssuerHost, callbackMode = nul
           tid: tenantId,
           oid: '44444444-4444-4444-8444-444444444444',
           sub: 'synthetic-user',
+          login_hint: 'synthetic-opaque-hint',
           nonce,
           iat: now,
           exp: now + 3600,
@@ -60,6 +61,15 @@ async function configureDiscovery(page, discoveredIssuerHost, callbackMode = nul
       });
     }
     if (route.request().isNavigationRequest()) {
+      const endpoint = new URL(route.request().url());
+      if (endpoint.pathname.endsWith('/oauth2/v2.0/logout')) {
+        expect(endpoint.searchParams.get('logout_hint')).toBe('synthetic-opaque-hint');
+        return route.fulfill({
+          status: 302,
+          headers: { location: endpoint.searchParams.get('post_logout_redirect_uri') },
+          body: '',
+        });
+      }
       if (callbackMode) {
         const request = new URL(route.request().url());
         const callback = new URL(request.searchParams.get('redirect_uri'));
@@ -115,7 +125,7 @@ test('real MSAL callback failure shows safe codes and a safe return path', async
   await expect(page.locator('body')).not.toContainText('private-token');
 });
 
-test('real MSAL completes a synthetic callback and checks API access', async ({ page }) => {
+test('real MSAL completes sign-in and hinted logout back to guest play', async ({ page }) => {
   await configureDiscovery(page, issuerHost, 'success');
   const userId = `extid:${'a'.repeat(64)}`;
   await page.route('**/api/authSession', (route) => {
@@ -132,4 +142,7 @@ test('real MSAL completes a synthetic callback and checks API access', async ({ 
   await expect(page.locator('#wq-auth-label')).toHaveText('Signed in');
   await expect(page.locator('#wq-sync-status')).toContainText('New account');
   await expect(page.locator('body')).not.toContainText('synthetic-access-token');
+  await page.locator('#wq-logout-link').click();
+  await expect(page.locator('#wq-auth-label')).toHaveText('Playing locally');
+  await expect(page.locator('#wq-sync-status')).toContainText('Sign in to sync');
 });

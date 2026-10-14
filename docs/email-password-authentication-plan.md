@@ -61,6 +61,9 @@ Confirm the actual selected features and billing configuration before rollout.
 - Register exact HTTPS callback and post-logout URLs for each environment, plus
   an explicit localhost callback for development. Do not allow wildcard callbacks.
 - The SPA is a public client and has no client secret.
+- Enable the `login_hint` optional ID-token claim on each SPA registration. Pass
+  the provider-issued hint during logout to avoid asking the user to select an
+  account, while still clearing all cached app accounts.
 - Store issuer, expected tenant ID, API audience, allowed SPA client ID and
   required delegated scope in environment-specific API settings.
 - Add `GET /api/authConfig` returning only approved public frontend configuration
@@ -150,11 +153,15 @@ does not authorize upgrading the hosting plan.
 
 ### 3. Implement application sign-in and progress ownership
 
-October 14 status: implementation is prepared on `codex/word-quest-email-password`.
+October 14 status: PRs #208/#209 deployed Dev
+`5cea6b90fbbbfa7bae1af3c5e58996ffce9e90ee`. The owner accepted sign-in, cloud save,
+refresh restore and same-account restore in another browser. A follow-up adds
+direct provider logout using an optional claim; configuration/deployment and
+game logout/guest separation acceptance remain pending. Live two-account
+isolation and storage placement confirmation are also pending.
 The existing exact `/auth-probe.html` callback becomes a minimal sign-in return
 page and redirects to Word Quest after MSAL completes it. This retains the
 already approved Dev registration; the temporary probe endpoints are removed.
-Deployment and real game save/restore acceptance remain pending.
 
 - Add the public auth configuration endpoint and MSAL frontend helper; vendor the
   pinned dependency through the existing static build pipeline.

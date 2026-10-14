@@ -12,7 +12,7 @@ async function initialize() {
     auth: {
       clientId: config.clientId,
       authority: config.authority,
-      knownAuthorities: [new URL(config.authority).hostname],
+      knownAuthorities: config.knownAuthorities,
       redirectUri,
     },
     cache: { cacheLocation: 'sessionStorage' },

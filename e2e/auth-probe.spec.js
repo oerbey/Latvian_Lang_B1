@@ -17,6 +17,7 @@ test('authentication test sends an access token only to the probe and displays n
     route.fulfill({
       json: {
         authority: 'https://example.ciamlogin.com/',
+        knownAuthorities: ['example.ciamlogin.com'],
         clientId: '33333333-3333-4333-8333-333333333333',
         scope: 'api://22222222-2222-4222-8222-222222222222/progress.access',
       },

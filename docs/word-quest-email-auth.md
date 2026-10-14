@@ -17,8 +17,10 @@ and live two-account isolation with the first account's progress retained.
 The owner reported schema-2 External ID Word Quest counts of **1 in progress_dev**
 and **0 in progress_prod**. Live Dev placement passes; the current container
 setting was not independently reinspected. Production remains the Microsoft-only recovery build
-`cbed2cc6f70f245a3673548cc5f2deb57e764950`; no production deployment/configuration
-or database mutations are part of this change.
+`cbed2cc6f70f245a3673548cc5f2deb57e764950`. Separate production identity apps,
+permissions, flow and public settings are now prepared; the application release
+and live production acceptance remain pending. No database mutations were
+performed by the agent.
 
 ## Application flow
 

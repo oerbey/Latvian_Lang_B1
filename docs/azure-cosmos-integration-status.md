@@ -10,8 +10,11 @@ External ID ownership (schema 2), independent local namespaces, a registered
 callback return page and removed probe APIs. The owner accepted cloud save,
 refresh/second-browser restore, direct logout, guest separation and two-account
 isolation. Owner-reported External ID schema-2 Word Quest counts are 1 in
-progress_dev and 0 in progress_prod. No production or live Cosmos mutation was
-performed by the agent. See [the integration guide](word-quest-email-auth.md).
+progress_dev and 0 in progress_prod. Production identity apps/flow/permissions
+and public settings are prepared; the approved application release and live
+production acceptance remain pending. No Cosmos mutation was performed by the
+agent. See [the integration guide](word-quest-email-auth.md) and
+[cutover record](email-password-production-cutover.md).
 
 ## Historical feasibility setup — 2026-10-11
 

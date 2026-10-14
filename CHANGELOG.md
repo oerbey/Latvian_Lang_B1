@@ -63,6 +63,11 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
   dedicated production deployment token.
 - Public application authentication configuration and a token-validated session
   endpoint returning only the server-derived owner key for local namespaces.
+- Separate production customer SPA/API registrations, email/password flow,
+  exact callback, logout hint claim and the three owner-approved delegated
+  permissions. Public authentication settings are saved on existing Free
+  production hosting with `progress_prod` retained. Application cutover and
+  live production acceptance remain pending.
 - Reproducible pinned MSAL bundle/license staging for Dev deployment and local
   startup/browser checks. Customer tenant/apps/user flow and Dev settings were
   accepted through the standalone probe; Dev game integration is also accepted.

@@ -210,6 +210,14 @@ remaining live-test limit explicitly documented for the release decision.
 
 ### 5. Production cutover on Free
 
+October 14 status: separate production apps, the email/password flow, optional
+logout claim and the three approved permissions are configured in Latvian
+Learning Customers. Public authentication settings are saved and verified in
+the existing Free SWA's production environment; `progress_prod` is retained.
+PR #211 preserves release approval/exact-SHA CI and stages the public SDK.
+Main merge, approved release and production acceptance remain pending. Public
+IDs and recovery are in [the cutover guide](email-password-production-cutover.md).
+
 - Configure separate production SPA/API registrations, exact production callback
   URLs and production issuer/audience/scope/client settings. Retain `progress_prod`.
 - Merge the accepted implementation and deploy through the existing manually

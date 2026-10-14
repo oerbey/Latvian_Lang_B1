@@ -4,11 +4,13 @@
 
 The owner accepted the live Dev email/password/token path, refresh/logout and
 password reset at `ec247afba815119cdfd5cf01b390ceafbd510aca` (PR #207). The Free
-hosting feasibility gate is complete. Word Quest integration is prepared on
-`codex/word-quest-email-password`: application-token progress handlers, hashed
+hosting feasibility gate is complete. Word Quest integration is deployed on Dev
+at `c8060870772747670b47f0e364fc057887b78af0`: application-token progress handlers, hashed
 External ID ownership (schema 2), independent local namespaces, a registered
-callback return page and removed probe APIs. Deployment/game save/restore and
-live account isolation remain pending. No production or live Cosmos mutation was
+callback return page and removed probe APIs. The owner accepted cloud save,
+refresh/second-browser restore, direct logout, guest separation and two-account
+isolation. Owner-reported External ID schema-2 Word Quest counts are 1 in
+progress_dev and 0 in progress_prod. No production or live Cosmos mutation was
 performed by the agent. See [the integration guide](word-quest-email-auth.md).
 
 ## Historical feasibility setup — 2026-10-11

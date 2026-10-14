@@ -330,6 +330,12 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Reviewed main's production workflow: it retains manual dispatch, main-history/authenticated-baseline validation, required CI, the production environment approval and production deployment secret. It currently archives static sources without staging the ignored MSAL SDK bundle. Step 5 must add the existing Node/build-auth-client staging before production release, configure separate production registrations/settings/claim and perform production acceptance. No release or production setting was changed.
 - Owner reported schema-2 External ID Word Quest counts: progress_dev=1, progress_prod=0. Live placement passes; a second account that did not save can have no record. The container setting was not separately reconfirmed. Available Dev acceptance is complete. Prepare production changes without deploying; production registrations/settings and the explicit release remain required.
 
+## 2026-10-14 - Production cutover preparation
+
+- Reconciled main into the accepted Dev preparation branch. Preserved both histories in documentation, main's manual production workflow and exact-SHA reusable CI inputs/checkouts. Added the pinned SDK/license build to production staging, conditional on the selected recovery/release checkout containing the build script. No production dispatch/settings change occurred.
+- Added docs/email-password-production-cutover.md with separate named production SPA/API/flow, exact callback, login_hint claim, minimal delegated permissions, public setting keys, owner release approval, acceptance and recovery. Production app IDs are still unknown; their registrations/consent/configuration remain pending in the existing customer tenant. Dev-specific policy/consent approval is not presented as production approval.
+- Node 20 verification: root 159/API 13/all 38 Playwright tests pass; lint, format, typecheck, data/i18n and diff checks pass. Workflow YAML assertions verify manual dispatch, exact-SHA CI and approval references; temporary staging contains the pinned SDK and license. Production stays at the recorded Microsoft-only recovery SHA.
+
 ## 2026-09-26 - Authentication rollout baseline
 
 - Objective: begin the Microsoft, Google and email OTP rollout plan at Chunk 0 without changing production.

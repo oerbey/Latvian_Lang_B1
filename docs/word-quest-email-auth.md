@@ -126,7 +126,8 @@ Never recover by weakening JWT checks.
 
 Production requires separate SPA/API registrations/settings, the exact production
 callback path, `progress_prod`, and the production workflow's authentication-bundle
-staging before its approved release. The Dev workflow now runs
+staging before its approved release. Both prepared workflows run
 `node scripts/build-auth-client.mjs .swa-static`; local startup/E2E uses
-`npm run build:auth-client`. No production workflow is present on this Dev branch;
-review the workflow on `main` as part of production preparation.
+`npm run build:auth-client`. The production preparation branch preserves main's
+manual release, exact-commit CI and approval gate, and stages the SDK for builds
+that include its script. See [the production cutover guide](email-password-production-cutover.md).

@@ -4,8 +4,11 @@
 
 Prepared from accepted Dev `ec247afba815119cdfd5cf01b390ceafbd510aca`, after the
 owner confirmed real registration/login/API access/refresh/logout/password reset
-on Free hosting. This implementation awaits owner-controlled merge to `dev` and
-live game acceptance. Production remains the Microsoft-only recovery build
+on Free hosting. PR #208 is deployed to Dev at
+`1d94d489bb036a3450b4f838311d2238173b2cca`; CI and public endpoint checks passed.
+Live game acceptance reported unavailable cloud progress. A follow-up fixes the
+reproduced empty response for missing records; its deployment and live acceptance
+remain pending. Production remains the Microsoft-only recovery build
 `cbed2cc6f70f245a3673548cc5f2deb57e764950`; no production deployment/configuration
 or database mutations are part of this change.
 
@@ -46,6 +49,8 @@ Guest state uses `llb1:word-quest:v2:guest`; authenticated state uses
 keys are ignored. Signing in starts a fresh account or restores that account's
 cloud copy; guest progress is not imported. Missing cloud records are not written
 until there is account progress to save. Existing Cosmos records remain intact.
+The missing-record response is literal JSON `null` with an application/json
+content type; Azure Functions otherwise omits a `jsonBody: null` payload.
 
 Sign-out clears all SDK accounts/tokens for this app, cancels debounce/retry work,
 aborts requests, closes conflict choices and

@@ -5,6 +5,13 @@ const { getProgressContainer } = require('../lib/cosmos');
 const { toPublicProgressItem } = require('../lib/progress-item');
 const { GAME_ID } = require('../lib/progress-validation');
 
+function progressResponse(item) {
+  // Azure Functions treats jsonBody: null as no body; send literal JSON for a fresh account.
+  return item === null
+    ? { status: 200, body: 'null', headers: { 'Content-Type': 'application/json' } }
+    : { status: 200, jsonBody: item };
+}
+
 async function getProgressHandler(request, dependencies = {}) {
   const { getContainer = getProgressContainer } = dependencies;
   const auth = await requireExternalAccessToken(request, dependencies);
@@ -25,16 +32,10 @@ async function getProgressHandler(request, dependencies = {}) {
   try {
     const { resource } = await getContainer().item(id, userId).read();
 
-    return {
-      status: 200,
-      jsonBody: toPublicProgressItem(resource),
-    };
+    return progressResponse(toPublicProgressItem(resource));
   } catch (err) {
     if (err.code === 404) {
-      return {
-        status: 200,
-        jsonBody: null,
-      };
+      return progressResponse(null);
     }
 
     return {
@@ -47,10 +48,10 @@ async function getProgressHandler(request, dependencies = {}) {
 app.http('getProgress', {
   methods: ['GET'],
   authLevel: 'anonymous',
-  handler: async (request) => ({
-    ...(await getProgressHandler(request)),
-    headers: { 'Cache-Control': 'no-store' },
-  }),
+  handler: async (request) => {
+    const response = await getProgressHandler(request);
+    return { ...response, headers: { ...response.headers, 'Cache-Control': 'no-store' } };
+  },
 });
 
 module.exports = {

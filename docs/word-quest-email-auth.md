@@ -10,8 +10,13 @@ Live game acceptance initially reported unavailable cloud progress. PR #209 fixe
 the reproduced empty response and is deployed at
 `5cea6b90fbbbfa7bae1af3c5e58996ffce9e90ee`; CI/deployment and public API checks pass.
 The owner confirmed sign-in, cloud save, refresh restore and same-account restore
-in another browser. Game logout/guest separation, live two-account isolation and
-storage placement confirmation remain pending. Production remains the Microsoft-only recovery build
+in another browser. PR #210 is deployed at
+`c8060870772747670b47f0e364fc057887b78af0`; CI/deployment succeeded. The owner also
+accepted direct sign-out, refresh remaining in guest mode without account XP,
+and live two-account isolation with the first account's progress retained.
+The owner reported schema-2 External ID Word Quest counts of **1 in progress_dev**
+and **0 in progress_prod**. Live Dev placement passes; the current container
+setting was not independently reinspected. Production remains the Microsoft-only recovery build
 `cbed2cc6f70f245a3673548cc5f2deb57e764950`; no production deployment/configuration
 or database mutations are part of this change.
 
@@ -97,6 +102,21 @@ after its session/cloud revision have been checked.
    offline behavior. Keep passwords/codes/tokens/header values private.
 6. Confirm Dev storage is still `progress_dev`. No production release until
    available live game acceptance and the release decision are recorded.
+
+The remaining placement check uses only settings and aggregate counts: confirm
+the Dev `COSMOS_PROGRESS_CONTAINER` value is `progress_dev`, then run this
+read-only query in `llb1`'s `progress_dev` and `progress_prod` containers:
+
+```sql
+SELECT VALUE COUNT(1) FROM c
+WHERE c.identityProvider = "external-id"
+  AND c.ownershipSchemaVersion = 2
+  AND c.gameId = "word-quest"
+```
+
+Dev should contain the saved new account records; production should contain none
+before cutover. Record only counts and the non-secret container setting. A second
+account that has not saved progress need not yet have a cloud record.
 
 ## Recovery and production preparation
 

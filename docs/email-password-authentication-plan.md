@@ -155,10 +155,13 @@ does not authorize upgrading the hosting plan.
 
 October 14 status: PRs #208/#209 deployed Dev
 `5cea6b90fbbbfa7bae1af3c5e58996ffce9e90ee`. The owner accepted sign-in, cloud save,
-refresh restore and same-account restore in another browser. A follow-up adds
-direct provider logout using an optional claim; configuration/deployment and
-game logout/guest separation acceptance remain pending. Live two-account
-isolation and storage placement confirmation are also pending.
+refresh restore and same-account restore in another browser. PR #210 adds direct
+provider logout using an optional claim and deployed
+`c8060870772747670b47f0e364fc057887b78af0`; the owner accepted direct logout, guest
+separation after refresh and live two-account isolation with the first account's
+progress retained. Owner-reported schema-2 External ID Word Quest counts are 1
+in `progress_dev` and 0 in `progress_prod`, confirming live Dev placement. Available
+automated/live Dev acceptance is complete; production setup and release remain.
 The existing exact `/auth-probe.html` callback becomes a minimal sign-in return
 page and redirects to Word Quest after MSAL completes it. This retains the
 already approved Dev registration; the temporary probe endpoints are removed.

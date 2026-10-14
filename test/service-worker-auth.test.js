@@ -25,10 +25,9 @@ test('authentication callbacks and API responses bypass service-worker caching',
   for (const path of [
     '/auth-probe.html?code=synthetic-code',
     '/.auth/login/aad/callback?code=synthetic-code',
-    '/api/authProbe',
+    '/api/authSession',
     '/api/getProgress?gameId=word-quest',
-    '/assets/vendor/msal-browser/msal-browser.min.js',
-    '/src/auth-probe.js',
+    '/src/auth-callback.js',
   ]) {
     onFetch({
       request: { url: `https://example.test${path}`, method: 'GET', mode: 'navigate' },

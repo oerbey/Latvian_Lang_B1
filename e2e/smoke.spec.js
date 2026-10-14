@@ -413,10 +413,11 @@ test('decl6 detective starts and solves a clue', async ({ page }) => {
 
   await expect(page.locator('#decl6-feedback')).toContainText(/Pavediens atrasts/);
 
-  const answerOption = page
-    .locator('#decl6-options .decl6-option')
-    .filter({ hasText: gameState.clue.expectedAnswer })
-    .first();
+  // Exact labels distinguish valid forms from distractors such as “brokastis (sg)”.
+  const expectedAnswer = gameState.clue.expectedAnswer.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const answerOption = page.locator('#decl6-options').getByRole('button', {
+    name: new RegExp(`^\\d+\\.\\s*${expectedAnswer}$`),
+  });
   await expect(answerOption).toBeEnabled();
   await answerOption.evaluate((button) => button.click());
 

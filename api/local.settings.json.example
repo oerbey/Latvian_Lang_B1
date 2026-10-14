@@ -7,7 +7,6 @@
     "COSMOS_KEY": "replace-with-a-local-secret",
     "COSMOS_DATABASE": "llb1",
     "COSMOS_PROGRESS_CONTAINER": "progress_dev",
-    "AUTH_PROBE_ENABLED": "false",
     "EXTERNAL_AUTH_AUTHORITY": "https://your-customer-tenant.ciamlogin.com/",
     "EXTERNAL_AUTH_TENANT_ID": "replace-with-customer-tenant-id",
     "EXTERNAL_AUTH_ISSUER": "replace-with-issuer-from-openid-discovery",

@@ -38,10 +38,10 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-      - name: Build Authentication Test Assets
+      - name: Build Authentication Assets
         run: |
           npm ci --ignore-scripts
-          node scripts/build-auth-probe.mjs .swa-static
+          node scripts/build-auth-client.mjs .swa-static
       - name: Build And Deploy dev
         uses: Azure/static-web-apps-deploy@v1
         with:

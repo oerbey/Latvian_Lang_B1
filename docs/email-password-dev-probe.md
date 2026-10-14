@@ -1,4 +1,22 @@
-# Email/password Dev authentication test
+# Email/password Free-hosting feasibility record
+
+## Accepted — 2026-10-14
+
+Dev PR #207 deployed SHA `ec247afba815119cdfd5cf01b390ceafbd510aca`.
+The owner confirmed sign-up/email verification/password creation, API acceptance
+("Access verified. No game progress was read or changed."), refresh, logout and
+password reset/access all pass. Hosting remains Free. No owner token/password/code
+was inspected or copied. This completes the probe gate, not game save/restore or
+production acceptance.
+
+Word Quest integration reuses the exact `/auth-probe.html` registration as a
+minimal return page. It removes `/api/authProbe` and `/api/authProbeConfig` and
+uses `/api/authConfig`, `/api/authSession` and protected progress handlers.
+`AUTH_PROBE_ENABLED` is no longer read and can be removed from Dev settings later.
+All EXTERNAL*AUTH*\* public settings below remain applicable. Refer to
+[the Word Quest integration guide](word-quest-email-auth.md) for the new flow.
+
+## Historical probe setup and troubleshooting
 
 ## Status — 2026-10-11
 

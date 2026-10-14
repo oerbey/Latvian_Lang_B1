@@ -43,12 +43,6 @@ function readExternalAuthSettings(settings = process.env) {
   return { issuer, tenantId, audience, spaClientId, scope, jwksUrl };
 }
 
-function probeEnabled(settings = process.env) {
-  return (
-    settings.AUTH_PROBE_ENABLED === 'true' && settings.COSMOS_PROGRESS_CONTAINER === 'progress_dev'
-  );
-}
-
 async function remoteKeys(config, jose) {
   const key = config.jwksUrl.href;
   if (!resolvers.has(key)) {
@@ -149,4 +143,4 @@ async function requireExternalAccessToken(request, { settings = process.env, key
   return { principal: { userId, identityProvider: 'external-id' } };
 }
 
-module.exports = { readExternalAuthSettings, probeEnabled, requireExternalAccessToken };
+module.exports = { readExternalAuthSettings, requireExternalAccessToken };

@@ -1,11 +1,9 @@
 /* eslint-env node */
 const { app } = require('@azure/functions');
-const { probeEnabled, readExternalAuthSettings } = require('../lib/external-auth');
+const { readExternalAuthSettings } = require('../lib/external-auth');
 
-async function authProbeConfigHandler(_request, { settings = process.env } = {}) {
+async function authConfigHandler(_request, { settings = process.env } = {}) {
   const headers = { 'Cache-Control': 'no-store' };
-  if (!probeEnabled(settings))
-    return { status: 404, headers, jsonBody: { error: 'not available' } };
   try {
     const config = readExternalAuthSettings(settings);
     const authority = new URL(settings.EXTERNAL_AUTH_AUTHORITY);
@@ -25,6 +23,7 @@ async function authProbeConfigHandler(_request, { settings = process.env } = {})
       headers,
       jsonBody: {
         authority: authority.href,
+        redirectPath: '/auth-probe.html',
         // CIAM discovery returns a GUID issuer host for the tenant's named sign-in host.
         knownAuthorities: [...new Set([authority.hostname, new URL(config.issuer).hostname])],
         clientId: config.spaClientId,
@@ -32,13 +31,13 @@ async function authProbeConfigHandler(_request, { settings = process.env } = {})
       },
     };
   } catch {
-    return { status: 503, headers, jsonBody: { error: 'authentication test not configured' } };
+    return { status: 503, headers, jsonBody: { error: 'authentication not configured' } };
   }
 }
 
-app.http('authProbeConfig', {
+app.http('authConfig', {
   methods: ['GET'],
   authLevel: 'anonymous',
-  handler: authProbeConfigHandler,
+  handler: authConfigHandler,
 });
-module.exports = { authProbeConfigHandler };
+module.exports = { authConfigHandler };

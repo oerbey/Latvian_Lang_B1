@@ -10,10 +10,11 @@ async function configureDiscovery(page, discoveredIssuerHost, callbackMode = nul
   const clientId = '33333333-3333-4333-8333-333333333333';
   const scope = 'api://22222222-2222-4222-8222-222222222222/progress.access';
   const encode = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
-  await page.route('**/api/authProbeConfig', (route) =>
+  await page.route('**/api/authConfig', (route) =>
     route.fulfill({
       json: {
         authority,
+        redirectPath: '/auth-probe.html',
         clientId: '33333333-3333-4333-8333-333333333333',
         scope: 'api://22222222-2222-4222-8222-222222222222/progress.access',
         knownAuthorities: ['example.ciamlogin.com', issuerHost],
@@ -86,53 +87,49 @@ test('real MSAL accepts the configured tenant issuer and starts hosted sign-in',
   page,
 }) => {
   await configureDiscovery(page, issuerHost);
-  await page.goto('/auth-probe.html');
-  await expect(page.locator('#probe-login')).toBeEnabled();
-  await page.locator('#probe-login').click();
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-login-link')).toBeEnabled();
+  await page.locator('#wq-login-link').click();
   await expect(page.getByRole('heading', { name: 'Hosted sign-in fixture' })).toBeVisible();
 });
 
 test('real MSAL rejects discovery with an unrelated issuer', async ({ page }) => {
   await configureDiscovery(page, 'unrelated.ciamlogin.com');
-  await page.goto('/auth-probe.html');
-  await expect(page.locator('#probe-login')).toBeEnabled();
-  await page.locator('#probe-login').click();
-  await expect(page.locator('#probe-status')).toContainText('Sign-in could not start');
-  await expect(page).toHaveURL(/\/auth-probe\.html$/);
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-login-link')).toBeEnabled();
+  await page.locator('#wq-login-link').click();
+  await expect(page.locator('#wq-sync-status')).toContainText('Sign-in could not start');
+  await expect(page).toHaveURL(/\/word-quest\.html$/);
 });
 
-test('real MSAL callback failure shows safe codes and permits a fresh sign-in', async ({
-  page,
-}) => {
+test('real MSAL callback failure shows safe codes and a safe return path', async ({ page }) => {
   await configureDiscovery(page, issuerHost, 'error');
-  await page.goto('/auth-probe.html');
-  await expect(page.locator('#probe-login')).toBeEnabled();
-  await page.locator('#probe-login').click();
-  await expect(page.locator('#probe-status')).toHaveText(
-    'Sign-in could not complete (access_denied; AADSTS65001). Try sign-in again.',
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-login-link')).toBeEnabled();
+  await page.locator('#wq-login-link').click();
+  await expect(page.locator('#callback-status')).toHaveText(
+    'Sign-in could not complete (access_denied; AADSTS65001). Return to Word Quest to try again.',
   );
-  await expect(page.locator('#probe-login')).toBeEnabled();
-  await expect(page.locator('#probe-check')).toBeDisabled();
+  await expect(page.getByRole('link', { name: 'Return to Word Quest' })).toBeVisible();
   await expect(page.locator('body')).not.toContainText('synthetic-private@example.com');
   await expect(page.locator('body')).not.toContainText('private-token');
 });
 
 test('real MSAL completes a synthetic callback and checks API access', async ({ page }) => {
   await configureDiscovery(page, issuerHost, 'success');
-  await page.route('**/api/authProbe', (route) => {
+  const userId = `extid:${'a'.repeat(64)}`;
+  await page.route('**/api/authSession', (route) => {
     expect(route.request().headers()['x-latvian-authorization']).toBe(
       'Bearer synthetic-access-token',
     );
     expect(route.request().headers().authorization).toBeUndefined();
-    return route.fulfill({ json: { ok: true } });
+    return route.fulfill({ json: { userId } });
   });
-  await page.goto('/auth-probe.html');
-  await expect(page.locator('#probe-login')).toBeEnabled();
-  await page.locator('#probe-login').click();
-  await expect(page.locator('#probe-status')).toHaveText(
-    'Signed in. Check access to complete the test.',
-  );
-  await page.locator('#probe-check').click();
-  await expect(page.locator('#probe-status')).toContainText('Access verified');
+  await page.route('**/api/getProgress?*', (route) => route.fulfill({ json: null }));
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-login-link')).toBeEnabled();
+  await page.locator('#wq-login-link').click();
+  await expect(page.locator('#wq-auth-label')).toHaveText('Signed in');
+  await expect(page.locator('#wq-sync-status')).toContainText('New account');
   await expect(page.locator('body')).not.toContainText('synthetic-access-token');
 });

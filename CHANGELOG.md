@@ -19,36 +19,44 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Changed
+
+- Word Quest uses hosted email/password sign-in, application-token cloud sync and
+  server-derived External ID ownership on its next Dev deployment. Guest and
+  account progress have independent local namespaces; logout cancels stale work,
+  renewal failures ask for sign-in, and conflicts require an explicit choice.
+  The temporary probe APIs and legacy SWA principal authorization are retired.
+- Reuse the exact registered sign-in callback as a minimal return page. Stage
+  the pinned SDK through build:auth-client, precache Word Quest/public auth assets
+  and keep callbacks/private APIs out of service-worker caches (v29).
+- Word Quest's visual test hook now advances browser frames so UI animations and
+  save timers settle before inspection. Live game acceptance remains pending.
+
 ### Fixed
 
-- Dev API access tokens use a dedicated application header to avoid the managed
-  Static Web Apps gateway overwriting Authorization. Signature, issuer, audience,
-  lifetime, identity, client and delegated-scope checks remain enforced; live
-  acceptance is pending.
-
-- Dev sign-in callback failures show safe diagnostic codes and allow retry instead
-  of reporting that authentication is disabled. Error details, accounts and
-  tokens remain hidden. The guarded Dev probe also reports fixed API rejection
-  codes to distinguish token/header/claim failures; live API acceptance is pending.
-- Dev email/password sign-in discovery trusts both the configured CIAM sign-in
-  hostname and its configured token issuer hostname. A real MSAL browser
-  regression covers hosted sign-in startup; live account acceptance is pending.
+- API access tokens use a dedicated application header to avoid the managed
+  Static Web Apps gateway overwriting Authorization. Full JWT checks remain
+  enforced; the owner accepted the standalone token path on Free on 2026-10-14.
+  Live Word Quest save/restore acceptance remains pending.
+- Sign-in callbacks show safe error codes and a return path instead of reporting
+  that authentication is disabled. Raw error details, accounts and tokens remain
+  hidden; sign-in discovery trusts the configured named and GUID issuer hosts.
 
 ### Added
 
-- Dev-only email/password authentication test using External ID and pinned
-  browser/JWT libraries, with public configuration, validated access-token checks
-  and no progress reads/writes. Customer tenant/apps/user flow and Dev settings
-  are configured; test deployment and real Free-hosting acceptance remain pending.
-- Reproducible Microsoft authentication bundle staging for the existing Dev
-  deployment workflow, plus authentication callback/API cache bypass protection.
+- Public application authentication configuration and a token-validated session
+  endpoint returning only the server-derived owner key for local namespaces.
+- Reproducible pinned MSAL bundle/license staging for Dev deployment and local
+  startup/browser checks. Customer tenant/apps/user flow and Dev settings were
+  accepted through the standalone probe; game integration deployment is pending.
 
 ### Removed
 
 - Retired the temporary Dev migration endpoint, token panel, accounts-container
   helper and migration-only tests. Dev issuance is disabled and its accounts
   setting removed; deployed on Dev at `7ebbff8` on 2026-10-11. Microsoft
-  sign-in and normal cloud sync remain the current implementation.
+  sign-in and normal cloud sync were retained in that retirement build.
+  Production still uses that authentication model; the next Dev change is above.
 
 ### Added
 

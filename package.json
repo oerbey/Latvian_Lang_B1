@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:auth-probe": "node scripts/build-auth-probe.mjs",
-    "prestart": "npm run build:auth-probe",
-    "pretest:e2e": "npm run build:auth-probe",
+    "prestart": "npm run build:auth-client",
+    "pretest:e2e": "npm run build:auth-client",
     "verify:cloud:dev": "node scripts/verify-cloud-dev.mjs",
     "prepare": "husky install",
     "start": "npx http-server . -p 5173",
@@ -24,7 +23,8 @@
     "build:words:chunks": "node scripts/split-words-json.mjs",
     "build:personality": "node scripts/personality_csv_to_json.mjs",
     "build:offline": "node scripts/build_week1_offline.mjs",
-    "lint": "eslint . --ext .js"
+    "lint": "eslint . --ext .js",
+    "build:auth-client": "node scripts/build-auth-client.mjs"
   },
   "lint-staged": {
     "*.js": [

@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v28';
+const CACHE_VERSION = 'v29';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -42,6 +42,12 @@ const CORE_ASSETS = [
   './src/lib/state.js',
   './src/lib/storage.js',
   './src/lib/cloud-progress.js',
+  './src/lib/email-auth.js',
+  './src/lib/auth-probe-errors.js',
+  './assets/vendor/msal-browser/msal-browser.min.js',
+  './word-quest.html',
+  './src/games/word-quest/main.js',
+  './src/games/word-quest/styles.css',
   './src/lib/utils.js',
   './src/lib/words-data.js',
   './src/lib/render.js',
@@ -217,8 +223,7 @@ self.addEventListener('fetch', (event) => {
   if (
     /\/(?:api|\.auth)\//.test(url.pathname) ||
     url.pathname.endsWith('/auth-probe.html') ||
-    url.pathname.endsWith('/src/auth-probe.js') ||
-    url.pathname.includes('/assets/vendor/msal-browser/')
+    url.pathname.endsWith('/src/auth-callback.js')
   ) {
     return;
   }

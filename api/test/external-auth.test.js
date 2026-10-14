@@ -1,8 +1,8 @@
 /* eslint-env node */
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { authProbeHandler } = require('../src/functions/authProbe');
-const { authProbeConfigHandler } = require('../src/functions/authProbeConfig');
+const { authSessionHandler } = require('../src/functions/authSession');
+const { authConfigHandler } = require('../src/functions/authConfig');
 const {
   requireExternalAccessToken,
   readExternalAuthSettings,
@@ -15,7 +15,6 @@ const userId = '44444444-4444-4444-8444-444444444444';
 const issuer = `https://test.ciamlogin.com/${tenantId}/v2.0`;
 const settings = {
   EXTERNAL_AUTH_AUTHORITY: 'https://test.ciamlogin.com/',
-  AUTH_PROBE_ENABLED: 'true',
   COSMOS_PROGRESS_CONTAINER: 'progress_dev',
   EXTERNAL_AUTH_ISSUER: issuer,
   EXTERNAL_AUTH_TENANT_ID: tenantId,
@@ -25,18 +24,19 @@ const settings = {
   EXTERNAL_AUTH_JWKS_URI: `https://test.ciamlogin.com/${tenantId}/discovery/v2.0/keys`,
 };
 
-test('probe config returns only public values and is absent when disabled', async () => {
-  const response = await authProbeConfigHandler({}, { settings });
+test('auth config exposes only approved public values and rejects invalid settings', async () => {
+  const response = await authConfigHandler({}, { settings });
   assert.equal(response.status, 200);
   assert.deepEqual(Object.keys(response.jsonBody).sort(), [
     'authority',
     'clientId',
     'knownAuthorities',
+    'redirectPath',
     'scope',
   ]);
   assert.deepEqual(response.jsonBody.knownAuthorities, ['test.ciamlogin.com']);
   const guidIssuer = `https://${tenantId}.ciamlogin.com/${tenantId}/v2.0`;
-  const guidResponse = await authProbeConfigHandler(
+  const guidResponse = await authConfigHandler(
     {},
     {
       settings: { ...settings, EXTERNAL_AUTH_ISSUER: guidIssuer },
@@ -48,13 +48,8 @@ test('probe config returns only public values and is absent when disabled', asyn
   ]);
   assert.equal(response.headers['Cache-Control'], 'no-store');
   assert.equal(
-    (await authProbeConfigHandler({}, { settings: { ...settings, AUTH_PROBE_ENABLED: 'false' } }))
-      .status,
-    404,
-  );
-  assert.equal(
     (
-      await authProbeConfigHandler(
+      await authConfigHandler(
         {},
         { settings: { ...settings, EXTERNAL_AUTH_AUTHORITY: 'https://evil.example/' } },
       )
@@ -93,15 +88,15 @@ async function fixture() {
   return { sign, publicKey, jose, privateKey };
 }
 
-test('probe validates signed access tokens and returns only acceptance status', async () => {
+test('session validates access tokens and returns only the hashed owner key', async () => {
   const { sign, publicKey } = await fixture();
   const token = await sign();
   const deps = { settings, keyResolver: publicKey };
   const auth = await requireExternalAccessToken(request(token), deps);
   assert.match(auth.principal.userId, /^extid:[a-f0-9]{64}$/);
   assert.equal(auth.principal.identityProvider, 'external-id');
-  const response = await authProbeHandler(request(token), deps);
-  assert.deepEqual(response.jsonBody, { ok: true });
+  const response = await authSessionHandler(request(token), deps);
+  assert.match(response.jsonBody.userId, /^extid:[a-f0-9]{64}$/);
   assert.equal(response.status, 200);
   assert.equal(response.headers['Cache-Control'], 'no-store');
   assert.equal(JSON.stringify(response).includes(userId), false);
@@ -120,6 +115,7 @@ test('invalid signatures, issuer, audience, lifetime and user claims fail closed
     await sign({ nbf: Math.floor(Date.now() / 1000) + 120 }),
     await sign({ tid: spaId }),
     await sign({ oid: '' }),
+    await sign({ oid: [userId] }),
     await sign({ ver: '1.0' }),
     await new jose.SignJWT({}).setProtectedHeader({ alg: 'RS256' }).sign(otherKeys.privateKey),
     'broken.token.value',
@@ -131,7 +127,7 @@ test('invalid signatures, issuer, audience, lifetime and user claims fail closed
   assert.equal((await requireExternalAccessToken(request(unsigned), deps)).response.status, 401);
 });
 
-test('delegated scope and authorized client are required; SWA headers grant no probe access', async () => {
+test('delegated scope and authorized client are required; SWA headers grant no application access', async () => {
   const { sign, publicKey } = await fixture();
   const deps = { settings, keyResolver: publicKey };
   for (const claims of [
@@ -149,22 +145,9 @@ test('delegated scope and authorized client are required; SWA headers grant no p
     JSON.stringify({ userId, identityProvider: 'aad', userRoles: ['authenticated'] }),
   ).toString('base64');
   assert.equal(
-    (await authProbeHandler(request(null, { 'x-ms-client-principal': principal }), deps)).status,
+    (await authSessionHandler(request(null, { 'x-ms-client-principal': principal }), deps)).status,
     401,
   );
-});
-
-test('probe is disabled by default and unavailable against production containers', async () => {
-  for (const overrides of [
-    { AUTH_PROBE_ENABLED: undefined },
-    { AUTH_PROBE_ENABLED: 'false' },
-    { COSMOS_PROGRESS_CONTAINER: 'progress_prod' },
-  ]) {
-    const response = await authProbeHandler(request('broken.token.value'), {
-      settings: { ...settings, ...overrides },
-    });
-    assert.equal(response.status, 404);
-  }
 });
 
 test('trust configuration and signing-key outages produce controlled errors', async () => {
@@ -176,12 +159,12 @@ test('trust configuration and signing-key outages produce controlled errors', as
     { EXTERNAL_AUTH_SCOPE: '' },
   ]) {
     assert.throws(() => readExternalAuthSettings({ ...settings, ...overrides }));
-    const response = await authProbeHandler(request(await sign()), {
+    const response = await authSessionHandler(request(await sign()), {
       settings: { ...settings, ...overrides },
     });
     assert.equal(response.status, 503);
   }
-  const response = await authProbeHandler(request(await sign()), {
+  const response = await authSessionHandler(request(await sign()), {
     settings,
     keyResolver: () => {
       throw new Error('private network diagnostic');
@@ -189,44 +172,5 @@ test('trust configuration and signing-key outages produce controlled errors', as
   });
   assert.deepEqual(response.jsonBody, {
     error: 'authentication service unavailable',
-    code: 'authentication_unavailable',
   });
-});
-
-test('only the Dev probe exposes bounded rejection codes without token claims', async () => {
-  const { sign, publicKey } = await fixture();
-  const deps = { settings, keyResolver: publicKey };
-  const cases = [
-    [null, 'missing_bearer'],
-    ['not-a-token', 'invalid_bearer'],
-    [await sign({}, { audience: spaId }), 'audience_mismatch'],
-    [await sign({}, { issuer: 'https://other.ciamlogin.com/other/v2.0' }), 'issuer_mismatch'],
-    [await sign({}, { expiration: Math.floor(Date.now() / 1000) - 120 }), 'token_expired'],
-    [await sign({ tid: spaId }), 'tenant_mismatch'],
-    [await sign({ oid: '' }), 'invalid_user_id'],
-    [await sign({ ver: '1.0' }), 'invalid_version'],
-    [await sign({ azp: apiId }), 'client_mismatch'],
-    [await sign({ scp: 'other.scope' }), 'missing_scope'],
-  ];
-  for (const [token, code] of cases) {
-    const response = await authProbeHandler(request(token), deps);
-    assert.equal(response.jsonBody.code, code);
-    assert.deepEqual(Object.keys(response.jsonBody).sort(), ['code', 'error']);
-    const base = await requireExternalAccessToken(request(token), deps);
-    assert.equal(base.response.jsonBody.code, undefined);
-  }
-  const platformHeader = await authProbeHandler(
-    request(null, { Authorization: `Bearer ${await sign()}` }),
-    deps,
-  );
-  assert.equal(platformHeader.jsonBody.code, 'missing_bearer');
-  const preserved = await authProbeHandler(
-    request(await sign(), { Authorization: 'Bearer platform-managed-token' }),
-    deps,
-  );
-  assert.deepEqual(preserved.jsonBody, { ok: true });
-  const disabled = await authProbeHandler(request(null), {
-    settings: { ...settings, COSMOS_PROGRESS_CONTAINER: 'progress_prod' },
-  });
-  assert.deepEqual(disabled.jsonBody, { error: 'not available' });
 });

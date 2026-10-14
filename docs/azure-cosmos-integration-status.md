@@ -1,6 +1,17 @@
 # Azure Cosmos DB integration: status and remaining work
 
-## Email/password feasibility setup — 2026-10-11
+## Email/password integration — 2026-10-14
+
+The owner accepted the live Dev email/password/token path, refresh/logout and
+password reset at `ec247afba815119cdfd5cf01b390ceafbd510aca` (PR #207). The Free
+hosting feasibility gate is complete. Word Quest integration is prepared on
+`codex/word-quest-email-password`: application-token progress handlers, hashed
+External ID ownership (schema 2), independent local namespaces, a registered
+callback return page and removed probe APIs. Deployment/game save/restore and
+live account isolation remain pending. No production or live Cosmos mutation was
+performed by the agent. See [the integration guide](word-quest-email-auth.md).
+
+## Historical feasibility setup — 2026-10-11
 
 Retirement PR #204 is deployed at Dev `7ebbff8fe9e1d242e6043ab94ed8126dba2f27b3`;
 CI/deployment, health, anonymous progress rejection and migration endpoint 404 passed.

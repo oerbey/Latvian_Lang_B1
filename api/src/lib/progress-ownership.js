@@ -1,7 +1,7 @@
 /* eslint-env node */
 
-// Version 1 records ownership directly against the app-scoped Static Web Apps user ID.
-const PROGRESS_OWNERSHIP_SCHEMA_VERSION = 1;
+// Version 2 owns records through the hash of verified External ID tenant/user claims.
+const PROGRESS_OWNERSHIP_SCHEMA_VERSION = 2;
 
 function createProgressOwnership(principal) {
   return {

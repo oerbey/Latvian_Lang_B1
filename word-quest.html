@@ -7,6 +7,8 @@
 <html lang="en" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
+    <meta name="referrer" content="no-referrer" />
+    <script src="assets/vendor/msal-browser/msal-browser.min.js" defer></script>
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self';
@@ -74,8 +76,10 @@
           </div>
           <div class="wq-auth-panel" aria-live="polite">
             <span id="wq-auth-label">Playing locally</span>
-            <a id="wq-login-link" class="wq-auth-link" href="/login">Sign in to sync</a>
-            <a id="wq-logout-link" class="wq-auth-link" href="/logout" hidden>Sign out</a>
+            <button id="wq-login-link" class="wq-auth-link" type="button">
+              Sign in / Create account
+            </button>
+            <button id="wq-logout-link" class="wq-auth-link" type="button" hidden>Sign out</button>
             <span id="wq-sync-status" class="wq-sync-status">Checking sign-in…</span>
           </div>
           <div class="wq-title-actions">

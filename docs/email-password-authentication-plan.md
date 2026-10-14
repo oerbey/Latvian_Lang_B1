@@ -1,6 +1,6 @@
 # Email/password authentication on Free hosting
 
-## Status and decisions — 2026-10-07
+## Status and decisions — 2026-10-14
 
 This is the replacement implementation plan for the email/password-only release.
 It supersedes the multi-provider authentication plan's remaining implementation
@@ -39,7 +39,9 @@ Do not create `latvian-auth-dev-014d1e` or repoint the deployment token/workflow
 Use an External ID **external/customer tenant**, a hosted email/password user
 flow and the supported MSAL browser library. The frontend signs in directly with
 External ID using authorization code flow with PKCE. It obtains an access token
-for our progress API and sends it in the HTTPS Authorization header.
+for our progress API and sends it over HTTPS in `X-Latvian-Authorization`. The
+managed gateway can overwrite standard Authorization; the application header
+and full token validation were accepted through the live Dev probe.
 
 Azure's built-in custom OIDC authentication is not used. There is no custom
 `auth` provider configuration in `staticwebapp.config.json`. Free SWA remains the
@@ -62,7 +64,7 @@ Confirm the actual selected features and billing configuration before rollout.
 - Store issuer, expected tenant ID, API audience, allowed SPA client ID and
   required delegated scope in environment-specific API settings.
 - Add `GET /api/authConfig` returning only approved public frontend configuration
-  (authority, SPA client ID, callback URL and scope). Never expose Cosmos settings
+  (authority, approved hostnames, SPA client ID, fixed callback path and scope). Never expose Cosmos settings
   or credentials. Fail clearly when required configuration is absent.
 - Initialize authentication before cloud sync. Preserve local guest play if the
   identity provider or configuration endpoint is unavailable.
@@ -119,11 +121,13 @@ paid resource, new hosting fee or account-migration dependency remains.
 
 ### 2. Configure External ID and prove the Free API path
 
-October 11 status: customer tenant, Dev registrations, delegated consent,
-email/password flow and public Dev settings are configured. The local probe
-implementation is prepared on `feature/email-password-auth-probe`.
-Deployment and real Free-hosting acceptance are pending; Step 3 is gated on that
-result. Details are in [the feasibility record](email-password-dev-probe.md).
+October 14 status: PR #207 deployed Dev `ec247afba815119cdfd5cf01b390ceafbd510aca`.
+The owner confirmed registration/email verification/password creation, API access
+(“Access verified”), refresh, sign-out and password reset/access all pass on Free.
+The feasibility gate is complete. Automated JWT rejection tests cover invalid
+issuer/audience/lifetime/client/scope/signature and forged platform headers.
+Step 3 is authorized; game save/restore and live two-account isolation are still
+separate acceptance checks. Details are in [the feasibility record](email-password-dev-probe.md).
 
 - Create/configure the customer tenant, Dev SPA/API registrations and delegated
   progress permission. Configure hosted email/password registration, verification
@@ -145,6 +149,12 @@ token, and wrong audience/issuer/expiry/scope and ID tokens are rejected. A fail
 does not authorize upgrading the hosting plan.
 
 ### 3. Implement application sign-in and progress ownership
+
+October 14 status: implementation is prepared on `codex/word-quest-email-password`.
+The existing exact `/auth-probe.html` callback becomes a minimal sign-in return
+page and redirects to Word Quest after MSAL completes it. This retains the
+already approved Dev registration; the temporary probe endpoints are removed.
+Deployment and real game save/restore acceptance remain pending.
 
 - Add the public auth configuration endpoint and MSAL frontend helper; vendor the
   pinned dependency through the existing static build pipeline.

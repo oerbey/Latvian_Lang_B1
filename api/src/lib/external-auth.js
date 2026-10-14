@@ -64,12 +64,32 @@ async function remoteKeys(config, jose) {
   return resolvers.get(key);
 }
 
+function rejectionReason(error) {
+  const codes = {
+    ERR_JWT_EXPIRED: 'token_expired',
+    ERR_JWS_SIGNATURE_VERIFICATION_FAILED: 'invalid_signature',
+    ERR_JWKS_NO_MATCHING_KEY: 'unrecognized_signing_key',
+  };
+  if (codes[error.code]) return codes[error.code];
+  if (error.code === 'ERR_JWT_CLAIM_VALIDATION_FAILED') {
+    if (error.reason === 'missing') return 'missing_required_claim';
+    return (
+      { iss: 'issuer_mismatch', aud: 'audience_mismatch', nbf: 'token_not_active' }[error.claim] ||
+      'invalid_token_claim'
+    );
+  }
+  return 'invalid_token';
+}
+
 /** Validate an API access token and derive ownership only from verified tenant/user claims. */
 async function requireExternalAccessToken(request, { settings = process.env, keyResolver } = {}) {
   const unauthorized = { status: 401, jsonBody: { error: 'authentication required' } };
-  const authorization = request.headers.get('authorization') || '';
+  // SWA reserves Authorization for its managed Function gateway token.
+  const authorization = request.headers.get('x-latvian-authorization') || '';
   const match = /^Bearer ([A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$/i.exec(authorization);
-  if (!match || authorization.length > 16 * 1024) return { response: unauthorized };
+  if (!match || authorization.length > 16 * 1024) {
+    return { response: unauthorized, reason: authorization ? 'invalid_bearer' : 'missing_bearer' };
+  }
 
   let config;
   let payload;
@@ -96,6 +116,7 @@ async function requireExternalAccessToken(request, { settings = process.env, key
       'ERR_JOSE_NOT_SUPPORTED',
     ].includes(error.code);
     return {
+      reason: invalidToken ? rejectionReason(error) : 'authentication_unavailable',
       response: invalidToken
         ? unauthorized
         : { status: 503, jsonBody: { error: 'authentication service unavailable' } },
@@ -103,14 +124,23 @@ async function requireExternalAccessToken(request, { settings = process.env, key
   }
 
   if (payload.ver !== '2.0' || payload.tid !== config.tenantId || !UUID.test(payload.oid || '')) {
-    return { response: unauthorized };
+    const reason =
+      payload.ver !== '2.0'
+        ? 'invalid_version'
+        : payload.tid !== config.tenantId
+          ? 'tenant_mismatch'
+          : 'invalid_user_id';
+    return { response: unauthorized, reason };
   }
   if (
     payload.azp !== config.spaClientId ||
     typeof payload.scp !== 'string' ||
     !payload.scp.split(/\s+/).includes(config.scope)
   ) {
-    return { response: { status: 403, jsonBody: { error: 'access not permitted' } } };
+    return {
+      response: { status: 403, jsonBody: { error: 'access not permitted' } },
+      reason: payload.azp !== config.spaClientId ? 'client_mismatch' : 'missing_scope',
+    };
   }
 
   const userId = `extid:${createHash('sha256')

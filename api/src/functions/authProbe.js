@@ -10,7 +10,14 @@ async function authProbeHandler(request, dependencies = {}) {
     return { status: 404, headers, jsonBody: { error: 'not available' } };
   }
   const auth = await requireExternalAccessToken(request, dependencies);
-  if (auth.response) return { ...auth.response, headers };
+  // Diagnostic codes are exposed only behind the Dev probe guard, never claim values.
+  if (auth.response) {
+    return {
+      ...auth.response,
+      headers,
+      jsonBody: { ...auth.response.jsonBody, code: auth.reason },
+    };
+  }
   return { status: 200, headers, jsonBody: { ok: true } };
 }
 

@@ -120,7 +120,10 @@ test('real MSAL callback failure shows safe codes and permits a fresh sign-in', 
 test('real MSAL completes a synthetic callback and checks API access', async ({ page }) => {
   await configureDiscovery(page, issuerHost, 'success');
   await page.route('**/api/authProbe', (route) => {
-    expect(route.request().headers().authorization).toBe('Bearer synthetic-access-token');
+    expect(route.request().headers()['x-latvian-authorization']).toBe(
+      'Bearer synthetic-access-token',
+    );
+    expect(route.request().headers().authorization).toBeUndefined();
     return route.fulfill({ json: { ok: true } });
   });
   await page.goto('/auth-probe.html');

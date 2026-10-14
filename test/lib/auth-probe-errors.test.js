@@ -12,5 +12,6 @@ test('auth probe exposes only safe SDK and Entra codes', () => {
   );
   assert.equal(authProbeErrorSummary({ errorCode: 'private-token', message: 'private-token' }), '');
   assert.equal(authProbeErrorSummary({ errorCode: 'state_not_found' }), ' (state_not_found)');
+  assert.equal(authProbeErrorSummary({ errorCode: 'missing_bearer' }), ' (missing_bearer)');
   assert.equal(authProbeErrorSummary(null), '');
 });

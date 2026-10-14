@@ -138,7 +138,11 @@ Share only that status text when reporting a failure. Raw error descriptions,
 callback URLs, email codes and tokens must remain private. A cached account
 does not enable Check access after a failed callback. Startup errors are shown
 separately from unavailable configuration; these diagnostics do not establish
-that a live callback or access-token check has passed.
+that a live callback or access-token check has passed. The Dev API probe adds a
+fixed rejection `code` to its generic error response (for example,
+`missing_bearer`, `audience_mismatch` or `issuer_mismatch`). It exposes no token
+contents or claim values. Shared authentication responses remain generic; only
+the guarded Dev endpoint exposes these diagnostics.
 
 If the owner's admin email is reused for customer signup, External ID can create
 a separate customer account with the same email. No account linking or migration
@@ -159,3 +163,12 @@ probe after the feasibility gate when integrating the approved authentication fl
 - [Configure customer password reset](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-enable-password-reset-customers).
 - [MSAL redirect handling](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/redirect-bridge.md).
 - [API token claim validation](https://learn.microsoft.com/en-us/entra/identity-platform/claims-validation).
+
+## Managed Function token transport
+
+The browser sends its API token as `X-Latvian-Authorization: Bearer …` to the
+same-origin probe. The validator reads only that header and applies all existing
+JWT checks. Standard Authorization and SWA principal headers grant no app access.
+This avoids the gateway header collision described in
+[Azure issue #275](https://github.com/Azure/static-web-apps/issues/275). Do not
+log or copy the application header. Live access acceptance is still required.

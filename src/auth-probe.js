@@ -60,14 +60,14 @@ async function initialize() {
         cacheLookupPolicy: window.msal.CacheLookupPolicy.AccessTokenAndRefreshToken,
       });
       const probe = await fetch('/api/authProbe', {
-        headers: { Authorization: `Bearer ${token.accessToken}` },
+        headers: { 'X-Latvian-Authorization': `Bearer ${token.accessToken}` },
         cache: 'no-store',
       });
       const result = await probe.json().catch(() => null);
       status.textContent =
         probe.ok && result?.ok === true
           ? 'Access verified. No game progress was read or changed.'
-          : 'Access was rejected. The authentication test has not passed.';
+          : `Access was rejected${authProbeErrorSummary({ errorCode: result?.code })}. The authentication test has not passed.`;
     } catch (error) {
       if (error instanceof window.msal.InteractionRequiredAuthError) {
         try {

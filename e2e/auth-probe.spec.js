@@ -46,7 +46,10 @@ test('authentication test sends an access token only to the probe and displays n
   let calls = 0;
   await page.route('**/api/authProbe', (route) => {
     calls++;
-    expect(route.request().headers().authorization).toBe('Bearer synthetic-access-token');
+    expect(route.request().headers()['x-latvian-authorization']).toBe(
+      'Bearer synthetic-access-token',
+    );
+    expect(route.request().headers().authorization).toBeUndefined();
     return route.fulfill({ json: { ok: true } });
   });
   await page.route('**/api/*Progress*', () => {
@@ -66,10 +69,20 @@ test('authentication test sends an access token only to the probe and displays n
   );
   await page.screenshot({ path: testInfo.outputPath('auth-probe-mobile.png'), fullPage: true });
   await page.route('**/api/authProbe', (route) =>
-    route.fulfill({ status: 401, json: { error: 'authentication required' } }),
+    route.fulfill({
+      status: 401,
+      json: { error: 'authentication required', code: 'audience_mismatch' },
+    }),
   );
   await page.locator('#probe-check').click();
-  await expect(page.locator('#probe-status')).toContainText('Access was rejected');
+  await expect(page.locator('#probe-status')).toContainText(
+    'Access was rejected (audience_mismatch)',
+  );
+  await page.route('**/api/authProbe', (route) =>
+    route.fulfill({ json: { code: 'private-token' } }),
+  );
+  await page.locator('#probe-check').click();
+  await expect(page.locator('body')).not.toContainText('private-token');
   await page.route('**/api/authProbe', (route) => route.fulfill({ json: {} }));
   await page.locator('#probe-check').click();
   await expect(page.locator('#probe-status')).toContainText('Access was rejected');

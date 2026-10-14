@@ -21,9 +21,15 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Fixed
 
+- Dev API access tokens use a dedicated application header to avoid the managed
+  Static Web Apps gateway overwriting Authorization. Signature, issuer, audience,
+  lifetime, identity, client and delegated-scope checks remain enforced; live
+  acceptance is pending.
+
 - Dev sign-in callback failures show safe diagnostic codes and allow retry instead
   of reporting that authentication is disabled. Error details, accounts and
-  tokens remain hidden; the owner's live callback failure is still under diagnosis.
+  tokens remain hidden. The guarded Dev probe also reports fixed API rejection
+  codes to distinguish token/header/claim failures; live API acceptance is pending.
 - Dev email/password sign-in discovery trusts both the configured CIAM sign-in
   hostname and its configured token issuer hostname. A real MSAL browser
   regression covers hosted sign-in startup; live account acceptance is pending.

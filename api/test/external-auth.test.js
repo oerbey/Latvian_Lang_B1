@@ -66,7 +66,7 @@ test('probe config returns only public values and is absent when disabled', asyn
 function request(token, otherHeaders = {}) {
   return {
     headers: new Headers({
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(token ? { 'X-Latvian-Authorization': `Bearer ${token}` } : {}),
       ...otherHeaders,
     }),
   };
@@ -187,5 +187,46 @@ test('trust configuration and signing-key outages produce controlled errors', as
       throw new Error('private network diagnostic');
     },
   });
-  assert.deepEqual(response.jsonBody, { error: 'authentication service unavailable' });
+  assert.deepEqual(response.jsonBody, {
+    error: 'authentication service unavailable',
+    code: 'authentication_unavailable',
+  });
+});
+
+test('only the Dev probe exposes bounded rejection codes without token claims', async () => {
+  const { sign, publicKey } = await fixture();
+  const deps = { settings, keyResolver: publicKey };
+  const cases = [
+    [null, 'missing_bearer'],
+    ['not-a-token', 'invalid_bearer'],
+    [await sign({}, { audience: spaId }), 'audience_mismatch'],
+    [await sign({}, { issuer: 'https://other.ciamlogin.com/other/v2.0' }), 'issuer_mismatch'],
+    [await sign({}, { expiration: Math.floor(Date.now() / 1000) - 120 }), 'token_expired'],
+    [await sign({ tid: spaId }), 'tenant_mismatch'],
+    [await sign({ oid: '' }), 'invalid_user_id'],
+    [await sign({ ver: '1.0' }), 'invalid_version'],
+    [await sign({ azp: apiId }), 'client_mismatch'],
+    [await sign({ scp: 'other.scope' }), 'missing_scope'],
+  ];
+  for (const [token, code] of cases) {
+    const response = await authProbeHandler(request(token), deps);
+    assert.equal(response.jsonBody.code, code);
+    assert.deepEqual(Object.keys(response.jsonBody).sort(), ['code', 'error']);
+    const base = await requireExternalAccessToken(request(token), deps);
+    assert.equal(base.response.jsonBody.code, undefined);
+  }
+  const platformHeader = await authProbeHandler(
+    request(null, { Authorization: `Bearer ${await sign()}` }),
+    deps,
+  );
+  assert.equal(platformHeader.jsonBody.code, 'missing_bearer');
+  const preserved = await authProbeHandler(
+    request(await sign(), { Authorization: 'Bearer platform-managed-token' }),
+    deps,
+  );
+  assert.deepEqual(preserved.jsonBody, { ok: true });
+  const disabled = await authProbeHandler(request(null), {
+    settings: { ...settings, COSMOS_PROGRESS_CONTAINER: 'progress_prod' },
+  });
+  assert.deepEqual(disabled.jsonBody, { error: 'not available' });
 });

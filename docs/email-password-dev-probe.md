@@ -67,8 +67,11 @@ and Azure limits still apply; the setup does not promise a zero total Azure bill
 - `/auth-probe.html` is a separate, unlinked Dev acceptance page with Sign in /
   Create account, Check access and Sign out. Microsoft hosts credential entry,
   registration and reset; the app never processes a password.
-- `/api/authProbeConfig` returns only the public authority, SPA ID and requested
-  API scope. `/api/authProbe` returns only `{ok: true}` after validation. Neither
+- `/api/authProbeConfig` returns only the public authority, trusted sign-in/issuer
+  hostnames, SPA ID and requested API scope. MSAL requires both the named CIAM
+  host and GUID issuer host in `knownAuthorities`; these are derived from validated
+  server settings, never discovered from user input or tokens.
+  `/api/authProbe` returns only `{ok: true}` after validation. Neither
   endpoint accesses Cosmos or returns identity claims.
 - Both endpoints default to disabled and require `AUTH_PROBE_ENABLED=true` plus
   `COSMOS_PROGRESS_CONTAINER=progress_dev`. They remain unavailable on production

@@ -28,7 +28,24 @@ const settings = {
 test('probe config returns only public values and is absent when disabled', async () => {
   const response = await authProbeConfigHandler({}, { settings });
   assert.equal(response.status, 200);
-  assert.deepEqual(Object.keys(response.jsonBody).sort(), ['authority', 'clientId', 'scope']);
+  assert.deepEqual(Object.keys(response.jsonBody).sort(), [
+    'authority',
+    'clientId',
+    'knownAuthorities',
+    'scope',
+  ]);
+  assert.deepEqual(response.jsonBody.knownAuthorities, ['test.ciamlogin.com']);
+  const guidIssuer = `https://${tenantId}.ciamlogin.com/${tenantId}/v2.0`;
+  const guidResponse = await authProbeConfigHandler(
+    {},
+    {
+      settings: { ...settings, EXTERNAL_AUTH_ISSUER: guidIssuer },
+    },
+  );
+  assert.deepEqual(guidResponse.jsonBody.knownAuthorities, [
+    'test.ciamlogin.com',
+    `${tenantId}.ciamlogin.com`,
+  ]);
   assert.equal(response.headers['Cache-Control'], 'no-store');
   assert.equal(
     (await authProbeConfigHandler({}, { settings: { ...settings, AUTH_PROBE_ENABLED: 'false' } }))

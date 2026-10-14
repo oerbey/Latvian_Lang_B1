@@ -19,6 +19,12 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Fixed
+
+- Dev email/password sign-in discovery trusts both the configured CIAM sign-in
+  hostname and its configured token issuer hostname. A real MSAL browser
+  regression covers hosted sign-in startup; live account acceptance is pending.
+
 ### Added
 
 - Dev-only email/password authentication test using External ID and pinned

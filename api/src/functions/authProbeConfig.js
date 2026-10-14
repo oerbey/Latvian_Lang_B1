@@ -25,6 +25,8 @@ async function authProbeConfigHandler(_request, { settings = process.env } = {})
       headers,
       jsonBody: {
         authority: authority.href,
+        // CIAM discovery returns a GUID issuer host for the tenant's named sign-in host.
+        knownAuthorities: [...new Set([authority.hostname, new URL(config.issuer).hostname])],
         clientId: config.spaClientId,
         scope: `api://${config.audience}/${config.scope}`,
       },

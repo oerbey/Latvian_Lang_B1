@@ -1,6 +1,6 @@
 # Email/password production cutover
 
-## Status — 2026-10-14
+## Status — 2026-10-15
 
 Accepted Dev: `c8060870772747670b47f0e364fc057887b78af0`. Automated checks and
 owner registration/login/reset/save/refresh/second-browser/logout/guest/isolation
@@ -10,9 +10,12 @@ checks pass. Owner-reported External ID schema-2 Word Quest record counts are
 Production remains the Microsoft-only recovery build
 `cbed2cc6f70f245a3673548cc5f2deb57e764950`. Production registrations, permissions,
 flow assignment and public settings are configured and verified in Azure.
-The application release, approval and live production acceptance remain pending.
-This guide and the prepared
-workflow do not constitute a production deployment.
+PR #211 merged into `main` at `7726f787768b3975c04be3a0692222218f64751e` on
+2026-10-14. Its [main CI run](https://github.com/oerbey/Latvian_Lang_B1/actions/runs/38613990816)
+passed. The manual Azure application release, approval and live production
+acceptance remain pending. On 2026-10-15 the production `/api/authConfig` still
+returns 404; the new API is not live. The separate GitHub Pages deployment does
+not deploy the Azure API. The setup record below was verified on 2026-10-14.
 
 ### Verified production setup
 
@@ -90,9 +93,10 @@ cutover occurs at the approved release.
 
 ## 3. Release the reviewed implementation
 
-The production preparation PR targets `main` and includes accepted Dev code plus
-main's existing production workflow and reusable exact-SHA CI support. Merge
-only after review and green CI. Merging does not automatically deploy production.
+PR #211 merged the accepted Dev code, production SDK staging and main's existing
+release protections. The reviewed main candidate is
+`7726f787768b3975c04be3a0692222218f64751e`. Merging does not automatically deploy
+Azure production. A later candidate must receive review and the same release checks.
 
 Dispatch **Azure Static Web Apps production release** from `main`, selecting the
 reviewed full main commit SHA. The workflow checks main ancestry and the

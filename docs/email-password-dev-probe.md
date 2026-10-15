@@ -18,7 +18,11 @@ All EXTERNAL*AUTH*\* public settings below remain applicable. Refer to
 
 ## Historical probe setup and troubleshooting
 
-## Status — 2026-10-11
+Everything below records the earlier probe implementation and its troubleshooting.
+Its deployment holds and test-page instructions are superseded; current behavior
+and acceptance are in [the integration guide](word-quest-email-auth.md).
+
+## Historical status — 2026-10-11
 
 Replacement-plan Step 1 is deployed at Dev SHA
 `7ebbff8fe9e1d242e6043ab94ed8126dba2f27b3`; CI and deployment passed. Health and

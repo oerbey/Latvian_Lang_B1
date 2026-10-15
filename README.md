@@ -20,6 +20,24 @@ from September 2026 onward.
 - Comprehensive CI: lint, format, typecheck, unit tests, data/i18n
   validation, and Playwright E2E
 
+## Word Quest accounts and cloud saves
+
+Word Quest supports hosted email/password accounts through Microsoft Entra
+External ID on Azure Static Web Apps Free hosting. Guests play locally; signed-in
+progress is kept separate per account and can restore across browsers. Other
+games retain their existing local progress. Microsoft social login, account
+linking and progress migration are outside this release.
+
+**Release status, verified 2026-10-15:** Dev acceptance is complete. PR #211 is
+merged into `main` at `7726f787768b3975c04be3a0692222218f64751e`, with passing CI.
+Production identity configuration is prepared, but the manual Azure production
+release and its acceptance tests remain pending. A GitHub Pages deployment does
+not deploy the Azure API or complete that release.
+
+- [Integration and offline behavior](docs/word-quest-email-auth.md)
+- [Production configuration, release and recovery](docs/email-password-production-cutover.md)
+- [Implementation plan and acceptance history](docs/email-password-authentication-plan.md)
+
 ## Game Entry Points
 
 | Page                               | Focus                                                  |
@@ -53,27 +71,39 @@ from September 2026 onward.
 Requires **Node.js 20** (see `.nvmrc`).
 
 ```bash
-npm install
+npm ci
+npm ci --prefix api
 npm run start
 ```
 
 Open [http://localhost:5173](http://localhost:5173).
 
+Startup builds the pinned public authentication SDK into ignored
+`assets/vendor/msal-browser/`. The static server supports local guest play; it
+does not host `/api/*` or provide working cloud sign-in. API development needs
+the managed Functions runtime/settings described in
+[the architecture guide](documentation.md#25-word-quest-authentication-and-progress).
+Interactive localhost sign-in also needs an explicitly registered Dev callback;
+automated browser tests use synthetic authentication instead.
+
 ## Development Commands
 
-| Command                 | Description                                   |
-| ----------------------- | --------------------------------------------- |
-| `npm run start`         | Serve locally on port 5173                    |
-| `npm test`              | Run Node.js unit tests                        |
-| `npm run test:watch`    | Unit tests in watch mode                      |
-| `npm run test:coverage` | Unit tests with coverage                      |
-| `npm run test:e2e`      | Playwright E2E smoke tests (Chromium)         |
-| `npm run lint`          | ESLint (with Prettier compat)                 |
-| `npm run format`        | Apply Prettier formatting                     |
-| `npm run format:check`  | Check Prettier formatting (CI)                |
-| `npm run typecheck`     | TypeScript checking via `tsconfig.check.json` |
-| `npm run validate:data` | Validate JSON datasets against schemas        |
-| `npm run validate:i18n` | Check locale files for key parity             |
+| Command                     | Description                                   |
+| --------------------------- | --------------------------------------------- |
+| `npm run start`             | Serve locally on port 5173                    |
+| `npm test`                  | Run Node.js unit tests                        |
+| `npm test --prefix api`     | Run API authentication and progress tests     |
+| `npm run build:auth-client` | Stage the pinned public MSAL SDK and license  |
+| `npm run verify:cloud:dev`  | Check Dev API health and anonymous rejection  |
+| `npm run test:watch`        | Unit tests in watch mode                      |
+| `npm run test:coverage`     | Unit tests with coverage                      |
+| `npm run test:e2e`          | Playwright E2E smoke tests (Chromium)         |
+| `npm run lint`              | ESLint (with Prettier compat)                 |
+| `npm run format`            | Apply Prettier formatting                     |
+| `npm run format:check`      | Check Prettier formatting (CI)                |
+| `npm run typecheck`         | TypeScript checking via `tsconfig.check.json` |
+| `npm run validate:data`     | Validate JSON datasets against schemas        |
+| `npm run validate:i18n`     | Check locale files for key parity             |
 
 ## Data Build Pipeline
 
@@ -106,16 +136,18 @@ npm run lint
 npm run format:check
 npm run typecheck
 npm test
+npm test --prefix api
 npm run validate:data
 npm run validate:i18n
 npm run test:e2e
 ```
 
-GitHub Actions CI (`.github/workflows/test.yml`) runs two jobs:
+GitHub Actions CI (`.github/workflows/test.yml`) runs three jobs:
 
 1. **Quality + Unit** — lint, format check, typecheck, coverage,
    data/i18n validation
-2. **E2E (Playwright)** — Chromium smoke tests with failure artifact
+2. **API Quality + Unit** — API authentication, validation, ownership and storage tests
+3. **E2E (Playwright)** — Chromium smoke and authentication tests after both unit jobs, with failure artifact
    upload
 
 CI features: concurrency cancellation per ref, least-privilege
@@ -123,13 +155,19 @@ permissions (`contents: read`), dependency + Playwright browser caching.
 
 ## Documentation Map
 
-| File               | Purpose                                              |
-| ------------------ | ---------------------------------------------------- |
-| `README.md`        | This file — project overview and quick start         |
-| `documentation.md` | Technical architecture and maintenance guide         |
-| `AGENTS.md`        | Repository guidelines for contributors and AI agents |
-| `progress.md`      | Development log and change history                   |
-| `docs/*-spec.md`   | Game-level specification / design documents          |
+| File                                         | Purpose                                                           |
+| -------------------------------------------- | ----------------------------------------------------------------- |
+| `README.md`                                  | This file — project overview and quick start                      |
+| `documentation.md`                           | Technical architecture and maintenance guide                      |
+| `AGENTS.md`                                  | Repository guidelines for contributors and AI agents              |
+| `progress.md`                                | Development log and change history                                |
+| `docs/*-spec.md`                             | Game-level specification / design documents                       |
+| `docs/word-quest-email-auth.md`              | Current authentication, progress and offline behavior             |
+| `docs/email-password-production-cutover.md`  | Verified environment setup and manual production release/recovery |
+| `docs/email-password-authentication-plan.md` | Current release scope and implementation/acceptance history       |
+
+The earlier multi-provider plan, migration bridge guide and Dev probe record
+are historical references. Their old deployment instructions are superseded.
 
 ## Stack
 
@@ -139,6 +177,7 @@ permissions (`contents: read`), dependency + Playwright browser caching.
 - **Testing**: Node built-in test runner + Playwright E2E
 - **Quality**: ESLint + Prettier (`printWidth: 100`) + TypeScript checks
 - **PWA**: Service worker (`sw.js`) + `manifest.json`
+- **Cloud progress**: Azure managed Node 20 Functions + Cosmos DB; Entra External ID + MSAL
 - **Data**: JSON schemas (`schemas/`), XLSX/CSV sources, offline JS bundles
 
 ## Contribution Notes

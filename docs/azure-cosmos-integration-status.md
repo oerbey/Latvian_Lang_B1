@@ -2,6 +2,11 @@
 
 ## Email/password integration — 2026-10-14
 
+Release update, 2026-10-15: PR #211 merged into main at
+`7726f787768b3975c04be3a0692222218f64751e` with passing CI. Azure production release
+and live acceptance remain pending. Its public authConfig endpoint still returns 404. [The cutover guide](email-password-production-cutover.md) is the current
+configuration/release reference.
+
 The owner accepted the live Dev email/password/token path, refresh/logout and
 password reset at `ec247afba815119cdfd5cf01b390ceafbd510aca` (PR #207). The Free
 hosting feasibility gate is complete. Word Quest integration is deployed on Dev
@@ -15,6 +20,12 @@ and public settings are prepared; the approved application release and live
 production acceptance remain pending. No Cosmos mutation was performed by the
 agent. See [the integration guide](word-quest-email-auth.md) and
 [cutover record](email-password-production-cutover.md).
+
+## Historical records
+
+The dated sections below preserve earlier implementation and acceptance evidence.
+Their old principal-based authorization, rollout holds and remaining-work lists
+are superseded by the email/password guides linked above.
 
 ## Historical feasibility setup — 2026-10-11
 
@@ -31,7 +42,7 @@ Production remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`; its settings, pro
 authentication and database credentials are unchanged. No RTU configuration or
 Cosmos records were modified. See [the test setup and acceptance record](email-password-dev-probe.md).
 
-## Current direction — 2026-10-07
+## Historical direction — 2026-10-07
 
 The owner chose email/password-only accounts on Free hosting and does not need
 existing accounts/progress preserved. Remaining work is defined by the
@@ -190,7 +201,7 @@ function registration alone do not prove an end-to-end save works.
 The checklist below retains the original implementation plan; this section
 supersedes its previously unverified resource/settings prerequisites where stated.
 
-## Development completed
+## Historical implementation details
 
 | Date       | Commit               | Development                                                                                           |
 | ---------- | -------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -247,7 +258,7 @@ deployments were changed.
 - Guests remain local-only. Word Quest is the only game currently using cloud
   sync.
 
-## Remaining work, in recommended order
+## Historical remaining-work checklist — September 2026
 
 ### 1. Deploy and accept the dev implementation
 

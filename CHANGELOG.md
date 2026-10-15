@@ -21,6 +21,10 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Changed
 
+- Refresh the README and architecture guide for account/cloud features, API
+  development, SDK staging and the three CI jobs. Reconcile main merge versus
+  Azure deployment status and label superseded probe/migration instructions as
+  historical. The documentation update does not deploy production.
 - Word Quest uses hosted email/password sign-in, application-token cloud sync and
   server-derived External ID ownership, deployed and owner-accepted on Dev at
   `c806087` on 2026-10-14. Production cutover remains pending. Guest and
@@ -79,6 +83,11 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
   setting removed; deployed on Dev at `7ebbff8` on 2026-10-11. Microsoft
   sign-in and normal cloud sync were retained in that retirement build.
   Production still uses that authentication model; Dev now uses email/password.
+
+## Historical implementation notes — before email/password
+
+These entries retain earlier rollout evidence. Current behavior and release
+status are recorded under Unreleased and in the active authentication guides.
 
 ### Added
 

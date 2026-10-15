@@ -12,10 +12,12 @@ Saved and verified `MIGRATION_ISSUANCE_ENABLED=false` on Dev and removed its
 No records, containers or production settings were changed. Issuance is disabled
 even while the existing bridge build is still deployed.
 
-Removed the bridge endpoint, UI/module/styles, accounts helper, migration tests
-and route from the retirement branch; code removal awaits its Dev merge/deployment.
-Service-worker version v27 removes the obsolete module while retaining cloud-sync
-precaching. Current Microsoft sign-in and progress authentication remain intact.
+PR #204 removed the bridge endpoint, UI/module/styles, accounts helper, migration
+tests and route, and deployed to Dev on 2026-10-11 at
+`7ebbff8fe9e1d242e6043ab94ed8126dba2f27b3`. At retirement, service-worker v27
+removed the obsolete module while retaining Microsoft sign-in/cloud sync.
+Dev subsequently switched to email/password (now v30); follow the
+[current integration guide](word-quest-email-auth.md).
 
 The deployment-freeze instructions below and in draft PR #203 are superseded:
 the existing Free Dev workflow can deploy the retirement build to the same URL.

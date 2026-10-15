@@ -2,6 +2,11 @@
 
 ## Deployment boundary
 
+Current release status, 2026-10-15: Dev is accepted. PR #211 is merged into `main`
+at `7726f787768b3975c04be3a0692222218f64751e`, with passing CI. Production identity
+settings are prepared, but the manual Azure release and live production acceptance
+are pending. See [the cutover record](email-password-production-cutover.md).
+
 Prepared from accepted Dev `ec247afba815119cdfd5cf01b390ceafbd510aca`, after the
 owner confirmed real registration/login/API access/refresh/logout/password reset
 on Free hosting. PR #208 is deployed to Dev at
@@ -126,10 +131,9 @@ Dev recovery is the accepted probe/Microsoft game build above with its matching
 route gates and settings. New account records need not be visible through it.
 Never recover by weakening JWT checks.
 
-Production requires separate SPA/API registrations/settings, the exact production
-callback path, `progress_prod`, and the production workflow's authentication-bundle
-staging before its approved release. Both prepared workflows run
+Separate production registrations/settings, the exact callback and `progress_prod`
+are configured; the SDK staging workflow is merged into main. Both workflows run
 `node scripts/build-auth-client.mjs .swa-static`; local startup/E2E uses
-`npm run build:auth-client`. The production preparation branch preserves main's
+`npm run build:auth-client`. The merged production workflow preserves the
 manual release, exact-commit CI and approval gate, and stages the SDK for builds
 that include its script. See [the production cutover guide](email-password-production-cutover.md).

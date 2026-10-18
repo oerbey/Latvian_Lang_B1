@@ -28,11 +28,12 @@ progress is kept separate per account and can restore across browsers. Other
 games retain their existing local progress. Microsoft social login, account
 linking and progress migration are outside this release.
 
-**Release status, verified 2026-10-15:** Dev acceptance is complete. PR #211 is
-merged into `main` at `7726f787768b3975c04be3a0692222218f64751e`, with passing CI.
-Production identity configuration is prepared, but the manual Azure production
-release and its acceptance tests remain pending. A GitHub Pages deployment does
-not deploy the Azure API or complete that release.
+**Release status, accepted 2026-10-18:** Production runs
+`7726f787768b3975c04be3a0692222218f64751e`, deployed through the approved Azure
+release on 2026-10-16. Sign-in, cloud save, refresh/second-browser restore,
+logout/guest separation, password reset and two-account isolation pass. Final
+owner-reported record counts are 2 in `progress_prod`, 1 in `progress_dev`.
+The existing Free hosting plan is retained. GitHub Pages does not deploy the Azure API.
 
 - [Integration and offline behavior](docs/word-quest-email-auth.md)
 - [Production configuration, release and recovery](docs/email-password-production-cutover.md)

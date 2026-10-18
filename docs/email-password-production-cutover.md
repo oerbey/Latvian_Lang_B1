@@ -1,21 +1,30 @@
 # Email/password production cutover
 
-## Status — 2026-10-15
+## Status — 2026-10-18
 
 Accepted Dev: `c8060870772747670b47f0e364fc057887b78af0`. Automated checks and
 owner registration/login/reset/save/refresh/second-browser/logout/guest/isolation
-checks pass. Owner-reported External ID schema-2 Word Quest record counts are
-1 in `progress_dev`, 0 in `progress_prod`.
+checks pass. Before cutover, owner-reported External ID schema-2 Word Quest
+record counts were 1 in `progress_dev`, 0 in `progress_prod`.
 
-Production remains the Microsoft-only recovery build
-`cbed2cc6f70f245a3673548cc5f2deb57e764950`. Production registrations, permissions,
-flow assignment and public settings are configured and verified in Azure.
+Production now runs `7726f787768b3975c04be3a0692222218f64751e`. The Microsoft-only
+recovery build remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`. Production
+registrations, permissions, flow assignment and public settings are configured
+and verified in Azure.
 PR #211 merged into `main` at `7726f787768b3975c04be3a0692222218f64751e` on
 2026-10-14. Its [main CI run](https://github.com/oerbey/Latvian_Lang_B1/actions/runs/38613990816)
-passed. The manual Azure application release, approval and live production
-acceptance remain pending. On 2026-10-15 the production `/api/authConfig` still
-returns 404; the new API is not live. The separate GitHub Pages deployment does
-not deploy the Azure API. The setup record below was verified on 2026-10-14.
+passed. The owner explicitly approved starting the exact PR #211 release on
+2026-10-16. [Release run #2](https://github.com/oerbey/Latvian_Lang_B1/actions/runs/38943213266)
+passed release validation and all three CI jobs. The owner approved the production
+environment review; deployment succeeded. Checkout logs verify the deployed
+application is 7726f78, while workflow metadata references current main d4c4b1.
+Public production checks pass: health/authConfig 200 with production app IDs,
+anonymous session/read/write 401 with no-store, retired probes/migration 404,
+and callback/auth helper/SDK/license/SW v30 present. Owner acceptance and final
+storage placement passed by 2026-10-18: 2 records in `progress_prod`, 1 in
+`progress_dev`, with Dev unchanged from its pre-release count. The separate GitHub Pages
+deployment does not deploy the Azure API. The setup record below was verified on
+2026-10-14.
 
 ### Verified production setup
 
@@ -39,7 +48,7 @@ recovery remains the accepted Dev baseline; actual production reset is still an
 acceptance check. Setup used Latvian Learning Customers for registrations and
 Default Directory for hosting. No RTU directory was selected.
 
-## 1. Configure separate production applications
+## 1. Configure separate production applications — completed
 
 Use **Latvian Learning Customers**, tenant
 `9e6866a8-fb0e-43ba-b4bb-e993e4a68c20`, domain
@@ -67,7 +76,7 @@ new hosting resource are required.
 - Record both public app IDs, flow assignment, permissions and claim setup.
   No password, code, raw token or customer identity belongs in source control.
 
-## 2. Configure the existing production environment
+## 2. Configure the existing production environment — completed
 
 Use SWA **Latvian**, resource group **AZ-myWebApp**, existing subscription
 `10aa66d9-0316-488d-b11c-8e2362fd79bf`. Select its **production** environment.
@@ -91,7 +100,7 @@ Do not enable probe/migration settings or replace existing deployment secrets.
 Adding these settings does not replace the old application's handlers; the code
 cutover occurs at the approved release.
 
-## 3. Release the reviewed implementation
+## 3. Release the reviewed implementation — completed
 
 PR #211 merged the accepted Dev code, production SDK staging and main's existing
 release protections. The reviewed main candidate is
@@ -110,6 +119,28 @@ script skip SDK staging. Do not dispatch an email/password build before its
 production configuration is ready.
 
 ## 4. Production acceptance
+
+Completed evidence:
+
+| Check                                                  | Result                                           |
+| ------------------------------------------------------ | ------------------------------------------------ |
+| Release validation, quality/unit, API and browser CI   | Passed on the selected release commit            |
+| Production deployment and public endpoint/asset checks | Passed, 2026-10-16                               |
+| Email/password sign-in, save and refresh restore       | Owner confirmed pass                             |
+| Same-account restore in another browser                | Owner confirmed pass                             |
+| Direct logout and guest separation after refresh       | Owner confirmed pass                             |
+| Password reset and sign-in restoring progress          | Owner confirmed pass                             |
+| Second account isolation and first account restore     | Owner confirmed pass                             |
+| Final schema-2 External ID Word Quest counts           | Owner reported production 2, Dev 1 on 2026-10-18 |
+
+Registration/email verification was accepted on Dev. The owner reused customer
+accounts for production sign-in; a brand-new production signup was not separately
+reported. Distinct production/Dev app IDs are verified and automated validation
+rejects wrong audience/client; no live cross-environment bearer-token transfer
+was performed. No credentials, raw tokens or player records were inspected by
+the agent. The requested production rollout acceptance is complete.
+
+The following checklist is retained for future releases:
 
 - Verify deployment/CI SHA, public authConfig with the production app IDs, health,
   anonymous session/read/write rejection and retired probe/migration routes.

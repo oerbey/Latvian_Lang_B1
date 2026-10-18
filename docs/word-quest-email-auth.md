@@ -2,10 +2,11 @@
 
 ## Deployment boundary
 
-Current release status, 2026-10-15: Dev is accepted. PR #211 is merged into `main`
-at `7726f787768b3975c04be3a0692222218f64751e`, with passing CI. Production identity
-settings are prepared, but the manual Azure release and live production acceptance
-are pending. See [the cutover record](email-password-production-cutover.md).
+Current release status, 2026-10-18: production is deployed at
+`7726f787768b3975c04be3a0692222218f64751e` through the approved October 16 release.
+Owner login/save/restores/logout/guest/reset/isolation checks pass. Final counts
+are 2 in production, 1 in Dev, with Dev unchanged. See
+[the cutover record](email-password-production-cutover.md) for evidence and limits.
 
 Prepared from accepted Dev `ec247afba815119cdfd5cf01b390ceafbd510aca`, after the
 owner confirmed real registration/login/API access/refresh/logout/password reset
@@ -21,11 +22,11 @@ accepted direct sign-out, refresh remaining in guest mode without account XP,
 and live two-account isolation with the first account's progress retained.
 The owner reported schema-2 External ID Word Quest counts of **1 in progress_dev**
 and **0 in progress_prod**. Live Dev placement passes; the current container
-setting was not independently reinspected. Production remains the Microsoft-only recovery build
-`cbed2cc6f70f245a3673548cc5f2deb57e764950`. Separate production identity apps,
-permissions, flow and public settings are now prepared; the application release
-and live production acceptance remain pending. No database mutations were
-performed by the agent.
+setting was not independently reinspected during that Dev check. Production
+subsequently released 7726f78 and completed requested live acceptance. The
+Microsoft-only recovery build remains `cbed2cc6f70f245a3673548cc5f2deb57e764950`.
+Production uses separate identity apps/settings and its verified `progress_prod`
+container. No database mutations were performed by the agent.
 
 ## Application flow
 

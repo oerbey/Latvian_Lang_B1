@@ -25,9 +25,21 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
   development, SDK staging and the three CI jobs. Reconcile main merge versus
   Azure deployment status and label superseded probe/migration instructions as
   historical. The documentation update does not deploy production.
+- Finalize production deployment/acceptance evidence, environment record counts
+  and recovery references after the owner completed live checks on 2026-10-18.
+  This documentation update does not redeploy the application.
+
+## 2026-10-16 — Email/password production release (`7726f78`)
+
+Deployed through the manually approved Azure workflow on 2026-10-16. Owner
+login/save/restores/logout/guest/reset/isolation and final placement acceptance
+completed by 2026-10-18: production 2 records, Dev 1 (unchanged).
+
+### Changed
+
 - Word Quest uses hosted email/password sign-in, application-token cloud sync and
   server-derived External ID ownership, deployed and owner-accepted on Dev at
-  `c806087` on 2026-10-14. Production cutover remains pending. Guest and
+  `c806087` on 2026-10-14, followed by the accepted production release above. Guest and
   account progress have independent local namespaces; logout cancels stale work,
   renewal failures ask for sign-in, and conflicts require an explicit choice.
   The temporary probe APIs and legacy SWA principal authorization are retired.
@@ -39,7 +51,7 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 - Production release staging now includes the pinned authentication SDK bundle.
   Exact-SHA reusable CI and the existing production environment approval remain
   required; staging skips the SDK build for older recovery commits without it.
-  This workflow preparation does not deploy production.
+  The existing environment approval gate was retained for the production release.
 
 ### Fixed
 
@@ -70,8 +82,8 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 - Separate production customer SPA/API registrations, email/password flow,
   exact callback, logout hint claim and the three owner-approved delegated
   permissions. Public authentication settings are saved on existing Free
-  production hosting with `progress_prod` retained. Application cutover and
-  live production acceptance remain pending.
+  production hosting with `progress_prod` retained. The application cutover and
+  requested live production acceptance are complete.
 - Reproducible pinned MSAL bundle/license staging for Dev deployment and local
   startup/browser checks. Customer tenant/apps/user flow and Dev settings were
   accepted through the standalone probe; Dev game integration is also accepted.
@@ -82,12 +94,12 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
   helper and migration-only tests. Dev issuance is disabled and its accounts
   setting removed; deployed on Dev at `7ebbff8` on 2026-10-11. Microsoft
   sign-in and normal cloud sync were retained in that retirement build.
-  Production still uses that authentication model; Dev now uses email/password.
+  Both production and Dev now use email/password.
 
 ## Historical implementation notes — before email/password
 
 These entries retain earlier rollout evidence. Current behavior and release
-status are recorded under Unreleased and in the active authentication guides.
+status are recorded in the dated release above and active authentication guides.
 
 ### Added
 

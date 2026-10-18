@@ -1,11 +1,13 @@
 # Azure Cosmos DB integration: status and remaining work
 
-## Email/password integration — 2026-10-14
+## Email/password integration — 2026-10-18
 
-Release update, 2026-10-15: PR #211 merged into main at
-`7726f787768b3975c04be3a0692222218f64751e` with passing CI. Azure production release
-and live acceptance remain pending. Its public authConfig endpoint still returns 404. [The cutover guide](email-password-production-cutover.md) is the current
-configuration/release reference.
+Production runs `7726f787768b3975c04be3a0692222218f64751e`, deployed through
+approved release run #2 on 2026-10-16. Public authConfig now returns 200 with
+production app IDs; anonymous session/read/write are rejected. Owner production
+account/game tests pass, and final counts reported on 2026-10-18 are 2 in
+`progress_prod`, 1 in `progress_dev`. Dev remains unchanged. See
+[the cutover guide](email-password-production-cutover.md) for evidence and limits.
 
 The owner accepted the live Dev email/password/token path, refresh/logout and
 password reset at `ec247afba815119cdfd5cf01b390ceafbd510aca` (PR #207). The Free
@@ -14,10 +16,10 @@ at `c8060870772747670b47f0e364fc057887b78af0`: application-token progress handle
 External ID ownership (schema 2), independent local namespaces, a registered
 callback return page and removed probe APIs. The owner accepted cloud save,
 refresh/second-browser restore, direct logout, guest separation and two-account
-isolation. Owner-reported External ID schema-2 Word Quest counts are 1 in
-progress_dev and 0 in progress_prod. Production identity apps/flow/permissions
-and public settings are prepared; the approved application release and live
-production acceptance remain pending. No Cosmos mutation was performed by the
+isolation. Before cutover, owner-reported External ID schema-2 Word Quest counts
+were 1 in progress_dev and 0 in progress_prod. Separate production identity
+apps/flow/permissions and public settings are configured, and the production
+release and requested live acceptance are complete. No Cosmos mutation was performed by the
 agent. See [the integration guide](word-quest-email-auth.md) and
 [cutover record](email-password-production-cutover.md).
 

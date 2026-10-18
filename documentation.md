@@ -90,9 +90,10 @@ Reusable modules consumed by games and the core canvas:
 
 ### 2.5 Word Quest Authentication and Progress
 
-This describes the code merged into `main`, accepted on Dev. As of 2026-10-15,
-the Azure production application release and live acceptance remain pending;
-see [the cutover record](docs/email-password-production-cutover.md).
+This describes the code deployed to Azure production on 2026-10-16 at
+`7726f787768b3975c04be3a0692222218f64751e`, with production acceptance completed
+on 2026-10-18. See [the cutover record](docs/email-password-production-cutover.md)
+for live test evidence, environment separation and recovery.
 
 - The browser uses the pinned MSAL SDK and hosted External ID email/password
   flow. Microsoft hosts credential entry, verification and password recovery.

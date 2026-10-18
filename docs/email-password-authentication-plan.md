@@ -1,14 +1,16 @@
 # Email/password authentication on Free hosting
 
-## Status and decisions — 2026-10-15
+## Status and decisions — 2026-10-18
 
 This is the replacement implementation plan for the email/password-only release.
 It supersedes the multi-provider authentication plan's remaining implementation
-chunks and the paid-resource hold in draft PR #203. Implementation and Dev
-acceptance are complete; production identity configuration is prepared. PR #211
-merged into `main` at `7726f787768b3975c04be3a0692222218f64751e` with passing CI.
-The manually approved Azure production release and live acceptance remain pending.
-For current setup and release steps, use [the cutover guide](email-password-production-cutover.md).
+chunks and the paid-resource hold in draft PR #203. The implementation is deployed
+to production at `7726f787768b3975c04be3a0692222218f64751e` through the approved
+2026-10-16 Azure release, with live account/game acceptance completed by
+2026-10-18. Owner-reported record counts are production 2, Dev 1; Dev remains
+unchanged. The email/password rollout is complete on existing Free hosting.
+Detailed evidence and its verification limits are in
+[the cutover guide](email-password-production-cutover.md).
 
 The owner is currently the only user and explicitly does not require preservation
 of existing accounts or progress. New accounts can start fresh. There is no
@@ -166,7 +168,7 @@ separation after refresh and live two-account isolation with the first account's
 progress retained. Owner-reported schema-2 External ID Word Quest counts are 1
 in `progress_dev` and 0 in `progress_prod`, confirming live Dev placement. Available
 automated/live Dev acceptance is complete. Production setup is also recorded in
-Step 5; the Azure release and its live acceptance remain pending.
+Step 5; production deployment and requested live acceptance are complete.
 The existing exact `/auth-probe.html` callback becomes a minimal sign-in return
 page and redirects to Word Quest after MSAL completes it. This retains the
 already approved Dev registration; the temporary probe endpoints are removed.
@@ -221,8 +223,10 @@ Learning Customers. Public authentication settings are saved and verified in
 the existing Free SWA's production environment; `progress_prod` is retained.
 PR #211 preserves release approval/exact-SHA CI and stages the public SDK.
 PR #211 is merged into main at `7726f787768b3975c04be3a0692222218f64751e`, with
-passing CI. Approved Azure release and production acceptance remain pending. Public
-IDs and recovery are in [the cutover guide](email-password-production-cutover.md).
+passing CI. The approved Azure release deployed that exact commit on October 16;
+the owner accepted login/save/restores/logout/guest/reset/isolation and final
+production 2 / Dev 1 placement by October 18. Public IDs, detailed verification
+limits and recovery are in [the cutover guide](email-password-production-cutover.md).
 
 - Configure separate production SPA/API registrations, exact production callback
   URLs and production issuer/audience/scope/client settings. Retain `progress_prod`.

@@ -324,10 +324,8 @@ test.describe('cached guest offline play', () => {
     const xp = await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp);
     await page.context().setOffline(true);
     await page.reload();
+    await expect(page.locator('#wq-title-xp')).toHaveText(String(xp));
     await expect(page.locator('#wq-btn-play')).toBeEnabled();
-    await expect
-      .poll(() => page.evaluate(() => JSON.parse(window.render_game_to_text()).xp))
-      .toBe(xp);
     await earnXP(page);
     const updatedXP = await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp);
     expect(updatedXP).toBeGreaterThan(xp);
@@ -336,10 +334,8 @@ test.describe('cached guest offline play', () => {
     const card = page.getByRole('article', { name: 'Word Quest' });
     await expect(card.getByText(String(updatedXP), { exact: true })).toBeVisible();
     await card.getByRole('link', { name: 'Continue Word Quest' }).click();
+    await expect(page.locator('#wq-title-xp')).toHaveText(String(updatedXP));
     await expect(page.locator('#wq-btn-play')).toBeEnabled();
-    await expect
-      .poll(() => page.evaluate(() => JSON.parse(window.render_game_to_text()).xp))
-      .toBe(updatedXP);
   });
 });
 

@@ -6,6 +6,14 @@ const tenantId = '11111111-1111-4111-8111-111111111111';
 const authority = 'https://example.ciamlogin.com/';
 const issuerHost = `${tenantId}.ciamlogin.com`;
 
+test.afterEach(async ({ context }, testInfo) => {
+  if (testInfo.status === testInfo.expectedStatus) return;
+  for (const page of context.pages()) {
+    const [details] = await page.locator('#llb1-error-overlay pre').allTextContents();
+    if (details) console.error(details);
+  }
+});
+
 async function configureDiscovery(page, discoveredIssuerHost, callbackMode = null) {
   let nonce;
   let account = 'A';

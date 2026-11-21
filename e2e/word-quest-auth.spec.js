@@ -145,7 +145,7 @@ test('signed-in XP saves/restores; guest and second account progress remain sepa
   await expect(page.locator('#wq-sync-status')).toContainText('Cloud sync ready');
   expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(xpA);
   await page.screenshot({ path: testInfo.outputPath('signed-in-desktop.png'), fullPage: true });
-  await page.locator('#wq-logout-link').click();
+  await page.locator('#site-sign-out').click();
   await expect(page.locator('#wq-sync-status')).toHaveText(
     'Sign in to sync progress across devices.',
   );
@@ -157,7 +157,7 @@ test('signed-in XP saves/restores; guest and second account progress remain sepa
   expect(saves).toHaveLength(savedCount);
   const guestXP = await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp);
   await page.evaluate(() => sessionStorage.setItem('fixture-next', 'B'));
-  await page.locator('#wq-login-link').click();
+  await page.locator('#site-sign-in').click();
   await expect(page.locator('#wq-sync-status')).toContainText('New account');
   expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(0);
   expect(records.has(owners.B)).toBe(false);
@@ -165,7 +165,7 @@ test('signed-in XP saves/restores; guest and second account progress remain sepa
   await expect(page.locator('#wq-sync-status')).toHaveText('Saved to cloud.');
   expect(saves.at(-1).owner).toBe(owners.B);
   await returnTitle(page);
-  await page.locator('#wq-logout-link').click();
+  await page.locator('#site-sign-out').click();
   await expect(page.locator('#wq-sync-status')).toHaveText(
     'Sign in to sync progress across devices.',
   );
@@ -191,7 +191,7 @@ test('expired renewal retains account local progress without a blind cloud write
   expect(saves).toHaveLength(0);
   expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBeGreaterThan(0);
   await returnTitle(page);
-  await expect(page.locator('#wq-login-link')).toHaveText('Sign in again');
+  await expect(page.locator('#site-sign-in')).toContainText('Sign in again');
 });
 
 test('logout during an outstanding load ignores the old account response', async ({ page }) => {
@@ -211,7 +211,7 @@ test('logout during an outstanding load ignores the old account response', async
   await page.goto('/word-quest.html');
   await expect(page.locator('#wq-auth-label')).toHaveText('Signed in');
   await expect(page.locator('#wq-sync-status')).toHaveText('Loading cloud progress…');
-  await page.locator('#wq-logout-link').click();
+  await page.locator('#site-sign-out').click();
   await expect(page.locator('#wq-sync-status')).toHaveText(
     'Sign in to sync progress across devices.',
   );
@@ -233,7 +233,12 @@ test('revision conflict requires an explicit choice before any retry', async ({ 
   });
   await page.goto('/word-quest.html');
   await expect(page.locator('#wq-sync-status')).toContainText('New account');
-  await earnXP(page);
+  await page.locator('#wq-btn-play').click();
+  await page.locator('.wq-world-card').filter({ hasText: 'Coming Verb Quest' }).click();
+  await page.locator('#wq-node-path .wq-node').first().click();
+  await expect(page.locator('#wq-enemy-label')).toHaveText('Meaning challenge');
+  const game = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page.getByRole('button', { name: game.battle.challenge.correct, exact: true }).click();
   await expect(page.locator('#wq-sync-modal')).toBeVisible();
   expect(saves).toHaveLength(1);
   await page.locator('#wq-sync-use-cloud').click();
@@ -266,14 +271,14 @@ test('logout during a pending save cannot apply its response to another account'
   await page.goto('/word-quest.html');
   await expect(page.locator('#wq-sync-status')).toContainText('New account');
   await earnXP(page);
-  await expect(page.locator('#wq-sync-status')).toHaveText('Saving to cloud…');
+  await expect.poll(() => saves.length).toBe(1);
   await returnTitle(page);
-  await page.locator('#wq-logout-link').click();
+  await page.locator('#site-sign-out').click();
   await expect(page.locator('#wq-sync-status')).toHaveText(
     'Sign in to sync progress across devices.',
   );
   await page.evaluate(() => sessionStorage.setItem('fixture-next', 'B'));
-  await page.locator('#wq-login-link').click();
+  await page.locator('#site-sign-in').click();
   await expect(page.locator('#wq-sync-status')).toContainText('New account');
   release();
   expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(0);
@@ -320,11 +325,21 @@ test.describe('cached guest offline play', () => {
     await page.context().setOffline(true);
     await page.reload();
     await expect(page.locator('#wq-btn-play')).toBeEnabled();
-    expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(xp);
+    await expect
+      .poll(() => page.evaluate(() => JSON.parse(window.render_game_to_text()).xp))
+      .toBe(xp);
     await earnXP(page);
-    expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBeGreaterThan(
-      xp,
-    );
+    const updatedXP = await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp);
+    expect(updatedXP).toBeGreaterThan(xp);
+    await page.goto('/my-progress.html');
+    await expect(page.locator('#progress-notice')).toContainText('Showing guest progress');
+    const card = page.getByRole('article', { name: 'Word Quest' });
+    await expect(card.getByText(String(updatedXP), { exact: true })).toBeVisible();
+    await card.getByRole('link', { name: 'Continue Word Quest' }).click();
+    await expect(page.locator('#wq-btn-play')).toBeEnabled();
+    await expect
+      .poll(() => page.evaluate(() => JSON.parse(window.render_game_to_text()).xp))
+      .toBe(updatedXP);
   });
 });
 
@@ -337,8 +352,8 @@ test('failed provider logout cannot replay an old battle into the guest namespac
   await earnXP(page);
   await expect(page.locator('#wq-sync-status')).toHaveText('Saved to cloud.');
   await returnTitle(page);
-  await page.locator('#wq-logout-link').click();
-  await expect(page.locator('#wq-sync-status')).toContainText(
+  await page.locator('#site-sign-out').click();
+  await expect(page.locator('#site-account-status')).toContainText(
     'Provider sign-out could not complete',
   );
   expect(await page.evaluate(() => JSON.parse(window.render_game_to_text()).xp)).toBe(0);
@@ -367,4 +382,36 @@ test('same-owner reconnection preserves an active battle when cloud progress agr
   const after = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
   expect(after.battle.challenge.word).toBe(before.battle.challenge.word);
   expect(after.xp).toBe(before.xp);
+});
+
+test('existing Word Quest saves and pending edits migrate once for each owner', async ({
+  page,
+}) => {
+  const accountKey = `llb1:word-quest:v2:${owners.A}`;
+  const guestKey = 'llb1:word-quest:v2:guest';
+  const records = new Map([
+    [owners.A, { userId: owners.A, gameId: 'word-quest', revision: 3, data: state(20) }],
+  ]);
+  const { saves } = await fixture(page, { records });
+  await page.addInitScript(
+    ({ accountKey, guestKey, local, pending, guest }) => {
+      localStorage.setItem(accountKey, JSON.stringify(local));
+      localStorage.setItem(`${accountKey}:sync`, JSON.stringify({ cloudRevision: 3, pending }));
+      localStorage.setItem(guestKey, JSON.stringify(guest));
+    },
+    { accountKey, guestKey, local: state(42), pending: state(40), guest: state(11) },
+  );
+
+  await page.goto('/word-quest.html');
+  await expect(page.locator('#wq-sync-status')).toHaveText('Saved to cloud.');
+  expect(saves.map(({ owner, body }) => [owner, body.expectedRevision, body.data.xp])).toEqual([
+    [owners.A, 3, 42],
+  ]);
+  await page.reload();
+  await expect(page.locator('#wq-sync-status')).toHaveText('Cloud sync ready.');
+  await expect(page.locator('#wq-title-xp')).toHaveText('42');
+  expect(saves).toHaveLength(1);
+  await page.locator('#site-sign-out').click();
+  await expect(page.locator('#wq-title-xp')).toHaveText('11');
+  expect(saves).toHaveLength(1);
 });

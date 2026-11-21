@@ -17,11 +17,17 @@ or database mutations are part of this change.
 
 ## Application flow
 
+Word Quest and the original Darbības Vārdi use shared sign-in and cloud
+synchronization. My Progress shows both account summaries using derived metrics.
+See the [platform checkpoints](platform-progress-plan.md) for test status.
+
 - Sign in / Create account launches the hosted email/password flow with the
   existing Dev SPA/API registrations and delegated scope. Credentials remain
   inside Microsoft's hosted pages.
 - The exact registered `/auth-probe.html` path now completes MSAL's redirect and
-  returns to `/word-quest.html`. MSAL v5 receives
+  returns to the exact published page that initiated sign-in/out (Home when the
+  saved destination is absent or invalid). Query strings, fragments, callback/API
+  paths and external URLs are rejected. MSAL v5 receives
   `handleRedirectPromise({navigateToLoginRequestUrl: false})`; callback errors
   display only safe codes and a return link. There is no automatic progress write
   as part of the callback.
@@ -29,7 +35,8 @@ or database mutations are part of this change.
   and the fixed callback path. `/api/authSession` validates the access token and
   returns only the hashed owner key used for local namespaces. Both use no-store.
 - Tokens use `X-Latvian-Authorization`, never URLs, logs, game storage or the
-  platform-reserved Authorization header. MSAL owns sessionStorage token caching
+  platform-reserved Authorization header. Current source lets MSAL own shared
+  browser localStorage token caching (the deployed baseline uses sessionStorage)
   and silent renewal; interaction-required failures ask for explicit sign-in.
   A write is not replayed automatically after expired/forbidden authentication.
 - Both progress handlers validate tokens before accessing Cosmos. The former SWA
@@ -46,6 +53,10 @@ The server derives `extid:` + SHA-256(verified tid + NUL + verified oid) and wri
 `${ownerKey}:word-quest` in the existing `/userId` partition. Stored metadata uses
 `identityProvider: external-id` and `ownershipSchemaVersion: 2`. Request-supplied
 owner/provider/schema metadata never chooses a partition.
+
+The deployed baseline uses the following keys. Current source migrates each
+owner into the shared browser store on first use and retains these legacy keys
+as a backup. See the [Word Quest integration notes](platform-progress-plan.md#step-5-word-quest-integration).
 
 Guest state uses `llb1:word-quest:v2:guest`; authenticated state uses
 `llb1:word-quest:v2:${ownerKey}` with a corresponding `:sync` key. Old unscoped
@@ -72,7 +83,8 @@ app account. Enable the `login_hint` optional **ID** claim in Token configuratio
 for the Dev SPA (and the separate production SPA during setup). Sign in again to
 obtain the new claim. Email addresses are never substituted for this hint. If the
 claim is absent, provider logout retains its account picker; local logout still
-clears the session. Service worker v30 refreshes the cached authentication helper.
+clears the session. The deployed baseline uses service worker v30; current source
+stages v35 with the shared login and progress modules and the My Progress dashboard.
 See [Microsoft's promptless logout guidance](https://learn.microsoft.com/en-us/entra/msal/javascript/browser/logout#promptless-logout).
 
 Guest play works offline after assets are cached, including refresh and visited

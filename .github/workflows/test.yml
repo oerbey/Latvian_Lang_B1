@@ -45,6 +45,8 @@ jobs:
         run: npm run validate:data
       - name: Validate i18n
         run: npm run validate:i18n
+      - name: Validate generated progress API contracts
+        run: npm run validate:progress-api
 
   api-quality:
     name: API Quality + Unit

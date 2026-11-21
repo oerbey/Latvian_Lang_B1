@@ -21,7 +21,12 @@ async function saveProgressHandler(request, dependencies = {}) {
     };
   }
 
-  const validation = validateSaveRequest(body);
+  let validation;
+  try {
+    validation = await validateSaveRequest(body);
+  } catch {
+    return { status: 503, jsonBody: { error: 'progress service unavailable' } };
+  }
   if (validation.error) {
     return {
       status: 400,

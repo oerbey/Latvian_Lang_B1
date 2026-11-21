@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v30';
+const CACHE_VERSION = 'v35';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -23,6 +23,10 @@ const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 const CORE_ASSETS = [
   './',
   './index.html',
+  './my-progress.html',
+  './src/my-progress/index.js',
+  './src/my-progress/styles.css',
+  './i18n/offline.js',
   './styles.css',
   './theme.js',
   './scripts/page-init.js',
@@ -43,10 +47,22 @@ const CORE_ASSETS = [
   './src/lib/storage.js',
   './src/lib/cloud-progress.js',
   './src/lib/email-auth.js',
+  './src/lib/auth-sdk.js',
+  './src/lib/auth-return.js',
+  './src/lib/site-account.js',
+  './src/lib/exercise-registry.js',
+  './src/lib/progress/index.js',
+  './src/lib/progress-store.js',
+  './src/lib/progress-sync.js',
+  './src/lib/progress/common.js',
+  './src/lib/progress/word-quest.js',
+  './src/lib/progress/darbibas-vards.js',
+  './src/lib/progress/word-quest-worlds.js',
   './src/lib/auth-probe-errors.js',
   './assets/vendor/msal-browser/msal-browser.min.js',
   './word-quest.html',
   './src/games/word-quest/main.js',
+  './src/games/word-quest/legacy-progress.js',
   './src/games/word-quest/styles.css',
   './src/lib/utils.js',
   './src/lib/words-data.js',
@@ -57,6 +73,14 @@ const CORE_ASSETS = [
   './character-traits.html',
   './conjugation-sprint.html',
   './darbibas-vards.html',
+  './assets/app.js',
+  './assets/styles.css',
+  './src/games/darbibas-vards/account-progress.js',
+  './src/games/darbibas-vards/legacy-progress.js',
+  './src/lib/matching-game.js',
+  './src/lib/matching-game/constants.js',
+  './src/lib/matching-game/render.js',
+  './src/lib/matching-game/storage.js',
   './darbibas-vardi-v2.html',
   './decl6-detective.html',
   './duty-dispatcher.html',

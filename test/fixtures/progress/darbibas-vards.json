@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "stats": {
+    "abonēt|to subscribe": { "correct": 3, "incorrect": 1, "lastSeen": 1794650400000 },
+    "apmeklēt|to visit": { "correct": 0, "incorrect": 2, "lastSeen": 1794650460000 }
+  },
+  "settings": {
+    "language": "ru",
+    "boardSize": 6,
+    "mode": "locked",
+    "lockedSetSize": 10,
+    "prioritizeMistakes": true
+  },
+  "lockedSet": {
+    "order": ["abonēt|to subscribe", "apmeklēt|to visit", "atbildēt|to answer"],
+    "cursor": 2,
+    "lastSliceStart": 0,
+    "priorityChain": { "apmeklēt|to visit": 1 }
+  },
+  "recentSets": [["abonēt|to subscribe", "apmeklēt|to visit"]],
+  "currentBoard": {
+    "itemIds": ["abonēt|to subscribe", "apmeklēt|to visit"],
+    "matchedIds": ["abonēt|to subscribe"],
+    "wrong": 2
+  }
+}

@@ -84,6 +84,17 @@ Reusable modules consumed by games and the core canvas:
 - `utils.js` — general-purpose utility functions
 - `words-data.js` — word data loader (chunked JSON)
 
+### 2.5 Platform accounts and progress
+
+Shared navigation loads the pinned MSAL SDK on demand and verifies the active
+account through the API. Account changes invalidate previous progress requests.
+Callbacks return to a validated published page. Word Quest and Darbības Vārdi
+use separate guest and account stores with revisioned cloud synchronization.
+
+The summary API derives account metrics from the verified owner's partition.
+My Progress shows both exercises, plus a catalogue of the remaining exercises.
+See the [progress contracts and implementation plan](docs/platform-progress-plan.md).
+
 ## 3. Repository Layout
 
 ```
@@ -137,6 +148,7 @@ Treat these as generated outputs — **do not hand-edit**:
 - `data/personality/words.json`
 - Offline bundles: `data/words.offline.js`, `data/week1.offline.js`,
   `data/endings-builder/offline.js`, `i18n/offline.js`
+- API-local progress contracts and vocabulary IDs: `api/generated/progress-contracts/`
 
 ### 4.3 JSON Schemas
 
@@ -155,6 +167,9 @@ npm run build:words:chunks     # Split words into chunks
 npm run build:personality      # CSV → personality/words.json
 npm run build:offline          # Generate offline JS bundles
 npm run build:all              # Run entire pipeline
+npm run build:auth-client      # Stage pinned public MSAL SDK/license (not a data build)
+npm run build:progress-api     # Package shared progress contracts and vocabulary IDs for API deployment
+npm run validate:progress-api  # Verify committed API artifacts without changing files
 ```
 
 ## 5. Quality Gates
@@ -211,6 +226,13 @@ E2E tests in `e2e/`:
 - `sw.js`: Service worker with cache strategies and offline behaviour
 - `manifest.json`: Install metadata and icons
 - `scripts/page-init.js`: Service worker registration and update prompt
+
+Service worker v35 in current source precaches the shared account/progress modules and
+the My Progress dashboard. Private
+APIs, `/.auth` and callback HTML/JS bypass caches. Guest play can work offline
+after assets are cached. If identity cannot be verified on reload, Word Quest
+opens the guest namespace; account-local progress remains stored for the next
+verified sign-in. See [offline and recovery details](docs/word-quest-email-auth.md).
 
 When adding new pages or assets that must work offline:
 

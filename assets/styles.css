@@ -684,3 +684,31 @@ body[data-bs-theme='dark'] .dv-page .dv-speak-btn[aria-pressed='true'] {
     transform: none !important;
   }
 }
+
+#dv-sync-status {
+  margin-block: 0.75rem;
+  color: var(--dp-muted);
+}
+
+#dv-learning-summary,
+#dv-coverage {
+  margin: 0.35rem 0 0;
+  color: var(--dp-muted);
+}
+
+#dv-sync-dialog {
+  max-width: min(28rem, calc(100% - 2rem));
+  color: var(--dp-text);
+  background: var(--dp-surface);
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  padding: 0;
+}
+
+#dv-sync-dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.dp-ex-shell[hidden] {
+  display: none;
+}

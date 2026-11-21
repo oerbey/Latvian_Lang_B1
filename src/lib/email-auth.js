@@ -1,8 +1,13 @@
-/** MSAL owns credentials/token caching; this module holds only the verified owner for this page. */
+import { loadAuthSdk } from './auth-sdk.js';
+import { rememberAuthReturn } from './auth-return.js';
+
+/** MSAL owns the shared browser cache; application events carry no credentials or owner claims. */
 export function createEmailAuth({
   fetchImpl = (...args) => fetch(...args),
-  sdk = () => window.msal,
+  sdk = loadAuthSdk,
   location = () => window.location,
+  returnStorage = () => window.sessionStorage,
+  channel = () => (window.BroadcastChannel ? new window.BroadcastChannel('llb1:auth') : null),
 } = {}) {
   let initialization;
   let client;
@@ -10,6 +15,84 @@ export function createEmailAuth({
   let session;
   let generation = 0;
   let locallySignedOut = false;
+  let msal;
+  let knownAccountId = null;
+  const listeners = new Set();
+  let crossTab;
+  let callbackId;
+
+  function invalidate(reason) {
+    generation++;
+    session = null;
+    for (const listener of listeners) {
+      try {
+        listener({ reason });
+      } catch {
+        // A view failure must never prevent logout or other views from invalidating.
+      }
+    }
+  }
+
+  function refreshClient(reason) {
+    client.removeEventCallback?.(callbackId);
+    client = null;
+    initialization = null;
+    invalidate(reason);
+  }
+
+  function accountChanged(eventType) {
+    if (!client) return;
+    const accountId = client.getActiveAccount()?.homeAccountId || null;
+    if (accountId === knownAccountId) {
+      if (accountId && eventType === msal.EventType?.LOGIN_SUCCESS) {
+        locallySignedOut = false;
+        refreshClient('refresh');
+      }
+      return;
+    }
+    knownAccountId = accountId;
+    locallySignedOut = !accountId;
+    // MSAL imports cross-tab encrypted entries asynchronously. A fresh initialized
+    // instance reads the complete cache before token lookup can prune missing entries.
+    if (accountId) refreshClient('account-changed');
+    else invalidate('signed-out');
+  }
+
+  function connectEvents() {
+    knownAccountId = client.getActiveAccount()?.homeAccountId || null;
+    const eventTypes = msal.EventType || {};
+    callbackId = client.addEventCallback?.((event) => {
+      if (
+        [
+          eventTypes.LOGIN_SUCCESS,
+          eventTypes.LOGOUT_SUCCESS,
+          eventTypes.ACTIVE_ACCOUNT_CHANGED,
+        ].includes(event.eventType)
+      )
+        accountChanged(event.eventType);
+    });
+    try {
+      crossTab?.close?.();
+      crossTab = channel();
+      crossTab?.addEventListener('message', ({ data }) => {
+        if (data === 'signed-out') {
+          locallySignedOut = true;
+          invalidate('signed-out');
+        } else if (data === 'signed-in') {
+          const epoch = generation;
+          void initialization
+            ?.then((initialized) => {
+              if (generation !== epoch || client !== initialized) return;
+              locallySignedOut = false;
+              refreshClient('account-changed');
+            })
+            .catch(() => {});
+        }
+      });
+    } catch {
+      // SDK events and focus reconciliation remain available if messaging is blocked.
+    }
+  }
 
   async function initialize() {
     if (!initialization) {
@@ -24,23 +107,37 @@ export function createEmailAuth({
         ) {
           throw new Error('Invalid callback');
         }
-        client = new (sdk().PublicClientApplication)({
+        msal = await sdk();
+        client = new msal.PublicClientApplication({
           auth: {
             clientId: config.clientId,
             authority: config.authority,
             knownAuthorities: config.knownAuthorities,
             redirectUri,
           },
-          cache: { cacheLocation: 'sessionStorage' },
+          cache: { cacheLocation: 'localStorage' },
         });
-        await client.initialize();
+        // Two first-open tabs must not generate competing SDK cache-encryption cookies.
+        if (globalThis.navigator?.locks) {
+          await navigator.locks.request('llb1:auth-cache', () => client.initialize());
+        } else await client.initialize();
         const result = await client.handleRedirectPromise({ navigateToLoginRequestUrl: false });
         const accounts = client.getAllAccounts();
         const account =
           result?.account ||
           client.getActiveAccount() ||
           (accounts.length === 1 ? accounts[0] : null);
-        if (account) client.setActiveAccount(account);
+        if (account && client.getActiveAccount()?.homeAccountId !== account.homeAccountId)
+          client.setActiveAccount(account);
+        connectEvents();
+        if (result?.account) {
+          // Other tabs can receive MSAL events before the redirect cache is complete.
+          try {
+            crossTab?.postMessage('signed-in');
+          } catch {
+            // SDK events and focus reconciliation still apply.
+          }
+        }
         return client;
       })().catch((error) => {
         initialization = null;
@@ -53,7 +150,7 @@ export function createEmailAuth({
   function isInteractionRequired(error) {
     if (!client) return false;
     return Boolean(
-      sdk()?.InteractionRequiredAuthError && error instanceof sdk().InteractionRequiredAuthError,
+      msal?.InteractionRequiredAuthError && error instanceof msal.InteractionRequiredAuthError,
     );
   }
 
@@ -63,7 +160,7 @@ export function createEmailAuth({
       scopes: [config.scope],
       account,
       // Full-page callbacks do not implement MSAL's popup/iframe bridge.
-      cacheLookupPolicy: sdk().CacheLookupPolicy.AccessTokenAndRefreshToken,
+      cacheLookupPolicy: msal.CacheLookupPolicy.AccessTokenAndRefreshToken,
     });
     if (
       epoch !== generation ||
@@ -106,6 +203,11 @@ export function createEmailAuth({
           user: currentSessionUser(),
         };
       const payload = await response.json();
+      if (
+        epoch !== generation ||
+        client.getActiveAccount()?.homeAccountId !== account.homeAccountId
+      )
+        return { status: 'anonymous', user: null };
       if (!/^extid:[a-f0-9]{64}$/.test(payload?.userId || '')) throw new Error('Invalid session');
       const user = { userId: payload.userId };
       session = { account, user };
@@ -126,10 +228,15 @@ export function createEmailAuth({
 
   async function signIn() {
     await initialize();
+    rememberAuthReturn(location().pathname, returnStorage());
     locallySignedOut = false;
-    generation++;
-    session = null;
-    await client.loginRedirect({ scopes: [config.scope], prompt: 'login' });
+    invalidate('signing-in');
+    try {
+      await client.loginRedirect({ scopes: [config.scope], prompt: 'login' });
+    } catch (error) {
+      invalidate('refresh');
+      throw error;
+    }
   }
 
   async function signOut() {
@@ -137,10 +244,15 @@ export function createEmailAuth({
     const hint = account?.loginHint || account?.idTokenClaims?.login_hint;
     const logoutHint = typeof hint === 'string' && hint ? hint : undefined;
     locallySignedOut = true;
-    generation++;
-    session = null;
+    invalidate('signed-out');
+    try {
+      crossTab?.postMessage('signed-out');
+    } catch {
+      // The SDK still propagates cache/account removal to other tabs.
+    }
     if (!client) return;
     try {
+      rememberAuthReturn(location().pathname, returnStorage());
       // Clear all app accounts so refresh cannot silently select a different cached learner.
       await client.logoutRedirect({
         logoutHint,
@@ -152,7 +264,24 @@ export function createEmailAuth({
     }
   }
 
-  return { initialize, getCurrentUser, getAccessToken, signIn, signOut, isInteractionRequired };
+  /** Subscribers invalidate account views synchronously, then reverify identity for a new account. */
+  function onAuthChange(listener) {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }
+
+  return {
+    initialize,
+    getCurrentUser,
+    getAccessToken,
+    signIn,
+    signOut,
+    isInteractionRequired,
+    onAuthChange,
+    reconcileAccount: () => {
+      if (client) accountChanged();
+    },
+  };
 }
 
 const auth = createEmailAuth();
@@ -162,3 +291,5 @@ export const getAccessToken = auth.getAccessToken;
 export const signIn = auth.signIn;
 export const signOut = auth.signOut;
 export const isInteractionRequired = auth.isInteractionRequired;
+export const onAuthChange = auth.onAuthChange;
+export const reconcileAccount = auth.reconcileAccount;

@@ -325,3 +325,211 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
 - Dev SPA needs the optional login_hint ID claim; requested the owner enable it in Latvian Learning Customers only, then sign in again after deployment. Browser inventory has no open portal tab; no tenant navigation or registration setting was changed by the agent. Production needs the same claim when its separate SPA is configured.
 - Bumped the service worker to v30 so the cached authentication helper updates. Unit tests cover both hint sources and invalid/missing hints; a real MSAL synthetic callback/logout test checks the outgoing hint and guest return. Live direct logout acceptance remains pending configuration and deployment.
 - Node 20 verification: root 159/API 13 and all 38 browser tests pass, including the real SDK hinted logout and existing account/guest isolation cases. Data/i18n, lint, format, typecheck and diff checks pass. Optional claim configuration is not yet confirmed; no production configuration or release was performed.
+
+## 2026-11-14 - Platform progress Step 1: registry and contracts
+
+- User approved the platform progress roadmap with the original Darbības Vārdi
+  matching exercise as the first pilot, shared browser-tab login, summary/resume
+  reporting and separate guest/account progress. Work proceeds one numbered step
+  at a time; this checkpoint implements Step 1 only.
+- Created `feature/platform-progress-contracts` from the clean current checkout.
+  Added an immutable registry covering all 21 published exercises, with distinct
+  version/trait-variant IDs, target resume policies and meaningful summary metrics.
+  Only Word Quest is marked as currently cloud-connected.
+- Added pure progress adapters and fixtures for Word Quest and Darbības Vārdi.
+  Word Quest retains its existing wire shape and unknown fields; absent historical
+  metrics remain unavailable. The matching contract defines per-word statistics,
+  settings, locked-set order/cursor/priority, recent sets and partial/completed
+  board state, with device speech preferences excluded. Dataset restoration keeps
+  historical statistics without crediting removed words to current coverage.
+- Persisted the full roadmap, contracts, all-exercise inventory, guest migration
+  boundaries and acceptance checkpoints in `docs/platform-progress-plan.md`.
+  Added the README link and an implemented-only Unreleased changelog entry.
+- Verification uses cached Node 20.20.2. Root/API tests, lint, typecheck,
+  formatting, data/i18n validation and all 38 Playwright checks pass. The browser
+  suite required an approved sandbox escalation for its configured local server
+  on port 4173. Final contract boundary tests also cover safe answer totals.
+- No live game wiring, authentication, API behavior, saved data, Azure settings
+  or deployment changed. No commit or remote PR has been created. Next checkpoint:
+  Step 2, platform-wide login/navigation with cross-tab session updates and a
+  validated callback return destination.
+
+## 2026-11-14 - Platform progress Step 2: shared login
+
+- Continued on `feature/platform-progress-contracts`, retaining Step 1's changes.
+  Added shared account status, Sign in/Create account, Sign out and My Progress
+  controls through the existing navigation module. Account labels follow the
+  page's LV/EN/RU language, including runtime language changes. The progress entry
+  page links to Word Quest; per-exercise summary cards remain Step 7.
+- Switched the pinned MSAL client's cache from per-tab sessionStorage to its
+  shared browser localStorage mode. Added on-demand SDK loading with retry,
+  synchronous session-change subscriptions, credential-free cross-tab logout
+  signals and focus/page-restoration reconciliation. No application token store
+  or account identity was added to browser-owned progress data. Existing per-tab
+  sessions may require a new sign-in; account progress records remain intact.
+- Kept the registered callback URI and logout hint behavior. Return destinations
+  use tab-scoped session storage and exact published-page allowlisting; query/hash,
+  callback/API and external destinations cannot be selected. Successful callback
+  consumes the destination; absent/invalid state returns Home. Error pages retain
+  safe error codes and a validated return link.
+- Added the minimal Word Quest subscriber needed now to abort stale loads/saves,
+  close conflict choices, clear battles and select guest state on shared logout
+  or owner changes. Same-owner renewal follows its existing reconnection path.
+  Added a post-JSON-parse session-generation check so a delayed session response
+  cannot restore a signed-out owner. Shared sync extraction remains Step 5.
+- The real-SDK multi-tab test reproduced MSAL's asynchronous cache-import race:
+  a background tab could look up tokens before their cache entries were imported.
+  Reinitializing the SDK client before new-account verification resolves it.
+  First-time initialization is also serialized with Web Locks where supported.
+- Bumped service worker assets to v31, retaining callback/private-API cache bypass.
+  Regenerated offline bundles with `npm run build:offline` and formatted the
+  output; only the i18n bundle changes, also bringing its previously stale
+  Sentence Surgery keys into line with the existing locale sources.
+- Node 20.20.2 verification: 180 root unit tests, 13 API tests and the complete
+  42-test Playwright suite pass. Focused final mobile checks pass for light/dark
+  contrast, navigation reachability, safe exercise return and runtime Russian
+  labels. Reviewed phone screenshots in Playwright output. Lint, format check,
+  typecheck, data/i18n validation and diff checks pass. Browser tests used the
+  approved local-server sandbox escalation; hosted identity/API responses were
+  fixtures, not live owner credentials or cloud writes.
+- Updated the roadmap, README, architecture/integration notes and Unreleased
+  changelog. No Azure resources/settings, API behavior, cloud records or deployment
+  changed. No commit or PR has been created. Stop at the Step 2 checkpoint; next
+  is Step 3, multi-exercise API validation/read/write and owner-scoped summaries.
+
+## 2026-11-14 - Platform progress Step 3: multi-exercise API and summaries
+
+- Continued on `feature/platform-progress-contracts`, retaining the earlier
+  checkpoints. Read/write endpoints now accept registered IDs with implemented
+  adapters: `word-quest` and `darbibas-vards`. Other exercises fail validation
+  before storage access. Matching payloads use the shared versioned validator
+  and 256 KiB limit; Word Quest retains its accepted optional/legacy data fields,
+  schema handling, 64 KiB limit, public envelope and record IDs.
+- Added authenticated `GET /api/getProgressSummary`, querying only canonical
+  enabled-game records in the verified owner's explicit Cosmos partition.
+  Parameterized queries ignore browser-supplied owner IDs. The response includes
+  all 21 catalogue entries with saved/not-started/not-connected/unavailable
+  states and derived metrics, excluding raw learning snapshots and private
+  storage/ownership fields. Storage outages produce generic HTTP 503 responses;
+  unsupported/corrupt individual records do not hide healthy exercise rows.
+- API readiness is separate from game rollout: the matching game remains marked
+  planned and locally saved until Step 6. Cloud summary reads are available in
+  the transport, but the My Progress dashboard remains Step 7. Shared browser
+  transport validates owner plus requested exercise on snapshots/conflicts,
+  validates summary membership/status and discards cancelled decoded responses.
+- Extracted Word Quest node counts into a portable shared module so gameplay and
+  summary completion use the same world sizes. Matching coverage is derived
+  against current vocabulary IDs, with no inference of missing historical
+  activity or mastery from exposure.
+- Azure deploys the API independently, so added `build:progress-api` to generate
+  the committed `api/generated/progress-contracts/` package from shared source
+  modules and word data. The API imports only that local ESM package. Added
+  `validate:progress-api`, a CI parity check, a standalone-package test without
+  website sources, and the generation step in `build:all`. Regenerated using
+  `npm run build:progress-api`; no generated file was hand-edited. Service worker
+  v32 caches new public transport dependencies and still bypasses private APIs.
+- Node 20.20.2 verification: 186 root tests, 21 API tests and all 42 Playwright
+  tests pass, including existing cross-tab auth, conflicts and offline guest
+  restore. API tests verify two games/two owners, malformed/oversized payloads,
+  canonical partition queries, computed summaries, missing/unsupported records,
+  authorization before storage and a forced concurrent ETag update race. Lint,
+  typecheck, format check, data/i18n validation, generated-source parity and diff
+  checks pass. Browser regression used the approved local-server escalation.
+- Updated roadmap/API contracts, README, architecture/integration notes and the
+  Unreleased changelog. No live Cosmos reads/writes, identity settings, Azure
+  resources or deployment were performed. No commit or PR has been created.
+  Stop at Step 3; next is Step 4, owner-scoped local storage and reusable sync.
+
+## 2026-11-21 - Platform progress Step 4
+
+- Added shared browser storage keyed by exercise and verified owner, with a
+  separate guest key. Each record stores the snapshot, base revision, and
+  pending flag together. Existing exercises continue to use their current keys.
+- Added a reusable sync service that saves locally before uploading, keeps
+  pending changes through refresh, debounces writes, and rechecks revisions
+  after transient failures. An authentication failure pauses sync until the
+  caller supplies a reverified session.
+- Added explicit local/cloud conflict choices tied to the current conflict,
+  revisioned resets, and request cancellation on account or connectivity
+  changes. The service detects newer local records from another tab before
+  writes and acknowledgements. Server revisions govern cloud concurrency.
+- Verified on Node 20 with 196 unit tests and 21 API tests. Ten new tests cover
+  guest/account isolation, offline refresh, overlapping edits, conflict choices,
+  lost acknowledgements, reauthentication, reset, account switching, stale tab
+  acknowledgements, and corrupt or unavailable browser storage. Lint, typecheck,
+  formatting, and data, locale, and generated API validation passed.
+- The service is ready for the Word Quest integration in Step 5. This
+  checkpoint involved local code and tests only.
+
+## 2026-11-21 - Platform progress Step 5
+
+- Connected Word Quest to the shared progress store and sync service. Site
+  navigation handles account actions while the game shows sync status and
+  resolves conflicts. Switching owners clears the active battle. Reconnecting
+  with the same progress keeps an active battle open.
+- Added first-use migration from the old Word Quest keys for the same guest or
+  verified owner. Pending snapshots retain their known base revision. When the
+  old snapshot and pending metadata differ, migration uses the latest game
+  snapshot. Old keys remain available as a backup.
+- Added a browser regression for migration, pending save acknowledgement,
+  refresh and guest restore. Updated existing authentication tests to use
+  shared navigation. Cached the shared sync and migration modules in service
+  worker v33. Regenerated the API package after updating legacy Word Quest
+  snapshot normalization. The API save and load format stayed compatible.
+- Node 20 checks passed for 196 unit tests and 21 API tests, lint, formatting,
+  typecheck, and validation of data, locales and generated API contracts.
+- The full browser run passed 42 checks. The conflict test timed out because it
+  tried to continue the battle after the conflict dialog opened. Updated it to
+  submit one answer and verify the dialog immediately. The corrected conflict
+  and legacy migration tests passed on rerun.
+
+## Darbības Vārdi progress integration (Step 6)
+
+- Connected the original matching page to shared account sync with an opt-in
+  engine snapshot and restore hook. The board restores matched pairs, score,
+  language, board size, and locked set position. Pronunciation stays on the
+  device and the translation column reshuffles on restore.
+- Added per-exercise sync status, conflict choices, and lifetime attempts,
+  accuracy, practised words, and vocabulary coverage. Browser and API coverage
+  use the same 358 distinct vocabulary IDs.
+- The guest store copies valid old matching history on first use and retains
+  the original keys as a backup. Account progress has a separate owner key.
+  Updated the exercise registry and regenerated its API package.
+- Ran the develop-web-game harness and inspected the board output and the
+  cross-device Playwright restoration screenshot. The static server logged
+  its expected missing authentication endpoint and the existing ignored
+  CSP meta directive. No new page errors appeared in the authenticated flow.
+- Verified 196 unit tests and 21 API tests on Node 20. Lint, typecheck,
+  formatting, and data, locale, and generated API validation passed.
+- Parallel browser checks exposed a cross-tab sign-in timing issue. The
+  completed callback now sends an account-data-free refresh signal after
+  MSAL finishes restoring the session. Receiving tabs reverify the session
+  before enabling account progress. The new auth unit test passed, bringing
+  the unit suite to 197 tests.
+- Final browser regression passed all 44 tests, including the independent
+  browser restore, nonzero locked cursor, guest isolation, and cross-tab auth.
+  Browser tests used a fixture API and identity provider. The next checkpoint
+  is the My Progress dashboard.
+
+## My Progress dashboard (Step 7)
+
+- Replaced the entry page with Word Quest and Darbības Vārdi summaries from
+  one authenticated request. The catalogue links to all 21 exercises and
+  marks planned integrations as coming soon.
+- Added read-only guest summaries, including legacy history. Verified
+  accounts can see labelled local account copies during a cloud outage.
+  Account changes cancel outstanding requests and clear the previous
+  learner's metrics. The dashboard supports English, Latvian and Russian,
+  with offline assets precached by service worker v35.
+- Playwright covers empty, saved, partial-error and offline states, mobile
+  widths in all three languages, unchanged legacy saves, and guest and
+  account isolation on logout with a pending response. Inspected both
+  mobile guest and desktop account screenshots.
+- Stabilized the existing Word Quest pending-save logout test by waiting
+  for its held request. Queued answers can update the status text while
+  that request is in flight.
+- Verified 197 Node tests, 21 API tests, and all 46 Playwright tests. Lint,
+  typecheck, formatting, and data, locale, and generated API validation passed.
+  A separate service-worker check opened My Progress offline and followed
+  Continue back to Word Quest with the same guest XP after restoration.
+  Browser account tests used a fixture API and identity provider.

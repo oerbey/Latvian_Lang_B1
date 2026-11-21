@@ -14,6 +14,7 @@
  *   renderFooter()       — Build the <footer> element with navigation links and copyright.
  */
 import { NAV_ITEMS } from './nav-config.js';
+import { mountSiteAccount } from '../src/lib/site-account.js';
 
 /**
  * Determine the current HTML filename (e.g. 'index.html') from the URL.
@@ -84,7 +85,10 @@ function renderNav() {
         <button class="dp-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
       </div>
     </div>
+    <div class="dp-container dp-account" id="site-account" aria-label="Account"></div>
   `;
+
+  mountSiteAccount(nav.querySelector('#site-account'));
 
   const navLinks = nav.querySelector('#nav-links');
   const menuToggle = nav.querySelector('#menu-toggle');

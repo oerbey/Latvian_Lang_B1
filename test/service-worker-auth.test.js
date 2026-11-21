@@ -27,6 +27,7 @@ test('authentication callbacks and API responses bypass service-worker caching',
     '/.auth/login/aad/callback?code=synthetic-code',
     '/api/authSession',
     '/api/getProgress?gameId=word-quest',
+    '/api/getProgressSummary',
     '/src/auth-callback.js',
   ]) {
     onFetch({

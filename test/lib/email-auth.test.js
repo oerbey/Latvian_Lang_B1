@@ -2,10 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmailAuth } from '../../src/lib/email-auth.js';
 const owner = `extid:${'a'.repeat(64)}`;
-function fixture() {
+function fixture(overrides = {}) {
   let client;
   class Expired extends Error {}
   const sdk = {
+    EventType: {
+      LOGIN_SUCCESS: 'login',
+      LOGOUT_SUCCESS: 'logout',
+      ACTIVE_ACCOUNT_CHANGED: 'account',
+    },
     InteractionRequiredAuthError: Expired,
     CacheLookupPolicy: { AccessTokenAndRefreshToken: 2 },
     PublicClientApplication: class {
@@ -27,6 +32,9 @@ function fixture() {
       }
       setActiveAccount(account) {
         this.account = account;
+      }
+      addEventCallback(callback) {
+        this.eventCallback = callback;
       }
       async acquireTokenSilent(request) {
         this.request = request;
@@ -59,6 +67,7 @@ function fixture() {
         ),
       );
     },
+    ...overrides,
   });
   return { auth, requests, getClient: () => client };
 }
@@ -71,7 +80,7 @@ test('verified server owner binds tokens to one SDK account without browser toke
   });
   assert.equal(requests[1].options.headers['X-Latvian-Authorization'], 'Bearer synthetic-token');
   assert.equal(getClient().request.cacheLookupPolicy, 2);
-  assert.equal(getClient().config.cache.cacheLocation, 'sessionStorage');
+  assert.equal(getClient().config.cache.cacheLocation, 'localStorage');
   assert.equal(await auth.getAccessToken(owner), 'synthetic-token');
   await assert.rejects(auth.getAccessToken(`extid:${'b'.repeat(64)}`));
   getClient().fail = true;
@@ -217,4 +226,141 @@ test('logout never substitutes an email address or a malformed claim for the pro
     client.account = null;
   };
   await auth.signOut();
+});
+
+test('SDK account changes synchronously invalidate subscribers and outstanding owner tokens', async () => {
+  const { auth, getClient } = fixture();
+  await auth.getCurrentUser();
+  const reasons = [];
+  auth.onAuthChange(({ reason }) => reasons.push(reason));
+  let resolve;
+  getClient().acquireTokenSilent = () =>
+    new Promise((done) => {
+      resolve = done;
+    });
+  const pending = auth.getAccessToken(owner);
+  getClient().account = { homeAccountId: 'synthetic-B' };
+  getClient().eventCallback({ eventType: 'account' });
+  assert.deepEqual(reasons, ['account-changed']);
+  resolve({ accessToken: 'old-token' });
+  await assert.rejects(pending, /Account changed/);
+  await assert.rejects(auth.getAccessToken(owner), /Sign-in required/);
+});
+
+test('same-account login renews the session; unsubscribed views receive no later changes', async () => {
+  const { auth, getClient } = fixture();
+  await auth.getCurrentUser();
+  const reasons = [];
+  const unsubscribe = auth.onAuthChange(({ reason }) => reasons.push(reason));
+  getClient().eventCallback({ eventType: 'login' });
+  assert.deepEqual(reasons, ['refresh']);
+  assert.equal((await auth.getCurrentUser()).status, 'authenticated');
+  unsubscribe();
+  await auth.signOut();
+  assert.deepEqual(reasons, ['refresh']);
+});
+
+test('a failed view cannot interrupt logout or leave other views showing an account', async () => {
+  const { auth } = fixture();
+  await auth.getCurrentUser();
+  const reasons = [];
+  auth.onAuthChange(() => {
+    throw new Error('Failed view');
+  });
+  auth.onAuthChange(({ reason }) => reasons.push(reason));
+  await auth.signOut();
+  assert.deepEqual(reasons, ['signed-out']);
+  assert.equal((await auth.getCurrentUser()).status, 'anonymous');
+});
+
+test('logout signals invalidate other tabs before provider logout completes', async () => {
+  const recipients = new Set();
+  const channel = () => {
+    let listener;
+    const instance = {
+      addEventListener: (_type, callback) => {
+        listener = callback;
+      },
+      postMessage: (data) => {
+        assert.equal(data, 'signed-out');
+        for (const recipient of recipients) if (recipient !== instance) recipient.receive(data);
+      },
+      receive: (data) => listener({ data }),
+    };
+    recipients.add(instance);
+    return instance;
+  };
+  const first = fixture({ channel });
+  const second = fixture({ channel });
+  await first.auth.getCurrentUser();
+  await second.auth.getCurrentUser();
+  let finishLogout;
+  first.getClient().logoutRedirect = () =>
+    new Promise((resolve) => {
+      finishLogout = resolve;
+    });
+  const reasons = [];
+  second.auth.onAuthChange(({ reason }) => reasons.push(reason));
+  const pending = first.auth.signOut();
+  assert.deepEqual(reasons, ['signed-out']);
+  assert.equal((await second.auth.getCurrentUser()).status, 'anonymous');
+  await assert.rejects(second.auth.getAccessToken(owner), /Sign-in required/);
+  finishLogout();
+  await pending;
+});
+
+test('logout during session response parsing cannot restore a stale verified owner', async () => {
+  let parse;
+  let parsingStarted;
+  const ready = new Promise((resolve) => {
+    parsingStarted = resolve;
+  });
+  const stale = fixture({
+    fetchImpl: async (url) => {
+      if (url.endsWith('Config'))
+        return new Response(
+          JSON.stringify({
+            redirectPath: '/auth-probe.html',
+            authority: 'https://test.ciamlogin.com/',
+            clientId: 'app',
+            scope: 'progress.access',
+          }),
+        );
+      return {
+        ok: true,
+        json: () =>
+          new Promise((resolve) => {
+            parse = resolve;
+            parsingStarted();
+          }),
+      };
+    },
+  });
+  const pending = stale.auth.getCurrentUser();
+  await ready;
+  await stale.auth.signOut();
+  parse({ userId: owner });
+  assert.deepEqual(await pending, { status: 'anonymous', user: null });
+  await assert.rejects(stale.auth.getAccessToken(owner));
+});
+
+test('a completed sign-in signal requires another tab to reverify the session', async () => {
+  let receive;
+  const { auth, getClient } = fixture({
+    channel: () => ({
+      addEventListener: (_event, handler) => {
+        receive = handler;
+      },
+    }),
+  });
+  await auth.getCurrentUser();
+  const original = getClient();
+  const reasons = [];
+  auth.onAuthChange(({ reason }) => reasons.push(reason));
+  receive({ data: 'signed-in' });
+  await new Promise(setImmediate);
+  assert.deepEqual(reasons, ['account-changed']);
+  await assert.rejects(auth.getAccessToken(owner), /Sign-in required/);
+  assert.equal((await auth.getCurrentUser()).status, 'authenticated');
+  assert.notEqual(getClient(), original);
 });

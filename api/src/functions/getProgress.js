@@ -3,7 +3,7 @@ const { app } = require('@azure/functions');
 const { requireExternalAccessToken } = require('../lib/external-auth');
 const { getProgressContainer } = require('../lib/cosmos');
 const { toPublicProgressItem } = require('../lib/progress-item');
-const { GAME_ID } = require('../lib/progress-validation');
+const { getProgressDefinitions } = require('../lib/progress-definitions');
 
 function progressResponse(item) {
   // Azure Functions treats jsonBody: null as no body; send literal JSON for a fresh account.
@@ -20,10 +20,16 @@ async function getProgressHandler(request, dependencies = {}) {
   const { userId } = auth.principal;
   const gameId = request.query.get('gameId');
 
-  if (gameId !== GAME_ID) {
+  let definitions;
+  try {
+    definitions = await getProgressDefinitions();
+  } catch {
+    return { status: 503, jsonBody: { error: 'progress service unavailable' } };
+  }
+  if (!definitions.getAdapter(gameId)) {
     return {
       status: 400,
-      jsonBody: { error: `gameId must be ${GAME_ID}` },
+      jsonBody: { error: 'gameId is not enabled for cloud progress' },
     };
   }
 

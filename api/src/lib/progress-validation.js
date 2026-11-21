@@ -1,4 +1,5 @@
 /* eslint-env node */
+const { getProgressDefinitions } = require('./progress-definitions');
 
 const GAME_ID = 'word-quest';
 const MAX_PROGRESS_BYTES = 64 * 1024;
@@ -50,11 +51,15 @@ function validateWordQuestState(data) {
   return null;
 }
 
-function validateSaveRequest(body) {
+async function validateSaveRequest(body) {
   if (!isPlainObject(body)) return { error: 'request body must be an object' };
-  if (body.gameId !== GAME_ID) return { error: `gameId must be ${GAME_ID}` };
+  const definitions = await getProgressDefinitions();
+  const adapter = definitions.getAdapter(body.gameId);
+  if (!adapter) return { error: 'gameId is not enabled for cloud progress' };
 
-  const dataError = validateWordQuestState(body.data);
+  // Retain the accepted Word Quest validator, including optional/legacy fields.
+  const dataError =
+    body.gameId === GAME_ID ? validateWordQuestState(body.data) : adapter.validate(body.data);
   if (dataError) return { error: dataError };
 
   if (!Number.isInteger(body.expectedRevision) || body.expectedRevision < 0) {

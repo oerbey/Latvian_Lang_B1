@@ -1,4 +1,5 @@
 import { initMatchingGame, MATCHING_CONSTANTS } from '../src/lib/matching-game.js';
+import { createMatchingAccountProgress } from '../src/games/darbibas-vards/account-progress.js';
 import { loadWords } from '../src/lib/words-data.js';
 
 const els = {
@@ -27,7 +28,8 @@ function makeWordsLoader() {
   return async () => loadWords({ cache: 'force-cache' });
 }
 
-initMatchingGame({
+const progress = createMatchingAccountProgress();
+const game = initMatchingGame({
   elements: els,
   dataLoader: makeWordsLoader(),
   languages: [
@@ -35,14 +37,10 @@ initMatchingGame({
     { id: 'ru', label: 'Русский' },
   ],
   defaultLanguage: 'en',
-  storageKeys: {
-    config: 'dv_config',
-    activeSet: 'dv_activeSet',
-    cursor: 'dv_cursor',
-    recent: 'dv_recentSets',
-    stats: 'dv_stats',
-    speak: 'dv_speak',
-  },
+  storageKeys: { speak: 'dv_speak' },
+  autoStart: false,
+  onReady: () => progress.attach(game),
+  onProgress: progress.save,
   defaultConfig: {
     mode: MATCHING_CONSTANTS.MODE_ALL,
     size: 10,
@@ -54,3 +52,5 @@ initMatchingGame({
     speakOff: '🔊 Ieslēgt izrunu',
   },
 });
+
+window.render_game_to_text = progress.renderText;

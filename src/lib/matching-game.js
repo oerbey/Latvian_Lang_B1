@@ -47,6 +47,7 @@ export function initMatchingGame(options) {
     onRoundRendered,
     onScoreChange,
     onRoundComplete,
+    onProgress,
     onReady,
     autoStart = true,
     texts = {},
@@ -93,9 +94,91 @@ export function initMatchingGame(options) {
     stats: {},
     priorityChain: new Map(),
     roundRewarded: false,
+    matchedIds: new Set(),
   };
 
   const els = elements;
+
+  function snapshot() {
+    return {
+      schemaVersion: 1,
+      stats: state.stats,
+      settings: {
+        language: state.currentLang,
+        boardSize: getRequestedBoardSize(),
+        mode: state.lockedConfig.mode,
+        lockedSetSize: state.lockedConfig.size,
+        prioritizeMistakes: state.lockedConfig.prioritizeMistakes,
+      },
+      lockedSet: {
+        order: state.lockedOrder,
+        cursor: state.lockedCursor,
+        lastSliceStart: state.lastSliceStart,
+        priorityChain: Object.fromEntries(state.priorityChain),
+      },
+      recentSets: state.recentSets,
+      currentBoard: state.current.length
+        ? {
+            itemIds: state.current.map(({ id }) => id),
+            matchedIds: [...state.matchedIds],
+            wrong: state.score.wrong,
+          }
+        : null,
+    };
+  }
+
+  function notifyProgress() {
+    if (onProgress) onProgress(snapshot());
+  }
+
+  function renderSavedBoard() {
+    renderRound({
+      elements: els,
+      items: state.current,
+      currentLang: state.currentLang,
+      focus: false,
+    });
+    state.current.forEach(({ id }, index) => {
+      if (state.matchedIds.has(id)) disablePair(index);
+    });
+    announceStatus(els, state.score);
+    updateLockedUI({ items: state.current });
+  }
+
+  /** Restore a snapshot already normalized against the loaded vocabulary. */
+  function restoreProgress(data) {
+    const { settings, lockedSet, currentBoard } = structuredClone(data);
+    state.stats = structuredClone(data.stats);
+    state.recentSets = structuredClone(data.recentSets);
+    state.currentLang = els.languageSelect.value = settings.language;
+    els.countSelect.value = String(settings.boardSize);
+    state.lockedConfig = {
+      mode: settings.mode,
+      size: settings.lockedSetSize,
+      prioritizeMistakes: settings.prioritizeMistakes,
+    };
+    state.lockedOrder = lockedSet.order;
+    state.lockedCursor = lockedSet.cursor;
+    state.lastSliceStart = lockedSet.lastSliceStart;
+    state.priorityChain = new Map(Object.entries(lockedSet.priorityChain));
+    els.modeAll.checked = settings.mode === MODE_ALL;
+    els.modeLocked.checked = settings.mode === MODE_LOCKED;
+    if (els.prioritizeSwitch) els.prioritizeSwitch.checked = settings.prioritizeMistakes;
+    syncSetSizeControls();
+    if (!currentBoard) {
+      if (settings.mode === MODE_LOCKED && !state.lockedOrder.length)
+        handleNewMix({ quiet: true, skipRender: true });
+      newGame({ focus: false });
+      return;
+    }
+    state.current = currentBoard.itemIds.map((id) => state.itemById.get(id));
+    state.matchedIds = new Set(currentBoard.matchedIds);
+    state.score = { right: state.matchedIds.size, wrong: currentBoard.wrong };
+    state.selections = { lv: null, tr: null };
+    state.roundRewarded = state.score.right === state.current.length;
+    els.help.textContent = '';
+    renderSavedBoard();
+  }
 
   function persistConfig() {
     if (!storageKeys?.config) return;
@@ -223,6 +306,7 @@ export function initMatchingGame(options) {
 
     if (state.selections.lv !== null && state.selections.tr !== null) {
       if (state.selections.lv === state.selections.tr) {
+        if (onProgress) state.matchedIds.add(state.current[state.selections.lv].id);
         state.score.right += 1;
         announceStatus(els, state.score);
         els.help.textContent = mergedTexts.correct;
@@ -279,6 +363,7 @@ export function initMatchingGame(options) {
         });
       }
       clearSelections(state, els);
+      notifyProgress();
     }
   }
 
@@ -501,7 +586,7 @@ export function initMatchingGame(options) {
     const poolSize = getCurrentPool().length || minCustomSize;
     const raw = Number(sanitizeText(value));
     if (!Number.isFinite(raw) || raw < minCustomSize) return minCustomSize;
-    return Math.min(raw, Math.max(poolSize, minCustomSize));
+    return Math.min(Math.floor(raw), Math.max(poolSize, minCustomSize));
   }
 
   function handleSetSizeSelection(value) {
@@ -606,6 +691,7 @@ export function initMatchingGame(options) {
     announceStatus(els, state.score);
     state.selections = { lv: null, tr: null };
     state.roundRewarded = false;
+    state.matchedIds.clear();
 
     if (state.lockedConfig.mode === MODE_LOCKED) {
       if (!state.lockedOrder.length) {
@@ -631,6 +717,7 @@ export function initMatchingGame(options) {
         elements: els,
         items: state.current,
         currentLang: state.currentLang,
+        focus: options.focus,
         onRoundRendered,
       });
       onScoreChange?.({ items: [...state.current], score: { ...state.score } });
@@ -658,6 +745,7 @@ export function initMatchingGame(options) {
       elements: els,
       items: state.current,
       currentLang: state.currentLang,
+      focus: options.focus,
       onRoundRendered,
     });
     onScoreChange?.({ items: [...state.current], score: { ...state.score } });
@@ -674,6 +762,7 @@ export function initMatchingGame(options) {
     // Normalize ids once so matching, stats, and persistence use the same stable key.
     items.forEach((item) => {
       const id = getItemId(item);
+      if (onProgress && state.itemById.has(id)) return;
       const normalized = { ...item, id };
       state.itemById.set(id, normalized);
       state.data.push(normalized);
@@ -732,6 +821,7 @@ export function initMatchingGame(options) {
 
   els.btnNew?.addEventListener('click', () => {
     newGame();
+    notifyProgress();
   });
 
   els.btnSpeak?.addEventListener('click', () => {
@@ -744,6 +834,12 @@ export function initMatchingGame(options) {
 
   els.languageSelect?.addEventListener('change', () => {
     state.currentLang = els.languageSelect.value;
+    if (onProgress) {
+      clearSelections(state, els);
+      renderSavedBoard();
+      notifyProgress();
+      return;
+    }
     renderRound({
       elements: els,
       items: state.current,
@@ -754,14 +850,21 @@ export function initMatchingGame(options) {
 
   els.countSelect?.addEventListener('change', () => {
     newGame({ reuseLastSlice: state.lockedConfig.mode === MODE_LOCKED });
+    notifyProgress();
   });
 
   els.modeAll?.addEventListener('change', (e) => {
-    if (e.target.checked) handleModeChange(MODE_ALL);
+    if (e.target.checked) {
+      handleModeChange(MODE_ALL);
+      notifyProgress();
+    }
   });
 
   els.modeLocked?.addEventListener('change', (e) => {
-    if (e.target.checked) handleModeChange(MODE_LOCKED);
+    if (e.target.checked) {
+      handleModeChange(MODE_LOCKED);
+      notifyProgress();
+    }
   });
 
   els.lockedSizeSelect?.addEventListener('change', (e) => {
@@ -811,6 +914,9 @@ export function initMatchingGame(options) {
   })();
 
   return {
+    snapshot,
+    restoreProgress,
+    itemIds: () => [...state.itemById.keys()],
     start: () => newGame({ initial: true }),
     newGame: () => newGame(),
   };

@@ -20,6 +20,16 @@ from September 2026 onward.
 - Comprehensive CI: lint, format, typecheck, unit tests, data/i18n
   validation, and Playwright E2E
 
+## Platform accounts and progress
+
+The site shares one email/password login across exercise pages and browser tabs.
+Word Quest and the original Darbības Vārdi save from gameplay and show account
+summaries on My Progress. The dashboard also shows guest history from the
+current browser and links to all exercises.
+
+See the [implementation checkpoints](docs/platform-progress-plan.md) and
+[account integration guide](docs/word-quest-email-auth.md).
+
 ## Game Entry Points
 
 | Page                               | Focus                                                  |
@@ -61,19 +71,24 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ## Development Commands
 
-| Command                 | Description                                   |
-| ----------------------- | --------------------------------------------- |
-| `npm run start`         | Serve locally on port 5173                    |
-| `npm test`              | Run Node.js unit tests                        |
-| `npm run test:watch`    | Unit tests in watch mode                      |
-| `npm run test:coverage` | Unit tests with coverage                      |
-| `npm run test:e2e`      | Playwright E2E smoke tests (Chromium)         |
-| `npm run lint`          | ESLint (with Prettier compat)                 |
-| `npm run format`        | Apply Prettier formatting                     |
-| `npm run format:check`  | Check Prettier formatting (CI)                |
-| `npm run typecheck`     | TypeScript checking via `tsconfig.check.json` |
-| `npm run validate:data` | Validate JSON datasets against schemas        |
-| `npm run validate:i18n` | Check locale files for key parity             |
+| Command                         | Description                                                         |
+| ------------------------------- | ------------------------------------------------------------------- |
+| `npm run start`                 | Serve locally on port 5173                                          |
+| `npm test`                      | Run Node.js unit tests                                              |
+| `npm test --prefix api`         | Run API authentication and progress tests                           |
+| `npm run build:auth-client`     | Stage the pinned public MSAL SDK and license                        |
+| `npm run build:progress-api`    | Generate the API-local shared progress contracts and vocabulary IDs |
+| `npm run validate:progress-api` | Check generated API contracts against their sources                 |
+| `npm run verify:cloud:dev`      | Check Dev API health and anonymous rejection                        |
+| `npm run test:watch`            | Unit tests in watch mode                                            |
+| `npm run test:coverage`         | Unit tests with coverage                                            |
+| `npm run test:e2e`              | Playwright E2E smoke tests (Chromium)                               |
+| `npm run lint`                  | ESLint (with Prettier compat)                                       |
+| `npm run format`                | Apply Prettier formatting                                           |
+| `npm run format:check`          | Check Prettier formatting (CI)                                      |
+| `npm run typecheck`             | TypeScript checking via `tsconfig.check.json`                       |
+| `npm run validate:data`         | Validate JSON datasets against schemas                              |
+| `npm run validate:i18n`         | Check locale files for key parity                                   |
 
 ## Data Build Pipeline
 

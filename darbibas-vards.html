@@ -33,7 +33,10 @@
     <nav data-site-nav></nav>
 
     <main id="main">
-      <div class="dp-container dp-ex-shell">
+      <div class="dp-container">
+        <p id="dv-sync-status" role="status">Checking sign-in…</p>
+      </div>
+      <div class="dp-container dp-ex-shell" hidden inert>
         <header class="dp-ex-hero">
           <div>
             <p class="dp-ex-eyebrow">B līmeņa verb lab</p>
@@ -113,6 +116,8 @@
             <div>
               <h2 id="status-heading" class="dp-ex-board__title">Statuss</h2>
               <div id="score" class="dp-ex-score" aria-live="polite">Pareizi: 0 | Nepareizi: 0</div>
+              <p id="dv-learning-summary"></p>
+              <p id="dv-coverage"></p>
               <p class="dp-ex-board__hint">Izvēlies pa vienam vārdam no katras kolonnas.</p>
             </div>
             <div>
@@ -136,6 +141,20 @@
       </div>
     </main>
 
+    <dialog id="dv-sync-dialog" aria-labelledby="dv-conflict-title">
+      <div class="dp-ex-panel__body">
+        <h2 id="dv-conflict-title">Choose your progress</h2>
+        <p>Keeping one copy replaces the other.</p>
+        <p id="dv-conflict-local"></p>
+        <button class="dp-btn dp-btn--primary" data-progress-choice="local" type="button">
+          Keep this device
+        </button>
+        <p id="dv-conflict-cloud"></p>
+        <button class="dp-btn dp-btn--primary" data-progress-choice="cloud" type="button">
+          Use cloud progress
+        </button>
+      </div>
+    </dialog>
     <footer class="dp-footer" data-site-footer></footer>
 
     <script

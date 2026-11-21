@@ -1,0 +1,120 @@
+/** Progress capabilities describe the target contract; only `cloud` is connected today. */
+const standardMetrics = ['attempts', 'correct', 'accuracy', 'lastPlayedAt'];
+
+function exercise(id, title, href, resume, metrics, tracking = 'planned') {
+  return Object.freeze({
+    id,
+    title,
+    href,
+    tracking,
+    resume,
+    metrics: Object.freeze([...standardMetrics, ...metrics]),
+  });
+}
+
+export const EXERCISES = Object.freeze([
+  exercise(
+    'darbibas-vards',
+    'Darbības Vārdi',
+    'darbibas-vards.html',
+    'board',
+    ['wordsPractised', 'coverage'],
+    'cloud',
+  ),
+  exercise('darbibas-vardi-v2', 'Darbības Vārdi V2', 'darbibas-vardi-v2.html', 'checkpoint', [
+    'mastery',
+    'xp',
+    'bestStreak',
+  ]),
+  exercise(
+    'prefixed-coming-verbs',
+    'Nākt ar priedēkļiem',
+    'prefixed-coming-verbs.html',
+    'checkpoint',
+    ['completion'],
+  ),
+  exercise(
+    'similar-word-groups',
+    'Līdzīgo formu treniņš',
+    'similar-word-groups.html',
+    'checkpoint',
+    ['completion'],
+  ),
+  exercise('conjugation-sprint', 'Conjugation Sprint', 'conjugation-sprint.html', 'round', [
+    'bestScore',
+    'bestStreak',
+  ]),
+  exercise('endings-builder', 'Endings Builder', 'endings-builder.html', 'checkpoint', [
+    'wordsPractised',
+  ]),
+  exercise('form-factory', 'Form Factory', 'form-factory.html', 'round', [
+    'bestScore',
+    'bestStreak',
+  ]),
+  exercise('form-factory-v2', 'Form Factory v2', 'form-factory-v2.html', 'round', [
+    'bestScore',
+    'bestStreak',
+  ]),
+  exercise('form-factory-v3', 'Form Factory v3', 'form-factory-v3.html', 'checkpoint', [
+    'mastery',
+    'xp',
+    'bestStreak',
+  ]),
+  exercise('passive-lab', 'Passive Voice Builder', 'passive-lab.html', 'checkpoint', ['xp']),
+  exercise(
+    'sentence-surgery-passive',
+    'Sentence Surgery — Ciešamā kārta',
+    'sentence-surgery-passive.html',
+    'checkpoint',
+    ['completion'],
+  ),
+  exercise('decl6-detective', 'Kas ir manā mājā?', 'decl6-detective.html', 'round', [
+    'xp',
+    'bestScore',
+  ]),
+  exercise('travel-tracker', 'Travel Tracker', 'travel-tracker.html', 'checkpoint', ['bestScore']),
+  exercise('maini-vai-mainies', 'Maini vai mainies?', 'maini-vai-mainies.html', 'checkpoint', [
+    'xp',
+  ]),
+  exercise('duty-dispatcher', 'Kas jādara kam?', 'duty-dispatcher.html', 'checkpoint', ['xp']),
+  exercise(
+    'character-traits-match',
+    'Rakstura īpašības — pāri',
+    'rakstura-ipasibas-match.html',
+    'board',
+    ['wordsPractised', 'coverage'],
+  ),
+  exercise(
+    'character-traits-expansion',
+    'Rakstura īpašības — pāri (paplašināta)',
+    'rakstura-ipasibas-expansion.html',
+    'board',
+    ['wordsPractised', 'coverage'],
+  ),
+  exercise('character-traits', 'Rakstura īpašības', 'character-traits.html', 'checkpoint', [
+    'completion',
+  ]),
+  exercise(
+    'english-latvian-arcade',
+    'English → Latvian Word Catcher',
+    'english-latvian-arcade.html',
+    'round',
+    ['bestScore', 'bestStreak'],
+  ),
+  exercise(
+    'word-quest',
+    'Word Quest',
+    'word-quest.html',
+    'checkpoint',
+    ['completion', 'xp', 'bestStreak'],
+    'cloud',
+  ),
+  exercise('week1', 'Pārvietošanās ar priedēkļiem', 'week1.html', 'round', ['bestScore']),
+]);
+
+const byId = new Map(EXERCISES.map((entry) => [entry.id, entry]));
+
+/** Returns null for unknown IDs; a catalogue entry alone never enables API access. */
+export function getExercise(id) {
+  return byId.get(id) || null;
+}

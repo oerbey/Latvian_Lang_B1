@@ -1,0 +1,87 @@
+import { accuracy, assertValid, isPlainObject, validateJsonObject } from './common.js';
+
+const numericFields = ['xp', 'level', 'streak', 'bestStreak', 'totalCorrect', 'totalWrong'];
+const integerFields = numericFields.filter((field) => field !== 'xp');
+const maxBytes = 64 * 1024;
+
+function createDefault() {
+  return {
+    schemaVersion: 1,
+    xp: 0,
+    level: 1,
+    streak: 0,
+    bestStreak: 0,
+    worlds: {},
+    totalCorrect: 0,
+    totalWrong: 0,
+  };
+}
+
+function validate(data) {
+  const jsonError = validateJsonObject(data, maxBytes);
+  if (jsonError) return jsonError;
+  if ('schemaVersion' in data && data.schemaVersion !== 1) return 'unsupported schemaVersion';
+  for (const field of numericFields) {
+    if (field in data && (!Number.isFinite(data[field]) || data[field] < 0)) {
+      return `${field} must be a non-negative number`;
+    }
+  }
+  for (const field of integerFields) {
+    if (field in data && !Number.isInteger(data[field])) return `${field} must be an integer`;
+  }
+  if ('worlds' in data && !isPlainObject(data.worlds)) return 'worlds must be an object';
+  return null;
+}
+
+/** Restores a detached copy of the existing wire shape, retaining additional legacy fields. */
+function normalize(data = null) {
+  if (data === null) return createDefault();
+  if (isPlainObject(data) && data.schemaVersion === 0) data = { ...data, schemaVersion: 1 };
+  assertValid(validate(data));
+  return { ...createDefault(), ...JSON.parse(JSON.stringify(data)), schemaVersion: 1 };
+}
+
+/** Summarize the raw saved data so absent historical counters remain unavailable. */
+function summarize(data, { worldNodeCounts } = {}) {
+  assertValid(validate(data));
+  const correct = data.totalCorrect ?? null;
+  const answerTotal =
+    correct !== null && data.totalWrong !== undefined ? correct + data.totalWrong : null;
+  const attempts = Number.isSafeInteger(answerTotal) ? answerTotal : null;
+  let completion = null;
+  if (isPlainObject(worldNodeCounts) && Object.keys(worldNodeCounts).length) {
+    let completed = 0;
+    let total = 0;
+    for (const [id, count] of Object.entries(worldNodeCounts)) {
+      if (!Number.isSafeInteger(count) || count < 1)
+        throw new TypeError('invalid world node count');
+      total += count;
+      const nodes = data.worlds?.[id]?.completed;
+      completed += new Set(
+        (Array.isArray(nodes) ? nodes : []).filter(
+          (node) => Number.isInteger(node) && node >= 0 && node < count,
+        ),
+      ).size;
+    }
+    completion = { completed, total };
+  }
+  return {
+    attempts,
+    correct,
+    accuracy: attempts === null ? null : accuracy(correct, attempts),
+    // Neither record updatedAt nor a map visit proves that an answer was played.
+    lastPlayedAt: null,
+    completion,
+    xp: data.xp ?? null,
+    bestStreak: data.bestStreak ?? null,
+  };
+}
+
+export const wordQuestProgress = Object.freeze({
+  schemaVersion: 1,
+  maxBytes,
+  createDefault,
+  validate,
+  normalize,
+  summarize,
+});

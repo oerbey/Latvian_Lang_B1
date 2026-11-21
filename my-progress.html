@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https:; img-src 'self' data:; object-src 'none'; base-uri 'self';"
+    />
+    <title>My Progress — Latvian B</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/my-progress/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <nav data-site-nav></nav>
+    <main class="dp-container progress-dashboard" id="main">
+      <header class="progress-header">
+        <h1 id="progress-title">My Progress</h1>
+        <label class="progress-language">
+          <span id="progress-language-label">Language</span>
+          <select id="progress-language">
+            <option value="en" lang="en">English</option>
+            <option value="lv" lang="lv">Latviešu</option>
+            <option value="ru" lang="ru">Русский</option>
+          </select>
+        </label>
+      </header>
+      <div class="progress-notice">
+        <p id="progress-notice" role="status">Checking your progress…</p>
+        <button id="progress-retry" class="dp-btn dp-btn--outline" type="button" hidden>
+          Try again
+        </button>
+      </div>
+      <section class="progress-cards" id="progress-cards" aria-label="Tracked exercises"></section>
+      <section class="progress-catalogue" aria-labelledby="progress-catalogue-title">
+        <h2 id="progress-catalogue-title">More exercises</h2>
+        <ul id="progress-catalogue"></ul>
+      </section>
+    </main>
+    <footer data-site-footer></footer>
+    <script type="module" src="theme.js"></script>
+    <script type="module" src="scripts/nav.js"></script>
+    <script type="module" src="scripts/page-init.js"></script>
+    <script defer src="i18n/offline.js"></script>
+    <script defer src="data/words.offline.js"></script>
+    <script type="module" src="src/my-progress/index.js"></script>
+  </body>
+</html>

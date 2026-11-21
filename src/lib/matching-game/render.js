@@ -36,7 +36,7 @@ export function getTranslation(item, currentLang) {
   return item.en || '';
 }
 
-export function renderRound({ elements, items, currentLang, onRoundRendered }) {
+export function renderRound({ elements, items, currentLang, onRoundRendered, focus = true }) {
   elements.lvList.replaceChildren();
   elements.trList.replaceChildren();
 
@@ -52,7 +52,7 @@ export function renderRound({ elements, items, currentLang, onRoundRendered }) {
   });
 
   const first = elements.lvList.querySelector('.word-card');
-  if (first) first.focus();
+  if (focus) first?.focus();
   onRoundRendered?.(items);
 }
 

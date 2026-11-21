@@ -15,149 +15,40 @@
  * State is persisted to localStorage via the project's storage module.
  */
 
-import { loadString, saveString } from '../../lib/storage.js';
-import { getCurrentUser, loadCloudProgress, saveCloudProgress } from '../../lib/cloud-progress.js';
-import { signIn, signOut } from '../../lib/email-auth.js';
+import { getCurrentUser, onAuthChange } from '../../lib/email-auth.js';
+import { createProgressSync } from '../../lib/progress-sync.js';
+import { wordQuestProgress } from '../../lib/progress/word-quest.js';
+import { WORD_QUEST_NODE_COUNTS } from '../../lib/progress/word-quest-worlds.js';
+import { readLegacyWordQuestProgress } from './legacy-progress.js';
 
-// ═══════════════════════════════════════════
-//  CONSTANTS
-// ═══════════════════════════════════════════
-let storageNamespace = 'guest';
-const storageKey = () => `llb1:word-quest:v2:${storageNamespace}`;
-const syncStorageKey = () => `${storageKey()}:sync`;
-const GAME_ID = 'word-quest';
-const SYNC_SAVE_DELAY = 750;
-const MAX_SYNC_RETRIES = 5;
 const XP_PER_LEVEL = 120;
 const BASE_XP = 10;
 const MAX_LIVES = 3;
 const CHALLENGES_PER_NODE = 3;
 
-// ═══════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════
-let state = loadState();
-const syncState = {
-  status: 'checking',
-  user: null,
-  cloudRevision: 0,
-  pending: loadSyncMeta()?.pending || null,
-  canWrite: false,
-  ready: false,
-  inFlight: false,
-  retryCount: 0,
-  timer: null,
-  retryTimer: null,
-};
+let state = wordQuestProgress.createDefault();
+let gameplayGeneration = 0;
+let authGeneration = 0;
+let authStatus = 'checking';
+let lastView;
+let savingLocally = false;
 
-function defaultState() {
-  return {
-    schemaVersion: 1,
-    xp: 0,
-    level: 1,
-    streak: 0,
-    bestStreak: 0,
-    worlds: {},
-    totalCorrect: 0,
-    totalWrong: 0,
-  };
-}
+const sync = createProgressSync('word-quest', {
+  readLegacy: readLegacyWordQuestProgress,
+  onChange: renderProgress,
+});
 
-function loadState() {
+function saveState() {
+  savingLocally = true;
   try {
-    const raw = loadString(storageKey(), null);
-    if (raw) return normalizeState(JSON.parse(raw));
-  } catch {
-    /* ignore */
+    sync.saveLocal(state);
+  } finally {
+    savingLocally = false;
   }
-  return defaultState();
-}
-
-function normalizeState(value) {
-  const base = defaultState();
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return base;
-
-  const next = { ...base, ...value, schemaVersion: 1 };
-  for (const field of ['xp', 'level', 'streak', 'bestStreak', 'totalCorrect', 'totalWrong']) {
-    if (!Number.isFinite(next[field]) || next[field] < 0) next[field] = base[field];
-  }
-  for (const field of ['level', 'streak', 'bestStreak', 'totalCorrect', 'totalWrong']) {
-    next[field] = Math.floor(next[field]);
-  }
-  next.worlds =
-    value.worlds && typeof value.worlds === 'object' && !Array.isArray(value.worlds)
-      ? value.worlds
-      : {};
-  return next;
-}
-
-function loadSyncMeta() {
-  try {
-    const raw = loadString(syncStorageKey(), null);
-    const parsed = raw ? JSON.parse(raw) : {};
-    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
-function persistSyncMeta() {
-  saveString(
-    syncStorageKey(),
-    JSON.stringify({
-      cloudRevision: syncState.cloudRevision,
-      pending: syncState.pending,
-      status: syncState.status,
-    }),
-  );
-}
-
-function saveState({ queueCloud = true } = {}) {
-  state = normalizeState(state);
-  const serialized = JSON.stringify(state);
-  const savedLocally = saveString(storageKey(), serialized);
-  if (!savedLocally) return;
-
-  if (queueCloud) queueCloudSave(JSON.parse(serialized));
-}
-
-function updateSyncUi(status = syncState.status, message = '') {
-  syncState.status = status;
-  const statusEl = $id('wq-sync-status');
-  if (statusEl) statusEl.textContent = message;
-
-  const authLabel = $id('wq-auth-label');
-  const loginLink = $id('wq-login-link');
-  const logoutLink = $id('wq-logout-link');
-  if (authLabel) {
-    authLabel.textContent = syncState.user ? 'Signed in' : 'Playing locally';
-  }
-  if (loginLink) {
-    loginLink.hidden = Boolean(syncState.user) && !['reauth', 'unavailable'].includes(status);
-    loginLink.textContent = syncState.user ? 'Sign in again' : 'Sign in / Create account';
-  }
-  if (logoutLink) logoutLink.hidden = !syncState.user;
 }
 
 function setGameReady(ready) {
-  const playButton = $id('wq-btn-play');
-  if (playButton) playButton.disabled = !ready;
-}
-
-function hasProgress(value) {
-  return (
-    value.level > 1 ||
-    value.xp > 0 ||
-    value.streak > 0 ||
-    value.bestStreak > 0 ||
-    value.totalCorrect > 0 ||
-    value.totalWrong > 0 ||
-    Object.keys(value.worlds || {}).length > 0
-  );
-}
-
-function sameState(left, right) {
-  return JSON.stringify(normalizeState(left)) === JSON.stringify(normalizeState(right));
+  $id('wq-btn-play').disabled = !ready;
 }
 
 function describeProgress(value) {
@@ -168,24 +59,6 @@ function describeProgress(value) {
   return `Level ${value.level}, ${value.xp} XP, ${completed} completed nodes`;
 }
 
-let syncGeneration = 0;
-let gameplayGeneration = 0;
-let syncAbort = new AbortController();
-let cancelProgressChoice;
-
-function stopSync() {
-  syncGeneration++;
-  syncAbort.abort();
-  syncAbort = new AbortController();
-  clearTimeout(syncState.timer);
-  clearTimeout(syncState.retryTimer);
-  cancelProgressChoice?.();
-  syncState.inFlight = false;
-  syncState.canWrite = false;
-  syncState.ready = false;
-  return syncGeneration;
-}
-
 function resetGameplay() {
   gameplayGeneration++;
   currentWorld = null;
@@ -193,227 +66,76 @@ function resetGameplay() {
   showScreen('wq-title-screen');
 }
 
-function selectLocalOwner(user) {
-  const namespace = user?.userId || 'guest';
-  if (namespace !== storageNamespace) {
-    saveState({ queueCloud: false });
-    storageNamespace = namespace;
-    state = loadState();
-    syncState.pending = loadSyncMeta()?.pending || null;
-    syncState.cloudRevision = 0;
+function renderProgress(view) {
+  const previous = lastView;
+  lastView = view;
+  const changedOwner = previous?.userId !== view.userId;
+  const changedData = view.data && JSON.stringify(view.data) !== JSON.stringify(previous?.data);
+  if (changedOwner || (changedData && !savingLocally)) {
+    state = view.data ? structuredClone(view.data) : wordQuestProgress.createDefault();
     resetGameplay();
-    renderTitleScreen();
   }
-  syncState.user = user;
-}
+  renderTitleScreen();
 
-function cloudOptions() {
-  return { userId: syncState.user?.userId, signal: syncAbort.signal };
-}
-
-function promptProgressChoice(localState, cloudState) {
   const modal = $id('wq-sync-modal');
-  if (!modal) return Promise.resolve('cloud');
-  $id('wq-sync-local-summary').textContent = describeProgress(localState);
-  $id('wq-sync-cloud-summary').textContent = describeProgress(cloudState);
-  show(modal);
-  return new Promise((resolve) => {
-    const localButton = $id('wq-sync-use-local');
-    const cloudButton = $id('wq-sync-use-cloud');
-    const finish = (choice) => {
-      hide(modal);
-      localButton.onclick = null;
-      cloudButton.onclick = null;
-      cancelProgressChoice = null;
-      resolve(choice);
-    };
-    cancelProgressChoice = () => finish('cancel');
-    localButton.onclick = () => finish('local');
-    cloudButton.onclick = () => finish('cloud');
-  });
-}
+  const hasConflict = Boolean(view.conflict);
+  for (const choice of ['local', 'cloud']) {
+    $id(`wq-sync-use-${choice}`).disabled = view.status !== 'conflict';
+  }
+  if (hasConflict) {
+    $id('wq-sync-local-summary').textContent = describeProgress(view.data);
+    $id('wq-sync-cloud-summary').textContent = describeProgress(view.conflict.data);
+    show(modal);
+  } else hide(modal);
 
-function queueCloudSave(payload) {
-  if (!syncState.user) return;
-  syncState.pending = payload;
-  syncState.retryCount = 0;
-  persistSyncMeta();
-  if (!syncState.ready || !syncState.canWrite) return;
-  clearTimeout(syncState.timer);
-  syncState.timer = setTimeout(() => void flushCloudSave(), SYNC_SAVE_DELAY);
-  updateSyncUi('pending', 'Changes waiting to sync…');
-}
-
-function scheduleCloudRetry() {
-  clearTimeout(syncState.retryTimer);
-  if (syncState.retryCount >= MAX_SYNC_RETRIES) {
-    updateSyncUi('retry-pending', 'Cloud unavailable. Your local progress is safe; retry pending.');
-    persistSyncMeta();
-    return;
+  const status =
+    view.status === 'offline' && ['reauth', 'unavailable'].includes(authStatus)
+      ? authStatus
+      : view.status;
+  const messages = {
+    local:
+      authStatus === 'unavailable'
+        ? 'Cloud sign-in is unavailable. You can keep playing locally.'
+        : authStatus === 'reauth'
+          ? 'Sign in again to sync. Your local progress is safe.'
+          : 'Sign in to sync progress across devices.',
+    checking: 'Loading cloud progress…',
+    ready: 'New account. Play to start your cloud progress.',
+    pending: 'Changes waiting to sync…',
+    syncing: 'Saving to cloud…',
+    saved:
+      previous?.status === 'conflict'
+        ? 'Cloud progress restored.'
+        : previous?.status === 'syncing' || previous?.status === 'pending'
+          ? 'Saved to cloud.'
+          : 'Cloud sync ready.',
+    conflict: 'Choose which progress to keep.',
+    offline: 'Offline. Local progress is safe.',
+    retrying: 'Cloud unavailable. Retrying…',
+    reauth: 'Sign in again to sync. Your local progress is safe.',
+    unavailable: 'Cloud progress is unavailable. Refresh to retry.',
+    'storage-error': 'Progress could not be saved or loaded on this device.',
+    'local-conflict': 'Progress changed in another tab. Refresh to load it.',
+  };
+  $id('wq-auth-label').textContent = view.userId ? 'Signed in' : 'Playing locally';
+  $id('wq-sync-status').textContent = messages[status];
+  setGameReady(status !== 'checking' && !hasConflict);
+  if (status === 'reauth' && previous?.status !== 'reauth') {
+    window.dispatchEvent(new Event('llb1:auth-required'));
   }
-  const epoch = syncGeneration;
-  const delay = 2 ** syncState.retryCount++ * 1000;
-  syncState.retryTimer = setTimeout(() => {
-    if (epoch === syncGeneration) void flushCloudSave();
-  }, delay);
-  updateSyncUi('retrying', 'Cloud unavailable. Retrying…');
-}
-
-async function handleCloudConflict(localPayload, cloudItem, epoch) {
-  syncState.canWrite = false;
-  let current = cloudItem;
-  if (!current) {
-    const loaded = await loadCloudProgress(GAME_ID, cloudOptions());
-    if (epoch !== syncGeneration) return;
-    if (loaded.status !== 'ok') {
-      updateSyncUi('unavailable', 'Cloud conflict could not be checked. Refresh to retry.');
-      return;
-    }
-    current = loaded.item;
-  }
-  const choice = await promptProgressChoice(localPayload, current.data);
-  if (epoch !== syncGeneration || choice === 'cancel') return;
-  syncState.cloudRevision = current.revision;
-  syncState.canWrite = true;
-  if (choice === 'cloud') {
-    syncState.pending = null;
-    state = normalizeState(current.data);
-    resetGameplay();
-    saveState({ queueCloud: false });
-    updateSyncUi('saved', 'Cloud progress restored.');
-    renderTitleScreen();
-  } else {
-    syncState.pending = normalizeState(localPayload);
-    updateSyncUi('pending', 'Your local progress will replace the cloud copy.');
-  }
-  persistSyncMeta();
-  if (syncState.pending) void flushCloudSave();
-}
-
-async function flushCloudSave() {
-  if (syncState.inFlight || !syncState.user || !syncState.canWrite || !syncState.pending) return;
-  const epoch = syncGeneration;
-  const payload = syncState.pending;
-  syncState.inFlight = true;
-  // Retain the pending snapshot until acknowledgement, including across a refresh.
-  persistSyncMeta();
-  updateSyncUi('syncing', 'Saving to cloud…');
-  const result = await saveCloudProgress(GAME_ID, payload, syncState.cloudRevision, cloudOptions());
-  if (epoch !== syncGeneration) return;
-  syncState.inFlight = false;
-  if (result.status === 'saved') {
-    syncState.cloudRevision = result.item.revision;
-    if (syncState.pending === payload) syncState.pending = null;
-    syncState.retryCount = 0;
-    updateSyncUi('saved', 'Saved to cloud.');
-    persistSyncMeta();
-    if (syncState.pending) void flushCloudSave();
-    return;
-  }
-  if (result.status === 'conflict') {
-    await handleCloudConflict(syncState.pending || payload, result.item, epoch);
-    return;
-  }
-  if (['unauthenticated', 'reauth', 'forbidden'].includes(result.status)) {
-    syncState.canWrite = false;
-    updateSyncUi('reauth', 'Sign in again to sync. Your account progress is safe on this device.');
-    persistSyncMeta();
-    return;
-  }
-  if (result.status !== 'cancelled') scheduleCloudRetry();
 }
 
 async function initializeCloudSync() {
-  const epoch = stopSync();
+  const epoch = ++authGeneration;
+  void sync.setOnline(false);
   setGameReady(false);
-  updateSyncUi('checking', 'Checking sign-in…');
+  $id('wq-sync-status').textContent = 'Checking sign-in…';
   const auth = await getCurrentUser();
-  if (epoch !== syncGeneration) return;
-  selectLocalOwner(auth.user);
-  if (auth.status !== 'authenticated') {
-    syncState.ready = true;
-    updateSyncUi(
-      auth.status,
-      auth.status === 'anonymous'
-        ? 'Sign in to sync progress across devices.'
-        : auth.status === 'reauth'
-          ? 'Sign in again to sync. Your local progress is safe.'
-          : 'Cloud sign-in is unavailable. You can keep playing locally.',
-    );
-    setGameReady(true);
-    return;
-  }
-  updateSyncUi('checking', 'Loading cloud progress…');
-  const remote = await loadCloudProgress(GAME_ID, cloudOptions());
-  if (epoch !== syncGeneration) return;
-  if (!['ok', 'missing'].includes(remote.status)) {
-    syncState.ready = true;
-    updateSyncUi(
-      ['reauth', 'unauthenticated', 'forbidden'].includes(remote.status) ? 'reauth' : 'unavailable',
-      'Cloud progress is unavailable. Local progress is safe; sign in again or refresh to retry.',
-    );
-    setGameReady(true);
-    return;
-  }
-  const localState = normalizeState(state);
-  if (remote.status === 'ok') {
-    syncState.cloudRevision = remote.item.revision;
-    const cloudState = normalizeState(remote.item.data);
-    const choice =
-      !hasProgress(localState) || sameState(localState, cloudState)
-        ? 'cloud'
-        : await promptProgressChoice(localState, cloudState);
-    if (epoch !== syncGeneration || choice === 'cancel') return;
-    if (choice === 'cloud') {
-      if (!sameState(localState, cloudState)) resetGameplay();
-      state = cloudState;
-      syncState.pending = null;
-      saveState({ queueCloud: false });
-    } else {
-      syncState.pending = localState;
-    }
-  } else {
-    syncState.cloudRevision = 0;
-    syncState.pending = hasProgress(localState) ? localState : null;
-  }
-  syncState.ready = true;
-  syncState.canWrite = true;
-  persistSyncMeta();
-  renderTitleScreen();
-  updateSyncUi(
-    'saved',
-    remote.status === 'missing' && !syncState.pending
-      ? 'New account. Play to start your cloud progress.'
-      : 'Cloud sync ready.',
-  );
-  setGameReady(true);
-  if (syncState.pending) void flushCloudSave();
-}
-
-async function startSignIn() {
-  stopSync();
-  try {
-    await signIn();
-  } catch {
-    await initializeCloudSync();
-    updateSyncUi('reauth', 'Sign-in could not start. Please try again.');
-  }
-}
-
-async function startSignOut() {
-  stopSync();
-  selectLocalOwner(null);
-  syncState.ready = true;
-  updateSyncUi('anonymous', 'Signed out. Playing locally.');
-  setGameReady(true);
-  try {
-    await signOut();
-  } catch {
-    updateSyncUi(
-      'anonymous',
-      'Signed out locally. Provider sign-out could not complete; please retry.',
-    );
-  }
+  if (epoch !== authGeneration) return;
+  authStatus = auth.status;
+  await sync.setSession(auth.user?.userId ?? null, {
+    online: auth.status === 'authenticated' && navigator.onLine,
+  });
 }
 
 function addXP(amount) {
@@ -456,7 +178,7 @@ const WORLDS = [
     accent: '#5eead4',
     glow: 'rgba(94, 234, 212, 0.3)',
     dataPath: 'data/words.json',
-    nodeCount: 10,
+    nodeCount: WORD_QUEST_NODE_COUNTS.verbs,
     buildChallenges: buildVerbChallenges,
   },
   {
@@ -468,7 +190,7 @@ const WORLDS = [
     accent: '#a78bfa',
     glow: 'rgba(167, 139, 250, 0.3)',
     dataPath: 'data/lv-en/forge.json',
-    nodeCount: 8,
+    nodeCount: WORD_QUEST_NODE_COUNTS.prefixes,
     buildChallenges: buildPrefixChallenges,
   },
   {
@@ -480,7 +202,7 @@ const WORLDS = [
     accent: '#7dcbb5',
     glow: 'rgba(125, 203, 181, 0.3)',
     dataPath: 'data/latvian_prefixed_verb_exercise.spec.json',
-    nodeCount: 7,
+    nodeCount: WORD_QUEST_NODE_COUNTS['prefixed-coming'],
     buildChallenges: buildPrefixedComingChallenges,
   },
   {
@@ -492,7 +214,7 @@ const WORLDS = [
     accent: '#f472b6',
     glow: 'rgba(244, 114, 182, 0.3)',
     dataPath: 'data/maini-vai-mainies/items.json',
-    nodeCount: 8,
+    nodeCount: WORD_QUEST_NODE_COUNTS.reflexive,
     buildChallenges: buildReflexiveChallenges,
   },
   {
@@ -504,7 +226,7 @@ const WORLDS = [
     accent: '#fbbf24',
     glow: 'rgba(251, 191, 36, 0.3)',
     dataPath: 'data/personality/words.json',
-    nodeCount: 8,
+    nodeCount: WORD_QUEST_NODE_COUNTS.personality,
     buildChallenges: buildPersonalityChallenges,
   },
   {
@@ -516,7 +238,7 @@ const WORLDS = [
     accent: '#38bdf8',
     glow: 'rgba(56, 189, 248, 0.3)',
     dataPath: 'data/passive-lab/items.json',
-    nodeCount: 8,
+    nodeCount: WORD_QUEST_NODE_COUNTS.passive,
     buildChallenges: buildPassiveChallenges,
   },
 ];
@@ -794,7 +516,6 @@ function renderWorldNodes(world) {
   showScreen('wq-world-screen');
 
   const ws = state.worlds[world.id] || { completed: [], current: 0 };
-  state.worlds[world.id] = ws;
 
   $id('wq-world-title').textContent = `${world.emoji} ${world.name}`;
   const completedCount = ws.completed?.length || 0;
@@ -859,7 +580,6 @@ let battleState = null;
 
 async function startBattle(world, nodeIndex) {
   const epoch = ++gameplayGeneration;
-  const namespace = storageNamespace;
   showScreen('wq-battle-screen');
 
   // Load data
@@ -867,18 +587,13 @@ async function startBattle(world, nodeIndex) {
   try {
     data = await loadJSON(world.dataPath);
   } catch (err) {
-    if (epoch !== gameplayGeneration || namespace !== storageNamespace) return;
+    if (epoch !== gameplayGeneration) return;
     console.error('Data load error:', err);
     $id('wq-battle-prompt').textContent = 'Failed to load challenge data. Please try again.';
     return;
   }
 
-  if (
-    epoch !== gameplayGeneration ||
-    namespace !== storageNamespace ||
-    currentWorld !== world ||
-    $id('wq-battle-screen').hidden
-  )
+  if (epoch !== gameplayGeneration || currentWorld !== world || $id('wq-battle-screen').hidden)
     return;
   const challenges = world.buildChallenges(data, CHALLENGES_PER_NODE);
   if (!challenges || challenges.length === 0) {
@@ -1135,8 +850,24 @@ function init() {
   setGameReady(false);
   renderTitleScreen();
 
-  $id('wq-login-link').addEventListener('click', () => void startSignIn());
-  $id('wq-logout-link').addEventListener('click', () => void startSignOut());
+  // Clear the active battle immediately when shared navigation changes the owner.
+  onAuthChange(({ reason }) => {
+    if (reason === 'refresh') {
+      void initializeCloudSync();
+      return;
+    }
+    authGeneration++;
+    authStatus = 'anonymous';
+    void sync.setSession(null, { online: false });
+    if (reason === 'signing-in') setGameReady(false);
+    if (!['signed-out', 'signing-in'].includes(reason)) void initializeCloudSync();
+  });
+  for (const choice of ['local', 'cloud']) {
+    $id(`wq-sync-use-${choice}`).addEventListener('click', () => {
+      const conflict = lastView?.conflict;
+      if (conflict) sync.resolveConflict(choice, conflict.id);
+    });
+  }
 
   // Title → Map
   $id('wq-btn-play').addEventListener('click', () => renderWorldMap());
@@ -1152,7 +883,7 @@ function init() {
     void initializeCloudSync();
   });
   window.addEventListener('offline', () => {
-    if (syncState.user) updateSyncUi('offline', 'Offline. Local progress is safe.');
+    void sync.setOnline(false);
   });
 
   // Map ← Back

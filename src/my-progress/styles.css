@@ -1,0 +1,131 @@
+.progress-dashboard {
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+.progress-header,
+.progress-notice,
+.progress-catalogue li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.progress-header {
+  align-items: end;
+}
+
+.progress-header h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.1;
+}
+
+.progress-language {
+  display: grid;
+  gap: 0.3rem;
+  color: var(--dp-muted);
+  font-size: 0.9rem;
+}
+
+.progress-language select {
+  min-height: 44px;
+  padding: 0.4rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 0.6rem;
+  background: var(--dp-surface);
+  color: var(--dp-text);
+  font: inherit;
+}
+
+.progress-notice {
+  min-height: 4.5rem;
+  margin-block: 0.85rem 1.4rem;
+  padding: 0.75rem 1rem;
+  border-inline-start: 3px solid var(--dp-accent);
+  background: var(--dp-surface-subtle);
+  border-radius: 0.65rem;
+}
+
+.progress-notice p,
+.progress-card p,
+.progress-catalogue p {
+  margin: 0;
+  color: var(--dp-muted);
+}
+
+.progress-notice button[hidden] {
+  display: none;
+}
+
+.progress-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1rem;
+}
+
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.65rem;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius-lg);
+  background: var(--dp-surface);
+}
+
+.progress-card h2,
+.progress-catalogue h3 {
+  margin: 0;
+}
+
+.progress-card .dp-btn {
+  margin-top: auto;
+}
+
+.progress-dashboard .dp-btn {
+  box-sizing: border-box;
+}
+
+.progress-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+  gap: 0.85rem 1rem;
+  width: 100%;
+  margin: 0.35rem 0 0.75rem;
+  padding-block: 0.85rem;
+  border-block: 1px solid var(--dp-border);
+}
+
+.progress-metrics dt {
+  color: var(--dp-muted);
+  font-size: 0.875rem;
+}
+
+.progress-metrics dd {
+  margin: 0;
+  font-weight: 650;
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-catalogue {
+  margin-top: 2rem;
+}
+
+.progress-catalogue ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progress-catalogue li {
+  padding-block: 0.65rem;
+  border-top: 1px solid var(--dp-border);
+}
+
+.progress-catalogue h3 {
+  font-size: 1rem;
+}

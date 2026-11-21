@@ -203,16 +203,6 @@
   font-size: 0.9rem;
 }
 
-.wq-auth-link {
-  background: transparent;
-  border: 1px solid currentColor;
-  border-radius: 0.5rem;
-  min-height: 44px;
-  padding: 0.4rem 0.7rem;
-  color: var(--wq-accent);
-  font-weight: 700;
-}
-
 .wq-sync-status {
   flex-basis: 100%;
   color: var(--wq-muted);

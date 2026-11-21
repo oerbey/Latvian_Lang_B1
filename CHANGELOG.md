@@ -19,8 +19,53 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Added
+
+- Add a My Progress dashboard with account summaries for Word Quest and
+  Darbības Vārdi, guest history from this browser, and links to all exercises.
+  Show unavailable progress separately and label local account copies.
+- Sync original Darbības Vārdi account progress and resume partially matched
+  boards across devices. Show accuracy, words practised, and vocabulary coverage,
+  with separate guest history and device-local pronunciation preferences.
+- Add shared per-account and guest progress storage with a sync service for
+  offline edits, revisioned resets, retries and explicit conflict choices.
+  Exercise integration follows in Steps 5 and 6.
+- Add multi-exercise read/write API support for Word Quest and the original
+  Darbības Vārdi, plus an authenticated progress summary endpoint scoped to the
+  verified learner's partition. Summaries distinguish missing/unreadable records
+  and exercises awaiting integration without exposing raw learning state.
+- Generate an API-local package of shared progress contracts and vocabulary IDs,
+  with source-parity CI checks and a standalone deployment-package test. Rebuild
+  it with `npm run build:progress-api` after shared contract or word-data changes.
+- Add shared navigation sign-in/out, account status and a My Progress entry page,
+  with LV/EN/RU account labels. My Progress currently links to existing Word Quest
+  results; other exercise tracking follows the documented checkpoints.
+- Add a progress capability registry for all 21 exercises and pure versioned
+  progress contracts for Word Quest and the original Darbības Vārdi matching
+  exercise, with saved-state fixtures and validation/summary/restore tests. The
+  contracts preserve Word Quest's wire shape and define matching-board resume;
+  login, game storage, API access and deployment remain unchanged. See the
+  [implementation checkpoints](docs/platform-progress-plan.md).
+
 ### Changed
 
+- Move Word Quest to shared synchronization and site navigation sign-in and
+  sign-out. Copy each owner's existing browser progress and pending edits on
+  first use, retain the previous keys as a backup, and cache the shared modules
+  for offline play.
+- Extend the browser progress client to supported exercise IDs, bind returned
+  snapshots/conflicts to the requested game and add owner-checked summary reads.
+  Word Quest retains its wire format, validation and revision behavior. Share
+  world node totals between gameplay and API summaries; service worker v32
+  caches the new public progress modules. Exercise cloud wiring and dashboard
+  summaries remain subsequent checkpoints; no deployment is included.
+- Share the MSAL browser cache across tabs, reinitialize SDK cache state before
+  verifying account changes and propagate logout to open account views. Word Quest
+  cancels stale sync/battle work on shared logout and account changes. Callbacks
+  return to validated published page paths; invalid destinations fall back to
+  Home. Existing per-tab sessions may require sign-in again. The service worker
+  caches the new public modules while authentication/API responses remain
+  uncached. No Azure configuration or production deployment is included.
 - Word Quest uses hosted email/password sign-in, application-token cloud sync and
   server-derived External ID ownership on its next Dev deployment. Guest and
   account progress have independent local namespaces; logout cancels stale work,

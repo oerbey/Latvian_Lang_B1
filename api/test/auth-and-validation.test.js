@@ -8,7 +8,7 @@ const {
   validateWordQuestState,
 } = require('../src/lib/progress-validation');
 
-test('validateSaveRequest enforces the Word Quest contract and size limit', () => {
+test('validateSaveRequest enforces the Word Quest contract and size limit', async () => {
   const data = {
     schemaVersion: 1,
     xp: 10,
@@ -20,14 +20,25 @@ test('validateSaveRequest enforces the Word Quest contract and size limit', () =
     worlds: {},
   };
 
-  assert.deepEqual(validateSaveRequest({ gameId: 'word-quest', data, expectedRevision: 0 }), {
+  assert.deepEqual(await validateSaveRequest({ gameId: 'word-quest', data, expectedRevision: 0 }), {
     value: { gameId: 'word-quest', data, expectedRevision: 0 },
   });
-  assert.match(validateSaveRequest({ gameId: 'other', data, expectedRevision: 0 }).error, /gameId/);
-  assert.match(validateSaveRequest({ gameId: 'word-quest', data }).error, /expectedRevision/);
   assert.match(
-    validateSaveRequest({ gameId: 'word-quest', data: { ...data, level: -1 }, expectedRevision: 0 })
-      .error,
+    (await validateSaveRequest({ gameId: 'other', data, expectedRevision: 0 })).error,
+    /gameId/,
+  );
+  assert.match(
+    (await validateSaveRequest({ gameId: 'word-quest', data })).error,
+    /expectedRevision/,
+  );
+  assert.match(
+    (
+      await validateSaveRequest({
+        gameId: 'word-quest',
+        data: { ...data, level: -1 },
+        expectedRevision: 0,
+      })
+    ).error,
     /level/,
   );
 

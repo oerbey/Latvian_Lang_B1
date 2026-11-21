@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmailAuth } from '../../src/lib/email-auth.js';
 const owner = `extid:${'a'.repeat(64)}`;
-function fixture(overrides = {}) {
+function fixture(overrides = {}, initializeClient = async () => {}) {
   let client;
   class Expired extends Error {}
   const sdk = {
@@ -19,7 +19,9 @@ function fixture(overrides = {}) {
         this.config = config;
         this.account = { homeAccountId: 'synthetic-A' };
       }
-      async initialize() {}
+      async initialize() {
+        await initializeClient(this);
+      }
       async handleRedirectPromise(options) {
         assert.equal(options.navigateToLoginRequestUrl, false);
         return null;
@@ -86,6 +88,30 @@ test('verified server owner binds tokens to one SDK account without browser toke
   getClient().fail = true;
   await assert.rejects(auth.getAccessToken(owner));
   assert.equal((await auth.getCurrentUser()).status, 'reauth');
+});
+
+test('focus reconciliation waits for the SDK cache to initialize', async () => {
+  let start;
+  let finish;
+  const started = new Promise((resolve) => (start = resolve));
+  const openingCache = new Promise((resolve) => (finish = resolve));
+  const { auth } = fixture({}, async (client) => {
+    const getActiveAccount = client.getActiveAccount.bind(client);
+    client.getActiveAccount = () => {
+      throw new Error('SDK cache is not initialized');
+    };
+    start();
+    await openingCache;
+    client.getActiveAccount = getActiveAccount;
+  });
+  const pending = auth.getCurrentUser();
+  await started;
+  try {
+    assert.doesNotThrow(() => auth.reconcileAccount());
+  } finally {
+    finish();
+  }
+  assert.deepEqual(await pending, { status: 'authenticated', user: { userId: owner } });
 });
 
 test('logout invalidates a pending token before it can be sent under a changed session', async () => {

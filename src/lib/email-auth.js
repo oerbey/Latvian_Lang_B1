@@ -108,7 +108,7 @@ export function createEmailAuth({
           throw new Error('Invalid callback');
         }
         msal = await sdk();
-        client = new msal.PublicClientApplication({
+        const initializingClient = new msal.PublicClientApplication({
           auth: {
             clientId: config.clientId,
             authority: config.authority,
@@ -119,16 +119,23 @@ export function createEmailAuth({
         });
         // Two first-open tabs must not generate competing SDK cache-encryption cookies.
         if (globalThis.navigator?.locks) {
-          await navigator.locks.request('llb1:auth-cache', () => client.initialize());
-        } else await client.initialize();
-        const result = await client.handleRedirectPromise({ navigateToLoginRequestUrl: false });
-        const accounts = client.getAllAccounts();
+          await navigator.locks.request('llb1:auth-cache', () => initializingClient.initialize());
+        } else await initializingClient.initialize();
+        const result = await initializingClient.handleRedirectPromise({
+          navigateToLoginRequestUrl: false,
+        });
+        const accounts = initializingClient.getAllAccounts();
         const account =
           result?.account ||
-          client.getActiveAccount() ||
+          initializingClient.getActiveAccount() ||
           (accounts.length === 1 ? accounts[0] : null);
-        if (account && client.getActiveAccount()?.homeAccountId !== account.homeAccountId)
-          client.setActiveAccount(account);
+        if (
+          account &&
+          initializingClient.getActiveAccount()?.homeAccountId !== account.homeAccountId
+        )
+          initializingClient.setActiveAccount(account);
+        // Focus and page restoration may reconcile while the SDK cache is still opening.
+        client = initializingClient;
         connectEvents();
         if (result?.account) {
           // Other tabs can receive MSAL events before the redirect cache is complete.
@@ -181,7 +188,7 @@ export function createEmailAuth({
     const epoch = generation;
     try {
       await initialize();
-      if (locallySignedOut) return { status: 'anonymous', user: null };
+      if (locallySignedOut || epoch !== generation) return { status: 'anonymous', user: null };
       const account = client.getActiveAccount();
       if (!account) {
         session = null;

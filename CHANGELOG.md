@@ -19,6 +19,11 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ## Unreleased
 
+### Fixed
+
+- Wait for the sign-in SDK to finish initialization before reconciling accounts
+  when the browser focuses or restores a page.
+
 ### Added
 
 - Add a My Progress dashboard with account summaries for Word Quest and

@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v35';
+const CACHE_VERSION = 'v36';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -57,6 +57,7 @@ const CORE_ASSETS = [
   './src/lib/progress/common.js',
   './src/lib/progress/word-quest.js',
   './src/lib/progress/darbibas-vards.js',
+  './src/lib/progress/darbibas-vardi-v2.js',
   './src/lib/progress/word-quest-worlds.js',
   './src/lib/auth-probe-errors.js',
   './assets/vendor/msal-browser/msal-browser.min.js',
@@ -104,6 +105,7 @@ const CORE_ASSETS = [
   './src/games/character-traits-match/index.js',
   './src/games/darbibas-vardi-v2/index.js',
   './src/games/darbibas-vardi-v2/logic.js',
+  './src/games/darbibas-vardi-v2/legacy-progress.js',
   './src/games/darbibas-vardi-v2/styles.css',
   './src/games/decl6-detective/index.js',
   './src/games/duty-dispatcher/index.js',

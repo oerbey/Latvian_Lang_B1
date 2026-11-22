@@ -136,7 +136,7 @@ test('matching requests keep their exercise ID and reject a response or conflict
     'unavailable',
   );
   const previousCalls = calls.length;
-  for (const id of ['darbibas-vardi-v2', 'constructor', 'unknown']) {
+  for (const id of ['form-factory-v3', 'constructor', 'unknown']) {
     assert.equal((await cloud.loadCloudProgress(id, { userId: owner })).status, 'invalid');
     assert.equal((await cloud.saveCloudProgress(id, {}, 0, { userId: owner })).status, 'invalid');
   }
@@ -149,7 +149,7 @@ function summaryPayload() {
     exercises: EXERCISES.map(({ id, tracking }) => ({
       gameId: id,
       tracking,
-      status: id === 'word-quest' || id === 'darbibas-vards' ? 'not-started' : 'not-connected',
+      status: tracking === 'cloud' ? 'not-started' : 'not-connected',
       summary: null,
     })),
   };

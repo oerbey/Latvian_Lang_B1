@@ -9,6 +9,10 @@ import { readLegacyMatchingProgress } from '../games/darbibas-vards/legacy-progr
 import { readLegacyWordQuestProgress } from '../games/word-quest/legacy-progress.js';
 import { loadWords } from '../lib/words-data.js';
 
+import { darbibasVardiV2Progress } from '../lib/progress/darbibas-vardi-v2.js';
+import { readLegacyV2Progress } from '../games/darbibas-vardi-v2/legacy-progress.js';
+import { normalizeVerbs } from '../games/darbibas-vardi-v2/logic.js';
+
 const cards = document.getElementById('progress-cards');
 const catalogue = document.getElementById('progress-catalogue');
 const notice = document.getElementById('progress-notice');
@@ -25,6 +29,14 @@ let request;
 let verifiedOwner = null;
 
 const localAdapters = {
+  'darbibas-vardi-v2': {
+    adapter: darbibasVardiV2Progress,
+    legacy: readLegacyV2Progress,
+    async summaryContext() {
+      const result = await loadWords().catch(() => null);
+      return result ? { itemIds: normalizeVerbs(result.items).map(({ id }) => id) } : {};
+    },
+  },
   'word-quest': {
     adapter: wordQuestProgress,
     legacy: readLegacyWordQuestProgress,
@@ -64,8 +76,11 @@ function metricValue(key, value) {
     const date = typeof value === 'string' ? Date.parse(value) : NaN;
     return Number.isFinite(date) ? dateFormat.format(date) : null;
   }
-  if (key === 'completion' || key === 'coverage') {
-    const count = key === 'completion' ? value?.completed : value?.practised;
+  const fractionField = { completion: 'completed', coverage: 'practised', mastery: 'mastered' }[
+    key
+  ];
+  if (fractionField) {
+    const count = value?.[fractionField];
     if (
       !Number.isSafeInteger(count) ||
       count < 0 ||
@@ -150,6 +165,7 @@ async function deviceEntry(exercise, owner) {
     ).read({ migrateLegacy: false });
     const activity = adapter.summarize(data);
     const played =
+      Boolean(data.checkpoint) ||
       activity.attempts > 0 ||
       activity.xp > 0 ||
       activity.bestStreak > 0 ||

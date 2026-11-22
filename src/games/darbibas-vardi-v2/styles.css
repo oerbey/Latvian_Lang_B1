@@ -959,3 +959,28 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+#dv2-sync-status {
+  margin: 0 0 0.75rem;
+  color: var(--dv2-muted);
+  font-size: 0.9rem;
+}
+
+#dv2-sync-dialog {
+  width: min(32rem, calc(100% - 2rem));
+  color: var(--dv2-ink);
+}
+
+#dv2-sync-dialog:not([open]) {
+  display: none;
+}
+
+#dv2-sync-dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+#dv2-sync-dialog .dv2-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

@@ -7,8 +7,11 @@
 import { announceLive } from '../../lib/aria.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { showReward } from '../../lib/reward.js';
-import { clearGameProgress, readGameProgress, writeGameProgress } from '../../lib/storage.js';
+import { getCurrentUser, onAuthChange } from '../../lib/email-auth.js';
+import { darbibasVardiV2Progress } from '../../lib/progress/darbibas-vardi-v2.js';
+import { createProgressSync } from '../../lib/progress-sync.js';
 import { loadWords } from '../../lib/words-data.js';
+import { readLegacyV2Progress } from './legacy-progress.js';
 import {
   MAX_BOX,
   ROUND_SIZE,
@@ -23,7 +26,6 @@ import {
   describeDeck,
   isCorrectAssembly,
   isCorrectChoice,
-  normalizeRecords,
   normalizeVerbs,
   stageForVerb,
   xpForAnswer,
@@ -32,11 +34,6 @@ import {
 const GAME_ID = 'darbibas-vardi-v2';
 const SWIPE_THRESHOLD = 60;
 const OPTION_KEYS = ['1', '2', '3', '4'];
-
-function toCount(value) {
-  const number = Number(value);
-  return Number.isFinite(number) && number > 0 ? Math.floor(number) : 0;
-}
 
 function getElements(root) {
   const q = (selector) => root.querySelector(selector);
@@ -102,63 +99,145 @@ function getElements(root) {
   };
 }
 
-function defaultProgress() {
-  return {
-    records: {},
-    xp: 0,
-    bestStreak: 0,
-    dailyStreak: 0,
-    roundsPlayed: 0,
-    lastPlayedISO: '',
-    language: 'en',
-    speech: false,
-    haptics: true,
-  };
-}
-
-function readStoredProgress() {
-  try {
-    const saved = readGameProgress(GAME_ID, {});
-    return {
-      records: normalizeRecords(saved.records),
-      xp: toCount(saved.xp),
-      bestStreak: toCount(saved.bestStreak),
-      dailyStreak: toCount(saved.dailyStreak),
-      roundsPlayed: toCount(saved.roundsPlayed),
-      lastPlayedISO: typeof saved.lastPlayedISO === 'string' ? saved.lastPlayedISO : '',
-      language: saved.language === 'ru' ? 'ru' : 'en',
-      speech: saved.speech === true,
-      haptics: saved.haptics !== false,
-    };
-  } catch (err) {
-    console.warn('Unable to read Darbības Vārdi V2 progress', err);
-    return defaultProgress();
-  }
-}
-
 function persist(state) {
-  try {
-    writeGameProgress(GAME_ID, {
-      records: state.records,
-      xp: state.xp,
-      bestStreak: state.bestStreak,
-      dailyStreak: state.dailyStreak,
-      roundsPlayed: state.roundsPlayed,
-      lastPlayedISO: state.lastPlayedISO,
-      language: state.language,
-      speech: state.speech,
-      haptics: state.haptics,
-    });
-  } catch (err) {
-    console.warn('Unable to persist Darbības Vārdi V2 progress', err);
+  const snapshot = Object.fromEntries(
+    Object.keys(darbibasVardiV2Progress.createDefault()).map((key) => [key, state[key]]),
+  );
+  state.saveProgress(snapshot);
+}
+
+function saveCheckpoint(state) {
+  const queue = state.queue.map(({ id }) => id);
+  if (!state.locked && state.task) queue.unshift(state.task.verbId);
+  state.checkpoint = {
+    queue,
+    retried: [...state.retried],
+    review: Object.fromEntries(
+      [...state.reviewed].map(([id, { fromBox, toBox }]) => [id, [fromBox, toBox]]),
+    ),
+    answered: state.answered,
+    correct: state.correct,
+    streak: state.streak,
+    bestStreak: state.roundBestStreak,
+    xp: state.roundXp,
+  };
+  persist(state);
+}
+
+const syncMessages = {
+  local: 'Viesa progress tiek saglabāts šajā pārlūkā.',
+  checking: 'Ielādē progresu…',
+  ready: 'Progress tiks saglabāts tavā kontā.',
+  pending: 'Izmaiņas gaida sinhronizāciju…',
+  syncing: 'Saglabā progresu mākonī…',
+  saved: 'Progress saglabāts tavā kontā.',
+  offline: 'Progress pieejams šajā pārlūkā.',
+  retrying: 'Sinhronizācija nav pieejama. Mēģina vēlreiz…',
+  unavailable: 'Mākoņa progress nav pieejams.',
+  reauth: 'Pieraksties vēlreiz, lai sinhronizētu progresu.',
+  conflict: 'Izvēlies, kuru progresu saglabāt.',
+  'storage-error': 'Progress šajā pārlūkā nav pieejams.',
+  'local-conflict': 'Progress mainīts citā cilnē. Pārlādē lapu, lai turpinātu.',
+};
+
+function connectProgress(els, state) {
+  const status = els.root.querySelector('#dv2-sync-status');
+  const dialog = els.root.querySelector('#dv2-sync-dialog');
+  const compare = els.root.querySelector('#dv2-sync-comparison');
+  let applied;
+  let checking = true;
+  let authStatus = 'anonymous';
+  let generation = 0;
+  let saving = false;
+
+  function setChecking() {
+    checking = true;
+    els.screens[state.screen].hidden = true;
+    status.textContent = 'Pārbauda pierakstīšanos…';
+    if (dialog.open) dialog.close();
   }
+
+  const sync = createProgressSync(GAME_ID, {
+    onChange(view) {
+      if (checking) return;
+      const syncStatus =
+        ['offline', 'local'].includes(view.status) && ['unavailable', 'reauth'].includes(authStatus)
+          ? authStatus
+          : view.status;
+      status.textContent = syncMessages[syncStatus];
+      if (syncStatus === 'reauth' && authStatus === 'authenticated')
+        window.dispatchEvent(new Event('llb1:auth-required'));
+      if (view.status === 'checking') {
+        els.screens[state.screen].hidden = true;
+        return;
+      }
+      const data = JSON.stringify(view.data);
+      if (!saving && (applied?.owner !== view.userId || applied?.data !== data)) {
+        const snapshot = view.data ?? darbibasVardiV2Progress.createDefault();
+        Object.assign(state, snapshot, { queue: [], task: null, locked: true });
+        renderSettings(els, state);
+        renderStart(els, state);
+        showScreen(els, state, 'start');
+      }
+      applied = { owner: view.userId, data };
+      const screen = els.screens[state.screen];
+      screen.hidden = false;
+      screen.inert = ['conflict', 'storage-error', 'local-conflict'].includes(view.status);
+      if (view.conflict) {
+        compare.textContent = `Šajā pārlūkā ${view.data.xp} XP · Mākonī ${view.conflict.data.xp} XP`;
+        if (!dialog.open) dialog.showModal();
+      } else if (dialog.open) dialog.close();
+    },
+    readLegacy: readLegacyV2Progress,
+  });
+  async function connect() {
+    const epoch = ++generation;
+    setChecking();
+    void sync.setOnline(false);
+    const auth = await getCurrentUser();
+    if (epoch !== generation) return;
+    authStatus = auth.status;
+    checking = false;
+    await sync.setSession(auth.user?.userId ?? null, {
+      online: auth.status === 'authenticated' && navigator.onLine,
+    });
+  }
+  dialog.addEventListener('cancel', (event) => event.preventDefault());
+  for (const button of dialog.querySelectorAll('[data-progress-choice]')) {
+    button.addEventListener('click', () => {
+      const conflict = sync.view()?.conflict;
+      if (conflict) sync.resolveConflict(button.dataset.progressChoice, conflict.id);
+    });
+  }
+  onAuthChange(({ reason }) => {
+    if (reason === 'signed-out') {
+      generation++;
+      checking = false;
+      authStatus = 'anonymous';
+      void sync.setSession(null, { online: false });
+    } else if (reason === 'signing-in') {
+      generation++;
+      setChecking();
+      void sync.setSession(null, { online: false });
+    } else void connect();
+  });
+  window.addEventListener('online', () => void connect());
+  window.addEventListener('offline', () => void sync.setOnline(false));
+  void connect();
+  return (snapshot) => {
+    saving = true;
+    try {
+      return sync.saveLocal(snapshot);
+    } finally {
+      saving = false;
+    }
+  };
 }
 
 function initGame(root) {
   const els = getElements(root);
-  const stored = readStoredProgress();
   const state = {
-    ...stored,
+    ...darbibasVardiV2Progress.createDefault(),
     screen: 'start',
     verbs: [],
     queue: [],
@@ -179,6 +258,19 @@ function initGame(root) {
   renderSettings(els, state);
   renderStart(els, state);
   showScreen(els, state, 'start');
+  state.saveProgress = connectProgress(els, state);
+  window.render_game_to_text = () => {
+    if (els.screens[state.screen].hidden) return JSON.stringify({ screen: 'checking' });
+    return JSON.stringify({
+      screen: state.screen,
+      prompt: state.screen === 'play' ? state.task?.prompt : null,
+      verbId: state.screen === 'play' ? state.task?.verbId : null,
+      xp: state.xp,
+      answered: state.screen === 'start' ? (state.checkpoint?.answered ?? 0) : state.answered,
+      remaining: state.checkpoint?.queue.length ?? 0,
+      language: state.language,
+    });
+  };
 
   showLoading('Ielādē darbības vārdus...');
   loadWords({ cache: 'force-cache' })
@@ -229,6 +321,7 @@ function setSwitch(button, on) {
 
 function renderStart(els, state) {
   const summary = describeDeck(state.verbs, state.records);
+  els.start.textContent = state.checkpoint ? 'Turpināt treniņu' : 'Sākt treniņu';
   els.xp.textContent = String(state.xp);
   els.dailyStreak.textContent = String(state.dailyStreak);
   els.bestStreak.textContent = String(state.bestStreak);
@@ -266,6 +359,32 @@ function startRound(els, state) {
   state.streak = 0;
   state.roundBestStreak = 0;
   state.roundXp = 0;
+  showScreen(els, state, 'play');
+  nextTask(els, state);
+  if (state.screen === 'play') saveCheckpoint(state);
+}
+
+function resumeRound(els, state) {
+  const checkpoint = state.checkpoint;
+  if (!checkpoint) return startRound(els, state);
+  const verbsById = new Map(state.verbs.map((verb) => [verb.id, verb]));
+  const queue = checkpoint.queue.map((id) => verbsById.get(id)).filter(Boolean);
+  if (!queue.length && !checkpoint.answered) return startRound(els, state);
+  Object.assign(state, {
+    queue,
+    retried: new Set(checkpoint.retried),
+    reviewed: new Map(
+      Object.entries(checkpoint.review)
+        .filter(([id]) => verbsById.has(id))
+        .map(([id, [fromBox, toBox]]) => [id, { lv: verbsById.get(id).lv, fromBox, toBox }]),
+    ),
+    total: checkpoint.answered + queue.length,
+    answered: checkpoint.answered,
+    correct: checkpoint.correct,
+    streak: checkpoint.streak,
+    roundBestStreak: checkpoint.bestStreak,
+    roundXp: checkpoint.xp,
+  });
   showScreen(els, state, 'play');
   nextTask(els, state);
 }
@@ -455,7 +574,9 @@ function resolveAnswer(els, state, correct) {
   }
 
   const before = state.records[task.verbId];
-  const after = applyResult(before, correct);
+  const now = Date.now();
+  const after = applyResult(before, correct, now);
+  state.lastAnswerISO = new Date(now).toISOString();
   state.records[task.verbId] = after;
   state.reviewed.set(task.verbId, {
     lv: task.lv,
@@ -464,7 +585,7 @@ function resolveAnswer(els, state, correct) {
   });
 
   vibrate(state, correct ? 18 : [12, 60, 12]);
-  persist(state);
+  saveCheckpoint(state);
   renderProgress(els, state);
   showFeedback(els, state, correct);
 }
@@ -487,6 +608,7 @@ function hideFeedback(els) {
 }
 
 function finishRound(els, state) {
+  state.checkpoint = null;
   state.roundsPlayed += 1;
   state.dailyStreak = computeDailyStreak(state.lastPlayedISO, state.dailyStreak);
   state.lastPlayedISO = new Date().toISOString();
@@ -572,7 +694,7 @@ function vibrate(state, pattern) {
 
 function bindControls(els, state) {
   els.start.disabled = true;
-  els.start.addEventListener('click', () => startRound(els, state));
+  els.start.addEventListener('click', () => resumeRound(els, state));
   els.replay.addEventListener('click', () => startRound(els, state));
   els.home.addEventListener('click', () => showScreen(els, state, 'start'));
   els.quit.addEventListener('click', () => quitRound(els, state));
@@ -609,14 +731,16 @@ function bindControls(els, state) {
 function quitRound(els, state) {
   state.queue = [];
   state.task = null;
+  state.checkpoint = null;
+  persist(state);
   renderStart(els, state);
   showScreen(els, state, 'start');
 }
 
 function resetProgress(els, state) {
   if (!window.confirm('Notīrīt visu saglabāto progresu?')) return;
-  clearGameProgress(GAME_ID);
-  Object.assign(state, defaultProgress());
+  Object.assign(state, darbibasVardiV2Progress.createDefault());
+  persist(state);
   renderSettings(els, state);
   renderStart(els, state);
   announceLive(els.live, 'Progress notīrīts.');
@@ -650,7 +774,15 @@ function bindSwipe(els, state) {
 }
 
 function handleKeydown(els, state, event) {
-  if (state.screen !== 'play' || event.metaKey || event.ctrlKey || event.altKey) return;
+  if (
+    state.screen !== 'play' ||
+    els.screens.play.hidden ||
+    els.screens.play.inert ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.altKey
+  )
+    return;
 
   if (event.key === 'Escape') {
     event.preventDefault();

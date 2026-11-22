@@ -6,6 +6,7 @@
  * stem + ending. Every export is DOM-free so rounds stay deterministic under a
  * seeded rng.
  */
+import { MAX_BOX, ROUND_SIZE } from '../../lib/progress/darbibas-vardi-v2.js';
 import { sanitizeText } from '../../lib/sanitize.js';
 import { clamp, pickRandom, shuffle } from '../../lib/utils.js';
 
@@ -17,8 +18,7 @@ export const STAGE_LABELS = {
   [STAGES.BUILD]: 'Būve',
 };
 
-export const MAX_BOX = 4;
-export const ROUND_SIZE = 10;
+export { MAX_BOX, ROUND_SIZE };
 export const OPTION_COUNT = 4;
 
 // Without a cap the 300+ unseen verbs would crowd out reviews and the ladder
@@ -166,7 +166,8 @@ export function normalizeRecords(raw) {
   const records = {};
   if (!raw || typeof raw !== 'object') return records;
   Object.entries(raw).forEach(([id, value]) => {
-    if (!id || !value || typeof value !== 'object') return;
+    if (!id || id.length > 160 || id in Object.prototype || !value || typeof value !== 'object')
+      return;
     records[id] = {
       box: clamp(toCount(value.box), 0, MAX_BOX),
       dueAt: toCount(value.dueAt),
@@ -180,7 +181,7 @@ export function normalizeRecords(raw) {
 
 function toCount(value) {
   const number = Number(value);
-  return Number.isFinite(number) && number > 0 ? Math.floor(number) : 0;
+  return Number.isSafeInteger(Math.floor(number)) && number > 0 ? Math.floor(number) : 0;
 }
 
 /**

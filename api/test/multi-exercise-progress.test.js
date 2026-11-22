@@ -83,7 +83,7 @@ test('unsupported games and malformed matching snapshots are rejected before sto
     ...learner.dependencies,
     getContainer: () => assert.fail('Invalid requests must not access Cosmos'),
   };
-  for (const gameId of ['other', 'darbibas-vardi-v2', '__proto__', '../word-quest']) {
+  for (const gameId of ['other', 'form-factory-v3', '__proto__', '../word-quest']) {
     assert.equal((await getProgressHandler(request({ gameId }), deps)).status, 400);
     assert.equal((await saveProgressHandler(request({ gameId }), deps)).status, 400);
   }
@@ -246,6 +246,46 @@ test('summaries use only the verified partition, derive metrics and omit raw lea
   ]) {
     assert.equal(JSON.stringify(payload).includes(privateField), false, privateField);
   }
+});
+
+test('V2 progress round-trips independently and summarizes only learner metrics', async () => {
+  const gameId = 'darbibas-vardi-v2';
+  const adapter = definitions.getAdapter(gameId);
+  const deps = dependencies(createProgressContainer());
+  const data = adapter.createDefault();
+  data.records['būt'] = { box: 4, dueAt: 1000, seen: 4, correct: 4, wrong: 0 };
+  data.xp = 60;
+  data.bestStreak = 4;
+  data.lastAnswerISO = '2026-11-20T08:00:00.000Z';
+  data.checkpoint = {
+    queue: ['iet'],
+    retried: [],
+    review: {},
+    answered: 0,
+    correct: 0,
+    streak: 0,
+    bestStreak: 0,
+    xp: 0,
+  };
+  assert.equal((await saveProgressHandler(request({ gameId, data }), deps)).status, 200);
+  assert.deepEqual((await getProgressHandler(request({ gameId }), deps)).jsonBody.data, data);
+  const freshDevice = await getProgressSummaryHandler(request(), deps);
+  const result = freshDevice.jsonBody.exercises.find((entry) => entry.gameId === gameId);
+  assert.equal(result.status, 'saved');
+  assert.deepEqual(result.summary, {
+    attempts: 4,
+    correct: 4,
+    accuracy: 100,
+    lastPlayedAt: data.lastAnswerISO,
+    mastery: { mastered: 1, total: definitions.contexts[gameId].itemIds.length },
+    xp: 60,
+    bestStreak: 4,
+  });
+  const otherAccount = await getProgressSummaryHandler(request({ principal: other }), deps);
+  assert.equal(
+    otherAccount.jsonBody.exercises.find((entry) => entry.gameId === gameId).status,
+    'not-started',
+  );
 });
 
 test('summary distinguishes missing records, invalid saved data, unsupported schemas and storage outages', async () => {

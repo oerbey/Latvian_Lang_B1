@@ -29,12 +29,14 @@ test('registry covers every published exercise with a unique stable ID and exist
 test('contract availability does not enable a planned exercise or alias another version', () => {
   assert.deepEqual(
     EXERCISES.filter(({ tracking }) => tracking === 'cloud').map(({ id }) => id),
-    ['darbibas-vards', 'word-quest'],
+    ['darbibas-vards', 'darbibas-vardi-v2', 'word-quest'],
   );
   assert.ok(getProgressAdapter('word-quest'));
   assert.ok(getProgressAdapter('darbibas-vards'));
   assert.equal(getExercise('darbibas-vards').tracking, 'cloud');
-  assert.equal(getProgressAdapter('darbibas-vardi-v2'), null);
+  assert.ok(getProgressAdapter('darbibas-vardi-v2'));
+  assert.notEqual(getProgressAdapter('darbibas-vards'), getProgressAdapter('darbibas-vardi-v2'));
+  assert.equal(getProgressAdapter('form-factory-v3'), null);
   assert.notEqual(
     getExercise('character-traits-match').id,
     getExercise('character-traits-expansion').id,

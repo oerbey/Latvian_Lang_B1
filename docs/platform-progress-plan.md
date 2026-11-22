@@ -9,7 +9,7 @@ cross-tab session invalidation. Step 3 enables API read/write for Word Quest and
 Darbības Vārdi and adds authenticated account summaries. Step 4 adds reusable
 browser storage and synchronization. Word Quest and original Darbības Vārdi
 now use it during gameplay. My Progress shows their summaries and links to all
-registered exercises.
+registered exercises. Step 8 has begun with Darbības Vārdi V2.
 The production baseline predates these changes.
 
 The agreed experience is one email/password login across exercises and browser
@@ -31,7 +31,7 @@ results in `progress.md` and stop at the checkpoint before the next step.
 | 5    | Word Quest uses shared services               | Existing account, guest, logout, delayed-response and conflict checks pass with existing saved progress and account isolation                               | Implemented |
 | 6    | Original Darbības Vārdi pilot                 | A partially matched board and statistics restore after refresh and on another device; guest state stays independent                                         | Implemented |
 | 7    | My Progress page                              | Word Quest and Darbības Vārdi summaries agree with saved state; mobile/accessibility and empty/offline/partial-error states pass                            | Implemented |
-| 8    | Remaining exercise integrations, individually | Each exercise passes adapter, sync, dashboard and cross-device acceptance before the next integration                                                       | Pending     |
+| 8    | Remaining exercise integrations, individually | Each exercise passes adapter, sync, dashboard and cross-device acceptance before the next integration                                                       | In progress |
 | 9    | Dev acceptance and production release         | Two-account/two-tab/two-browser checks and full CI pass; release uses the existing manual production approval workflow                                      | Pending     |
 
 ## Contract interface
@@ -44,8 +44,8 @@ and URLs can change without changing persistent IDs. Exclude Home, the callback,
 design prototypes and landing concepts from the exercise inventory.
 
 `src/lib/progress/index.js` exports `getProgressAdapter(gameId)`. It returns an
-adapter for `word-quest` or `darbibas-vards`, otherwise `null`. Both exercises are marked
-as connected in the registry.
+adapter for `word-quest`, `darbibas-vards` or `darbibas-vardi-v2`, otherwise
+`null`. All three exercises are marked as connected in the registry.
 Neither module performs storage, authentication, network access or migration.
 
 Adapters expose:
@@ -80,8 +80,8 @@ tracking not yet connected and unavailable cloud data are distinct UI states.
 
 ## Step 3 API contract and packaging
 
-Current source enables `word-quest` and `darbibas-vards`, the two registered IDs
-with implemented adapters. `CLOUD_PROGRESS_GAME_IDS` describes API readiness,
+Step 3 enabled `word-quest` and `darbibas-vards`. Step 8 adds
+`darbibas-vardi-v2`. `CLOUD_PROGRESS_GAME_IDS` describes API readiness,
 independently of the registry's game/UI `tracking` rollout. Catalogue entries
 without an adapter are rejected by read/write endpoints with HTTP 400, before
 accessing Cosmos. Add an adapter and regenerate the API package when integrating
@@ -109,8 +109,8 @@ Summary `status` values are:
 | `not-connected` | No API adapter exists for this exercise yet                                              | `null`                  |
 | `unavailable`   | A saved record cannot be summarized, including an unsupported schema or invalid revision | `null`                  |
 
-The registry reports `cloud` for the two connected exercises. The dashboard can
-use the flag to explain where account progress is available.
+The registry reports `cloud` for connected exercises. The dashboard uses the
+flag to show their metrics.
 Do not manufacture zero metrics for any `null` summary. A storage/query outage
 returns HTTP 503 rather than a misleading empty account; individual unreadable
 records return `unavailable` without preventing other rows from loading.
@@ -308,6 +308,19 @@ from that owner's browser store. A fresh offline visit shows guest history.
 Sign-out and account switches clear the old view and cancel in-flight account
 reads. The dashboard is available in English, Latvian and Russian and its assets
 are precached by service worker v35.
+
+## Step 8 Darbības Vārdi V2 integration
+
+V2 stores its own versioned checkpoint and mastery records with account sync.
+Continue resumes at the next unanswered verb and builds its prompt from the
+current deck and saved language. The checkpoint preserves round XP, streaks,
+answer counts and scheduled retries. Explicitly ending a round discards its
+checkpoint and retains the lifetime results. Opening a checkpoint awards no XP.
+
+Legacy V2 data migrates into the browser's guest namespace. The original key
+remains available as a backup. Account saves preserve translation language,
+pronunciation and haptics preferences. My Progress counts mastered verbs using
+the same mastery threshold and normalized deck as the game.
 
 ## Verification and release
 

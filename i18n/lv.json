@@ -41,6 +41,7 @@
     "playExercise": "Spēlēt: {exercise}",
     "fraction": "{count} no {total}",
     "metrics": {
+      "mastery": "Apgūtie darbības vārdi",
       "attempts": "Mēģinājumi",
       "correct": "Pareizās atbildes",
       "accuracy": "Precizitāte",

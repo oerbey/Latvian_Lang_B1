@@ -533,3 +533,25 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
   A separate service-worker check opened My Progress offline and followed
   Continue back to Word Quest with the same guest XP after restoration.
   Browser account tests used a fixture API and identity provider.
+
+## Darbības Vārdi V2 account progress (Step 8)
+
+- Added an independent V2 progress contract for mastery, preferences, activity
+  and a checkpoint with queued verbs, retries, XP and streaks. Continue rebuilds
+  the next unanswered verb prompt from the current deck. Ending a round clears
+  the checkpoint while retaining lifetime results.
+- Reused the shared scoped store and sync service. The old V2 save migrates to
+  the guest namespace only. The API derives mastery from the same normalized
+  verb IDs and mastery rule as the browser.
+- Added V2 to My Progress in all three locale packs and precached its progress
+  modules in service worker v36. The separate browser test verifies that
+  restoring a round adds no answers, XP or writes and that signing out
+  restores the migrated guest history.
+- Inspected the local gameplay harness and the cross-browser checkpoint
+  screenshot. The static harness server returned its expected 404 for
+  authentication configuration. Full account tests use a fixture API and
+  identity provider.
+- Verified 200 Node tests, 22 API tests, lint, formatting, typecheck, and
+  data, locale and generated API validation. Updated the Word Quest legacy
+  migration browser assertion to wait for the fixture's committed revision
+  because a reconnection can supersede the transient save confirmation.

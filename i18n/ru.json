@@ -41,6 +41,7 @@
     "playExercise": "Играть: {exercise}",
     "fraction": "{count} из {total}",
     "metrics": {
+      "mastery": "Освоенные глаголы",
       "attempts": "Попытки",
       "correct": "Правильные ответы",
       "accuracy": "Точность",

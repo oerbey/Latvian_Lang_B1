@@ -21,11 +21,14 @@ export const EXERCISES = Object.freeze([
     ['wordsPractised', 'coverage'],
     'cloud',
   ),
-  exercise('darbibas-vardi-v2', 'Darbības Vārdi V2', 'darbibas-vardi-v2.html', 'checkpoint', [
-    'mastery',
-    'xp',
-    'bestStreak',
-  ]),
+  exercise(
+    'darbibas-vardi-v2',
+    'Darbības Vārdi V2',
+    'darbibas-vardi-v2.html',
+    'checkpoint',
+    ['mastery', 'xp', 'bestStreak'],
+    'cloud',
+  ),
   exercise(
     'prefixed-coming-verbs',
     'Nākt ar priedēkļiem',

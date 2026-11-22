@@ -42,6 +42,20 @@
         <div id="dv2-error" class="dv2-error" role="alert" hidden></div>
         <p id="dv2-live" class="visually-hidden" role="status" aria-live="polite"></p>
 
+        <p id="dv2-sync-status" role="status">Pārbauda pierakstīšanos…</p>
+        <dialog id="dv2-sync-dialog" class="dv2-panel" aria-labelledby="dv2-sync-title">
+          <h2 id="dv2-sync-title">Kuru progresu saglabāt?</h2>
+          <p id="dv2-sync-comparison"></p>
+          <div class="dv2-actions">
+            <button type="button" class="dv2-primary" data-progress-choice="local">
+              Saglabāt šīs ierīces progresu
+            </button>
+            <button type="button" class="dv2-ghost" data-progress-choice="cloud">
+              Izmantot mākoņa progresu
+            </button>
+          </div>
+        </dialog>
+
         <section class="dv2-screen dv2-start" data-screen="start" aria-labelledby="dv2-title">
           <header class="dv2-hero">
             <span class="dv2-eyebrow">Adaptīvais treniņš</span>

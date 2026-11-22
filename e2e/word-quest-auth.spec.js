@@ -399,7 +399,7 @@ test('existing Word Quest saves and pending edits migrate once for each owner', 
   );
 
   await page.goto('/word-quest.html');
-  await expect(page.locator('#wq-sync-status')).toHaveText('Saved to cloud.');
+  await expect.poll(() => records.get(owners.A)?.revision).toBe(4);
   expect(saves.map(({ owner, body }) => [owner, body.expectedRevision, body.data.xp])).toEqual([
     [owners.A, 3, 42],
   ]);

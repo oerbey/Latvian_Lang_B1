@@ -26,6 +26,9 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Added
 
+- Sync Darbības Vārdi V2 mastery, XP, streaks, preferences and round checkpoints
+  under the shared account. Show V2 in My Progress and preserve legacy progress
+  in the guest save.
 - Add a My Progress dashboard with account summaries for Word Quest and
   Darbības Vārdi, guest history from this browser, and links to all exercises.
   Show unavailable progress separately and label local account copies.

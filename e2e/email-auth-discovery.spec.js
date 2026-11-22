@@ -2,6 +2,10 @@ import { test, expect } from '@playwright/test';
 import { Buffer } from 'node:buffer';
 import { EXERCISES } from '../src/lib/exercise-registry.js';
 
+import { readFile } from 'node:fs/promises';
+import { getTranslation, normalizeVerbs } from '../src/games/darbibas-vardi-v2/logic.js';
+import { darbibasVardiV2Progress } from '../src/lib/progress/darbibas-vardi-v2.js';
+
 const tenantId = '11111111-1111-4111-8111-111111111111';
 const authority = 'https://example.ciamlogin.com/';
 const issuerHost = `${tenantId}.ciamlogin.com`;
@@ -446,10 +450,10 @@ test('My Progress shows read-only guest history and fits a phone in all three la
     'href',
     'word-quest.html',
   );
-  const verbs = page.getByRole('article', { name: 'Darbības Vārdi' });
+  const verbs = page.getByRole('article', { name: 'Darbības Vārdi', exact: true });
   await expect(verbs.getByText('100%', { exact: true })).toBeVisible();
   await expect(verbs.getByText('1 of 358')).toBeVisible();
-  await expect(page.locator('#progress-catalogue li')).toHaveCount(19);
+  await expect(page.locator('#progress-catalogue li')).toHaveCount(18);
   expect(
     await page.evaluate(() => [
       localStorage.getItem('llb1:progress:v1:word-quest:guest'),
@@ -502,7 +506,9 @@ test('My Progress loads account summaries, retries partial results and clears th
                 ? 'saved'
                 : id === 'darbibas-vards'
                   ? matchingStatus
-                  : 'not-connected';
+                  : tracking === 'cloud'
+                    ? 'not-started'
+                    : 'not-connected';
             const summary =
               id === 'word-quest'
                 ? {
@@ -534,7 +540,7 @@ test('My Progress loads account summaries, retries partial results and clears th
   await expect(dashboard.getByRole('link', { name: 'Start Word Quest' })).toBeVisible();
   await page.locator('#site-sign-in').click();
   const quest = dashboard.getByRole('article', { name: 'Word Quest' });
-  const verbs = dashboard.getByRole('article', { name: 'Darbības Vārdi' });
+  const verbs = dashboard.getByRole('article', { name: 'Darbības Vārdi', exact: true });
   await expect(quest.getByText('83', { exact: true })).toBeVisible();
   await expect(quest.getByText('3 of 49')).toBeVisible();
   await expect(verbs.getByText('Progress unavailable')).toBeVisible();
@@ -573,4 +579,111 @@ test('My Progress loads account summaries, retries partial results and clears th
   }
   await expect(quest.getByText('83', { exact: true })).toHaveCount(0);
   await expect(verbs.getByText('6 of 358')).toHaveCount(0);
+});
+
+test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', async ({
+  page,
+  context,
+  browser,
+  baseURL,
+}, testInfo) => {
+  const words = JSON.parse(await readFile(new URL('../data/words.json', import.meta.url), 'utf8'));
+  const verbs = normalizeVerbs(words);
+  const itemIds = verbs.map(({ id }) => id);
+  const gameId = 'darbibas-vardi-v2';
+  const userId = `extid:${'a'.repeat(64)}`;
+  let record = null;
+  let writes = 0;
+
+  async function connectDevice(device) {
+    await configureDiscovery(device, issuerHost, 'success');
+    await device.route('**/api/authSession', (route) => route.fulfill({ json: { userId } }));
+    await device.route(`**/api/getProgress?gameId=${gameId}`, (route) =>
+      route.fulfill({ body: JSON.stringify(record), contentType: 'application/json' }),
+    );
+    await device.route('**/api/saveProgress', (route) => {
+      const body = route.request().postDataJSON();
+      expect(body.gameId).toBe(gameId);
+      expect(body.expectedRevision).toBe(record?.revision ?? 0);
+      expect(darbibasVardiV2Progress.validate(body.data)).toBeNull();
+      record = { userId, gameId, revision: body.expectedRevision + 1, data: body.data };
+      writes++;
+      return route.fulfill({ json: { ok: true, item: record } });
+    });
+    await device.route('**/api/getProgressSummary', (route) =>
+      route.fulfill({
+        json: {
+          userId,
+          exercises: EXERCISES.map(({ id, tracking }) => ({
+            gameId: id,
+            tracking,
+            status:
+              id === gameId ? 'saved' : tracking === 'cloud' ? 'not-started' : 'not-connected',
+            summary:
+              id === gameId ? darbibasVardiV2Progress.summarize(record.data, { itemIds }) : null,
+          })),
+        },
+      }),
+    );
+  }
+
+  await connectDevice(context);
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'llb1:progress',
+      JSON.stringify({
+        games: { 'darbibas-vardi-v2': { data: { xp: 140, language: 'en' } } },
+      }),
+    );
+  });
+  await page.goto('/darbibas-vardi-v2.html');
+  await expect(page.locator('#dv2-xp')).toHaveText('140');
+  await page.locator('#site-sign-in').click();
+  await expect(page.locator('#dv2-sync-status')).toContainText('tavā kontā');
+  await expect(page.locator('#dv2-xp')).toHaveText('0');
+  await page.locator('[data-language="ru"]').click();
+  await page.locator('#dv2-start').click();
+  const { verbId } = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  const toLatvian = (await page.locator('#dv2-prompt-label').textContent()).startsWith('Kurš');
+  const verb = verbs.find((entry) => entry.id === verbId);
+  const answer = toLatvian ? verb.lv : getTranslation(verb, 'ru');
+  await page.locator('#dv2-options').getByText(answer, { exact: true }).click();
+  await expect(page.locator('#dv2-feedback-title')).toHaveText('Pareizi!');
+  await expect(page.locator('#dv2-sync-status')).toHaveText('Progress saglabāts tavā kontā.');
+  const saved = structuredClone(record.data);
+  expect(saved.checkpoint.answered).toBe(1);
+  expect(saved.xp).toBe(10);
+  expect(Object.values(saved.records)).toHaveLength(1);
+  const next = verbs.find(({ id }) => id === saved.checkpoint.queue[0]);
+  const savesBeforeRestore = writes;
+
+  const device = await browser.newContext({ baseURL, serviceWorkers: 'block' });
+  try {
+    await connectDevice(device);
+    const second = await device.newPage();
+    await second.goto('/my-progress.html');
+    await second.locator('#site-sign-in').click();
+    const card = second.getByRole('article', { name: 'Darbības Vārdi V2' });
+    await expect(card.getByText(`0 of ${itemIds.length}`)).toBeVisible();
+    await expect(card.getByText('100%', { exact: true })).toBeVisible();
+    await card.getByRole('link', { name: 'Continue Darbības Vārdi V2' }).click();
+    await expect(second.locator('[data-language="ru"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(second.locator('#dv2-start')).toHaveText('Turpināt treniņu');
+    await second.locator('#dv2-start').click();
+    await expect(second.locator('#dv2-progress-text')).toHaveText('1/10');
+    const restored = await second.evaluate(() => JSON.parse(window.render_game_to_text()));
+    expect(restored.verbId).toBe(next.id);
+    expect(writes).toBe(savesBeforeRestore);
+    await second.screenshot({ path: testInfo.outputPath('restored-v2-checkpoint.png') });
+    await second.locator('#site-sign-out').click();
+    await expect(second.locator('#dv2-xp')).toHaveText('0');
+    await expect(second.locator('#dv2-start')).toHaveText('Sākt treniņu');
+  } finally {
+    await device.close();
+  }
+
+  await page.locator('#site-sign-out').click();
+  await expect(page.locator('#dv2-xp')).toHaveText('140');
+  await expect(page.locator('#dv2-start')).toHaveText('Sākt treniņu');
+  await expect(page.locator('[data-language="en"]')).toHaveAttribute('aria-pressed', 'true');
 });

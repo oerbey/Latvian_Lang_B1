@@ -13,6 +13,11 @@ import { darbibasVardiV2Progress } from '../lib/progress/darbibas-vardi-v2.js';
 import { readLegacyV2Progress } from '../games/darbibas-vardi-v2/legacy-progress.js';
 import { normalizeVerbs } from '../games/darbibas-vardi-v2/logic.js';
 
+import { assetUrl } from '../lib/paths.js';
+import { formFactoryV3Progress } from '../lib/progress/form-factory-v3.js';
+import { normalizeItems } from '../games/form-factory-v3/logic.js';
+import { readLegacyFormFactoryV3 } from '../games/form-factory-v3/legacy-progress.js';
+
 const cards = document.getElementById('progress-cards');
 const catalogue = document.getElementById('progress-catalogue');
 const notice = document.getElementById('progress-notice');
@@ -29,6 +34,16 @@ let request;
 let verifiedOwner = null;
 
 const localAdapters = {
+  'form-factory-v3': {
+    adapter: formFactoryV3Progress,
+    legacy: readLegacyFormFactoryV3,
+    async summaryContext() {
+      const result = await fetch(assetUrl('data/form-factory/items.json'))
+        .then((response) => (response.ok ? response.json() : null))
+        .catch(() => null);
+      return result ? { itemIds: normalizeItems(result).map(({ id }) => id) } : {};
+    },
+  },
   'darbibas-vardi-v2': {
     adapter: darbibasVardiV2Progress,
     legacy: readLegacyV2Progress,
@@ -113,7 +128,8 @@ function exerciseCard(exercise) {
       const value = metricValue(key, entry.summary[key]);
       if (value === null) continue;
       const pair = element('div');
-      pair.append(element('dt', strings.metrics[key]), element('dd', value));
+      const label = key === 'mastery' && exercise.id === 'form-factory-v3' ? 'masteryForms' : key;
+      pair.append(element('dt', strings.metrics[label]), element('dd', value));
       metrics.append(pair);
     }
     card.append(metrics);

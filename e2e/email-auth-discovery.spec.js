@@ -6,6 +6,9 @@ import { readFile } from 'node:fs/promises';
 import { getTranslation, normalizeVerbs } from '../src/games/darbibas-vardi-v2/logic.js';
 import { darbibasVardiV2Progress } from '../src/lib/progress/darbibas-vardi-v2.js';
 
+import { normalizeItems } from '../src/games/form-factory-v3/logic.js';
+import { formFactoryV3Progress } from '../src/lib/progress/form-factory-v3.js';
+
 const tenantId = '11111111-1111-4111-8111-111111111111';
 const authority = 'https://example.ciamlogin.com/';
 const issuerHost = `${tenantId}.ciamlogin.com`;
@@ -453,7 +456,7 @@ test('My Progress shows read-only guest history and fits a phone in all three la
   const verbs = page.getByRole('article', { name: 'Darbības Vārdi', exact: true });
   await expect(verbs.getByText('100%', { exact: true })).toBeVisible();
   await expect(verbs.getByText('1 of 358')).toBeVisible();
-  await expect(page.locator('#progress-catalogue li')).toHaveCount(18);
+  await expect(page.locator('#progress-catalogue li')).toHaveCount(17);
   expect(
     await page.evaluate(() => [
       localStorage.getItem('llb1:progress:v1:word-quest:guest'),
@@ -581,19 +584,10 @@ test('My Progress loads account summaries, retries partial results and clears th
   await expect(verbs.getByText('6 of 358')).toHaveCount(0);
 });
 
-test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', async ({
-  page,
-  context,
-  browser,
-  baseURL,
-}, testInfo) => {
-  const words = JSON.parse(await readFile(new URL('../data/words.json', import.meta.url), 'utf8'));
-  const verbs = normalizeVerbs(words);
-  const itemIds = verbs.map(({ id }) => id);
-  const gameId = 'darbibas-vardi-v2';
+function adaptiveProgressFixture(gameId, adapter, itemIds) {
   const userId = `extid:${'a'.repeat(64)}`;
   let record = null;
-  let writes = 0;
+  const saves = [];
 
   async function connectDevice(device) {
     await configureDiscovery(device, issuerHost, 'success');
@@ -605,9 +599,9 @@ test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', asy
       const body = route.request().postDataJSON();
       expect(body.gameId).toBe(gameId);
       expect(body.expectedRevision).toBe(record?.revision ?? 0);
-      expect(darbibasVardiV2Progress.validate(body.data)).toBeNull();
+      expect(adapter.validate(body.data)).toBeNull();
       record = { userId, gameId, revision: body.expectedRevision + 1, data: body.data };
-      writes++;
+      saves.push(record);
       return route.fulfill({ json: { ok: true, item: record } });
     });
     await device.route('**/api/getProgressSummary', (route) =>
@@ -618,15 +612,35 @@ test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', asy
             gameId: id,
             tracking,
             status:
-              id === gameId ? 'saved' : tracking === 'cloud' ? 'not-started' : 'not-connected',
-            summary:
-              id === gameId ? darbibasVardiV2Progress.summarize(record.data, { itemIds }) : null,
+              id === gameId && record
+                ? 'saved'
+                : tracking === 'cloud'
+                  ? 'not-started'
+                  : 'not-connected',
+            summary: id === gameId && record ? adapter.summarize(record.data, { itemIds }) : null,
           })),
         },
       }),
     );
   }
 
+  return { connectDevice, saves };
+}
+
+test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', async ({
+  page,
+  context,
+  browser,
+  baseURL,
+}, testInfo) => {
+  const words = JSON.parse(await readFile(new URL('../data/words.json', import.meta.url), 'utf8'));
+  const verbs = normalizeVerbs(words);
+  const itemIds = verbs.map(({ id }) => id);
+  const { connectDevice, saves } = adaptiveProgressFixture(
+    'darbibas-vardi-v2',
+    darbibasVardiV2Progress,
+    itemIds,
+  );
   await connectDevice(context);
   await page.addInitScript(() => {
     localStorage.setItem(
@@ -650,12 +664,12 @@ test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', asy
   await page.locator('#dv2-options').getByText(answer, { exact: true }).click();
   await expect(page.locator('#dv2-feedback-title')).toHaveText('Pareizi!');
   await expect(page.locator('#dv2-sync-status')).toHaveText('Progress saglabāts tavā kontā.');
-  const saved = structuredClone(record.data);
+  const saved = structuredClone(saves.at(-1).data);
   expect(saved.checkpoint.answered).toBe(1);
   expect(saved.xp).toBe(10);
   expect(Object.values(saved.records)).toHaveLength(1);
   const next = verbs.find(({ id }) => id === saved.checkpoint.queue[0]);
-  const savesBeforeRestore = writes;
+  const savesBeforeRestore = saves.length;
 
   const device = await browser.newContext({ baseURL, serviceWorkers: 'block' });
   try {
@@ -673,7 +687,7 @@ test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', asy
     await expect(second.locator('#dv2-progress-text')).toHaveText('1/10');
     const restored = await second.evaluate(() => JSON.parse(window.render_game_to_text()));
     expect(restored.verbId).toBe(next.id);
-    expect(writes).toBe(savesBeforeRestore);
+    expect(saves).toHaveLength(savesBeforeRestore);
     await second.screenshot({ path: testInfo.outputPath('restored-v2-checkpoint.png') });
     await second.locator('#site-sign-out').click();
     await expect(second.locator('#dv2-xp')).toHaveText('0');
@@ -686,4 +700,76 @@ test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', asy
   await expect(page.locator('#dv2-xp')).toHaveText('140');
   await expect(page.locator('#dv2-start')).toHaveText('Sākt treniņu');
   await expect(page.locator('[data-language="en"]')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('Form Factory v3 restores its deck, next form, XP and scheduled retry in a second browser', async ({
+  page,
+  context,
+  browser,
+  baseURL,
+}, testInfo) => {
+  const dataset = JSON.parse(
+    await readFile(new URL('../data/form-factory/items.json', import.meta.url), 'utf8'),
+  );
+  const ids = normalizeItems(dataset).map(({ id }) => id);
+  const { connectDevice, saves } = adaptiveProgressFixture(
+    'form-factory-v3',
+    formFactoryV3Progress,
+    ids,
+  );
+  await connectDevice(context);
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'llb1:progress',
+      JSON.stringify({
+        games: { 'form-factory-v3': { data: { xp: 240, deckId: 'reflexive' } } },
+      }),
+    );
+  });
+  const readRound = (gamePage) => gamePage.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page.goto('/form-factory-v3.html');
+  await expect(page.locator('#ffv3-xp')).toHaveText('240');
+  await page.locator('#site-sign-in').click();
+  await expect(page.locator('#ffv3-sync-status')).toContainText('tavā kontā');
+  await expect(page.locator('#ffv3-xp')).toHaveText('0');
+  await page.locator('[data-deck="reflexive"]').click();
+  const first = (await readRound(page)).prompt;
+  await page.locator('#ffv3-options').getByText(first.answer, { exact: true }).click();
+  await expect(page.locator('#ffv3-score')).toHaveText('10');
+  await page.locator('#ffv3-next').click();
+  const missed = (await readRound(page)).prompt;
+  const wrongAnswer = missed.options.find((option) => option !== missed.answer);
+  await page.locator('#ffv3-options').getByText(wrongAnswer, { exact: true }).click();
+  await expect.poll(() => saves.at(-1)?.data.checkpoint.answered).toBe(2);
+
+  const checkpoint = saves.at(-1).data.checkpoint;
+  expect(checkpoint.retried).toEqual([missed.itemId]);
+  expect(checkpoint.queue.at(-1)).toBe(missed.itemId);
+  const writes = saves.length;
+  const device = await browser.newContext({ baseURL, serviceWorkers: 'block' });
+  try {
+    await connectDevice(device);
+    const second = await device.newPage();
+    await second.goto('/my-progress.html');
+    await second.locator('#site-sign-in').click();
+    const card = second.getByRole('article', { name: 'Form Factory v3', exact: true });
+    await expect(card.getByText('Forms mastered')).toBeVisible();
+    await expect(card.getByText(`0 of ${ids.length}`)).toBeVisible();
+    await expect(card.getByText('50%', { exact: true })).toBeVisible();
+    await card.getByRole('link', { name: 'Continue Form Factory v3' }).click();
+    await expect(second.locator('#ffv3-resume')).toContainText('Atgriezeniskie');
+    await second.locator('#ffv3-resume').click();
+    const restored = await readRound(second);
+    expect(restored.deck).toBe('reflexive');
+    expect(restored.prompt.itemId).toBe(checkpoint.queue[0]);
+    expect(restored.round.answered).toBe(2);
+    expect(restored.score.xp).toBe(10);
+    expect(saves).toHaveLength(writes);
+    await second.screenshot({ path: testInfo.outputPath('restored-form-factory-v3.png') });
+  } finally {
+    await device.close();
+  }
+  await page.locator('#site-sign-out').click();
+  await expect(page.locator('#ffv3-xp')).toHaveText('240');
+  await expect(page.locator('#ffv3-resume')).toBeHidden();
 });

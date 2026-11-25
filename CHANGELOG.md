@@ -26,6 +26,8 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Added
 
+- Sync Form Factory v3 mastery, XP, streaks, deck, and round checkpoints. Add
+  its account summary to My Progress and preserve legacy progress for guests.
 - Sync Darbības Vārdi V2 mastery, XP, streaks, preferences and round checkpoints
   under the shared account. Show V2 in My Progress and preserve legacy progress
   in the guest save.

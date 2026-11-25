@@ -9,7 +9,7 @@ cross-tab session invalidation. Step 3 enables API read/write for Word Quest and
 Darbības Vārdi and adds authenticated account summaries. Step 4 adds reusable
 browser storage and synchronization. Word Quest and original Darbības Vārdi
 now use it during gameplay. My Progress shows their summaries and links to all
-registered exercises. Step 8 has begun with Darbības Vārdi V2.
+registered exercises. Step 8 has connected Darbības Vārdi V2 and Form Factory v3.
 The production baseline predates these changes.
 
 The agreed experience is one email/password login across exercises and browser
@@ -44,8 +44,9 @@ and URLs can change without changing persistent IDs. Exclude Home, the callback,
 design prototypes and landing concepts from the exercise inventory.
 
 `src/lib/progress/index.js` exports `getProgressAdapter(gameId)`. It returns an
-adapter for `word-quest`, `darbibas-vards` or `darbibas-vardi-v2`, otherwise
-`null`. All three exercises are marked as connected in the registry.
+adapter for `word-quest`, `darbibas-vards`, `darbibas-vardi-v2` or
+`form-factory-v3`, otherwise `null`. These exercises are connected in the
+registry.
 Neither module performs storage, authentication, network access or migration.
 
 Adapters expose:
@@ -81,7 +82,7 @@ tracking not yet connected and unavailable cloud data are distinct UI states.
 ## Step 3 API contract and packaging
 
 Step 3 enabled `word-quest` and `darbibas-vards`. Step 8 adds
-`darbibas-vardi-v2`. `CLOUD_PROGRESS_GAME_IDS` describes API readiness,
+`darbibas-vardi-v2` and `form-factory-v3`. `CLOUD_PROGRESS_GAME_IDS` describes API readiness,
 independently of the registry's game/UI `tracking` rollout. Catalogue entries
 without an adapter are rejected by read/write endpoints with HTTP 400, before
 accessing Cosmos. Add an adapter and regenerate the API package when integrating
@@ -321,6 +322,15 @@ Legacy V2 data migrates into the browser's guest namespace. The original key
 remains available as a backup. Account saves preserve translation language,
 pronunciation and haptics preferences. My Progress counts mastered verbs using
 the same mastery threshold and normalized deck as the game.
+
+## Step 8 Form Factory v3 integration
+
+Form Factory v3 saves the selected deck, mastery schedule, XP, streaks and
+current round. Continue rebuilds the next unanswered form in that deck and
+preserves the round counters and scheduled retries. Starting a new deck or
+explicitly ending the round replaces or clears the checkpoint. Legacy saves are
+copied into the guest store. The dashboard counts mastered forms against the
+same full dataset as the exercise, including its extension items.
 
 ## Verification and release
 

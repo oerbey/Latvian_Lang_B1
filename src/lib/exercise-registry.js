@@ -58,11 +58,14 @@ export const EXERCISES = Object.freeze([
     'bestScore',
     'bestStreak',
   ]),
-  exercise('form-factory-v3', 'Form Factory v3', 'form-factory-v3.html', 'checkpoint', [
-    'mastery',
-    'xp',
-    'bestStreak',
-  ]),
+  exercise(
+    'form-factory-v3',
+    'Form Factory v3',
+    'form-factory-v3.html',
+    'checkpoint',
+    ['mastery', 'xp', 'bestStreak'],
+    'cloud',
+  ),
   exercise('passive-lab', 'Passive Voice Builder', 'passive-lab.html', 'checkpoint', ['xp']),
   exercise(
     'sentence-surgery-passive',

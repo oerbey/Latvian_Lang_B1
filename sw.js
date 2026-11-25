@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v36';
+const CACHE_VERSION = 'v37';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -52,6 +52,9 @@ const CORE_ASSETS = [
   './src/lib/site-account.js',
   './src/lib/exercise-registry.js',
   './src/lib/progress/index.js',
+  './src/lib/progress/adaptive-learning.js',
+  './src/lib/progress/form-factory-v3.js',
+  './src/lib/adaptive-progress-sync.js',
   './src/lib/progress-store.js',
   './src/lib/progress-sync.js',
   './src/lib/progress/common.js',
@@ -119,6 +122,7 @@ const CORE_ASSETS = [
   './src/games/form-factory-v2/styles.css',
   './src/games/form-factory-v3/index.js',
   './src/games/form-factory-v3/logic.js',
+  './src/games/form-factory-v3/legacy-progress.js',
   './src/games/form-factory-v3/styles.css',
   './src/games/form-factory/styles.css',
   './src/games/maini-vai-mainies/index.js',

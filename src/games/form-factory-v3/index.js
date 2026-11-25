@@ -4,11 +4,13 @@
  * Start -> play -> summary. A per-item Leitner record selects one of three
  * stages: ending rule, contextual cloze, or typed form production.
  */
+import { connectAdaptiveProgress } from '../../lib/adaptive-progress-sync.js';
 import { announceLive } from '../../lib/aria.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { assetUrl } from '../../lib/paths.js';
 import { showReward } from '../../lib/reward.js';
-import { clearGameProgress, readGameProgress, writeGameProgress } from '../../lib/storage.js';
+import { formFactoryV3Progress } from '../../lib/progress/form-factory-v3.js';
+import { readLegacyFormFactoryV3 } from './legacy-progress.js';
 import {
   DECKS,
   MAX_BOX,
@@ -23,10 +25,10 @@ import {
   calculateAccuracy,
   countDeckItems,
   describeDeck,
+  filterItemsByDeck,
   getDeckInfo,
   isCorrectTaskAnswer,
   normalizeItems,
-  normalizeRecords,
   stageForBox,
   xpForAnswer,
 } from './logic.js';
@@ -35,50 +37,29 @@ const DATA_PATH = 'data/form-factory/items.json';
 const GAME_ID = 'form-factory-v3';
 const OPTION_KEYS = ['1', '2', '3', '4'];
 
-function defaultProgress() {
-  return {
-    records: {},
-    xp: 0,
-    bestStreak: 0,
-    roundsPlayed: 0,
-    lastAccuracy: 0,
-    lastPlayedISO: '',
-    deckId: 'all',
-  };
-}
-
-function readStoredProgress() {
-  try {
-    const saved = readGameProgress(GAME_ID, defaultProgress());
-    return {
-      records: normalizeRecords(saved.records),
-      xp: toCount(saved.xp),
-      bestStreak: toCount(saved.bestStreak),
-      roundsPlayed: toCount(saved.roundsPlayed),
-      lastAccuracy: toCount(saved.lastAccuracy),
-      lastPlayedISO: typeof saved.lastPlayedISO === 'string' ? saved.lastPlayedISO : '',
-      deckId: DECKS.some((deck) => deck.id === saved.deckId) ? saved.deckId : 'all',
-    };
-  } catch (err) {
-    console.warn('Unable to read Form Factory v3 progress', err);
-    return defaultProgress();
-  }
-}
-
 function persist(state) {
-  try {
-    writeGameProgress(GAME_ID, {
-      records: state.records,
-      xp: state.xp,
-      bestStreak: state.bestStreak,
-      roundsPlayed: state.roundsPlayed,
-      lastAccuracy: state.lastAccuracy,
-      lastPlayedISO: state.lastPlayedISO,
-      deckId: state.deckId,
-    });
-  } catch (err) {
-    console.warn('Unable to persist Form Factory v3 progress', err);
-  }
+  const snapshot = Object.fromEntries(
+    Object.keys(formFactoryV3Progress.createDefault()).map((key) => [key, state[key]]),
+  );
+  state.saveProgress(snapshot);
+}
+
+function saveCheckpoint(state) {
+  const queue = state.queue.map(({ id }) => id);
+  if (!state.locked && state.current) queue.unshift(state.current.id);
+  state.checkpoint = {
+    queue,
+    retried: [...state.retried],
+    review: Object.fromEntries(
+      [...state.reviewed].map(([id, { fromBox, toBox }]) => [id, [fromBox, toBox]]),
+    ),
+    answered: state.answered,
+    correct: state.correct,
+    streak: state.streak,
+    bestStreak: state.roundBestStreak,
+    xp: state.roundXp,
+  };
+  persist(state);
 }
 
 function getElements(root) {
@@ -107,6 +88,7 @@ function getElements(root) {
       reflexive: q('#ffv3-reflexive-count'),
       all: q('#ffv3-all-count'),
     },
+    resume: q('#ffv3-resume'),
     reset: q('#ffv3-reset'),
     quit: q('#ffv3-quit'),
     stageLabel: q('#ffv3-stage-label'),
@@ -151,29 +133,28 @@ function getElements(root) {
 
 function initFormFactoryV3(root) {
   const els = getElements(root);
-  const stored = readStoredProgress();
   const state = {
-    ...stored,
-    screen: 'start',
+    ...formFactoryV3Progress.createDefault(),
     items: [],
-    queue: [],
-    retried: new Set(),
-    reviewed: new Map(),
-    current: null,
-    task: null,
-    total: 0,
-    answered: 0,
-    correct: 0,
-    streak: 0,
-    roundBestStreak: 0,
-    roundXp: 0,
-    locked: true,
-    roundActive: false,
+    screen: 'start',
+    ...emptyRound(),
   };
 
   bindControls(els, state);
   renderStart(els, state);
   showScreen(els, state, 'start');
+  state.saveProgress = connectAdaptiveProgress(GAME_ID, {
+    status: root.querySelector('#ffv3-sync-status'),
+    dialog: root.querySelector('#ffv3-sync-dialog'),
+    compare: root.querySelector('#ffv3-sync-comparison'),
+    getScreen: () => els.screens[state.screen],
+    readLegacy: readLegacyFormFactoryV3,
+    restore(data) {
+      Object.assign(state, data ?? formFactoryV3Progress.createDefault(), emptyRound());
+      renderStart(els, state);
+      showScreen(els, state, 'start');
+    },
+  });
   showLoading('Ielādē Form Factory v3 datus...');
 
   fetch(assetUrl(DATA_PATH), { cache: 'no-store' })
@@ -184,7 +165,6 @@ function initFormFactoryV3(root) {
     .then((payload) => {
       state.items = normalizeItems(payload);
       if (!state.items.length) throw new Error('Form Factory v3 data has no usable items.');
-      state.locked = false;
       renderStart(els, state);
     })
     .catch((err) => {
@@ -193,8 +173,11 @@ function initFormFactoryV3(root) {
     })
     .finally(() => hideLoading());
 
-  window.render_game_to_text = () => renderGameToText(state);
-  window.advanceTime = () => renderGameToText(state);
+  window.render_game_to_text = () =>
+    els.screens[state.screen].hidden
+      ? JSON.stringify({ screen: 'checking' })
+      : renderGameToText(state);
+  window.advanceTime = window.render_game_to_text;
 }
 
 function bindControls(els, state) {
@@ -204,6 +187,7 @@ function bindControls(els, state) {
       startRound(els, state, button.dataset.deck || 'all');
     });
   });
+  els.resume.addEventListener('click', () => resumeRound(els, state));
   els.quit?.addEventListener('click', () => quitRound(els, state));
   els.next?.addEventListener('click', () => nextTask(els, state));
   els.replay?.addEventListener('click', () => startRound(els, state, state.deckId));
@@ -230,17 +214,41 @@ function startRound(els, state, deckId) {
     showError(els, 'Šai kopai nav derīgu uzdevumu.');
     return;
   }
-  state.queue = round.slice();
-  state.retried = new Set();
-  state.reviewed = new Map();
-  state.total = round.length;
-  state.answered = 0;
-  state.correct = 0;
-  state.streak = 0;
-  state.roundBestStreak = 0;
-  state.roundXp = 0;
-  state.roundActive = true;
-  persist(state);
+  Object.assign(state, emptyRound(), {
+    queue: round.slice(),
+    total: round.length,
+    roundActive: true,
+  });
+  showScreen(els, state, 'play');
+  nextTask(els, state);
+  if (state.roundActive) saveCheckpoint(state);
+}
+
+function resumeRound(els, state) {
+  if (!state.checkpoint || !state.items.length) return;
+  const checkpoint = state.checkpoint;
+  const items = new Map(
+    filterItemsByDeck(state.items, state.deckId).map((item) => [item.id, item]),
+  );
+  const queue = checkpoint.queue.map((id) => items.get(id)).filter(Boolean);
+  if (!queue.length && !checkpoint.answered) return startRound(els, state, state.deckId);
+  Object.assign(state, emptyRound(), {
+    queue,
+    retried: new Set(checkpoint.retried),
+    reviewed: new Map(
+      Object.entries(checkpoint.review).flatMap(([id, [fromBox, toBox]]) => {
+        const item = items.get(id);
+        return item ? [[id, { label: `${item.subject} · ${item.answer}`, fromBox, toBox }]] : [];
+      }),
+    ),
+    total: checkpoint.answered + queue.length,
+    answered: checkpoint.answered,
+    correct: checkpoint.correct,
+    streak: checkpoint.streak,
+    roundBestStreak: checkpoint.bestStreak,
+    roundXp: checkpoint.xp,
+    roundActive: true,
+  });
   showScreen(els, state, 'play');
   nextTask(els, state);
 }
@@ -264,6 +272,10 @@ function nextTask(els, state) {
 }
 
 function renderStart(els, state) {
+  els.resume.hidden = !state.checkpoint;
+  els.resume.disabled = !state.items.length;
+  for (const button of els.deckButtons) button.disabled = !state.items.length;
+  if (state.checkpoint) els.resume.textContent = `Turpināt · ${getDeckInfo(state.deckId).label}`;
   const summary = describeDeck(state.items, state.records, { deckId: 'all' });
   setText(els.xp, String(state.xp));
   setText(els.rounds, String(state.roundsPlayed));
@@ -408,7 +420,9 @@ function resolveAnswer(els, state, correct) {
   }
 
   const before = state.records[current.id];
-  const after = applyResult(before, correct);
+  const now = Date.now();
+  const after = applyResult(before, correct, now);
+  state.lastAnswerISO = new Date(now).toISOString();
   state.records[current.id] = after;
   state.reviewed.set(current.id, {
     label: `${current.subject} · ${current.answer}`,
@@ -416,7 +430,7 @@ function resolveAnswer(els, state, correct) {
     toBox: after.box,
   });
   state.lastAccuracy = calculateAccuracy(state.correct, state.answered);
-  persist(state);
+  saveCheckpoint(state);
   updateHud(els, state);
   showFeedback(els, state, correct);
 }
@@ -457,6 +471,7 @@ function finishRound(els, state) {
   state.current = null;
   state.task = null;
   state.locked = true;
+  state.checkpoint = null;
   state.roundsPlayed += 1;
   state.lastAccuracy = calculateAccuracy(state.correct, state.answered);
   state.lastPlayedISO = new Date().toISOString();
@@ -509,22 +524,8 @@ function summaryMessage(accuracy, due) {
   return 'Kļūdas ir ieliktas atkārtojumu rindā.';
 }
 
-function quitRound(els, state) {
-  state.queue = [];
-  state.current = null;
-  state.task = null;
-  state.roundActive = false;
-  renderStart(els, state);
-  showScreen(els, state, 'start');
-}
-
-function resetProgress(els, state) {
-  if (!window.confirm('Notīrīt visu Form Factory v3 progresu?')) return;
-  clearGameProgress(GAME_ID);
-  const items = state.items;
-  Object.assign(state, defaultProgress(), {
-    items,
-    screen: 'start',
+function emptyRound() {
+  return {
     queue: [],
     retried: new Set(),
     reviewed: new Map(),
@@ -536,15 +537,36 @@ function resetProgress(els, state) {
     streak: 0,
     roundBestStreak: 0,
     roundXp: 0,
-    locked: false,
+    locked: true,
     roundActive: false,
-  });
+  };
+}
+
+function quitRound(els, state) {
+  Object.assign(state, emptyRound(), { checkpoint: null });
+  persist(state);
+  renderStart(els, state);
+  showScreen(els, state, 'start');
+}
+
+function resetProgress(els, state) {
+  if (!window.confirm('Notīrīt visu Form Factory v3 progresu?')) return;
+  Object.assign(state, formFactoryV3Progress.createDefault(), emptyRound());
+  persist(state);
   renderStart(els, state);
   announceLive(els.live, 'Progress notīrīts.');
 }
 
 function handleKeydown(els, state, event) {
-  if (state.screen !== 'play' || !state.task || event.metaKey || event.ctrlKey || event.altKey)
+  if (
+    state.screen !== 'play' ||
+    els.screens.play.hidden ||
+    els.screens.play.inert ||
+    !state.task ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.altKey
+  )
     return;
   if (event.key === 'Escape') {
     event.preventDefault();
@@ -597,11 +619,6 @@ function setText(element, value) {
   if (element) element.textContent = value;
 }
 
-function toCount(value) {
-  const number = Number(value);
-  return Number.isFinite(number) && number > 0 ? Math.floor(number) : 0;
-}
-
 function renderGameToText(state) {
   const deck = describeDeck(state.items, state.records, { deckId: state.deckId });
   return JSON.stringify({
@@ -611,6 +628,7 @@ function renderGameToText(state) {
     round: { answered: state.answered, total: state.total, locked: state.locked },
     prompt: state.task
       ? {
+          itemId: state.current.id,
           stage: state.task.stage,
           label: state.task.promptLabel,
           lemma: state.task.lemma,

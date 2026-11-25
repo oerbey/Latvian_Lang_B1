@@ -5,6 +5,8 @@
  * contextual cloze recognition, then typed production. All exports stay DOM-free
  * so scheduling and task generation can be tested with a seeded RNG.
  */
+import { MAX_BOX, ROUND_SIZE } from '../../lib/progress/adaptive-learning.js';
+import { FORM_FACTORY_DECKS } from '../../lib/progress/form-factory-v3.js';
 import { sanitizeText } from '../../lib/sanitize.js';
 import { clamp, shuffle } from '../../lib/utils.js';
 
@@ -17,14 +19,25 @@ export const STAGE_LABELS = {
 };
 
 export const ENDINGS = ['-damies', '-damās', '-dams', '-dama', '-damas', '-dami'];
-export const MAX_BOX = 4;
-export const ROUND_SIZE = 10;
+export { MAX_BOX, ROUND_SIZE };
 export const MAX_NEW_PER_ROUND = 4;
 
 export const DECKS = [
-  { id: 'core', label: 'Pamata', description: '1.–3. līmenis ar ikdienas teikumiem.' },
-  { id: 'reflexive', label: 'Atgriezeniskie', description: 'Trenē -damies un -damās.' },
-  { id: 'all', label: 'Visas formas', description: 'Vienskaitlis un daudzskaitlis.' },
+  {
+    id: FORM_FACTORY_DECKS.core,
+    label: 'Pamata',
+    description: '1.–3. līmenis ar ikdienas teikumiem.',
+  },
+  {
+    id: FORM_FACTORY_DECKS.reflexive,
+    label: 'Atgriezeniskie',
+    description: 'Trenē -damies un -damās.',
+  },
+  {
+    id: FORM_FACTORY_DECKS.all,
+    label: 'Visas formas',
+    description: 'Vienskaitlis un daudzskaitlis.',
+  },
 ];
 
 const HYPHEN_EDGE_RE = /^[\u2010-\u2015-]+|[\u2010-\u2015-]+$/gu;
@@ -125,7 +138,8 @@ export function normalizeRecords(raw) {
   const records = {};
   if (!raw || typeof raw !== 'object') return records;
   Object.entries(raw).forEach(([id, value]) => {
-    if (!id || !value || typeof value !== 'object') return;
+    if (!id || id.length > 160 || id in Object.prototype || !value || typeof value !== 'object')
+      return;
     records[id] = {
       box: clamp(toCount(value.box), 0, MAX_BOX),
       dueAt: toCount(value.dueAt),
@@ -353,7 +367,7 @@ function weakness(record) {
 
 function toCount(value) {
   const number = Number(value);
-  return Number.isFinite(number) && number > 0 ? Math.floor(number) : 0;
+  return Number.isSafeInteger(Math.floor(number)) && number > 0 ? Math.floor(number) : 0;
 }
 
 function capitalize(value) {

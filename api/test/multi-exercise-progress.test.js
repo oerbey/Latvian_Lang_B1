@@ -83,7 +83,7 @@ test('unsupported games and malformed matching snapshots are rejected before sto
     ...learner.dependencies,
     getContainer: () => assert.fail('Invalid requests must not access Cosmos'),
   };
-  for (const gameId of ['other', 'form-factory-v3', '__proto__', '../word-quest']) {
+  for (const gameId of ['other', 'sentence-surgery-passive', '__proto__', '../word-quest']) {
     assert.equal((await getProgressHandler(request({ gameId }), deps)).status, 400);
     assert.equal((await saveProgressHandler(request({ gameId }), deps)).status, 400);
   }
@@ -285,6 +285,44 @@ test('V2 progress round-trips independently and summarizes only learner metrics'
   assert.equal(
     otherAccount.jsonBody.exercises.find((entry) => entry.gameId === gameId).status,
     'not-started',
+  );
+});
+
+test('Form Factory v3 saves the selected deck and derives mastery for current forms', async () => {
+  const gameId = 'form-factory-v3';
+  const adapter = definitions.getAdapter(gameId);
+  const deps = dependencies(createProgressContainer());
+  const data = adapter.createDefault();
+  data.deckId = 'core';
+  data.records['ff-001'] = { box: 4, dueAt: 1000, seen: 4, correct: 4, wrong: 0 };
+  data.records.retired = { box: 4, dueAt: 1000, seen: 5, correct: 4, wrong: 1 };
+  data.xp = 80;
+  data.checkpoint = {
+    queue: ['ff-002'],
+    retried: [],
+    review: {},
+    answered: 0,
+    correct: 0,
+    streak: 0,
+    bestStreak: 0,
+    xp: 0,
+  };
+  assert.equal((await saveProgressHandler(request({ gameId, data }), deps)).status, 200);
+  assert.deepEqual((await getProgressHandler(request({ gameId }), deps)).jsonBody.data, data);
+  const result = await getProgressSummaryHandler(request(), deps);
+  const summary = result.jsonBody.exercises.find((entry) => entry.gameId === gameId).summary;
+  assert.equal(summary.attempts, 9);
+  assert.equal(summary.xp, 80);
+  assert.deepEqual(summary.mastery, {
+    mastered: 1,
+    total: definitions.contexts[gameId].itemIds.length,
+  });
+  assert.equal(summary.checkpoint, undefined);
+  const invalid = { ...data, deckId: 'missing' };
+  assert.equal(
+    (await saveProgressHandler(request({ gameId, data: invalid, expectedRevision: 1 }), deps))
+      .status,
+    400,
   );
 });
 

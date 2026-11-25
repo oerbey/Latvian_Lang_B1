@@ -916,3 +916,28 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+#ffv3-sync-status {
+  margin: 0 0 0.75rem;
+  color: var(--ffv3-muted);
+  font-size: 0.9rem;
+}
+
+#ffv3-sync-dialog {
+  width: min(32rem, calc(100% - 2rem));
+  color: var(--ffv3-ink);
+}
+
+#ffv3-sync-dialog:not([open]) {
+  display: none;
+}
+
+#ffv3-sync-dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.ffv3-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

@@ -2,6 +2,7 @@ import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+import { normalizeItems } from '../src/games/form-factory-v3/logic.js';
 import { normalizeVerbs } from '../src/games/darbibas-vardi-v2/logic.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,9 +20,11 @@ export async function buildProgressApi({ check = false } = {}) {
   }
   const words = JSON.parse(await readFile(resolve(root, 'data/words.json'), 'utf8'));
   const itemIds = [...new Set(words.map(({ lv, en }) => `${lv}|${en || ''}`))];
+  const forms = JSON.parse(await readFile(resolve(root, 'data/form-factory/items.json'), 'utf8'));
   const contexts = {
     'darbibas-vards': { itemIds },
     'darbibas-vardi-v2': { itemIds: normalizeVerbs(words).map(({ id }) => id) },
+    'form-factory-v3': { itemIds: normalizeItems(forms).map(({ id }) => id) },
   };
   files.set('contexts.json', JSON.stringify(contexts, null, 2) + '\n');
   files.set('package.json', JSON.stringify({ type: 'module' }, null, 2) + '\n');

@@ -7,9 +7,8 @@
 import { announceLive } from '../../lib/aria.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { showReward } from '../../lib/reward.js';
-import { getCurrentUser, onAuthChange } from '../../lib/email-auth.js';
+import { connectAdaptiveProgress } from '../../lib/adaptive-progress-sync.js';
 import { darbibasVardiV2Progress } from '../../lib/progress/darbibas-vardi-v2.js';
-import { createProgressSync } from '../../lib/progress-sync.js';
 import { loadWords } from '../../lib/words-data.js';
 import { readLegacyV2Progress } from './legacy-progress.js';
 import {
@@ -124,116 +123,6 @@ function saveCheckpoint(state) {
   persist(state);
 }
 
-const syncMessages = {
-  local: 'Viesa progress tiek saglabāts šajā pārlūkā.',
-  checking: 'Ielādē progresu…',
-  ready: 'Progress tiks saglabāts tavā kontā.',
-  pending: 'Izmaiņas gaida sinhronizāciju…',
-  syncing: 'Saglabā progresu mākonī…',
-  saved: 'Progress saglabāts tavā kontā.',
-  offline: 'Progress pieejams šajā pārlūkā.',
-  retrying: 'Sinhronizācija nav pieejama. Mēģina vēlreiz…',
-  unavailable: 'Mākoņa progress nav pieejams.',
-  reauth: 'Pieraksties vēlreiz, lai sinhronizētu progresu.',
-  conflict: 'Izvēlies, kuru progresu saglabāt.',
-  'storage-error': 'Progress šajā pārlūkā nav pieejams.',
-  'local-conflict': 'Progress mainīts citā cilnē. Pārlādē lapu, lai turpinātu.',
-};
-
-function connectProgress(els, state) {
-  const status = els.root.querySelector('#dv2-sync-status');
-  const dialog = els.root.querySelector('#dv2-sync-dialog');
-  const compare = els.root.querySelector('#dv2-sync-comparison');
-  let applied;
-  let checking = true;
-  let authStatus = 'anonymous';
-  let generation = 0;
-  let saving = false;
-
-  function setChecking() {
-    checking = true;
-    els.screens[state.screen].hidden = true;
-    status.textContent = 'Pārbauda pierakstīšanos…';
-    if (dialog.open) dialog.close();
-  }
-
-  const sync = createProgressSync(GAME_ID, {
-    onChange(view) {
-      if (checking) return;
-      const syncStatus =
-        ['offline', 'local'].includes(view.status) && ['unavailable', 'reauth'].includes(authStatus)
-          ? authStatus
-          : view.status;
-      status.textContent = syncMessages[syncStatus];
-      if (syncStatus === 'reauth' && authStatus === 'authenticated')
-        window.dispatchEvent(new Event('llb1:auth-required'));
-      if (view.status === 'checking') {
-        els.screens[state.screen].hidden = true;
-        return;
-      }
-      const data = JSON.stringify(view.data);
-      if (!saving && (applied?.owner !== view.userId || applied?.data !== data)) {
-        const snapshot = view.data ?? darbibasVardiV2Progress.createDefault();
-        Object.assign(state, snapshot, { queue: [], task: null, locked: true });
-        renderSettings(els, state);
-        renderStart(els, state);
-        showScreen(els, state, 'start');
-      }
-      applied = { owner: view.userId, data };
-      const screen = els.screens[state.screen];
-      screen.hidden = false;
-      screen.inert = ['conflict', 'storage-error', 'local-conflict'].includes(view.status);
-      if (view.conflict) {
-        compare.textContent = `Šajā pārlūkā ${view.data.xp} XP · Mākonī ${view.conflict.data.xp} XP`;
-        if (!dialog.open) dialog.showModal();
-      } else if (dialog.open) dialog.close();
-    },
-    readLegacy: readLegacyV2Progress,
-  });
-  async function connect() {
-    const epoch = ++generation;
-    setChecking();
-    void sync.setOnline(false);
-    const auth = await getCurrentUser();
-    if (epoch !== generation) return;
-    authStatus = auth.status;
-    checking = false;
-    await sync.setSession(auth.user?.userId ?? null, {
-      online: auth.status === 'authenticated' && navigator.onLine,
-    });
-  }
-  dialog.addEventListener('cancel', (event) => event.preventDefault());
-  for (const button of dialog.querySelectorAll('[data-progress-choice]')) {
-    button.addEventListener('click', () => {
-      const conflict = sync.view()?.conflict;
-      if (conflict) sync.resolveConflict(button.dataset.progressChoice, conflict.id);
-    });
-  }
-  onAuthChange(({ reason }) => {
-    if (reason === 'signed-out') {
-      generation++;
-      checking = false;
-      authStatus = 'anonymous';
-      void sync.setSession(null, { online: false });
-    } else if (reason === 'signing-in') {
-      generation++;
-      setChecking();
-      void sync.setSession(null, { online: false });
-    } else void connect();
-  });
-  window.addEventListener('online', () => void connect());
-  window.addEventListener('offline', () => void sync.setOnline(false));
-  void connect();
-  return (snapshot) => {
-    saving = true;
-    try {
-      return sync.saveLocal(snapshot);
-    } finally {
-      saving = false;
-    }
-  };
-}
-
 function initGame(root) {
   const els = getElements(root);
   const state = {
@@ -258,7 +147,23 @@ function initGame(root) {
   renderSettings(els, state);
   renderStart(els, state);
   showScreen(els, state, 'start');
-  state.saveProgress = connectProgress(els, state);
+  state.saveProgress = connectAdaptiveProgress(GAME_ID, {
+    status: root.querySelector('#dv2-sync-status'),
+    dialog: root.querySelector('#dv2-sync-dialog'),
+    compare: root.querySelector('#dv2-sync-comparison'),
+    getScreen: () => els.screens[state.screen],
+    readLegacy: readLegacyV2Progress,
+    restore(data) {
+      Object.assign(state, data ?? darbibasVardiV2Progress.createDefault(), {
+        queue: [],
+        task: null,
+        locked: true,
+      });
+      renderSettings(els, state);
+      renderStart(els, state);
+      showScreen(els, state, 'start');
+    },
+  });
   window.render_game_to_text = () => {
     if (els.screens[state.screen].hidden) return JSON.stringify({ screen: 'checking' });
     return JSON.stringify({

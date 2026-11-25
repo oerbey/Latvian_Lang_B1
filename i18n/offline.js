@@ -47,6 +47,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       playExercise: 'Spēlēt: {exercise}',
       fraction: '{count} no {total}',
       metrics: {
+        masteryForms: 'Apgūtās formas',
         mastery: 'Apgūtie darbības vārdi',
         attempts: 'Mēģinājumi',
         correct: 'Pareizās atbildes',
@@ -549,6 +550,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       playExercise: 'Play {exercise}',
       fraction: '{count} of {total}',
       metrics: {
+        masteryForms: 'Forms mastered',
         mastery: 'Verbs mastered',
         attempts: 'Attempts',
         correct: 'Correct answers',
@@ -1051,6 +1053,7 @@ window.__LL_I18N__ = Object.assign({}, window.__LL_I18N__ || {}, {
       playExercise: 'Играть: {exercise}',
       fraction: '{count} из {total}',
       metrics: {
+        masteryForms: 'Освоенные формы',
         mastery: 'Освоенные глаголы',
         attempts: 'Попытки',
         correct: 'Правильные ответы',

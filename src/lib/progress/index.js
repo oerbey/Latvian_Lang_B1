@@ -1,3 +1,4 @@
+import { formFactoryV3Progress } from './form-factory-v3.js';
 import { darbibasVardiV2Progress } from './darbibas-vardi-v2.js';
 import { darbibasVardsProgress } from './darbibas-vards.js';
 import { wordQuestProgress } from './word-quest.js';
@@ -6,6 +7,7 @@ const adapters = new Map([
   ['word-quest', wordQuestProgress],
   ['darbibas-vards', darbibasVardsProgress],
   ['darbibas-vardi-v2', darbibasVardiV2Progress],
+  ['form-factory-v3', formFactoryV3Progress],
 ]);
 
 export const CLOUD_PROGRESS_GAME_IDS = Object.freeze([...adapters.keys()]);

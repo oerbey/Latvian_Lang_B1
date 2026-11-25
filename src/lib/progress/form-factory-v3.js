@@ -1,0 +1,60 @@
+import { assertValid, isCount, validateJsonObject } from './common.js';
+import { summarizeAdaptiveLearning, validateAdaptiveLearning } from './adaptive-learning.js';
+
+export const FORM_FACTORY_DECKS = Object.freeze({
+  core: 'core',
+  reflexive: 'reflexive',
+  all: 'all',
+});
+const maxBytes = 64 * 1024;
+
+function createDefault() {
+  return {
+    schemaVersion: 1,
+    records: {},
+    xp: 0,
+    bestStreak: 0,
+    roundsPlayed: 0,
+    lastAccuracy: 0,
+    lastPlayedISO: '',
+    lastAnswerISO: '',
+    deckId: FORM_FACTORY_DECKS.all,
+    checkpoint: null,
+  };
+}
+
+function validate(data) {
+  const sizeError = validateJsonObject(data, maxBytes);
+  if (sizeError) return sizeError;
+  if (data.schemaVersion !== 1) return 'unsupported schemaVersion';
+  if (
+    !['xp', 'bestStreak', 'roundsPlayed', 'lastAccuracy'].every((key) => isCount(data[key])) ||
+    data.lastAccuracy > 100
+  )
+    return 'invalid lifetime counters';
+  if (typeof data.deckId !== 'string' || !Object.hasOwn(FORM_FACTORY_DECKS, data.deckId))
+    return 'invalid deck';
+  return validateAdaptiveLearning(data);
+}
+
+function normalize(data) {
+  assertValid(validate(data));
+  return Object.fromEntries(
+    Object.keys(createDefault()).map((key) => [key, structuredClone(data[key])]),
+  );
+}
+
+/** Calculate lifetime metrics from mastery records and use the full current deck. */
+function summarize(data, context) {
+  assertValid(validate(data));
+  return summarizeAdaptiveLearning(data, context);
+}
+
+export const formFactoryV3Progress = Object.freeze({
+  schemaVersion: 1,
+  maxBytes,
+  createDefault,
+  validate,
+  normalize,
+  summarize,
+});

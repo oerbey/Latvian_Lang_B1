@@ -41,6 +41,20 @@
         <div id="ffv3-error" class="ffv3-error" role="alert" hidden></div>
         <p id="ffv3-live" class="visually-hidden" role="status" aria-live="polite"></p>
 
+        <p id="ffv3-sync-status" role="status">Pārbauda pierakstīšanos…</p>
+        <dialog id="ffv3-sync-dialog" class="ffv3-panel" aria-labelledby="ffv3-sync-title">
+          <h2 id="ffv3-sync-title">Kuru progresu saglabāt?</h2>
+          <p id="ffv3-sync-comparison"></p>
+          <div class="ffv3-sync-actions">
+            <button type="button" class="ffv3-primary" data-progress-choice="local">
+              Saglabāt šīs ierīces progresu
+            </button>
+            <button type="button" class="ffv3-ghost" data-progress-choice="cloud">
+              Izmantot mākoņa progresu
+            </button>
+          </div>
+        </dialog>
+
         <section class="ffv3-screen ffv3-start" data-screen="start" aria-labelledby="ffv3-title">
           <header class="ffv3-hero">
             <span class="ffv3-eyebrow">Adaptīvais treniņš</span>
@@ -99,16 +113,17 @@
 
           <section class="ffv3-panel" aria-labelledby="ffv3-focus-heading">
             <h2 id="ffv3-focus-heading" class="ffv3-panel__title">Izvēlies fokusu</h2>
+            <button id="ffv3-resume" class="ffv3-primary" type="button" hidden>Turpināt</button>
             <div class="ffv3-deck-list" role="group" aria-label="Izvēlies raunda kopu">
-              <button class="ffv3-deck" type="button" data-deck="core">
+              <button class="ffv3-deck" type="button" data-deck="core" disabled>
                 <span><strong>Pamata</strong><small>1.–3. līmenis</small></span>
                 <em id="ffv3-core-count">0 formas</em><b aria-hidden="true">→</b>
               </button>
-              <button class="ffv3-deck" type="button" data-deck="reflexive">
+              <button class="ffv3-deck" type="button" data-deck="reflexive" disabled>
                 <span><strong>Atgriezeniskie</strong><small>-damies un -damās</small></span>
                 <em id="ffv3-reflexive-count">0 formas</em><b aria-hidden="true">→</b>
               </button>
-              <button class="ffv3-deck" type="button" data-deck="all">
+              <button class="ffv3-deck" type="button" data-deck="all" disabled>
                 <span><strong>Visas formas</strong><small>Jaukts raunds</small></span>
                 <em id="ffv3-all-count">0 formas</em><b aria-hidden="true">→</b>
               </button>

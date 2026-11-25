@@ -555,3 +555,18 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
   data, locale and generated API validation. Updated the Word Quest legacy
   migration browser assertion to wait for the fixture's committed revision
   because a reconnection can supersede the transient save confirmation.
+
+## Form Factory v3 account progress (Step 8)
+
+- Added a scoped snapshot for Form Factory v3 mastery records, XP, streaks,
+  selected deck and round state. Continue rebuilds the next unanswered form
+  and restores the retry queue and counters. Explicitly ending the round
+  clears its checkpoint while keeping lifetime results.
+- Reused the V2 adaptive validation and account sync flow. The deployment
+  packages the same normalized form IDs as the exercise, including extension
+  items, and My Progress labels the resulting metric as forms mastered. The
+  old Form Factory v3 save stays with the guest and is retained as a backup.
+- Added fixture coverage for account save, My Progress, second-browser restore
+  and guest restoration. Inspected the gameplay harness screenshot and state
+  after a correct answer. The only console error in the harness was the
+  expected missing auth-config route on its static server.

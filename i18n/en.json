@@ -41,6 +41,7 @@
     "playExercise": "Play {exercise}",
     "fraction": "{count} of {total}",
     "metrics": {
+      "masteryForms": "Forms mastered",
       "mastery": "Verbs mastered",
       "attempts": "Attempts",
       "correct": "Correct answers",

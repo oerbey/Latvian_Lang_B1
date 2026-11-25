@@ -200,7 +200,7 @@ export function showFeedback(
   announce(nodes, announcement || [title, body].filter(Boolean).join(' '));
 }
 
-export function markChoiceWrong(nodes, button, t) {
+export function markChoiceWrong(nodes, button, t, { focus = true } = {}) {
   button.classList.add('is-wrong');
   button.dataset.state = 'wrong';
   button.disabled = true;
@@ -209,8 +209,10 @@ export function markChoiceWrong(nodes, button, t) {
     `${button.dataset.choice || button.textContent.trim()}. ${t('choices.incorrect')}`,
   );
 
-  const nextChoice = getChoiceButtons(nodes).find((candidate) => !candidate.disabled);
-  nextChoice?.focus({ preventScroll: true });
+  if (focus)
+    getChoiceButtons(nodes)
+      .find((candidate) => !candidate.disabled)
+      ?.focus({ preventScroll: true });
 }
 
 export function markRoundCorrect(nodes, correctChoice, t) {

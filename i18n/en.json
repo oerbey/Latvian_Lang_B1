@@ -41,6 +41,7 @@
     "playExercise": "Play {exercise}",
     "fraction": "{count} of {total}",
     "metrics": {
+      "completionSentences": "Sentences repaired",
       "masteryForms": "Forms mastered",
       "mastery": "Verbs mastered",
       "attempts": "Attempts",
@@ -270,6 +271,26 @@
     }
   },
   "sentenceSurgery": {
+    "sync": {
+      "authChecking": "Checking sign-in…",
+      "local": "Guest progress is saved in this browser.",
+      "checking": "Loading progress…",
+      "ready": "Progress will be saved to your account.",
+      "pending": "Changes waiting to sync…",
+      "syncing": "Saving to cloud…",
+      "saved": "Progress saved to your account.",
+      "offline": "Progress is available in this browser.",
+      "retrying": "Sync is unavailable. Retrying…",
+      "unavailable": "Cloud progress is unavailable.",
+      "reauth": "Sign in again to sync progress.",
+      "conflict": "Choose which progress to keep.",
+      "storage-error": "Progress is unavailable in this browser.",
+      "local-conflict": "Progress changed in another tab. Reload to continue.",
+      "conflictTitle": "Which progress should we keep?",
+      "keepLocal": "Keep browser progress",
+      "keepCloud": "Use cloud progress",
+      "comparison": "Browser · {local} repaired, {localAttempts} attempts. Cloud · {cloud} repaired, {cloudAttempts} attempts."
+    },
     "pageTitle": "Sentence Surgery — Passive Voice | Latvian B Level",
     "title": "Sentence Surgery",
     "eyebrow": "Passive voice repair",

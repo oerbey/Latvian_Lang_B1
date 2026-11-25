@@ -18,6 +18,10 @@ import { formFactoryV3Progress } from '../lib/progress/form-factory-v3.js';
 import { normalizeItems } from '../games/form-factory-v3/logic.js';
 import { readLegacyFormFactoryV3 } from '../games/form-factory-v3/legacy-progress.js';
 
+import { sentenceSurgeryProgress } from '../lib/progress/sentence-surgery-passive.js';
+import { loadSentenceSurgeryDataset } from '../games/sentence-surgery-passive/data.js';
+import { readLegacySentenceSurgery } from '../games/sentence-surgery-passive/progress.js';
+
 const cards = document.getElementById('progress-cards');
 const catalogue = document.getElementById('progress-catalogue');
 const notice = document.getElementById('progress-notice');
@@ -34,6 +38,14 @@ let request;
 let verifiedOwner = null;
 
 const localAdapters = {
+  'sentence-surgery-passive': {
+    adapter: sentenceSurgeryProgress,
+    legacy: readLegacySentenceSurgery,
+    async summaryContext() {
+      const result = await loadSentenceSurgeryDataset().catch(() => null);
+      return result ? { itemIds: result.items.map(({ id }) => id) } : {};
+    },
+  },
   'form-factory-v3': {
     adapter: formFactoryV3Progress,
     legacy: readLegacyFormFactoryV3,
@@ -128,7 +140,12 @@ function exerciseCard(exercise) {
       const value = metricValue(key, entry.summary[key]);
       if (value === null) continue;
       const pair = element('div');
-      const label = key === 'mastery' && exercise.id === 'form-factory-v3' ? 'masteryForms' : key;
+      const label =
+        key === 'mastery' && exercise.id === 'form-factory-v3'
+          ? 'masteryForms'
+          : key === 'completion' && exercise.id === 'sentence-surgery-passive'
+            ? 'completionSentences'
+            : key;
       pair.append(element('dt', strings.metrics[label]), element('dd', value));
       metrics.append(pair);
     }
@@ -183,6 +200,7 @@ async function deviceEntry(exercise, owner) {
     const played =
       Boolean(data.checkpoint) ||
       activity.attempts > 0 ||
+      data.completedItemIds?.length > 0 ||
       activity.xp > 0 ||
       activity.bestStreak > 0 ||
       data.level > 1 ||

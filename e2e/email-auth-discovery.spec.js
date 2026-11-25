@@ -9,6 +9,9 @@ import { darbibasVardiV2Progress } from '../src/lib/progress/darbibas-vardi-v2.j
 import { normalizeItems } from '../src/games/form-factory-v3/logic.js';
 import { formFactoryV3Progress } from '../src/lib/progress/form-factory-v3.js';
 
+import { normalizeSentenceSurgeryDataset } from '../src/games/sentence-surgery-passive/data.js';
+import { sentenceSurgeryProgress } from '../src/lib/progress/sentence-surgery-passive.js';
+
 const tenantId = '11111111-1111-4111-8111-111111111111';
 const authority = 'https://example.ciamlogin.com/';
 const issuerHost = `${tenantId}.ciamlogin.com`;
@@ -456,7 +459,7 @@ test('My Progress shows read-only guest history and fits a phone in all three la
   const verbs = page.getByRole('article', { name: 'Darbības Vārdi', exact: true });
   await expect(verbs.getByText('100%', { exact: true })).toBeVisible();
   await expect(verbs.getByText('1 of 358')).toBeVisible();
-  await expect(page.locator('#progress-catalogue li')).toHaveCount(17);
+  await expect(page.locator('#progress-catalogue li')).toHaveCount(16);
   expect(
     await page.evaluate(() => [
       localStorage.getItem('llb1:progress:v1:word-quest:guest'),
@@ -584,7 +587,7 @@ test('My Progress loads account summaries, retries partial results and clears th
   await expect(verbs.getByText('6 of 358')).toHaveCount(0);
 });
 
-function adaptiveProgressFixture(gameId, adapter, itemIds) {
+function exerciseProgressFixture(gameId, adapter, itemIds) {
   const userId = `extid:${'a'.repeat(64)}`;
   let record = null;
   const saves = [];
@@ -636,7 +639,7 @@ test('Darbības Vārdi V2 resumes the next unanswered verb across browsers', asy
   const words = JSON.parse(await readFile(new URL('../data/words.json', import.meta.url), 'utf8'));
   const verbs = normalizeVerbs(words);
   const itemIds = verbs.map(({ id }) => id);
-  const { connectDevice, saves } = adaptiveProgressFixture(
+  const { connectDevice, saves } = exerciseProgressFixture(
     'darbibas-vardi-v2',
     darbibasVardiV2Progress,
     itemIds,
@@ -712,7 +715,7 @@ test('Form Factory v3 restores its deck, next form, XP and scheduled retry in a 
     await readFile(new URL('../data/form-factory/items.json', import.meta.url), 'utf8'),
   );
   const ids = normalizeItems(dataset).map(({ id }) => id);
-  const { connectDevice, saves } = adaptiveProgressFixture(
+  const { connectDevice, saves } = exerciseProgressFixture(
     'form-factory-v3',
     formFactoryV3Progress,
     ids,
@@ -772,4 +775,91 @@ test('Form Factory v3 restores its deck, next form, XP and scheduled retry in a 
   await page.locator('#site-sign-out').click();
   await expect(page.locator('#ffv3-xp')).toHaveText('240');
   await expect(page.locator('#ffv3-resume')).toBeHidden();
+});
+
+test('Sentence Surgery restores an unfinished repair and advances a solved repair across browsers', async ({
+  page,
+  context,
+  browser,
+  baseURL,
+}, testInfo) => {
+  const raw = JSON.parse(
+    await readFile(
+      new URL('../sentence_surgery_pack/sentence_surgery_passive_dataset.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const { items } = normalizeSentenceSurgeryDataset(raw);
+  const { connectDevice, saves } = exerciseProgressFixture(
+    'sentence-surgery-passive',
+    sentenceSurgeryProgress,
+    items.map(({ id }) => id),
+  );
+  const readGame = (gamePage) => gamePage.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await connectDevice(context);
+  await page.addInitScript(() => {
+    localStorage.setItem('llb1:app-state', JSON.stringify({ schemaVersion: 1, language: 'en' }));
+    localStorage.setItem(
+      'llb1:progress',
+      JSON.stringify({
+        games: { 'sentence-surgery-passive': { data: { totalAttempts: 4, correctCount: 2 } } },
+      }),
+    );
+  });
+  await page.goto('/sentence-surgery-passive.html');
+  await expect.poll(async () => (await readGame(page)).progress?.attempts).toBe(4);
+  await page.locator('#site-sign-in').click();
+  await expect(page.locator('#sspv-sync-status')).toContainText('to your account');
+  await expect.poll(async () => (await readGame(page)).progress?.attempts).toBe(0);
+  await page.locator('#sspv-settingsOpen').click();
+  await page.locator('#sspv-mode').selectOption('sequential');
+  await page.locator('#sspv-applySettings').click();
+  const first = (await readGame(page)).round;
+  const wrong = first.choices.find(({ token }) => token !== first.targetToken).token;
+  await page.locator('#sspv-choices').getByText(wrong, { exact: true }).click();
+  await expect.poll(() => saves.at(-1)?.data.totalAttempts).toBe(1);
+  const saved = saves.at(-1).data;
+  expect(saved.checkpoint.wrongChoices).toEqual([wrong]);
+  expect(saved.checkpoint.remainingIds[0]).toBe(first.id);
+
+  const device = await browser.newContext({ baseURL, locale: 'en-US', serviceWorkers: 'block' });
+  try {
+    await connectDevice(device);
+    const second = await device.newPage();
+    await second.goto('/my-progress.html');
+    await second.locator('#site-sign-in').click();
+    const card = second.getByRole('article', { name: 'Sentence Surgery — Ciešamā kārta' });
+    await expect(card.getByText('Sentences repaired')).toBeVisible();
+    await expect(card.getByText(`0 of ${items.length}`)).toBeVisible();
+    const writes = saves.length;
+    await card.getByRole('link', { name: 'Continue Sentence Surgery — Ciešamā kārta' }).click();
+    await expect(second.locator('#sspv-choices').getByText(wrong, { exact: true })).toBeDisabled();
+    const restored = await readGame(second);
+    expect(restored).toMatchObject({
+      order: 'sequential',
+      progress: { attempts: 1, correct: 0 },
+      round: { id: first.id, hintUsed: true },
+    });
+    expect(saves).toHaveLength(writes);
+    await second.screenshot({ path: testInfo.outputPath('restored-sentence-surgery.png') });
+    await second
+      .locator('#sspv-choices')
+      .getByText(restored.round.targetToken, { exact: true })
+      .click();
+    await expect.poll(() => saves.at(-1)?.data.correctCount).toBe(1);
+    expect(saves.at(-1).data.completedItemIds).toEqual([first.id]);
+    await second.reload();
+    await expect
+      .poll(async () => (await readGame(second)).round?.id)
+      .toBe(saved.checkpoint.remainingIds[1]);
+    expect((await readGame(second)).progress).toMatchObject({
+      attempts: 2,
+      correct: 1,
+      completed: 1,
+    });
+  } finally {
+    await device.close();
+  }
+  await page.locator('#site-sign-out').click();
+  await expect.poll(async () => (await readGame(page)).progress?.attempts).toBe(4);
 });

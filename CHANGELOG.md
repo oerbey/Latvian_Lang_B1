@@ -26,6 +26,9 @@ Notable changes to Latvian_Lang_B1 are recorded here. Tracking starts on
 
 ### Added
 
+- Sync Sentence Surgery repairs, answer counts, topic and order under the
+  shared login. Show repaired sentences in My Progress and resume unfinished
+  repairs with earlier choices preserved.
 - Sync Form Factory v3 mastery, XP, streaks, deck, and round checkpoints. Add
   its account summary to My Progress and preserve legacy progress for guests.
 - Sync Darbības Vārdi V2 mastery, XP, streaks, preferences and round checkpoints

@@ -6,6 +6,7 @@
  * incorrect choices remain retryable until the exact target form is chosen.
  */
 
+import { connectExerciseProgress } from '../../lib/exercise-progress-sync.js';
 import { showFatalError } from '../../lib/errors.js';
 import { loadAppState, saveAppState } from '../../lib/storage.js';
 import { extractTopics, loadSentenceSurgeryDataset } from './data.js';
@@ -27,8 +28,8 @@ import {
 import {
   applyProgressAttempt,
   createDefaultProgress,
-  persistProgress,
-  readProgress,
+  normalizeProgress,
+  readLegacySentenceSurgery,
   updateProgressSettings,
 } from './progress.js';
 import {
@@ -48,6 +49,9 @@ import {
 } from './ui.js';
 
 const nodes = collectSentenceSurgeryNodes();
+const stage = document.querySelector('.sspv-stage');
+let saveProgress;
+let settingsGeneration = 0;
 
 const state = {
   strings: {},
@@ -88,7 +92,20 @@ function completedCount(topic = currentSettings().topic) {
 }
 
 function persistCurrentProgress() {
-  state.progress = persistProgress(state.progress, state.validIds, state.topics);
+  const unfinished = Boolean(state.currentItem && !state.solved);
+  const remainingIds = state.queue.map(({ id }) => id);
+  if (unfinished) remainingIds.unshift(state.currentItem.id);
+  saveProgress({
+    schemaVersion: 1,
+    ...state.progress,
+    checkpoint: {
+      remainingIds,
+      position: state.roundNumber - Number(unfinished),
+      review: state.reviewMode,
+      wrongChoices: unfinished ? [...state.attemptedChoices] : [],
+      hintUsed: unfinished && state.hintUsed,
+    },
+  });
 }
 
 function renderProgressUi() {
@@ -199,6 +216,40 @@ function startQueue({ review = false, focus = true } = {}) {
   loadNextRound({ focus });
 }
 
+// A solved sentence is already counted, so its checkpoint starts at the next repair.
+function restoreProgress(snapshot) {
+  closeSettings();
+  state.progress = normalizeProgress(snapshot, state.validIds, state.topics);
+  state.lastItemId = null;
+  refreshSettingsUi();
+  const checkpoint = snapshot?.checkpoint;
+  if (!checkpoint) return startQueue({ focus: false });
+
+  state.reviewMode = checkpoint.review;
+  const eligible = new Map(createCurrentQueue(checkpoint.review).map((item) => [item.id, item]));
+  state.queue = checkpoint.remainingIds.map((id) => eligible.get(id)).filter(Boolean);
+  if (!checkpoint.review) {
+    const savedIds = new Set(checkpoint.remainingIds);
+    state.queue.push(...[...eligible.values()].filter(({ id }) => !savedIds.has(id)));
+  }
+  state.roundNumber = checkpoint.position;
+  state.queueSize = state.roundNumber + state.queue.length;
+  loadNextRound({ focus: false });
+  if (!state.currentItem || state.currentItem.id !== checkpoint.remainingIds[0]) return;
+
+  const buttons = new Map(getChoiceButtons(nodes).map((button) => [button.dataset.choice, button]));
+  let lastWrong;
+  for (const choice of checkpoint.wrongChoices) {
+    const button = buttons.get(choice);
+    if (!button || choice === state.currentRound.targetToken) continue;
+    state.attemptedChoices.add(choice);
+    markChoiceWrong(nodes, button, t, { focus: false });
+    lastWrong = choice;
+  }
+  if (lastWrong) showWrongFeedback(lastWrong);
+  else if (checkpoint.hintUsed) showHint({ save: false });
+}
+
 function showQueueComplete() {
   state.complete = true;
   state.currentItem = null;
@@ -226,7 +277,7 @@ function showQueueComplete() {
   state.lastFeedback = `${title} ${lead}`;
 }
 
-function showHint() {
+function showHint({ save = true } = {}) {
   if (!state.currentRound || state.solved || state.hintUsed) return;
   state.hintUsed = true;
   nodes.hint.disabled = true;
@@ -237,6 +288,22 @@ function showHint() {
     title: t('hints.title'),
     body,
     announcement: `${t('hints.title')} ${body}`,
+  });
+  state.lastFeedback = body;
+  if (save) persistCurrentProgress();
+}
+
+function showWrongFeedback(choice) {
+  state.hintUsed = true;
+  nodes.hint.disabled = true;
+  const body = `${t('feedback.wrongWithChoice', { choice })} ${getHintText()}`;
+  showFeedback(nodes, {
+    tone: 'error',
+    icon: '×',
+    title: t('feedback.wrong'),
+    body,
+    translation: translationText(),
+    announcement: `${t('status.wrongAnnouncement')} ${body}`,
   });
   state.lastFeedback = body;
 }
@@ -274,22 +341,10 @@ function submitChoice(button) {
     state.validIds,
     state.topics,
   );
-  persistCurrentProgress();
-
   if (!result.correct) {
-    state.hintUsed = true;
-    nodes.hint.disabled = true;
     markChoiceWrong(nodes, button, t);
-    const body = `${t('feedback.wrongWithChoice', { choice })} ${getHintText()}`;
-    showFeedback(nodes, {
-      tone: 'error',
-      icon: '×',
-      title: t('feedback.wrong'),
-      body,
-      translation: translationText(),
-      announcement: `${t('status.wrongAnnouncement')} ${body}`,
-    });
-    state.lastFeedback = body;
+    showWrongFeedback(choice);
+    persistCurrentProgress();
     renderProgressUi();
     return;
   }
@@ -310,6 +365,7 @@ function submitChoice(button) {
     announcement: t('feedback.correctWithAnswer', { answer: result.correctChoice }),
   });
   state.lastFeedback = explanation;
+  persistCurrentProgress();
   renderProgressUi();
   focusNext(nodes);
 }
@@ -330,43 +386,29 @@ function closeSettings() {
   if (dialogIsOpen()) nodes.settingsDialog.close();
 }
 
-async function applyLanguage(language, { persist = false } = {}) {
-  const loaded = await loadSentenceSurgeryStrings(language);
-  state.strings = loaded.strings;
-  state.language = loaded.lang;
-  applySentenceSurgeryTranslations(state.strings, state.language, document);
-  if (persist) {
-    const appState = loadAppState();
-    saveAppState({ ...appState, language: state.language });
-  }
-}
-
 async function applySettingsFromDialog({ review = false } = {}) {
+  const epoch = ++settingsGeneration;
   const nextLanguage = resolveSupportedLanguage(nodes.language.value, state.language);
-  const nextSettings = {
-    topic: nodes.topic.value,
-    order: nodes.mode.value,
-  };
+  const nextSettings = { topic: nodes.topic.value, order: nodes.mode.value };
+  if (nextLanguage !== state.language) {
+    const loaded = await loadSentenceSurgeryStrings(nextLanguage);
+    if (epoch !== settingsGeneration || !dialogIsOpen()) return;
+    state.strings = loaded.strings;
+    state.language = loaded.lang;
+    applySentenceSurgeryTranslations(state.strings, state.language, document);
+    saveAppState({ ...loadAppState(), language: state.language });
+  }
+
   state.progress = updateProgressSettings(
     state.progress,
     nextSettings,
     state.validIds,
     state.topics,
   );
-  persistCurrentProgress();
-
-  if (nextLanguage !== state.language) {
-    document.body.setAttribute('aria-busy', 'true');
-    try {
-      await applyLanguage(nextLanguage, { persist: true });
-    } finally {
-      document.body.removeAttribute('aria-busy');
-    }
-  }
-
   closeSettings();
   refreshSettingsUi();
   startQueue({ review, focus: true });
+  persistCurrentProgress();
 }
 
 function resetProgress() {
@@ -375,10 +417,10 @@ function resetProgress() {
 
   const settings = { ...currentSettings() };
   state.progress = { ...createDefaultProgress(), settings };
-  persistCurrentProgress();
   closeSettings();
   refreshSettingsUi();
   startQueue({ review: false, focus: true });
+  persistCurrentProgress();
   announce(nodes, t('reset.success'));
 }
 
@@ -388,12 +430,15 @@ function bindEvents() {
     if (!button || button.disabled) return;
     submitChoice(button);
   });
-  nodes.hint.addEventListener('click', showHint);
+  nodes.hint.addEventListener('click', () => showHint());
   nodes.next.addEventListener('click', () => loadNextRound({ focus: true }));
   nodes.settingsOpen.addEventListener('click', () => openSettings());
   nodes.settingsClose.addEventListener('click', closeSettings);
   nodes.changeTopic.addEventListener('click', () => openSettings({ focusTopic: true }));
-  nodes.practiceAgain.addEventListener('click', () => startQueue({ review: true, focus: true }));
+  nodes.practiceAgain.addEventListener('click', () => {
+    startQueue({ review: true, focus: true });
+    persistCurrentProgress();
+  });
   nodes.reviewCompleted.addEventListener('click', () => {
     if (!nodes.reviewCompleted.disabled) {
       applySettingsFromDialog({ review: true }).catch(handleUnexpectedError);
@@ -412,6 +457,7 @@ function bindEvents() {
 }
 
 function renderGameToText() {
+  if (stage.hidden) return JSON.stringify({ mode: 'loading', round: null });
   const filtered = filteredItems();
   const choices = getChoiceButtons(nodes).map((button) => ({
     token: button.dataset.choice || '',
@@ -485,12 +531,29 @@ async function init() {
     state.items = dataset.items;
     state.topics = extractTopics(state.items);
     state.validIds = state.items.map((item) => item.id);
-    state.progress = readProgress(state.validIds, state.topics);
 
     applySentenceSurgeryTranslations(state.strings, state.language, document);
     bindEvents();
-    refreshSettingsUi();
-    startQueue({ review: false, focus: false });
+    saveProgress = connectExerciseProgress('sentence-surgery-passive', {
+      status: document.getElementById('sspv-sync-status'),
+      dialog: document.getElementById('sspv-sync-dialog'),
+      compare: document.getElementById('sspv-sync-comparison'),
+      getScreen: () => stage,
+      restore: restoreProgress,
+      readLegacy: readLegacySentenceSurgery,
+      beforeCheck() {
+        settingsGeneration++;
+        closeSettings();
+      },
+      translate: (key, fallback) => t(`sync.${key}`, {}, fallback),
+      describeConflict: (local, cloud) =>
+        t('sync.comparison', {
+          local: local.completedItemIds.length,
+          cloud: cloud.completedItemIds.length,
+          localAttempts: local.totalAttempts,
+          cloudAttempts: cloud.totalAttempts,
+        }),
+    });
   } catch (error) {
     handleUnexpectedError(error);
   } finally {

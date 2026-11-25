@@ -4,9 +4,12 @@
 
 import { joinTokens } from './tokenize.js';
 
-export const ALL_TOPICS = 'all';
-export const ORDER_SHUFFLE = 'shuffle';
-export const ORDER_SEQUENTIAL = 'sequential';
+import {
+  ALL_TOPICS,
+  ORDER_SHUFFLE,
+  ORDER_SEQUENTIAL,
+} from '../../lib/progress/sentence-surgery-passive.js';
+export { ALL_TOPICS, ORDER_SHUFFLE, ORDER_SEQUENTIAL };
 export const QUEUE_UNSOLVED = 'unsolved';
 export const QUEUE_REVIEW = 'review';
 

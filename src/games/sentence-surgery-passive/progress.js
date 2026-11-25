@@ -7,24 +7,15 @@
  * prevent corrupt state from blocking gameplay.
  */
 
-import { readGameProgress, writeGameProgress } from '../../lib/storage.js';
-import { ALL_TOPICS, normalizeOrder, ORDER_SHUFFLE } from './logic.js';
+import {
+  createLearningProgress,
+  sentenceSurgeryProgress,
+} from '../../lib/progress/sentence-surgery-passive.js';
+import { ALL_TOPICS, normalizeOrder } from './logic.js';
 
 const GAME_ID = 'sentence-surgery-passive';
 
-export function createDefaultProgress() {
-  return {
-    completedItemIds: [],
-    totalAttempts: 0,
-    correctCount: 0,
-    streak: 0,
-    updatedAt: null,
-    settings: {
-      topic: ALL_TOPICS,
-      order: ORDER_SHUFFLE,
-    },
-  };
-}
+export const createDefaultProgress = createLearningProgress;
 
 function toSafeInt(value) {
   if (!Number.isFinite(value)) return 0;
@@ -130,22 +121,19 @@ export function applyProgressAttempt(
     : attempted;
 }
 
-export function readProgress(validIds = [], validTopics = []) {
+/** Copy older unscoped progress only into the guest store. */
+export function readLegacySentenceSurgery(storage, userId) {
+  if (userId !== null) return null;
   try {
-    const parsed = readGameProgress(GAME_ID, createDefaultProgress());
-    return normalizeProgress(parsed, validIds, validTopics);
-  } catch (error) {
-    console.warn('Failed to read sentence surgery progress', error);
-    return normalizeProgress(createDefaultProgress(), validIds, validTopics);
+    const saved = JSON.parse(storage.getItem('llb1:progress'))?.games?.[GAME_ID]?.data;
+    if (!saved || typeof saved !== 'object') return null;
+    const data = { ...sentenceSurgeryProgress.createDefault(), ...normalizeProgress(saved) };
+    data.correctCount = Math.min(data.correctCount, data.totalAttempts);
+    data.streak = Math.min(data.streak, data.correctCount);
+    const time = Date.parse(data.updatedAt);
+    data.updatedAt = Number.isFinite(time) ? new Date(time).toISOString() : null;
+    return sentenceSurgeryProgress.validate(data) ? null : { data, revision: null, pending: false };
+  } catch {
+    return null;
   }
-}
-
-export function persistProgress(progress, validIds = [], validTopics = []) {
-  const normalized = normalizeProgress(progress, validIds, validTopics);
-  try {
-    writeGameProgress(GAME_ID, normalized);
-  } catch (error) {
-    console.warn('Failed to persist sentence surgery progress', error);
-  }
-  return normalized;
 }

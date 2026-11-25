@@ -17,10 +17,20 @@ const syncMessages = {
   'local-conflict': 'Progress mainīts citā cilnē. Pārlādē lapu, lai turpinātu.',
 };
 
-/** Connect an adaptive game's screen and conflict dialog to its scoped progress store. */
-export function connectAdaptiveProgress(
+/** Connect a game screen and conflict dialog to its scoped progress store. */
+export function connectExerciseProgress(
   gameId,
-  { status, dialog, compare, getScreen, restore, readLegacy },
+  {
+    status,
+    dialog,
+    compare,
+    getScreen,
+    restore,
+    readLegacy,
+    beforeCheck = () => {},
+    translate = (_key, fallback) => fallback,
+    describeConflict = (local, cloud) => `Šajā pārlūkā ${local.xp} XP · Mākonī ${cloud.xp} XP`,
+  },
 ) {
   let applied;
   let checking = true;
@@ -31,7 +41,8 @@ export function connectAdaptiveProgress(
   function setChecking() {
     checking = true;
     getScreen().hidden = true;
-    status.textContent = 'Pārbauda pierakstīšanos…';
+    beforeCheck();
+    status.textContent = translate('authChecking', 'Pārbauda pierakstīšanos…');
     if (dialog.open) dialog.close();
   }
 
@@ -42,7 +53,7 @@ export function connectAdaptiveProgress(
         ['offline', 'local'].includes(view.status) && ['unavailable', 'reauth'].includes(authStatus)
           ? authStatus
           : view.status;
-      status.textContent = syncMessages[syncStatus];
+      status.textContent = translate(syncStatus, syncMessages[syncStatus]);
       if (syncStatus === 'reauth' && authStatus === 'authenticated')
         window.dispatchEvent(new Event('llb1:auth-required'));
       if (view.status === 'checking') {
@@ -58,7 +69,7 @@ export function connectAdaptiveProgress(
       screen.hidden = false;
       screen.inert = ['conflict', 'storage-error', 'local-conflict'].includes(view.status);
       if (view.conflict) {
-        compare.textContent = `Šajā pārlūkā ${view.data.xp} XP · Mākonī ${view.conflict.data.xp} XP`;
+        compare.textContent = describeConflict(view.data, view.conflict.data);
         if (!dialog.open) dialog.showModal();
       } else if (dialog.open) dialog.close();
     },

@@ -32,11 +32,12 @@ test('API package loads contracts, dataset context and Functions with no website
       require('./src/functions/saveProgress');
       require('./src/functions/getProgressSummary');
       getProgressDefinitions().then((definitions) => {
-        assert.deepEqual(definitions.gameIds, ['word-quest', 'darbibas-vards', 'darbibas-vardi-v2', 'form-factory-v3']);
+        assert.deepEqual(definitions.gameIds, ['word-quest', 'darbibas-vards', 'darbibas-vardi-v2', 'form-factory-v3', 'sentence-surgery-passive']);
         assert.equal(definitions.exercises.length, 21);
         assert.equal(definitions.getAdapter('darbibas-vards').validate(definitions.getAdapter('darbibas-vards').createDefault()), null);
         assert.ok(definitions.getAdapter('darbibas-vardi-v2'));
         assert.ok(definitions.contexts['form-factory-v3'].itemIds.includes('ff-001'));
+        assert.ok(definitions.contexts['sentence-surgery-passive'].itemIds.length > 0);
         assert.ok(definitions.contexts['darbibas-vardi-v2'].itemIds.includes('būt'));
         assert.ok(definitions.contexts['darbibas-vards'].itemIds.length > 0);
         assert.equal(Object.values(definitions.contexts['word-quest'].worldNodeCounts).reduce((a,b) => a+b), 49);

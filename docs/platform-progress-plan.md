@@ -9,7 +9,7 @@ cross-tab session invalidation. Step 3 enables API read/write for Word Quest and
 Darbības Vārdi and adds authenticated account summaries. Step 4 adds reusable
 browser storage and synchronization. Word Quest and original Darbības Vārdi
 now use it during gameplay. My Progress shows their summaries and links to all
-registered exercises. Step 8 has connected Darbības Vārdi V2 and Form Factory v3.
+registered exercises. Step 8 has connected Darbības Vārdi V2, Form Factory v3 and Sentence Surgery.
 The production baseline predates these changes.
 
 The agreed experience is one email/password login across exercises and browser
@@ -44,9 +44,9 @@ and URLs can change without changing persistent IDs. Exclude Home, the callback,
 design prototypes and landing concepts from the exercise inventory.
 
 `src/lib/progress/index.js` exports `getProgressAdapter(gameId)`. It returns an
-adapter for `word-quest`, `darbibas-vards`, `darbibas-vardi-v2` or
-`form-factory-v3`, otherwise `null`. These exercises are connected in the
-registry.
+adapter for `word-quest`, `darbibas-vards`, `darbibas-vardi-v2`,
+`form-factory-v3` or `sentence-surgery-passive`. Other IDs return `null`. These
+exercises are connected in the registry.
 Neither module performs storage, authentication, network access or migration.
 
 Adapters expose:
@@ -82,7 +82,8 @@ tracking not yet connected and unavailable cloud data are distinct UI states.
 ## Step 3 API contract and packaging
 
 Step 3 enabled `word-quest` and `darbibas-vards`. Step 8 adds
-`darbibas-vardi-v2` and `form-factory-v3`. `CLOUD_PROGRESS_GAME_IDS` describes API readiness,
+`darbibas-vardi-v2`, `form-factory-v3` and `sentence-surgery-passive`.
+`CLOUD_PROGRESS_GAME_IDS` describes API readiness,
 independently of the registry's game/UI `tracking` rollout. Catalogue entries
 without an adapter are rejected by read/write endpoints with HTTP 400, before
 accessing Cosmos. Add an adapter and regenerate the API package when integrating
@@ -331,6 +332,19 @@ preserves the round counters and scheduled retries. Starting a new deck or
 explicitly ending the round replaces or clears the checkpoint. Legacy saves are
 copied into the guest store. The dashboard counts mastered forms against the
 same full dataset as the exercise, including its extension items.
+
+## Step 8 Sentence Surgery integration
+
+The checkpoint retains the selected topic, queue order and unanswered repair.
+For an unfinished sentence it also retains earlier wrong choices and the
+revealed hint. Once the repair is solved, the same save records completion and
+moves the checkpoint to the next sentence. Review mode preserves its place and
+keeps its existing rule for completion. Interface language remains a
+device preference shared with the rest of the platform.
+
+The dashboard derives repaired sentences from the current dataset and keeps
+lifetime answer counts. Previously saved local progress is copied to the guest
+store and keeps its original key as a backup.
 
 ## Verification and release
 

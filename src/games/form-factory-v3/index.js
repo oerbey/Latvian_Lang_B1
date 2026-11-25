@@ -4,7 +4,7 @@
  * Start -> play -> summary. A per-item Leitner record selects one of three
  * stages: ending rule, contextual cloze, or typed form production.
  */
-import { connectAdaptiveProgress } from '../../lib/adaptive-progress-sync.js';
+import { connectExerciseProgress } from '../../lib/exercise-progress-sync.js';
 import { announceLive } from '../../lib/aria.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { assetUrl } from '../../lib/paths.js';
@@ -143,7 +143,7 @@ function initFormFactoryV3(root) {
   bindControls(els, state);
   renderStart(els, state);
   showScreen(els, state, 'start');
-  state.saveProgress = connectAdaptiveProgress(GAME_ID, {
+  state.saveProgress = connectExerciseProgress(GAME_ID, {
     status: root.querySelector('#ffv3-sync-status'),
     dialog: root.querySelector('#ffv3-sync-dialog'),
     compare: root.querySelector('#ffv3-sync-comparison'),

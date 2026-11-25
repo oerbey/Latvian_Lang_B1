@@ -46,7 +46,8 @@ html[data-bs-theme='dark'] .sspv-page {
   padding: calc(4.35rem + env(safe-area-inset-top)) 0.75rem 2.5rem;
 }
 
-.sspv-stage {
+.sspv-stage,
+.sspv-sync-status {
   width: 100%;
   max-width: 800px;
   padding: 0;
@@ -913,4 +914,16 @@ html[data-bs-theme='dark'] .sspv-feedback[data-tone='success'] .sspv-feedback__i
   .sspv-sentence mark {
     forced-color-adjust: auto;
   }
+}
+
+.sspv-sync-status {
+  margin-block: 0 0.75rem;
+  padding-inline: 0.45rem;
+  font-size: 0.9rem;
+}
+
+.sspv-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }

@@ -570,3 +570,17 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
   and guest restoration. Inspected the gameplay harness screenshot and state
   after a correct answer. The only console error in the harness was the
   expected missing auth-config route on its static server.
+
+## Sentence Surgery account progress (Step 8)
+
+- Added a scoped snapshot for completed repairs, lifetime answers, streak,
+  topic, ordering and queue position. Unfinished repairs restore wrong choices
+  and the revealed hint. Successful repairs advance the saved checkpoint to
+  the next sentence without counting the same answer twice.
+- Reused the exercise sync controller and added a translated conflict dialog.
+  Older Sentence Surgery saves migrate to the guest store with their original
+  data kept as a backup. The interface language remains a device preference.
+- My Progress summarizes completed sentences against the current 52-item deck.
+  Verified the account and guest flows with two independent browser contexts,
+  and inspected the gameplay and restored checkpoint screenshots. The static
+  harness's only console error was its expected missing authentication route.

@@ -12,7 +12,7 @@
  * CACHE_VERSION must be bumped on every release so the activate event
  * can purge stale caches.
  */
-const CACHE_VERSION = 'v37';
+const CACHE_VERSION = 'v38';
 const CACHE_NAME = `llb1-cache-${CACHE_VERSION}`;
 
 /**
@@ -54,7 +54,8 @@ const CORE_ASSETS = [
   './src/lib/progress/index.js',
   './src/lib/progress/adaptive-learning.js',
   './src/lib/progress/form-factory-v3.js',
-  './src/lib/adaptive-progress-sync.js',
+  './src/lib/progress/sentence-surgery-passive.js',
+  './src/lib/exercise-progress-sync.js',
   './src/lib/progress-store.js',
   './src/lib/progress-sync.js',
   './src/lib/progress/common.js',

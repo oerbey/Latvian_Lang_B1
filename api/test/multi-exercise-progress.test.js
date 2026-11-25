@@ -83,7 +83,7 @@ test('unsupported games and malformed matching snapshots are rejected before sto
     ...learner.dependencies,
     getContainer: () => assert.fail('Invalid requests must not access Cosmos'),
   };
-  for (const gameId of ['other', 'sentence-surgery-passive', '__proto__', '../word-quest']) {
+  for (const gameId of ['other', 'similar-word-groups', '__proto__', '../word-quest']) {
     assert.equal((await getProgressHandler(request({ gameId }), deps)).status, 400);
     assert.equal((await saveProgressHandler(request({ gameId }), deps)).status, 400);
   }
@@ -322,6 +322,42 @@ test('Form Factory v3 saves the selected deck and derives mastery for current fo
   assert.equal(
     (await saveProgressHandler(request({ gameId, data: invalid, expectedRevision: 1 }), deps))
       .status,
+    400,
+  );
+});
+
+test('Sentence Surgery stores the repair checkpoint and summarizes current completions', async () => {
+  const gameId = 'sentence-surgery-passive';
+  const adapter = definitions.getAdapter(gameId);
+  const ids = definitions.contexts[gameId].itemIds;
+  const deps = dependencies(createProgressContainer());
+  const data = adapter.createDefault();
+  data.completedItemIds = [ids[0], 'retired'];
+  data.totalAttempts = 4;
+  data.correctCount = 2;
+  data.streak = 1;
+  data.updatedAt = '2026-11-25T10:00:00.000Z';
+  data.settings.order = 'sequential';
+  data.checkpoint = {
+    remainingIds: [ids[1]],
+    position: 1,
+    review: false,
+    wrongChoices: ['tiek'],
+    hintUsed: true,
+  };
+  assert.equal((await saveProgressHandler(request({ gameId, data }), deps)).status, 200);
+  assert.deepEqual((await getProgressHandler(request({ gameId }), deps)).jsonBody.data, data);
+  const result = await getProgressSummaryHandler(request(), deps);
+  assert.deepEqual(result.jsonBody.exercises.find((entry) => entry.gameId === gameId).summary, {
+    attempts: 4,
+    correct: 2,
+    accuracy: 50,
+    lastPlayedAt: data.updatedAt,
+    completion: { completed: 1, total: ids.length },
+  });
+  data.checkpoint.remainingIds.push(ids[1]);
+  assert.equal(
+    (await saveProgressHandler(request({ gameId, data, expectedRevision: 1 }), deps)).status,
     400,
   );
 });

@@ -7,7 +7,7 @@
 import { announceLive } from '../../lib/aria.js';
 import { hideLoading, showLoading } from '../../lib/loading.js';
 import { showReward } from '../../lib/reward.js';
-import { connectAdaptiveProgress } from '../../lib/adaptive-progress-sync.js';
+import { connectExerciseProgress } from '../../lib/exercise-progress-sync.js';
 import { darbibasVardiV2Progress } from '../../lib/progress/darbibas-vardi-v2.js';
 import { loadWords } from '../../lib/words-data.js';
 import { readLegacyV2Progress } from './legacy-progress.js';
@@ -147,7 +147,7 @@ function initGame(root) {
   renderSettings(els, state);
   renderStart(els, state);
   showScreen(els, state, 'start');
-  state.saveProgress = connectAdaptiveProgress(GAME_ID, {
+  state.saveProgress = connectExerciseProgress(GAME_ID, {
     status: root.querySelector('#dv2-sync-status'),
     dialog: root.querySelector('#dv2-sync-dialog'),
     compare: root.querySelector('#dv2-sync-comparison'),

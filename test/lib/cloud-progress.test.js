@@ -136,7 +136,7 @@ test('matching requests keep their exercise ID and reject a response or conflict
     'unavailable',
   );
   const previousCalls = calls.length;
-  for (const id of ['sentence-surgery-passive', 'constructor', 'unknown']) {
+  for (const id of ['similar-word-groups', 'constructor', 'unknown']) {
     assert.equal((await cloud.loadCloudProgress(id, { userId: owner })).status, 'invalid');
     assert.equal((await cloud.saveCloudProgress(id, {}, 0, { userId: owner })).status, 'invalid');
   }

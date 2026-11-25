@@ -34,7 +34,8 @@
     ></nav>
 
     <main id="main" class="sspv-main">
-      <div class="container sspv-stage">
+      <p class="container sspv-sync-status" id="sspv-sync-status" role="status">Ielādē progresu…</p>
+      <div class="container sspv-stage" hidden>
         <header class="sspv-game-header">
           <div class="sspv-game-header__title">
             <p class="sspv-eyebrow" data-i18n-key="eyebrow">Ciešamās kārtas treniņš</p>
@@ -172,6 +173,31 @@
         </section>
       </div>
     </main>
+
+    <dialog id="sspv-sync-dialog" class="sspv-settings-dialog" aria-labelledby="sspv-sync-title">
+      <div class="sspv-settings">
+        <h2 id="sspv-sync-title" data-i18n-key="sync.conflictTitle">Kuru progresu saglabāt?</h2>
+        <p id="sspv-sync-comparison"></p>
+        <div class="sspv-sync-actions">
+          <button
+            type="button"
+            class="sspv-next-button"
+            data-progress-choice="local"
+            data-i18n-key="sync.keepLocal"
+          >
+            Saglabāt šī pārlūka progresu
+          </button>
+          <button
+            type="button"
+            class="sspv-secondary-button"
+            data-progress-choice="cloud"
+            data-i18n-key="sync.keepCloud"
+          >
+            Izmantot mākoņa progresu
+          </button>
+        </div>
+      </div>
+    </dialog>
 
     <dialog
       id="sspv-settingsDialog"

@@ -29,7 +29,13 @@ test('registry covers every published exercise with a unique stable ID and exist
 test('contract availability does not enable a planned exercise or alias another version', () => {
   assert.deepEqual(
     EXERCISES.filter(({ tracking }) => tracking === 'cloud').map(({ id }) => id),
-    ['darbibas-vards', 'darbibas-vardi-v2', 'form-factory-v3', 'word-quest'],
+    [
+      'darbibas-vards',
+      'darbibas-vardi-v2',
+      'form-factory-v3',
+      'sentence-surgery-passive',
+      'word-quest',
+    ],
   );
   assert.ok(getProgressAdapter('word-quest'));
   assert.ok(getProgressAdapter('darbibas-vards'));
@@ -37,7 +43,8 @@ test('contract availability does not enable a planned exercise or alias another 
   assert.ok(getProgressAdapter('darbibas-vardi-v2'));
   assert.notEqual(getProgressAdapter('darbibas-vards'), getProgressAdapter('darbibas-vardi-v2'));
   assert.ok(getProgressAdapter('form-factory-v3'));
-  assert.equal(getProgressAdapter('sentence-surgery-passive'), null);
+  assert.ok(getProgressAdapter('sentence-surgery-passive'));
+  assert.equal(getProgressAdapter('similar-word-groups'), null);
   assert.notEqual(
     getExercise('character-traits-match').id,
     getExercise('character-traits-expansion').id,

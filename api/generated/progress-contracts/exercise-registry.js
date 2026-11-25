@@ -74,6 +74,7 @@ export const EXERCISES = Object.freeze([
     'sentence-surgery-passive.html',
     'checkpoint',
     ['completion'],
+    'cloud',
   ),
   exercise('decl6-detective', 'Kas ir manā mājā?', 'decl6-detective.html', 'round', [
     'xp',

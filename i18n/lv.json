@@ -41,6 +41,7 @@
     "playExercise": "Spēlēt: {exercise}",
     "fraction": "{count} no {total}",
     "metrics": {
+      "completionSentences": "Izlabotie teikumi",
       "masteryForms": "Apgūtās formas",
       "mastery": "Apgūtie darbības vārdi",
       "attempts": "Mēģinājumi",
@@ -270,6 +271,26 @@
     }
   },
   "sentenceSurgery": {
+    "sync": {
+      "authChecking": "Pārbauda pierakstīšanos…",
+      "local": "Viesa progress tiek saglabāts šajā pārlūkā.",
+      "checking": "Ielādē progresu…",
+      "ready": "Progress tiks saglabāts tavā kontā.",
+      "pending": "Izmaiņas gaida sinhronizāciju…",
+      "syncing": "Saglabā progresu mākonī…",
+      "saved": "Progress saglabāts tavā kontā.",
+      "offline": "Progress pieejams šajā pārlūkā.",
+      "retrying": "Sinhronizācija nav pieejama. Mēģina vēlreiz…",
+      "unavailable": "Mākoņa progress nav pieejams.",
+      "reauth": "Pieraksties vēlreiz, lai sinhronizētu progresu.",
+      "conflict": "Izvēlies, kuru progresu saglabāt.",
+      "storage-error": "Progress šajā pārlūkā nav pieejams.",
+      "local-conflict": "Progress mainīts citā cilnē. Pārlādē lapu, lai turpinātu.",
+      "conflictTitle": "Kuru progresu saglabāt?",
+      "keepLocal": "Saglabāt šī pārlūka progresu",
+      "keepCloud": "Izmantot mākoņa progresu",
+      "comparison": "Pārlūkā · {local} labojumi, {localAttempts} mēģinājumi. Mākonī · {cloud} labojumi, {cloudAttempts} mēģinājumi."
+    },
     "pageTitle": "Teikumu ķirurģija — ciešamā kārta | Latviešu valodas B līmenis",
     "title": "Teikumu ķirurģija",
     "eyebrow": "Ciešamās kārtas labošana",

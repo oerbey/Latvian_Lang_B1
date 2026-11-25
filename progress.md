@@ -584,3 +584,6 @@ Original prompt: [$develop-web-game](/Users/onurerbey/.codex/skills/develop-web-
   Verified the account and guest flows with two independent browser contexts,
   and inspected the gameplay and restored checkpoint screenshots. The static
   harness's only console error was its expected missing authentication route.
+- Verified 200 Node tests, 24 API tests, and all 49 browser tests locally.
+  Updated the hosted desktop layout test to wait until the account check
+  finishes and the repair is visible before measuring its position.

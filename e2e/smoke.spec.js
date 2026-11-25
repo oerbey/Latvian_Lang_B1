@@ -658,6 +658,7 @@ test('sentence surgery fits mobile and desktop themes with reduced motion', asyn
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/sentence-surgery-passive.html');
+  await expect(page.locator('#sspv-choices button').first()).toBeVisible();
   const desktopLayout = await page.evaluate(() => {
     const round = document.querySelector('#sspv-round').getBoundingClientRect();
     return {
